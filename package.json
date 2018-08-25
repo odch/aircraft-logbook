@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "test": "jest"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -17,10 +18,13 @@
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.5.0",
     "prettier": "1.14.2",
     "react-hot-loader": "^4.3.5",
+    "react-test-renderer": "^16.4.2",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
