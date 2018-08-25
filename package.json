@@ -5,6 +5,8 @@
   "repository": "https://github.com/odch/aircraft-logbook.git",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "npm run lint -- --fix",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development"
   },
   "devDependencies": {
@@ -13,13 +15,18 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^5.4.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "1.14.2",
+    "react-hot-loader": "^4.3.5",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
     "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-hot-loader": "^4.3.5"
+    "react-dom": "^16.4.2"
   }
 }

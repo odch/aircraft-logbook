@@ -1,0 +1,38 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "version": "16.4"
+    }
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error", {
+        "semi": false,
+        "singleQuote": true
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
+  }
+}
