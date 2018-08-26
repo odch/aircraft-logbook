@@ -11,5 +11,6 @@ script:
   - npm test
   - npm run build
   - npm run cy:test
+  - npm run codecov
 on:
   branch: master
