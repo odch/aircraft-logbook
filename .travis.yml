@@ -3,8 +3,10 @@ node_js:
   - "stable"
 cache:
   directories:
-    - node_modules
-    - /home/travis/.cache/Cypress
+    - ~/.npm
+    - ~/.cache
+install:
+  - npm ci
 script:
   - npm test
   - npm run build
