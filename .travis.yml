@@ -3,9 +3,13 @@ node_js:
   - "stable"
 cache:
   directories:
-    - node_modules
+    - ~/.npm
+    - ~/.cache
+install:
+  - yarn install --frozen-lockfile
 script:
   - npm test
   - npm run build
+  - npm run cy:test
 on:
   branch: master
