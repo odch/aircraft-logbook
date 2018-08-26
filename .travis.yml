@@ -6,7 +6,7 @@ cache:
     - ~/.npm
     - ~/.cache
 install:
-  - npm ci
+  - yarn install --frozen-lockfile
 script:
   - npm test
   - npm run build
