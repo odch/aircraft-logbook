@@ -5,6 +5,7 @@
   "repository": "https://github.com/odch/aircraft-logbook.git",
   "license": "MIT",
   "scripts": {
+    "build": "webpack --config ./webpack.config.js --progress --profile --colors",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
@@ -21,6 +22,7 @@
     "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
+    "html-webpack-plugin": "^3.2.0",
     "jest": "^23.5.0",
     "prettier": "1.14.2",
     "react-hot-loader": "^4.3.5",
