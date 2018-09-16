@@ -43,9 +43,12 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
+    "firebase": "^5.5.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "react-redux-firebase": "^2.1.8",
+    "redux": "^4.0.0",
+    "redux-firestore": "^0.5.8"
   }
 }
