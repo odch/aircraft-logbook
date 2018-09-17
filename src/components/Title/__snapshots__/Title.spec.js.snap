@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components Title renders correctly 1`] = `
-<div>
+<h2
+  className="MuiTypography-root-1 MuiTypography-title-7 MuiTypography-alignCenter-15"
+>
   test title
-</div>
+</h2>
 `;
