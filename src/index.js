@@ -1,31 +1,28 @@
+import 'regenerator-runtime/runtime'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers, compose } from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase'
 import { reduxFirestore, firestoreReducer } from 'redux-firestore'
-import firebaseConfig from '../projects/dev.json'
-import mainReducer from './reducers'
-import Title from './containers/TitleContainer'
-import { setTitle } from './actions'
+
+import mainReducer, { sagas } from './modules'
+import autoRestartSaga from './util/autoRestartSaga'
+import App from './containers/AppContainer'
 
 const reactReduxFirebaseConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true
 }
 
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(__CONF__)
 
 firebase.firestore().settings({ timestampsInSnapshots: true })
-
-const createStoreWithFirebase = compose(
-  reduxFirestore(firebase),
-  reactReduxFirebase(firebase, reactReduxFirebaseConfig)
-)(createStore)
 
 const rootReducer = combineReducers({
   app: mainReducer,
@@ -33,20 +30,32 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer
 })
 
-const initialState = {}
-const store = createStoreWithFirebase(
-  rootReducer,
-  initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const sagaMiddleware = createSagaMiddleware()
+
+const middleware = [sagaMiddleware]
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const enhancer = composeEnhancers(
+  reduxFirestore(firebase),
+  reactReduxFirebase(firebase, reactReduxFirebaseConfig),
+  applyMiddleware(...middleware)
 )
 
-store.dispatch(setTitle('Minimal React Webpack Babel Setup'))
+const initialState = {}
+const store = createStore(rootReducer, initialState, enhancer)
+
+sagaMiddleware.run(autoRestartSaga(sagas))
 
 render(
   <Provider store={store}>
-    <Title />
+    <App />
   </Provider>,
   document.getElementById('app')
 )
 
 module.hot.accept()
+
+if (window.Cypress) {
+  window.firebase = firebase
+}
