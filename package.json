@@ -9,18 +9,26 @@
     "codecov": "codecov",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:test": "npm run start & npm run cy:run",
+    "cy:test": "npm run start:cy & npm run cy:run",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start:cy": "npm run start --project=cypress",
+    "start:dev": "npm run start --project=dev",
     "test": "jest"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!/node_modules/**",
+      "!src/index.js"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-eslint": "^9.0.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -38,6 +46,7 @@
     "prettier": "1.14.2",
     "react-hot-loader": "^4.3.5",
     "react-test-renderer": "^16.4.2",
+    "redux-mock-store": "^1.5.3",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
@@ -50,7 +59,9 @@
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-redux-firebase": "^2.1.8",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
-    "redux-firestore": "^0.5.8"
+    "redux-firestore": "^0.5.8",
+    "redux-saga": "^0.16.0"
   }
 }

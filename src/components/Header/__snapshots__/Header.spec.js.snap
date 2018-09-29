@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components Header does not render if not logged in 1`] = `null`;
+
+exports[`components Header renders auth info if logged in 1`] = `
+Array [
+  <div
+    data-cy="username"
+  >
+    test@example.com
+  </div>,
+  <button
+    onClick={[Function]}
+  >
+    Logout
+  </button>,
+]
+`;

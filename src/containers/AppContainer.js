@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import Title from '../components/Title'
+import App from '../components/App'
 
 const mapStateToProps = (state /*, ownProps*/) => ({
-  text: state.app.title
+  auth: state.firebase.auth
 })
 
 const mapDispatchToProps = (/*dispatch, ownProps*/) => ({})
@@ -10,4 +10,4 @@ const mapDispatchToProps = (/*dispatch, ownProps*/) => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Title)
+)(App)
