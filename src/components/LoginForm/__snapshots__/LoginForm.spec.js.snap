@@ -15,7 +15,9 @@ exports[`components LoginForm renders correctly 1`] = `
         data-shrink={true}
         htmlFor="email"
       >
-        E-Mail
+        <span>
+          E-Mail
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -52,7 +54,9 @@ exports[`components LoginForm renders correctly 1`] = `
         data-shrink={true}
         htmlFor="password"
       >
-        Passwort
+        <span>
+          Passwort
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -100,7 +104,9 @@ exports[`components LoginForm renders correctly 1`] = `
       <span
         className="MuiButton-label-52"
       >
-        Anmelden
+        <span>
+          Anmelden
+        </span>
       </span>
       <span
         className="MuiTouchRipple-root-80"
@@ -117,7 +123,9 @@ exports[`components LoginForm renders error message if login failed 1`] = `
   <p
     className="MuiTypography-root-87 MuiTypography-body1-96 LoginForm-failureMessage-2"
   >
-    Falsche Login-Daten
+    <span>
+      Die Anmeldung ist fehlgeschlagen.
+    </span>
   </p>
   <form
     onSubmit={[Function]}
@@ -130,7 +138,9 @@ exports[`components LoginForm renders error message if login failed 1`] = `
         data-shrink={true}
         htmlFor="email"
       >
-        E-Mail
+        <span>
+          E-Mail
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -167,7 +177,9 @@ exports[`components LoginForm renders error message if login failed 1`] = `
         data-shrink={false}
         htmlFor="password"
       >
-        Passwort
+        <span>
+          Passwort
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -215,7 +227,9 @@ exports[`components LoginForm renders error message if login failed 1`] = `
       <span
         className="MuiButton-label-52"
       >
-        Anmelden
+        <span>
+          Anmelden
+        </span>
       </span>
       <span
         className="MuiTouchRipple-root-80"

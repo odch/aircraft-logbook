@@ -10,10 +10,17 @@ import 'firebase/database'
 import 'firebase/firestore'
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase'
 import { reduxFirestore, firestoreReducer } from 'redux-firestore'
+import { IntlProvider, addLocaleData } from 'react-intl'
+import de from 'react-intl/locale-data/de'
 
 import mainReducer, { sagas } from './modules'
 import autoRestartSaga from './util/autoRestartSaga'
+import messages from './messages'
 import App from './containers/AppContainer'
+
+const LOCALE = 'de'
+
+addLocaleData([...de])
 
 const reactReduxFirebaseConfig = {
   userProfile: 'users',
@@ -49,7 +56,9 @@ sagaMiddleware.run(autoRestartSaga(sagas))
 
 render(
   <Provider store={store}>
-    <App />
+    <IntlProvider locale={LOCALE} messages={messages[LOCALE]}>
+      <App />
+    </IntlProvider>
   </Provider>,
   document.getElementById('app')
 )

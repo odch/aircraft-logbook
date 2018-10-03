@@ -1,0 +1,7 @@
+{
+  "login.email": "E-Mail",
+  "login.password": "Passwort",
+  "login.login": "Anmelden",
+  "login.logout": "Abmelden",
+  "login.failed": "Die Anmeldung ist fehlgeschlagen."
+}

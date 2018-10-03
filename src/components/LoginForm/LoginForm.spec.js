@@ -1,6 +1,6 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import Input from '@material-ui/core/Input'
+import renderIntl from '../../testutil/renderIntl'
 import LoginForm from './LoginForm'
 
 function renderLoginForm(
@@ -9,7 +9,7 @@ function renderLoginForm(
   setPassword = () => {},
   login = () => {}
 ) {
-  return renderer.create(
+  return renderIntl(
     <LoginForm
       loginForm={loginForm}
       setUsername={setUsername}

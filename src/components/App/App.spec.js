@@ -1,8 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import renderer from 'react-test-renderer'
-import App from './App'
 import configureStore from 'redux-mock-store'
+import App from './App'
+import renderIntl from '../../testutil/renderIntl'
 
 describe('components', () => {
   describe('App', () => {
@@ -20,13 +20,11 @@ describe('components', () => {
       const auth = {
         isEmpty: true
       }
-      const tree = renderer
-        .create(
-          <Provider store={store}>
-            <App auth={auth} />
-          </Provider>
-        )
-        .toJSON()
+      const tree = renderIntl(
+        <Provider store={store}>
+          <App auth={auth} />
+        </Provider>
+      ).toJSON()
       expect(tree).toMatchSnapshot()
     })
 
@@ -40,13 +38,11 @@ describe('components', () => {
           auth
         }
       })
-      const tree = renderer
-        .create(
-          <Provider store={store}>
-            <App auth={auth} />
-          </Provider>
-        )
-        .toJSON()
+      const tree = renderIntl(
+        <Provider store={store}>
+          <App auth={auth} />
+        </Provider>
+      ).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
