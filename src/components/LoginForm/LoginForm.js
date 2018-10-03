@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import Button from '@material-ui/core/Button'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
@@ -51,12 +52,14 @@ class LoginForm extends React.Component {
         <main className={classes.layout}>
           {failed && (
             <Typography className={classes.failureMessage}>
-              Falsche Login-Daten
+              <FormattedMessage id="login.failed" />
             </Typography>
           )}
           <form onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">E-Mail</InputLabel>
+              <InputLabel htmlFor="email">
+                <FormattedMessage id="login.email" />
+              </InputLabel>
               <Input
                 id="email"
                 name="email"
@@ -69,7 +72,9 @@ class LoginForm extends React.Component {
               />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Passwort</InputLabel>
+              <InputLabel htmlFor="password">
+                <FormattedMessage id="login.password" />
+              </InputLabel>
               <Input
                 name="password"
                 type="password"
@@ -89,7 +94,7 @@ class LoginForm extends React.Component {
               disabled={submitted}
               data-cy="submit"
             >
-              Anmelden
+              <FormattedMessage id="login.login" />
             </Button>
           </form>
         </main>

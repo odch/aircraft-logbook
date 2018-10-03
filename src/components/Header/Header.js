@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage } from 'react-intl'
 import AuthInfo from './AuthInfo'
 
 class Header extends React.Component {
@@ -9,7 +10,9 @@ class Header extends React.Component {
         {!this.props.auth.isEmpty ? (
           <React.Fragment>
             <AuthInfo username={this.props.auth.email} />
-            <button onClick={() => this.props.logout()}>Logout</button>
+            <button onClick={() => this.props.logout()}>
+              <FormattedMessage id="login.logout" />
+            </button>
           </React.Fragment>
         ) : null}
       </React.Fragment>

@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+import renderIntl from '../../testutil/renderIntl'
 import Header from './Header'
 
 describe('components', () => {
@@ -9,9 +10,7 @@ describe('components', () => {
         isEmpty: false,
         email: 'test@example.com'
       }
-      const tree = renderer
-        .create(<Header auth={auth} logout={() => {}} />)
-        .toJSON()
+      const tree = renderIntl(<Header auth={auth} logout={() => {}} />).toJSON()
       expect(tree).toMatchSnapshot()
     })
 
@@ -33,7 +32,7 @@ describe('components', () => {
 
       const logout = jest.fn()
 
-      const component = renderer.create(<Header auth={auth} logout={logout} />)
+      const component = renderIntl(<Header auth={auth} logout={logout} />)
 
       const logoutButton = component.root.find(el => el.type === 'button')
       logoutButton.props.onClick()

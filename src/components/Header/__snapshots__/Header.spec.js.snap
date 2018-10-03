@@ -12,7 +12,9 @@ Array [
   <button
     onClick={[Function]}
   >
-    Logout
+    <span>
+      Abmelden
+    </span>
   </button>,
 ]
 `;

@@ -10,7 +10,9 @@ Array [
   <button
     onClick={[Function]}
   >
-    Logout
+    <span>
+      Abmelden
+    </span>
   </button>,
 ]
 `;
@@ -30,7 +32,9 @@ exports[`components App renders login form if not authenticated 1`] = `
         data-shrink={false}
         htmlFor="email"
       >
-        E-Mail
+        <span>
+          E-Mail
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -67,7 +71,9 @@ exports[`components App renders login form if not authenticated 1`] = `
         data-shrink={false}
         htmlFor="password"
       >
-        Passwort
+        <span>
+          Passwort
+        </span>
         <span
           className="MuiFormLabel-asterisk-20"
         >
@@ -115,7 +121,9 @@ exports[`components App renders login form if not authenticated 1`] = `
       <span
         className="MuiButton-label-52"
       >
-        Anmelden
+        <span>
+          Anmelden
+        </span>
       </span>
       <span
         className="MuiTouchRipple-root-80"
