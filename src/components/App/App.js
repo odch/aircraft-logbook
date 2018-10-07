@@ -6,19 +6,27 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import LoginForm from '../../containers/LoginFormContainer'
 import StartPage from '../StartPage'
+import LoginPage from '../../containers/LoginPageContainer'
+import ProtectedRoute from '../ProtectedRoute'
+import LoadingIcon from './LoadingIcon'
 
 class App extends React.Component {
   render() {
-    if (this.props.auth.isEmpty === true) {
-      return <LoginForm />
+    if (!this.props.auth.isLoaded) {
+      return <LoadingIcon />
     }
 
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={StartPage} />
+          <ProtectedRoute
+            exact
+            path="/"
+            component={StartPage}
+            authed={!this.props.auth.isEmpty}
+          />
+          <Route exact path="/login" component={LoginPage} />
           <Redirect to="/" />
         </Switch>
       </Router>
@@ -28,6 +36,7 @@ class App extends React.Component {
 
 App.propTypes = {
   auth: PropTypes.shape({
+    isLoaded: PropTypes.bool.isRequired,
     isEmpty: PropTypes.bool.isRequired
   })
 }
