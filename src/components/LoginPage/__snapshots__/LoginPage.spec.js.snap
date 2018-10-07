@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components LoginPage redirects to start page if authenticated 1`] = `
+<Redirect
+  push={false}
+  to="/"
+/>
+`;
+
+exports[`components LoginPage renders login form if not authenticated 1`] = `
+<React.Fragment>
+  <Connect(WithStyles(LoginForm)) />
+</React.Fragment>
+`;
