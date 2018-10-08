@@ -3,5 +3,10 @@
   "login.password": "Passwort",
   "login.login": "Anmelden",
   "login.logout": "Abmelden",
-  "login.failed": "Die Anmeldung ist fehlgeschlagen."
+  "login.failed": "Die Anmeldung ist fehlgeschlagen.",
+  "login.registration": "Noch kein Konto? Hier registrieren!",
+  "registration.email": "E-Mail",
+  "registration.password": "Passwort",
+  "registration.register": "Registrieren",
+  "registration.failed": "Die Registrierung ist fehlgeschlagen."
 }

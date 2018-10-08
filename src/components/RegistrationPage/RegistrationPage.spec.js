@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 import renderIntl from '../../testutil/renderIntl'
 import configureStore from 'redux-mock-store'
-import LoginPage from './LoginPage'
+import RegistrationPage from './RegistrationPage'
 
 const StartPage = () => <div>start page</div>
 
 describe('components', () => {
-  describe('LoginPage', () => {
+  describe('RegistrationPage', () => {
     it('redirects to start page if authenticated', () => {
       const auth = {
         isEmpty: false
@@ -25,7 +25,7 @@ describe('components', () => {
             <Router>
               <Switch>
                 <Route exact path="/" component={StartPage} />
-                <LoginPage auth={auth} />
+                <RegistrationPage auth={auth} />
               </Switch>
             </Router>
           </Provider>
@@ -34,7 +34,7 @@ describe('components', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    it('renders login form if not authenticated', () => {
+    it('renders registration form if not authenticated', () => {
       const auth = {
         isEmpty: true
       }
@@ -43,8 +43,8 @@ describe('components', () => {
           auth
         },
         app: {
-          login: {
-            username: 'test@example.com',
+          registration: {
+            email: 'test@example.com',
             password: 'mypassword',
             failed: false,
             submitted: false
@@ -55,7 +55,7 @@ describe('components', () => {
         <Provider store={store}>
           <Router>
             <Switch>
-              <LoginPage auth={auth} />
+              <RegistrationPage auth={auth} />
               <Route exact path="/" component={StartPage} />
             </Switch>
           </Router>

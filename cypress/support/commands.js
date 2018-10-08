@@ -3,3 +3,12 @@ Cypress.Commands.add('logout', () => {
     win.firebase.auth().signOut()
   })
 })
+
+Cypress.Commands.add('deleteTestUser', () => {
+  cy.window().then(win => {
+    const deleteTestUser = win.firebase
+      .functions()
+      .httpsCallable('deleteTestUser')
+    deleteTestUser()
+  })
+})

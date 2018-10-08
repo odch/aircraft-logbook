@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components LoginForm renders correctly 1`] = `
+exports[`components RegistrationForm renders correctly 1`] = `
 <form
   onSubmit={[Function]}
 >
@@ -67,7 +67,6 @@ exports[`components LoginForm renders correctly 1`] = `
     >
       <input
         aria-invalid={false}
-        autoComplete="current-password"
         className="MuiInputBase-input-43 MuiInput-input-28 MuiInputBase-inputType-46 MuiInput-inputType-31"
         disabled={false}
         id="password"
@@ -102,7 +101,7 @@ exports[`components LoginForm renders correctly 1`] = `
       className="MuiButton-label-51"
     >
       <span>
-        Anmelden
+        Registrieren
       </span>
     </span>
     <span
@@ -112,13 +111,13 @@ exports[`components LoginForm renders correctly 1`] = `
 </form>
 `;
 
-exports[`components LoginForm renders error message if login failed 1`] = `
+exports[`components RegistrationForm renders error message if registration failed 1`] = `
 Array [
   <p
-    className="MuiTypography-root-86 MuiTypography-body1-95 LoginForm-failureMessage-1"
+    className="MuiTypography-root-86 MuiTypography-body1-95 RegistrationForm-failureMessage-1"
   >
     <span>
-      Die Anmeldung ist fehlgeschlagen.
+      Die Registrierung ist fehlgeschlagen.
     </span>
   </p>,
   <form
@@ -187,7 +186,6 @@ Array [
       >
         <input
           aria-invalid={false}
-          autoComplete="current-password"
           className="MuiInputBase-input-43 MuiInput-input-28 MuiInputBase-inputType-46 MuiInput-inputType-31"
           disabled={false}
           id="password"
@@ -222,7 +220,7 @@ Array [
         className="MuiButton-label-51"
       >
         <span>
-          Anmelden
+          Registrieren
         </span>
       </span>
       <span
