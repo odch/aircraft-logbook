@@ -14,9 +14,9 @@ const styles = theme => ({
   }
 })
 
-class LoginForm extends React.Component {
-  handleUsernameChange = e => {
-    this.props.setUsername(e.target.value)
+class RegistrationForm extends React.Component {
+  handleEmailChange = e => {
+    this.props.setEmail(e.target.value)
   }
 
   handlePasswordChange = e => {
@@ -25,34 +25,34 @@ class LoginForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { username, password } = this.props.loginForm
-    this.props.login(username, password)
+    const { email, password } = this.props.registrationForm
+    this.props.register(email, password)
   }
 
   render() {
     const {
       classes,
-      loginForm: { username, password, failed, submitted }
+      registrationForm: { email, password, failed, submitted }
     } = this.props
 
     return (
       <React.Fragment>
         {failed && (
           <Typography className={classes.failureMessage}>
-            <FormattedMessage id="login.failed" />
+            <FormattedMessage id="registration.failed" />
           </Typography>
         )}
         <form onSubmit={this.handleSubmit}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">
-              <FormattedMessage id="login.email" />
+              <FormattedMessage id="registration.email" />
             </InputLabel>
             <Input
               id="email"
               name="email"
               autoComplete="email"
-              onChange={this.handleUsernameChange}
-              value={username}
+              onChange={this.handleEmailChange}
+              value={email}
               disabled={submitted}
               data-cy="email"
               autoFocus
@@ -60,13 +60,12 @@ class LoginForm extends React.Component {
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">
-              <FormattedMessage id="login.password" />
+              <FormattedMessage id="registration.password" />
             </InputLabel>
             <Input
               name="password"
               type="password"
               id="password"
-              autoComplete="current-password"
               onChange={this.handlePasswordChange}
               value={password}
               disabled={submitted}
@@ -81,7 +80,7 @@ class LoginForm extends React.Component {
             disabled={submitted}
             data-cy="submit"
           >
-            <FormattedMessage id="login.login" />
+            <FormattedMessage id="registration.register" />
           </Button>
         </form>
       </React.Fragment>
@@ -89,17 +88,17 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {
-  loginForm: PropTypes.shape({
-    username: PropTypes.string.isRequired,
+RegistrationForm.propTypes = {
+  registrationForm: PropTypes.shape({
+    email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     failed: PropTypes.bool.isRequired,
     submitted: PropTypes.bool.isRequired
   }).isRequired,
-  setUsername: PropTypes.func.isRequired,
+  setEmail: PropTypes.func.isRequired,
   setPassword: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(LoginForm)
+export default withStyles(styles)(RegistrationForm)

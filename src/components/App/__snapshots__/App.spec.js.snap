@@ -51,16 +51,16 @@ exports[`components App renders loading icon if not initialized 1`] = `
 
 exports[`components App renders login form if not authenticated 1`] = `
 <main
-  className="LoginForm-layout-12"
+  className="LoginPage-layout-12"
 >
   <form
     onSubmit={[Function]}
   >
     <div
-      className="MuiFormControl-root-14 MuiFormControl-marginNormal-15 MuiFormControl-fullWidth-17"
+      className="MuiFormControl-root-15 MuiFormControl-marginNormal-16 MuiFormControl-fullWidth-18"
     >
       <label
-        className="MuiFormLabel-root-25 MuiFormLabel-required-30 MuiInputLabel-root-18 MuiInputLabel-formControl-19 MuiInputLabel-animated-22"
+        className="MuiFormLabel-root-26 MuiFormLabel-required-31 MuiInputLabel-root-19 MuiInputLabel-formControl-20 MuiInputLabel-animated-23"
         data-shrink={false}
         htmlFor="email"
       >
@@ -68,13 +68,13 @@ exports[`components App renders login form if not authenticated 1`] = `
           E-Mail
         </span>
         <span
-          className="MuiFormLabel-asterisk-31"
+          className="MuiFormLabel-asterisk-32"
         >
            *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-45 MuiInput-root-32 MuiInput-underline-36 MuiInputBase-formControl-46 MuiInput-formControl-33"
+        className="MuiInputBase-root-46 MuiInput-root-33 MuiInput-underline-37 MuiInputBase-formControl-47 MuiInput-formControl-34"
         data-cy="email"
         onClick={[Function]}
       >
@@ -82,7 +82,7 @@ exports[`components App renders login form if not authenticated 1`] = `
           aria-invalid={false}
           autoComplete="email"
           autoFocus={true}
-          className="MuiInputBase-input-55 MuiInput-input-40"
+          className="MuiInputBase-input-56 MuiInput-input-41"
           disabled={false}
           id="email"
           name="email"
@@ -96,10 +96,10 @@ exports[`components App renders login form if not authenticated 1`] = `
       </div>
     </div>
     <div
-      className="MuiFormControl-root-14 MuiFormControl-marginNormal-15 MuiFormControl-fullWidth-17"
+      className="MuiFormControl-root-15 MuiFormControl-marginNormal-16 MuiFormControl-fullWidth-18"
     >
       <label
-        className="MuiFormLabel-root-25 MuiFormLabel-required-30 MuiInputLabel-root-18 MuiInputLabel-formControl-19 MuiInputLabel-animated-22"
+        className="MuiFormLabel-root-26 MuiFormLabel-required-31 MuiInputLabel-root-19 MuiInputLabel-formControl-20 MuiInputLabel-animated-23"
         data-shrink={false}
         htmlFor="password"
       >
@@ -107,20 +107,20 @@ exports[`components App renders login form if not authenticated 1`] = `
           Passwort
         </span>
         <span
-          className="MuiFormLabel-asterisk-31"
+          className="MuiFormLabel-asterisk-32"
         >
            *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-45 MuiInput-root-32 MuiInput-underline-36 MuiInputBase-formControl-46 MuiInput-formControl-33"
+        className="MuiInputBase-root-46 MuiInput-root-33 MuiInput-underline-37 MuiInputBase-formControl-47 MuiInput-formControl-34"
         data-cy="password"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoComplete="current-password"
-          className="MuiInputBase-input-55 MuiInput-input-40 MuiInputBase-inputType-58 MuiInput-inputType-43"
+          className="MuiInputBase-input-56 MuiInput-input-41 MuiInputBase-inputType-59 MuiInput-inputType-44"
           disabled={false}
           id="password"
           name="password"
@@ -134,7 +134,7 @@ exports[`components App renders login form if not authenticated 1`] = `
       </div>
     </div>
     <button
-      className="MuiButtonBase-root-88 MuiButton-root-62 MuiButton-contained-73 MuiButton-containedPrimary-74 MuiButton-raised-76 MuiButton-raisedPrimary-77 MuiButton-fullWidth-87"
+      className="MuiButtonBase-root-89 MuiButton-root-63 MuiButton-contained-74 MuiButton-containedPrimary-75 MuiButton-raised-77 MuiButton-raisedPrimary-78 MuiButton-fullWidth-88"
       data-cy="submit"
       disabled={false}
       onBlur={[Function]}
@@ -151,16 +151,44 @@ exports[`components App renders login form if not authenticated 1`] = `
       type="submit"
     >
       <span
-        className="MuiButton-label-63"
+        className="MuiButton-label-64"
       >
         <span>
           Anmelden
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-91"
+        className="MuiTouchRipple-root-92"
       />
     </button>
   </form>
+  <a
+    className="MuiButtonBase-root-89 MuiButton-root-63 MuiButton-contained-74 MuiButton-containedPrimary-75 MuiButton-raised-77 MuiButton-raisedPrimary-78 MuiButton-fullWidth-88 LoginPage-registrationButton-13"
+    data-cy="registration"
+    href="/register"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+  >
+    <span
+      className="MuiButton-label-64"
+    >
+      <span>
+        Noch kein Konto? Hier registrieren!
+      </span>
+    </span>
+    <span
+      className="MuiTouchRipple-root-92"
+    />
+  </a>
 </main>
 `;
