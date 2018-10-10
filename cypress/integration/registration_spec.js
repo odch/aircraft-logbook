@@ -1,16 +1,16 @@
-context('Login', () => {
+context('Registration', () => {
   beforeEach(() => {
     cy.visit('/register')
   })
 
-  afterEach(() => {
-    cy.deleteTestUser()
-  })
-
-  it('registers in successfully', () => {
+  it('registers successfully', () => {
     cy.get('[data-cy=email] input').type('test@opendigital.ch')
     cy.get('[data-cy=password] input ').type('mypassword')
     cy.get('[data-cy=submit]').click()
-    cy.get('[data-cy=username]').contains('test@opendigital.ch')
+
+    cy.url().should('eq', Cypress.config().baseUrl + '/')
+    cy.get('[data-cy=user-button]')
+
+    cy.deleteTestUser()
   })
 })
