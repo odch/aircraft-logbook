@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components OrganizationsList renders loading icon if organizations not loaded 1`] = `
+<div
+  className="LoadingIcon-container-5"
+>
+  <div
+    className="MuiCircularProgress-root-7 MuiCircularProgress-colorPrimary-10 MuiCircularProgress-indeterminate-9 LoadingIcon-icon-6"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-12"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-13 MuiCircularProgress-circleIndeterminate-15"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`components OrganizationsList renders organizations if loaded 1`] = `
+<div
+  className="MuiGrid-container-16 MuiGrid-spacing-xs-24-40 OrganizationsList-container-1"
+  data-cy="organizations-list"
+>
+  <div
+    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+  >
+    <div
+      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+    >
+      <button
+        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <div
+          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+        >
+          <h2
+            className="MuiTypography-root-148 MuiTypography-title-154"
+          >
+            org1
+          </h2>
+        </div>
+        <span
+          className="MuiCardActionArea-focusHighlight-143"
+        />
+        <span
+          className="MuiTouchRipple-root-174"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+  >
+    <div
+      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+    >
+      <button
+        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <div
+          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+        >
+          <h2
+            className="MuiTypography-root-148 MuiTypography-title-154"
+          >
+            org2
+          </h2>
+        </div>
+        <span
+          className="MuiCardActionArea-focusHighlight-143"
+        />
+        <span
+          className="MuiTouchRipple-root-174"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+  >
+    <div
+      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+    >
+      <button
+        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <div
+          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+        >
+          <h2
+            className="MuiTypography-root-148 MuiTypography-title-154"
+          >
+            org3
+          </h2>
+        </div>
+        <span
+          className="MuiCardActionArea-focusHighlight-143"
+        />
+        <span
+          className="MuiTouchRipple-root-174"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -7,6 +7,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import StartPage from '../StartPage'
+import OrganizationsPage from '../OrganizationsPage'
 import LoginPage from '../../containers/LoginPageContainer'
 import RegistrationPage from '../../containers/RegistrationPageContainer'
 import ProtectedRoute from '../ProtectedRoute'
@@ -25,6 +26,12 @@ class App extends React.Component {
             exact
             path="/"
             component={StartPage}
+            authed={!this.props.auth.isEmpty}
+          />
+          <ProtectedRoute
+            exact
+            path="/organizations"
+            component={OrganizationsPage}
             authed={!this.props.auth.isEmpty}
           />
           <Route exact path="/login" component={LoginPage} />
