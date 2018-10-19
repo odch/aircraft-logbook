@@ -2,10 +2,10 @@
 
 exports[`components OrganizationsList renders loading icon if organizations not loaded 1`] = `
 <div
-  className="LoadingIcon-container-5"
+  className="LoadingIcon-container-7"
 >
   <div
-    className="MuiCircularProgress-root-7 MuiCircularProgress-colorPrimary-10 MuiCircularProgress-indeterminate-9 LoadingIcon-icon-6"
+    className="MuiCircularProgress-root-9 MuiCircularProgress-colorPrimary-12 MuiCircularProgress-indeterminate-11 LoadingIcon-icon-8"
     role="progressbar"
     style={
       Object {
@@ -15,11 +15,11 @@ exports[`components OrganizationsList renders loading icon if organizations not 
     }
   >
     <svg
-      className="MuiCircularProgress-svg-12"
+      className="MuiCircularProgress-svg-14"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-13 MuiCircularProgress-circleIndeterminate-15"
+        className="MuiCircularProgress-circle-15 MuiCircularProgress-circleIndeterminate-17"
         cx={44}
         cy={44}
         fill="none"
@@ -34,17 +34,74 @@ exports[`components OrganizationsList renders loading icon if organizations not 
 
 exports[`components OrganizationsList renders organizations if loaded 1`] = `
 <div
-  className="MuiGrid-container-16 MuiGrid-spacing-xs-24-40 OrganizationsList-container-1"
+  className="MuiGrid-container-18 MuiGrid-spacing-xs-24-42 OrganizationsList-container-1"
   data-cy="organizations-list"
 >
   <div
-    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
   >
     <div
-      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
       <button
-        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <div
+          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-150 OrganizationsList-createIcon-5"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0V0z"
+              fill="none"
+            />
+            <path
+              d="M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"
+            />
+          </svg>
+          <span
+            className="MuiTypography-root-159 MuiTypography-button-170 OrganizationsList-createText-6"
+          >
+            <span>
+              Neue Organisation erstellen
+            </span>
+          </span>
+        </div>
+        <span
+          className="MuiCardActionArea-focusHighlight-145"
+        />
+        <span
+          className="MuiTouchRipple-root-185"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
+  >
+    <div
+      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
+    >
+      <button
+        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -59,31 +116,31 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         type="button"
       >
         <div
-          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
         >
           <h2
-            className="MuiTypography-root-148 MuiTypography-title-154"
+            className="MuiTypography-root-159 MuiTypography-title-165"
           >
             org1
           </h2>
         </div>
         <span
-          className="MuiCardActionArea-focusHighlight-143"
+          className="MuiCardActionArea-focusHighlight-145"
         />
         <span
-          className="MuiTouchRipple-root-174"
+          className="MuiTouchRipple-root-185"
         />
       </button>
     </div>
   </div>
   <div
-    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
   >
     <div
-      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
       <button
-        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -98,31 +155,31 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         type="button"
       >
         <div
-          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
         >
           <h2
-            className="MuiTypography-root-148 MuiTypography-title-154"
+            className="MuiTypography-root-159 MuiTypography-title-165"
           >
             org2
           </h2>
         </div>
         <span
-          className="MuiCardActionArea-focusHighlight-143"
+          className="MuiCardActionArea-focusHighlight-145"
         />
         <span
-          className="MuiTouchRipple-root-174"
+          className="MuiTouchRipple-root-185"
         />
       </button>
     </div>
   </div>
   <div
-    className="MuiGrid-item-17 MuiGrid-grid-xs-12-56 MuiGrid-grid-sm-4-62"
+    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
   >
     <div
-      className="MuiPaper-root-114 MuiPaper-elevation1-117 MuiPaper-rounded-115 MuiCard-root-113 OrganizationsList-card-2"
+      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
       <button
-        className="MuiButtonBase-root-144 MuiCardActionArea-root-141 OrganizationsList-actionArea-4"
+        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -137,19 +194,19 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         type="button"
       >
         <div
-          className="MuiCardContent-root-147 OrganizationsList-cardContent-3"
+          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
         >
           <h2
-            className="MuiTypography-root-148 MuiTypography-title-154"
+            className="MuiTypography-root-159 MuiTypography-title-165"
           >
             org3
           </h2>
         </div>
         <span
-          className="MuiCardActionArea-focusHighlight-143"
+          className="MuiCardActionArea-focusHighlight-145"
         />
         <span
-          className="MuiTouchRipple-root-174"
+          className="MuiTouchRipple-root-185"
         />
       </button>
     </div>
