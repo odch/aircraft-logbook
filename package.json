@@ -24,7 +24,8 @@
       "src/**/*.js",
       "!/node_modules/**",
       "!src/index.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "./src/testutil/setupTests.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -35,6 +36,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.4",
     "cypress": "^3.1.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-cypress": "^2.0.1",
