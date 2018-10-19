@@ -12,5 +12,10 @@ script:
   - npm run build
   - npm run cy:test
   - npm run codecov
+deploy:
+  provider: firebase
+  token:
+    secure: XZar5Ak6y60aOkM/ltq6jpiM9SZO1IrXqqHpox1VEt0tQMHupj78WGRGeZuP17l6XfaRWxPXEiVdycbftMTy3hmHwX6zd5yvzL9qCF/RozzGcPiGrr0Gy9eyM0kdqOoS5SAgC7JD46JZ+N447NUJEhcrETsTRt2fMSVe6BULNe8igVMl0IykaB0a+KQJPoLPBhWHksc4szBhcjEJ6LuQVeScBcPYNEAsM1f6Jw2zmfV3ctQz7htAh+7Z9NWgqasD2ULD+TNkh/oxqL4SXE7VOpvKNMixZ0sbnnQHGlrUW/fcncW9fK6oJbKrktui3VwK6zghEkPNaFTNl4Wka/4jpczhKgcyC6IhqxA7zOUNqMNkl+n04x58Pt4ugVDEdWeeMq+bmhGjShTJ+3xosb80ewa5jjwEvlYtrdWl0pYK/GQ9iSyG38Wl/wNcrJJgb3iptqZQuspRXY9weNgVpIV5tFfr32QCAkMJ+qSTDf/1nnUihhztdWEiXxQjyOWX5BUBRdbrgRVkyeuTC7hgTKuj8S3TCdK4rdVltw9r8l9ZeGAs9qRJsaQU9BKGeyFMEAZ/C53ev1SpB6hdX/hNIq8d0t85SJF391jBwPY2q9sg5aYj7G+z6zTa21Al1+hFHggihBo9/uY/WxjHvDGMpKBs/0BqGCdr7S6DrQqWsEBWWLE=
+  project: "odch-aircraft-logbook-dev"
 on:
   branch: master
