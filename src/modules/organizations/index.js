@@ -1,8 +1,22 @@
-import { loadOrganizations } from './actions'
+import {
+  watchOrganizations,
+  unwatchOrganizations,
+  openCreateOrganizationDialog,
+  closeCreateOrganizationDialog,
+  updateCreateOrganizationDialogData,
+  createOrganization
+} from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export { loadOrganizations }
+export {
+  watchOrganizations,
+  unwatchOrganizations,
+  openCreateOrganizationDialog,
+  closeCreateOrganizationDialog,
+  updateCreateOrganizationDialogData,
+  createOrganization
+}
 
 export { sagas }
 

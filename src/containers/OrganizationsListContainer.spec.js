@@ -20,6 +20,11 @@ describe('containers', () => {
         firebase: {},
         firestore: {
           ordered: {}
+        },
+        app: {
+          organizations: {
+            createDialogOpen: false
+          }
         }
       }
       const store = configureStore()(state)

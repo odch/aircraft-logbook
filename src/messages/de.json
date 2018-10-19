@@ -8,5 +8,11 @@
   "registration.email": "E-Mail",
   "registration.password": "Passwort",
   "registration.register": "Registrieren",
-  "registration.failed": "Die Registrierung ist fehlgeschlagen."
+  "registration.failed": "Die Registrierung ist fehlgeschlagen.",
+  "organizations.create": "Neue Organisation erstellen",
+  "organizations.create.dialog.title": "Neue Organisation erstellen",
+  "organizations.create.dialog.text": "Trage im folgenden Feld den Namen deiner Organisation ein.",
+  "organizations.create.dialog.name": "Name",
+  "organizations.create.dialog.buttons.cancel": "Abbrechen",
+  "organizations.create.dialog.buttons.create": "Erstellen"
 }

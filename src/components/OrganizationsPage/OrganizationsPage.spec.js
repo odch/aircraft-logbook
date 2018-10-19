@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import renderer from 'react-test-renderer'
 import configureStore from 'redux-mock-store'
+import renderIntl from '../../testutil/renderIntl'
 import OrganizationsPage from './OrganizationsPage'
 
 describe('components', () => {
@@ -17,6 +17,14 @@ describe('components', () => {
           ordered: {
             organizations: [{ id: 'org1' }, { id: 'org2' }, { id: 'org3' }]
           }
+        },
+        app: {
+          organizations: {
+            createDialogOpen: false,
+            createDialogData: {
+              name: ''
+            }
+          }
         }
       }
 
@@ -25,13 +33,11 @@ describe('components', () => {
       // workaround for containers which use firestoreConnect()
       Object.assign(store, state)
 
-      const tree = renderer
-        .create(
-          <Provider store={store}>
-            <OrganizationsPage />
-          </Provider>
-        )
-        .toJSON()
+      const tree = renderIntl(
+        <Provider store={store}>
+          <OrganizationsPage />
+        </Provider>
+      ).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
