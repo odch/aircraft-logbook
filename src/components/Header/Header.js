@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -83,6 +84,13 @@ class Header extends React.Component {
                 open={open}
                 onClose={this.handleClose}
               >
+                <MenuItem
+                  data-cy="menu-item-organizations"
+                  component={Link}
+                  to="/organizations"
+                >
+                  <FormattedMessage id="menu.account.organizations" />
+                </MenuItem>
                 <MenuItem
                   data-cy="menu-item-logout"
                   onClick={this.handleLogout}
