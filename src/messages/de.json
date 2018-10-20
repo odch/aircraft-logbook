@@ -9,6 +9,7 @@
   "registration.password": "Passwort",
   "registration.register": "Registrieren",
   "registration.failed": "Die Registrierung ist fehlgeschlagen.",
+  "menu.account.organizations": "Meine Organisationen",
   "organizations.create": "Neue Organisation erstellen",
   "organizations.create.dialog.title": "Neue Organisation erstellen",
   "organizations.create.dialog.text": "Trage im folgenden Feld den Namen deiner Organisation ein.",
