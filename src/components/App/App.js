@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import StartPage from '../StartPage'
 import OrganizationsPage from '../OrganizationsPage'
+import OrganizationPage from '../OrganizationPage'
 import LoginPage from '../../containers/LoginPageContainer'
 import RegistrationPage from '../../containers/RegistrationPageContainer'
 import ProtectedRoute from '../ProtectedRoute'
@@ -32,6 +33,12 @@ class App extends React.Component {
             exact
             path="/organizations"
             component={OrganizationsPage}
+            authed={!this.props.auth.isEmpty}
+          />
+          <ProtectedRoute
+            exact
+            path="/organizations/:organizationId"
+            component={OrganizationPage}
             authed={!this.props.auth.isEmpty}
           />
           <Route exact path="/login" component={LoginPage} />

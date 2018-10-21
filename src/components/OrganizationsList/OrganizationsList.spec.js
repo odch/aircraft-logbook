@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import renderIntl from '../../testutil/renderIntl'
 import OrganizationsList from './OrganizationsList'
 
@@ -24,17 +25,19 @@ describe('components', () => {
     it('renders organizations if loaded', () => {
       const organizations = [{ id: 'org1' }, { id: 'org2' }, { id: 'org3' }]
       const tree = renderIntl(
-        <OrganizationsList
-          organizations={organizations}
-          createDialogOpen={false}
-          createDialogData={{ name: '' }}
-          openCreateOrganizationDialog={() => {}}
-          closeCreateOrganizationDialog={() => {}}
-          watchOrganizations={() => {}}
-          unwatchOrganizations={() => {}}
-          updateCreateOrganizationDialogData={() => {}}
-          createOrganization={() => {}}
-        />
+        <Router>
+          <OrganizationsList
+            organizations={organizations}
+            createDialogOpen={false}
+            createDialogData={{ name: '' }}
+            openCreateOrganizationDialog={() => {}}
+            closeCreateOrganizationDialog={() => {}}
+            watchOrganizations={() => {}}
+            unwatchOrganizations={() => {}}
+            updateCreateOrganizationDialogData={() => {}}
+            createOrganization={() => {}}
+          />
+        </Router>
       ).toJSON()
       expect(tree).toMatchSnapshot()
     })

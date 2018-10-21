@@ -3,10 +3,10 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import configureStore from 'redux-mock-store'
 import renderIntl from '../../testutil/renderIntl'
-import OrganizationsPage from './OrganizationsPage'
+import OrganizationPage from './OrganizationPage'
 
 describe('components', () => {
-  describe('OrganizationsPage', () => {
+  describe('OrganizationPage', () => {
     it('renders correctly', () => {
       const state = {
         firebase: {
@@ -15,15 +15,9 @@ describe('components', () => {
           }
         },
         firestore: {
-          ordered: {
-            organizations: [{ id: 'org1' }, { id: 'org2' }, { id: 'org3' }]
-          }
-        },
-        app: {
-          organizations: {
-            createDialogOpen: false,
-            createDialogData: {
-              name: ''
+          data: {
+            organizations: {
+              my_org: {}
             }
           }
         }
@@ -31,10 +25,18 @@ describe('components', () => {
 
       const store = configureStore()(state)
 
+      const props = {
+        match: {
+          params: {
+            organizationId: 'my_org'
+          }
+        }
+      }
+
       const tree = renderIntl(
         <Provider store={store}>
           <Router>
-            <OrganizationsPage />
+            <OrganizationPage {...props} />
           </Router>
         </Provider>
       ).toJSON()

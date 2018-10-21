@@ -110,6 +110,25 @@ describe('modules', () => {
         })
       })
 
+      describe('loadOrganization', () => {
+        it('should load an organization', () => {
+          const loadOrganizationAction = actions.loadOrganization('my_org')
+
+          const generator = sagas.loadOrganization(loadOrganizationAction)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(firestore.get, { collection: 'organizations', doc: 'my_org' })
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -130,7 +149,8 @@ describe('modules', () => {
                 takeEvery,
                 actions.CREATE_ORGANIZATION,
                 sagas.createOrganization
-              )
+              ),
+              fork(takeEvery, actions.LOAD_ORGANIZATION, sagas.loadOrganization)
             ])
           )
         })

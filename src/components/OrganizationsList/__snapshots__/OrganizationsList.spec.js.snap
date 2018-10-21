@@ -100,9 +100,11 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
     <div
       className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
-      <button
+      <a
         className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
+        href="/organizations/org1"
         onBlur={[Function]}
+        onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
@@ -112,8 +114,8 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex="0"
-        type="button"
       >
         <div
           className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
@@ -130,7 +132,7 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         <span
           className="MuiTouchRipple-root-185"
         />
-      </button>
+      </a>
     </div>
   </div>
   <div
@@ -139,9 +141,11 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
     <div
       className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
-      <button
+      <a
         className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
+        href="/organizations/org2"
         onBlur={[Function]}
+        onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
@@ -151,8 +155,8 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex="0"
-        type="button"
       >
         <div
           className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
@@ -169,7 +173,7 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         <span
           className="MuiTouchRipple-root-185"
         />
-      </button>
+      </a>
     </div>
   </div>
   <div
@@ -178,9 +182,11 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
     <div
       className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
     >
-      <button
+      <a
         className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
+        href="/organizations/org3"
         onBlur={[Function]}
+        onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
@@ -190,8 +196,8 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex="0"
-        type="button"
       >
         <div
           className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
@@ -208,7 +214,7 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
         <span
           className="MuiTouchRipple-root-185"
         />
-      </button>
+      </a>
     </div>
   </div>
 </div>
