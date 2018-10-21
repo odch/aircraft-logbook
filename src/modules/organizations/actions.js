@@ -11,6 +11,7 @@ export const CREATE_ORGANIZATION_SUCCESS =
   'organizations/CREATE_ORGANIZATION_SUCCESS'
 export const CREATE_ORGANIZATION_FAILURE =
   'organizations/CREATE_ORGANIZATION_FAILURE'
+export const LOAD_ORGANIZATION = 'organizations/LOAD_ORGANIZATION'
 
 export const openCreateOrganizationDialog = () => ({
   type: OPEN_CREATE_ORGANIZATION_DIALOG
@@ -48,4 +49,11 @@ export const createOrganizationSuccess = () => ({
 
 export const createOrganizationFailure = () => ({
   type: CREATE_ORGANIZATION_FAILURE
+})
+
+export const loadOrganization = id => ({
+  type: LOAD_ORGANIZATION,
+  payload: {
+    id
+  }
 })

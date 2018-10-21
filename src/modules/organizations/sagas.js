@@ -28,10 +28,16 @@ export function* createOrganization({ payload: { data } }) {
   }
 }
 
+export function* loadOrganization({ payload: { id } }) {
+  const firestore = yield call(getFirestore)
+  yield call(firestore.get, { collection: 'organizations', doc: id })
+}
+
 export default function* sagas() {
   yield all([
     fork(takeEvery, actions.WATCH_ORGANIZATIONS, watchOrganizations),
     fork(takeEvery, actions.UNWATCH_ORGANIZATIONS, unwatchOrganizations),
-    fork(takeEvery, actions.CREATE_ORGANIZATION, createOrganization)
+    fork(takeEvery, actions.CREATE_ORGANIZATION, createOrganization),
+    fork(takeEvery, actions.LOAD_ORGANIZATION, loadOrganization)
   ])
 }

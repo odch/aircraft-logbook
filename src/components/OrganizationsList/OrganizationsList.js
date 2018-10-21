@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { isLoaded } from 'react-redux-firebase'
 import { FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom'
 import { organization } from '../../shapes'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
@@ -90,7 +91,11 @@ class OrganizationsList extends React.Component {
         {organizations.map(organization => (
           <Grid item key={organization.id} sm={4} xs={12}>
             <Card className={classes.card}>
-              <CardActionArea className={classes.actionArea}>
+              <CardActionArea
+                className={classes.actionArea}
+                component={Link}
+                to={`/organizations/${organization.id}`}
+              >
                 <CardContent className={classes.cardContent}>
                   <Typography variant="title">{organization.id}</Typography>
                 </CardContent>
