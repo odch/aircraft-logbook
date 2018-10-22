@@ -12,7 +12,8 @@ describe('components', () => {
           auth: {
             isEmpty: false,
             email: 'test@example.com'
-          }
+          },
+          profile: {}
         }
       })
       const tree = renderIntl(

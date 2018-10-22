@@ -1,4 +1,5 @@
 import { all, takeEvery, fork, call, put } from 'redux-saga/effects'
+import { getFirebase } from 'react-redux-firebase'
 import { getFirestore } from 'redux-firestore'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -110,19 +111,19 @@ describe('modules', () => {
         })
       })
 
-      describe('loadOrganization', () => {
-        it('should load an organization', () => {
-          const loadOrganizationAction = actions.loadOrganization('my_org')
+      describe('selectOrganization', () => {
+        it('should select an organization', () => {
+          const selectOrganizationAction = actions.selectOrganization('my_org')
 
-          const generator = sagas.loadOrganization(loadOrganizationAction)
+          const generator = sagas.selectOrganization(selectOrganizationAction)
 
-          expect(generator.next().value).toEqual(call(getFirestore))
+          expect(generator.next().value).toEqual(call(getFirebase))
 
-          const firestore = {
-            get: () => {}
+          const firebase = {
+            updateProfile: () => {}
           }
-          expect(generator.next(firestore).value).toEqual(
-            call(firestore.get, { collection: 'organizations', doc: 'my_org' })
+          expect(generator.next(firebase).value).toEqual(
+            call(firebase.updateProfile, { selectedOrganization: 'my_org' })
           )
 
           expect(generator.next().done).toEqual(true)
@@ -150,7 +151,11 @@ describe('modules', () => {
                 actions.CREATE_ORGANIZATION,
                 sagas.createOrganization
               ),
-              fork(takeEvery, actions.LOAD_ORGANIZATION, sagas.loadOrganization)
+              fork(
+                takeEvery,
+                actions.SELECT_ORGANIZATION,
+                sagas.selectOrganization
+              )
             ])
           )
         })

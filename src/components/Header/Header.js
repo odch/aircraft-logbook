@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
-import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -9,8 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import AccountMenu from '../../containers/AccountMenuContainer'
 
 const styles = {
   root: {
@@ -36,10 +33,6 @@ class Header extends React.Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null })
-  }
-
-  handleLogout = () => {
-    this.props.logout()
   }
 
   render() {
@@ -71,33 +64,11 @@ class Header extends React.Component {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
+              <AccountMenu
                 open={open}
+                anchorEl={anchorEl}
                 onClose={this.handleClose}
-              >
-                <MenuItem
-                  data-cy="menu-item-organizations"
-                  component={Link}
-                  to="/organizations"
-                >
-                  <FormattedMessage id="menu.account.organizations" />
-                </MenuItem>
-                <MenuItem
-                  data-cy="menu-item-logout"
-                  onClick={this.handleLogout}
-                >
-                  <FormattedMessage id="login.logout" />
-                </MenuItem>
-              </Menu>
+              />
             </div>
           )}
         </Toolbar>
@@ -111,7 +82,6 @@ Header.propTypes = {
     isEmpty: PropTypes.bool.isRequired,
     email: PropTypes.string
   }).isRequired,
-  logout: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 }
 

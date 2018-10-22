@@ -15,6 +15,16 @@ context('Account Navigation', () => {
     cy.url().should('eq', Cypress.config().baseUrl + '/organizations')
   })
 
+  it('navigates to organization detail page', () => {
+    // TODO: enable once Cypress works with Firestore
+    // cy.visit('/organizations/odch')
+    //
+    // cy.get('[data-cy=user-button]').click()
+    // cy.get('[data-cy=menu-item-selected-organization]').click()
+    //
+    // cy.url().should('eq', Cypress.config().baseUrl + '/organizations/odch')
+  })
+
   it('logs out successfully', () => {
     cy.get('[data-cy=user-button]').click()
     cy.get('[data-cy=menu-item-logout]').click()

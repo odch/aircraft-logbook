@@ -46,7 +46,7 @@ describe('containers', () => {
     })
 
     it('should map dispatch to props', () => {
-      const expectedPropKeys = ['logout']
+      const expectedPropKeys = []
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

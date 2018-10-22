@@ -1,14 +1,14 @@
-jest.mock('../components/OrganizationDetail')
+jest.mock('../components/AccountMenu')
 
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import OrganizationDetail from '../components/OrganizationDetail'
-import OrganizationDetailContainer from './OrganizationDetailContainer'
+import AccountMenu from '../components/AccountMenu'
+import AccountMenuContainer from './AccountMenuContainer'
 
 describe('containers', () => {
-  describe('OrganizationDetailContainer', () => {
+  describe('AccountMenuContainer', () => {
     let wrapper
     let component
     let container
@@ -16,8 +16,13 @@ describe('containers', () => {
     beforeEach(() => {
       jest.resetAllMocks()
 
-      const state = {
-        firebase: {},
+      const store = configureStore()({
+        firebase: {
+          auth: {},
+          profile: {
+            selectedOrganization: 'my_org'
+          }
+        },
         firestore: {
           data: {
             organizations: {
@@ -25,27 +30,16 @@ describe('containers', () => {
             }
           }
         }
-      }
-      const store = configureStore()(state)
-
-      const props = {
-        match: {
-          params: {
-            organizationId: 'my_org'
-          }
-        }
-      }
+      })
 
       wrapper = renderer.create(
         <Provider store={store}>
-          <OrganizationDetailContainer {...props} />
+          <AccountMenuContainer />
         </Provider>
       )
 
-      container = wrapper.root.find(
-        el => el.type === OrganizationDetailContainer
-      )
-      component = container.find(el => el.type === OrganizationDetail)
+      container = wrapper.root.find(el => el.type === AccountMenuContainer)
+      component = container.find(el => el.type === AccountMenu)
     })
 
     it('should render both the container and the component ', () => {
@@ -53,8 +47,15 @@ describe('containers', () => {
       expect(component).toBeTruthy()
     })
 
-    it('should map state to props', () => {
-      const expectedPropKeys = ['match', 'organizationId', 'organization']
+    it('should map state and own props to props', () => {
+      const expectedPropKeys = [
+        'auth',
+        'open',
+        'anchorEl',
+        'onClose',
+        'selectedOrganizationId',
+        'organization'
+      ]
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)
@@ -62,7 +63,7 @@ describe('containers', () => {
     })
 
     it('should map dispatch to props', () => {
-      const expectedPropKeys = ['selectOrganization']
+      const expectedPropKeys = ['logout']
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

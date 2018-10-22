@@ -13,8 +13,6 @@ describe('components', () => {
           createDialogData={{ name: '' }}
           openCreateOrganizationDialog={() => {}}
           closeCreateOrganizationDialog={() => {}}
-          watchOrganizations={() => {}}
-          unwatchOrganizations={() => {}}
           updateCreateOrganizationDialogData={() => {}}
           createOrganization={() => {}}
         />
@@ -32,54 +30,12 @@ describe('components', () => {
             createDialogData={{ name: '' }}
             openCreateOrganizationDialog={() => {}}
             closeCreateOrganizationDialog={() => {}}
-            watchOrganizations={() => {}}
-            unwatchOrganizations={() => {}}
             updateCreateOrganizationDialogData={() => {}}
             createOrganization={() => {}}
           />
         </Router>
       ).toJSON()
       expect(tree).toMatchSnapshot()
-    })
-
-    it('calls watchOrganizations when mounted', () => {
-      const watchOrganizations = jest.fn()
-
-      renderIntl(
-        <OrganizationsList
-          watchOrganizations={watchOrganizations}
-          createDialogOpen={false}
-          createDialogData={{ name: '' }}
-          openCreateOrganizationDialog={() => {}}
-          closeCreateOrganizationDialog={() => {}}
-          unwatchOrganizations={() => {}}
-          updateCreateOrganizationDialogData={() => {}}
-          createOrganization={() => {}}
-        />
-      )
-
-      expect(watchOrganizations).toBeCalled()
-    })
-
-    it('call unwatchOrganizations when unmounted', () => {
-      const unwatchOrganizations = jest.fn()
-
-      const instance = renderIntl(
-        <OrganizationsList
-          unwatchOrganizations={unwatchOrganizations}
-          createDialogOpen={false}
-          createDialogData={{ name: '' }}
-          openCreateOrganizationDialog={() => {}}
-          closeCreateOrganizationDialog={() => {}}
-          watchOrganizations={() => {}}
-          updateCreateOrganizationDialogData={() => {}}
-          createOrganization={() => {}}
-        />
-      )
-
-      instance.unmount()
-
-      expect(unwatchOrganizations).toBeCalled()
     })
   })
 })

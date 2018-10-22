@@ -44,14 +44,6 @@ const styles = theme => ({
 })
 
 class OrganizationsList extends React.Component {
-  componentDidMount() {
-    this.props.watchOrganizations()
-  }
-
-  componentWillUnmount() {
-    this.props.unwatchOrganizations()
-  }
-
   handleCreateClick = () => {
     this.props.openCreateOrganizationDialog()
   }
@@ -123,8 +115,6 @@ OrganizationsList.propTypes = {
   openCreateOrganizationDialog: PropTypes.func.isRequired,
   closeCreateOrganizationDialog: PropTypes.func.isRequired,
   updateCreateOrganizationDialogData: PropTypes.func.isRequired,
-  watchOrganizations: PropTypes.func.isRequired,
-  unwatchOrganizations: PropTypes.func.isRequired,
   createOrganization: PropTypes.func.isRequired
 }
 

@@ -1,19 +1,8 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { loadOrganization } from '../modules/organizations'
+import { selectOrganization } from '../modules/organizations'
 import OrganizationDetail from '../components/OrganizationDetail'
-
-const getOrganization = (state, organizationId) => {
-  const organizations = state.firestore.data.organizations
-  if (organizations) {
-    const organization = organizations[organizationId]
-    if (organization) {
-      return { ...organization, id: organizationId }
-    }
-    return null // not found
-  }
-  return undefined // still loading
-}
+import getOrganizationFromState from '../util/getOrganizationFromState'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -24,12 +13,12 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     organizationId: organizationId,
-    organization: getOrganization(state, organizationId)
+    organization: getOrganizationFromState(state, organizationId)
   }
 }
 
 const mapActionCreators = {
-  loadOrganization
+  selectOrganization
 }
 
 export default compose(
