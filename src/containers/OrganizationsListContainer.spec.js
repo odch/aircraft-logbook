@@ -47,7 +47,11 @@ describe('containers', () => {
     })
 
     it('should map state to props', () => {
-      const expectedPropKeys = ['organizations']
+      const expectedPropKeys = [
+        'organizations',
+        'createDialogOpen',
+        'createDialogData'
+      ]
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)
@@ -55,7 +59,12 @@ describe('containers', () => {
     })
 
     it('should map dispatch to props', () => {
-      const expectedPropKeys = []
+      const expectedPropKeys = [
+        'openCreateOrganizationDialog',
+        'closeCreateOrganizationDialog',
+        'updateCreateOrganizationDialogData',
+        'createOrganization'
+      ]
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

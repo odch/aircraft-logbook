@@ -12,7 +12,8 @@ describe('components', () => {
         firebase: {
           auth: {
             isEmpty: false
-          }
+          },
+          profile: {}
         },
         firestore: {
           ordered: {

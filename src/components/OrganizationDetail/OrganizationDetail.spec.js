@@ -12,7 +12,7 @@ describe('components', () => {
         <OrganizationDetail
           organizationId="my_org"
           organization={undefined}
-          loadOrganization={() => {}}
+          selectOrganization={() => {}}
         />
       ).toJSON()
       expect(tree).toMatchSnapshot()
@@ -26,7 +26,7 @@ describe('components', () => {
             <OrganizationDetail
               organizationId="my_org"
               organization={null}
-              loadOrganization={() => {}}
+              selectOrganization={() => {}}
             />
           </Switch>
         </Router>
@@ -40,24 +40,24 @@ describe('components', () => {
           <OrganizationDetail
             organizationId="my_org"
             organization={{ id: 'my_org' }}
-            loadOrganization={() => {}}
+            selectOrganization={() => {}}
           />
         </Router>
       ).toJSON()
       expect(tree).toMatchSnapshot()
     })
 
-    it('calls loadOrganization when mounted', () => {
-      const loadOrganization = jest.fn()
+    it('calls selectOrganization when mounted', () => {
+      const selectOrganization = jest.fn()
 
       renderIntl(
         <OrganizationDetail
           organizationId="my_org"
-          loadOrganization={loadOrganization}
+          selectOrganization={selectOrganization}
         />
       )
 
-      expect(loadOrganization).toBeCalledWith('my_org')
+      expect(selectOrganization).toBeCalledWith('my_org')
     })
   })
 })

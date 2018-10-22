@@ -18,7 +18,11 @@ describe('components', () => {
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <App auth={auth} />
+          <App
+            watchOrganizations={() => {}}
+            unwatchOrganizations={() => {}}
+            auth={auth}
+          />
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
@@ -44,7 +48,11 @@ describe('components', () => {
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <App auth={auth} />
+          <App
+            watchOrganizations={() => {}}
+            unwatchOrganizations={() => {}}
+            auth={auth}
+          />
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
@@ -58,15 +66,78 @@ describe('components', () => {
       }
       const store = configureStore()({
         firebase: {
-          auth
+          auth,
+          profile: {}
         }
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <App auth={auth} />
+          <App
+            watchOrganizations={() => {}}
+            unwatchOrganizations={() => {}}
+            auth={auth}
+          />
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
+    })
+
+    it('calls watchOrganizations when mounted', () => {
+      const auth = {
+        isLoaded: true,
+        isEmpty: false,
+        email: 'test@example.com'
+      }
+      const store = configureStore()({
+        firebase: {
+          auth,
+          profile: {}
+        }
+      })
+
+      const watchOrganizations = jest.fn()
+
+      renderIntl(
+        <Provider store={store}>
+          <App
+            auth={auth}
+            watchOrganizations={watchOrganizations}
+            unwatchOrganizations={() => {}}
+          />
+        </Provider>
+      )
+
+      expect(watchOrganizations).toBeCalled()
+    })
+
+    it('call unwatchOrganizations when unmounted', () => {
+      const auth = {
+        isLoaded: true,
+        isEmpty: false,
+        email: 'test@example.com'
+      }
+      const store = configureStore()({
+        firebase: {
+          auth,
+          profile: {}
+        }
+      })
+
+      const unwatchOrganizations = jest.fn()
+
+      const instance = renderIntl(
+        <Provider store={store}>
+          <App
+            auth={auth}
+            watchOrganizations={() => {}}
+            unwatchOrganizations={unwatchOrganizations}
+          />
+        </Provider>
+      )
+
+      instance.unmount()
+
+      expect(unwatchOrganizations).toBeCalled()
     })
   })
 })

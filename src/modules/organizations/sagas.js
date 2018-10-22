@@ -1,4 +1,5 @@
 import { fork, takeEvery, all, call, put } from 'redux-saga/effects'
+import { getFirebase } from 'react-redux-firebase'
 import { getFirestore } from 'redux-firestore'
 import * as actions from './actions'
 import { error } from '../../util/log'
@@ -28,9 +29,9 @@ export function* createOrganization({ payload: { data } }) {
   }
 }
 
-export function* loadOrganization({ payload: { id } }) {
-  const firestore = yield call(getFirestore)
-  yield call(firestore.get, { collection: 'organizations', doc: id })
+export function* selectOrganization({ payload: { id } }) {
+  const firebase = yield call(getFirebase)
+  yield call(firebase.updateProfile, { selectedOrganization: id })
 }
 
 export default function* sagas() {
@@ -38,6 +39,6 @@ export default function* sagas() {
     fork(takeEvery, actions.WATCH_ORGANIZATIONS, watchOrganizations),
     fork(takeEvery, actions.UNWATCH_ORGANIZATIONS, unwatchOrganizations),
     fork(takeEvery, actions.CREATE_ORGANIZATION, createOrganization),
-    fork(takeEvery, actions.LOAD_ORGANIZATION, loadOrganization)
+    fork(takeEvery, actions.SELECT_ORGANIZATION, selectOrganization)
   ])
 }

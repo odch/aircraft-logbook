@@ -5,7 +5,7 @@ import {
   closeCreateOrganizationDialog,
   updateCreateOrganizationDialogData,
   createOrganization,
-  loadOrganization
+  selectOrganization
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -17,7 +17,7 @@ export {
   closeCreateOrganizationDialog,
   updateCreateOrganizationDialogData,
   createOrganization,
-  loadOrganization
+  selectOrganization
 }
 
 export { sagas }

@@ -20,7 +20,7 @@ const styles = theme => ({
 
 class OrganizationDetail extends React.Component {
   componentDidMount() {
-    this.props.loadOrganization(this.props.organizationId)
+    this.props.selectOrganization(this.props.organizationId)
   }
 
   render() {
@@ -46,7 +46,7 @@ OrganizationDetail.propTypes = {
   organizationId: PropTypes.string.isRequired,
   organization: organizationShape,
   classes: PropTypes.object.isRequired,
-  loadOrganization: PropTypes.func.isRequired
+  selectOrganization: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(OrganizationDetail)

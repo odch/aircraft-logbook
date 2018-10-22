@@ -15,6 +15,14 @@ import ProtectedRoute from '../ProtectedRoute'
 import LoadingIcon from './LoadingIcon'
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.watchOrganizations()
+  }
+
+  componentWillUnmount() {
+    this.props.unwatchOrganizations()
+  }
+
   render() {
     if (!this.props.auth.isLoaded) {
       return <LoadingIcon />
@@ -54,7 +62,9 @@ App.propTypes = {
   auth: PropTypes.shape({
     isLoaded: PropTypes.bool.isRequired,
     isEmpty: PropTypes.bool.isRequired
-  })
+  }),
+  watchOrganizations: PropTypes.func.isRequired,
+  unwatchOrganizations: PropTypes.func.isRequired
 }
 
 export default App
