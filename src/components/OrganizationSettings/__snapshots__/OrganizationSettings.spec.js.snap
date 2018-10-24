@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components OrganizationSettings redirects to start page if organization was not found 1`] = `
+<div>
+  Start Page
+</div>
+`;
+
+exports[`components OrganizationSettings renders loading icon if organization not loaded 1`] = `
+<div
+  className="LoadingIcon-container-4"
+>
+  <div
+    className="MuiCircularProgress-root-6 MuiCircularProgress-colorPrimary-9 MuiCircularProgress-indeterminate-8 LoadingIcon-icon-5"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-11"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-12 MuiCircularProgress-circleIndeterminate-14"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`components OrganizationSettings renders organization settings if loaded 1`] = `
+<div
+  className="InjectIntl-OrganizationSettings--container-1"
+>
+  <h2
+    className="MuiTypography-root-15 MuiTypography-title-21"
+  >
+    my_org
+  </h2>
+  <hr
+    className="MuiDivider-root-41 InjectIntl-OrganizationSettings--divider-2"
+  />
+  <div
+    className="InjectIntl-OrganizationSettings--deleteButtonContainer-3"
+  >
+    <button
+      className="MuiButtonBase-root-73 MuiButton-root-47 MuiButton-text-49 MuiButton-flat-52 DeleteButton-button-45"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-48"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-76 DeleteButton-leftIcon-46"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+          />
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+        </svg>
+        Organisation löschen
+      </span>
+      <span
+        className="MuiTouchRipple-root-85"
+      />
+    </button>
+  </div>
+</div>
+`;

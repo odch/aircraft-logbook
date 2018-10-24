@@ -34,6 +34,16 @@ class AccountMenu extends React.Component {
           >
             {this.props.organization.id}
           </MenuItem>,
+          <MenuItem
+            data-cy="menu-item-selected-organization-settings"
+            component={Link}
+            to={`/organizations/${this.props.organization.id}/settings`}
+            key={`menu-item-selected-organization-settings-${
+              this.props.organization.id
+            }`}
+          >
+            <FormattedMessage id="menu.account.organizationsettings" />
+          </MenuItem>,
           <Divider key="selected-organization-divider" />
         ]}
         <MenuItem
