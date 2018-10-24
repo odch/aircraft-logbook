@@ -34,11 +34,23 @@ export function* selectOrganization({ payload: { id } }) {
   yield call(firebase.updateProfile, { selectedOrganization: id })
 }
 
+export function* deleteOrganization({ payload: { id } }) {
+  try {
+    const firestore = yield call(getFirestore)
+    yield call(firestore.delete, { collection: 'organizations', doc: id }, {})
+    yield put(actions.deleteOrganizationSuccess())
+  } catch (e) {
+    error(`Failed to delete organization ${id}`, e)
+    yield put(actions.deleteOrganizationFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     fork(takeEvery, actions.WATCH_ORGANIZATIONS, watchOrganizations),
     fork(takeEvery, actions.UNWATCH_ORGANIZATIONS, unwatchOrganizations),
     fork(takeEvery, actions.CREATE_ORGANIZATION, createOrganization),
-    fork(takeEvery, actions.SELECT_ORGANIZATION, selectOrganization)
+    fork(takeEvery, actions.SELECT_ORGANIZATION, selectOrganization),
+    fork(takeEvery, actions.DELETE_ORGANIZATION, deleteOrganization)
   ])
 }

@@ -10,10 +10,17 @@
   "registration.register": "Registrieren",
   "registration.failed": "Die Registrierung ist fehlgeschlagen.",
   "menu.account.organizations": "Meine Organisationen",
+  "menu.account.organizationsettings": "Organisationseinstellungen",
   "organizations.create": "Neue Organisation erstellen",
   "organizations.create.dialog.title": "Neue Organisation erstellen",
   "organizations.create.dialog.text": "Trage im folgenden Feld den Namen deiner Organisation ein.",
   "organizations.create.dialog.name": "Name",
   "organizations.create.dialog.buttons.cancel": "Abbrechen",
-  "organizations.create.dialog.buttons.create": "Erstellen"
+  "organizations.create.dialog.buttons.create": "Erstellen",
+  "organizations.delete": "Organisation löschen",
+  "organizations.delete.dialog.title": "Organisation löschen",
+  "organizations.delete.dialog.text": "Gib den Namen deiner Organisation ein, um die Organisation zu löschen:",
+  "organizations.delete.dialog.id": "Name",
+  "organizations.delete.dialog.buttons.cancel": "Abbrechen",
+  "organizations.delete.dialog.buttons.delete": "Organisation löschen"
 }

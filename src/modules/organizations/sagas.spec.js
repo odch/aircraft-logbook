@@ -73,7 +73,7 @@ describe('modules', () => {
           expect(generator.next().done).toEqual(true)
         })
 
-        it('should put CREATE_ORGANIZATION_FAILRE if it fails', () => {
+        it('should put CREATE_ORGANIZATION_FAILURE if it fails', () => {
           const createOrganization = actions.createOrganization({
             name: 'my_org'
           })
@@ -130,6 +130,68 @@ describe('modules', () => {
         })
       })
 
+      describe('deleteOrganization', () => {
+        it('should delete an organization', () => {
+          const action = actions.deleteOrganization('my_org')
+
+          const generator = sagas.deleteOrganization(action)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            delete: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(
+              firestore.delete,
+              { collection: 'organizations', doc: 'my_org' },
+              {}
+            )
+          )
+
+          expect(generator.next().value).toEqual(
+            put(actions.deleteOrganizationSuccess())
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should put DELETE_ORGANIZATION_FAILURE if it fails', () => {
+          const action = actions.deleteOrganization('my_org')
+
+          const generator = sagas.deleteOrganization(action)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            delete: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(
+              firestore.delete,
+              { collection: 'organizations', doc: 'my_org' },
+              {}
+            )
+          )
+
+          // eslint-disable-next-line no-console
+          console.error = jest.fn()
+
+          const error = new Error('Failed to delete the document')
+          expect(generator.throw(error).value).toEqual(
+            put(actions.deleteOrganizationFailure())
+          )
+
+          // eslint-disable-next-line no-console
+          expect(console.error).toBeCalledWith(
+            'Failed to delete organization my_org',
+            error
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -155,6 +217,11 @@ describe('modules', () => {
                 takeEvery,
                 actions.SELECT_ORGANIZATION,
                 sagas.selectOrganization
+              ),
+              fork(
+                takeEvery,
+                actions.DELETE_ORGANIZATION,
+                sagas.deleteOrganization
               )
             ])
           )
