@@ -5,8 +5,10 @@ import {
   unwatchOrganizations
 } from '../modules/organizations'
 
+const DEFAULT_AUTH = { isLoaded: false, isEmpty: true }
+
 const mapStateToProps = (state /*, ownProps*/) => ({
-  auth: state.firebase.auth
+  auth: state.firebase ? state.firebase.auth : DEFAULT_AUTH
 })
 
 const mapActionCreators = {

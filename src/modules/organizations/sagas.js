@@ -1,6 +1,5 @@
 import { fork, takeEvery, all, call, put } from 'redux-saga/effects'
-import { getFirebase } from 'react-redux-firebase'
-import { getFirestore } from 'redux-firestore'
+import { getFirebase, getFirestore } from '../../util/firebase'
 import * as actions from './actions'
 import { error } from '../../util/log'
 

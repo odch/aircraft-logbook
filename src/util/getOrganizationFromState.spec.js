@@ -4,8 +4,8 @@ describe('util', () => {
   describe('getOrganizationFromState', () => {
     it('should return undefined if organizations map undefined', () => {
       // correspondends to the state where organizations haven't been loaded yet
-      // --> `isLoaded` from 'react-redux-firebase' will return `true` for
-      //     `undefined` values, which is what we want to achieve
+      // --> `isLoaded` will return `true` for `undefined` values,
+      //     which is what we want to achieve
 
       const state = {
         firestore: {
