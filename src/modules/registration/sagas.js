@@ -1,5 +1,5 @@
 import { fork, put, takeLatest, all, call } from 'redux-saga/effects'
-import { getFirebase } from 'react-redux-firebase'
+import { getFirebase } from '../../util/firebase'
 import * as actions from './actions'
 import { error } from '../../util/log'
 

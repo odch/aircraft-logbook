@@ -4,16 +4,10 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
-import 'firebase/firestore'
-import 'firebase/functions'
-import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase'
-import { reduxFirestore, firestoreReducer } from 'redux-firestore'
 import { IntlProvider, addLocaleData } from 'react-intl'
 import de from 'react-intl/locale-data/de'
 
+import { initFirebase } from './util/firebase'
 import mainReducer, { sagas } from './modules'
 import autoRestartSaga from './util/autoRestartSaga'
 import messages from './messages'
@@ -23,35 +17,39 @@ const LOCALE = 'de'
 
 addLocaleData([...de])
 
-const reactReduxFirebaseConfig = {
-  userProfile: 'users',
-  useFirestoreForProfile: true
+const createReducer = asyncReducers => {
+  return combineReducers({
+    app: mainReducer,
+    ...asyncReducers
+  })
 }
 
-firebase.initializeApp(__CONF__)
-
-firebase.firestore().settings({ timestampsInSnapshots: true })
-
-const rootReducer = combineReducers({
-  app: mainReducer,
-  firebase: firebaseReducer,
-  firestore: firestoreReducer
-})
+const rootReducer = createReducer()
 
 const sagaMiddleware = createSagaMiddleware()
 
 const middleware = [sagaMiddleware]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const enhancer = composeEnhancers(
-  reduxFirestore(firebase),
-  reactReduxFirebase(firebase, reactReduxFirebaseConfig),
-  applyMiddleware(...middleware)
-)
+const enhancer = composeEnhancers(applyMiddleware(...middleware))
 
 const initialState = {}
 const store = createStore(rootReducer, initialState, enhancer)
+
+store.injectEnhancer = enhancer => {
+  const next = () => store
+
+  // Should actually be called with `reducer`, `initialState` and `middleware`
+  enhancer(next)()
+}
+
+store.asyncReducers = {}
+store.injectReducer = (name, reducer) => {
+  store.asyncReducers[name] = reducer
+  store.replaceReducer(createReducer(store.asyncReducers))
+}
+
+initFirebase(store)
 
 sagaMiddleware.run(autoRestartSaga(sagas))
 
@@ -65,7 +63,3 @@ render(
 )
 
 module.hot.accept()
-
-if (window.Cypress) {
-  window.firebase = firebase
-}

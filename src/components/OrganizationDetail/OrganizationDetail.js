@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isLoaded } from 'react-redux-firebase'
 import { Redirect } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
+import isLoaded from '../../util/isLoaded'
 import { organization as organizationShape } from '../../shapes'
 import LoadingIcon from '../LoadingIcon'
 
