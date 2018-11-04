@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call, put } from 'redux-saga/effects'
+import { all, takeEvery, fork, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -6,6 +6,65 @@ import * as sagas from './sagas'
 describe('modules', () => {
   describe('organizations', () => {
     describe('sagas', () => {
+      describe('getCurrentUser', () => {
+        it('should return the current user', () => {
+          const generator = sagas.getCurrentUser()
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            select(sagas.uidSelector)
+          )
+
+          const uid = 'test-user-uid'
+
+          expect(generator.next(uid).value).toEqual(
+            call(firestore.get, {
+              collection: 'users',
+              doc: uid
+            })
+          )
+
+          const user = {}
+
+          const next = generator.next(user)
+
+          expect(next.done).toEqual(true)
+          expect(next.value).toEqual(user)
+        })
+
+        it('should throw an error if the current user could not be found', () => {
+          const generator = sagas.getCurrentUser()
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            select(sagas.uidSelector)
+          )
+
+          const uid = 'test-user-uid'
+
+          expect(generator.next(uid).value).toEqual(
+            call(firestore.get, {
+              collection: 'users',
+              doc: uid
+            })
+          )
+
+          const user = null
+
+          expect(() => {
+            generator.next(user)
+          }).toThrow('User for id test-user-uid not found')
+        })
+      })
+
       describe('watchOrganizations', () => {
         it('should watch the organizations collection', () => {
           const watchOrganizationsAction = actions.watchOrganizations()
@@ -17,8 +76,20 @@ describe('modules', () => {
           const firestore = {
             setListener: () => {}
           }
+
           expect(generator.next(firestore).value).toEqual(
-            call(firestore.setListener, { collection: 'organizations' })
+            call(sagas.getCurrentUser)
+          )
+
+          const currentUser = {
+            ref: {}
+          }
+
+          expect(generator.next(currentUser).value).toEqual(
+            call(firestore.setListener, {
+              collection: 'organizations',
+              where: ['owner', '==', currentUser.ref]
+            })
           )
 
           expect(generator.next().done).toEqual(true)
@@ -57,11 +128,19 @@ describe('modules', () => {
           const firestore = {
             set: () => {}
           }
+
           expect(generator.next(firestore).value).toEqual(
+            call(sagas.getCurrentUser)
+          )
+
+          const currentUser = {
+            ref: {}
+          }
+          expect(generator.next(currentUser).value).toEqual(
             call(
               firestore.set,
               { collection: 'organizations', doc: 'my_org' },
-              {}
+              { owner: currentUser.ref }
             )
           )
 
@@ -84,11 +163,19 @@ describe('modules', () => {
           const firestore = {
             set: () => {}
           }
+
           expect(generator.next(firestore).value).toEqual(
+            call(sagas.getCurrentUser)
+          )
+
+          const currentUser = {
+            ref: {}
+          }
+          expect(generator.next(currentUser).value).toEqual(
             call(
               firestore.set,
               { collection: 'organizations', doc: 'my_org' },
-              {}
+              { owner: currentUser.ref }
             )
           )
 

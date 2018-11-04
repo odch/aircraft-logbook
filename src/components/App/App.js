@@ -20,6 +20,10 @@ class App extends React.Component {
     this.props.watchOrganizations()
   }
 
+  componentDidUpdate() {
+    this.props.watchOrganizations()
+  }
+
   componentWillUnmount() {
     this.props.unwatchOrganizations()
   }
