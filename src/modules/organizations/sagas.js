@@ -1,11 +1,35 @@
-import { fork, takeEvery, all, call, put } from 'redux-saga/effects'
+import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../util/firebase'
 import * as actions from './actions'
 import { error } from '../../util/log'
 
+export const uidSelector = state => state.firebase.auth.uid
+
+export function* getCurrentUser() {
+  const firestore = yield call(getFirestore)
+  const uid = yield select(uidSelector)
+  if (uid) {
+    const user = yield call(firestore.get, {
+      collection: 'users',
+      doc: uid
+    })
+    if (!user) {
+      throw new Error(`User for id ${uid} not found`)
+    }
+    return user
+  }
+  return null
+}
+
 export function* watchOrganizations() {
   const firestore = yield call(getFirestore)
-  yield call(firestore.setListener, { collection: 'organizations' })
+  const user = yield call(getCurrentUser)
+  if (user) {
+    yield call(firestore.setListener, {
+      collection: 'organizations',
+      where: ['owner', '==', user.ref]
+    })
+  }
 }
 
 export function* unwatchOrganizations() {
@@ -16,10 +40,16 @@ export function* unwatchOrganizations() {
 export function* createOrganization({ payload: { data } }) {
   try {
     const firestore = yield call(getFirestore)
+    const user = yield call(getCurrentUser)
     yield call(
       firestore.set,
-      { collection: 'organizations', doc: data.name },
-      {}
+      {
+        collection: 'organizations',
+        doc: data.name
+      },
+      {
+        owner: user.ref
+      }
     )
     yield put(actions.createOrganizationSuccess())
   } catch (e) {

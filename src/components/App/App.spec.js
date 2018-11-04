@@ -82,23 +82,28 @@ describe('components', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    it('calls watchOrganizations when mounted', () => {
-      const auth = {
+    it('calls watchOrganizations when mounted and updated', () => {
+      const authNotLoaded = {
+        isLoaded: false,
+        isEmpty: true
+      }
+      const authLoaded = {
         isLoaded: true,
         isEmpty: false,
         email: 'test@example.com'
       }
-      const store = configureStore()({
-        firebase: {
-          auth,
-          profile: {}
-        }
-      })
+      const store = auth =>
+        configureStore()({
+          firebase: {
+            auth,
+            profile: {}
+          }
+        })
 
       const watchOrganizations = jest.fn()
 
-      renderIntl(
-        <Provider store={store}>
+      const app = auth => (
+        <Provider store={store(auth)}>
           <App
             auth={auth}
             watchOrganizations={watchOrganizations}
@@ -107,7 +112,13 @@ describe('components', () => {
         </Provider>
       )
 
-      expect(watchOrganizations).toBeCalled()
+      const instance = renderIntl(app(authNotLoaded))
+
+      expect(watchOrganizations).toHaveBeenCalledTimes(1)
+
+      instance.update(app(authLoaded))
+
+      expect(watchOrganizations).toHaveBeenCalledTimes(2)
     })
 
     it('call unwatchOrganizations when unmounted', () => {
