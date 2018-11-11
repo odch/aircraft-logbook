@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import App from '../components/App'
-import {
-  watchOrganizations,
-  unwatchOrganizations
-} from '../modules/organizations'
+import { watchOrganizations, unwatchOrganizations } from '../modules/app'
 
 const DEFAULT_AUTH = { isLoaded: false, isEmpty: true }
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import AccountMenu from '../components/AccountMenu'
-import { logout } from '../modules/login'
+import { logout } from '../modules/app'
 import getOrganizationFromState from '../util/getOrganizationFromState'
 
 const mapStateToProps = (state, ownProps) => ({
