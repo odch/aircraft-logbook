@@ -3,6 +3,7 @@ import React from 'react'
 import asyncRoute from './asyncRoute'
 
 const loadedComponents = {}
+const historyListeners = {}
 
 export const loadRoute = (
   id,
@@ -29,6 +30,29 @@ export const loadRoute = (
                 store.injectSaga(saga)
               })
             }
+
+            if (route.onLoad) {
+              route.onLoad(store, props)
+            }
+
+            if (route.historyListeners) {
+              for (const name in route.historyListeners) {
+                if (route.historyListeners.hasOwnProperty(name)) {
+                  const existingListener = historyListeners[name]
+                  if (existingListener) {
+                    existingListener.unlisten()
+                  }
+
+                  const unlisten = props.router.history.listen(location => {
+                    route.historyListeners[name](store, location)
+                  })
+                  historyListeners[name] = {
+                    unlisten
+                  }
+                }
+              }
+            }
+
             resolve(route.container)
           })
         })

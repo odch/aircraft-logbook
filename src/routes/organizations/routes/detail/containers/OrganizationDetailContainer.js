@@ -1,6 +1,5 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { selectOrganization } from '../../../module'
 import OrganizationDetail from '../components/OrganizationDetail'
 import getOrganizationFromState from '../../../../../util/getOrganizationFromState'
 
@@ -12,14 +11,11 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
-    organizationId: organizationId,
     organization: getOrganizationFromState(state, organizationId)
   }
 }
 
-const mapActionCreators = {
-  selectOrganization
-}
+const mapActionCreators = {}
 
 export default compose(
   connect(

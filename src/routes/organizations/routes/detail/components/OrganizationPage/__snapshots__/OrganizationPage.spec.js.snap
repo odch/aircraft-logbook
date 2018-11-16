@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components OrganizationPage renders correctly 1`] = `
+exports[`routes organizations routes detail components OrganizationPage renders correctly 1`] = `
 Array [
   <header
     className="MuiPaper-root-13 MuiPaper-elevation4-19 MuiAppBar-root-4 MuiAppBar-positionStatic-8 MuiAppBar-colorPrimary-11"

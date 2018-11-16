@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components OrganizationSettings redirects to start page if organization was not found 1`] = `
+exports[`routes organizations routes settings components OrganizationSettings redirects to start page if organization was not found 1`] = `
 <div>
   Start Page
 </div>
 `;
 
-exports[`components OrganizationSettings renders loading icon if organization not loaded 1`] = `
+exports[`routes organizations routes settings components OrganizationSettings renders loading icon if organization not loaded 1`] = `
 <div
   className="LoadingIcon-container-4"
 >
@@ -38,7 +38,7 @@ exports[`components OrganizationSettings renders loading icon if organization no
 </div>
 `;
 
-exports[`components OrganizationSettings renders organization settings if loaded 1`] = `
+exports[`routes organizations routes settings components OrganizationSettings renders organization settings if loaded 1`] = `
 <div
   className="InjectIntl-OrganizationSettings--container-1"
 >
