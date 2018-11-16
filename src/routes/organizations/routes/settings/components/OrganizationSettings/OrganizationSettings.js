@@ -33,10 +33,6 @@ class OrganizationSettings extends React.Component {
     deleteDialogOpen: false
   }
 
-  componentDidMount() {
-    this.props.selectOrganization(this.props.organizationId)
-  }
-
   handleDeleteButtonClick = () => {
     this.setState({
       deleteDialogOpen: true
@@ -84,10 +80,8 @@ class OrganizationSettings extends React.Component {
 }
 
 OrganizationSettings.propTypes = {
-  organizationId: PropTypes.string.isRequired,
   organization: organizationShape,
   classes: PropTypes.object.isRequired,
-  selectOrganization: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
   intl: intlShape
 }
