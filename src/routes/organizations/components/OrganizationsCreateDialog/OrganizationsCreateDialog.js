@@ -25,7 +25,11 @@ class OrganizationsCreateDialog extends React.Component {
 
   render() {
     return (
-      <Dialog open={this.props.open} onClose={this.props.onClose}>
+      <Dialog
+        open={this.props.open}
+        onClose={this.props.onClose}
+        data-cy="organization-create-dialog"
+      >
         <DialogTitle>
           <FormattedMessage id="organizations.create.dialog.title" />
         </DialogTitle>
@@ -46,13 +50,14 @@ class OrganizationsCreateDialog extends React.Component {
               required
               value={this.props.data.name}
               onChange={this.handleNameChange}
+              data-cy="name-field"
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.onClose} color="primary">
               <FormattedMessage id="organizations.create.dialog.buttons.cancel" />
             </Button>
-            <Button type="submit" color="primary">
+            <Button type="submit" color="primary" data-cy="create-button">
               <FormattedMessage id="organizations.create.dialog.buttons.create" />
             </Button>
           </DialogActions>

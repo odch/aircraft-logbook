@@ -40,6 +40,7 @@ class OrganizationDeleteDialog extends React.Component {
         open={this.props.open}
         onClose={this.props.onClose}
         onExited={this.handleExited}
+        data-cy="organization-delete-dialog"
       >
         <DialogTitle>
           <FormattedMessage id="organizations.delete.dialog.title" />
@@ -63,6 +64,7 @@ class OrganizationDeleteDialog extends React.Component {
               required
               value={this.state.id}
               onChange={this.handleIdChange}
+              data-cy="organization-id-field"
             />
           </DialogContent>
           <DialogActions>
@@ -77,6 +79,7 @@ class OrganizationDeleteDialog extends React.Component {
               label={this.props.intl.formatMessage({
                 id: 'organizations.delete.dialog.buttons.delete'
               })}
+              data-cy="organization-delete-button"
             />
           </DialogActions>
         </form>

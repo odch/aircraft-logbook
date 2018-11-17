@@ -109,6 +109,7 @@ Array [
     >
       <div
         className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-202 OrganizationsList-card-100"
+        data-cy="organization-create-button"
       >
         <button
           className="MuiButtonBase-root-50 MuiCardActionArea-root-203 OrganizationsList-actionArea-102"

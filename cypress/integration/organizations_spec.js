@@ -1,17 +1,48 @@
 context('Organizations', () => {
-  // TODO: implement tests once Cypress works with Firestore
-  // https://github.com/cypress-io/cypress/issues/1150
-
-  it('lists all organizations', () => {
-    // eslint-disable-next-line no-console
-    console.log('TODO: implement test')
-    //   cy.visit('/organizations')
-    //   cy.get('organizations-list').contains('odch')
-    //   cy.get('organizations-list').contains('cypress-flying-club')
+  beforeEach(() => {
+    cy.visit('/')
+    cy.login('cypress@opendigital.ch', 'cypress')
   })
 
-  it('create a new organization', () => {
-    // eslint-disable-next-line no-console
-    console.log('TODO: implement test')
+  afterEach(() => {
+    cy.logout()
+  })
+
+  it('lists all organizations', () => {
+    cy.visit('/organizations')
+    cy.get('[data-cy=organizations-list]').contains('odch')
+    cy.get('[data-cy=organizations-list]').contains('cypress-flying-club')
+  })
+
+  it('create and delete an organization', () => {
+    cy.visit('/organizations')
+
+    cy.get('[data-cy=organization-create-button]').click()
+
+    cy.get(
+      '[data-cy=organization-create-dialog] [data-cy=name-field] input'
+    ).type('my-test-org')
+    cy.get(
+      '[data-cy=organization-create-dialog] [data-cy=create-button]'
+    ).click()
+
+    cy.wait(500)
+
+    cy.get('[data-cy=organizations-list]').contains('my-test-org')
+
+    cy.visit('/organizations/my-test-org/settings')
+
+    cy.get('[data-cy=organization-title]').contains('my-test-org')
+
+    cy.get('[data-cy=organization-delete-button]').click()
+
+    cy.get(
+      '[data-cy=organization-delete-dialog] [data-cy=organization-id-field] input'
+    ).type('my-test-org')
+    cy.get(
+      '[data-cy=organization-delete-dialog] [data-cy=organization-delete-button]'
+    ).click()
+
+    cy.url().should('eq', Cypress.config().baseUrl + '/')
   })
 })

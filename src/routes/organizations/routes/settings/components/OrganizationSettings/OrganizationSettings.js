@@ -58,7 +58,9 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="title">{organization.id}</Typography>
+        <Typography variant="title" data-cy="organization-title">
+          {organization.id}
+        </Typography>
         <Divider className={classes.divider} />
         <div className={classes.deleteButtonContainer}>
           <DeleteButton
@@ -66,6 +68,7 @@ class OrganizationSettings extends React.Component {
               id: 'organizations.delete'
             })}
             onClick={this.handleDeleteButtonClick}
+            data-cy="organization-delete-button"
           />
         </div>
         <OrganizationDeleteDialog

@@ -42,6 +42,7 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
   >
     <div
       className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
+      data-cy="organization-create-button"
     >
       <button
         className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"

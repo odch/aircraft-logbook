@@ -44,6 +44,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
 >
   <h2
     className="MuiTypography-root-15 MuiTypography-title-21"
+    data-cy="organization-title"
   >
     my_org
   </h2>
@@ -55,6 +56,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
   >
     <button
       className="MuiButtonBase-root-73 MuiButton-root-47 MuiButton-text-49 MuiButton-flat-52 DeleteButton-button-45"
+      data-cy="organization-delete-button"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
