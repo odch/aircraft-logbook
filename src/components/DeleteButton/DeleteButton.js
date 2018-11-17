@@ -20,9 +20,11 @@ const DeleteButton = ({
   type,
   color,
   variant,
-  disabled
+  disabled,
+  ...other
 }) => (
   <Button
+    {...other}
     className={classes.button}
     onClick={onClick}
     type={type}

@@ -66,7 +66,7 @@ class OrganizationsList extends React.Component {
         data-cy="organizations-list"
       >
         <Grid item key="new" sm={4} xs={12}>
-          <Card className={classes.card}>
+          <Card className={classes.card} data-cy="organization-create-button">
             <CardActionArea
               className={classes.actionArea}
               onClick={this.handleCreateClick}

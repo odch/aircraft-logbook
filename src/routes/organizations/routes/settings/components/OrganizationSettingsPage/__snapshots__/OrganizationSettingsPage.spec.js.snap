@@ -105,6 +105,7 @@ Array [
   >
     <h2
       className="MuiTypography-root-69 MuiTypography-title-75"
+      data-cy="organization-title"
     >
       my_org
     </h2>
@@ -116,6 +117,7 @@ Array [
     >
       <button
         className="MuiButtonBase-root-50 MuiButton-root-108 MuiButton-text-110 MuiButton-flat-113 DeleteButton-button-106"
+        data-cy="organization-delete-button"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
