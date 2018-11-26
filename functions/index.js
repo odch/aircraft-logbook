@@ -30,3 +30,42 @@ exports.deleteTestUser = functions.https.onRequest((req, res) => {
     }
   })
 })
+
+const updateUserOrganizations = (change, fieldName, organizationRef) => {
+  const data = change.after.data()
+  const previousData = change.before.data()
+
+  if (data && previousData && data[fieldName] == previousData[fieldName]) {
+    return null
+  }
+
+  const promises = []
+
+  if (previousData && previousData[fieldName]) {
+    promises.push(
+      previousData[fieldName].update({
+        organizations: admin.firestore.FieldValue.arrayRemove(organizationRef)
+      })
+    )
+  }
+
+  if (data && data[fieldName]) {
+    promises.push(
+      data[fieldName].update({
+        organizations: admin.firestore.FieldValue.arrayUnion(organizationRef)
+      })
+    )
+  }
+
+  return Promise.all(promises)
+}
+
+exports.updateUserOrganizationsOnOrganizationWrite = functions.firestore
+  .document('organizations/{organizationID}')
+  .onWrite(change => updateUserOrganizations(change, 'owner', change.after.ref))
+
+exports.updateUserOrganizationsOnMemberWrite = functions.firestore
+  .document('organizations/{organizationID}/members/{memberID}')
+  .onWrite(change =>
+    updateUserOrganizations(change, 'user', change.after.ref.parent.parent)
+  )
