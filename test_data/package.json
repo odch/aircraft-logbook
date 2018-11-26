@@ -1,0 +1,13 @@
+{
+  "name": "test_data",
+  "description": "Test data importer",
+  "scripts": {
+    "import_data": "node import.js"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.0",
+    "js-yaml": "^3.12.0",
+    "moment": "^2.22.2"
+  },
+  "private": true
+}
