@@ -9,7 +9,7 @@ import {
 } from '../module'
 
 const mapStateToProps = (state /*, ownProps*/) => ({
-  organizations: state.firestore.ordered.organizations,
+  organizations: state.main.app.organizations,
   createDialogOpen: state.organizations.createDialogOpen,
   createDialogData: state.organizations.createDialogData
 })

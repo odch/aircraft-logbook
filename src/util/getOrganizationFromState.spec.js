@@ -8,8 +8,8 @@ describe('util', () => {
       //     which is what we want to achieve
 
       const state = {
-        firestore: {
-          data: {
+        main: {
+          app: {
             organizations: undefined
           }
         }
@@ -21,11 +21,9 @@ describe('util', () => {
 
     it('should return null if organizations map exists but organization is not found', () => {
       const state = {
-        firestore: {
-          data: {
-            organizations: {
-              some_org: {}
-            }
+        main: {
+          app: {
+            organizations: [{ id: 'some_org' }]
           }
         }
       }
@@ -36,12 +34,9 @@ describe('util', () => {
 
     it('should return found organization', () => {
       const state = {
-        firestore: {
-          data: {
-            organizations: {
-              some_org: {},
-              my_org: {}
-            }
+        main: {
+          app: {
+            organizations: [{ id: 'some_org' }, { id: 'my_org' }]
           }
         }
       }
