@@ -15,8 +15,9 @@ describe('components', () => {
           },
           profile: {}
         },
-        firestore: {
-          ordered: {
+        firestore: {},
+        main: {
+          app: {
             organizations: [{ id: 'org1' }, { id: 'org2' }, { id: 'org3' }]
           }
         },

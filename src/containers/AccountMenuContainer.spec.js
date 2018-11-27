@@ -23,11 +23,9 @@ describe('containers', () => {
             selectedOrganization: 'my_org'
           }
         },
-        firestore: {
-          data: {
-            organizations: {
-              my_org: {}
-            }
+        main: {
+          app: {
+            organizations: [{ id: 'my_org' }]
           }
         }
       })

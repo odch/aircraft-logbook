@@ -90,7 +90,7 @@ describe('modules', () => {
             call(
               firestore.set,
               { collection: 'organizations', doc: 'my_org' },
-              { owner: currentUser.ref }
+              { id: 'my_org', owner: currentUser.ref }
             )
           )
 
@@ -125,7 +125,7 @@ describe('modules', () => {
             call(
               firestore.set,
               { collection: 'organizations', doc: 'my_org' },
-              { owner: currentUser.ref }
+              { id: 'my_org', owner: currentUser.ref }
             )
           )
 

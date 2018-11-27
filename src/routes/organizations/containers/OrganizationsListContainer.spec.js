@@ -18,8 +18,8 @@ describe('containers', () => {
 
       const state = {
         firebase: {},
-        firestore: {
-          ordered: {}
+        main: {
+          app: {}
         },
         organizations: {
           createDialogOpen: false

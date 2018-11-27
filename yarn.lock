@@ -3702,6 +3702,10 @@ ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
 
+immer@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.5.0.tgz#1ed9b1b653643fe9276bbc36377613523ea32a39"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -4872,7 +4876,7 @@ lodash@4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
-lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5:
+lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -6246,12 +6250,17 @@ recompose@^0.29.0:
     react-lifecycles-compat "^3.0.2"
     symbol-observable "^1.0.4"
 
-redux-firestore@^0.5.8:
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.5.8.tgz#fb73777a629350896f0e0ef7a3a4c8fa0a8b04aa"
+reduce-reducers@0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-0.4.3.tgz#8e052618801cd8fc2714b4915adaa8937eb6d66c"
+
+redux-firestore@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.6.0.tgz#802c75aae6adece3c49f9d6fccc5f18899aa4caf"
   dependencies:
-    lodash "^4.17.10"
-    prop-types "^15.6.1"
+    immer "1.5.0"
+    lodash "^4.17.11"
+    reduce-reducers "0.4.3"
 
 redux-mock-store@^1.5.3:
   version "1.5.3"

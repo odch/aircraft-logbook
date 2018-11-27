@@ -19,11 +19,9 @@ describe('routes', () => {
                   },
                   profile: {}
                 },
-                firestore: {
-                  data: {
-                    organizations: {
-                      my_org: {}
-                    }
+                main: {
+                  app: {
+                    organizations: [{ id: 'my_org' }]
                   }
                 }
               }

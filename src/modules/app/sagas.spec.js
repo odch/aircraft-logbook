@@ -1,5 +1,6 @@
-import { all, takeEvery, fork, call, select } from 'redux-saga/effects'
-import { constants } from 'react-redux-firebase'
+import { all, takeEvery, fork, call, select, put } from 'redux-saga/effects'
+import { constants as reduxFirebaseConstants } from 'react-redux-firebase'
+import { constants as reduxFirestoreConstants } from 'redux-firestore'
 import { getFirebase, getFirestore } from '../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -7,70 +8,9 @@ import * as sagas from './sagas'
 describe('modules', () => {
   describe('app', () => {
     describe('sagas', () => {
-      describe('getCurrentUser', () => {
-        it('should return the current user', () => {
-          const generator = sagas.getCurrentUser()
-
-          expect(generator.next().value).toEqual(call(getFirestore))
-
-          const firestore = {
-            get: () => {}
-          }
-          expect(generator.next(firestore).value).toEqual(
-            select(sagas.uidSelector)
-          )
-
-          const uid = 'test-user-uid'
-
-          expect(generator.next(uid).value).toEqual(
-            call(firestore.get, {
-              collection: 'users',
-              doc: uid
-            })
-          )
-
-          const user = {}
-
-          const next = generator.next(user)
-
-          expect(next.done).toEqual(true)
-          expect(next.value).toEqual(user)
-        })
-
-        it('should throw an error if the current user could not be found', () => {
-          const generator = sagas.getCurrentUser()
-
-          expect(generator.next().value).toEqual(call(getFirestore))
-
-          const firestore = {
-            get: () => {}
-          }
-          expect(generator.next(firestore).value).toEqual(
-            select(sagas.uidSelector)
-          )
-
-          const uid = 'test-user-uid'
-
-          expect(generator.next(uid).value).toEqual(
-            call(firestore.get, {
-              collection: 'users',
-              doc: uid
-            })
-          )
-
-          const user = null
-
-          expect(() => {
-            generator.next(user)
-          }).toThrow('User for id test-user-uid not found')
-        })
-      })
-
-      describe('watchOrganizations', () => {
-        it('should watch the organizations collection', () => {
-          const watchOrganizationsAction = actions.watchOrganizations()
-
-          const generator = sagas.watchOrganizations(watchOrganizationsAction)
+      describe('watchCurrentUser', () => {
+        it('should watch the current user document', () => {
+          const generator = sagas.watchCurrentUser()
 
           expect(generator.next().value).toEqual(call(getFirestore))
 
@@ -79,17 +19,17 @@ describe('modules', () => {
           }
 
           expect(generator.next(firestore).value).toEqual(
-            call(sagas.getCurrentUser)
+            select(sagas.uidSelector)
           )
 
-          const currentUser = {
-            ref: {}
-          }
+          const uid = '0csmoOOMA070mXEHLd9n'
 
-          expect(generator.next(currentUser).value).toEqual(
+          expect(generator.next(uid).value).toEqual(
             call(firestore.setListener, {
-              collection: 'organizations',
-              where: ['owner', '==', currentUser.ref]
+              collection: 'users',
+              doc: uid,
+              storeAs: 'currentUser',
+              listenerId: 'currentUser'
             })
           )
 
@@ -97,21 +37,26 @@ describe('modules', () => {
         })
       })
 
-      describe('unwatchOrganizations', () => {
-        it('should unwatch the organizations collection', () => {
-          const unwatchOrganizations = actions.unwatchOrganizations()
-
-          const generator = sagas.unwatchOrganizations(unwatchOrganizations)
+      describe('unwatchCurrentUser', () => {
+        it('should unwatch the user document', () => {
+          const generator = sagas.unwatchCurrentUser()
 
           expect(generator.next().value).toEqual(call(getFirestore))
 
           const firestore = {
             unsetListener: () => {}
           }
+
           expect(generator.next(firestore).value).toEqual(
+            select(sagas.currentUserUid)
+          )
+
+          const uid = '0csmoOOMA070mXEHLd9n'
+
+          expect(generator.next(uid).value).toEqual(
             call(firestore.unsetListener, {
-              collection: 'organizations',
-              where: ['owner', '==', {}]
+              collection: 'users',
+              doc: uid
             })
           )
 
@@ -134,6 +79,91 @@ describe('modules', () => {
         })
       })
 
+      describe('customListenerResponseSagas', () => {
+        it('should map the customer listener response sagas', () => {
+          expect(sagas.customListenerResponseSagas).toEqual({
+            currentUser: sagas.fetchMyOrganizations
+          })
+        })
+      })
+
+      describe('onListenerResponse', () => {
+        it('should do nothing if no listener id present', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            meta: {
+              // listenerId not present
+            }
+          }
+
+          const generator = sagas.onListenerResponse(action)
+
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should do nothing if no saga mapped on listener id', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            meta: {
+              listenerId: 'myUnmappedListener'
+            }
+          }
+
+          const generator = sagas.onListenerResponse(action)
+
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should call fetchMyOrganizations saga if listener id is currentUser', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            meta: {
+              listenerId: 'currentUser'
+            }
+          }
+
+          const generator = sagas.onListenerResponse(action)
+
+          expect(generator.next().value).toEqual(
+            call(sagas.fetchMyOrganizations, action)
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
+      describe('fetchMyOrganizations', () => {
+        it('should fetch the organizations', () => {
+          const org1 = { data: () => ({ id: 'org1' }) }
+          const org2 = { data: () => ({ id: 'org2' }) }
+
+          const orgRefs = [{ get: () => org1 }, { get: () => org2 }]
+
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            payload: {
+              ordered: [
+                {
+                  organizations: orgRefs
+                }
+              ]
+            }
+          }
+
+          const generator = sagas.fetchMyOrganizations(action)
+
+          const allEffect = generator.next().value
+
+          const docs = allEffect.ALL.map(callEffect => callEffect.CALL.fn())
+
+          expect(generator.next(docs).value).toEqual(
+            put(actions.setMyOrganizations([{ id: 'org1' }, { id: 'org2' }]))
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -142,13 +172,18 @@ describe('modules', () => {
             all([
               fork(
                 takeEvery,
-                constants.actionTypes.LOGIN,
-                sagas.watchOrganizations
+                reduxFirebaseConstants.actionTypes.LOGIN,
+                sagas.watchCurrentUser
               ),
               fork(
                 takeEvery,
-                constants.actionTypes.LOGOUT,
-                sagas.unwatchOrganizations
+                reduxFirebaseConstants.actionTypes.LOGOUT,
+                sagas.unwatchCurrentUser
+              ),
+              fork(
+                takeEvery,
+                reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+                sagas.onListenerResponse
               ),
               fork(takeEvery, actions.LOGOUT, sagas.logout)
             ])

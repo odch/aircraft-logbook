@@ -32,6 +32,7 @@ export function* createOrganization({ payload: { data } }) {
         doc: data.name
       },
       {
+        id: data.name,
         owner: user.ref
       }
     )

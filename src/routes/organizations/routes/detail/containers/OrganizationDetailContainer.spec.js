@@ -22,11 +22,9 @@ describe('routes', () => {
 
               const state = {
                 firebase: {},
-                firestore: {
-                  data: {
-                    organizations: {
-                      my_org: {}
-                    }
+                main: {
+                  app: {
+                    organizations: [{ id: 'my_org' }]
                   }
                 }
               }

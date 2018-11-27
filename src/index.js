@@ -22,7 +22,7 @@ addLocaleData([...de])
 
 const createReducer = asyncReducers => {
   return combineReducers({
-    app: mainReducer,
+    main: mainReducer,
     ...asyncReducers
   })
 }
