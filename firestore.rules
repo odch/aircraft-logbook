@@ -1,15 +1,7 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isOwner() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)) == get(resource.data.owner) || get(/databases/$(database)/documents/users/$(request.auth.uid)) == get(request.resource.data.owner)
-    }
-
-    match /users/{user=**} {
+    match /{document=**} {
       allow read, write;
-    }
-
-    match /organizations/{organization} {
-      allow read, write: if isOwner()
     }
   }
 }
