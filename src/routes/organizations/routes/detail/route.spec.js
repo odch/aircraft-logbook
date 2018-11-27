@@ -15,6 +15,7 @@ describe('routes', () => {
             expect(route).toEqual({
               container: OrganizationPage,
               reducer: organizations,
+              reducerName: 'organizations',
               sagas: [sagas],
               onLoad: selectOrganizationOnLoad,
               historyListeners: {

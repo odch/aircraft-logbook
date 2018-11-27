@@ -8,6 +8,7 @@ import {
 export default {
   container: OrganizationPage,
   reducer: organizations,
+  reducerName: 'organizations',
   sagas: [sagas],
   onLoad: selectOrganizationOnLoad,
   historyListeners: {
