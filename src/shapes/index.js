@@ -1,3 +1,4 @@
+import aircraft from './aircraft'
 import organization from './organization'
 
-export { organization }
+export { aircraft, organization }

@@ -1,25 +1,23 @@
 import {
-  watchOrganizations,
-  unwatchOrganizations,
   openCreateOrganizationDialog,
   closeCreateOrganizationDialog,
   updateCreateOrganizationDialogData,
   createOrganization,
   selectOrganization,
-  deleteOrganization
+  deleteOrganization,
+  fetchAircrafts
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
 export {
-  watchOrganizations,
-  unwatchOrganizations,
   openCreateOrganizationDialog,
   closeCreateOrganizationDialog,
   updateCreateOrganizationDialogData,
   createOrganization,
   selectOrganization,
-  deleteOrganization
+  deleteOrganization,
+  fetchAircrafts
 }
 
 export { sagas }

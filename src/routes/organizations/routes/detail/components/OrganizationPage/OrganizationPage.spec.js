@@ -23,6 +23,20 @@ describe('routes', () => {
                   app: {
                     organizations: [{ id: 'my_org' }]
                   }
+                },
+                firestore: {
+                  ordered: {
+                    organizationAircrafts: [
+                      {
+                        id: 'o7flC7jw8jmkOfWo8oyA',
+                        registration: 'HBKFW'
+                      },
+                      {
+                        id: 'BKi7HYAIoe1i75H3LMk1',
+                        registration: 'HBKOF'
+                      }
+                    ]
+                  }
                 }
               }
 
