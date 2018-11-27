@@ -4,8 +4,12 @@ import { Redirect } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import isLoaded from '../../../../../../util/isLoaded'
-import { organization as organizationShape } from '../../../../../../shapes'
+import {
+  organization as organizationShape,
+  aircraft as aircraftShape
+} from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
+import AircraftList from '../AircraftList'
 
 const styles = theme => ({
   container: {
@@ -19,10 +23,26 @@ const styles = theme => ({
 })
 
 class OrganizationDetail extends React.Component {
-  render() {
-    const { organization, classes } = this.props
+  componentDidMount() {
+    if (this.props.organization) {
+      this.props.fetchAircrafts(this.props.organization.id)
+    }
+  }
 
-    if (!isLoaded(organization)) {
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.organization &&
+      (!prevProps.organization ||
+        prevProps.organization.id !== this.props.organization.id)
+    ) {
+      this.props.fetchAircrafts(this.props.organization.id)
+    }
+  }
+
+  render() {
+    const { organization, aircrafts, classes } = this.props
+
+    if (!isLoaded(organization) || !isLoaded(aircrafts)) {
       return <LoadingIcon />
     }
 
@@ -33,6 +53,7 @@ class OrganizationDetail extends React.Component {
     return (
       <div className={classes.container}>
         <Typography variant="title">{organization.id}</Typography>
+        <AircraftList organization={organization} aircrafts={aircrafts} />
       </div>
     )
   }
@@ -40,7 +61,9 @@ class OrganizationDetail extends React.Component {
 
 OrganizationDetail.propTypes = {
   organization: organizationShape,
-  classes: PropTypes.object.isRequired
+  aircrafts: PropTypes.arrayOf(aircraftShape),
+  classes: PropTypes.object.isRequired,
+  fetchAircrafts: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(OrganizationDetail)

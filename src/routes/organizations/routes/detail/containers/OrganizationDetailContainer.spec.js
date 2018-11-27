@@ -26,6 +26,18 @@ describe('routes', () => {
                   app: {
                     organizations: [{ id: 'my_org' }]
                   }
+                },
+                firestore: {
+                  ordered: {
+                    organizationAircrafts: [
+                      {
+                        registration: 'HBKFW'
+                      },
+                      {
+                        registration: 'HBKOF'
+                      }
+                    ]
+                  }
                 }
               }
               const store = configureStore()(state)
@@ -64,7 +76,7 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = []
+              const expectedPropKeys = ['fetchAircrafts']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)

@@ -2,6 +2,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import OrganizationDetail from '../components/OrganizationDetail'
 import getOrganizationFromState from '../../../../../util/getOrganizationFromState'
+import { fetchAircrafts } from '../../../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -11,11 +12,14 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
-    organization: getOrganizationFromState(state, organizationId)
+    organization: getOrganizationFromState(state, organizationId),
+    aircrafts: state.firestore.ordered.organizationAircrafts
   }
 }
 
-const mapActionCreators = {}
+const mapActionCreators = {
+  fetchAircrafts
+}
 
 export default compose(
   connect(
