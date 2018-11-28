@@ -55,6 +55,72 @@ export function* onListenerResponse(action) {
   }
 }
 
+export const collectReferences = (data, referenceItems) => {
+  const references = []
+
+  if (data) {
+    Object.keys(data).forEach(key => {
+      const record = data[key]
+
+      Object.keys(record)
+        .filter(item => referenceItems.includes(item))
+        .forEach(item => {
+          const ref = record[item]
+          if (ref) {
+            references.push({ id: { key, item }, ref })
+          }
+        })
+    })
+  }
+
+  return references
+}
+
+export function* resolveReference(id, ref) {
+  const doc = yield call(ref.get.bind(ref))
+  const data = doc.data()
+  return {
+    id,
+    data
+  }
+}
+
+export const populate = (resolvedDocs, data, orderedData) => {
+  resolvedDocs.forEach(doc => {
+    const { key, item } = doc.id
+
+    data[key][item] = doc.data
+    orderedData.find(rec => rec.id === key)[item] = doc.data
+  })
+}
+
+export function* populateAndPutAgain(action) {
+  const references = collectReferences(
+    action.payload.data,
+    action.meta.populate
+  )
+
+  if (references.length > 0) {
+    const resolvingFunctions = references.map(obj =>
+      call(resolveReference, obj.id, obj.ref)
+    )
+    const result = yield all(resolvingFunctions)
+
+    populate(result, action.payload.data, action.payload.ordered)
+
+    // delete populate property to avoid repeated population
+    delete action.meta.populate
+
+    yield put(action)
+  }
+}
+
+export function* onGetSuccess(action) {
+  if (action.meta.populate) {
+    yield call(populateAndPutAgain, action)
+  }
+}
+
 export function* logout() {
   const firebase = yield call(getFirebase)
   yield call(firebase.logout)
@@ -72,6 +138,11 @@ export default function* sagas() {
       takeEvery,
       reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
       onListenerResponse
+    ),
+    fork(
+      takeEvery,
+      reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+      onGetSuccess
     ),
     fork(takeEvery, actions.LOGOUT, logout)
   ])

@@ -164,6 +164,292 @@ describe('modules', () => {
         })
       })
 
+      describe('collectReferences', () => {
+        it('should collect the references', () => {
+          const depAerodromeRef1 = {}
+          const depAerodromeRef2 = {}
+          const destAerodromeRef1 = {}
+          const destAerodromeRef2 = {}
+
+          const data = {
+            sStfyLd2XArT7oUZPFDn: {
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef1,
+              destinationAerodrome: destAerodromeRef1
+            },
+            vuB0UPVhvhl8ikOgJjvC: {
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef2,
+              destinationAerodrome: destAerodromeRef2
+            }
+          }
+
+          expect(
+            sagas.collectReferences(data, [
+              'departureAerodrome',
+              'destinationAerodrome'
+            ])
+          ).toEqual([
+            {
+              id: {
+                key: 'sStfyLd2XArT7oUZPFDn',
+                item: 'departureAerodrome'
+              },
+              ref: depAerodromeRef1
+            },
+            {
+              id: {
+                key: 'sStfyLd2XArT7oUZPFDn',
+                item: 'destinationAerodrome'
+              },
+              ref: destAerodromeRef1
+            },
+            {
+              id: {
+                key: 'vuB0UPVhvhl8ikOgJjvC',
+                item: 'departureAerodrome'
+              },
+              ref: depAerodromeRef2
+            },
+            {
+              id: {
+                key: 'vuB0UPVhvhl8ikOgJjvC',
+                item: 'destinationAerodrome'
+              },
+              ref: destAerodromeRef2
+            }
+          ])
+        })
+      })
+
+      describe('resolveReference', () => {
+        it('should resolve a reference', () => {
+          const doc = { data: () => ({ name: 'Lommis' }) }
+          const ref = { get: () => doc }
+
+          const id = {
+            key: 'vuB0UPVhvhl8ikOgJjvC',
+            item: 'departureAerodrome'
+          }
+
+          const generator = sagas.resolveReference(id, ref)
+
+          const callEffect = generator.next().value
+
+          const callResult = callEffect.CALL.fn()
+
+          expect(generator.next(callResult).value).toEqual({
+            id,
+            data: { name: 'Lommis' }
+          })
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
+      describe('populate', () => {
+        it('should populate the action payload', () => {
+          const depAerodromeRef1 = {}
+          const depAerodromeRef2 = {}
+          const destAerodromeRef1 = {}
+          const destAerodromeRef2 = {}
+
+          const depAerodrome1 = { name: 'Lommis' }
+          const depAerodrome2 = { name: 'Lommis' }
+          const destAerodrome1 = { name: 'Lommis' }
+          const destAerodrome2 = { name: 'Lommis' }
+
+          const resolvedDocs = [
+            {
+              id: {
+                key: 'sStfyLd2XArT7oUZPFDn',
+                item: 'departureAerodrome'
+              },
+              data: depAerodrome1
+            },
+            {
+              id: {
+                key: 'sStfyLd2XArT7oUZPFDn',
+                item: 'destinationAerodrome'
+              },
+              data: destAerodrome1
+            },
+            {
+              id: {
+                key: 'vuB0UPVhvhl8ikOgJjvC',
+                item: 'departureAerodrome'
+              },
+              data: depAerodrome2
+            },
+            {
+              id: {
+                key: 'vuB0UPVhvhl8ikOgJjvC',
+                item: 'destinationAerodrome'
+              },
+              data: destAerodrome2
+            }
+          ]
+
+          const data = {
+            sStfyLd2XArT7oUZPFDn: {
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef1,
+              destinationAerodrome: destAerodromeRef1
+            },
+            vuB0UPVhvhl8ikOgJjvC: {
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef2,
+              destinationAerodrome: destAerodromeRef2
+            }
+          }
+
+          const orderedData = [
+            {
+              id: 'sStfyLd2XArT7oUZPFDn',
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef1,
+              destinationAerodrome: destAerodromeRef1
+            },
+            {
+              id: 'vuB0UPVhvhl8ikOgJjvC',
+              foo: 'bar',
+              departureAerodrome: depAerodromeRef2,
+              destinationAerodrome: destAerodromeRef2
+            }
+          ]
+
+          sagas.populate(resolvedDocs, data, orderedData)
+
+          expect(data).toEqual({
+            sStfyLd2XArT7oUZPFDn: {
+              foo: 'bar',
+              departureAerodrome: depAerodrome1,
+              destinationAerodrome: destAerodrome1
+            },
+            vuB0UPVhvhl8ikOgJjvC: {
+              foo: 'bar',
+              departureAerodrome: depAerodrome2,
+              destinationAerodrome: destAerodrome2
+            }
+          })
+
+          expect(orderedData).toEqual([
+            {
+              id: 'sStfyLd2XArT7oUZPFDn',
+              foo: 'bar',
+              departureAerodrome: depAerodrome1,
+              destinationAerodrome: destAerodrome1
+            },
+            {
+              id: 'vuB0UPVhvhl8ikOgJjvC',
+              foo: 'bar',
+              departureAerodrome: depAerodrome2,
+              destinationAerodrome: destAerodrome2
+            }
+          ])
+        })
+      })
+
+      describe('populateAndPutAgain', () => {
+        it('should call populate the firestore references and put the action again', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+            meta: {
+              populate: ['departureAerodrome']
+            },
+            payload: {
+              data: {
+                sStfyLd2XArT7oUZPFDn: {
+                  foo: 'bar',
+                  departureAerodrome: {}
+                }
+              },
+              ordered: [
+                {
+                  id: 'sStfyLd2XArT7oUZPFDn',
+                  foo: 'bar',
+                  departureAerodrome: {}
+                }
+              ]
+            }
+          }
+
+          const generator = sagas.populateAndPutAgain(action)
+
+          const allEffect = generator.next().value
+
+          expect(allEffect.ALL.length).toEqual(1)
+
+          const resolvedDocs = [
+            {
+              id: {
+                key: 'sStfyLd2XArT7oUZPFDn',
+                item: 'departureAerodrome'
+              },
+              data: { name: 'Lommis' }
+            }
+          ]
+
+          expect(generator.next(resolvedDocs).value).toEqual(
+            put({
+              type: reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+              meta: {},
+              payload: {
+                data: {
+                  sStfyLd2XArT7oUZPFDn: {
+                    foo: 'bar',
+                    departureAerodrome: {
+                      name: 'Lommis'
+                    }
+                  }
+                },
+                ordered: [
+                  {
+                    id: 'sStfyLd2XArT7oUZPFDn',
+                    foo: 'bar',
+                    departureAerodrome: {
+                      name: 'Lommis'
+                    }
+                  }
+                ]
+              }
+            })
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
+      describe('onGetSuccess', () => {
+        it('should call populateAndPutAgain if populate property is set', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+            meta: {
+              populate: ['departureAerodrome', 'destinationAerodrome']
+            }
+          }
+
+          const generator = sagas.onGetSuccess(action)
+
+          expect(generator.next().value).toEqual(
+            call(sagas.populateAndPutAgain, action)
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should not call populateAndPutAgain if populate property is not set', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+            meta: {}
+          }
+
+          const generator = sagas.onGetSuccess(action)
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -184,6 +470,11 @@ describe('modules', () => {
                 takeEvery,
                 reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
                 sagas.onListenerResponse
+              ),
+              fork(
+                takeEvery,
+                reduxFirestoreConstants.actionTypes.GET_SUCCESS,
+                sagas.onGetSuccess
               ),
               fork(takeEvery, actions.LOGOUT, sagas.logout)
             ])

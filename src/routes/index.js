@@ -2,6 +2,7 @@ import start from './start'
 import organizations from './organizations'
 import detail from './organizations/routes/detail'
 import settings from './organizations/routes/settings'
+import aircraft from './organizations/routes/aircraft'
 import login from './login'
 import registration from './registration'
 
@@ -28,6 +29,12 @@ export const createRoutes = store => [
     path: '/organizations/:organizationId/settings',
     exact: true,
     render: settings(store),
+    protected: true
+  },
+  {
+    path: '/organizations/:organizationId/aircrafts/:aircraftId',
+    exact: true,
+    render: aircraft(store),
     protected: true
   },
   {

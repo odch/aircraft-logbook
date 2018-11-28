@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes detail components OrganizationDetail redirects to start page if organization was not found 1`] = `
+<div>
+  Start Page
+</div>
+`;
+
+exports[`routes organizations routes detail components OrganizationDetail renders loading icon if aircrafts not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes detail components OrganizationDetail renders loading icon if organization not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes detail components OrganizationDetail renders organization if organizatino and aircrafts loaded 1`] = `
+<div
+  className="OrganizationDetail-container-1"
+>
+  <h2
+    className="MuiTypography-root-13 MuiTypography-title-19"
+  >
+    my_org
+  </h2>
+  <div
+    className="MuiGrid-container-43 MuiGrid-spacing-xs-24-67 AircraftList-container-39"
+    data-cy="aircraft-list"
+  >
+    <div
+      className="MuiGrid-item-44 MuiGrid-grid-xs-12-83 MuiGrid-grid-sm-4-89"
+    >
+      <div
+        className="MuiPaper-root-141 MuiPaper-elevation1-144 MuiPaper-rounded-142 MuiCard-root-140 AircraftList-card-40"
+      >
+        <a
+          className="MuiButtonBase-root-171 MuiCardActionArea-root-168 AircraftList-actionArea-42"
+          href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          <div
+            className="MuiCardContent-root-174 AircraftList-cardContent-41"
+          >
+            <h2
+              className="MuiTypography-root-13 MuiTypography-title-19"
+            >
+              HBKFW
+            </h2>
+          </div>
+          <span
+            className="MuiCardActionArea-focusHighlight-170"
+          />
+          <span
+            className="MuiTouchRipple-root-175"
+          />
+        </a>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-44 MuiGrid-grid-xs-12-83 MuiGrid-grid-sm-4-89"
+    >
+      <div
+        className="MuiPaper-root-141 MuiPaper-elevation1-144 MuiPaper-rounded-142 MuiCard-root-140 AircraftList-card-40"
+      >
+        <a
+          className="MuiButtonBase-root-171 MuiCardActionArea-root-168 AircraftList-actionArea-42"
+          href="/organizations/my_org/aircrafts/BKi7HYAIoe1i75H3LMk1"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          <div
+            className="MuiCardContent-root-174 AircraftList-cardContent-41"
+          >
+            <h2
+              className="MuiTypography-root-13 MuiTypography-title-19"
+            >
+              HBKOF
+            </h2>
+          </div>
+          <span
+            className="MuiCardActionArea-focusHighlight-170"
+          />
+          <span
+            className="MuiTouchRipple-root-175"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
