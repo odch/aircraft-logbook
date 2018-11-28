@@ -23,6 +23,10 @@ class AccountMenu extends React.Component {
         open={this.props.open}
         onClose={this.props.onClose}
       >
+        <MenuItem data-cy="menu-item-username" disabled>
+          {this.props.auth.email}
+        </MenuItem>
+        <Divider key="username-divider" />
         {this.props.organization && [
           <MenuItem
             data-cy="menu-item-selected-organization"
@@ -62,6 +66,9 @@ class AccountMenu extends React.Component {
 }
 
 AccountMenu.propTypes = {
+  auth: PropTypes.shape({
+    email: PropTypes.string.isRequired
+  }).isRequired,
   selectedOrganizationId: PropTypes.string,
   organization: organizationShape,
   open: PropTypes.bool.isRequired,
