@@ -8,6 +8,11 @@ context('Account Navigation', () => {
     cy.logout()
   })
 
+  it('contains username', () => {
+    cy.get('[data-cy=user-button]').click()
+    cy.get('[data-cy=menu-item-username]').contains('cypress@opendigital.ch')
+  })
+
   it('navigates to organizations page', () => {
     cy.get('[data-cy=user-button]').click()
     cy.get('[data-cy=menu-item-organizations]').click()
