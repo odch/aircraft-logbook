@@ -1,24 +1,31 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import OrganizationDetail from '../components/OrganizationDetail'
-import { getOrganization } from '../../../../../util/getFromState'
+import AircraftDetail from '../components/AircraftDetail'
+import {
+  getOrganization,
+  getAircraft,
+  getAircraftFlights
+} from '../../../../../util/getFromState'
 import { fetchAircrafts } from '../../../module'
+import { fetchFlights } from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
     match: {
-      params: { organizationId }
+      params: { organizationId, aircraftId }
     }
   } = ownProps
 
   return {
     organization: getOrganization(state, organizationId),
-    aircrafts: state.firestore.ordered.organizationAircrafts
+    aircraft: getAircraft(state, aircraftId),
+    flights: getAircraftFlights(state, aircraftId)
   }
 }
 
 const mapActionCreators = {
-  fetchAircrafts
+  fetchAircrafts,
+  fetchFlights
 }
 
 export default compose(
@@ -26,4 +33,4 @@ export default compose(
     mapStateToProps,
     mapActionCreators
   )
-)(OrganizationDetail)
+)(AircraftDetail)

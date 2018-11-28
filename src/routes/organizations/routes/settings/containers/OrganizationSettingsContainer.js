@@ -2,7 +2,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { deleteOrganization } from '../../../module'
 import OrganizationSettings from '../components/OrganizationSettings'
-import getOrganizationFromState from '../../../../../util/getOrganizationFromState'
+import { getOrganization } from '../../../../../util/getFromState'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
-    organization: getOrganizationFromState(state, organizationId)
+    organization: getOrganization(state, organizationId)
   }
 }
 

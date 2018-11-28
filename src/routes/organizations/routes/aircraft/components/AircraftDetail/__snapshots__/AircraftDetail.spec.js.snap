@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft components AircraftDetail redirects to start page if organization was not found 1`] = `
+<div>
+  Start Page
+</div>
+`;
+
+exports[`routes organizations routes aircraft components AircraftDetail renders aircraft detail when everything is loaded 1`] = `
+<div
+  className="AircraftDetail-container-1"
+>
+  <h1
+    className="MuiTypography-root-13 MuiTypography-display1-17 MuiTypography-gutterBottom-31"
+  >
+    HBKFW
+  </h1>
+  <h2
+    className="MuiTypography-root-13 MuiTypography-title-19 MuiTypography-gutterBottom-31"
+  >
+    <span>
+      Neuste Flüge
+    </span>
+  </h2>
+  <table
+    className="MuiTable-root-42 FlightList-table-39"
+  >
+    <thead
+      className="MuiTableHead-root-43"
+    >
+      <tr
+        className="MuiTableRow-root-44 MuiTableRow-head-47"
+      >
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          scope="col"
+        >
+          <span>
+            Datum
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          scope="col"
+        >
+          <span>
+            Pilot
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow600-41"
+          scope="col"
+        >
+          <span>
+            Startflugplatz
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          scope="col"
+        >
+          <span>
+            Zielflugplatz
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow800-40"
+          scope="col"
+        >
+          <span>
+            Block off
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow800-40"
+          scope="col"
+        >
+          <span>
+            Block on
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      className="MuiTableBody-root-57"
+    >
+      <tr
+        className="MuiTableRow-root-44"
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51"
+        >
+          20.11.2018
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51"
+        >
+          Max Muster
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow600-41"
+        >
+          Lommis
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51"
+        >
+          Lommis
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow800-40"
+        >
+          10:00
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow800-40"
+        >
+          11:10
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if aircraft not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if flights not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if organization not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
