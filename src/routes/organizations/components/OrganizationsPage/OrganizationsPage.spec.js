@@ -11,7 +11,8 @@ describe('components', () => {
       const state = {
         firebase: {
           auth: {
-            isEmpty: false
+            isEmpty: false,
+            email: 'test@opendigital.ch'
           },
           profile: {}
         },
