@@ -1,8 +1,8 @@
-import { logout } from './actions'
+import { logout, watchAerodromes } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export { logout }
+export { logout, watchAerodromes }
 
 export { sagas }
 

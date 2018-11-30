@@ -450,6 +450,26 @@ describe('modules', () => {
         })
       })
 
+      describe('watchAerodromes', () => {
+        it('should set listener for aerodromes', () => {
+          const generator = sagas.watchAerodromes()
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            setListener: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(firestore.setListener, {
+              collection: 'aerodromes',
+              orderBy: 'name'
+            })
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -476,7 +496,8 @@ describe('modules', () => {
                 reduxFirestoreConstants.actionTypes.GET_SUCCESS,
                 sagas.onGetSuccess
               ),
-              fork(takeEvery, actions.LOGOUT, sagas.logout)
+              fork(takeEvery, actions.LOGOUT, sagas.logout),
+              fork(takeEvery, actions.WATCH_AERODROMES, sagas.watchAerodromes)
             ])
           )
         })

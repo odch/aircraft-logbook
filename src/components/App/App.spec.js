@@ -18,7 +18,7 @@ describe('components', () => {
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <App auth={auth} />
+          <App auth={auth} watchAerodromes={() => {}} />
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
@@ -38,12 +38,34 @@ describe('components', () => {
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <App auth={auth}>
+          <App auth={auth} watchAerodromes={() => {}}>
             <div>content</div>
           </App>
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
+    })
+
+    it('calls watchAerodromes when mounted', () => {
+      const auth = {
+        isLoaded: false,
+        isEmpty: true
+      }
+      const store = configureStore()({
+        firebase: {
+          auth
+        }
+      })
+
+      const watchAerodromes = jest.fn()
+
+      renderIntl(
+        <Provider store={store}>
+          <App auth={auth} watchAerodromes={watchAerodromes} />
+        </Provider>
+      )
+
+      expect(watchAerodromes).toBeCalled()
     })
   })
 })
