@@ -15,8 +15,12 @@ describe('routes', () => {
               const tree = renderIntl(
                 <AircraftDetail
                   organization={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -27,8 +31,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -41,8 +49,12 @@ describe('routes', () => {
                     <Route exact path="/" component={StartPage} />
                     <AircraftDetail
                       organization={null}
+                      createFlightDialogOpen={false}
                       fetchAircrafts={() => {}}
                       fetchFlights={() => {}}
+                      fetchMembers={() => {}}
+                      openCreateFlightDialog={() => {}}
+                      initCreateFlightDialog={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -60,8 +72,12 @@ describe('routes', () => {
                       registration: 'HBKFW'
                     }}
                     flights={undefined}
+                    createFlightDialogOpen={false}
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
+                    fetchMembers={() => {}}
+                    openCreateFlightDialog={() => {}}
+                    initCreateFlightDialog={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -100,8 +116,12 @@ describe('routes', () => {
                         }
                       }
                     ]}
+                    createFlightDialogOpen={false}
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
+                    fetchMembers={() => {}}
+                    openCreateFlightDialog={() => {}}
+                    initCreateFlightDialog={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -115,8 +135,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -133,8 +157,12 @@ describe('routes', () => {
                     id: 'o7flC7jw8jmkOfWo8oyA',
                     registration: 'HBKFW'
                   }}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -151,8 +179,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -167,8 +199,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={fetchFlights}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -182,8 +218,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -193,8 +233,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -208,8 +252,12 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 
@@ -222,8 +270,12 @@ describe('routes', () => {
                     id: 'o7flC7jw8jmkOfWo8oyA',
                     registration: 'HBKFW'
                   }}
+                  createFlightDialogOpen={false}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
+                  fetchMembers={() => {}}
+                  openCreateFlightDialog={() => {}}
+                  initCreateFlightDialog={() => {}}
                 />
               )
 

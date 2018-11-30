@@ -257,6 +257,35 @@ describe('modules', () => {
         })
       })
 
+      describe('fetchMembers', () => {
+        it('should load the members of an organization', () => {
+          const fetchMembersAction = actions.fetchMembers('my_org')
+
+          const generator = sagas.fetchMembers(fetchMembersAction)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(
+              firestore.get,
+              {
+                collection: 'organizations',
+                doc: 'my_org',
+                subcollections: [{ collection: 'members' }],
+                orderBy: [['lastname'], ['firstname']],
+                storeAs: 'organizationMembers'
+              },
+              {}
+            )
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -278,7 +307,8 @@ describe('modules', () => {
                 actions.DELETE_ORGANIZATION,
                 sagas.deleteOrganization
               ),
-              fork(takeEvery, actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts)
+              fork(takeEvery, actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
+              fork(takeEvery, actions.FETCH_MEMBERS, sagas.fetchMembers)
             ])
           )
         })

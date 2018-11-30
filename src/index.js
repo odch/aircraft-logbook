@@ -7,6 +7,10 @@ import createSagaMiddleware from 'redux-saga'
 import { IntlProvider, addLocaleData } from 'react-intl'
 import de from 'react-intl/locale-data/de'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { MuiPickersUtilsProvider } from 'material-ui-pickers'
+import MomentUtils from '@date-io/moment'
+import moment from 'moment'
+import 'moment/locale/de'
 
 import { initFirebase } from './util/firebase'
 import mainReducer, { sagas } from './modules'
@@ -18,6 +22,7 @@ import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 
 const LOCALE = 'de'
 
+moment.locale(LOCALE)
 addLocaleData([...de])
 
 const createReducer = asyncReducers => {
@@ -70,16 +75,18 @@ const routes = require('./routes/index').default(store)
 render(
   <Provider store={store}>
     <IntlProvider locale={LOCALE} messages={messages[LOCALE]}>
-      <App>
-        <Router>
-          <Switch>
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-            <Redirect to="/" />
-          </Switch>
-        </Router>
-      </App>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <App>
+          <Router>
+            <Switch>
+              {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+              ))}
+              <Redirect to="/" />
+            </Switch>
+          </Router>
+        </App>
+      </MuiPickersUtilsProvider>
     </IntlProvider>
   </Provider>,
   document.getElementById('app')

@@ -23,6 +23,10 @@ export const loadRoute = (
 
             if (route.reducer) {
               store.injectReducer(route.reducerName, route.reducer)
+            } else if (route.reducers) {
+              Object.keys(route.reducers).forEach(reducerName => {
+                store.injectReducer(reducerName, route.reducers[reducerName])
+              })
             }
 
             if (route.sagas) {

@@ -1,6 +1,6 @@
 import AircraftPage from './components/AircraftPage'
 import organizations, { sagas as organizationSagas } from '../../module'
-import { sagas as aircraftSagas } from './module'
+import aircraft, { sagas as aircraftSagas } from './module'
 import {
   selectOrganizationOnLoad,
   selectOrganizationOnHistoryChange
@@ -8,8 +8,10 @@ import {
 
 export default {
   container: AircraftPage,
-  reducer: organizations,
-  reducerName: 'organizations',
+  reducers: {
+    organizations,
+    aircraft
+  },
   sagas: [organizationSagas, aircraftSagas],
   onLoad: selectOrganizationOnLoad,
   historyListeners: {

@@ -22,18 +22,46 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
       Neuste Flüge
     </span>
   </h2>
+  <button
+    className="MuiButtonBase-root-65 MuiButton-root-39 MuiButton-contained-50 MuiButton-raised-53"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-40"
+    >
+      <span>
+        Flug erfassen
+      </span>
+    </span>
+    <span
+      className="MuiTouchRipple-root-68"
+    />
+  </button>
   <table
-    className="MuiTable-root-42 FlightList-table-39"
+    className="MuiTable-root-78 FlightList-table-75"
   >
     <thead
-      className="MuiTableHead-root-43"
+      className="MuiTableHead-root-79"
     >
       <tr
-        className="MuiTableRow-root-44 MuiTableRow-head-47"
+        className="MuiTableRow-root-80 MuiTableRow-head-83"
       >
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          className="MuiTableCell-root-85 MuiTableCell-head-86"
           scope="col"
         >
           <span>
@@ -42,7 +70,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </th>
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          className="MuiTableCell-root-85 MuiTableCell-head-86"
           scope="col"
         >
           <span>
@@ -51,7 +79,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </th>
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow600-41"
+          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow600-77"
           scope="col"
         >
           <span>
@@ -60,7 +88,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </th>
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50"
+          className="MuiTableCell-root-85 MuiTableCell-head-86"
           scope="col"
         >
           <span>
@@ -69,7 +97,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </th>
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow800-40"
+          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow800-76"
           scope="col"
         >
           <span>
@@ -78,7 +106,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </th>
         <th
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-head-50 FlightList-hiddenBelow800-40"
+          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow800-76"
           scope="col"
         >
           <span>
@@ -88,44 +116,44 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
       </tr>
     </thead>
     <tbody
-      className="MuiTableBody-root-57"
+      className="MuiTableBody-root-93"
     >
       <tr
-        className="MuiTableRow-root-44"
+        className="MuiTableRow-root-80"
       >
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51"
+          className="MuiTableCell-root-85 MuiTableCell-body-87"
         >
           20.11.2018
         </td>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51"
+          className="MuiTableCell-root-85 MuiTableCell-body-87"
         >
           Max Muster
         </td>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow600-41"
+          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow600-77"
         >
           Lommis
         </td>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51"
+          className="MuiTableCell-root-85 MuiTableCell-body-87"
         >
           Lommis
         </td>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow800-40"
+          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow800-76"
         >
           10:00
         </td>
         <td
           aria-sort={null}
-          className="MuiTableCell-root-49 MuiTableCell-body-51 FlightList-hiddenBelow800-40"
+          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow800-76"
         >
           11:10
         </td>

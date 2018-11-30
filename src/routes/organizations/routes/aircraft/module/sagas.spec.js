@@ -62,7 +62,13 @@ describe('routes', () => {
 
               expect(generator.next().value).toEqual(
                 all([
-                  fork(takeEvery, actions.FETCH_FLIGHTS, sagas.fetchFlights)
+                  fork(takeEvery, actions.FETCH_FLIGHTS, sagas.fetchFlights),
+                  fork(takeEvery, actions.CREATE_FLIGHT, sagas.createFlight),
+                  fork(
+                    takeEvery,
+                    actions.INIT_CREATE_FLIGHT_DIALOG,
+                    sagas.initCreateFlightDialog
+                  )
                 ])
               )
             })
