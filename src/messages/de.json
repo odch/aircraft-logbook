@@ -25,10 +25,22 @@
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
   "aircraftdetail.lastflights": "Neuste Flüge",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
+  "aircraftdetail.createflight": "Flug erfassen",
   "flightlist.date": "Datum",
   "flightlist.pilot": "Pilot",
   "flightlist.departureaerodrome": "Startflugplatz",
   "flightlist.destinationaerodrome": "Zielflugplatz",
   "flightlist.blockofftime": "Block off",
-  "flightlist.blockontime": "Block on"
+  "flightlist.blockontime": "Block on",
+  "flight.create.dialog.title": "Flug erfassen",
+  "flight.create.dialog.date": "Datum",
+  "flight.create.dialog.pilot": "Pilot",
+  "flight.create.dialog.departureaerodrome": "Startflugplatz",
+  "flight.create.dialog.destinationaerodrome": "Zielflugplatz",
+  "flight.create.dialog.blockofftime": "Block off",
+  "flight.create.dialog.takeofftime": "Take off",
+  "flight.create.dialog.landingtime": "Landung",
+  "flight.create.dialog.blockontime": "Block on",
+  "flight.create.dialog.buttons.cancel": "Abbrechen",
+  "flight.create.dialog.buttons.create": "Speichern"
 }

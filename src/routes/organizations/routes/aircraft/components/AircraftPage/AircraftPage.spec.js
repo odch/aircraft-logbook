@@ -72,6 +72,9 @@ describe('routes', () => {
                       }
                     }
                   }
+                },
+                aircraft: {
+                  createFlightDialogOpen: false
                 }
               }
 

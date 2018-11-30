@@ -6,8 +6,12 @@ import {
   getAircraft,
   getAircraftFlights
 } from '../../../../../util/getFromState'
-import { fetchAircrafts } from '../../../module'
-import { fetchFlights } from '../module'
+import { fetchAircrafts, fetchMembers } from '../../../module'
+import {
+  fetchFlights,
+  openCreateFlightDialog,
+  initCreateFlightDialog
+} from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -19,13 +23,17 @@ const mapStateToProps = (state, ownProps) => {
   return {
     organization: getOrganization(state, organizationId),
     aircraft: getAircraft(state, aircraftId),
-    flights: getAircraftFlights(state, aircraftId)
+    flights: getAircraftFlights(state, aircraftId),
+    createFlightDialogOpen: state.aircraft.createFlightDialogOpen
   }
 }
 
 const mapActionCreators = {
   fetchAircrafts,
-  fetchFlights
+  fetchMembers,
+  fetchFlights,
+  openCreateFlightDialog,
+  initCreateFlightDialog
 }
 
 export default compose(

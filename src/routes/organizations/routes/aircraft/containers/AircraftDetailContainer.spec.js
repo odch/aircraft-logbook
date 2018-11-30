@@ -72,6 +72,9 @@ describe('routes', () => {
                       }
                     }
                   }
+                },
+                aircraft: {
+                  createFlightDialogOpen: false
                 }
               }
               const store = configureStore()(state)
@@ -116,7 +119,13 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = ['fetchAircrafts', 'fetchFlights']
+              const expectedPropKeys = [
+                'fetchAircrafts',
+                'fetchFlights',
+                'fetchMembers',
+                'openCreateFlightDialog',
+                'initCreateFlightDialog'
+              ]
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
