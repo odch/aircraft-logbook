@@ -126,6 +126,14 @@ export function* logout() {
   yield call(firebase.logout)
 }
 
+export function* watchAerodromes() {
+  const firestore = yield call(getFirestore)
+  yield call(firestore.setListener, {
+    collection: 'aerodromes',
+    orderBy: 'name'
+  })
+}
+
 export default function* sagas() {
   yield all([
     fork(takeEvery, reduxFirebaseConstants.actionTypes.LOGIN, watchCurrentUser),
@@ -144,6 +152,7 @@ export default function* sagas() {
       reduxFirestoreConstants.actionTypes.GET_SUCCESS,
       onGetSuccess
     ),
-    fork(takeEvery, actions.LOGOUT, logout)
+    fork(takeEvery, actions.LOGOUT, logout),
+    fork(takeEvery, actions.WATCH_AERODROMES, watchAerodromes)
   ])
 }
