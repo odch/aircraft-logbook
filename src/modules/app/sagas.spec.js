@@ -162,6 +162,27 @@ describe('modules', () => {
 
           expect(generator.next().done).toEqual(true)
         })
+
+        it('should set empty array if user has no organizations', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            payload: {
+              ordered: [
+                {
+                  // no organizations here
+                }
+              ]
+            }
+          }
+
+          const generator = sagas.fetchMyOrganizations(action)
+
+          expect(generator.next().value).toEqual(
+            put(actions.setMyOrganizations([]))
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
       })
 
       describe('collectReferences', () => {

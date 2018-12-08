@@ -42,6 +42,8 @@ export function* fetchMyOrganizations(action) {
     )
     const orgData = organizationDocs.map(doc => doc.data())
     yield put(actions.setMyOrganizations(orgData))
+  } else {
+    yield put(actions.setMyOrganizations([]))
   }
 }
 
