@@ -10,8 +10,7 @@ import {
 
 const mapStateToProps = (state /*, ownProps*/) => ({
   organizations: state.main.app.organizations,
-  createDialogOpen: state.organizations.createDialogOpen,
-  createDialogData: state.organizations.createDialogData
+  createDialog: state.organizations.createDialog
 })
 
 const mapActionCreators = {

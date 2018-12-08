@@ -45,11 +45,7 @@ describe('containers', () => {
     })
 
     it('should map state to props', () => {
-      const expectedPropKeys = [
-        'organizations',
-        'createDialogOpen',
-        'createDialogData'
-      ]
+      const expectedPropKeys = ['organizations', 'createDialog']
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

@@ -5,12 +5,18 @@ import OrganizationsList from './OrganizationsList'
 
 describe('components', () => {
   describe('OrganizationsList', () => {
+    const createDialog = {
+      open: false,
+      data: {
+        name: ''
+      }
+    }
+
     it('renders loading icon if organizations not loaded', () => {
       const tree = renderIntl(
         <OrganizationsList
           organizations={undefined}
-          createDialogOpen={false}
-          createDialogData={{ name: '' }}
+          createDialog={createDialog}
           openCreateOrganizationDialog={() => {}}
           closeCreateOrganizationDialog={() => {}}
           updateCreateOrganizationDialogData={() => {}}
@@ -26,8 +32,7 @@ describe('components', () => {
         <Router>
           <OrganizationsList
             organizations={organizations}
-            createDialogOpen={false}
-            createDialogData={{ name: '' }}
+            createDialog={createDialog}
             openCreateOrganizationDialog={() => {}}
             closeCreateOrganizationDialog={() => {}}
             updateCreateOrganizationDialogData={() => {}}

@@ -35,16 +35,19 @@ export function* unwatchCurrentUser() {
 }
 
 export function* fetchMyOrganizations(action) {
-  const organizationRefs = action.payload.ordered[0].organizations
-  if (organizationRefs) {
-    const organizationDocs = yield all(
-      organizationRefs.map(ref => call(ref.get.bind(ref)))
-    )
-    const orgData = organizationDocs.map(doc => doc.data())
-    yield put(actions.setMyOrganizations(orgData))
-  } else {
-    yield put(actions.setMyOrganizations([]))
+  let organizations = []
+
+  if (action.payload.data) {
+    const organizationRefs = action.payload.ordered[0].organizations
+    if (organizationRefs) {
+      const organizationDocs = yield all(
+        organizationRefs.map(ref => call(ref.get.bind(ref)))
+      )
+      organizations = organizationDocs.map(doc => doc.data())
+    }
   }
+
+  yield put(actions.setMyOrganizations(organizations))
 }
 
 export function* onListenerResponse(action) {

@@ -1,5 +1,14 @@
-import { all, takeEvery, fork, call, put, select } from 'redux-saga/effects'
+import {
+  all,
+  takeEvery,
+  take,
+  fork,
+  call,
+  put,
+  select
+} from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
+import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
 import * as actions from './actions'
 import * as sagas from './sagas'
 
@@ -73,6 +82,10 @@ describe('modules', () => {
 
           const generator = sagas.createOrganization(createOrganization)
 
+          expect(generator.next().value).toEqual(
+            put(actions.setCreateOrganizationDialogSubmitted())
+          )
+
           expect(generator.next().value).toEqual(call(getFirestore))
 
           const firestore = {
@@ -94,7 +107,28 @@ describe('modules', () => {
             )
           )
 
-          expect(generator.next().value).toEqual(
+          expect(generator.next().value).toEqual(take(SET_MY_ORGANIZATIONS))
+
+          const otherOrgsAction = {
+            type: SET_MY_ORGANIZATIONS,
+            payload: {
+              organizations: [{ id: 'some_other_org' }]
+            }
+          }
+
+          // still waiting for SET_MY_ORGANIZATIONS action with the new org
+          expect(generator.next(otherOrgsAction).value).toEqual(
+            take(SET_MY_ORGANIZATIONS)
+          )
+
+          const actionWithMyNewOrg = {
+            type: SET_MY_ORGANIZATIONS,
+            payload: {
+              organizations: [{ id: 'some_other_org' }, { id: 'my_org' }]
+            }
+          }
+
+          expect(generator.next(actionWithMyNewOrg).value).toEqual(
             put(actions.createOrganizationSuccess())
           )
 
@@ -107,6 +141,10 @@ describe('modules', () => {
           })
 
           const generator = sagas.createOrganization(createOrganization)
+
+          expect(generator.next().value).toEqual(
+            put(actions.setCreateOrganizationDialogSubmitted())
+          )
 
           expect(generator.next().value).toEqual(call(getFirestore))
 

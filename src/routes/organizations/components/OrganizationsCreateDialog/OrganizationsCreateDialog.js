@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -8,6 +9,13 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+const styles = {
+  loadingIndicator: {
+    marginRight: 5
+  }
+}
 
 class OrganizationsCreateDialog extends React.Component {
   handleNameChange = e => {
@@ -23,11 +31,18 @@ class OrganizationsCreateDialog extends React.Component {
     }
   }
 
+  handleClose = () => {
+    if (!this.props.submitted && this.props.onClose) {
+      this.props.onClose()
+    }
+  }
+
   render() {
+    const { data, open, submitted, classes, onClose } = this.props
     return (
       <Dialog
-        open={this.props.open}
-        onClose={this.props.onClose}
+        open={open}
+        onClose={this.handleClose}
         data-cy="organization-create-dialog"
       >
         <DialogTitle>
@@ -48,16 +63,28 @@ class OrganizationsCreateDialog extends React.Component {
               type="text"
               fullWidth
               required
-              value={this.props.data.name}
+              value={data.name}
               onChange={this.handleNameChange}
               data-cy="name-field"
+              disabled={submitted}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onClose} color="primary">
+            <Button onClick={onClose} color="primary" disabled={submitted}>
               <FormattedMessage id="organizations.create.dialog.buttons.cancel" />
             </Button>
-            <Button type="submit" color="primary" data-cy="create-button">
+            <Button
+              type="submit"
+              color="primary"
+              data-cy="create-button"
+              disabled={submitted}
+            >
+              {submitted && (
+                <CircularProgress
+                  size={16}
+                  className={classes.loadingIndicator}
+                />
+              )}
               <FormattedMessage id="organizations.create.dialog.buttons.create" />
             </Button>
           </DialogActions>
@@ -72,10 +99,12 @@ OrganizationsCreateDialog.propTypes = {
     name: PropTypes.string
   }).isRequired,
   open: PropTypes.bool,
+  submitted: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,
   intl: intlShape
 }
 
-export default injectIntl(OrganizationsCreateDialog)
+export default withStyles(styles)(injectIntl(OrganizationsCreateDialog))

@@ -23,9 +23,11 @@ describe('components', () => {
           }
         },
         organizations: {
-          createDialogOpen: false,
-          createDialogData: {
-            name: ''
+          createDialog: {
+            open: false,
+            data: {
+              name: ''
+            }
           }
         }
       }
