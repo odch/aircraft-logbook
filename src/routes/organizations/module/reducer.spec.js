@@ -2,9 +2,12 @@ import reducer from './reducer'
 import * as actions from './actions'
 
 const INITIAL_STATE = {
-  createDialogOpen: false,
-  createDialogData: {
-    name: ''
+  createDialog: {
+    open: false,
+    submitted: false,
+    data: {
+      name: ''
+    }
   }
 }
 
@@ -19,17 +22,21 @@ describe('modules', () => {
         expect(
           reducer(
             {
-              createDialogOpen: false,
-              createDialogData: {
-                name: 'foo'
+              createDialog: {
+                open: false,
+                data: {
+                  name: 'foo'
+                }
               }
             },
             actions.openCreateOrganizationDialog()
           )
         ).toEqual({
-          createDialogOpen: true,
-          createDialogData: {
-            name: ''
+          createDialog: {
+            open: true,
+            data: {
+              name: ''
+            }
           }
         })
       })
@@ -37,11 +44,17 @@ describe('modules', () => {
       it('handles the CLOSE_CREATE_ORGANIZATION_DIALOG action', () => {
         expect(
           reducer(
-            { createDialogOpen: true },
+            {
+              createDialog: {
+                open: true
+              }
+            },
             actions.closeCreateOrganizationDialog()
           )
         ).toEqual({
-          createDialogOpen: false
+          createDialog: {
+            open: false
+          }
         })
       })
 
@@ -49,15 +62,19 @@ describe('modules', () => {
         expect(
           reducer(
             {
-              createDialogData: {
-                name: 'foo'
+              createDialog: {
+                data: {
+                  name: 'foo'
+                }
               }
             },
             actions.updateCreateOrganizationDialogData({ name: 'foobar' })
           )
         ).toEqual({
-          createDialogData: {
-            name: 'foobar'
+          createDialog: {
+            data: {
+              name: 'foobar'
+            }
           }
         })
       })
@@ -65,11 +82,17 @@ describe('modules', () => {
       it('handles the CREATE_ORGANIZATION_SUCCESS action', () => {
         expect(
           reducer(
-            { createDialogOpen: true },
+            {
+              createDialog: {
+                open: true
+              }
+            },
             actions.createOrganizationSuccess()
           )
         ).toEqual({
-          createDialogOpen: false
+          createDialog: {
+            open: false
+          }
         })
       })
     })

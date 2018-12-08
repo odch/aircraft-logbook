@@ -1,8 +1,8 @@
-import { logout, watchAerodromes } from './actions'
+import { SET_MY_ORGANIZATIONS, logout, watchAerodromes } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export { logout, watchAerodromes }
+export { SET_MY_ORGANIZATIONS, logout, watchAerodromes }
 
 export { sagas }
 

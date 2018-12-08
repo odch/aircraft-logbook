@@ -26,11 +26,12 @@ context('Organizations', () => {
       '[data-cy=organization-create-dialog] [data-cy=create-button]'
     ).click()
 
-    cy.wait(500)
+    cy.get('[data-cy=organizations-list]')
+      .contains('my-test-org')
+      .click()
 
-    cy.get('[data-cy=organizations-list]').contains('my-test-org')
-
-    cy.visit('/organizations/my-test-org/settings')
+    cy.get('[data-cy=user-button]').click()
+    cy.get('[data-cy=menu-item-selected-organization-settings]').click()
 
     cy.get('[data-cy=organization-title]').contains('my-test-org')
 

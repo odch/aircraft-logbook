@@ -53,7 +53,13 @@ class OrganizationsList extends React.Component {
   }
 
   render() {
-    const { organizations, classes } = this.props
+    const {
+      createDialog,
+      organizations,
+      classes,
+      updateCreateOrganizationDialogData,
+      createOrganization
+    } = this.props
     if (!isLoaded(organizations)) {
       return <LoadingIcon />
     }
@@ -96,11 +102,12 @@ class OrganizationsList extends React.Component {
           </Grid>
         ))}
         <OrganizationsCreateDialog
-          open={this.props.createDialogOpen}
-          data={this.props.createDialogData}
-          updateData={this.props.updateCreateOrganizationDialogData}
+          open={createDialog.open}
+          data={createDialog.data}
+          submitted={createDialog.submitted}
+          updateData={updateCreateOrganizationDialogData}
           onClose={this.handleDialogClose}
-          onSubmit={this.props.createOrganization}
+          onSubmit={createOrganization}
         />
       </Grid>
     )
@@ -108,8 +115,11 @@ class OrganizationsList extends React.Component {
 }
 
 OrganizationsList.propTypes = {
-  createDialogOpen: PropTypes.bool,
-  createDialogData: PropTypes.object,
+  createDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitted: PropTypes.bool,
+    data: PropTypes.object
+  }).isRequired,
   organizations: PropTypes.arrayOf(organization),
   classes: PropTypes.object.isRequired,
   openCreateOrganizationDialog: PropTypes.func.isRequired,

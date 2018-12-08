@@ -142,6 +142,7 @@ describe('modules', () => {
           const action = {
             type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
             payload: {
+              data: {},
               ordered: [
                 {
                   organizations: orgRefs
@@ -167,11 +168,29 @@ describe('modules', () => {
           const action = {
             type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
             payload: {
+              data: {},
               ordered: [
                 {
                   // no organizations here
                 }
               ]
+            }
+          }
+
+          const generator = sagas.fetchMyOrganizations(action)
+
+          expect(generator.next().value).toEqual(
+            put(actions.setMyOrganizations([]))
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should set empty array if data is missing', () => {
+          const action = {
+            type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+            payload: {
+              data: null
             }
           }
 

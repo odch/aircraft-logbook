@@ -1,6 +1,15 @@
-import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
+import {
+  fork,
+  takeEvery,
+  take,
+  all,
+  call,
+  put,
+  select
+} from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
 import * as actions from './actions'
+import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
 import { error } from '../../../util/log'
 
 export const uidSelector = state => state.firebase.auth.uid
@@ -23,6 +32,7 @@ export function* getCurrentUser() {
 
 export function* createOrganization({ payload: { data } }) {
   try {
+    yield put(actions.setCreateOrganizationDialogSubmitted())
     const firestore = yield call(getFirestore)
     const user = yield call(getCurrentUser)
     yield call(
@@ -36,6 +46,15 @@ export function* createOrganization({ payload: { data } }) {
         owner: user.ref
       }
     )
+
+    let creationComplete
+    do {
+      const myOrgAction = yield take(SET_MY_ORGANIZATIONS)
+      creationComplete = myOrgAction.payload.organizations.some(
+        org => org.id === data.name
+      )
+    } while (!creationComplete)
+
     yield put(actions.createOrganizationSuccess())
   } catch (e) {
     error(`Failed to create organization ${data.name}`, e)

@@ -4,6 +4,8 @@ export const CLOSE_CREATE_ORGANIZATION_DIALOG =
   'organizations/CLOSE_CREATE_ORGANIZATION_DIALOG'
 export const UPDATE_CREATE_ORGANIZATION_DIALOG_DATA =
   'organizations/UPDATE_CREATE_ORGANIZATION_DIALOG_DATA'
+export const SET_CREATE_ORGANIZATION_DIALOG_SUBMITTED =
+  'organizations/SET_CREATE_ORGANIZATION_DIALOG_SUBMITTED'
 export const CREATE_ORGANIZATION = 'organizations/CREATE_ORGANIZATION'
 export const CREATE_ORGANIZATION_SUCCESS =
   'organizations/CREATE_ORGANIZATION_SUCCESS'
@@ -31,6 +33,10 @@ export const updateCreateOrganizationDialogData = data => ({
   payload: {
     data
   }
+})
+
+export const setCreateOrganizationDialogSubmitted = () => ({
+  type: SET_CREATE_ORGANIZATION_DIALOG_SUBMITTED
 })
 
 export const createOrganization = data => ({
