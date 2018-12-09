@@ -1,29 +1,20 @@
-export const SET_EMAIL = 'registration/SET_EMAIL'
-export const SET_PASSWORD = 'registration/SET_PASSWORD'
+export const UPDATE_DATA = 'registration/UPDATE_DATA'
 export const REGISTER = 'registration/REGISTER'
 export const REGISTRATION_SUCCESS = 'registration/LOGIN_SUCCESS'
 export const REGISTRATION_FAILURE = 'registration/LOGIN_FAILURE'
 export const SET_SUBMITTED = 'registration/SET_SUBMITTED'
 
-export const setEmail = email => ({
-  type: SET_EMAIL,
+export const updateData = data => ({
+  type: UPDATE_DATA,
   payload: {
-    email
+    data
   }
 })
 
-export const setPassword = password => ({
-  type: SET_PASSWORD,
-  payload: {
-    password
-  }
-})
-
-export const register = (email, password) => ({
+export const register = data => ({
   type: REGISTER,
   payload: {
-    email,
-    password
+    data
   }
 })
 

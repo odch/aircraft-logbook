@@ -1,8 +1,8 @@
-import { setEmail, setPassword, register, setSubmitted } from './actions'
+import { updateData, register, setSubmitted } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export { setEmail, setPassword, register, setSubmitted }
+export { updateData, register, setSubmitted }
 
 export { sagas }
 

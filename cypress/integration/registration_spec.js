@@ -4,6 +4,8 @@ context('Registration', () => {
   })
 
   it('registers successfully', () => {
+    cy.get('[data-cy=firstname] input').type('Max')
+    cy.get('[data-cy=lastname] input').type('Muster')
     cy.get('[data-cy=email] input').type('test@opendigital.ch')
     cy.get('[data-cy=password] input ').type('mypassword')
     cy.get('[data-cy=submit]').click()

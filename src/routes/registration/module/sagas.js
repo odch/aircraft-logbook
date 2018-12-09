@@ -4,14 +4,13 @@ import * as actions from './actions'
 import { error } from '../../../util/log'
 
 export function* register(action) {
-  const { email, password } = action.payload
+  const { firstname, lastname, email, password } = action.payload.data
   try {
     yield put(actions.setSubmitted())
     const firebase = yield call(getFirebase)
-    yield call(firebase.createUser, {
-      email: email,
-      password: password
-    })
+    const credentials = { email, password }
+    const profile = { firstname, lastname, email }
+    yield call(firebase.createUser, credentials, profile)
     yield put(actions.registrationSuccess())
   } catch (e) {
     error('Registration failed', e)

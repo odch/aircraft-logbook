@@ -1,14 +1,13 @@
 import { connect } from 'react-redux'
 import RegistrationForm from '../components/RegistrationForm'
-import { setEmail, setPassword, register, setSubmitted } from '../module'
+import { updateData, register, setSubmitted } from '../module'
 
 const mapStateToProps = (state /*, ownProps*/) => ({
   registrationForm: state.registration
 })
 
 const mapActionCreators = {
-  setEmail,
-  setPassword,
+  updateData,
   register,
   setSubmitted
 }
