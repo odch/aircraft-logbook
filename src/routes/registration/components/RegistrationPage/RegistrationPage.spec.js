@@ -43,8 +43,12 @@ describe('components', () => {
           auth
         },
         registration: {
-          email: 'test@example.com',
-          password: 'mypassword',
+          data: {
+            firstname: 'Max',
+            lastname: 'Muster',
+            email: 'test@example.com',
+            password: 'mypassword'
+          },
           failed: false,
           submitted: false
         }

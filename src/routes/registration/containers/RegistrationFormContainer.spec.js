@@ -46,12 +46,7 @@ describe('containers', () => {
     })
 
     it('should map dispatch to props', () => {
-      const expectedPropKeys = [
-        'setEmail',
-        'setPassword',
-        'register',
-        'setSubmitted'
-      ]
+      const expectedPropKeys = ['updateData', 'register', 'setSubmitted']
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

@@ -19,6 +19,81 @@ exports[`components RegistrationPage renders registration form if not authentica
       <label
         className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
         data-shrink={true}
+        htmlFor="firstname"
+      >
+        <span>
+          Vorname
+        </span>
+        <span
+          className="MuiFormLabel-asterisk-20"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        data-cy="firstname"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={true}
+          className="MuiInputBase-input-44 MuiInput-input-29"
+          disabled={false}
+          id="firstname"
+          name="firstname"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+          value="Max"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+    >
+      <label
+        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        data-shrink={true}
+        htmlFor="lastname"
+      >
+        <span>
+          Nachname
+        </span>
+        <span
+          className="MuiFormLabel-asterisk-20"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        data-cy="lastname"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-44 MuiInput-input-29"
+          disabled={false}
+          id="lastname"
+          name="lastname"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+          value="Muster"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+    >
+      <label
+        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        data-shrink={true}
         htmlFor="email"
       >
         <span>
@@ -37,9 +112,7 @@ exports[`components RegistrationPage renders registration form if not authentica
       >
         <input
           aria-invalid={false}
-          autoComplete="email"
-          autoFocus={true}
-          className="MuiInputBase-input-44 MuiInput-input-29"
+          className="MuiInputBase-input-44 MuiInput-input-29 MuiInputBase-inputType-47 MuiInput-inputType-32"
           disabled={false}
           id="email"
           name="email"
@@ -47,7 +120,7 @@ exports[`components RegistrationPage renders registration form if not authentica
           onChange={[Function]}
           onFocus={[Function]}
           required={true}
-          type="text"
+          type="email"
           value="test@example.com"
         />
       </div>

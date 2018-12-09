@@ -8,10 +8,12 @@ describe('modules', () => {
     describe('sagas', () => {
       describe('register', () => {
         it('should create user', () => {
-          const registrationAction = actions.register(
-            'test@example.com',
-            'mypassword'
-          )
+          const registrationAction = actions.register({
+            firstname: 'Max',
+            lastname: 'Muster',
+            email: 'test@example.com',
+            password: 'mypassword'
+          })
 
           const generator = sagas.register(registrationAction)
 
@@ -22,10 +24,18 @@ describe('modules', () => {
             createUser: () => {}
           }
           expect(generator.next(firebase).value).toEqual(
-            call(firebase.createUser, {
-              email: 'test@example.com',
-              password: 'mypassword'
-            })
+            call(
+              firebase.createUser,
+              {
+                email: 'test@example.com',
+                password: 'mypassword'
+              },
+              {
+                firstname: 'Max',
+                lastname: 'Muster',
+                email: 'test@example.com'
+              }
+            )
           )
 
           expect(generator.next().value).toEqual(
@@ -36,10 +46,12 @@ describe('modules', () => {
         })
 
         it('should put REGISTRATION_FAILURE action if it fails', () => {
-          const registrationAction = actions.register(
-            'test@example.com',
-            'mypassword'
-          )
+          const registrationAction = actions.register({
+            firstname: 'Max',
+            lastname: 'Muster',
+            email: 'test@example.com',
+            password: 'mypassword'
+          })
 
           const generator = sagas.register(registrationAction)
 
@@ -50,10 +62,18 @@ describe('modules', () => {
             createUser: () => {}
           }
           expect(generator.next(firebase).value).toEqual(
-            call(firebase.createUser, {
-              email: 'test@example.com',
-              password: 'mypassword'
-            })
+            call(
+              firebase.createUser,
+              {
+                email: 'test@example.com',
+                password: 'mypassword'
+              },
+              {
+                firstname: 'Max',
+                lastname: 'Muster',
+                email: 'test@example.com'
+              }
+            )
           )
 
           // eslint-disable-next-line no-console

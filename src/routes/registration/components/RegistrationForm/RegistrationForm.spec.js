@@ -5,20 +5,22 @@ import RegistrationForm from './RegistrationForm'
 
 function renderRegistrationForm(
   registrationForm = {
-    email: '',
-    password: '',
+    data: {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: ''
+    },
     failed: false,
     submitted: false
   },
-  setEmail = () => {},
-  setPassword = () => {},
+  updateData = () => {},
   register = () => {}
 ) {
   return renderIntl(
     <RegistrationForm
       registrationForm={registrationForm}
-      setEmail={setEmail}
-      setPassword={setPassword}
+      updateData={updateData}
       register={register}
     />
   )
@@ -28,8 +30,12 @@ describe('components', () => {
   describe('RegistrationForm', () => {
     it('renders correctly', () => {
       const registrationFormData = {
-        email: 'test@example.com',
-        password: 'mypassword',
+        data: {
+          firstname: 'Max',
+          lastname: 'Muster',
+          email: 'test@example.com',
+          password: 'mypassword'
+        },
         failed: false,
         submitted: false
       }
@@ -39,8 +45,12 @@ describe('components', () => {
 
     it('renders error message if registration failed', () => {
       const registrationFormData = {
-        email: 'test@example.com',
-        password: '',
+        data: {
+          firstname: 'Max',
+          lastname: 'Muster',
+          email: 'test@example.com',
+          password: ''
+        },
         failed: true,
         submitted: false
       }
@@ -48,42 +58,46 @@ describe('components', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    it('calls setEmail function', () => {
-      const setEmail = jest.fn()
+    const updateDataTest = (name, value) => {
+      const updateData = jest.fn()
 
-      const component = renderRegistrationForm(undefined, setEmail)
+      const component = renderRegistrationForm(undefined, updateData)
 
-      const usernameInput = component.root.find(
-        el => el.type === Input && el.props.name === 'email'
+      const input = component.root.find(
+        el => el.type === Input && el.props.name === name
       )
-      usernameInput.props.onChange({
-        target: { value: 'test@example.com' }
+      input.props.onChange({
+        target: { value }
       })
-      expect(setEmail).toHaveBeenCalledWith('test@example.com')
+      expect(updateData).toHaveBeenCalledWith({
+        [name]: value
+      })
+    }
+
+    it('calls updateData function on firstname change', () => {
+      updateDataTest('firstname', 'Max')
     })
 
-    it('calls setPassword function', () => {
-      const setPassword = jest.fn()
+    it('calls updateData function on lastname change', () => {
+      updateDataTest('lastname', 'Muster')
+    })
 
-      const component = renderRegistrationForm(
-        undefined,
-        undefined,
-        setPassword
-      )
+    it('calls updateData function on email change', () => {
+      updateDataTest('email', 'test@example.com')
+    })
 
-      const usernameInput = component.root.find(
-        el => el.type === Input && el.props.name === 'password'
-      )
-      usernameInput.props.onChange({
-        target: { value: 'mytestpassword' }
-      })
-      expect(setPassword).toHaveBeenCalledWith('mytestpassword')
+    it('calls updateData function on password change', () => {
+      updateDataTest('password', 'mytestpassword')
     })
 
     it('calls register function on submit', () => {
       const registrationFormData = {
-        email: 'test@example.com',
-        password: 'mypassword',
+        data: {
+          firstname: 'Max',
+          lastname: 'Muster',
+          email: 'test@example.com',
+          password: 'mypassword'
+        },
         failed: false,
         submitted: false
       }
@@ -95,7 +109,6 @@ describe('components', () => {
       const component = renderRegistrationForm(
         registrationFormData,
         undefined,
-        undefined,
         register
       )
 
@@ -104,7 +117,12 @@ describe('components', () => {
       form.props.onSubmit(e)
 
       expect(e.preventDefault).toHaveBeenCalled()
-      expect(register).toHaveBeenCalledWith('test@example.com', 'mypassword')
+      expect(register).toHaveBeenCalledWith({
+        firstname: 'Max',
+        lastname: 'Muster',
+        email: 'test@example.com',
+        password: 'mypassword'
+      })
     })
   })
 })

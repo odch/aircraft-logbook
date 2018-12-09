@@ -15,24 +15,21 @@ const styles = theme => ({
 })
 
 class RegistrationForm extends React.Component {
-  handleEmailChange = e => {
-    this.props.setEmail(e.target.value)
-  }
-
-  handlePasswordChange = e => {
-    this.props.setPassword(e.target.value)
+  handleChange = name => e => {
+    this.props.updateData({
+      [name]: e.target.value
+    })
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    const { email, password } = this.props.registrationForm
-    this.props.register(email, password)
+    this.props.register(this.props.registrationForm.data)
   }
 
   render() {
     const {
       classes,
-      registrationForm: { email, password, failed, submitted }
+      registrationForm: { failed, submitted }
     } = this.props
 
     return (
@@ -43,35 +40,23 @@ class RegistrationForm extends React.Component {
           </Typography>
         )}
         <form onSubmit={this.handleSubmit}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">
-              <FormattedMessage id="registration.email" />
-            </InputLabel>
-            <Input
-              id="email"
-              name="email"
-              autoComplete="email"
-              onChange={this.handleEmailChange}
-              value={email}
-              disabled={submitted}
-              data-cy="email"
-              autoFocus
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">
-              <FormattedMessage id="registration.password" />
-            </InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              onChange={this.handlePasswordChange}
-              value={password}
-              disabled={submitted}
-              data-cy="password"
-            />
-          </FormControl>
+          {this.renderFormControl({
+            name: 'firstname',
+            type: 'text',
+            autoFocus: true
+          })}
+          {this.renderFormControl({
+            name: 'lastname',
+            type: 'text'
+          })}
+          {this.renderFormControl({
+            name: 'email',
+            type: 'email'
+          })}
+          {this.renderFormControl({
+            name: 'password',
+            type: 'password'
+          })}
           <Button
             type="submit"
             fullWidth
@@ -86,17 +71,42 @@ class RegistrationForm extends React.Component {
       </React.Fragment>
     )
   }
+
+  renderFormControl(props) {
+    const { name, type, autoFocus } = props
+    const { data, submitted } = this.props.registrationForm
+    return (
+      <FormControl margin="normal" required fullWidth>
+        <InputLabel htmlFor={name}>
+          <FormattedMessage id={`registration.${name}`} />
+        </InputLabel>
+        <Input
+          id={name}
+          name={name}
+          onChange={this.handleChange(name)}
+          value={data[name]}
+          disabled={submitted}
+          data-cy={name}
+          type={type}
+          autoFocus={autoFocus}
+        />
+      </FormControl>
+    )
+  }
 }
 
 RegistrationForm.propTypes = {
   registrationForm: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    data: PropTypes.shape({
+      firstname: PropTypes.string.isRequired,
+      lastname: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired
+    }).isRequired,
     failed: PropTypes.bool.isRequired,
     submitted: PropTypes.bool.isRequired
   }).isRequired,
-  setEmail: PropTypes.func.isRequired,
-  setPassword: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 }

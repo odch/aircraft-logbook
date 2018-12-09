@@ -2,8 +2,12 @@ import * as actions from './actions'
 import reducer from './reducer'
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
+  data: {
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: ''
+  },
   failed: false,
   submitted: false
 }
@@ -15,16 +19,24 @@ describe('modules', () => {
         expect(reducer(undefined, {})).toEqual(INITIAL_STATE)
       })
 
-      it('handles SET_EMAIL action', () => {
-        expect(reducer({}, actions.setEmail('test@example.com'))).toEqual({
-          email: 'test@example.com',
-          failed: false
-        })
-      })
-
-      it('handles SET_PASSWORD action', () => {
-        expect(reducer({}, actions.setPassword('mypassword'))).toEqual({
-          password: 'mypassword',
+      it('handles UPDATE_DATA action', () => {
+        expect(
+          reducer(
+            {
+              data: {
+                firstname: 'Max'
+              },
+              failed: true
+            },
+            actions.updateData({
+              email: 'test@example.com'
+            })
+          )
+        ).toEqual({
+          data: {
+            firstname: 'Max',
+            email: 'test@example.com'
+          },
           failed: false
         })
       })
