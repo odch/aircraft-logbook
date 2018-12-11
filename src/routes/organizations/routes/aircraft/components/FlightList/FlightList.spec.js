@@ -54,7 +54,15 @@ describe('routes', () => {
                 }
               ]
 
-              const tree = renderIntl(<FlightList flights={flights} />).toJSON()
+              const tree = renderIntl(
+                <FlightList
+                  flights={flights}
+                  flightDeleteDialog={{ open: false }}
+                  openFlightDeleteDialog={() => {}}
+                  closeFlightDeleteDialog={() => {}}
+                  deleteFlight={() => {}}
+                />
+              ).toJSON()
               expect(tree).toMatchSnapshot()
             })
           })

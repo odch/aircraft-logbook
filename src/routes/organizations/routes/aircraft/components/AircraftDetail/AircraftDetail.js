@@ -73,8 +73,12 @@ class AircraftDetail extends React.Component {
       organization,
       aircraft,
       flights,
+      flightDeleteDialog,
       classes,
-      createFlightDialogOpen
+      createFlightDialogOpen,
+      openDeleteFlightDialog,
+      closeDeleteFlightDialog,
+      deleteFlight
     } = this.props
 
     if (organization === null) {
@@ -105,6 +109,10 @@ class AircraftDetail extends React.Component {
             organization={organization}
             aircraft={aircraft}
             flights={flights}
+            flightDeleteDialog={flightDeleteDialog}
+            openFlightDeleteDialog={openDeleteFlightDialog}
+            closeFlightDeleteDialog={closeDeleteFlightDialog}
+            deleteFlight={deleteFlight}
           />
         ) : (
           <Typography paragraph>
@@ -128,11 +136,19 @@ AircraftDetail.propTypes = {
   flights: PropTypes.arrayOf(flightShape),
   classes: PropTypes.object.isRequired,
   createFlightDialogOpen: PropTypes.bool.isRequired,
+  flightDeleteDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitted: PropTypes.bool,
+    flight: flightShape
+  }).isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   fetchFlights: PropTypes.func.isRequired,
   openCreateFlightDialog: PropTypes.func.isRequired,
-  initCreateFlightDialog: PropTypes.func.isRequired
+  initCreateFlightDialog: PropTypes.func.isRequired,
+  openDeleteFlightDialog: PropTypes.func.isRequired,
+  closeDeleteFlightDialog: PropTypes.func.isRequired,
+  deleteFlight: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(AircraftDetail)

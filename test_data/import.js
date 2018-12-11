@@ -156,6 +156,8 @@ async function addFlight(organizationId, aircraftDoc, flight) {
 
   if (!flightDoc) {
     flightDoc = await aircraftDoc.ref.collection('flights').add({
+      owner: member.ref,
+      deleted: false,
       blockOffTime: blockOffDate,
       takeOffTime: takeOffDate,
       landingTime: landingDate,

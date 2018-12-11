@@ -4,7 +4,10 @@ import {
   initCreateFlightDialog,
   closeCreateFlightDialog,
   updateCreateFlightDialogData,
-  createFlight
+  createFlight,
+  openDeleteFlightDialog,
+  closeDeleteFlightDialog,
+  deleteFlight
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -15,7 +18,10 @@ export {
   initCreateFlightDialog,
   closeCreateFlightDialog,
   updateCreateFlightDialogData,
-  createFlight
+  createFlight,
+  openDeleteFlightDialog,
+  closeDeleteFlightDialog,
+  deleteFlight
 }
 
 export { sagas }

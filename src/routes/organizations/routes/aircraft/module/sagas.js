@@ -4,7 +4,7 @@ import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
 import { getMemberOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
-import { getDoc, addDoc } from '../../../../../util/firestoreUtils'
+import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
@@ -28,6 +28,7 @@ export function* fetchFlights({ payload: { organizationId, aircraftId } }) {
           ]
         }
       ],
+      where: ['deleted', '==', false],
       orderBy: ['blockOffTime', 'desc'],
       limit: 5,
       storeAs: 'flights-' + aircraftId,
@@ -83,6 +84,7 @@ export function* createFlight({
     )
 
     const dataToStore = {
+      deleted: false,
       owner: owner.ref,
       member: pilot.ref,
       departureAerodrome: departureAerodrome.ref,
@@ -118,10 +120,32 @@ export function* initCreateFlightDialog() {
   )
 }
 
+export function* deleteFlight({
+  payload: { organizationId, aircraftId, flightId }
+}) {
+  yield call(
+    updateDoc,
+    [
+      'organizations',
+      organizationId,
+      'aircrafts',
+      aircraftId,
+      'flights',
+      flightId
+    ],
+    {
+      deleted: true
+    }
+  )
+  yield put(actions.fetchFlights(organizationId, aircraftId))
+  yield put(actions.closeDeleteFlightDialog())
+}
+
 export default function* sagas() {
   yield all([
     fork(takeEvery, actions.FETCH_FLIGHTS, fetchFlights),
     fork(takeEvery, actions.CREATE_FLIGHT, createFlight),
-    fork(takeEvery, actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog)
+    fork(takeEvery, actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    fork(takeEvery, actions.DELETE_FLIGHT, deleteFlight)
   ])
 }

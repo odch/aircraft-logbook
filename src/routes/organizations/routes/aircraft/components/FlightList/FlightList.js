@@ -7,6 +7,9 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import FlightDeleteDialog from '../FlightDeleteDialog'
 import {
   aircraft as aircraftShape,
   flight as flightShape,
@@ -37,54 +40,87 @@ const styles = theme => ({
 
 class FlightList extends React.Component {
   render() {
-    const { flights, classes } = this.props
+    const {
+      organization,
+      aircraft,
+      flights,
+      flightDeleteDialog,
+      classes,
+      openFlightDeleteDialog,
+      closeFlightDeleteDialog,
+      deleteFlight
+    } = this.props
     return (
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <FormattedMessage id="flightlist.date" />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage id="flightlist.pilot" />
-            </TableCell>
-            <TableCell className={classes.hiddenBelow600}>
-              <FormattedMessage id="flightlist.departureaerodrome" />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage id="flightlist.destinationaerodrome" />
-            </TableCell>
-            <TableCell className={classes.hiddenBelow800}>
-              <FormattedMessage id="flightlist.blockofftime" />
-            </TableCell>
-            <TableCell className={classes.hiddenBelow800}>
-              <FormattedMessage id="flightlist.blockontime" />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {flights.map(flight => {
-            return (
-              <TableRow key={flight.id}>
-                <TableCell>{formatDate(flight.blockOffTime)}</TableCell>
-                <TableCell>
-                  {`${flight.member.firstname} ${flight.member.lastname}`}
-                </TableCell>
-                <TableCell className={classes.hiddenBelow600}>
-                  {flight.departureAerodrome.name}
-                </TableCell>
-                <TableCell>{flight.destinationAerodrome.name}</TableCell>
-                <TableCell className={classes.hiddenBelow800}>
-                  {formatTime(flight.blockOffTime)}
-                </TableCell>
-                <TableCell className={classes.hiddenBelow800}>
-                  {formatTime(flight.blockOnTime)}
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
+      <React.Fragment>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <FormattedMessage id="flightlist.date" />
+              </TableCell>
+              <TableCell>
+                <FormattedMessage id="flightlist.pilot" />
+              </TableCell>
+              <TableCell className={classes.hiddenBelow600}>
+                <FormattedMessage id="flightlist.departureaerodrome" />
+              </TableCell>
+              <TableCell>
+                <FormattedMessage id="flightlist.destinationaerodrome" />
+              </TableCell>
+              <TableCell className={classes.hiddenBelow800}>
+                <FormattedMessage id="flightlist.blockofftime" />
+              </TableCell>
+              <TableCell className={classes.hiddenBelow800}>
+                <FormattedMessage id="flightlist.blockontime" />
+              </TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {flights.map(flight => {
+              return (
+                <TableRow key={flight.id}>
+                  <TableCell>{formatDate(flight.blockOffTime)}</TableCell>
+                  <TableCell>
+                    {`${flight.member.firstname} ${flight.member.lastname}`}
+                  </TableCell>
+                  <TableCell className={classes.hiddenBelow600}>
+                    {flight.departureAerodrome.name}
+                  </TableCell>
+                  <TableCell>{flight.destinationAerodrome.name}</TableCell>
+                  <TableCell className={classes.hiddenBelow800}>
+                    {formatTime(flight.blockOffTime)}
+                  </TableCell>
+                  <TableCell className={classes.hiddenBelow800}>
+                    {formatTime(flight.blockOnTime)}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={() => openFlightDeleteDialog(flight)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+        {flightDeleteDialog.open && (
+          <FlightDeleteDialog
+            organizationId={organization.id}
+            aircraft={aircraft}
+            flight={flightDeleteDialog.flight}
+            submitted={flightDeleteDialog.submitted}
+            onConfirm={() =>
+              deleteFlight(
+                organization.id,
+                aircraft.id,
+                flightDeleteDialog.flight.id
+              )
+            }
+            onClose={closeFlightDeleteDialog}
+          />
+        )}
+      </React.Fragment>
     )
   }
 }
@@ -93,7 +129,15 @@ FlightList.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
   flights: PropTypes.arrayOf(flightShape),
-  classes: PropTypes.object.isRequired
+  flightDeleteDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitted: PropTypes.bool,
+    flight: flightShape
+  }),
+  classes: PropTypes.object.isRequired,
+  openFlightDeleteDialog: PropTypes.func.isRequired,
+  closeFlightDeleteDialog: PropTypes.func.isRequired,
+  deleteFlight: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(FlightList)
