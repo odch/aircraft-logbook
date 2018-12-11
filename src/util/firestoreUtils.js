@@ -16,3 +16,9 @@ export function* addDoc(path, data) {
   const firestore = yield call(getFirestore)
   return yield call(firestore.add, pathString, data)
 }
+
+export function* updateDoc(path, data) {
+  const pathString = path.join('/')
+  const firestore = yield call(getFirestore)
+  return yield call(firestore.update, pathString, data)
+}

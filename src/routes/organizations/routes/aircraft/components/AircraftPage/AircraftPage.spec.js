@@ -74,7 +74,10 @@ describe('routes', () => {
                   }
                 },
                 aircraft: {
-                  createFlightDialogOpen: false
+                  createFlightDialogOpen: false,
+                  deleteFlightDialog: {
+                    open: false
+                  }
                 }
               }
 

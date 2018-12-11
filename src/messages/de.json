@@ -44,5 +44,15 @@
   "flight.create.dialog.landingtime": "Landung",
   "flight.create.dialog.blockontime": "Block on",
   "flight.create.dialog.buttons.cancel": "Abbrechen",
-  "flight.create.dialog.buttons.create": "Speichern"
+  "flight.create.dialog.buttons.create": "Speichern",
+  "flight.delete.dialog.title": "Flug löschen",
+  "flight.delete.dialog.text": "Bist du sicher, dass du diesen Flug löschen möchtest?",
+  "flight.delete.dialog.date": "Datum",
+  "flight.delete.dialog.pilot": "Pilot",
+  "flight.delete.dialog.departureaerodrome": "Startflugplatz",
+  "flight.delete.dialog.destinationaerodrome": "Zielflugplatz",
+  "flight.delete.dialog.blockofftime": "Block off",
+  "flight.delete.dialog.blockontime": "Block on",
+  "flight.delete.dialog.buttons.cancel": "Abbrechen",
+  "flight.delete.dialog.buttons.delete": "Flug löschen"
 }

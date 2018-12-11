@@ -10,7 +10,10 @@ import { fetchAircrafts, fetchMembers } from '../../../module'
 import {
   fetchFlights,
   openCreateFlightDialog,
-  initCreateFlightDialog
+  initCreateFlightDialog,
+  openDeleteFlightDialog,
+  closeDeleteFlightDialog,
+  deleteFlight
 } from '../module'
 
 const mapStateToProps = (state, ownProps) => {
@@ -24,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
     organization: getOrganization(state, organizationId),
     aircraft: getAircraft(state, aircraftId),
     flights: getAircraftFlights(state, aircraftId),
-    createFlightDialogOpen: state.aircraft.createFlightDialogOpen
+    createFlightDialogOpen: state.aircraft.createFlightDialogOpen,
+    flightDeleteDialog: state.aircraft.deleteFlightDialog
   }
 }
 
@@ -33,7 +37,10 @@ const mapActionCreators = {
   fetchMembers,
   fetchFlights,
   openCreateFlightDialog,
-  initCreateFlightDialog
+  initCreateFlightDialog,
+  openDeleteFlightDialog,
+  closeDeleteFlightDialog,
+  deleteFlight
 }
 
 export default compose(

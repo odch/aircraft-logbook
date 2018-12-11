@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import withStyles from '@material-ui/core/styles/withStyles'
 import DeleteIcon from '@material-ui/icons/Delete'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
   button: {
@@ -21,6 +22,7 @@ const DeleteButton = ({
   color,
   variant,
   disabled,
+  inProgress,
   ...other
 }) => (
   <Button
@@ -32,7 +34,11 @@ const DeleteButton = ({
     variant={variant}
     disabled={disabled}
   >
-    <DeleteIcon className={classes.leftIcon} />
+    {inProgress ? (
+      <CircularProgress size={16} className={classes.leftIcon} />
+    ) : (
+      <DeleteIcon className={classes.leftIcon} />
+    )}
     {label}
   </Button>
 )
@@ -44,7 +50,8 @@ DeleteButton.propTypes = {
   type: PropTypes.string,
   color: PropTypes.string,
   variant: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  inProgress: PropTypes.bool
 }
 
 export default withStyles(styles)(DeleteButton)

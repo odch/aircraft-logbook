@@ -16,11 +16,15 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -32,11 +36,15 @@ describe('routes', () => {
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -50,11 +58,15 @@ describe('routes', () => {
                     <AircraftDetail
                       organization={null}
                       createFlightDialogOpen={false}
+                      flightDeleteDialog={{ open: false }}
                       fetchAircrafts={() => {}}
                       fetchFlights={() => {}}
                       fetchMembers={() => {}}
                       openCreateFlightDialog={() => {}}
                       initCreateFlightDialog={() => {}}
+                      openDeleteFlightDialog={() => {}}
+                      closeDeleteFlightDialog={() => {}}
+                      deleteFlight={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -73,11 +85,15 @@ describe('routes', () => {
                     }}
                     flights={undefined}
                     createFlightDialogOpen={false}
+                    flightDeleteDialog={{ open: false }}
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
                     fetchMembers={() => {}}
                     openCreateFlightDialog={() => {}}
                     initCreateFlightDialog={() => {}}
+                    openDeleteFlightDialog={() => {}}
+                    closeDeleteFlightDialog={() => {}}
+                    deleteFlight={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -117,11 +133,15 @@ describe('routes', () => {
                       }
                     ]}
                     createFlightDialogOpen={false}
+                    flightDeleteDialog={{ open: false }}
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
                     fetchMembers={() => {}}
                     openCreateFlightDialog={() => {}}
                     initCreateFlightDialog={() => {}}
+                    openDeleteFlightDialog={() => {}}
+                    closeDeleteFlightDialog={() => {}}
+                    deleteFlight={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -136,11 +156,15 @@ describe('routes', () => {
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -158,11 +182,15 @@ describe('routes', () => {
                     registration: 'HBKFW'
                   }}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -180,11 +208,15 @@ describe('routes', () => {
                   organization={undefined}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -200,11 +232,15 @@ describe('routes', () => {
                   organization={undefined}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -219,11 +255,15 @@ describe('routes', () => {
                   organization={undefined}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -234,11 +274,15 @@ describe('routes', () => {
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -253,11 +297,15 @@ describe('routes', () => {
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 
@@ -271,11 +319,15 @@ describe('routes', () => {
                     registration: 'HBKFW'
                   }}
                   createFlightDialogOpen={false}
+                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
+                  openDeleteFlightDialog={() => {}}
+                  closeDeleteFlightDialog={() => {}}
+                  deleteFlight={() => {}}
                 />
               )
 

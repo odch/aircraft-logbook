@@ -113,6 +113,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             Block on
           </span>
         </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root-85 MuiTableCell-head-86"
+          scope="col"
+        />
       </tr>
     </thead>
     <tbody
@@ -156,6 +161,51 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow800-76"
         >
           11:10
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root-85 MuiTableCell-body-87"
+        >
+          <button
+            className="MuiButtonBase-root-65 MuiIconButton-root-94"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label-99"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-100"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                />
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root-68"
+            />
+          </button>
         </td>
       </tr>
     </tbody>
