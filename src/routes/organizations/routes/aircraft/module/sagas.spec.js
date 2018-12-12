@@ -47,7 +47,7 @@ describe('routes', () => {
                     populate: [
                       'departureAerodrome',
                       'destinationAerodrome',
-                      'member'
+                      'pilot'
                     ]
                   },
                   {}

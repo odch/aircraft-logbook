@@ -32,7 +32,7 @@ export function* fetchFlights({ payload: { organizationId, aircraftId } }) {
       orderBy: ['blockOffTime', 'desc'],
       limit: 5,
       storeAs: 'flights-' + aircraftId,
-      populate: ['departureAerodrome', 'destinationAerodrome', 'member']
+      populate: ['departureAerodrome', 'destinationAerodrome', 'pilot']
     },
     {}
   )
@@ -86,7 +86,7 @@ export function* createFlight({
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
-      member: pilot.ref,
+      pilot: pilot.ref,
       departureAerodrome: departureAerodrome.ref,
       destinationAerodrome: destinationAerodrome.ref,
       blockOffTime: mergeDateAndTime(data.date, data.blockOffTime),

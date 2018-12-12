@@ -162,7 +162,7 @@ async function addFlight(organizationId, aircraftDoc, flight) {
       takeOffTime: takeOffDate,
       landingTime: landingDate,
       blockOnTime: blockOnDate,
-      member: member.ref,
+      pilot: member.ref,
       departureAerodrome: departureAerodromeDoc.ref,
       destinationAerodrome: destinationAerodromeDoc.ref
     })

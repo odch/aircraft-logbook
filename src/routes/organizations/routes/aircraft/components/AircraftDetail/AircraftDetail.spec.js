@@ -126,7 +126,7 @@ describe('routes', () => {
                         landingTime: {
                           toDate: () => Date.parse('2018-11-20 11:00')
                         },
-                        member: {
+                        pilot: {
                           firstname: 'Max',
                           lastname: 'Muster'
                         }

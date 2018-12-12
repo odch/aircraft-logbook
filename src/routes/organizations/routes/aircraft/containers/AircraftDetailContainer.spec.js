@@ -40,7 +40,7 @@ describe('routes', () => {
                         blockOnTime: {
                           toDate: () => Date.parse('2018-11-20 11:10')
                         },
-                        member: {
+                        pilot: {
                           firstname: 'Max',
                           lastname: 'Muster'
                         }
@@ -55,7 +55,7 @@ describe('routes', () => {
                         blockOnTime: {
                           toDate: () => Date.parse('2018-11-21 11:10')
                         },
-                        member: {
+                        pilot: {
                           firstname: 'Hans',
                           lastname: 'Meier'
                         }
