@@ -59,7 +59,7 @@ class FlightDeleteDialog extends React.Component {
             />
             <FlightAttribute
               label="pilot"
-              value={`${flight.member.firstname} ${flight.member.lastname}`}
+              value={`${flight.pilot.firstname} ${flight.pilot.lastname}`}
             />
             <FlightAttribute
               label="departureaerodrome"

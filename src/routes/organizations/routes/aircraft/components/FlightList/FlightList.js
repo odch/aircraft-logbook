@@ -82,7 +82,7 @@ class FlightList extends React.Component {
                 <TableRow key={flight.id}>
                   <TableCell>{formatDate(flight.blockOffTime)}</TableCell>
                   <TableCell>
-                    {`${flight.member.firstname} ${flight.member.lastname}`}
+                    {`${flight.pilot.firstname} ${flight.pilot.lastname}`}
                   </TableCell>
                   <TableCell className={classes.hiddenBelow600}>
                     {flight.departureAerodrome.name}
