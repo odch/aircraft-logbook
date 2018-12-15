@@ -1,5 +1,5 @@
 import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
 import { getMemberOption } from '../util/getOptions'
@@ -61,9 +61,10 @@ export function* getMember(organizationId, memberId) {
   ])
 }
 
-export const mergeDateAndTime = (date, time) => {
-  const timeString = moment(time).format('HH:mm')
-  return moment(date + ' ' + timeString).toDate()
+export const mergeDateAndTime = (date, time, timezone) => {
+  const dateTimeFormat = 'YYYY-MM-DD HH:mm'
+  const timeString = moment.tz(time, dateTimeFormat, timezone).format('HH:mm')
+  return moment.tz(date + ' ' + timeString, dateTimeFormat, timezone).toDate()
 }
 
 export function* createFlight({
@@ -83,16 +84,35 @@ export function* createFlight({
       data.destinationAerodrome.value
     )
 
+    const departureTimezone = departureAerodrome.data().timezone
+    const destinationTimezone = destinationAerodrome.data().timezone
+
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
       pilot: pilot.ref,
       departureAerodrome: departureAerodrome.ref,
       destinationAerodrome: destinationAerodrome.ref,
-      blockOffTime: mergeDateAndTime(data.date, data.blockOffTime),
-      takeOffTime: mergeDateAndTime(data.date, data.takeOffTime),
-      landingTime: mergeDateAndTime(data.date, data.landingTime),
-      blockOnTime: mergeDateAndTime(data.date, data.blockOnTime),
+      blockOffTime: mergeDateAndTime(
+        data.date,
+        data.blockOffTime,
+        departureTimezone
+      ),
+      takeOffTime: mergeDateAndTime(
+        data.date,
+        data.takeOffTime,
+        departureTimezone
+      ),
+      landingTime: mergeDateAndTime(
+        data.date,
+        data.landingTime,
+        destinationTimezone
+      ),
+      blockOnTime: mergeDateAndTime(
+        data.date,
+        data.blockOnTime,
+        destinationTimezone
+      ),
       counters: data.counters
     }
 
