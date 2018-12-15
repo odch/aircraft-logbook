@@ -92,7 +92,8 @@ export function* createFlight({
       blockOffTime: mergeDateAndTime(data.date, data.blockOffTime),
       takeOffTime: mergeDateAndTime(data.date, data.takeOffTime),
       landingTime: mergeDateAndTime(data.date, data.landingTime),
-      blockOnTime: mergeDateAndTime(data.date, data.blockOnTime)
+      blockOnTime: mergeDateAndTime(data.date, data.blockOnTime),
+      counters: data.counters
     }
 
     yield call(

@@ -1,14 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import _get from 'lodash.get'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { DatePicker, TimePicker } from 'material-ui-pickers'
 import Select from '../../../../../../components/Select'
+import HoursCounterField from '../../../../../../components/HoursCounterField'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import {
   aerodrome as aerodromeShape,
@@ -35,11 +40,17 @@ class FlightCreateDialog extends React.Component {
     this.updateData(name, value)
   }
 
+  handleHoursCounterChange = name => value => {
+    this.updateData(name, value)
+  }
+
   updateData = (name, value) => {
     this.props.updateData({
       [name]: value
     })
   }
+
+  getValue = (name, defaultValue) => _get(this.props.data, name, defaultValue)
 
   handleSubmit = e => {
     const { onSubmit, organizationId, aircraftId, data } = this.props
@@ -81,6 +92,17 @@ class FlightCreateDialog extends React.Component {
           {this.renderTimePicker('takeOffTime')}
           {this.renderTimePicker('landingTime')}
           {this.renderTimePicker('blockOnTime')}
+          <FormControl component="fieldset" margin="normal" fullWidth>
+            <FormLabel component="legend">Flugstunden</FormLabel>
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={6}>
+                {this.renderHoursCounterField('counters.flightHours.start')}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                {this.renderHoursCounterField('counters.flightHours.end')}
+              </Grid>
+            </Grid>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -135,6 +157,20 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         autoOk
+      />
+    )
+  }
+
+  renderHoursCounterField(name) {
+    return (
+      <HoursCounterField
+        name={name}
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        value={this.getValue(name)}
+        onChange={this.handleHoursCounterChange(name)}
+        cy={`${name}-field`}
+        margin="normal"
+        fullWidth
       />
     )
   }

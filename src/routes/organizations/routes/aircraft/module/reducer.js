@@ -1,3 +1,4 @@
+import _set from 'lodash.set'
 import { createReducer } from '../../../../../util/reducer'
 import * as actions from './actions'
 
@@ -10,7 +11,13 @@ export const INITIAL_STATE = {
     blockOffTime: null,
     takeOffTime: null,
     landingTime: null,
-    blockOnTime: null
+    blockOnTime: null,
+    counters: {
+      flightHours: {
+        start: null,
+        end: null
+      }
+    }
   },
   deleteFlightDialog: {
     open: false
@@ -23,13 +30,19 @@ const openCreateFlightDialog = state => ({
   createFlightDialogData: INITIAL_STATE.createFlightDialogData
 })
 
-const updateCreateFlightDialogData = (state, action) => ({
-  ...state,
-  createFlightDialogData: {
-    ...state.createFlightDialogData,
-    ...action.payload.data
+const updateCreateFlightDialogData = (state, action) => {
+  const newData = {
+    ...state.createFlightDialogData
   }
-})
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+  return {
+    ...state,
+    createFlightDialogData: newData
+  }
+}
 
 const closeCreateFlightDialog = state => ({
   ...state,

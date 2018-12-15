@@ -26,9 +26,10 @@ describe('routes', () => {
                     }}
                     updateData={() => {}}
                   />
-                </MuiPickersUtilsProvider>
+                </MuiPickersUtilsProvider>,
+                true
               )
-              expect(renderedValue.html()).toMatchSnapshot()
+              expect(renderedValue).toMatchSnapshot()
             })
           })
         })
