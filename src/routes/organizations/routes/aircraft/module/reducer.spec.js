@@ -10,7 +10,13 @@ const INITIAL_STATE = {
     blockOffTime: null,
     takeOffTime: null,
     landingTime: null,
-    blockOnTime: null
+    blockOnTime: null,
+    counters: {
+      flightHours: {
+        start: null,
+        end: null
+      }
+    }
   },
   deleteFlightDialog: {
     open: false
@@ -24,6 +30,40 @@ describe('routes', () => {
         describe('reducer', () => {
           it('defines an initial state', () => {
             expect(reducer(undefined, {})).toEqual(INITIAL_STATE)
+          })
+
+          it('handles UPDATE_CREATE_FLIGHT_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialogData: {
+                    date: '2018-12-15',
+                    blockOffTime: '2018-12-15 10:15',
+                    counters: {
+                      flightHours: {
+                        start: 348967,
+                        end: null
+                      }
+                    }
+                  }
+                },
+                actions.updateCreateFlightDialogData({
+                  'counters.flightHours.start': 348970,
+                  blockOffTime: '2018-12-15 10:30'
+                })
+              )
+            ).toEqual({
+              createFlightDialogData: {
+                date: '2018-12-15',
+                blockOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    start: 348970,
+                    end: null
+                  }
+                }
+              }
+            })
           })
 
           it('handles OPEN_DELETE_FLIGHT_DIALOG action', () => {
