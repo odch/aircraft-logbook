@@ -118,6 +118,9 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
         </fieldset>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root-84 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Landungen</label>
+          <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-inputType-117 MuiInput-inputType-102\\" type=\\"number\\" value=\\"\\"></div>
+        </div>
       </div>
       <div class=\\"MuiDialogActions-root-264\\"><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-131 MuiButton-root-266 MuiButton-text-268 MuiButton-textPrimary-269 MuiButton-flat-271 MuiButton-flatPrimary-272 MuiDialogActions-action-265\\" type=\\"button\\"><span class=\\"MuiButton-label-267\\"><span>Abbrechen</span></span><span class=\\"MuiTouchRipple-root-143\\"></span></button><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-131 MuiButton-root-266 MuiButton-text-268 MuiButton-textPrimary-269 MuiButton-flat-271 MuiButton-flatPrimary-272 MuiDialogActions-action-265\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label-267\\"><span>Speichern</span></span><span class=\\"MuiTouchRipple-root-143\\"></span></button></div>
     </form>

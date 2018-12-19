@@ -113,7 +113,8 @@ export function* createFlight({
         data.blockOnTime,
         destinationTimezone
       ),
-      counters: data.counters
+      counters: data.counters,
+      landings: data.landings
     }
 
     yield call(
