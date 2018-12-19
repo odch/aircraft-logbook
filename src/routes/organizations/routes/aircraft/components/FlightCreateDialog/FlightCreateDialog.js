@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import { DatePicker, TimePicker } from 'material-ui-pickers'
 import Select from '../../../../../../components/Select'
@@ -42,6 +43,14 @@ class FlightCreateDialog extends React.Component {
 
   handleHoursCounterChange = name => value => {
     this.updateData(name, value)
+  }
+
+  handleIntegerChange = name => e => {
+    const value = e.target.value
+    if (/^\d*$/.test(value)) {
+      const intValue = value ? parseInt(value) : undefined
+      this.updateData(name, intValue)
+    }
   }
 
   updateData = (name, value) => {
@@ -103,6 +112,7 @@ class FlightCreateDialog extends React.Component {
               </Grid>
             </Grid>
           </FormControl>
+          {this.renderNumberField('landings')}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -169,6 +179,20 @@ class FlightCreateDialog extends React.Component {
         value={this.getValue(name)}
         onChange={this.handleHoursCounterChange(name)}
         cy={`${name}-field`}
+        margin="normal"
+        fullWidth
+      />
+    )
+  }
+
+  renderNumberField(name) {
+    return (
+      <TextField
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        value={this.getValue(name, '')}
+        onChange={this.handleIntegerChange(name)}
+        cy={`${name}-field`}
+        type="number"
         margin="normal"
         fullWidth
       />

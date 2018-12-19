@@ -91,7 +91,8 @@ describe('routes', () => {
                     start: 45780,
                     end: 45830
                   }
-                }
+                },
+                landings: 3
               }
 
               const action = actions.createFlight(
@@ -162,7 +163,8 @@ describe('routes', () => {
                         start: 45780,
                         end: 45830
                       }
-                    }
+                    },
+                    landings: 3
                   }
                 )
               )
