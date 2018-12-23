@@ -5,14 +5,17 @@
   "login.logout": "Abmelden",
   "login.failed": "Die Anmeldung ist fehlgeschlagen.",
   "login.registration": "Noch kein Konto? Hier registrieren!",
+
   "registration.firstname": "Vorname",
   "registration.lastname": "Nachname",
   "registration.email": "E-Mail",
   "registration.password": "Passwort",
   "registration.register": "Registrieren",
   "registration.failed": "Die Registrierung ist fehlgeschlagen.",
+
   "menu.account.organizations": "Meine Organisationen",
   "menu.account.organizationsettings": "Organisationseinstellungen",
+
   "organizations.create": "Neue Organisation erstellen",
   "organizations.create.dialog.title": "Neue Organisation erstellen",
   "organizations.create.dialog.text": "Trage im folgenden Feld den Namen deiner Organisation ein.",
@@ -25,18 +28,22 @@
   "organizations.delete.dialog.id": "Name",
   "organizations.delete.dialog.buttons.cancel": "Abbrechen",
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
+
   "aircraftdetail.lastflights": "Neuste Flüge",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
   "aircraftdetail.createflight": "Flug erfassen",
+
   "flightlist.date": "Datum",
   "flightlist.pilot": "Pilot",
   "flightlist.departureaerodrome": "Startflugplatz",
   "flightlist.destinationaerodrome": "Zielflugplatz",
   "flightlist.blockofftime": "Block off",
   "flightlist.blockontime": "Block on",
+
   "flight.create.dialog.title": "Flug erfassen",
   "flight.create.dialog.date": "Datum",
   "flight.create.dialog.pilot": "Pilot",
+  "flight.create.dialog.nature": "Typ",
   "flight.create.dialog.departureaerodrome": "Startflugplatz",
   "flight.create.dialog.destinationaerodrome": "Zielflugplatz",
   "flight.create.dialog.blockofftime": "Block off",
@@ -48,6 +55,7 @@
   "flight.create.dialog.landings": "Landungen",
   "flight.create.dialog.buttons.cancel": "Abbrechen",
   "flight.create.dialog.buttons.create": "Speichern",
+
   "flight.delete.dialog.title": "Flug löschen",
   "flight.delete.dialog.text": "Bist du sicher, dass du diesen Flug löschen möchtest?",
   "flight.delete.dialog.date": "Datum",
@@ -57,5 +65,15 @@
   "flight.delete.dialog.blockofftime": "Block off",
   "flight.delete.dialog.blockontime": "Block on",
   "flight.delete.dialog.buttons.cancel": "Abbrechen",
-  "flight.delete.dialog.buttons.delete": "Flug löschen"
+  "flight.delete.dialog.buttons.delete": "Flug löschen",
+
+  "flight.nature.vp": "Charter VFR",
+  "flight.nature.ip": "Charter IFR",
+  "flight.nature.vs": "Schulung VFR",
+  "flight.nature.vss": "Schulung VFR (Solo)",
+  "flight.nature.is": "Schulung IFR",
+  "flight.nature.iss": "Schulung IFR (Solo)",
+  "flight.nature.tr": "Schnupperflug",
+  "flight.nature.tec": "Technischer Flug",
+  "flight.nature.vc": "Kommerzieller Rundflug"
 }

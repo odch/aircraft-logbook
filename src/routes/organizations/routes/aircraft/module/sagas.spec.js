@@ -79,6 +79,7 @@ describe('routes', () => {
 
               const data = {
                 pilot: { value: 'pilot-id' },
+                nature: { value: 'vp' },
                 departureAerodrome: { value: 'dep-ad-id' },
                 destinationAerodrome: { value: 'dest-ad-id' },
                 date: '2018-12-15',
@@ -152,6 +153,7 @@ describe('routes', () => {
                     deleted: false,
                     owner: 'owner-ref',
                     pilot: 'pilot-ref',
+                    nature: 'vp',
                     departureAerodrome: 'dep-ad-ref',
                     destinationAerodrome: 'dest-ad-ref',
                     blockOffTime: new Date('2018-12-15T09:00:00.000Z'),
