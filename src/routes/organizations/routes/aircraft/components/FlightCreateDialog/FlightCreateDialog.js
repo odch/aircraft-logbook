@@ -85,7 +85,12 @@ class FlightCreateDialog extends React.Component {
   }
 
   renderForm() {
-    const { onClose, organizationMembers = [], aerodromes = [] } = this.props
+    const {
+      onClose,
+      organizationMembers = [],
+      flightNatures = [],
+      aerodromes = []
+    } = this.props
 
     const memberOptions = getMemberOptions(organizationMembers)
     const aerodromeOptions = getAerodromeOptions(aerodromes)
@@ -95,6 +100,7 @@ class FlightCreateDialog extends React.Component {
         <DialogContent>
           {this.renderDatePicker('date')}
           {this.renderSelect('pilot', memberOptions)}
+          {this.renderSelect('nature', flightNatures)}
           {this.renderSelect('departureAerodrome', aerodromeOptions)}
           {this.renderSelect('destinationAerodrome', aerodromeOptions)}
           {this.renderTimePicker('blockOffTime')}
@@ -231,6 +237,12 @@ FlightCreateDialog.propTypes = {
     })
   }).isRequired,
   organizationMembers: PropTypes.arrayOf(memberShape),
+  flightNatures: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ),
   aerodromes: PropTypes.arrayOf(aerodromeShape),
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,

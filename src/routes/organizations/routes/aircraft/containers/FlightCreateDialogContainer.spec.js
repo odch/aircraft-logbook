@@ -1,7 +1,7 @@
 jest.mock('../components/FlightCreateDialog')
 
 import React from 'react'
-import renderer from 'react-test-renderer'
+import renderIntl from '../../../../../testutil/renderIntl'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import FlightCreateDialog from '../components/FlightCreateDialog'
@@ -30,7 +30,7 @@ describe('routes', () => {
               }
               const store = configureStore()(state)
 
-              wrapper = renderer.create(
+              wrapper = renderIntl(
                 <Provider store={store}>
                   <FlightCreateDialogContainer />
                 </Provider>
@@ -50,6 +50,7 @@ describe('routes', () => {
             it('should map state to props', () => {
               const expectedPropKeys = [
                 'organizationMembers',
+                'flightNatures',
                 'aerodromes',
                 'data'
               ]

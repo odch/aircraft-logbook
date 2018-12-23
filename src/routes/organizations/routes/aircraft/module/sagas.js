@@ -90,6 +90,7 @@ export function* createFlight({
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
+      nature: data.nature.value,
       pilot: pilot.ref,
       departureAerodrome: departureAerodrome.ref,
       destinationAerodrome: destinationAerodrome.ref,
