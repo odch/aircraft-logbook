@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components HoursCounterField renders correctly 1`] = `
-"<div class=\\"MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4\\" data-cy=\\"hours-counter-field\\"><label class=\\"MuiFormLabel-root-12 MuiFormLabel-filled-16 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9 MuiInputLabel-shrink-8\\" data-shrink=\\"true\\">test field</label>
+exports[`components DecimalField renders correctly 1`] = `
+"<div class=\\"MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4\\" data-cy=\\"test-field\\"><label class=\\"MuiFormLabel-root-12 MuiFormLabel-filled-16 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9 MuiInputLabel-shrink-8\\" data-shrink=\\"true\\">test field</label>
   <div class=\\"MuiInputBase-root-32 MuiInput-root-19 MuiInput-underline-23 MuiInputBase-fullWidth-41 MuiInput-fullWidth-26 MuiInputBase-formControl-33 MuiInput-formControl-20\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-42 MuiInput-input-27 MuiInputBase-inputType-45 MuiInput-inputType-30\\" type=\\"number\\" step=\\".01\\" value=\\"4844.78\\"></div>
 </div>"
 `;
