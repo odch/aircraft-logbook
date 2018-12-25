@@ -50,9 +50,13 @@
   "flight.create.dialog.takeofftime": "Take off",
   "flight.create.dialog.landingtime": "Landung",
   "flight.create.dialog.blockontime": "Block on",
+  "flight.create.dialog.counters.flighthours": "Flugstunden",
   "flight.create.dialog.counters.flighthours.start": "Startzähler",
   "flight.create.dialog.counters.flighthours.end": "Endzähler",
   "flight.create.dialog.landings": "Landungen",
+  "flight.create.dialog.fuel": "Treibstoff",
+  "flight.create.dialog.fueluplift": "Menge (L)",
+  "flight.create.dialog.fueltype": "Typ",
   "flight.create.dialog.buttons.cancel": "Abbrechen",
   "flight.create.dialog.buttons.create": "Speichern",
 

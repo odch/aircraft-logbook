@@ -115,7 +115,10 @@ export function* createFlight({
         destinationTimezone
       ),
       counters: data.counters,
-      landings: data.landings
+      landings: data.landings,
+      fuelUplift: data.fuelUplift / 100,
+      fuelUnit: 'litre',
+      fuelType: data.fuelType.value
     }
 
     yield call(

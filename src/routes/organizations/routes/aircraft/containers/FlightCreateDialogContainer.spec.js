@@ -22,6 +22,21 @@ describe('routes', () => {
 
               const state = {
                 firestore: {
+                  data: {
+                    organizationAircrafts: {
+                      o7flC7jw8jmkOfWo8oyA: {
+                        registration: 'HBKFW',
+                        settings: {
+                          fuelTypes: [
+                            {
+                              name: 'avgas_homebase',
+                              description: 'AvGas (Homebase)'
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
                   ordered: {}
                 },
                 aircraft: {
@@ -32,7 +47,7 @@ describe('routes', () => {
 
               wrapper = renderIntl(
                 <Provider store={store}>
-                  <FlightCreateDialogContainer />
+                  <FlightCreateDialogContainer aircraftId="o7flC7jw8jmkOfWo8oyA" />
                 </Provider>
               )
 
@@ -52,6 +67,7 @@ describe('routes', () => {
                 'organizationMembers',
                 'flightNatures',
                 'aerodromes',
+                'fuelTypes',
                 'data'
               ]
 

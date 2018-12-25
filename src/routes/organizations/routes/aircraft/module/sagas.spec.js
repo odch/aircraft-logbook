@@ -93,7 +93,9 @@ describe('routes', () => {
                     end: 45830
                   }
                 },
-                landings: 3
+                landings: 3,
+                fuelUplift: 5789,
+                fuelType: { value: 'avgas_homebase' }
               }
 
               const action = actions.createFlight(
@@ -166,7 +168,10 @@ describe('routes', () => {
                         end: 45830
                       }
                     },
-                    landings: 3
+                    landings: 3,
+                    fuelUplift: 57.89,
+                    fuelUnit: 'litre',
+                    fuelType: 'avgas_homebase'
                   }
                 )
               )

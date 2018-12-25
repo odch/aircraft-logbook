@@ -1,17 +1,17 @@
 import React from 'react'
 import { renderIntlMaterial } from '../../testutil/renderIntl'
-import HoursCounterField from './HoursCounterField'
+import DecimalField from './DecimalField'
 
 describe('components', () => {
-  describe('HoursCounterField', () => {
+  describe('DecimalField', () => {
     it('renders correctly', () => {
       const renderedValue = renderIntlMaterial(
-        <HoursCounterField
+        <DecimalField
           label="test field"
           value={484478} // = 4844 hours and 78 hundredths of an hour
           margin="normal"
           fullWidth
-          cy="hours-counter-field"
+          cy="test-field"
         />,
         true
       )

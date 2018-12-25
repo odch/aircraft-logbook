@@ -14,7 +14,7 @@ import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import { DatePicker, TimePicker } from 'material-ui-pickers'
 import Select from '../../../../../../components/Select'
-import HoursCounterField from '../../../../../../components/HoursCounterField'
+import DecimalField from '../../../../../../components/DecimalField'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import {
   aerodrome as aerodromeShape,
@@ -41,7 +41,7 @@ class FlightCreateDialog extends React.Component {
     this.updateData(name, value)
   }
 
-  handleHoursCounterChange = name => value => {
+  handleDecimalChange = name => value => {
     this.updateData(name, value)
   }
 
@@ -89,7 +89,8 @@ class FlightCreateDialog extends React.Component {
       onClose,
       organizationMembers = [],
       flightNatures = [],
-      aerodromes = []
+      aerodromes = [],
+      fuelTypes = []
     } = this.props
 
     const memberOptions = getMemberOptions(organizationMembers)
@@ -108,17 +109,32 @@ class FlightCreateDialog extends React.Component {
           {this.renderTimePicker('landingTime')}
           {this.renderTimePicker('blockOnTime')}
           <FormControl component="fieldset" margin="normal" fullWidth>
-            <FormLabel component="legend">Flugstunden</FormLabel>
+            <FormLabel component="legend">
+              <FormattedMessage id="flight.create.dialog.counters.flighthours" />
+            </FormLabel>
             <Grid container spacing={24}>
               <Grid item xs={12} sm={6}>
-                {this.renderHoursCounterField('counters.flightHours.start')}
+                {this.renderDecimalField('counters.flightHours.start')}
               </Grid>
               <Grid item xs={12} sm={6}>
-                {this.renderHoursCounterField('counters.flightHours.end')}
+                {this.renderDecimalField('counters.flightHours.end')}
               </Grid>
             </Grid>
           </FormControl>
-          {this.renderNumberField('landings')}
+          {this.renderIntegerField('landings')}
+          <FormControl component="fieldset" margin="normal" fullWidth>
+            <FormLabel component="legend">
+              <FormattedMessage id="flight.create.dialog.fuel" />
+            </FormLabel>
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={6}>
+                {this.renderDecimalField('fuelUplift')}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                {this.renderSelect('fuelType', fuelTypes)}
+              </Grid>
+            </Grid>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -177,13 +193,13 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderHoursCounterField(name) {
+  renderDecimalField(name) {
     return (
-      <HoursCounterField
+      <DecimalField
         name={name}
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name)}
-        onChange={this.handleHoursCounterChange(name)}
+        onChange={this.handleDecimalChange(name)}
         cy={`${name}-field`}
         margin="normal"
         fullWidth
@@ -191,7 +207,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderNumberField(name) {
+  renderIntegerField(name) {
     return (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -219,6 +235,10 @@ FlightCreateDialog.propTypes = {
   aircraftId: PropTypes.string.isRequired,
   data: PropTypes.shape({
     date: PropTypes.string,
+    nature: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }),
     blockOffTime: PropTypes.string,
     takeOffTime: PropTypes.string,
     landingTime: PropTypes.string,
@@ -234,6 +254,12 @@ FlightCreateDialog.propTypes = {
     destinationAerodrome: PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
+    }),
+    landings: PropTypes.number,
+    fuelUplift: PropTypes.number,
+    fuelType: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
     })
   }).isRequired,
   organizationMembers: PropTypes.arrayOf(memberShape),
@@ -244,6 +270,12 @@ FlightCreateDialog.propTypes = {
     })
   ),
   aerodromes: PropTypes.arrayOf(aerodromeShape),
+  fuelTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ),
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 
 const formatWithTwoDecimals = value => Number(value).toFixed(2)
 
-class HoursCounterField extends React.Component {
+class DecimalField extends React.Component {
   state = {
     stringValue: this.props.value
       ? formatWithTwoDecimals(this.props.value / 100)
@@ -28,8 +28,8 @@ class HoursCounterField extends React.Component {
       })
 
       if (onChange) {
-        const hundredthsOfAnHour = Math.round(twoDecimals * 100)
-        onChange(hundredthsOfAnHour)
+        const hundredths = Math.round(twoDecimals * 100)
+        onChange(hundredths)
       }
     }
   }
@@ -53,13 +53,13 @@ class HoursCounterField extends React.Component {
   }
 }
 
-HoursCounterField.propTypes = {
+DecimalField.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number, // integer value (hundredths of an hour)
+  value: PropTypes.number, // integer value (hundredths)
   cy: PropTypes.string,
   margin: PropTypes.string,
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func
 }
 
-export default HoursCounterField
+export default DecimalField
