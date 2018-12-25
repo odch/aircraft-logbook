@@ -206,6 +206,10 @@ class IntegrationReactSelect extends React.Component {
         '& input': {
           font: 'inherit'
         }
+      }),
+      dropdownIndicator: base => ({
+        ...base,
+        padding: 6
       })
     }
 
