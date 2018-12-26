@@ -57,6 +57,7 @@
   "flight.create.dialog.fuel": "Treibstoff",
   "flight.create.dialog.fueluplift": "Menge (L)",
   "flight.create.dialog.fueltype": "Typ",
+  "flight.create.dialog.oiluplift": "Öl (L)",
   "flight.create.dialog.buttons.cancel": "Abbrechen",
   "flight.create.dialog.buttons.create": "Speichern",
 

@@ -135,6 +135,7 @@ class FlightCreateDialog extends React.Component {
               </Grid>
             </Grid>
           </FormControl>
+          {this.renderDecimalField('oilUplift')}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -260,7 +261,8 @@ FlightCreateDialog.propTypes = {
     fuelType: PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
-    })
+    }),
+    oilUplift: PropTypes.number
   }).isRequired,
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
