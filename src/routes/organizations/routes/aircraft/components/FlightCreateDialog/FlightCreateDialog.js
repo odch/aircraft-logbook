@@ -53,6 +53,10 @@ class FlightCreateDialog extends React.Component {
     }
   }
 
+  handleMultilineTextChange = name => e => {
+    this.updateData(name, e.target.value)
+  }
+
   updateData = (name, value) => {
     this.props.updateData({
       [name]: value
@@ -136,6 +140,7 @@ class FlightCreateDialog extends React.Component {
             </Grid>
           </FormControl>
           {this.renderDecimalField('oilUplift')}
+          {this.renderMultilineTextField('remarks')}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -222,6 +227,20 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
+  renderMultilineTextField(name) {
+    return (
+      <TextField
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        value={this.getValue(name, '')}
+        onChange={this.handleMultilineTextChange(name)}
+        data-cy={`${name}-field`}
+        margin="normal"
+        multiline
+        fullWidth
+      />
+    )
+  }
+
   renderLoadingIcon() {
     return (
       <div className={this.props.classes.loadingIconContainer}>
@@ -262,7 +281,8 @@ FlightCreateDialog.propTypes = {
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
     }),
-    oilUplift: PropTypes.number
+    oilUplift: PropTypes.number,
+    remarks: PropTypes.string
   }).isRequired,
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(

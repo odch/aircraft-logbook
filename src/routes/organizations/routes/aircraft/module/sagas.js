@@ -120,7 +120,8 @@ export function* createFlight({
       fuelUnit: 'litre',
       fuelType: data.fuelType.value,
       oilUplift: data.oilUplift / 100,
-      oilUnit: 'litre'
+      oilUnit: 'litre',
+      remarks: data.remarks
     }
 
     yield call(
