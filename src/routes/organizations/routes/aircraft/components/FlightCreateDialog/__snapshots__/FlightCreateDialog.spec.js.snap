@@ -141,6 +141,21 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
         </fieldset>
+        <fieldset class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\">
+          <legend class=\\"MuiFormLabel-root-84\\"><span>Motorstunden</span></legend>
+          <div class=\\"MuiGrid-container-167 MuiGrid-spacing-xs-24-191\\">
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.engineHours.start-field\\"><label class=\\"MuiFormLabel-root-84 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Startzähler</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-inputType-117 MuiInput-inputType-102\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+              </div>
+            </div>
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.engineHours.end-field\\"><label class=\\"MuiFormLabel-root-84 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Endzähler</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-inputType-117 MuiInput-inputType-102\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
         <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root-84 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Landungen</label>
           <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-inputType-117 MuiInput-inputType-102\\" type=\\"number\\" value=\\"\\"></div>
         </div>

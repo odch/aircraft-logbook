@@ -112,33 +112,22 @@ class FlightCreateDialog extends React.Component {
           {this.renderTimePicker('takeOffTime')}
           {this.renderTimePicker('landingTime')}
           {this.renderTimePicker('blockOnTime')}
-          <FormControl component="fieldset" margin="normal" fullWidth>
-            <FormLabel component="legend">
-              <FormattedMessage id="flight.create.dialog.counters.flighthours" />
-            </FormLabel>
-            <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
-                {this.renderDecimalField('counters.flightHours.start')}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                {this.renderDecimalField('counters.flightHours.end')}
-              </Grid>
-            </Grid>
-          </FormControl>
+          {this.renderInTwoColumns(
+            'counters.flighthours',
+            this.renderDecimalField('counters.flightHours.start'),
+            this.renderDecimalField('counters.flightHours.end')
+          )}
+          {this.renderInTwoColumns(
+            'counters.enginehours',
+            this.renderDecimalField('counters.engineHours.start'),
+            this.renderDecimalField('counters.engineHours.end')
+          )}
           {this.renderIntegerField('landings')}
-          <FormControl component="fieldset" margin="normal" fullWidth>
-            <FormLabel component="legend">
-              <FormattedMessage id="flight.create.dialog.fuel" />
-            </FormLabel>
-            <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
-                {this.renderDecimalField('fuelUplift')}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                {this.renderSelect('fuelType', fuelTypes)}
-              </Grid>
-            </Grid>
-          </FormControl>
+          {this.renderInTwoColumns(
+            'fuel',
+            this.renderDecimalField('fuelUplift'),
+            this.renderSelect('fuelType', fuelTypes)
+          )}
           {this.renderDecimalField('oilUplift')}
           {this.renderMultilineTextField('remarks')}
         </DialogContent>
@@ -151,6 +140,24 @@ class FlightCreateDialog extends React.Component {
           </Button>
         </DialogActions>
       </form>
+    )
+  }
+
+  renderInTwoColumns(label, component1, component2) {
+    return (
+      <FormControl component="fieldset" margin="normal" fullWidth>
+        <FormLabel component="legend">
+          <FormattedMessage id={`flight.create.dialog.${label}`} />
+        </FormLabel>
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={6}>
+            {component1}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {component2}
+          </Grid>
+        </Grid>
+      </FormControl>
     )
   }
 
