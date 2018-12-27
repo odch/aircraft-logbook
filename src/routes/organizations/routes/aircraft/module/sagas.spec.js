@@ -91,6 +91,10 @@ describe('routes', () => {
                   flightHours: {
                     start: 45780,
                     end: 45830
+                  },
+                  engineHours: {
+                    start: 50145,
+                    end: 50612
                   }
                 },
                 landings: 3,
@@ -168,6 +172,10 @@ describe('routes', () => {
                       flightHours: {
                         start: 45780,
                         end: 45830
+                      },
+                      engineHours: {
+                        start: 50145,
+                        end: 50612
                       }
                     },
                     landings: 3,
