@@ -79,6 +79,7 @@ describe('routes', () => {
 
               const data = {
                 pilot: { value: 'pilot-id' },
+                instructor: { value: 'instructor-id' },
                 nature: { value: 'vp' },
                 departureAerodrome: { value: 'dep-ad-id' },
                 destinationAerodrome: { value: 'dest-ad-id' },
@@ -121,6 +122,7 @@ describe('routes', () => {
               }
               const owner = { ref: 'owner-ref' }
               const pilot = { ref: 'pilot-ref' }
+              const instructor = { ref: 'instructor-ref' }
               const departureAerodrome = {
                 ref: 'dep-ad-ref',
                 data: () => ({
@@ -141,6 +143,9 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.pilot.value)
               )
               expect(generator.next(pilot).value).toEqual(
+                call(sagas.getMember, organizationId, data.instructor.value)
+              )
+              expect(generator.next(instructor).value).toEqual(
                 call(getAerodrome, data.departureAerodrome.value)
               )
               expect(generator.next(departureAerodrome).value).toEqual(
@@ -161,6 +166,7 @@ describe('routes', () => {
                     deleted: false,
                     owner: 'owner-ref',
                     pilot: 'pilot-ref',
+                    instructor: 'instructor-ref',
                     nature: 'vp',
                     departureAerodrome: 'dep-ad-ref',
                     destinationAerodrome: 'dest-ad-ref',

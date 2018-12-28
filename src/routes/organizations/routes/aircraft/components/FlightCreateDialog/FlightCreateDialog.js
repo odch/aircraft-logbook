@@ -105,6 +105,7 @@ class FlightCreateDialog extends React.Component {
         <DialogContent>
           {this.renderDatePicker('date')}
           {this.renderSelect('pilot', memberOptions)}
+          {this.renderSelect('instructor', memberOptions)}
           {this.renderSelect('nature', flightNatures)}
           {this.renderSelect('departureAerodrome', aerodromeOptions)}
           {this.renderSelect('destinationAerodrome', aerodromeOptions)}
