@@ -75,6 +75,11 @@ export function* createFlight({
 
     const owner = yield call(getMember, organizationId, currentMember.id)
     const pilot = yield call(getMember, organizationId, data.pilot.value)
+    const instructor =
+      data.instructor && data.instructor.value
+        ? yield call(getMember, organizationId, data.instructor.value)
+        : null
+
     const departureAerodrome = yield call(
       getAerodrome,
       data.departureAerodrome.value
@@ -92,6 +97,7 @@ export function* createFlight({
       owner: owner.ref,
       nature: data.nature.value,
       pilot: pilot.ref,
+      instructor: instructor ? instructor.ref : null,
       departureAerodrome: departureAerodrome.ref,
       destinationAerodrome: destinationAerodrome.ref,
       blockOffTime: mergeDateAndTime(

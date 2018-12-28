@@ -43,6 +43,7 @@
   "flight.create.dialog.title": "Flug erfassen",
   "flight.create.dialog.date": "Datum",
   "flight.create.dialog.pilot": "Pilot",
+  "flight.create.dialog.instructor": "Fluglehrer",
   "flight.create.dialog.nature": "Typ",
   "flight.create.dialog.departureaerodrome": "Startflugplatz",
   "flight.create.dialog.destinationaerodrome": "Zielflugplatz",
