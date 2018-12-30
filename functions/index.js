@@ -1,71 +1,30 @@
-/* eslint-disable no-console */
-const functions = require('firebase-functions')
-const cors = require('cors')({
-  origin: true
+/** EXPORT ALL FUNCTIONS
+ *
+ *   - Loads all `.function.js` files
+ *   - Supports multiple exports from a single `.function.js` file
+ *   - It is optimized with `FUNCTION_NAME` env and omiting `node_modules` as well
+ *   - Every function from any file must have unique name
+ *   - Default export is not supported (`module.exports = ...`), instead use: `module.exports.functionName = ...`
+ *
+ *   Based on this thread:
+ *     https://github.com/firebase/functions-samples/issues/170
+ */
+const glob = require('glob')
+const files = glob.sync('./**/*.function.js', {
+  cwd: __dirname,
+  ignore: './node_modules/**'
 })
 
-const admin = require('firebase-admin')
-admin.initializeApp()
+files.forEach(file => {
+  const functionModule = require(file)
+  const functionNames = Object.keys(functionModule)
 
-exports.deleteTestUser = functions.https.onRequest((req, res) => {
-  return cors(req, res, () => {
-    try {
-      return admin
-        .auth()
-        .getUserByEmail('test@opendigital.ch')
-        .then(userRecord => {
-          console.log(
-            'User record found for email test@opendigital.ch: ' + userRecord.uid
-          )
-          return admin
-            .auth()
-            .deleteUser(userRecord.uid)
-            .then(() =>
-              res.json({ result: 'User test@opendigital.ch deleted' })
-            )
-        })
-    } catch (e) {
-      console.log('Failed to delete user test@opendigital.ch', e)
-      return res.json({ result: 'Could not delete user test@opendigital.ch' })
+  functionNames.forEach(functionName => {
+    if (
+      !process.env.FUNCTION_NAME ||
+      process.env.FUNCTION_NAME === functionName
+    ) {
+      exports[functionName] = functionModule[functionName]
     }
   })
 })
-
-const updateUserOrganizations = (change, fieldName, organizationRef) => {
-  const data = change.after.data()
-  const previousData = change.before.data()
-
-  if (data && previousData && data[fieldName] == previousData[fieldName]) {
-    return null
-  }
-
-  const promises = []
-
-  if (previousData && previousData[fieldName]) {
-    promises.push(
-      previousData[fieldName].update({
-        organizations: admin.firestore.FieldValue.arrayRemove(organizationRef)
-      })
-    )
-  }
-
-  if (data && data[fieldName]) {
-    promises.push(
-      data[fieldName].update({
-        organizations: admin.firestore.FieldValue.arrayUnion(organizationRef)
-      })
-    )
-  }
-
-  return Promise.all(promises)
-}
-
-exports.updateUserOrganizationsOnOrganizationWrite = functions.firestore
-  .document('organizations/{organizationID}')
-  .onWrite(change => updateUserOrganizations(change, 'owner', change.after.ref))
-
-exports.updateUserOrganizationsOnMemberWrite = functions.firestore
-  .document('organizations/{organizationID}/members/{memberID}')
-  .onWrite(change =>
-    updateUserOrganizations(change, 'user', change.after.ref.parent.parent)
-  )
