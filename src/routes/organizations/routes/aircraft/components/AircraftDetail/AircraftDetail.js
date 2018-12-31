@@ -33,37 +33,62 @@ class AircraftDetail extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.organization) {
-      this.props.fetchAircrafts(this.props.organization.id)
-      this.props.fetchMembers(this.props.organization.id)
+    const {
+      organization,
+      aircraft,
+      flightsPagination,
+      fetchAircrafts,
+      fetchMembers,
+      fetchFlights
+    } = this.props
 
-      if (this.props.aircraft) {
-        this.props.fetchFlights(
-          this.props.organization.id,
-          this.props.aircraft.id
+    if (organization) {
+      fetchAircrafts(organization.id)
+      fetchMembers(organization.id)
+
+      if (aircraft) {
+        fetchFlights(
+          organization.id,
+          aircraft.id,
+          flightsPagination.page,
+          flightsPagination.rowsPerPage
         )
       }
     }
   }
 
   componentDidUpdate(prevProps) {
+    const {
+      organization,
+      aircraft,
+      flightsPagination,
+      fetchAircrafts,
+      fetchMembers,
+      fetchFlights
+    } = this.props
+
     if (
-      this.props.organization &&
-      (!prevProps.organization ||
-        prevProps.organization.id !== this.props.organization.id)
+      organization &&
+      (!prevProps.organization || prevProps.organization.id !== organization.id)
     ) {
-      this.props.fetchAircrafts(this.props.organization.id)
-      this.props.fetchMembers(this.props.organization.id)
+      fetchAircrafts(organization.id)
+      fetchMembers(organization.id)
     }
 
     if (
-      this.props.organization &&
-      this.props.aircraft &&
-      (!prevProps.aircraft || prevProps.aircraft.id !== this.props.aircraft.id)
+      organization &&
+      aircraft &&
+      (!prevProps.aircraft ||
+        prevProps.aircraft.id !== aircraft.id ||
+        prevProps.flightsPagination.page !== flightsPagination.page ||
+        prevProps.flightsPagination.rowsPerPage !==
+          flightsPagination.rowsPerPage)
     ) {
-      this.props.fetchFlights(
-        this.props.organization.id,
-        this.props.aircraft.id
+      fetchFlights(
+        organization.id,
+        aircraft.id,
+        flightsPagination.page,
+        flightsPagination.rowsPerPage
       )
     }
   }
@@ -74,11 +99,13 @@ class AircraftDetail extends React.Component {
       aircraft,
       flights,
       flightDeleteDialog,
+      flightsPagination,
       classes,
       createFlightDialogOpen,
       openDeleteFlightDialog,
       closeDeleteFlightDialog,
-      deleteFlight
+      deleteFlight,
+      setFlightsPage
     } = this.props
 
     if (organization === null) {
@@ -98,9 +125,6 @@ class AircraftDetail extends React.Component {
         <Typography variant="display1" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Typography variant="title" gutterBottom>
-          <FormattedMessage id="aircraftdetail.lastflights" />
-        </Typography>
         <Button variant="contained" onClick={this.handleCreateClick}>
           <FormattedMessage id="aircraftdetail.createflight" />
         </Button>
@@ -110,9 +134,11 @@ class AircraftDetail extends React.Component {
             aircraft={aircraft}
             flights={flights}
             flightDeleteDialog={flightDeleteDialog}
+            pagination={flightsPagination}
             openFlightDeleteDialog={openDeleteFlightDialog}
             closeFlightDeleteDialog={closeDeleteFlightDialog}
             deleteFlight={deleteFlight}
+            setFlightsPage={setFlightsPage}
           />
         ) : (
           <Typography paragraph>
@@ -134,6 +160,11 @@ AircraftDetail.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
   flights: PropTypes.arrayOf(flightShape),
+  flightsPagination: PropTypes.shape({
+    rowsCount: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired
+  }),
   classes: PropTypes.object.isRequired,
   createFlightDialogOpen: PropTypes.bool.isRequired,
   flightDeleteDialog: PropTypes.shape({
@@ -148,7 +179,8 @@ AircraftDetail.propTypes = {
   initCreateFlightDialog: PropTypes.func.isRequired,
   openDeleteFlightDialog: PropTypes.func.isRequired,
   closeDeleteFlightDialog: PropTypes.func.isRequired,
-  deleteFlight: PropTypes.func.isRequired
+  deleteFlight: PropTypes.func.isRequired,
+  setFlightsPage: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(AircraftDetail)

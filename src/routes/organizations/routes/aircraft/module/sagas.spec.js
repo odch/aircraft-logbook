@@ -15,12 +15,23 @@ describe('routes', () => {
             it('should load the flights of an aircraft', () => {
               const fetchFlightsAction = actions.fetchFlights(
                 'my_org',
-                'o7flC7jw8jmkOfWo8oyA'
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10
               )
 
               const generator = sagas.fetchFlights(fetchFlightsAction)
 
-              expect(generator.next().value).toEqual(call(getFirestore))
+              expect(generator.next().value).toEqual(
+                call(
+                  sagas.getStartFlightDocument,
+                  'my_org',
+                  'o7flC7jw8jmkOfWo8oyA',
+                  0
+                )
+              )
+
+              expect(generator.next(null).value).toEqual(call(getFirestore))
 
               const firestore = {
                 get: () => {}
@@ -44,8 +55,9 @@ describe('routes', () => {
                     ],
                     where: ['deleted', '==', false],
                     orderBy: ['blockOffTime', 'desc'],
-                    limit: 5,
-                    storeAs: 'flights-o7flC7jw8jmkOfWo8oyA',
+                    startAfter: null,
+                    limit: 10,
+                    storeAs: 'flights-o7flC7jw8jmkOfWo8oyA-0',
                     populate: [
                       'departureAerodrome',
                       'destinationAerodrome',

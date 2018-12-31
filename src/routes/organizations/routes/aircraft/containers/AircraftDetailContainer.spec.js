@@ -29,7 +29,7 @@ describe('routes', () => {
                 },
                 firestore: {
                   ordered: {
-                    'fligts-o7flC7jw8jmkOfWo8oyA': [
+                    'fligts-o7flC7jw8jmkOfWo8oyA-0': [
                       {
                         id: 'sStfyLd2XArT7oUZPFDn',
                         departureAerodrome: { name: 'Lommis' },
@@ -74,7 +74,10 @@ describe('routes', () => {
                   }
                 },
                 aircraft: {
-                  createFlightDialogOpen: false
+                  createFlightDialogOpen: false,
+                  flights: {
+                    page: 0
+                  }
                 }
               }
               const store = configureStore()(state)

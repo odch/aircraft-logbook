@@ -1,5 +1,6 @@
 import {
   fetchFlights,
+  setFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   closeCreateFlightDialog,
@@ -14,6 +15,7 @@ import sagas from './sagas'
 
 export {
   fetchFlights,
+  setFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   closeCreateFlightDialog,

@@ -9,8 +9,30 @@ import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
+export const flightsSelector = (aircraftId, page) => state =>
+  state.firestore.ordered[`flights-${aircraftId}-${page}`]
 
-export function* fetchFlights({ payload: { organizationId, aircraftId } }) {
+export function* getStartFlightDocument(organizationId, aircraftId, page) {
+  if (page === 0) {
+    return null
+  }
+  const previousPage = yield select(flightsSelector(aircraftId, page - 1))
+  if (previousPage && previousPage.length > 0) {
+    const lastFlight = previousPage[previousPage.length - 1]
+    return yield call(getFlight, organizationId, aircraftId, lastFlight.id)
+  }
+  return null
+}
+
+export function* fetchFlights({
+  payload: { organizationId, aircraftId, page, rowsPerPage }
+}) {
+  const startFlightDocument = yield call(
+    getStartFlightDocument,
+    organizationId,
+    aircraftId,
+    page
+  )
   const firestore = yield call(getFirestore)
   yield call(
     firestore.get,
@@ -30,8 +52,9 @@ export function* fetchFlights({ payload: { organizationId, aircraftId } }) {
       ],
       where: ['deleted', '==', false],
       orderBy: ['blockOffTime', 'desc'],
-      limit: 5,
-      storeAs: 'flights-' + aircraftId,
+      startAfter: startFlightDocument,
+      limit: rowsPerPage,
+      storeAs: `flights-${aircraftId}-${page}`,
       populate: ['departureAerodrome', 'destinationAerodrome', 'pilot']
     },
     {}
@@ -58,6 +81,17 @@ export function* getMember(organizationId, memberId) {
     organizationId,
     'members',
     memberId
+  ])
+}
+
+export function* getFlight(organizationId, aircraftId, flightId) {
+  return yield call(getDoc, [
+    'organizations',
+    organizationId,
+    'aircrafts',
+    aircraftId,
+    'flights',
+    flightId
   ])
 }
 

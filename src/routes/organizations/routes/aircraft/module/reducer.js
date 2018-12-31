@@ -21,8 +21,18 @@ export const INITIAL_STATE = {
   },
   deleteFlightDialog: {
     open: false
+  },
+  flights: {
+    page: 0
   }
 }
+
+const setFlightsPage = (state, action) => ({
+  ...state,
+  flights: {
+    page: action.payload.page
+  }
+})
 
 const openCreateFlightDialog = state => ({
   ...state,
@@ -73,6 +83,7 @@ const setDeleteFlightDialogSubmitted = state => ({
 })
 
 const ACTION_HANDLERS = {
+  [actions.SET_FLIGHTS_PAGE]: setFlightsPage,
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
   [actions.UPDATE_CREATE_FLIGHT_DIALOG_DATA]: updateCreateFlightDialogData,

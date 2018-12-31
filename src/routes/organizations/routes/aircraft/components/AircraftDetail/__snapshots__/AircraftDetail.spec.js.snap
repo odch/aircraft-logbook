@@ -15,13 +15,6 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   >
     HBKFW
   </h1>
-  <h2
-    className="MuiTypography-root-13 MuiTypography-title-19 MuiTypography-gutterBottom-31"
-  >
-    <span>
-      Neuste Flüge
-    </span>
-  </h2>
   <button
     className="MuiButtonBase-root-65 MuiButton-root-39 MuiButton-contained-50 MuiButton-raised-53"
     disabled={false}
@@ -210,6 +203,95 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
       </tr>
     </tbody>
   </table>
+  <div
+    className="MuiTablePagination-root-109"
+  >
+    <div
+      className="MuiToolbar-root-119 MuiToolbar-regular-121 MuiToolbar-gutters-120 MuiTablePagination-toolbar-110"
+    >
+      <div
+        className="MuiTablePagination-spacer-111"
+      />
+      <span
+        className="MuiTypography-root-13 MuiTypography-caption-23 MuiTablePagination-caption-112"
+      >
+        1-10 of 45
+      </span>
+      <div
+        className="MuiTablePagination-actions-118"
+      >
+        <button
+          className="MuiButtonBase-root-65 MuiButtonBase-disabled-66 MuiIconButton-root-94 MuiIconButton-disabled-98"
+          disabled={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="-1"
+          type="button"
+        >
+          <span
+            className="MuiIconButton-label-99"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-100"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          className="MuiButtonBase-root-65 MuiIconButton-root-94"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiIconButton-label-99"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-100"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-68"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 

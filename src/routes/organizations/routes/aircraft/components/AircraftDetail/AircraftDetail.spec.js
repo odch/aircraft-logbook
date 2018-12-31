@@ -25,6 +25,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -45,6 +46,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -67,6 +69,7 @@ describe('routes', () => {
                       openDeleteFlightDialog={() => {}}
                       closeDeleteFlightDialog={() => {}}
                       deleteFlight={() => {}}
+                      setFlightsPage={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -84,6 +87,11 @@ describe('routes', () => {
                       registration: 'HBKFW'
                     }}
                     flights={undefined}
+                    flightsPagination={{
+                      page: 0,
+                      rowsPerPage: 10,
+                      rowsCount: 45
+                    }}
                     createFlightDialogOpen={false}
                     flightDeleteDialog={{ open: false }}
                     fetchAircrafts={() => {}}
@@ -94,6 +102,7 @@ describe('routes', () => {
                     openDeleteFlightDialog={() => {}}
                     closeDeleteFlightDialog={() => {}}
                     deleteFlight={() => {}}
+                    setFlightsPage={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -132,6 +141,11 @@ describe('routes', () => {
                         }
                       }
                     ]}
+                    flightsPagination={{
+                      page: 0,
+                      rowsPerPage: 10,
+                      rowsCount: 45
+                    }}
                     createFlightDialogOpen={false}
                     flightDeleteDialog={{ open: false }}
                     fetchAircrafts={() => {}}
@@ -142,6 +156,7 @@ describe('routes', () => {
                     openDeleteFlightDialog={() => {}}
                     closeDeleteFlightDialog={() => {}}
                     deleteFlight={() => {}}
+                    setFlightsPage={() => {}}
                   />
                 </Router>
               ).toJSON()
@@ -165,6 +180,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -181,6 +197,11 @@ describe('routes', () => {
                     id: 'o7flC7jw8jmkOfWo8oyA',
                     registration: 'HBKFW'
                   }}
+                  flightsPagination={{
+                    page: 0,
+                    rowsPerPage: 10,
+                    rowsCount: 45
+                  }}
                   createFlightDialogOpen={false}
                   flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
@@ -191,12 +212,15 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
               expect(fetchFlights).toBeCalledWith(
                 'my_org',
-                'o7flC7jw8jmkOfWo8oyA'
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10
               )
             })
 
@@ -217,6 +241,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -241,6 +266,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -264,6 +290,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -283,6 +310,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -296,6 +324,11 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
+                  flightsPagination={{
+                    page: 0,
+                    rowsPerPage: 10,
+                    rowsCount: 45
+                  }}
                   createFlightDialogOpen={false}
                   flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
@@ -306,6 +339,7 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
@@ -318,6 +352,11 @@ describe('routes', () => {
                     id: 'o7flC7jw8jmkOfWo8oyA',
                     registration: 'HBKFW'
                   }}
+                  flightsPagination={{
+                    page: 0,
+                    rowsPerPage: 10,
+                    rowsCount: 45
+                  }}
                   createFlightDialogOpen={false}
                   flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
@@ -328,12 +367,15 @@ describe('routes', () => {
                   openDeleteFlightDialog={() => {}}
                   closeDeleteFlightDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               )
 
               expect(fetchFlights).toBeCalledWith(
                 'my_org',
-                'o7flC7jw8jmkOfWo8oyA'
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10
               )
             })
           })

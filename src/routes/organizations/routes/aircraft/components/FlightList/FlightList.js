@@ -7,6 +7,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import TablePagination from '@material-ui/core/TablePagination'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FlightDeleteDialog from '../FlightDeleteDialog'
@@ -45,10 +46,12 @@ class FlightList extends React.Component {
       aircraft,
       flights,
       flightDeleteDialog,
+      pagination,
       classes,
       openFlightDeleteDialog,
       closeFlightDeleteDialog,
-      deleteFlight
+      deleteFlight,
+      setFlightsPage
     } = this.props
     return (
       <React.Fragment>
@@ -104,6 +107,14 @@ class FlightList extends React.Component {
             })}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={pagination.rowsCount}
+          rowsPerPage={pagination.rowsPerPage}
+          rowsPerPageOptions={[]}
+          page={pagination.page}
+          onChangePage={(event, page) => setFlightsPage(page)}
+        />
         {flightDeleteDialog.open && (
           <FlightDeleteDialog
             organizationId={organization.id}
@@ -134,10 +145,16 @@ FlightList.propTypes = {
     submitted: PropTypes.bool,
     flight: flightShape
   }),
+  pagination: PropTypes.shape({
+    rowsCount: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired
+  }).isRequired,
   classes: PropTypes.object.isRequired,
   openFlightDeleteDialog: PropTypes.func.isRequired,
   closeFlightDeleteDialog: PropTypes.func.isRequired,
-  deleteFlight: PropTypes.func.isRequired
+  deleteFlight: PropTypes.func.isRequired,
+  setFlightsPage: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(FlightList)
