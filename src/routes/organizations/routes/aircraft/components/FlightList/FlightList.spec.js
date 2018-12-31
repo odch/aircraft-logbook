@@ -58,9 +58,15 @@ describe('routes', () => {
                 <FlightList
                   flights={flights}
                   flightDeleteDialog={{ open: false }}
+                  pagination={{
+                    rowsCount: 25,
+                    page: 1,
+                    rowsPerPage: 10
+                  }}
                   openFlightDeleteDialog={() => {}}
                   closeFlightDeleteDialog={() => {}}
                   deleteFlight={() => {}}
+                  setFlightsPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()

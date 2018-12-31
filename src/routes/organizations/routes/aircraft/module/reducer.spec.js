@@ -20,6 +20,9 @@ const INITIAL_STATE = {
   },
   deleteFlightDialog: {
     open: false
+  },
+  flights: {
+    page: 0
   }
 }
 
@@ -30,6 +33,23 @@ describe('routes', () => {
         describe('reducer', () => {
           it('defines an initial state', () => {
             expect(reducer(undefined, {})).toEqual(INITIAL_STATE)
+          })
+
+          it('handles SET_FLIGHTS_PAGE action', () => {
+            expect(
+              reducer(
+                {
+                  flights: {
+                    page: 1
+                  }
+                },
+                actions.setFlightsPage(2)
+              )
+            ).toEqual({
+              flights: {
+                page: 2
+              }
+            })
           })
 
           it('handles UPDATE_CREATE_FLIGHT_DIALOG_DATA action', () => {

@@ -29,7 +29,6 @@
   "organizations.delete.dialog.buttons.cancel": "Abbrechen",
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
 
-  "aircraftdetail.lastflights": "Neuste Flüge",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
   "aircraftdetail.createflight": "Flug erfassen",
 

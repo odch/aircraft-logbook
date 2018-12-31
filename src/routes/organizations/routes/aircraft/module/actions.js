@@ -1,4 +1,5 @@
 export const FETCH_FLIGHTS = 'aircraft/FETCH_FLIGHTS'
+export const SET_FLIGHTS_PAGE = 'aircraft/SET_FLIGHTS_PAGE'
 export const OPEN_CREATE_FLIGHT_DIALOG = 'aircraft/OPEN_CREATE_FLIGHT_DIALOG'
 export const CLOSE_CREATE_FLIGHT_DIALOG = 'aircraft/CLOSE_CREATE_FLIGHT_DIALOG'
 export const UPDATE_CREATE_FLIGHT_DIALOG_DATA =
@@ -11,11 +12,25 @@ export const OPEN_DELETE_FLIGHT_DIALOG = 'aircraft/OPEN_DELETE_FLIGHT_DIALOG'
 export const CLOSE_DELETE_FLIGHT_DIALOG = 'aircraft/CLOSE_DELETE_FLIGHT_DIALOG'
 export const DELETE_FLIGHT = 'aircraft/DELETE_FLIGHT'
 
-export const fetchFlights = (organizationId, aircraftId) => ({
+export const fetchFlights = (
+  organizationId,
+  aircraftId,
+  page,
+  rowsPerPage
+) => ({
   type: FETCH_FLIGHTS,
   payload: {
     organizationId,
-    aircraftId
+    aircraftId,
+    page,
+    rowsPerPage
+  }
+})
+
+export const setFlightsPage = page => ({
+  type: SET_FLIGHTS_PAGE,
+  payload: {
+    page
   }
 })
 

@@ -116,7 +116,7 @@ describe('util', () => {
           }
         }
 
-        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA')
+        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA', 0)
         expect(flights).toEqual(undefined)
       })
 
@@ -124,7 +124,7 @@ describe('util', () => {
         const state = {
           firestore: {
             ordered: {
-              'flights-o7flC7jw8jmkOfWo8oyA': [
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
                 {
                   departureAerodrome: {} // represents a reference, not populated
                 }
@@ -133,7 +133,7 @@ describe('util', () => {
           }
         }
 
-        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA')
+        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA', 0)
         expect(flights).toEqual(undefined)
       })
 
@@ -141,7 +141,7 @@ describe('util', () => {
         const state = {
           firestore: {
             ordered: {
-              'flights-o7flC7jw8jmkOfWo8oyA': [
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
                 {
                   departureAerodrome: {
                     name: 'Lommis'
@@ -152,7 +152,7 @@ describe('util', () => {
           }
         }
 
-        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA')
+        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA', 0)
         expect(flights).toEqual([
           {
             departureAerodrome: {
@@ -166,12 +166,12 @@ describe('util', () => {
         const state = {
           firestore: {
             ordered: {
-              'flights-o7flC7jw8jmkOfWo8oyA': []
+              'flights-o7flC7jw8jmkOfWo8oyA-0': []
             }
           }
         }
 
-        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA')
+        const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA', 0)
         expect(flights).toEqual([])
       })
     })

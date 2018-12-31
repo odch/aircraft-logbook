@@ -9,12 +9,15 @@ import {
 import { fetchAircrafts, fetchMembers } from '../../../module'
 import {
   fetchFlights,
+  setFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
   deleteFlight
 } from '../module'
+
+export const FLIGHTS_PER_PAGE = 10
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -23,10 +26,27 @@ const mapStateToProps = (state, ownProps) => {
     }
   } = ownProps
 
+  const organization = getOrganization(state, organizationId)
+  const aircraft = getAircraft(state, aircraftId)
+  const flights = getAircraftFlights(
+    state,
+    aircraftId,
+    state.aircraft.flights.page
+  )
+
+  const flightsPagination = aircraft
+    ? {
+        rowsCount: aircraft.counters ? aircraft.counters.flights || 0 : 0,
+        page: state.aircraft.flights.page,
+        rowsPerPage: FLIGHTS_PER_PAGE
+      }
+    : undefined
+
   return {
-    organization: getOrganization(state, organizationId),
-    aircraft: getAircraft(state, aircraftId),
-    flights: getAircraftFlights(state, aircraftId),
+    organization,
+    aircraft,
+    flights,
+    flightsPagination,
     createFlightDialogOpen: state.aircraft.createFlightDialogOpen,
     flightDeleteDialog: state.aircraft.deleteFlightDialog
   }
@@ -36,6 +56,7 @@ const mapActionCreators = {
   fetchAircrafts,
   fetchMembers,
   fetchFlights,
+  setFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   openDeleteFlightDialog,

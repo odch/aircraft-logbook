@@ -27,7 +27,7 @@ describe('routes', () => {
                 },
                 firestore: {
                   ordered: {
-                    'fligts-o7flC7jw8jmkOfWo8oyA': [
+                    'fligts-o7flC7jw8jmkOfWo8oyA-0': [
                       {
                         id: 'sStfyLd2XArT7oUZPFDn',
                         departureAerodrome: { name: 'Lommis' },
@@ -77,6 +77,9 @@ describe('routes', () => {
                   createFlightDialogOpen: false,
                   deleteFlightDialog: {
                     open: false
+                  },
+                  flights: {
+                    page: 0
                   }
                 }
               }

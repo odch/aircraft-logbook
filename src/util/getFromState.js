@@ -22,8 +22,8 @@ export const getAircraft = (state, aircraftId) => {
   return undefined // still loading
 }
 
-export const getAircraftFlights = (state, aircraftId) => {
-  const flights = state.firestore.ordered['flights-' + aircraftId]
+export const getAircraftFlights = (state, aircraftId, page) => {
+  const flights = state.firestore.ordered[`flights-${aircraftId}-${page}`]
   if (flights) {
     if (flights.length > 0) {
       // just to check if populated
