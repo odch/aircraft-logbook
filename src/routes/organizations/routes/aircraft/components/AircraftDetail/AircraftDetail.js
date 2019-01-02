@@ -108,16 +108,16 @@ class AircraftDetail extends React.Component {
       setFlightsPage
     } = this.props
 
+    if (!isLoaded(organization) || !isLoaded(aircraft) || !isLoaded(flights)) {
+      return <LoadingIcon />
+    }
+
     if (organization === null) {
       return <Redirect to="/" />
     }
 
     if (aircraft === null) {
       return <Redirect to={`/organizations/${organization.id}`} />
-    }
-
-    if (!isLoaded(organization) || !isLoaded(aircraft) || !isLoaded(flights)) {
-      return <LoadingIcon />
     }
 
     return (
