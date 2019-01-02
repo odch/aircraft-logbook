@@ -3,19 +3,21 @@ import { createReducer } from '../../../../../util/reducer'
 import * as actions from './actions'
 
 export const INITIAL_STATE = {
-  createFlightDialogOpen: false,
-  createFlightDialogData: {
-    initialized: false,
-    date: null,
-    pilot: null,
-    blockOffTime: null,
-    takeOffTime: null,
-    landingTime: null,
-    blockOnTime: null,
-    counters: {
-      flightHours: {
-        start: null,
-        end: null
+  createFlightDialog: {
+    open: false,
+    data: {
+      initialized: false,
+      date: null,
+      pilot: null,
+      blockOffTime: null,
+      takeOffTime: null,
+      landingTime: null,
+      blockOnTime: null,
+      counters: {
+        flightHours: {
+          start: null,
+          end: null
+        }
       }
     }
   },
@@ -36,13 +38,15 @@ const setFlightsPage = (state, action) => ({
 
 const openCreateFlightDialog = state => ({
   ...state,
-  createFlightDialogOpen: true,
-  createFlightDialogData: INITIAL_STATE.createFlightDialogData
+  createFlightDialog: {
+    ...INITIAL_STATE.createFlightDialog,
+    open: true
+  }
 })
 
 const updateCreateFlightDialogData = (state, action) => {
   const newData = {
-    ...state.createFlightDialogData
+    ...state.createFlightDialog.data
   }
   Object.keys(action.payload.data).forEach(key => {
     const value = action.payload.data[key]
@@ -50,13 +54,19 @@ const updateCreateFlightDialogData = (state, action) => {
   })
   return {
     ...state,
-    createFlightDialogData: newData
+    createFlightDialog: {
+      ...state.createFlightDialog,
+      data: newData
+    }
   }
 }
 
 const closeCreateFlightDialog = state => ({
   ...state,
-  createFlightDialogOpen: false
+  createFlightDialog: {
+    ...state.createFlightDialog,
+    open: false
+  }
 })
 
 const openDeleteFlightDialog = (state, action) => ({
