@@ -47,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
     aircraft,
     flights,
     flightsPagination,
-    createFlightDialogOpen: state.aircraft.createFlightDialogOpen,
+    createFlightDialogOpen: state.aircraft.createFlightDialog.open,
     flightDeleteDialog: state.aircraft.deleteFlightDialog
   }
 }

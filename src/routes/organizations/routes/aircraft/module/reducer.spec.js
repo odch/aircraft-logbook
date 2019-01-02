@@ -2,19 +2,21 @@ import * as actions from './actions'
 import reducer from './reducer'
 
 const INITIAL_STATE = {
-  createFlightDialogOpen: false,
-  createFlightDialogData: {
-    initialized: false,
-    date: null,
-    pilot: null,
-    blockOffTime: null,
-    takeOffTime: null,
-    landingTime: null,
-    blockOnTime: null,
-    counters: {
-      flightHours: {
-        start: null,
-        end: null
+  createFlightDialog: {
+    open: false,
+    data: {
+      initialized: false,
+      date: null,
+      pilot: null,
+      blockOffTime: null,
+      takeOffTime: null,
+      landingTime: null,
+      blockOnTime: null,
+      counters: {
+        flightHours: {
+          start: null,
+          end: null
+        }
       }
     }
   },
@@ -56,13 +58,15 @@ describe('routes', () => {
             expect(
               reducer(
                 {
-                  createFlightDialogData: {
-                    date: '2018-12-15',
-                    blockOffTime: '2018-12-15 10:15',
-                    counters: {
-                      flightHours: {
-                        start: 348967,
-                        end: null
+                  createFlightDialog: {
+                    data: {
+                      date: '2018-12-15',
+                      blockOffTime: '2018-12-15 10:15',
+                      counters: {
+                        flightHours: {
+                          start: 348967,
+                          end: null
+                        }
                       }
                     }
                   }
@@ -73,13 +77,15 @@ describe('routes', () => {
                 })
               )
             ).toEqual({
-              createFlightDialogData: {
-                date: '2018-12-15',
-                blockOffTime: '2018-12-15 10:30',
-                counters: {
-                  flightHours: {
-                    start: 348970,
-                    end: null
+              createFlightDialog: {
+                data: {
+                  date: '2018-12-15',
+                  blockOffTime: '2018-12-15 10:30',
+                  counters: {
+                    flightHours: {
+                      start: 348970,
+                      end: null
+                    }
                   }
                 }
               }

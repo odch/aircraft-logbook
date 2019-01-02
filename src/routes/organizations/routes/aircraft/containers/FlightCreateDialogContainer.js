@@ -34,7 +34,7 @@ const mapStateToProps = (state, ownProps) => {
     flightNatures: flightNatures(intl),
     aerodromes: state.firestore.ordered.aerodromes,
     fuelTypes: fuelTypes(state, aircraftId),
-    data: state.aircraft.createFlightDialogData
+    data: state.aircraft.createFlightDialog.data
   }
 }
 

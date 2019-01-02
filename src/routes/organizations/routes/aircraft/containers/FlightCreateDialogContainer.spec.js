@@ -40,7 +40,9 @@ describe('routes', () => {
                   ordered: {}
                 },
                 aircraft: {
-                  createFlightDialogData: {}
+                  createFlightDialog: {
+                    data: {}
+                  }
                 }
               }
               const store = configureStore()(state)
