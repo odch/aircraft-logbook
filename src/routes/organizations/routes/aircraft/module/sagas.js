@@ -6,6 +6,9 @@ import { getMemberOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
 import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
+const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
+
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
@@ -105,6 +108,15 @@ export function* createFlight({
   payload: { organizationId, aircraftId, data }
 }) {
   try {
+    const validationErrors = yield call(validateFlight, data)
+    if (
+      validationErrors &&
+      Object.getOwnPropertyNames(validationErrors).length > 0
+    ) {
+      yield put(actions.setFlightValidationErrors(validationErrors))
+      return
+    }
+
     const currentMember = yield call(getCurrentMember)
 
     const owner = yield call(getMember, organizationId, currentMember.id)
@@ -125,6 +137,16 @@ export function* createFlight({
 
     const departureTimezone = departureAerodrome.data().timezone
     const destinationTimezone = destinationAerodrome.data().timezone
+
+    const fuelUplift =
+      typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
+    const fuelType =
+      typeof fuelUplift === 'number' && fuelUplift > 0
+        ? data.fuelType.value
+        : null
+
+    const oilUplift =
+      typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
 
     const dataToStore = {
       deleted: false,
@@ -156,12 +178,12 @@ export function* createFlight({
       ),
       counters: data.counters,
       landings: data.landings,
-      fuelUplift: data.fuelUplift / 100,
+      fuelUplift,
+      fuelType,
       fuelUnit: 'litre',
-      fuelType: data.fuelType.value,
-      oilUplift: data.oilUplift / 100,
+      oilUplift,
       oilUnit: 'litre',
-      remarks: data.remarks
+      remarks: data.remarks || null
     }
 
     yield call(
@@ -176,6 +198,67 @@ export function* createFlight({
     error(`Failed to create flight`, e)
     yield put(actions.createFlightFailure())
   }
+}
+
+/**
+ * error message keys are automatically prefixed with
+ * "flight.create.dialog.validation.{fieldName}." and transformed to lower case.
+ *
+ * e.g.: if { date: 'invalid' } is returned, the used message key will be
+ * 'flight.create.dialog.validation.date.invalid'.
+ *
+ * @param data
+ * @return a map containing the error message for the mapped fields
+ */
+export function validateFlight(data) {
+  const errors = {}
+
+  if (!data.date || !DATE_PATTERN.test(data.date)) {
+    errors['date'] = 'invalid'
+  }
+  if (!data.pilot) {
+    errors['pilot'] = 'required'
+  }
+  if (!data.nature) {
+    errors['nature'] = 'required'
+  }
+  if (!data.departureAerodrome) {
+    errors['departureAerodrome'] = 'required'
+  }
+  if (!data.destinationAerodrome) {
+    errors['destinationAerodrome'] = 'required'
+  }
+  if (!data.blockOffTime || !DATE_TIME_PATTERN.test(data.blockOffTime)) {
+    errors['blockOffTime'] = 'invalid'
+  }
+  if (!data.takeOffTime || !DATE_TIME_PATTERN.test(data.takeOffTime)) {
+    errors['takeOffTime'] = 'invalid'
+  }
+  if (!data.landingTime || !DATE_TIME_PATTERN.test(data.landingTime)) {
+    errors['landingTime'] = 'invalid'
+  }
+  if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
+    errors['blockOnTime'] = 'invalid'
+  }
+  if (typeof data.landings !== 'number' || data.landings < 1) {
+    errors['landings'] = 'required'
+  }
+  if (data.fuelUplift) {
+    if (typeof data.fuelUplift !== 'number' || data.fuelUplift < 0) {
+      errors['fuelUplift'] = 'invalid'
+    }
+    if (!data.fuelType) {
+      errors['fuelType'] = 'required'
+    }
+  }
+  if (
+    data.oilUplift &&
+    (typeof data.oilUplift !== 'number' || data.oilUplift < 0)
+  ) {
+    errors['oilUplift'] = 'invalid'
+  }
+
+  return errors
 }
 
 export function* initCreateFlightDialog() {

@@ -126,6 +126,12 @@ describe('routes', () => {
               const generator = sagas.createFlight(action)
 
               expect(generator.next().value).toEqual(
+                call(sagas.validateFlight, data)
+              )
+
+              const validationErrors = {}
+
+              expect(generator.next(validationErrors).value).toEqual(
                 call(sagas.getCurrentMember)
               )
 
@@ -215,6 +221,263 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
+            })
+
+            it('should set the validation errors to state if invalid', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                // invalid and missing data
+              }
+
+              const action = actions.createFlight(
+                organizationId,
+                aircraftId,
+                data
+              )
+
+              const generator = sagas.createFlight(action)
+
+              expect(generator.next().value).toEqual(
+                call(sagas.validateFlight, data)
+              )
+
+              const validationErrors = {
+                pilot: 'required',
+                date: 'invalid'
+              }
+
+              expect(generator.next(validationErrors).value).toEqual(
+                put(actions.setFlightValidationErrors(validationErrors))
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+          })
+
+          describe('validateFlight', () => {
+            it('should return an error if date is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.date).toEqual('invalid')
+            })
+
+            it('should return an error if date is invalid', () => {
+              const errors = sagas.validateFlight({
+                date: 'foobar'
+              })
+              expect(errors.date).toEqual('invalid')
+            })
+
+            it('should return no error if date is valid', () => {
+              const errors = sagas.validateFlight({
+                date: '2019-01-05'
+              })
+              expect(errors.date).toEqual(undefined)
+            })
+
+            it('should return an error if pilot is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.pilot).toEqual('required')
+            })
+
+            it('should return no error if pilot is set', () => {
+              const errors = sagas.validateFlight({
+                pilot: {}
+              })
+              expect(errors.pilot).toEqual(undefined)
+            })
+
+            it('should return an error if nature is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.nature).toEqual('required')
+            })
+
+            it('should return no error if nature is set', () => {
+              const errors = sagas.validateFlight({
+                nature: {}
+              })
+              expect(errors.nature).toEqual(undefined)
+            })
+
+            it('should return an error if departureAerodrome is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.departureAerodrome).toEqual('required')
+            })
+
+            it('should return no error if departureAerodrome is set', () => {
+              const errors = sagas.validateFlight({
+                departureAerodrome: {}
+              })
+              expect(errors.departureAerodrome).toEqual(undefined)
+            })
+
+            it('should return an error if destinationAerodrome is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.destinationAerodrome).toEqual('required')
+            })
+
+            it('should return no error if destinationAerodrome is set', () => {
+              const errors = sagas.validateFlight({
+                destinationAerodrome: {}
+              })
+              expect(errors.destinationAerodrome).toEqual(undefined)
+            })
+
+            it('should return an error if blockOffTime is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.blockOffTime).toEqual('invalid')
+            })
+
+            it('should return an error if blockOffTime is invalid', () => {
+              const errors = sagas.validateFlight({
+                blockOffTime: 'foobar'
+              })
+              expect(errors.blockOffTime).toEqual('invalid')
+            })
+
+            it('should return no error if blockOffTime is valid', () => {
+              const errors = sagas.validateFlight({
+                blockOffTime: '2019-05-01 09:00'
+              })
+              expect(errors.blockOffTime).toEqual(undefined)
+            })
+
+            it('should return an error if takeOffTime is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.takeOffTime).toEqual('invalid')
+            })
+
+            it('should return an error if takeOffTime is invalid', () => {
+              const errors = sagas.validateFlight({
+                takeOffTime: 'foobar'
+              })
+              expect(errors.takeOffTime).toEqual('invalid')
+            })
+
+            it('should return no error if takeOffTime is valid', () => {
+              const errors = sagas.validateFlight({
+                takeOffTime: '2019-05-01 09:00'
+              })
+              expect(errors.takeOffTime).toEqual(undefined)
+            })
+
+            it('should return an error if landingTime is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.landingTime).toEqual('invalid')
+            })
+
+            it('should return an error if landingTime is invalid', () => {
+              const errors = sagas.validateFlight({
+                landingTime: 'foobar'
+              })
+              expect(errors.landingTime).toEqual('invalid')
+            })
+
+            it('should return no error if landingTime is valid', () => {
+              const errors = sagas.validateFlight({
+                landingTime: '2019-05-01 09:00'
+              })
+              expect(errors.landingTime).toEqual(undefined)
+            })
+
+            it('should return an error if blockOnTime is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.blockOnTime).toEqual('invalid')
+            })
+
+            it('should return an error if blockOnTime is invalid', () => {
+              const errors = sagas.validateFlight({
+                blockOnTime: 'foobar'
+              })
+              expect(errors.blockOnTime).toEqual('invalid')
+            })
+
+            it('should return no error if blockOnTime is valid', () => {
+              const errors = sagas.validateFlight({
+                blockOnTime: '2019-05-01 09:00'
+              })
+              expect(errors.blockOnTime).toEqual(undefined)
+            })
+
+            it('should return an error if landings is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.landings).toEqual('required')
+            })
+
+            it('should return an error if landings is invalid', () => {
+              const errors = sagas.validateFlight({
+                landings: -1
+              })
+              expect(errors.landings).toEqual('required')
+            })
+
+            it('should return no error if landings is valid', () => {
+              const errors = sagas.validateFlight({
+                landings: 1
+              })
+              expect(errors.landings).toEqual(undefined)
+            })
+
+            it('should return an error if fuelUplift is not a number', () => {
+              const errors = sagas.validateFlight({
+                fuelUplift: 'foobar'
+              })
+              expect(errors.fuelUplift).toEqual('invalid')
+            })
+
+            it('should return an error if fuelUplift is negative', () => {
+              const errors = sagas.validateFlight({
+                fuelUplift: -1
+              })
+              expect(errors.fuelUplift).toEqual('invalid')
+            })
+
+            it('should return an error if fuelUplift is set and fuelType is missing', () => {
+              const errors = sagas.validateFlight({
+                fuelUplift: 10
+              })
+              expect(errors.fuelType).toEqual('required')
+            })
+
+            it('should return no error if fuelUplift is not set and fuelType is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.fuelType).toEqual(undefined)
+            })
+
+            it('should return no error if fuelUplift is set and valid and fuelType is set', () => {
+              const errors = sagas.validateFlight({
+                fuelUplift: 10,
+                fuelType: {}
+              })
+              expect(errors.fuelUplift).toEqual(undefined)
+              expect(errors.fuelType).toEqual(undefined)
+            })
+
+            it('should return an error if oilUplift is not a number', () => {
+              const errors = sagas.validateFlight({
+                oilUplift: 'foobar'
+              })
+              expect(errors.oilUplift).toEqual('invalid')
+            })
+
+            it('should return an error if oilUplift is negative', () => {
+              const errors = sagas.validateFlight({
+                oilUplift: -1
+              })
+              expect(errors.oilUplift).toEqual('invalid')
+            })
+
+            it('should return no error if oilUplift is not set', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors.oilUplift).toEqual(undefined)
+            })
+
+            it('should return no error if oilUplift is valid', () => {
+              const errors = sagas.validateFlight({
+                oilUplift: 1
+              })
+              expect(errors.oilUplift).toEqual(undefined)
             })
           })
 

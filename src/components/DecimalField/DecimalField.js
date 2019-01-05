@@ -35,7 +35,7 @@ class DecimalField extends React.Component {
   }
 
   render() {
-    const { label, cy, margin, fullWidth } = this.props
+    const { label, cy, margin, fullWidth, error } = this.props
     const { stringValue } = this.state
     return (
       <TextField
@@ -48,6 +48,7 @@ class DecimalField extends React.Component {
         data-cy={cy}
         margin={margin}
         fullWidth={fullWidth}
+        error={error}
       />
     )
   }
@@ -59,7 +60,8 @@ DecimalField.propTypes = {
   cy: PropTypes.string,
   margin: PropTypes.string,
   fullWidth: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  error: PropTypes.bool
 }
 
 export default DecimalField

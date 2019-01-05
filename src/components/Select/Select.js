@@ -197,7 +197,8 @@ class IntegrationReactSelect extends React.Component {
       label,
       classes,
       margin,
-      required
+      required,
+      error
     } = this.props
 
     const selectStyles = {
@@ -229,6 +230,7 @@ class IntegrationReactSelect extends React.Component {
             textFieldProps={{
               label,
               required,
+              error,
               InputLabelProps: {
                 shrink: true
               }
@@ -253,7 +255,8 @@ IntegrationReactSelect.propTypes = {
   label: PropTypes.string,
   classes: PropTypes.object.isRequired,
   margin: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.bool
 }
 
 export default withStyles(styles)(IntegrationReactSelect)

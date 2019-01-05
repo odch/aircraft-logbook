@@ -5,6 +5,8 @@ export const CLOSE_CREATE_FLIGHT_DIALOG = 'aircraft/CLOSE_CREATE_FLIGHT_DIALOG'
 export const UPDATE_CREATE_FLIGHT_DIALOG_DATA =
   'aircraft/UPDATE_CREATE_FLIGHT_DIALOG_DATA'
 export const CREATE_FLIGHT = 'aircraft/CREATE_FLIGHT'
+export const SET_FLIGHT_VALIDATION_ERRORS =
+  'aircraft/SET_FLIGHT_VALIDATION_ERRORS'
 export const CREATE_FLIGHT_SUCCESS = 'aircraft/CREATE_FLIGHT_SUCCESS'
 export const CREATE_FLIGHT_FAILURE = 'aircraft/CREATE_FLIGHT_FAILURE'
 export const INIT_CREATE_FLIGHT_DIALOG = 'aircraft/INIT_CREATE_FLIGHT_DIALOG'
@@ -55,6 +57,13 @@ export const createFlight = (organizationId, aircraftId, data) => ({
     organizationId,
     aircraftId,
     data
+  }
+})
+
+export const setFlightValidationErrors = validationErrors => ({
+  type: SET_FLIGHT_VALIDATION_ERRORS,
+  payload: {
+    validationErrors
   }
 })
 

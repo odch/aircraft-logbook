@@ -17,5 +17,20 @@ describe('components', () => {
       )
       expect(renderedValue).toMatchSnapshot()
     })
+
+    it('renders in error mode', () => {
+      const renderedValue = renderIntlMaterial(
+        <DecimalField
+          label="test field"
+          value={484478} // = 4844 hours and 78 hundredths of an hour
+          margin="normal"
+          fullWidth
+          cy="test-field"
+          error
+        />,
+        true
+      )
+      expect(renderedValue).toMatchSnapshot()
+    })
   })
 })
