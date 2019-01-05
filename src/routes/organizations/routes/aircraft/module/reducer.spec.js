@@ -68,12 +68,17 @@ describe('routes', () => {
                           end: null
                         }
                       }
+                    },
+                    validationErrors: {
+                      blockOnTime: 'invalid',
+                      takeOffTime: 'invalid'
                     }
                   }
                 },
                 actions.updateCreateFlightDialogData({
                   'counters.flightHours.start': 348970,
-                  blockOffTime: '2018-12-15 10:30'
+                  blockOffTime: '2018-12-15 10:30',
+                  blockOnTime: '2018-12-15 11:30'
                 })
               )
             ).toEqual({
@@ -81,12 +86,42 @@ describe('routes', () => {
                 data: {
                   date: '2018-12-15',
                   blockOffTime: '2018-12-15 10:30',
+                  blockOnTime: '2018-12-15 11:30',
                   counters: {
                     flightHours: {
                       start: 348970,
                       end: null
                     }
                   }
+                },
+                validationErrors: {
+                  takeOffTime: 'invalid'
+                }
+              }
+            })
+          })
+
+          it('handles SET_FLIGHT_VALIDATION_ERRORS action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    validationErrors: {
+                      blockOnTime: 'invalid',
+                      takeOffTime: 'invalid'
+                    }
+                  }
+                },
+                actions.setFlightValidationErrors({
+                  takeOffTime: 'invalid',
+                  landings: 'required'
+                })
+              )
+            ).toEqual({
+              createFlightDialog: {
+                validationErrors: {
+                  takeOffTime: 'invalid',
+                  landings: 'required'
                 }
               }
             })

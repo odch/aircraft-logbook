@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
@@ -30,11 +31,13 @@ const styles = {
 
 class FlightCreateDialog extends React.Component {
   handleDateChange = name => momentDate => {
-    this.updateData(name, momentDate.format('YYYY-MM-DD'))
+    const newValue = momentDate ? momentDate.format('YYYY-MM-DD') : null
+    this.updateData(name, newValue)
   }
 
   handleTimeChange = name => momentDate => {
-    this.updateData(name, momentDate.format('YYYY-MM-DD HH:mm'))
+    const newValue = momentDate ? momentDate.format('YYYY-MM-DD HH:mm') : null
+    this.updateData(name, newValue)
   }
 
   handleSelectChange = name => value => {
@@ -64,6 +67,15 @@ class FlightCreateDialog extends React.Component {
   }
 
   getValue = (name, defaultValue) => _get(this.props.data, name, defaultValue)
+
+  getErrorMessage = name => {
+    const errorKey = _get(this.props.validationErrors, name)
+    if (errorKey) {
+      const messageKey = `flight.create.dialog.validation.${name}.${errorKey}`.toLowerCase()
+      return this.msg(messageKey)
+    }
+    return null
+  }
 
   handleSubmit = e => {
     const { onSubmit, organizationId, aircraftId, data } = this.props
@@ -162,53 +174,71 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderSelect(name, options) {
+  renderInFormControl(name, renderFn) {
+    const errorMsg = this.getErrorMessage(name)
+    const hasError = !!errorMsg
     return (
+      <FormControl fullWidth error={hasError}>
+        {renderFn(hasError)}
+        {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
+      </FormControl>
+    )
+  }
+
+  renderSelect(name, options) {
+    return this.renderInFormControl(name, hasError => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.props.data[name]}
+        value={this.getValue(name)}
         onChange={this.handleSelectChange(name)}
         options={options}
         data-cy={`${name}-field`}
         margin="normal"
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderDatePicker(name) {
-    return (
+    return this.renderInFormControl(name, hasError => (
       <DatePicker
         keyboard
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.props.data[name]}
+        value={this.getValue(name)}
         onChange={this.handleDateChange(name)}
         format="L"
         data-cy={`${name}-field`}
         margin="normal"
         fullWidth
         autoOk
+        clearable
+        invalidDateMessage={this.msg('flight.create.dialog.dateinvalid')}
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderTimePicker(name) {
-    return (
+    return this.renderInFormControl(name, hasError => (
       <TimePicker
         keyboard
         ampm={false}
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.props.data[name]}
+        value={this.getValue(name)}
         onChange={this.handleTimeChange(name)}
         data-cy={`${name}-field`}
         margin="normal"
         fullWidth
         autoOk
+        clearable
+        invalidDateMessage={this.msg('flight.create.dialog.timeinvalid')}
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderDecimalField(name) {
-    return (
+    return this.renderInFormControl(name, hasError => (
       <DecimalField
         name={name}
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -217,12 +247,13 @@ class FlightCreateDialog extends React.Component {
         cy={`${name}-field`}
         margin="normal"
         fullWidth
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderIntegerField(name) {
-    return (
+    return this.renderInFormControl(name, hasError => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name, '')}
@@ -231,12 +262,13 @@ class FlightCreateDialog extends React.Component {
         type="number"
         margin="normal"
         fullWidth
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderMultilineTextField(name) {
-    return (
+    return this.renderInFormControl(name, hasError => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name, '')}
@@ -245,8 +277,9 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         multiline
         fullWidth
+        error={hasError}
       />
-    )
+    ))
   }
 
   renderLoadingIcon() {
@@ -292,6 +325,7 @@ FlightCreateDialog.propTypes = {
     oilUplift: PropTypes.number,
     remarks: PropTypes.string
   }).isRequired,
+  validationErrors: PropTypes.objectOf(PropTypes.string),
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
     PropTypes.shape({

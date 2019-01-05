@@ -48,18 +48,34 @@ const updateCreateFlightDialogData = (state, action) => {
   const newData = {
     ...state.createFlightDialog.data
   }
+  const newValidationErrors = {
+    ...state.createFlightDialog.validationErrors
+  }
+
   Object.keys(action.payload.data).forEach(key => {
     const value = action.payload.data[key]
     _set(newData, key, value)
+
+    delete newValidationErrors[key]
   })
+
   return {
     ...state,
     createFlightDialog: {
       ...state.createFlightDialog,
-      data: newData
+      data: newData,
+      validationErrors: newValidationErrors
     }
   }
 }
+
+const setFlightValidationErrors = (state, action) => ({
+  ...state,
+  createFlightDialog: {
+    ...state.createFlightDialog,
+    validationErrors: action.payload.validationErrors
+  }
+})
 
 const closeCreateFlightDialog = state => ({
   ...state,
@@ -97,6 +113,7 @@ const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
   [actions.UPDATE_CREATE_FLIGHT_DIALOG_DATA]: updateCreateFlightDialogData,
+  [actions.SET_FLIGHT_VALIDATION_ERRORS]: setFlightValidationErrors,
   [actions.CREATE_FLIGHT_SUCCESS]: closeCreateFlightDialog,
   [actions.OPEN_DELETE_FLIGHT_DIALOG]: openDeleteFlightDialog,
   [actions.CLOSE_DELETE_FLIGHT_DIALOG]: closeDeleteFlightDialog,
