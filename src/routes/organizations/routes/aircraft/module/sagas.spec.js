@@ -1,4 +1,5 @@
 import { all, takeEvery, fork, call, put } from 'redux-saga/effects'
+import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
 import { getFirestore } from '../../../../../util/firebase'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
@@ -69,6 +70,104 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
+            })
+          })
+
+          describe('getLastFlight', () => {
+            const organizationId = 'my_org'
+            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+            const queryOptions = {
+              collection: 'organizations',
+              doc: organizationId,
+              subcollections: [
+                {
+                  collection: 'aircrafts',
+                  doc: aircraftId,
+                  subcollections: [
+                    {
+                      collection: 'flights'
+                    }
+                  ]
+                }
+              ],
+              where: ['deleted', '==', false],
+              orderBy: ['blockOffTime', 'desc'],
+              limit: 1
+            }
+
+            const firestore = {
+              get: () => {}
+            }
+
+            it('should return the last flight if there is one', () => {
+              const lastFlight = {
+                remarks: 'test flight'
+              }
+
+              const lastFlightQuerySnapshot = {
+                empty: false,
+                docs: [
+                  {
+                    data: () => lastFlight
+                  }
+                ]
+              }
+
+              return expectSaga(sagas.getLastFlight, organizationId, aircraftId)
+                .provide([
+                  [call(getFirestore), firestore],
+                  [
+                    call(firestore.get, queryOptions, {}),
+                    lastFlightQuerySnapshot
+                  ]
+                ])
+                .returns(lastFlight)
+                .run()
+            })
+
+            it('should return null if there is no last flight', () => {
+              const lastFlightQuerySnapshot = {
+                empty: true
+              }
+
+              return expectSaga(sagas.getLastFlight, organizationId, aircraftId)
+                .provide([
+                  [call(getFirestore), firestore],
+                  [
+                    call(firestore.get, queryOptions, {}),
+                    lastFlightQuerySnapshot
+                  ]
+                ])
+                .returns(null)
+                .run()
+            })
+          })
+
+          describe('getDestinationAerodrome', () => {
+            it('should return null if destination aerodrome not set', () => {
+              expect(sagas.getDestinationAerodrome({})).resolves.toEqual(null)
+            })
+
+            it('should return the destination aerodrome data if set', () => {
+              expect(
+                sagas.getDestinationAerodrome({
+                  destinationAerodrome: {
+                    id: 'aerodromeid',
+                    get: () =>
+                      Promise.resolve({
+                        data: () => ({
+                          name: 'Lommis',
+                          identification: 'LSZT'
+                        })
+                      })
+                  }
+                })
+              ).resolves.toEqual({
+                id: 'aerodromeid',
+                name: 'Lommis',
+                identification: 'LSZT'
+              })
             })
           })
 
@@ -478,6 +577,75 @@ describe('routes', () => {
                 oilUplift: 1
               })
               expect(errors.oilUplift).toEqual(undefined)
+            })
+          })
+
+          describe('initCreateFlightDialog', () => {
+            it('should set the default values for the new flight', () => {
+              const orgId = 'my_org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const action = actions.initCreateFlightDialog(orgId, aircraftId)
+
+              const today = moment().format('YYYY-MM-DD')
+
+              const expectedDefaultValues = {
+                initialized: true,
+                date: today,
+                pilot: {
+                  value: 'memberid',
+                  label: 'Müller Max'
+                },
+                departureAerodrome: {
+                  value: 'aerodromeid',
+                  label: 'Lommis (LSZT)'
+                },
+                counters: {
+                  flightHours: {
+                    start: 10250
+                  },
+                  engineHours: {
+                    start: 10502
+                  }
+                }
+              }
+
+              const currentMember = {
+                id: 'memberid',
+                lastname: 'Müller',
+                firstname: 'Max'
+              }
+              const lastFlight = {
+                counters: {
+                  flightHours: {
+                    start: 10145,
+                    end: 10250
+                  },
+                  engineHours: {
+                    start: 10378,
+                    end: 10502
+                  }
+                }
+              }
+              const destinationAerodrome = {
+                id: 'aerodromeid',
+                name: 'Lommis',
+                identification: 'LSZT'
+              }
+
+              return expectSaga(sagas.initCreateFlightDialog, action)
+                .provide([
+                  [call(sagas.getCurrentMember), currentMember],
+                  [call(sagas.getLastFlight, orgId, aircraftId), lastFlight],
+                  [
+                    call(sagas.getDestinationAerodrome, lastFlight),
+                    destinationAerodrome
+                  ]
+                ])
+                .put(
+                  actions.updateCreateFlightDialogData(expectedDefaultValues)
+                )
+                .run()
             })
           })
 
