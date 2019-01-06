@@ -75,8 +75,12 @@ export const createFlightFailure = () => ({
   type: CREATE_FLIGHT_FAILURE
 })
 
-export const initCreateFlightDialog = () => ({
-  type: INIT_CREATE_FLIGHT_DIALOG
+export const initCreateFlightDialog = (organizationId, aircraftId) => ({
+  type: INIT_CREATE_FLIGHT_DIALOG,
+  payload: {
+    organizationId,
+    aircraftId
+  }
 })
 
 export const openDeleteFlightDialog = flight => ({

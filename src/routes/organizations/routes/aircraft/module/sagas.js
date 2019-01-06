@@ -1,8 +1,9 @@
 import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
+import _get from 'lodash.get'
 import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
-import { getMemberOption } from '../util/getOptions'
+import { getMemberOption, getAerodromeOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
 import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 
@@ -96,6 +97,43 @@ export function* getFlight(organizationId, aircraftId, flightId) {
     'flights',
     flightId
   ])
+}
+
+export function* getLastFlight(organizationId, aircraftId) {
+  const firestore = yield call(getFirestore)
+  const lastFlight = yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'flights'
+            }
+          ]
+        }
+      ],
+      where: ['deleted', '==', false],
+      orderBy: ['blockOffTime', 'desc'],
+      limit: 1
+    },
+    {}
+  )
+  return !lastFlight.empty ? lastFlight.docs[0].data() : null
+}
+
+export async function getDestinationAerodrome(flight) {
+  if (flight.destinationAerodrome) {
+    const document = await flight.destinationAerodrome.get()
+    const data = document.data()
+    data.id = flight.destinationAerodrome.id
+    return data
+  }
+  return null
 }
 
 export const mergeDateAndTime = (date, time, timezone) => {
@@ -261,13 +299,31 @@ export function validateFlight(data) {
   return errors
 }
 
-export function* initCreateFlightDialog() {
+export function* initCreateFlightDialog({
+  payload: { organizationId, aircraftId }
+}) {
   const currentMember = yield call(getCurrentMember)
+  const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+  const departureAerodrome = lastFlight
+    ? yield call(getDestinationAerodrome, lastFlight)
+    : null
+
   yield put(
     actions.updateCreateFlightDialogData({
       initialized: true,
       date: moment().format('YYYY-MM-DD'),
-      pilot: getMemberOption(currentMember)
+      pilot: getMemberOption(currentMember),
+      departureAerodrome: departureAerodrome
+        ? getAerodromeOption(departureAerodrome)
+        : null,
+      counters: {
+        flightHours: {
+          start: _get(lastFlight, 'counters.flightHours.end')
+        },
+        engineHours: {
+          start: _get(lastFlight, 'counters.engineHours.end')
+        }
+      }
     })
   )
 }

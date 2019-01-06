@@ -28,8 +28,9 @@ const styles = theme => ({
 
 class AircraftDetail extends React.Component {
   handleCreateClick = () => {
+    const { organization, aircraft } = this.props
     this.props.openCreateFlightDialog()
-    this.props.initCreateFlightDialog()
+    this.props.initCreateFlightDialog(organization.id, aircraft.id)
   }
 
   componentDidMount() {
