@@ -35,7 +35,8 @@ const mapStateToProps = (state, ownProps) => {
     aerodromes: state.firestore.ordered.aerodromes,
     fuelTypes: fuelTypes(state, aircraftId),
     data: state.aircraft.createFlightDialog.data,
-    validationErrors: state.aircraft.createFlightDialog.validationErrors
+    validationErrors: state.aircraft.createFlightDialog.validationErrors,
+    submitting: state.aircraft.createFlightDialog.submitting
   }
 }
 

@@ -5,6 +5,7 @@ import * as actions from './actions'
 export const INITIAL_STATE = {
   createFlightDialog: {
     open: false,
+    submitting: false,
     data: {
       initialized: false,
       date: null,
@@ -40,7 +41,8 @@ const openCreateFlightDialog = state => ({
   ...state,
   createFlightDialog: {
     ...INITIAL_STATE.createFlightDialog,
-    open: true
+    open: true,
+    submitting: false
   }
 })
 
@@ -69,10 +71,25 @@ const updateCreateFlightDialogData = (state, action) => {
   }
 }
 
+const setCreateFlightDialogSubmitting = state =>
+  updateCreateFlightDialogSubmitting(state, true)
+
+const unsetCreateFlightDialogSubmitting = state =>
+  updateCreateFlightDialogSubmitting(state, false)
+
+const updateCreateFlightDialogSubmitting = (state, submitting) => ({
+  ...state,
+  createFlightDialog: {
+    ...state.createFlightDialog,
+    submitting: submitting
+  }
+})
+
 const setFlightValidationErrors = (state, action) => ({
   ...state,
   createFlightDialog: {
     ...state.createFlightDialog,
+    submitting: false,
     validationErrors: action.payload.validationErrors
   }
 })
@@ -113,8 +130,10 @@ const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
   [actions.UPDATE_CREATE_FLIGHT_DIALOG_DATA]: updateCreateFlightDialogData,
+  [actions.SET_CREATE_FLIGHT_DIALOG_SUBMITTING]: setCreateFlightDialogSubmitting,
   [actions.SET_FLIGHT_VALIDATION_ERRORS]: setFlightValidationErrors,
   [actions.CREATE_FLIGHT_SUCCESS]: closeCreateFlightDialog,
+  [actions.CREATE_FLIGHT_FAILURE]: unsetCreateFlightDialogSubmitting,
   [actions.OPEN_DELETE_FLIGHT_DIALOG]: openDeleteFlightDialog,
   [actions.CLOSE_DELETE_FLIGHT_DIALOG]: closeDeleteFlightDialog,
   [actions.DELETE_FLIGHT]: setDeleteFlightDialogSubmitted

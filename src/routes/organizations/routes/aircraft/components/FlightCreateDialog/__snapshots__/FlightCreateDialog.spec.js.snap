@@ -269,3 +269,273 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
   </div>
 </div>"
 `;
+
+exports[`routes organizations routes aircraft components FlightCreateDialog renders disabled when submitting 1`] = `
+"<div class=\\"MuiModal-root-14 MuiDialog-root-2 MuiDialog-scrollPaper-3\\" role=\\"dialog\\" data-cy=\\"flight-create-dialog\\">
+  <div class=\\"MuiBackdrop-root-16\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div class=\\"MuiPaper-root-18 MuiPaper-elevation24-44 MuiPaper-rounded-19 MuiDialog-paper-5 MuiDialog-paperScrollPaper-6 MuiDialog-paperWidthSm-9\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiDialogTitle-root-45\\">
+      <h2 class=\\"MuiTypography-root-46 MuiTypography-title-52\\"><span>Flug erfassen</span></h2>
+    </div>
+    <form>
+      <div class=\\"MuiDialogContent-root-72\\">
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"date-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Datum</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-adornedEnd-109\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputAdornedEnd-120\\" disabled=\\"\\" type=\\"text\\" value=\\"30.11.2018\\">
+              <div class=\\"MuiInputAdornment-root-121 MuiInputAdornment-positionEnd-124\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiIconButton-root-125 MuiIconButton-disabled-129\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiIconButton-label-130\\"><span class=\\"material-icons MuiIcon-root-134\\" aria-hidden=\\"true\\"> event </span></span></button></div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"IntegrationReactSelect-root-157\\">
+            <div class=\\"css-1sontr1\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Pilot</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                  <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                    <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                      <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                      <div class=\\"css-13fspk8\\">
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-8-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                      <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                          <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                        </svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"IntegrationReactSelect-root-157\\">
+            <div class=\\"css-1sontr1\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Fluglehrer</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                  <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                    <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                      <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                      <div class=\\"css-13fspk8\\">
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-9-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                      <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                          <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                        </svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"IntegrationReactSelect-root-157\\">
+            <div class=\\"css-1sontr1\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Typ</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                  <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                    <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                      <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                      <div class=\\"css-13fspk8\\">
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                      <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                          <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                        </svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"IntegrationReactSelect-root-157\\">
+            <div class=\\"css-1sontr1\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Startflugplatz</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                  <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                    <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                      <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                      <div class=\\"css-13fspk8\\">
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                      <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                          <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                        </svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"IntegrationReactSelect-root-157\\">
+            <div class=\\"css-1sontr1\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Zielflugplatz</label>
+                <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                  <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                    <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                      <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                      <div class=\\"css-13fspk8\\">
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-12-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                      <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                          <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                        </svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"blockOffTime-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Block off</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-adornedEnd-109\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputAdornedEnd-120\\" disabled=\\"\\" type=\\"text\\" value=\\"16:00\\">
+              <div class=\\"MuiInputAdornment-root-121 MuiInputAdornment-positionEnd-124\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiIconButton-root-125 MuiIconButton-disabled-129\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiIconButton-label-130\\"><span class=\\"material-icons MuiIcon-root-134\\" aria-hidden=\\"true\\"> event </span></span></button></div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"takeOffTime-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Take off</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-adornedEnd-109\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputAdornedEnd-120\\" disabled=\\"\\" type=\\"text\\" value=\\"16:10\\">
+              <div class=\\"MuiInputAdornment-root-121 MuiInputAdornment-positionEnd-124\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiIconButton-root-125 MuiIconButton-disabled-129\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiIconButton-label-130\\"><span class=\\"material-icons MuiIcon-root-134\\" aria-hidden=\\"true\\"> event </span></span></button></div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"landingTime-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Landung</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-adornedEnd-109\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputAdornedEnd-120\\" disabled=\\"\\" type=\\"text\\" value=\\"16:30\\">
+              <div class=\\"MuiInputAdornment-root-121 MuiInputAdornment-positionEnd-124\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiIconButton-root-125 MuiIconButton-disabled-129\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiIconButton-label-130\\"><span class=\\"material-icons MuiIcon-root-134\\" aria-hidden=\\"true\\"> event </span></span></button></div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"blockOnTime-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Block on</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-adornedEnd-109\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputAdornedEnd-120\\" disabled=\\"\\" type=\\"text\\" value=\\"16:40\\">
+              <div class=\\"MuiInputAdornment-root-121 MuiInputAdornment-positionEnd-124\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiIconButton-root-125 MuiIconButton-disabled-129\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiIconButton-label-130\\"><span class=\\"material-icons MuiIcon-root-134\\" aria-hidden=\\"true\\"> event </span></span></button></div>
+            </div>
+          </div>
+        </div>
+        <fieldset class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\">
+          <legend class=\\"MuiFormLabel-root-84\\"><span>Flugstunden</span></legend>
+          <div class=\\"MuiGrid-container-167 MuiGrid-spacing-xs-24-191\\">
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.flightHours.start-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Startzähler</label>
+                  <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+                </div>
+              </div>
+            </div>
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.flightHours.end-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Endzähler</label>
+                  <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\">
+          <legend class=\\"MuiFormLabel-root-84\\"><span>Motorstunden</span></legend>
+          <div class=\\"MuiGrid-container-167 MuiGrid-spacing-xs-24-191\\">
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.engineHours.start-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Startzähler</label>
+                  <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+                </div>
+              </div>
+            </div>
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"counters.engineHours.end-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Endzähler</label>
+                  <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Landungen</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" value=\\"\\"></div>
+          </div>
+        </div>
+        <fieldset class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\">
+          <legend class=\\"MuiFormLabel-root-84\\"><span>Treibstoff</span></legend>
+          <div class=\\"MuiGrid-container-167 MuiGrid-spacing-xs-24-191\\">
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"fuelUplift-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Menge (L)</label>
+                  <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+                </div>
+              </div>
+            </div>
+            <div class=\\"MuiGrid-item-168 MuiGrid-grid-xs-12-207 MuiGrid-grid-sm-6-215\\">
+              <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+                <div class=\\"IntegrationReactSelect-root-157\\">
+                  <div class=\\"css-1sontr1\\">
+                    <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Typ</label>
+                      <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\">
+                        <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 IntegrationReactSelect-input-158\\" disabled=\\"\\" type=\\"text\\">
+                          <div class=\\"IntegrationReactSelect-valueContainer-159\\">
+                            <p class=\\"MuiTypography-root-46 MuiTypography-body1-55 MuiTypography-colorTextSecondary-70 IntegrationReactSelect-placeholder-164\\"></p>
+                            <div class=\\"css-13fspk8\\">
+                              <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-13-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                                <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class=\\"css-1wy0on6\\"><span class=\\"css-ln5n5c\\"></span>
+                            <div aria-hidden=\\"true\\" class=\\"css-fyho0h\\"><svg height=\\"20\\" width=\\"20\\" viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" class=\\"css-19bqh2r\\">
+                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\"></path>
+                              </svg></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"oilUplift-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Öl (L)</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputType-117 MuiInput-inputType-102\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
+          </div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\">
+          <div class=\\"MuiFormControl-root-73 MuiFormControl-marginNormal-74 MuiFormControl-fullWidth-76\\" data-cy=\\"remarks-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81\\" data-shrink=\\"false\\">Bemerkungen</label>
+            <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92 MuiInputBase-multiline-112 MuiInput-multiline-97\\">
+              <div class=\\"Textarea-root-264\\"><textarea aria-hidden=\\"true\\" class=\\"Textarea-textarea-265 Textarea-shadow-266\\" readonly=\\"\\" rows=\\"1\\" tabindex=\\"-1\\"></textarea><textarea aria-hidden=\\"true\\" class=\\"Textarea-textarea-265 Textarea-shadow-266\\" readonly=\\"\\" rows=\\"1\\" tabindex=\\"-1\\"></textarea><textarea rows=\\"1\\" class=\\"Textarea-textarea-265 MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-inputMultiline-116 MuiInput-inputMultiline-101\\" style=\\"height: 0px;\\" aria-invalid=\\"false\\" disabled=\\"\\"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=\\"MuiDialogActions-root-267\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiButton-root-269 MuiButton-text-271 MuiButton-textPrimary-272 MuiButton-flat-274 MuiButton-flatPrimary-275 MuiButton-disabled-289 MuiDialogActions-action-268\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiButton-label-270\\"><span>Abbrechen</span></span></button><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-131 MuiButtonBase-disabled-132 MuiButton-root-269 MuiButton-text-271 MuiButton-textPrimary-272 MuiButton-flat-274 MuiButton-flatPrimary-275 MuiButton-disabled-289 MuiDialogActions-action-268\\" type=\\"submit\\" disabled=\\"\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label-270\\"><span>Speichern</span></span></button></div>
+    </form>
+  </div>
+</div>"
+`;
