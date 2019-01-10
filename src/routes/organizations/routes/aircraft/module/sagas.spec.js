@@ -225,6 +225,10 @@ describe('routes', () => {
               const generator = sagas.createFlight(action)
 
               expect(generator.next().value).toEqual(
+                put(actions.setCreateFlightDialogSubmitting())
+              )
+
+              expect(generator.next().value).toEqual(
                 call(sagas.validateFlight, data)
               )
 
@@ -337,6 +341,10 @@ describe('routes', () => {
               )
 
               const generator = sagas.createFlight(action)
+
+              expect(generator.next().value).toEqual(
+                put(actions.setCreateFlightDialogSubmitting())
+              )
 
               expect(generator.next().value).toEqual(
                 call(sagas.validateFlight, data)

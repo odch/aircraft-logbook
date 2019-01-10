@@ -70,7 +70,8 @@ describe('routes', () => {
                 'flightNatures',
                 'aerodromes',
                 'fuelTypes',
-                'data'
+                'data',
+                'submitting'
               ]
 
               expect(Object.keys(component.props)).toEqual(

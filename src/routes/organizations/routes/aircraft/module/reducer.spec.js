@@ -4,6 +4,7 @@ import reducer from './reducer'
 const INITIAL_STATE = {
   createFlightDialog: {
     open: false,
+    submitting: false,
     data: {
       initialized: false,
       date: null,
@@ -50,6 +51,47 @@ describe('routes', () => {
             ).toEqual({
               flights: {
                 page: 2
+              }
+            })
+          })
+
+          it('handles OPEN_CREATE_FLIGHT_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    submitting: true,
+                    open: false,
+                    data: {
+                      date: '2018-12-15',
+                      blockOffTime: '2018-12-15 10:15'
+                    }
+                  }
+                },
+                actions.openCreateFlightDialog()
+              )
+            ).toEqual({
+              createFlightDialog: {
+                submitting: false,
+                open: true,
+                data: INITIAL_STATE.createFlightDialog.data
+              }
+            })
+          })
+
+          it('handles CLOSE_CREATE_FLIGHT_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    open: true
+                  }
+                },
+                actions.closeCreateFlightDialog()
+              )
+            ).toEqual({
+              createFlightDialog: {
+                open: false
               }
             })
           })
@@ -101,11 +143,46 @@ describe('routes', () => {
             })
           })
 
+          it('handles SET_CREATE_FLIGHT_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    submitting: false
+                  }
+                },
+                actions.setCreateFlightDialogSubmitting({})
+              )
+            ).toEqual({
+              createFlightDialog: {
+                submitting: true
+              }
+            })
+          })
+
+          it('handles CREATE_FLIGHT_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    submitting: true
+                  }
+                },
+                actions.createFlightFailure({})
+              )
+            ).toEqual({
+              createFlightDialog: {
+                submitting: false
+              }
+            })
+          })
+
           it('handles SET_FLIGHT_VALIDATION_ERRORS action', () => {
             expect(
               reducer(
                 {
                   createFlightDialog: {
+                    submitting: true,
                     validationErrors: {
                       blockOnTime: 'invalid',
                       takeOffTime: 'invalid'
@@ -119,6 +196,7 @@ describe('routes', () => {
               )
             ).toEqual({
               createFlightDialog: {
+                submitting: false,
                 validationErrors: {
                   takeOffTime: 'invalid',
                   landings: 'required'

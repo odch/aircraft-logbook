@@ -77,11 +77,25 @@ class FlightCreateDialog extends React.Component {
     return null
   }
 
+  handleClose = () => {
+    const { onClose, submitting } = this.props
+
+    if (submitting !== true && onClose) {
+      onClose()
+    }
+  }
+
   handleSubmit = e => {
-    const { onSubmit, organizationId, aircraftId, data } = this.props
+    const {
+      onSubmit,
+      organizationId,
+      aircraftId,
+      data,
+      submitting
+    } = this.props
 
     e.preventDefault()
-    if (onSubmit) {
+    if (submitting !== true && onSubmit) {
       onSubmit(organizationId, aircraftId, data)
     }
   }
@@ -89,9 +103,9 @@ class FlightCreateDialog extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { onClose, data } = this.props
+    const { data } = this.props
     return (
-      <Dialog onClose={onClose} data-cy="flight-create-dialog" open>
+      <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
         <DialogTitle>
           <FormattedMessage id="flight.create.dialog.title" />
         </DialogTitle>
@@ -102,6 +116,7 @@ class FlightCreateDialog extends React.Component {
 
   renderForm() {
     const {
+      submitting,
       onClose,
       organizationMembers = [],
       flightNatures = [],
@@ -145,10 +160,15 @@ class FlightCreateDialog extends React.Component {
           {this.renderMultilineTextField('remarks')}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={onClose} color="primary" disabled={submitting}>
             <FormattedMessage id="flight.create.dialog.buttons.cancel" />
           </Button>
-          <Button type="submit" color="primary" data-cy="create-button">
+          <Button
+            type="submit"
+            color="primary"
+            data-cy="create-button"
+            disabled={submitting}
+          >
             <FormattedMessage id="flight.create.dialog.buttons.create" />
           </Button>
         </DialogActions>
@@ -178,7 +198,7 @@ class FlightCreateDialog extends React.Component {
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
     return (
-      <FormControl fullWidth error={hasError}>
+      <FormControl fullWidth error={hasError} disabled={this.props.submitting}>
         {renderFn(hasError)}
         {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
       </FormControl>
@@ -195,6 +215,7 @@ class FlightCreateDialog extends React.Component {
         data-cy={`${name}-field`}
         margin="normal"
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -214,6 +235,7 @@ class FlightCreateDialog extends React.Component {
         clearable
         invalidDateMessage={this.msg('flight.create.dialog.dateinvalid')}
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -233,6 +255,7 @@ class FlightCreateDialog extends React.Component {
         clearable
         invalidDateMessage={this.msg('flight.create.dialog.timeinvalid')}
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -248,6 +271,7 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -263,6 +287,7 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -278,6 +303,7 @@ class FlightCreateDialog extends React.Component {
         multiline
         fullWidth
         error={hasError}
+        disabled={this.props.submitting}
       />
     ))
   }
@@ -326,6 +352,7 @@ FlightCreateDialog.propTypes = {
     remarks: PropTypes.string
   }).isRequired,
   validationErrors: PropTypes.objectOf(PropTypes.string),
+  submitting: PropTypes.bool,
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
     PropTypes.shape({

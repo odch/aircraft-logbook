@@ -146,6 +146,8 @@ export function* createFlight({
   payload: { organizationId, aircraftId, data }
 }) {
   try {
+    yield put(actions.setCreateFlightDialogSubmitting())
+
     const validationErrors = yield call(validateFlight, data)
     if (
       validationErrors &&
