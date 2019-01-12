@@ -2,14 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import TablePagination from '@material-ui/core/TablePagination'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Divider from '@material-ui/core/Divider'
+import FlightDetails from './FlightDetails'
 import FlightDeleteDialog from '../FlightDeleteDialog'
 import {
   aircraft as aircraftShape,
@@ -19,27 +22,34 @@ import {
 import { formatDate, formatTime } from '../../../../../../util/dates'
 
 const styles = theme => ({
-  table: {
-    padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
-      width: 1000,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+  container: {
+    marginTop: '1em'
   },
-  hiddenBelow800: {
-    [theme.breakpoints.down(800 + theme.spacing.unit * 3 * 2)]: {
-      display: 'none'
-    }
+  flightHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '50%',
+    flexShrink: 0
   },
-  hiddenBelow600: {
-    [theme.breakpoints.down(600 + theme.spacing.unit * 3 * 2)]: {
-      display: 'none'
-    }
+  flightSecondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 })
 
 class FlightList extends React.Component {
+  state = {
+    expanded: null
+  }
+
+  handleExpansionPanelChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    })
+  }
+
   render() {
     const {
       organization,
@@ -53,60 +63,56 @@ class FlightList extends React.Component {
       deleteFlight,
       setFlightsPage
     } = this.props
+    const { expanded } = this.state
     return (
-      <React.Fragment>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <FormattedMessage id="flightlist.date" />
-              </TableCell>
-              <TableCell>
-                <FormattedMessage id="flightlist.pilot" />
-              </TableCell>
-              <TableCell className={classes.hiddenBelow600}>
-                <FormattedMessage id="flightlist.departureaerodrome" />
-              </TableCell>
-              <TableCell>
-                <FormattedMessage id="flightlist.destinationaerodrome" />
-              </TableCell>
-              <TableCell className={classes.hiddenBelow800}>
-                <FormattedMessage id="flightlist.blockofftime" />
-              </TableCell>
-              <TableCell className={classes.hiddenBelow800}>
-                <FormattedMessage id="flightlist.blockontime" />
-              </TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {flights.map(flight => {
-              return (
-                <TableRow key={flight.id}>
-                  <TableCell>{formatDate(flight.blockOffTime)}</TableCell>
-                  <TableCell>
-                    {`${flight.pilot.firstname} ${flight.pilot.lastname}`}
-                  </TableCell>
-                  <TableCell className={classes.hiddenBelow600}>
-                    {flight.departureAerodrome.name}
-                  </TableCell>
-                  <TableCell>{flight.destinationAerodrome.name}</TableCell>
-                  <TableCell className={classes.hiddenBelow800}>
-                    {formatTime(flight.blockOffTime)}
-                  </TableCell>
-                  <TableCell className={classes.hiddenBelow800}>
-                    {formatTime(flight.blockOnTime)}
-                  </TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => openFlightDeleteDialog(flight)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
+      <div className={classes.container}>
+        {flights.map(flight => {
+          return (
+            <ExpansionPanel
+              key={flight.id}
+              expanded={expanded === flight.id}
+              onChange={this.handleExpansionPanelChange(flight.id)}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.flightHeading}>
+                  <FormattedMessage
+                    id="flightlist.flight.heading"
+                    values={{
+                      departureAerodrome: (
+                        <span className={classes.bold}>
+                          {flight.departureAerodrome.name}
+                        </span>
+                      ),
+                      destinationAerodrome: (
+                        <span className={classes.bold}>
+                          {flight.destinationAerodrome.name}
+                        </span>
+                      ),
+                      firstname: flight.pilot.firstname,
+                      lastname: flight.pilot.lastname
+                    }}
+                  />
+                </Typography>
+                <Typography className={classes.flightSecondaryHeading}>
+                  {formatDate(flight.blockOffTime)},{' '}
+                  {formatTime(flight.blockOffTime)}-
+                  {formatTime(flight.blockOnTime)}
+                </Typography>
+              </ExpansionPanelSummary>
+              {expanded === flight.id && [
+                <ExpansionPanelDetails key={`details-${flight.id}`}>
+                  <FlightDetails aircraft={aircraft} flight={flight} />
+                </ExpansionPanelDetails>,
+                <Divider key={`divider-${flight.id}`} />,
+                <ExpansionPanelActions key={`actions-${flight.id}`}>
+                  <IconButton onClick={() => openFlightDeleteDialog(flight)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ExpansionPanelActions>
+              ]}
+            </ExpansionPanel>
+          )
+        })}
         <TablePagination
           component="div"
           count={pagination.rowsCount}
@@ -131,7 +137,7 @@ class FlightList extends React.Component {
             onClose={closeFlightDeleteDialog}
           />
         )}
-      </React.Fragment>
+      </div>
     )
   }
 }
