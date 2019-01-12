@@ -1,0 +1,534 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft components FlightList FlightDetails renders correctly 1`] = `
+<div
+  className="MuiGrid-container-1"
+>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Datum
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="20.11.2018"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Pilot
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="Max Muster"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Fluglehrer
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="Hans Keller"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Startflugplatz
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="Lommis (LSZT)"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Block off
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="10:00"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Take off
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="10:10"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Zielflugplatz
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="Lommis (LSZT)"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Landung
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="11:00"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Block on
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="11:10"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Flugstunden
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="101.56 - 102.43"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Motorstunden
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="104.89 - 106.04"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Typ
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="Charter VFR"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Treibstoff
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="58.68L (MoGas (Homebase))"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+      >
+        <div
+          className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+        >
+          <label
+            className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+            data-shrink={true}
+          >
+            Öl
+          </label>
+          <div
+            className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input-139 MuiInput-input-124"
+              disabled={false}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              readOnly={true}
+              required={false}
+              type="text"
+              value="0.7L"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Landungen
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value={1}
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-12-41 MuiGrid-grid-sm-8-51"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Bemerkungen
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="my
+test
+remarks"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

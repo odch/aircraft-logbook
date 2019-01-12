@@ -43,124 +43,172 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
       className="MuiTouchRipple-root-68"
     />
   </button>
-  <table
-    className="MuiTable-root-78 FlightList-table-75"
+  <div
+    className="FlightList-container-75"
   >
-    <thead
-      className="MuiTableHead-root-79"
+    <div
+      className="MuiPaper-root-82 MuiPaper-elevation1-85 MuiExpansionPanel-root-79"
     >
-      <tr
-        className="MuiTableRow-root-80 MuiTableRow-head-83"
+      <div
+        aria-expanded={false}
+        className="MuiButtonBase-root-65 MuiExpansionPanelSummary-root-109"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex="0"
       >
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86"
-          scope="col"
+        <div
+          className="MuiExpansionPanelSummary-content-113"
         >
-          <span>
-            Datum
-          </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86"
-          scope="col"
+          <p
+            className="MuiTypography-root-13 MuiTypography-body1-22 FlightList-flightHeading-76"
+          >
+            <span>
+              Von 
+              <span
+                className="FlightList-bold-78"
+              >
+                Lommis
+              </span>
+               nach 
+              <span
+                className="FlightList-bold-78"
+              >
+                Lommis
+              </span>
+               — Max Muster
+            </span>
+          </p>
+          <p
+            className="MuiTypography-root-13 MuiTypography-body1-22 FlightList-flightSecondaryHeading-77"
+          >
+            20.11.2018
+            ,
+             
+            10:00
+            -
+            11:10
+          </p>
+        </div>
+        <div
+          aria-hidden="true"
+          className="MuiButtonBase-root-65 MuiIconButton-root-115 MuiExpansionPanelSummary-expandIcon-114"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={-1}
         >
-          <span>
-            Pilot
+          <span
+            className="MuiIconButton-label-120"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-121"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
           </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow600-77"
-          scope="col"
+          <span
+            className="MuiTouchRipple-root-68"
+          />
+        </div>
+      </div>
+      <div
+        aria-hidden="true"
+        className="MuiCollapse-container-130"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper-132"
         >
-          <span>
-            Startflugplatz
-          </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86"
-          scope="col"
-        >
-          <span>
-            Zielflugplatz
-          </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow800-76"
-          scope="col"
-        >
-          <span>
-            Block off
-          </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86 FlightList-hiddenBelow800-76"
-          scope="col"
-        >
-          <span>
-            Block on
-          </span>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-head-86"
-          scope="col"
+          <div
+            className="MuiCollapse-wrapperInner-133"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiTablePagination-root-134"
+    >
+      <div
+        className="MuiToolbar-root-144 MuiToolbar-regular-146 MuiToolbar-gutters-145 MuiTablePagination-toolbar-135"
+      >
+        <div
+          className="MuiTablePagination-spacer-136"
         />
-      </tr>
-    </thead>
-    <tbody
-      className="MuiTableBody-root-93"
-    >
-      <tr
-        className="MuiTableRow-root-80"
-      >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87"
+        <span
+          className="MuiTypography-root-13 MuiTypography-caption-23 MuiTablePagination-caption-137"
         >
-          20.11.2018
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87"
-        >
-          Max Muster
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow600-77"
-        >
-          Lommis
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87"
-        >
-          Lommis
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow800-76"
-        >
-          10:00
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87 FlightList-hiddenBelow800-76"
-        >
-          11:10
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root-85 MuiTableCell-body-87"
+          1-10 of 45
+        </span>
+        <div
+          className="MuiTablePagination-actions-143"
         >
           <button
-            className="MuiButtonBase-root-65 MuiIconButton-root-94"
+            className="MuiButtonBase-root-65 MuiButtonBase-disabled-66 MuiIconButton-root-115 MuiIconButton-disabled-119"
+            disabled={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="-1"
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label-120"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-121"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            className="MuiButtonBase-root-65 MuiIconButton-root-115"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}
@@ -177,21 +225,17 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             type="button"
           >
             <span
-              className="MuiIconButton-label-99"
+              className="MuiIconButton-label-120"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-100"
+                className="MuiSvgIcon-root-121"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-                />
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
+                  d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
                 />
               </svg>
             </span>
@@ -199,96 +243,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
               className="MuiTouchRipple-root-68"
             />
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div
-    className="MuiTablePagination-root-109"
-  >
-    <div
-      className="MuiToolbar-root-119 MuiToolbar-regular-121 MuiToolbar-gutters-120 MuiTablePagination-toolbar-110"
-    >
-      <div
-        className="MuiTablePagination-spacer-111"
-      />
-      <span
-        className="MuiTypography-root-13 MuiTypography-caption-23 MuiTablePagination-caption-112"
-      >
-        1-10 of 45
-      </span>
-      <div
-        className="MuiTablePagination-actions-118"
-      >
-        <button
-          className="MuiButtonBase-root-65 MuiButtonBase-disabled-66 MuiIconButton-root-94 MuiIconButton-disabled-98"
-          disabled={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex="-1"
-          type="button"
-        >
-          <span
-            className="MuiIconButton-label-99"
-          >
-            <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root-100"
-              focusable="false"
-              role="presentation"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          className="MuiButtonBase-root-65 MuiIconButton-root-94"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex="0"
-          type="button"
-        >
-          <span
-            className="MuiIconButton-label-99"
-          >
-            <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root-100"
-              focusable="false"
-              role="presentation"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-              />
-            </svg>
-          </span>
-          <span
-            className="MuiTouchRipple-root-68"
-          />
-        </button>
+        </div>
       </div>
     </div>
   </div>
