@@ -51,7 +51,6 @@ describe('containers', () => {
         'open',
         'anchorEl',
         'onClose',
-        'selectedOrganizationId',
         'organization'
       ]
 

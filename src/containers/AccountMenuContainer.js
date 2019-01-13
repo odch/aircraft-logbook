@@ -8,7 +8,6 @@ const mapStateToProps = (state, ownProps) => ({
   open: ownProps.open,
   anchorEl: ownProps.anchorEl,
   onClose: ownProps.onClose,
-  selectedOrganizationId: state.firebase.profile.selectedOrganization,
   organization: state.firebase.profile.selectedOrganization
     ? getOrganization(state, state.firebase.profile.selectedOrganization)
     : null
