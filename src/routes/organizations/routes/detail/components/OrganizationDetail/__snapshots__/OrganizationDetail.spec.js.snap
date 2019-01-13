@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`routes organizations routes detail components OrganizationDetail redirects to start page if organization was not found 1`] = `
+exports[`routes organizations routes detail components OrganizationDetail redirects to organizations page if organization was not found 1`] = `
 <div>
-  Start Page
+  Organizations Page
 </div>
 `;
 

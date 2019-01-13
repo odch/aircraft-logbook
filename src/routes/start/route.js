@@ -1,6 +1,6 @@
-import StartPage from './components/StartPage'
+import StartPageContainer from './containers/StartPageContainer'
 
 export default {
   protect: true,
-  container: StartPage
+  container: StartPageContainer
 }

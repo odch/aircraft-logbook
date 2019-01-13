@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import renderIntl from '../../../../../../testutil/renderIntl'
 import OrganizationDetail from './OrganizationDetail'
 
-const StartPage = () => <div>Start Page</div>
+const OrganizationsPage = () => <div>Organizations Page</div>
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -32,13 +32,18 @@ describe('routes', () => {
               expect(tree).toMatchSnapshot()
             })
 
-            it('redirects to start page if organization was not found', () => {
+            it('redirects to organizations page if organization was not found', () => {
               const tree = renderIntl(
                 <Router>
                   <Switch>
-                    <Route exact path="/" component={StartPage} />
+                    <Route
+                      exact
+                      path="/organizations"
+                      component={OrganizationsPage}
+                    />
                     <OrganizationDetail
                       organization={null}
+                      aircrafts={null}
                       fetchAircrafts={() => {}}
                     />
                   </Switch>

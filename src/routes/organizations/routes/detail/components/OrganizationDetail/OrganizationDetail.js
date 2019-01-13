@@ -47,7 +47,7 @@ class OrganizationDetail extends React.Component {
     }
 
     if (!organization) {
-      return <Redirect to="/" />
+      return <Redirect to="/organizations" />
     }
 
     return (
