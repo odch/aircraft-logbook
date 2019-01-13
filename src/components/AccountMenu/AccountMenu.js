@@ -69,7 +69,6 @@ AccountMenu.propTypes = {
   auth: PropTypes.shape({
     email: PropTypes.string.isRequired
   }).isRequired,
-  selectedOrganizationId: PropTypes.string,
   organization: organizationShape,
   open: PropTypes.bool.isRequired,
   anchorEl: PropTypes.object,
