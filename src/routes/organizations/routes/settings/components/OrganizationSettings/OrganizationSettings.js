@@ -6,10 +6,14 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import isLoaded from '../../../../../../util/isLoaded'
-import { organization as organizationShape } from '../../../../../../shapes'
+import {
+  member as memberShape,
+  organization as organizationShape
+} from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog/OrganizationDeleteDialog'
+import MemberList from '../MemberList'
 
 const styles = theme => ({
   container: {
@@ -46,7 +50,13 @@ class OrganizationSettings extends React.Component {
   }
 
   render() {
-    const { organization, classes, deleteOrganization } = this.props
+    const {
+      organization,
+      members,
+      classes,
+      deleteOrganization,
+      fetchMembers
+    } = this.props
 
     if (!isLoaded(organization)) {
       return <LoadingIcon />
@@ -61,6 +71,11 @@ class OrganizationSettings extends React.Component {
         <Typography variant="title" data-cy="organization-title">
           {organization.id}
         </Typography>
+        <MemberList
+          organization={organization}
+          members={members}
+          fetchMembers={fetchMembers}
+        />
         <Divider className={classes.divider} />
         <div className={classes.deleteButtonContainer}>
           <DeleteButton
@@ -84,8 +99,10 @@ class OrganizationSettings extends React.Component {
 
 OrganizationSettings.propTypes = {
   organization: organizationShape,
+  members: PropTypes.arrayOf(memberShape),
   classes: PropTypes.object.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
+  fetchMembers: PropTypes.func.isRequired,
   intl: intlShape
 }
 

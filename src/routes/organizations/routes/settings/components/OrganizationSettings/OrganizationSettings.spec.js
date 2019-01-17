@@ -16,6 +16,7 @@ describe('routes', () => {
                 <OrganizationSettings
                   organization={undefined}
                   deleteOrganization={() => {}}
+                  fetchMembers={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -29,6 +30,7 @@ describe('routes', () => {
                     <OrganizationSettings
                       organization={null}
                       deleteOrganization={() => {}}
+                      fetchMembers={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -41,7 +43,22 @@ describe('routes', () => {
                 <Router>
                   <OrganizationSettings
                     organization={{ id: 'my_org' }}
+                    members={[
+                      {
+                        id: 'member1',
+                        firstname: 'Hans',
+                        lastname: 'Keller',
+                        roles: ['manager']
+                      },
+                      {
+                        id: 'member2',
+                        firstname: 'Max',
+                        lastname: 'Muster',
+                        roles: ['user']
+                      }
+                    ]}
                     deleteOrganization={() => {}}
+                    fetchMembers={() => {}}
                   />
                 </Router>
               ).toJSON()

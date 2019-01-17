@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes settings components MemberList renders loading icon if members not loaded 1`] = `
+<div
+  className="LoadingIcon-container-1"
+>
+  <div
+    className="MuiCircularProgress-root-3 MuiCircularProgress-colorPrimary-6 MuiCircularProgress-indeterminate-5 LoadingIcon-icon-2"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-8"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-9 MuiCircularProgress-circleIndeterminate-11"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes settings components MemberList renders members if loaded 1`] = `
+<ul
+  className="MuiList-root-12 MuiList-padding-13"
+>
+  <li
+    className="MuiListItem-root-16 MuiListItem-default-19"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root-27"
+    >
+      <span
+        className="MuiTypography-root-33 MuiTypography-subheading-40 MuiListItemText-primary-30"
+      >
+        Keller Hans
+      </span>
+      <p
+        className="MuiTypography-root-33 MuiTypography-body1-42 MuiTypography-colorTextSecondary-57 MuiListItemText-secondary-31"
+      >
+        Manager
+      </p>
+    </div>
+  </li>
+  <li
+    className="MuiListItem-root-16 MuiListItem-default-19"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root-27"
+    >
+      <span
+        className="MuiTypography-root-33 MuiTypography-subheading-40 MuiListItemText-primary-30"
+      >
+        Muster Max
+      </span>
+      <p
+        className="MuiTypography-root-33 MuiTypography-body1-42 MuiTypography-colorTextSecondary-57 MuiListItemText-secondary-31"
+      >
+        Benutzer
+      </p>
+    </div>
+  </li>
+</ul>
+`;
