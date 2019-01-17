@@ -22,6 +22,11 @@ describe('routes', () => {
 
               const state = {
                 firebase: {},
+                firestore: {
+                  ordered: {
+                    organizationMembers: []
+                  }
+                },
                 main: {
                   app: {
                     organizations: [{ id: 'my_org' }]
@@ -56,7 +61,7 @@ describe('routes', () => {
             })
 
             it('should map state to props', () => {
-              const expectedPropKeys = ['match', 'organization']
+              const expectedPropKeys = ['match', 'organization', 'members']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
@@ -64,7 +69,7 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = ['deleteOrganization']
+              const expectedPropKeys = ['deleteOrganization', 'fetchMembers']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)

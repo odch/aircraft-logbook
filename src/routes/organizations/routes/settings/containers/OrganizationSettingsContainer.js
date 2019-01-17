@@ -1,6 +1,6 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { deleteOrganization } from '../../../module'
+import { deleteOrganization, fetchMembers } from '../../../module'
 import OrganizationSettings from '../components/OrganizationSettings'
 import { getOrganization } from '../../../../../util/getFromState'
 
@@ -12,12 +12,14 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
-    organization: getOrganization(state, organizationId)
+    organization: getOrganization(state, organizationId),
+    members: state.firestore.ordered.organizationMembers
   }
 }
 
 const mapActionCreators = {
-  deleteOrganization
+  deleteOrganization,
+  fetchMembers
 }
 
 export default compose(

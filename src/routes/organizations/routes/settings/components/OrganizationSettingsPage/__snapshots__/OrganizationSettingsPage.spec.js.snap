@@ -109,14 +109,56 @@ Array [
     >
       my_org
     </h2>
+    <ul
+      className="MuiList-root-102 MuiList-padding-103"
+    >
+      <li
+        className="MuiListItem-root-106 MuiListItem-default-109"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-117"
+        >
+          <span
+            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-120"
+          >
+            Muster Max
+          </span>
+          <p
+            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-121"
+          >
+            
+          </p>
+        </div>
+      </li>
+      <li
+        className="MuiListItem-root-106 MuiListItem-default-109"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-117"
+        >
+          <span
+            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-120"
+          >
+            Keller Hans
+          </span>
+          <p
+            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-121"
+          >
+            
+          </p>
+        </div>
+      </li>
+    </ul>
     <hr
-      className="MuiDivider-root-102 InjectIntl-OrganizationSettings--divider-100"
+      className="MuiDivider-root-123 InjectIntl-OrganizationSettings--divider-100"
     />
     <div
       className="InjectIntl-OrganizationSettings--deleteButtonContainer-101"
     >
       <button
-        className="MuiButtonBase-root-50 MuiButton-root-108 MuiButton-text-110 MuiButton-flat-113 DeleteButton-button-106"
+        className="MuiButtonBase-root-50 MuiButton-root-129 MuiButton-text-131 MuiButton-flat-134 DeleteButton-button-127"
         data-cy="organization-delete-button"
         disabled={false}
         onBlur={[Function]}
@@ -134,11 +176,11 @@ Array [
         type="button"
       >
         <span
-          className="MuiButton-label-109"
+          className="MuiButton-label-130"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-53 DeleteButton-leftIcon-107"
+            className="MuiSvgIcon-root-53 DeleteButton-leftIcon-128"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"

@@ -110,5 +110,9 @@
   "flight.nature.iss": "Schulung IFR (Solo)",
   "flight.nature.tr": "Schnupperflug",
   "flight.nature.tec": "Technischer Flug",
-  "flight.nature.vc": "Kommerzieller Rundflug"
+  "flight.nature.vc": "Kommerzieller Rundflug",
+
+  "organization.role.owner": "Besitzer",
+  "organization.role.manager": "Manager",
+  "organization.role.user": "Benutzer"
 }

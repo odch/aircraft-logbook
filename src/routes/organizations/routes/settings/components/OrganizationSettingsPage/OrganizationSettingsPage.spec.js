@@ -20,6 +20,22 @@ describe('routes', () => {
                   },
                   profile: {}
                 },
+                firestore: {
+                  ordered: {
+                    organizationMembers: [
+                      {
+                        firstname: 'Max',
+                        lastname: 'Muster',
+                        id: 'user1'
+                      },
+                      {
+                        firstname: 'Hans',
+                        lastname: 'Keller',
+                        id: 'user2'
+                      }
+                    ]
+                  }
+                },
                 main: {
                   app: {
                     organizations: [{ id: 'my_org' }]
