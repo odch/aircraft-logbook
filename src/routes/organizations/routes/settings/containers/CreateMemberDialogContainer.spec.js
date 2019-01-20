@@ -1,18 +1,18 @@
-jest.mock('../components/OrganizationSettings')
+jest.mock('../components/CreateMemberDialog')
 
 import React from 'react'
-import renderer from 'react-test-renderer'
+import renderIntl from '../../../../../testutil/renderIntl'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import OrganizationSettings from '../components/OrganizationSettings'
-import OrganizationSettingsContainer from './OrganizationSettingsContainer'
+import CreateMemberDialog from '../components/CreateMemberDialog'
+import CreateMemberDialogContainer from './CreateMemberDialogContainer'
 
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
       describe('settings', () => {
         describe('containers', () => {
-          describe('OrganizationSettingsContainer', () => {
+          describe('CreateMemberDialogContainer', () => {
             let wrapper
             let component
             let container
@@ -21,43 +21,32 @@ describe('routes', () => {
               jest.resetAllMocks()
 
               const state = {
-                firebase: {},
-                firestore: {
-                  ordered: {
-                    organizationMembers: []
-                  }
-                },
-                main: {
-                  app: {
-                    organizations: [{ id: 'my_org' }]
-                  }
-                },
                 organizationSettings: {
                   createMemberDialog: {
-                    open: false
+                    data: {
+                      firstname: 'Max',
+                      lastname: 'Muster'
+                    },
+                    submitting: false
                   }
                 }
               }
               const store = configureStore()(state)
 
               const props = {
-                match: {
-                  params: {
-                    organizationId: 'my_org'
-                  }
-                }
+                organizationId: 'my_org'
               }
 
-              wrapper = renderer.create(
+              wrapper = renderIntl(
                 <Provider store={store}>
-                  <OrganizationSettingsContainer {...props} />
+                  <CreateMemberDialogContainer {...props} />
                 </Provider>
               )
 
               container = wrapper.root.find(
-                el => el.type === OrganizationSettingsContainer
+                el => el.type === CreateMemberDialogContainer
               )
-              component = container.find(el => el.type === OrganizationSettings)
+              component = container.find(el => el.type === CreateMemberDialog)
             })
 
             it('should render both the container and the component ', () => {
@@ -66,12 +55,7 @@ describe('routes', () => {
             })
 
             it('should map state to props', () => {
-              const expectedPropKeys = [
-                'match',
-                'organization',
-                'members',
-                'createMemberDialogOpen'
-              ]
+              const expectedPropKeys = ['organizationId', 'data', 'submitting']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
@@ -79,11 +63,7 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = [
-                'openCreateMemberDialog',
-                'deleteOrganization',
-                'fetchMembers'
-              ]
+              const expectedPropKeys = ['onClose', 'updateData', 'onSubmit']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)

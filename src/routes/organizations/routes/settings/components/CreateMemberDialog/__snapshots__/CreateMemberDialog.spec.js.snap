@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes settings components CreateMemberDialog renders correctly 1`] = `
+"<div class=\\"MuiModal-root-14 MuiDialog-root-2 MuiDialog-scrollPaper-3\\" role=\\"dialog\\" data-cy=\\"member-create-dialog\\">
+  <div class=\\"MuiBackdrop-root-16\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div class=\\"MuiPaper-root-18 MuiPaper-elevation24-44 MuiPaper-rounded-19 MuiDialog-paper-5 MuiDialog-paperScrollPaper-6 MuiDialog-paperWidthSm-9\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiDialogTitle-root-45\\">
+      <h2 class=\\"MuiTypography-root-46 MuiTypography-title-52\\"><span>Mitglied hinzufügen</span></h2>
+    </div>
+    <form>
+      <div class=\\"MuiDialogContent-root-72\\">
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-filled-88 MuiFormLabel-focused-85 MuiFormLabel-required-89 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk-90\\"> *</span></label>
+          <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-focused-106 MuiInput-focused-93 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-filled-88 MuiFormLabel-required-89 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk-90\\"> *</span></label>
+          <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+        </div>
+      </div>
+      <div class=\\"MuiDialogActions-root-121\\"><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-149 MuiButton-root-123 MuiButton-text-125 MuiButton-flat-128 MuiDialogActions-action-122\\" type=\\"button\\"><span class=\\"MuiButton-label-124\\"><span>Abbrechen</span></span><span class=\\"MuiTouchRipple-root-152\\"></span></button><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-149 MuiButton-root-123 MuiButton-contained-134 MuiButton-containedPrimary-135 MuiButton-raised-137 MuiButton-raisedPrimary-138 MuiDialogActions-action-122\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label-124\\"><span>Mitglied hinzufügen</span></span><span class=\\"MuiTouchRipple-root-152\\"></span></button></div>
+    </form>
+  </div>
+</div>"
+`;
+
+exports[`routes organizations routes settings components CreateMemberDialog renders readonly if submitting 1`] = `
+"<div class=\\"MuiModal-root-14 MuiDialog-root-2 MuiDialog-scrollPaper-3\\" role=\\"dialog\\" data-cy=\\"member-create-dialog\\">
+  <div class=\\"MuiBackdrop-root-16\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div class=\\"MuiPaper-root-18 MuiPaper-elevation24-44 MuiPaper-rounded-19 MuiDialog-paper-5 MuiDialog-paperScrollPaper-6 MuiDialog-paperWidthSm-9\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiDialogTitle-root-45\\">
+      <h2 class=\\"MuiTypography-root-46 MuiTypography-title-52\\"><span>Mitglied hinzufügen</span></h2>
+    </div>
+    <form>
+      <div class=\\"MuiDialogContent-root-72\\">
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiFormLabel-required-89 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk-90\\"> *</span></label>
+          <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94\\" disabled=\\"\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+        </div>
+        <div class=\\"MuiFormControl-root-73 MuiFormControl-fullWidth-76\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root-84 MuiFormLabel-disabled-86 MuiFormLabel-filled-88 MuiFormLabel-required-89 MuiInputLabel-root-77 MuiInputLabel-formControl-78 MuiInputLabel-animated-81 MuiInputLabel-shrink-80\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk-90\\"> *</span></label>
+          <div class=\\"MuiInputBase-root-104 MuiInput-root-91 MuiInput-underline-95 MuiInputBase-disabled-107 MuiInput-disabled-94 MuiInputBase-fullWidth-113 MuiInput-fullWidth-98 MuiInputBase-formControl-105 MuiInput-formControl-92\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input-114 MuiInput-input-99 MuiInputBase-disabled-107 MuiInput-disabled-94\\" disabled=\\"\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+        </div>
+      </div>
+      <div class=\\"MuiDialogActions-root-121\\"><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-149 MuiButtonBase-disabled-150 MuiButton-root-123 MuiButton-text-125 MuiButton-flat-128 MuiButton-disabled-143 MuiDialogActions-action-122\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiButton-label-124\\"><span>Abbrechen</span></span></button><button tabindex=\\"-1\\" class=\\"MuiButtonBase-root-149 MuiButtonBase-disabled-150 MuiButton-root-123 MuiButton-contained-134 MuiButton-containedPrimary-135 MuiButton-raised-137 MuiButton-raisedPrimary-138 MuiButton-disabled-143 MuiDialogActions-action-122\\" type=\\"submit\\" disabled=\\"\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label-124\\"><div class=\\"MuiCircularProgress-root-159 MuiCircularProgress-colorPrimary-162 MuiCircularProgress-indeterminate-161 CreateMemberDialog-loadingIndicator-1\\" style=\\"width: 16px; height: 16px;\\" role=\\"progressbar\\"><svg class=\\"MuiCircularProgress-svg-164\\" viewBox=\\"22 22 44 44\\"><circle class=\\"MuiCircularProgress-circle-165 MuiCircularProgress-circleIndeterminate-167\\" cx=\\"44\\" cy=\\"44\\" r=\\"20.2\\" fill=\\"none\\" stroke-width=\\"3.6\\"></circle></svg></div><span>Mitglied hinzufügen</span></span></button></div>
+    </form>
+  </div>
+</div>"
+`;

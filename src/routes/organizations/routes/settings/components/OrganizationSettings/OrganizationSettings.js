@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
 import {
   member as memberShape,
@@ -12,7 +13,8 @@ import {
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
-import OrganizationDeleteDialog from '../OrganizationDeleteDialog/OrganizationDeleteDialog'
+import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
+import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../MemberList'
 
 const styles = theme => ({
@@ -37,6 +39,10 @@ class OrganizationSettings extends React.Component {
     deleteDialogOpen: false
   }
 
+  handleCreateMemberClick = () => {
+    this.props.openCreateMemberDialog()
+  }
+
   handleDeleteButtonClick = () => {
     this.setState({
       deleteDialogOpen: true
@@ -53,6 +59,7 @@ class OrganizationSettings extends React.Component {
     const {
       organization,
       members,
+      createMemberDialogOpen,
       classes,
       deleteOrganization,
       fetchMembers
@@ -68,9 +75,16 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="title" data-cy="organization-title">
+        <Typography variant="title" data-cy="organization-title" gutterBottom>
           {organization.id}
         </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleCreateMemberClick}
+        >
+          <FormattedMessage id="organization.settings.createmember" />
+        </Button>
         <MemberList
           organization={organization}
           members={members}
@@ -86,6 +100,9 @@ class OrganizationSettings extends React.Component {
             data-cy="organization-delete-button"
           />
         </div>
+        {createMemberDialogOpen && (
+          <CreateMemberDialog organizationId={organization.id} />
+        )}
         <OrganizationDeleteDialog
           organizationId={organization.id}
           open={this.state.deleteDialogOpen}
@@ -100,7 +117,9 @@ class OrganizationSettings extends React.Component {
 OrganizationSettings.propTypes = {
   organization: organizationShape,
   members: PropTypes.arrayOf(memberShape),
+  createMemberDialogOpen: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  openCreateMemberDialog: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   intl: intlShape

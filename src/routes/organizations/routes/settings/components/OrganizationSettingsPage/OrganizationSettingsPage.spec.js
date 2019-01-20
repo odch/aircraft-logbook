@@ -40,6 +40,11 @@ describe('routes', () => {
                   app: {
                     organizations: [{ id: 'my_org' }]
                   }
+                },
+                organizationSettings: {
+                  createMemberDialog: {
+                    open: false
+                  }
                 }
               }
 
