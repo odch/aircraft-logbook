@@ -17,6 +17,7 @@ describe('routes', () => {
                   organization={undefined}
                   deleteOrganization={() => {}}
                   fetchMembers={() => {}}
+                  openCreateMemberDialog={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -31,6 +32,7 @@ describe('routes', () => {
                       organization={null}
                       deleteOrganization={() => {}}
                       fetchMembers={() => {}}
+                      openCreateMemberDialog={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -59,6 +61,7 @@ describe('routes', () => {
                     ]}
                     deleteOrganization={() => {}}
                     fetchMembers={() => {}}
+                    openCreateMemberDialog={() => {}}
                   />
                 </Router>
               ).toJSON()

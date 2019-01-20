@@ -104,47 +104,75 @@ Array [
     className="InjectIntl-OrganizationSettings--container-99"
   >
     <h2
-      className="MuiTypography-root-69 MuiTypography-title-75"
+      className="MuiTypography-root-69 MuiTypography-title-75 MuiTypography-gutterBottom-87"
       data-cy="organization-title"
     >
       my_org
     </h2>
+    <button
+      className="MuiButtonBase-root-50 MuiButton-root-102 MuiButton-contained-113 MuiButton-containedPrimary-114 MuiButton-raised-116 MuiButton-raisedPrimary-117"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-103"
+      >
+        <span>
+          Mitglied hinzufügen
+        </span>
+      </span>
+      <span
+        className="MuiTouchRipple-root-62"
+      />
+    </button>
     <ul
-      className="MuiList-root-102 MuiList-padding-103"
+      className="MuiList-root-128 MuiList-padding-129"
     >
       <li
-        className="MuiListItem-root-106 MuiListItem-default-109"
+        className="MuiListItem-root-132 MuiListItem-default-135"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-117"
+          className="MuiListItemText-root-143"
         >
           <span
-            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-120"
+            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-146"
           >
             Muster Max
           </span>
           <p
-            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-121"
+            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-147"
           >
             
           </p>
         </div>
       </li>
       <li
-        className="MuiListItem-root-106 MuiListItem-default-109"
+        className="MuiListItem-root-132 MuiListItem-default-135"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-117"
+          className="MuiListItemText-root-143"
         >
           <span
-            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-120"
+            className="MuiTypography-root-69 MuiTypography-subheading-76 MuiListItemText-primary-146"
           >
             Keller Hans
           </span>
           <p
-            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-121"
+            className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-colorTextSecondary-93 MuiListItemText-secondary-147"
           >
             
           </p>
@@ -152,13 +180,13 @@ Array [
       </li>
     </ul>
     <hr
-      className="MuiDivider-root-123 InjectIntl-OrganizationSettings--divider-100"
+      className="MuiDivider-root-149 InjectIntl-OrganizationSettings--divider-100"
     />
     <div
       className="InjectIntl-OrganizationSettings--deleteButtonContainer-101"
     >
       <button
-        className="MuiButtonBase-root-50 MuiButton-root-129 MuiButton-text-131 MuiButton-flat-134 DeleteButton-button-127"
+        className="MuiButtonBase-root-50 MuiButton-root-102 MuiButton-text-104 MuiButton-flat-107 DeleteButton-button-153"
         data-cy="organization-delete-button"
         disabled={false}
         onBlur={[Function]}
@@ -176,11 +204,11 @@ Array [
         type="button"
       >
         <span
-          className="MuiButton-label-130"
+          className="MuiButton-label-103"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-53 DeleteButton-leftIcon-128"
+            className="MuiSvgIcon-root-53 DeleteButton-leftIcon-154"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"

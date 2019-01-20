@@ -43,47 +43,75 @@ exports[`routes organizations routes settings components OrganizationSettings re
   className="InjectIntl-OrganizationSettings--container-1"
 >
   <h2
-    className="MuiTypography-root-15 MuiTypography-title-21"
+    className="MuiTypography-root-15 MuiTypography-title-21 MuiTypography-gutterBottom-33"
     data-cy="organization-title"
   >
     my_org
   </h2>
+  <button
+    className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-containedPrimary-53 MuiButton-raised-55 MuiButton-raisedPrimary-56"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-42"
+    >
+      <span>
+        Mitglied hinzufügen
+      </span>
+    </span>
+    <span
+      className="MuiTouchRipple-root-70"
+    />
+  </button>
   <ul
-    className="MuiList-root-41 MuiList-padding-42"
+    className="MuiList-root-77 MuiList-padding-78"
   >
     <li
-      className="MuiListItem-root-45 MuiListItem-default-48"
+      className="MuiListItem-root-81 MuiListItem-default-84"
       disabled={false}
     >
       <div
-        className="MuiListItemText-root-56"
+        className="MuiListItemText-root-92"
       >
         <span
-          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-59"
+          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
         >
           Keller Hans
         </span>
         <p
-          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-60"
+          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
         >
           Manager
         </p>
       </div>
     </li>
     <li
-      className="MuiListItem-root-45 MuiListItem-default-48"
+      className="MuiListItem-root-81 MuiListItem-default-84"
       disabled={false}
     >
       <div
-        className="MuiListItemText-root-56"
+        className="MuiListItemText-root-92"
       >
         <span
-          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-59"
+          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
         >
           Muster Max
         </span>
         <p
-          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-60"
+          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
         >
           Benutzer
         </p>
@@ -91,13 +119,13 @@ exports[`routes organizations routes settings components OrganizationSettings re
     </li>
   </ul>
   <hr
-    className="MuiDivider-root-62 InjectIntl-OrganizationSettings--divider-2"
+    className="MuiDivider-root-98 InjectIntl-OrganizationSettings--divider-2"
   />
   <div
     className="InjectIntl-OrganizationSettings--deleteButtonContainer-3"
   >
     <button
-      className="MuiButtonBase-root-94 MuiButton-root-68 MuiButton-text-70 MuiButton-flat-73 DeleteButton-button-66"
+      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-text-43 MuiButton-flat-46 DeleteButton-button-102"
       data-cy="organization-delete-button"
       disabled={false}
       onBlur={[Function]}
@@ -115,11 +143,11 @@ exports[`routes organizations routes settings components OrganizationSettings re
       type="button"
     >
       <span
-        className="MuiButton-label-69"
+        className="MuiButton-label-42"
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-97 DeleteButton-leftIcon-67"
+          className="MuiSvgIcon-root-104 DeleteButton-leftIcon-103"
           focusable="false"
           role="presentation"
           viewBox="0 0 24 24"
@@ -135,7 +163,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
         Organisation löschen
       </span>
       <span
-        className="MuiTouchRipple-root-106"
+        className="MuiTouchRipple-root-70"
       />
     </button>
   </div>
