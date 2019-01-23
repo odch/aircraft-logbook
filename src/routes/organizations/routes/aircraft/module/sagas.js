@@ -68,7 +68,7 @@ export function* fetchFlights({
 export function* getCurrentMember() {
   const userId = yield select(uidSelector)
   const organizationMembers = yield select(organizationMembersSelector)
-  const member = organizationMembers.find(m => m.user.id === userId)
+  const member = organizationMembers.find(m => m.user && m.user.id === userId)
   if (!member) {
     throw `Member not found for uid ${userId}`
   }
