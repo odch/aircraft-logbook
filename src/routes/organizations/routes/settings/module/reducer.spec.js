@@ -9,6 +9,9 @@ export const INITIAL_STATE = {
       firstname: '',
       lastname: ''
     }
+  },
+  members: {
+    page: 0
   }
 }
 
@@ -138,6 +141,23 @@ describe('routes', () => {
             ).toEqual({
               createMemberDialog: {
                 submitting: false
+              }
+            })
+          })
+
+          it('handles SET_MEMBERS_PAGE action', () => {
+            expect(
+              reducer(
+                {
+                  members: {
+                    page: 1
+                  }
+                },
+                actions.setMembersPage(2)
+              )
+            ).toEqual({
+              members: {
+                page: 2
               }
             })
           })

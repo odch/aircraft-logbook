@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
 import renderIntl from '../../../../../../testutil/renderIntl'
 import OrganizationSettings from './OrganizationSettings'
 
@@ -16,7 +18,6 @@ describe('routes', () => {
                 <OrganizationSettings
                   organization={undefined}
                   deleteOrganization={() => {}}
-                  fetchMembers={() => {}}
                   openCreateMemberDialog={() => {}}
                 />
               ).toJSON()
@@ -31,7 +32,6 @@ describe('routes', () => {
                     <OrganizationSettings
                       organization={null}
                       deleteOrganization={() => {}}
-                      fetchMembers={() => {}}
                       openCreateMemberDialog={() => {}}
                     />
                   </Switch>
@@ -41,11 +41,10 @@ describe('routes', () => {
             })
 
             it('renders organization settings if loaded', () => {
-              const tree = renderIntl(
-                <Router>
-                  <OrganizationSettings
-                    organization={{ id: 'my_org' }}
-                    members={[
+              const store = configureStore()({
+                firestore: {
+                  ordered: {
+                    organizationMembers: [
                       {
                         id: 'member1',
                         firstname: 'Hans',
@@ -58,12 +57,26 @@ describe('routes', () => {
                         lastname: 'Muster',
                         roles: ['user']
                       }
-                    ]}
-                    deleteOrganization={() => {}}
-                    fetchMembers={() => {}}
-                    openCreateMemberDialog={() => {}}
-                  />
-                </Router>
+                    ]
+                  }
+                },
+                organizationSettings: {
+                  members: {
+                    page: 0
+                  }
+                }
+              })
+
+              const tree = renderIntl(
+                <Provider store={store}>
+                  <Router>
+                    <OrganizationSettings
+                      organization={{ id: 'my_org' }}
+                      deleteOrganization={() => {}}
+                      openCreateMemberDialog={() => {}}
+                    />
+                  </Router>
+                </Provider>
               ).toJSON()
               expect(tree).toMatchSnapshot()
             })

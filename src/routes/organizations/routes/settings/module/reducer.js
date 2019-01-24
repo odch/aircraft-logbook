@@ -10,6 +10,9 @@ export const INITIAL_STATE = {
       firstname: '',
       lastname: ''
     }
+  },
+  members: {
+    page: 0
   }
 }
 
@@ -63,13 +66,21 @@ const closeCreateMemberDialog = state => ({
   }
 })
 
+const setMembersPage = (state, action) => ({
+  ...state,
+  members: {
+    page: action.payload.page
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
   [actions.UPDATE_CREATE_MEMBER_DIALOG_DATA]: updateCreateMemberDialogData,
   [actions.SET_CREATE_MEMBER_DIALOG_SUBMITTING]: setCreateMemberDialogSubmitting,
   [actions.CREATE_MEMBER_SUCCESS]: closeCreateMemberDialog,
-  [actions.CREATE_MEMBER_FAILURE]: unsetCreateMemberDialogSubmitting
+  [actions.CREATE_MEMBER_FAILURE]: unsetCreateMemberDialogSubmitting,
+  [actions.SET_MEMBERS_PAGE]: setMembersPage
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

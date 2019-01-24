@@ -7,15 +7,12 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
-import {
-  member as memberShape,
-  organization as organizationShape
-} from '../../../../../../shapes'
+import { organization as organizationShape } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
 import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
-import MemberList from '../MemberList'
+import MemberList from '../../containers/MemberListContainer'
 
 const styles = theme => ({
   container: {
@@ -58,11 +55,9 @@ class OrganizationSettings extends React.Component {
   render() {
     const {
       organization,
-      members,
       createMemberDialogOpen,
       classes,
-      deleteOrganization,
-      fetchMembers
+      deleteOrganization
     } = this.props
 
     if (!isLoaded(organization)) {
@@ -85,11 +80,7 @@ class OrganizationSettings extends React.Component {
         >
           <FormattedMessage id="organization.settings.createmember" />
         </Button>
-        <MemberList
-          organization={organization}
-          members={members}
-          fetchMembers={fetchMembers}
-        />
+        <MemberList organizationId={organization.id} />
         <Divider className={classes.divider} />
         <div className={classes.deleteButtonContainer}>
           <DeleteButton
@@ -116,12 +107,10 @@ class OrganizationSettings extends React.Component {
 
 OrganizationSettings.propTypes = {
   organization: organizationShape,
-  members: PropTypes.arrayOf(memberShape),
   createMemberDialogOpen: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   openCreateMemberDialog: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
-  fetchMembers: PropTypes.func.isRequired,
   intl: intlShape
 }
 

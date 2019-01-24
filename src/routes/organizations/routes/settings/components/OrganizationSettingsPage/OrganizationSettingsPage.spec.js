@@ -44,6 +44,9 @@ describe('routes', () => {
                 organizationSettings: {
                   createMemberDialog: {
                     open: false
+                  },
+                  members: {
+                    page: 0
                   }
                 }
               }

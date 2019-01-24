@@ -11,6 +11,7 @@ export const CREATE_MEMBER_SUCCESS =
   'organizationSettings/CREATE_MEMBER_SUCCESS'
 export const CREATE_MEMBER_FAILURE =
   'organizationSettings/CREATE_MEMBER_FAILURE'
+export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
 
 export const openCreateMemberDialog = () => ({
   type: OPEN_CREATE_MEMBER_DIALOG
@@ -45,4 +46,11 @@ export const createMemberSuccess = () => ({
 
 export const createMemberFailure = () => ({
   type: CREATE_MEMBER_FAILURE
+})
+
+export const setMembersPage = page => ({
+  type: SET_MEMBERS_PAGE,
+  payload: {
+    page
+  }
 })
