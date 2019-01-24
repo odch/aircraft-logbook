@@ -1,18 +1,18 @@
-jest.mock('../components/OrganizationSettings')
+jest.mock('../components/MemberList')
 
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import OrganizationSettings from '../components/OrganizationSettings'
-import OrganizationSettingsContainer from './OrganizationSettingsContainer'
+import MemberList from '../components/MemberList'
+import MemberListContainer from './MemberListContainer'
 
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
       describe('settings', () => {
         describe('containers', () => {
-          describe('OrganizationSettingsContainer', () => {
+          describe('MemberListContainer', () => {
             let wrapper
             let component
             let container
@@ -21,38 +21,33 @@ describe('routes', () => {
               jest.resetAllMocks()
 
               const state = {
-                firebase: {},
-                main: {
-                  app: {
-                    organizations: [{ id: 'my_org' }]
+                firestore: {
+                  ordered: {
+                    organizationMembers: []
                   }
                 },
                 organizationSettings: {
-                  createMemberDialog: {
-                    open: false
+                  members: {
+                    page: 0
                   }
                 }
               }
               const store = configureStore()(state)
 
               const props = {
-                match: {
-                  params: {
-                    organizationId: 'my_org'
-                  }
-                }
+                organizationId: 'my_org'
               }
 
               wrapper = renderer.create(
                 <Provider store={store}>
-                  <OrganizationSettingsContainer {...props} />
+                  <MemberListContainer {...props} />
                 </Provider>
               )
 
               container = wrapper.root.find(
-                el => el.type === OrganizationSettingsContainer
+                el => el.type === MemberListContainer
               )
-              component = container.find(el => el.type === OrganizationSettings)
+              component = container.find(el => el.type === MemberList)
             })
 
             it('should render both the container and the component ', () => {
@@ -62,9 +57,9 @@ describe('routes', () => {
 
             it('should map state to props', () => {
               const expectedPropKeys = [
-                'match',
-                'organization',
-                'createMemberDialogOpen'
+                'organizationId',
+                'members',
+                'pagination'
               ]
 
               expect(Object.keys(component.props)).toEqual(
@@ -73,10 +68,7 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = [
-                'openCreateMemberDialog',
-                'deleteOrganization'
-              ]
+              const expectedPropKeys = ['fetchMembers', 'setMembersPage']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)

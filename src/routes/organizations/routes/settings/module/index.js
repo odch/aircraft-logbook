@@ -2,7 +2,8 @@ import {
   openCreateMemberDialog,
   closeCreateMemberDialog,
   updateCreateMemberDialogData,
-  createMember
+  createMember,
+  setMembersPage
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -11,7 +12,8 @@ export {
   openCreateMemberDialog,
   closeCreateMemberDialog,
   updateCreateMemberDialogData,
-  createMember
+  createMember,
+  setMembersPage
 }
 
 export { sagas }

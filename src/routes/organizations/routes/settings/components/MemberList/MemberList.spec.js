@@ -13,9 +13,10 @@ describe('routes', () => {
 
               renderIntl(
                 <MemberList
-                  organization={{ id: 'my_org' }}
+                  organizationId="my_org"
                   members={undefined}
                   fetchMembers={fetchMembers}
+                  setMembersPage={() => {}}
                 />
               )
 
@@ -25,9 +26,10 @@ describe('routes', () => {
             it('renders loading icon if members not loaded', () => {
               const tree = renderIntl(
                 <MemberList
-                  organization={{ id: 'my_org' }}
+                  organizationId="my_org"
                   members={undefined}
                   fetchMembers={() => {}}
+                  setMembersPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -36,7 +38,7 @@ describe('routes', () => {
             it('renders members if loaded', () => {
               const tree = renderIntl(
                 <MemberList
-                  organization={{ id: 'my_org' }}
+                  organizationId="my_org"
                   members={[
                     {
                       id: 'member1',
@@ -51,7 +53,13 @@ describe('routes', () => {
                       roles: ['user']
                     }
                   ]}
+                  pagination={{
+                    rowsCount: 2,
+                    page: 0,
+                    rowsPerPage: 10
+                  }}
                   fetchMembers={() => {}}
+                  setMembersPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
