@@ -2,12 +2,20 @@ import { fork, takeEvery, all, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { fetchMembers } from '../../../module'
 import { error } from '../../../../../util/log'
-import { addDoc } from '../../../../../util/firestoreUtils'
+import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 
 export function* createMember({ payload: { organizationId, data } }) {
   try {
     yield put(actions.setCreateMemberDialogSubmitting())
-    yield call(addDoc, ['organizations', organizationId, 'members'], data)
+    const dataToStore = {
+      ...data,
+      deleted: false
+    }
+    yield call(
+      addDoc,
+      ['organizations', organizationId, 'members'],
+      dataToStore
+    )
     yield put(fetchMembers(organizationId))
     yield put(actions.createMemberSuccess())
   } catch (e) {
@@ -16,6 +24,21 @@ export function* createMember({ payload: { organizationId, data } }) {
   }
 }
 
+export function* deleteMember({ payload: { organizationId, memberId } }) {
+  yield call(
+    updateDoc,
+    ['organizations', organizationId, 'members', memberId],
+    {
+      deleted: true
+    }
+  )
+  yield put(fetchMembers(organizationId))
+  yield put(actions.closeDeleteMemberDialog())
+}
+
 export default function* sagas() {
-  yield all([fork(takeEvery, actions.CREATE_MEMBER, createMember)])
+  yield all([
+    fork(takeEvery, actions.CREATE_MEMBER, createMember),
+    fork(takeEvery, actions.DELETE_MEMBER, deleteMember)
+  ])
 }

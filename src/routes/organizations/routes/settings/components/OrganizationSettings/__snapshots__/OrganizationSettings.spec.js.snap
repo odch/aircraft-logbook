@@ -80,63 +80,159 @@ exports[`routes organizations routes settings components OrganizationSettings re
     className="MuiList-root-77 MuiList-padding-78"
   >
     <li
-      className="MuiListItem-root-81 MuiListItem-default-84"
-      disabled={false}
+      className="MuiListItem-container-82"
     >
       <div
-        className="MuiListItemText-root-92"
+        className="MuiListItem-root-81 MuiListItem-default-84 MuiListItem-secondaryAction-90"
+        disabled={false}
       >
-        <span
-          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+        <div
+          className="MuiListItemText-root-92"
         >
-          Keller Hans
-        </span>
-        <p
-          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+          <span
+            className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+          >
+            Keller Hans
+          </span>
+          <p
+            className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+          >
+            Manager
+          </p>
+        </div>
+      </div>
+      <div
+        className="MuiListItemSecondaryAction-root-98"
+      >
+        <button
+          className="MuiButtonBase-root-67 MuiIconButton-root-99"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
         >
-          Manager
-        </p>
+          <span
+            className="MuiIconButton-label-104"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-105"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-70"
+          />
+        </button>
       </div>
     </li>
     <li
-      className="MuiListItem-root-81 MuiListItem-default-84"
-      disabled={false}
+      className="MuiListItem-container-82"
     >
       <div
-        className="MuiListItemText-root-92"
+        className="MuiListItem-root-81 MuiListItem-default-84 MuiListItem-secondaryAction-90"
+        disabled={false}
       >
-        <span
-          className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+        <div
+          className="MuiListItemText-root-92"
         >
-          Muster Max
-        </span>
-        <p
-          className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+          <span
+            className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+          >
+            Muster Max
+          </span>
+          <p
+            className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+          >
+            Benutzer
+          </p>
+        </div>
+      </div>
+      <div
+        className="MuiListItemSecondaryAction-root-98"
+      >
+        <button
+          className="MuiButtonBase-root-67 MuiIconButton-root-99"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
         >
-          Benutzer
-        </p>
+          <span
+            className="MuiIconButton-label-104"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-105"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-70"
+          />
+        </button>
       </div>
     </li>
   </ul>
   <div
-    className="MuiTablePagination-root-98"
+    className="MuiTablePagination-root-114"
   >
     <div
-      className="MuiToolbar-root-108 MuiToolbar-regular-110 MuiToolbar-gutters-109 MuiTablePagination-toolbar-99"
+      className="MuiToolbar-root-124 MuiToolbar-regular-126 MuiToolbar-gutters-125 MuiTablePagination-toolbar-115"
     >
       <div
-        className="MuiTablePagination-spacer-100"
+        className="MuiTablePagination-spacer-116"
       />
       <span
-        className="MuiTypography-root-15 MuiTypography-caption-25 MuiTablePagination-caption-101"
+        className="MuiTypography-root-15 MuiTypography-caption-25 MuiTablePagination-caption-117"
       >
         1-2 of 2
       </span>
       <div
-        className="MuiTablePagination-actions-107"
+        className="MuiTablePagination-actions-123"
       >
         <button
-          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-112 MuiIconButton-disabled-116"
+          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-99 MuiIconButton-disabled-103"
           disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
@@ -153,11 +249,11 @@ exports[`routes organizations routes settings components OrganizationSettings re
           type="button"
         >
           <span
-            className="MuiIconButton-label-117"
+            className="MuiIconButton-label-104"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-118"
+              className="MuiSvgIcon-root-105"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -169,7 +265,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
           </span>
         </button>
         <button
-          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-112 MuiIconButton-disabled-116"
+          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-99 MuiIconButton-disabled-103"
           disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
@@ -186,11 +282,11 @@ exports[`routes organizations routes settings components OrganizationSettings re
           type="button"
         >
           <span
-            className="MuiIconButton-label-117"
+            className="MuiIconButton-label-104"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-118"
+              className="MuiSvgIcon-root-105"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -205,13 +301,13 @@ exports[`routes organizations routes settings components OrganizationSettings re
     </div>
   </div>
   <hr
-    className="MuiDivider-root-127 InjectIntl-OrganizationSettings--divider-2"
+    className="MuiDivider-root-128 InjectIntl-OrganizationSettings--divider-2"
   />
   <div
     className="InjectIntl-OrganizationSettings--deleteButtonContainer-3"
   >
     <button
-      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-text-43 MuiButton-flat-46 DeleteButton-button-131"
+      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-text-43 MuiButton-flat-46 DeleteButton-button-132"
       data-cy="organization-delete-button"
       disabled={false}
       onBlur={[Function]}
@@ -233,7 +329,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-118 DeleteButton-leftIcon-132"
+          className="MuiSvgIcon-root-105 DeleteButton-leftIcon-133"
           focusable="false"
           role="presentation"
           viewBox="0 0 24 24"

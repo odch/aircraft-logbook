@@ -313,6 +313,7 @@ describe('modules', () => {
                 collection: 'organizations',
                 doc: 'my_org',
                 subcollections: [{ collection: 'members' }],
+                where: ['deleted', '==', false],
                 orderBy: [['lastname'], ['firstname']],
                 storeAs: 'organizationMembers'
               },

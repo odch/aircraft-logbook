@@ -1,7 +1,12 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchMembers } from '../../../module'
-import { setMembersPage } from '../module'
+import {
+  openDeleteMemberDialog,
+  closeDeleteMemberDialog,
+  deleteMember,
+  setMembersPage
+} from '../module'
 import MemberList from '../components/MemberList'
 
 export const MEMBERS_PER_PAGE = 10
@@ -27,12 +32,16 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
   return {
     members,
-    pagination
+    pagination,
+    deleteMemberDialog: state.organizationSettings.deleteMemberDialog
   }
 }
 
 const mapActionCreators = {
   fetchMembers,
+  openDeleteMemberDialog,
+  closeDeleteMemberDialog,
+  deleteMember,
   setMembersPage
 }
 

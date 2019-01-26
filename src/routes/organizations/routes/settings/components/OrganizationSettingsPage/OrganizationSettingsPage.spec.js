@@ -45,6 +45,9 @@ describe('routes', () => {
                   createMemberDialog: {
                     open: false
                   },
+                  deleteMemberDialog: {
+                    open: false
+                  },
                   members: {
                     page: 0
                   }

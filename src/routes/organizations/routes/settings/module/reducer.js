@@ -11,6 +11,10 @@ export const INITIAL_STATE = {
       lastname: ''
     }
   },
+  deleteMemberDialog: {
+    open: false,
+    submitting: false
+  },
   members: {
     page: 0
   }
@@ -66,6 +70,30 @@ const closeCreateMemberDialog = state => ({
   }
 })
 
+const openDeleteMemberDialog = (state, action) => ({
+  ...state,
+  deleteMemberDialog: {
+    open: true,
+    submitting: false,
+    member: action.payload.member
+  }
+})
+
+const closeDeleteMemberDialog = state => ({
+  ...state,
+  deleteMemberDialog: {
+    open: false
+  }
+})
+
+const setDeleteMemberDialogSubmitting = state => ({
+  ...state,
+  deleteMemberDialog: {
+    ...state.deleteMemberDialog,
+    submitting: true
+  }
+})
+
 const setMembersPage = (state, action) => ({
   ...state,
   members: {
@@ -80,6 +108,9 @@ const ACTION_HANDLERS = {
   [actions.SET_CREATE_MEMBER_DIALOG_SUBMITTING]: setCreateMemberDialogSubmitting,
   [actions.CREATE_MEMBER_SUCCESS]: closeCreateMemberDialog,
   [actions.CREATE_MEMBER_FAILURE]: unsetCreateMemberDialogSubmitting,
+  [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
+  [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
+  [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
   [actions.SET_MEMBERS_PAGE]: setMembersPage
 }
 

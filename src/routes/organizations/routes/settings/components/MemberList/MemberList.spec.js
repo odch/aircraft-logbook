@@ -16,6 +16,9 @@ describe('routes', () => {
                   organizationId="my_org"
                   members={undefined}
                   fetchMembers={fetchMembers}
+                  openDeleteMemberDialog={() => {}}
+                  closeDeleteMemberDialog={() => {}}
+                  deleteMember={() => {}}
                   setMembersPage={() => {}}
                 />
               )
@@ -29,6 +32,9 @@ describe('routes', () => {
                   organizationId="my_org"
                   members={undefined}
                   fetchMembers={() => {}}
+                  openDeleteMemberDialog={() => {}}
+                  closeDeleteMemberDialog={() => {}}
+                  deleteMember={() => {}}
                   setMembersPage={() => {}}
                 />
               ).toJSON()
@@ -53,12 +59,16 @@ describe('routes', () => {
                       roles: ['user']
                     }
                   ]}
+                  deleteMemberDialog={{ open: false }}
                   pagination={{
                     rowsCount: 2,
                     page: 0,
                     rowsPerPage: 10
                   }}
                   fetchMembers={() => {}}
+                  openDeleteMemberDialog={() => {}}
+                  closeDeleteMemberDialog={() => {}}
+                  deleteMember={() => {}}
                   setMembersPage={() => {}}
                 />
               ).toJSON()

@@ -101,6 +101,7 @@ export function* fetchMembers({ payload: { organizationId } }) {
       collection: 'organizations',
       doc: organizationId,
       subcollections: [{ collection: 'members' }],
+      where: ['deleted', '==', false],
       orderBy: [['lastname'], ['firstname']],
       storeAs: 'organizationMembers'
     },
