@@ -63,6 +63,9 @@ describe('routes', () => {
                 organizationSettings: {
                   members: {
                     page: 0
+                  },
+                  deleteMemberDialog: {
+                    open: false
                   }
                 }
               })

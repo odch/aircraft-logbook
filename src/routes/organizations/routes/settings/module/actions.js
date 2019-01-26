@@ -11,6 +11,11 @@ export const CREATE_MEMBER_SUCCESS =
   'organizationSettings/CREATE_MEMBER_SUCCESS'
 export const CREATE_MEMBER_FAILURE =
   'organizationSettings/CREATE_MEMBER_FAILURE'
+export const OPEN_DELETE_MEMBER_DIALOG =
+  'organizationSettings/OPEN_DELETE_MEMBER_DIALOG'
+export const CLOSE_DELETE_MEMBER_DIALOG =
+  'organizationSettings/CLOSE_DELETE_MEMBER_DIALOG'
+export const DELETE_MEMBER = 'organizationSettings/DELETE_MEMBER'
 export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
 
 export const openCreateMemberDialog = () => ({
@@ -46,6 +51,25 @@ export const createMemberSuccess = () => ({
 
 export const createMemberFailure = () => ({
   type: CREATE_MEMBER_FAILURE
+})
+
+export const openDeleteMemberDialog = member => ({
+  type: OPEN_DELETE_MEMBER_DIALOG,
+  payload: {
+    member
+  }
+})
+
+export const closeDeleteMemberDialog = () => ({
+  type: CLOSE_DELETE_MEMBER_DIALOG
+})
+
+export const deleteMember = (organizationId, memberId) => ({
+  type: DELETE_MEMBER,
+  payload: {
+    organizationId,
+    memberId
+  }
 })
 
 export const setMembersPage = page => ({

@@ -4,10 +4,14 @@ import { injectIntl, intlShape } from 'react-intl'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 import TablePagination from '@material-ui/core/TablePagination'
 import { member as memberShape } from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
+import DeleteMemberDialog from '../DeleteMemberDialog'
 
 class MemberList extends React.Component {
   componentDidMount() {
@@ -23,7 +27,16 @@ class MemberList extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { members, pagination, setMembersPage } = this.props
+    const {
+      organizationId,
+      members,
+      pagination,
+      deleteMemberDialog,
+      openDeleteMemberDialog,
+      closeDeleteMemberDialog,
+      deleteMember,
+      setMembersPage
+    } = this.props
 
     if (!isLoaded(members)) {
       return <LoadingIcon />
@@ -38,6 +51,11 @@ class MemberList extends React.Component {
                 primary={`${member.lastname} ${member.firstname}`}
                 secondary={this.getRoleNames(member.roles)}
               />
+              <ListItemSecondaryAction>
+                <IconButton onClick={() => openDeleteMemberDialog(member)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>
@@ -49,6 +67,18 @@ class MemberList extends React.Component {
           page={pagination.page}
           onChangePage={(event, page) => setMembersPage(page)}
         />
+        {deleteMemberDialog &&
+          deleteMemberDialog.open && (
+            <DeleteMemberDialog
+              organizationId={organizationId}
+              member={deleteMemberDialog.member}
+              submitting={deleteMemberDialog.submitting}
+              onConfirm={() =>
+                deleteMember(organizationId, deleteMemberDialog.member.id)
+              }
+              onClose={closeDeleteMemberDialog}
+            />
+          )}
       </React.Fragment>
     )
   }
@@ -62,7 +92,15 @@ MemberList.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired
   }),
+  deleteMemberDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitting: PropTypes.bool,
+    member: memberShape
+  }),
   fetchMembers: PropTypes.func.isRequired,
+  openDeleteMemberDialog: PropTypes.func.isRequired,
+  closeDeleteMemberDialog: PropTypes.func.isRequired,
+  deleteMember: PropTypes.func.isRequired,
   setMembersPage: PropTypes.func.isRequired,
   intl: intlShape.isRequired
 }

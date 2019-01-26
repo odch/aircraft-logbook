@@ -10,6 +10,10 @@ export const INITIAL_STATE = {
       lastname: ''
     }
   },
+  deleteMemberDialog: {
+    open: false,
+    submitting: false
+  },
   members: {
     page: 0
   }
@@ -141,6 +145,63 @@ describe('routes', () => {
             ).toEqual({
               createMemberDialog: {
                 submitting: false
+              }
+            })
+          })
+
+          it('handles OPEN_DELETE_MEMBER_DIALOG action', () => {
+            const member = {
+              firstname: 'Max',
+              lastname: 'Muster'
+            }
+            expect(
+              reducer(
+                {
+                  deleteMemberDialog: {
+                    open: false
+                  }
+                },
+                actions.openDeleteMemberDialog(member)
+              )
+            ).toEqual({
+              deleteMemberDialog: {
+                open: true,
+                submitting: false,
+                member
+              }
+            })
+          })
+
+          it('handles CLOSE_DELETE_MEMBER_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  deleteMemberDialog: {
+                    open: true
+                  }
+                },
+                actions.closeDeleteMemberDialog()
+              )
+            ).toEqual({
+              deleteMemberDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles DELETE_MEMBER action', () => {
+            expect(
+              reducer(
+                {
+                  deleteMemberDialog: {
+                    submitting: false
+                  }
+                },
+                actions.deleteMember()
+              )
+            ).toEqual({
+              deleteMemberDialog: {
+                submitting: true
               }
             })
           })

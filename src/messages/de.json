@@ -121,5 +121,12 @@
   "organization.member.create.dialog.firstname": "Vorname",
   "organization.member.create.dialog.lastname": "Nachname",
   "organization.member.create.dialog.buttons.cancel": "Abbrechen",
-  "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen"
+  "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen",
+
+  "organization.member.delete.dialog.title": "Mitglied löschen",
+  "organization.member.delete.dialog.text": "Bist du sicher, dass du dieses Mitglied löschen möchtest?",
+  "organization.member.delete.dialog.firstname": "Vorname",
+  "organization.member.delete.dialog.lastname": "Nachname",
+  "organization.member.delete.dialog.buttons.cancel": "Abbrechen",
+  "organization.member.delete.dialog.buttons.delete": "Mitglied löschen"
 }

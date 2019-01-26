@@ -59,6 +59,7 @@ describe('routes', () => {
               const expectedPropKeys = [
                 'organizationId',
                 'members',
+                'deleteMemberDialog',
                 'pagination'
               ]
 
@@ -68,7 +69,13 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = ['fetchMembers', 'setMembersPage']
+              const expectedPropKeys = [
+                'fetchMembers',
+                'openDeleteMemberDialog',
+                'closeDeleteMemberDialog',
+                'deleteMember',
+                'setMembersPage'
+              ]
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
