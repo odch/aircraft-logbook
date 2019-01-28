@@ -19,7 +19,8 @@ const INITIAL_STATE = {
           end: null
         }
       }
-    }
+    },
+    readOnlyFields: []
   },
   deleteFlightDialog: {
     open: false
@@ -74,7 +75,8 @@ describe('routes', () => {
               createFlightDialog: {
                 submitting: false,
                 open: true,
-                data: INITIAL_STATE.createFlightDialog.data
+                data: INITIAL_STATE.createFlightDialog.data,
+                readOnlyFields: []
               }
             })
           })
@@ -92,6 +94,51 @@ describe('routes', () => {
             ).toEqual({
               createFlightDialog: {
                 open: false
+              }
+            })
+          })
+
+          it('handles SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    data: {
+                      initialized: false,
+                      date: null,
+                      counters: {
+                        flightHours: {
+                          start: null,
+                          end: null
+                        }
+                      }
+                    }
+                  }
+                },
+                actions.setInitialCreateFlightDialogData(
+                  {
+                    date: '2018-12-15',
+                    counters: {
+                      flightHours: {
+                        start: 348967
+                      }
+                    }
+                  },
+                  ['counters.flightHours.start']
+                )
+              )
+            ).toEqual({
+              createFlightDialog: {
+                data: {
+                  initialized: true,
+                  date: '2018-12-15',
+                  counters: {
+                    flightHours: {
+                      start: 348967
+                    }
+                  }
+                },
+                readOnlyFields: ['counters.flightHours.start']
               }
             })
           })

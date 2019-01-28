@@ -20,7 +20,8 @@ export const INITIAL_STATE = {
           end: null
         }
       }
-    }
+    },
+    readOnlyFields: []
   },
   deleteFlightDialog: {
     open: false
@@ -45,6 +46,26 @@ const openCreateFlightDialog = state => ({
     submitting: false
   }
 })
+
+const setInitialCreateFlightDialogData = (state, action) => {
+  const newData = {
+    ...state.createFlightDialog.data
+  }
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+  newData.initialized = true
+
+  return {
+    ...state,
+    createFlightDialog: {
+      ...state.createFlightDialog,
+      data: newData,
+      readOnlyFields: action.payload.readOnlyFields
+    }
+  }
+}
 
 const updateCreateFlightDialogData = (state, action) => {
   const newData = {
@@ -129,6 +150,7 @@ const ACTION_HANDLERS = {
   [actions.SET_FLIGHTS_PAGE]: setFlightsPage,
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
+  [actions.SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA]: setInitialCreateFlightDialogData,
   [actions.UPDATE_CREATE_FLIGHT_DIALOG_DATA]: updateCreateFlightDialogData,
   [actions.SET_CREATE_FLIGHT_DIALOG_SUBMITTING]: setCreateFlightDialogSubmitting,
   [actions.SET_FLIGHT_VALIDATION_ERRORS]: setFlightValidationErrors,

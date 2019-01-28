@@ -12,6 +12,8 @@ export const SET_FLIGHT_VALIDATION_ERRORS =
 export const CREATE_FLIGHT_SUCCESS = 'aircraft/CREATE_FLIGHT_SUCCESS'
 export const CREATE_FLIGHT_FAILURE = 'aircraft/CREATE_FLIGHT_FAILURE'
 export const INIT_CREATE_FLIGHT_DIALOG = 'aircraft/INIT_CREATE_FLIGHT_DIALOG'
+export const SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA =
+  'aircraft/SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA'
 export const OPEN_DELETE_FLIGHT_DIALOG = 'aircraft/OPEN_DELETE_FLIGHT_DIALOG'
 export const CLOSE_DELETE_FLIGHT_DIALOG = 'aircraft/CLOSE_DELETE_FLIGHT_DIALOG'
 export const DELETE_FLIGHT = 'aircraft/DELETE_FLIGHT'
@@ -44,6 +46,14 @@ export const openCreateFlightDialog = () => ({
 
 export const closeCreateFlightDialog = () => ({
   type: CLOSE_CREATE_FLIGHT_DIALOG
+})
+
+export const setInitialCreateFlightDialogData = (data, readOnlyFields) => ({
+  type: SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA,
+  payload: {
+    data,
+    readOnlyFields
+  }
 })
 
 export const updateCreateFlightDialogData = data => ({
