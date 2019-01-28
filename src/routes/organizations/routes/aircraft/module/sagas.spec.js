@@ -598,7 +598,6 @@ describe('routes', () => {
               const today = moment().format('YYYY-MM-DD')
 
               const expectedDefaultValues = {
-                initialized: true,
                 date: today,
                 pilot: {
                   value: 'memberid',
@@ -617,6 +616,12 @@ describe('routes', () => {
                   }
                 }
               }
+
+              const expectedReadOnlyFields = [
+                'departureAerodrome',
+                'counters.flightHours.start',
+                'counters.engineHours.start'
+              ]
 
               const currentMember = {
                 id: 'memberid',
@@ -651,7 +656,10 @@ describe('routes', () => {
                   ]
                 ])
                 .put(
-                  actions.updateCreateFlightDialogData(expectedDefaultValues)
+                  actions.setInitialCreateFlightDialogData(
+                    expectedDefaultValues,
+                    expectedReadOnlyFields
+                  )
                 )
                 .run()
             })

@@ -310,24 +310,31 @@ export function* initCreateFlightDialog({
     ? yield call(getDestinationAerodrome, lastFlight)
     : null
 
-  yield put(
-    actions.updateCreateFlightDialogData({
-      initialized: true,
-      date: moment().format('YYYY-MM-DD'),
-      pilot: getMemberOption(currentMember),
-      departureAerodrome: departureAerodrome
-        ? getAerodromeOption(departureAerodrome)
-        : null,
-      counters: {
-        flightHours: {
-          start: _get(lastFlight, 'counters.flightHours.end')
-        },
-        engineHours: {
-          start: _get(lastFlight, 'counters.engineHours.end')
-        }
+  const flightHoursStart = _get(lastFlight, 'counters.flightHours.end')
+  const engineHoursStart = _get(lastFlight, 'counters.engineHours.end')
+
+  const data = {
+    date: moment().format('YYYY-MM-DD'),
+    pilot: getMemberOption(currentMember),
+    departureAerodrome: departureAerodrome
+      ? getAerodromeOption(departureAerodrome)
+      : null,
+    counters: {
+      flightHours: {
+        start: flightHoursStart
+      },
+      engineHours: {
+        start: engineHoursStart
       }
-    })
-  )
+    }
+  }
+
+  const readOnlyFields = []
+  if (departureAerodrome) readOnlyFields.push('departureAerodrome')
+  if (flightHoursStart) readOnlyFields.push('counters.flightHours.start')
+  if (engineHoursStart) readOnlyFields.push('counters.engineHours.start')
+
+  yield put(actions.setInitialCreateFlightDialogData(data, readOnlyFields))
 }
 
 export function* deleteFlight({

@@ -71,7 +71,8 @@ describe('routes', () => {
                 'aerodromes',
                 'fuelTypes',
                 'data',
-                'submitting'
+                'submitting',
+                'readOnlyFields'
               ]
 
               expect(Object.keys(component.props)).toEqual(

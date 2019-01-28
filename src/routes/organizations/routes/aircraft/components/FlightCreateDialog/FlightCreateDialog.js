@@ -197,16 +197,21 @@ class FlightCreateDialog extends React.Component {
   renderInFormControl(name, renderFn) {
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
+
+    const isDisabled =
+      this.props.submitting ||
+      (this.props.readOnlyFields && this.props.readOnlyFields.includes(name))
+
     return (
-      <FormControl fullWidth error={hasError} disabled={this.props.submitting}>
-        {renderFn(hasError)}
+      <FormControl fullWidth error={hasError} disabled={isDisabled}>
+        {renderFn(hasError, isDisabled)}
         {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
       </FormControl>
     )
   }
 
   renderSelect(name, options) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name)}
@@ -215,13 +220,13 @@ class FlightCreateDialog extends React.Component {
         data-cy={`${name}-field`}
         margin="normal"
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
 
   renderDatePicker(name) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <DatePicker
         keyboard
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -235,13 +240,13 @@ class FlightCreateDialog extends React.Component {
         clearable
         invalidDateMessage={this.msg('flight.create.dialog.dateinvalid')}
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
 
   renderTimePicker(name) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TimePicker
         keyboard
         ampm={false}
@@ -255,13 +260,13 @@ class FlightCreateDialog extends React.Component {
         clearable
         invalidDateMessage={this.msg('flight.create.dialog.timeinvalid')}
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
 
   renderDecimalField(name) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <DecimalField
         name={name}
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -271,13 +276,13 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
 
   renderIntegerField(name) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name, '')}
@@ -287,13 +292,13 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
 
   renderMultilineTextField(name) {
-    return this.renderInFormControl(name, hasError => (
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name, '')}
@@ -303,7 +308,7 @@ class FlightCreateDialog extends React.Component {
         multiline
         fullWidth
         error={hasError}
-        disabled={this.props.submitting}
+        disabled={isDisabled}
       />
     ))
   }
@@ -353,6 +358,7 @@ FlightCreateDialog.propTypes = {
   }).isRequired,
   validationErrors: PropTypes.objectOf(PropTypes.string),
   submitting: PropTypes.bool,
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string),
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
     PropTypes.shape({
