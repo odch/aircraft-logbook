@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft routes settings components AircraftSettings redirects to organization page if aircraft was not found 1`] = `
+<div>
+  Organization Page
+</div>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AircraftSettings redirects to start page if organization was not found 1`] = `
+<div>
+  Start Page
+</div>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AircraftSettings renders aircraft settings when everything is loaded 1`] = `
+<div
+  className="AircraftSettings-container-1"
+>
+  <h1
+    className="MuiTypography-root-13 MuiTypography-display1-17 MuiTypography-gutterBottom-31"
+  >
+    HBKFW
+  </h1>
+</div>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AircraftSettings renders loading icon if aircraft not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AircraftSettings renders loading icon if organization not loaded 1`] = `
+<div
+  className="LoadingIcon-container-2"
+>
+  <div
+    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-9"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
