@@ -21,6 +21,57 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
   >
     HBKFW
   </h1>
+  <div>
+    <h2
+      className="MuiTypography-root-13 MuiTypography-title-19 MuiTypography-gutterBottom-31"
+    >
+      <span>
+        Treibstofftypen
+      </span>
+    </h2>
+    <ul
+      className="MuiList-root-39 MuiList-dense-41 MuiList-padding-40"
+    >
+      <li
+        className="MuiListItem-root-43 MuiListItem-default-46 MuiListItem-dense-47"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-54 MuiListItemText-dense-56"
+        >
+          <span
+            className="MuiTypography-root-13 MuiTypography-subheading-20 MuiListItemText-primary-57 MuiListItemText-textDense-59"
+          >
+            AvGas
+          </span>
+          <p
+            className="MuiTypography-root-13 MuiTypography-body1-22 MuiTypography-colorTextSecondary-37 MuiListItemText-secondary-58 MuiListItemText-textDense-59"
+          >
+            avgas
+          </p>
+        </div>
+      </li>
+      <li
+        className="MuiListItem-root-43 MuiListItem-default-46 MuiListItem-dense-47"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-54 MuiListItemText-dense-56"
+        >
+          <span
+            className="MuiTypography-root-13 MuiTypography-subheading-20 MuiListItemText-primary-57 MuiListItemText-textDense-59"
+          >
+            MoGas
+          </span>
+          <p
+            className="MuiTypography-root-13 MuiTypography-body1-22 MuiTypography-colorTextSecondary-37 MuiListItemText-secondary-58 MuiListItemText-textDense-59"
+          >
+            mogas
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 `;
 

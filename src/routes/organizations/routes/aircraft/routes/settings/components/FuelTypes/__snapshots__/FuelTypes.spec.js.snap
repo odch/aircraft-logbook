@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft routes settings components FuelTypes renders fuel types 1`] = `
+<div>
+  <h2
+    className="MuiTypography-root-1 MuiTypography-title-7 MuiTypography-gutterBottom-19"
+  >
+    <span>
+      Treibstofftypen
+    </span>
+  </h2>
+  <ul
+    className="MuiList-root-27 MuiList-dense-29 MuiList-padding-28"
+  >
+    <li
+      className="MuiListItem-root-31 MuiListItem-default-34 MuiListItem-dense-35"
+      disabled={false}
+    >
+      <div
+        className="MuiListItemText-root-42 MuiListItemText-dense-44"
+      >
+        <span
+          className="MuiTypography-root-1 MuiTypography-subheading-8 MuiListItemText-primary-45 MuiListItemText-textDense-47"
+        >
+          AvGas
+        </span>
+        <p
+          className="MuiTypography-root-1 MuiTypography-body1-10 MuiTypography-colorTextSecondary-25 MuiListItemText-secondary-46 MuiListItemText-textDense-47"
+        >
+          avgas
+        </p>
+      </div>
+    </li>
+    <li
+      className="MuiListItem-root-31 MuiListItem-default-34 MuiListItem-dense-35"
+      disabled={false}
+    >
+      <div
+        className="MuiListItemText-root-42 MuiListItemText-dense-44"
+      >
+        <span
+          className="MuiTypography-root-1 MuiTypography-subheading-8 MuiListItemText-primary-45 MuiListItemText-textDense-47"
+        >
+          MoGas
+        </span>
+        <p
+          className="MuiTypography-root-1 MuiTypography-body1-10 MuiTypography-colorTextSecondary-25 MuiListItemText-secondary-46 MuiListItemText-textDense-47"
+        >
+          mogas
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`routes organizations routes aircraft routes settings components FuelTypes renders no types message 1`] = `
+<div>
+  <h2
+    className="MuiTypography-root-1 MuiTypography-title-7 MuiTypography-gutterBottom-19"
+  >
+    <span>
+      Treibstofftypen
+    </span>
+  </h2>
+  <p
+    className="MuiTypography-root-1 MuiTypography-body1-10 MuiTypography-paragraph-20"
+  >
+    <span>
+      Keine Treibstofftypen erfasst
+    </span>
+  </p>
+</div>
+`;

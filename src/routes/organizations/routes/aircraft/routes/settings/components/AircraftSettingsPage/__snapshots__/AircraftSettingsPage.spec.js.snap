@@ -108,6 +108,22 @@ Array [
     >
       HBKFW
     </h1>
+    <div>
+      <h2
+        className="MuiTypography-root-69 MuiTypography-title-75 MuiTypography-gutterBottom-87"
+      >
+        <span>
+          Treibstofftypen
+        </span>
+      </h2>
+      <p
+        className="MuiTypography-root-69 MuiTypography-body1-78 MuiTypography-paragraph-88"
+      >
+        <span>
+          Keine Treibstofftypen erfasst
+        </span>
+      </p>
+    </div>
   </div>,
 ]
 `;
