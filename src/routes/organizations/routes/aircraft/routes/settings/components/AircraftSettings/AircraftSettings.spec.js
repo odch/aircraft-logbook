@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 import renderIntl from '../../../../../../../../testutil/renderIntl'
 import AircraftSettings from './AircraftSettings'
 
@@ -71,17 +73,35 @@ describe('routes', () => {
                 })
 
                 it('renders aircraft settings when everything is loaded', () => {
+                  const store = configureStore()({
+                    firestore: {
+                      data: {
+                        organizationAircrafts: {
+                          o7flC7jw8jmkOfWo8oyA: {
+                            settings: {
+                              fuelTypes: [
+                                { name: 'avgas', description: 'AvGas' },
+                                { name: 'mogas', description: 'MoGas' }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  })
                   const tree = renderIntl(
-                    <Router>
-                      <AircraftSettings
-                        organization={{ id: 'my_org' }}
-                        aircraft={{
-                          id: 'o7flC7jw8jmkOfWo8oyA',
-                          registration: 'HBKFW'
-                        }}
-                        fetchAircrafts={() => {}}
-                      />
-                    </Router>
+                    <Provider store={store}>
+                      <Router>
+                        <AircraftSettings
+                          organization={{ id: 'my_org' }}
+                          aircraft={{
+                            id: 'o7flC7jw8jmkOfWo8oyA',
+                            registration: 'HBKFW'
+                          }}
+                          fetchAircrafts={() => {}}
+                        />
+                      </Router>
+                    </Provider>
                   ).toJSON()
                   expect(tree).toMatchSnapshot()
                 })
