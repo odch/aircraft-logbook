@@ -50,6 +50,7 @@ describe('routes', () => {
                       id: 'member1',
                       firstname: 'Hans',
                       lastname: 'Keller',
+                      nr: '34646',
                       roles: ['manager']
                     },
                     {

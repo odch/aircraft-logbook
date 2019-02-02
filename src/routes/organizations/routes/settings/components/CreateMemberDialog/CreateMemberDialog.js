@@ -55,8 +55,9 @@ class CreateMemberDialog extends React.Component {
         </DialogTitle>
         <form onSubmit={this.handleSubmit}>
           <DialogContent>
-            {this.renderTextField('firstname', true)}
-            {this.renderTextField('lastname', false)}
+            {this.renderTextField('firstname', true, true)}
+            {this.renderTextField('lastname', false, true)}
+            {this.renderTextField('nr', false, false)}
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} disabled={submitting}>
@@ -83,13 +84,13 @@ class CreateMemberDialog extends React.Component {
     )
   }
 
-  renderTextField(name, autoFocus) {
+  renderTextField(name, autoFocus, required) {
     return (
       <TextField
         label={this.msg(`organization.member.create.dialog.${name}`)}
         type="text"
         fullWidth
-        required
+        required={required}
         value={this.props.data[name]}
         onChange={this.handleChange(name)}
         data-cy={`${name}-field`}

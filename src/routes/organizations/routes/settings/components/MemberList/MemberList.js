@@ -48,7 +48,9 @@ class MemberList extends React.Component {
           {members.map(member => (
             <ListItem key={member.id} disableGutters>
               <ListItemText
-                primary={`${member.lastname} ${member.firstname}`}
+                primary={`${member.lastname} ${member.firstname}${
+                  member.nr ? ` (${member.nr})` : ''
+                }`}
                 secondary={this.getRoleNames(member.roles)}
               />
               <ListItemSecondaryAction>

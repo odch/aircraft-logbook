@@ -12,7 +12,7 @@ describe('routes', () => {
               const renderedValue = renderIntlMaterial(
                 <CreateMemberDialog
                   organizationId="my_org"
-                  data={{ firstname: 'Max', lastname: 'Muster' }}
+                  data={{ firstname: 'Max', lastname: 'Muster', id: '24354' }}
                   updateData={() => {}}
                   open
                 />,
@@ -25,7 +25,7 @@ describe('routes', () => {
               const renderedValue = renderIntlMaterial(
                 <CreateMemberDialog
                   organizationId="my_org"
-                  data={{ firstname: 'Max', lastname: 'Muster' }}
+                  data={{ firstname: 'Max', lastname: 'Muster', id: '24354' }}
                   updateData={() => {}}
                   submitting
                 />,

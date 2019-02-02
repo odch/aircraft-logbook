@@ -49,8 +49,13 @@ class DeleteMemberDialog extends React.Component {
             <FormattedMessage id="organization.member.delete.dialog.text" />
           </DialogContentText>
           <div className={classes.attributesWrapper}>
-            <MemberAttribute label="firstname" value={member.firstname} />
-            <MemberAttribute label="lastname" value={member.lastname} />
+            {member.firstname && (
+              <MemberAttribute label="firstname" value={member.firstname} />
+            )}
+            {member.lastname && (
+              <MemberAttribute label="lastname" value={member.lastname} />
+            )}
+            {member.nr && <MemberAttribute label="nr" value={member.nr} />}
           </div>
         </DialogContent>
         <DialogActions>
