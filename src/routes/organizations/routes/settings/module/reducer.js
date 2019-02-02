@@ -8,7 +8,8 @@ export const INITIAL_STATE = {
     submitting: false,
     data: {
       firstname: '',
-      lastname: ''
+      lastname: '',
+      nr: ''
     }
   },
   deleteMemberDialog: {

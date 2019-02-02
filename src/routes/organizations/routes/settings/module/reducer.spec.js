@@ -7,7 +7,8 @@ export const INITIAL_STATE = {
     submitting: false,
     data: {
       firstname: '',
-      lastname: ''
+      lastname: '',
+      nr: ''
     }
   },
   deleteMemberDialog: {
@@ -37,7 +38,8 @@ describe('routes', () => {
                     submitting: true,
                     data: {
                       firstname: 'Max',
-                      lastname: 'Meier'
+                      lastname: 'Meier',
+                      nr: '34534'
                     }
                   }
                 },
@@ -49,7 +51,8 @@ describe('routes', () => {
                 submitting: false,
                 data: {
                   firstname: '',
-                  lastname: ''
+                  lastname: '',
+                  nr: ''
                 }
               }
             })
@@ -79,20 +82,23 @@ describe('routes', () => {
                   createMemberDialog: {
                     data: {
                       firstname: '',
-                      lastname: ''
+                      lastname: '',
+                      nr: ''
                     }
                   }
                 },
                 actions.updateCreateMemberDialogData({
                   firstname: 'Max',
-                  lastname: 'Muster'
+                  lastname: 'Muster',
+                  nr: '34534'
                 })
               )
             ).toEqual({
               createMemberDialog: {
                 data: {
                   firstname: 'Max',
-                  lastname: 'Muster'
+                  lastname: 'Muster',
+                  nr: '34534'
                 }
               }
             })
@@ -152,7 +158,8 @@ describe('routes', () => {
           it('handles OPEN_DELETE_MEMBER_DIALOG action', () => {
             const member = {
               firstname: 'Max',
-              lastname: 'Muster'
+              lastname: 'Muster',
+              nr: '34534'
             }
             expect(
               reducer(

@@ -12,7 +12,8 @@ describe('routes', () => {
               const member = {
                 id: 'my_test_member',
                 firstname: 'Max',
-                lastname: 'Muster'
+                lastname: 'Muster',
+                nr: '23563'
               }
               const renderedValue = renderIntlMaterial(
                 <DeleteMemberDialog organizationId="my_org" member={member} />,
