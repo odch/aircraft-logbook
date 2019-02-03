@@ -74,23 +74,23 @@ exports[`routes organizations routes detail components OrganizationDetail render
 <div
   className="OrganizationDetail-container-1"
 >
-  <h2
-    className="MuiTypography-root-13 MuiTypography-title-19"
+  <h1
+    className="MuiTypography-root-13 MuiTypography-display1-17 MuiTypography-gutterBottom-31"
   >
     my_org
-  </h2>
+  </h1>
   <div
-    className="MuiGrid-container-43 MuiGrid-spacing-xs-24-67 AircraftList-container-39"
+    className="MuiGrid-container-42 MuiGrid-spacing-xs-24-66"
     data-cy="aircraft-list"
   >
     <div
-      className="MuiGrid-item-44 MuiGrid-grid-xs-12-83 MuiGrid-grid-sm-4-89"
+      className="MuiGrid-item-43 MuiGrid-grid-xs-12-82 MuiGrid-grid-sm-4-88"
     >
       <div
-        className="MuiPaper-root-141 MuiPaper-elevation1-144 MuiPaper-rounded-142 MuiCard-root-140 AircraftList-card-40"
+        className="MuiPaper-root-140 MuiPaper-elevation1-143 MuiPaper-rounded-141 MuiCard-root-139 AircraftList-card-39"
       >
         <a
-          className="MuiButtonBase-root-171 MuiCardActionArea-root-168 AircraftList-actionArea-42"
+          className="MuiButtonBase-root-170 MuiCardActionArea-root-167 AircraftList-actionArea-41"
           href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
           onBlur={[Function]}
           onClick={[Function]}
@@ -107,7 +107,7 @@ exports[`routes organizations routes detail components OrganizationDetail render
           tabIndex="0"
         >
           <div
-            className="MuiCardContent-root-174 AircraftList-cardContent-41"
+            className="MuiCardContent-root-173 AircraftList-cardContent-40"
           >
             <h2
               className="MuiTypography-root-13 MuiTypography-title-19"
@@ -116,22 +116,22 @@ exports[`routes organizations routes detail components OrganizationDetail render
             </h2>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-170"
+            className="MuiCardActionArea-focusHighlight-169"
           />
           <span
-            className="MuiTouchRipple-root-175"
+            className="MuiTouchRipple-root-174"
           />
         </a>
       </div>
     </div>
     <div
-      className="MuiGrid-item-44 MuiGrid-grid-xs-12-83 MuiGrid-grid-sm-4-89"
+      className="MuiGrid-item-43 MuiGrid-grid-xs-12-82 MuiGrid-grid-sm-4-88"
     >
       <div
-        className="MuiPaper-root-141 MuiPaper-elevation1-144 MuiPaper-rounded-142 MuiCard-root-140 AircraftList-card-40"
+        className="MuiPaper-root-140 MuiPaper-elevation1-143 MuiPaper-rounded-141 MuiCard-root-139 AircraftList-card-39"
       >
         <a
-          className="MuiButtonBase-root-171 MuiCardActionArea-root-168 AircraftList-actionArea-42"
+          className="MuiButtonBase-root-170 MuiCardActionArea-root-167 AircraftList-actionArea-41"
           href="/organizations/my_org/aircrafts/BKi7HYAIoe1i75H3LMk1"
           onBlur={[Function]}
           onClick={[Function]}
@@ -148,7 +148,7 @@ exports[`routes organizations routes detail components OrganizationDetail render
           tabIndex="0"
         >
           <div
-            className="MuiCardContent-root-174 AircraftList-cardContent-41"
+            className="MuiCardContent-root-173 AircraftList-cardContent-40"
           >
             <h2
               className="MuiTypography-root-13 MuiTypography-title-19"
@@ -157,10 +157,10 @@ exports[`routes organizations routes detail components OrganizationDetail render
             </h2>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-170"
+            className="MuiCardActionArea-focusHighlight-169"
           />
           <span
-            className="MuiTouchRipple-root-175"
+            className="MuiTouchRipple-root-174"
           />
         </a>
       </div>

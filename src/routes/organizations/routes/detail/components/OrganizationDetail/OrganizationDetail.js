@@ -52,7 +52,9 @@ class OrganizationDetail extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="title">{organization.id}</Typography>
+        <Typography variant="display1" gutterBottom>
+          {organization.id}
+        </Typography>
         <AircraftList organization={organization} aircrafts={aircrafts} />
       </div>
     )

@@ -16,7 +16,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     HBKFW
   </h1>
   <button
-    className="MuiButtonBase-root-65 MuiButton-root-39 MuiButton-contained-50 MuiButton-raised-53"
+    className="MuiButtonBase-root-65 MuiButton-root-39 MuiButton-contained-50 MuiButton-containedPrimary-51 MuiButton-raised-53 MuiButton-raisedPrimary-54"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

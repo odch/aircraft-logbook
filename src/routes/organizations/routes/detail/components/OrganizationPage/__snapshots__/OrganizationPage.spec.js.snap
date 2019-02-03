@@ -8,48 +8,8 @@ Array [
     <div
       className="MuiToolbar-root-40 MuiToolbar-regular-42 MuiToolbar-gutters-41"
     >
-      <button
-        aria-label="Menu"
-        className="MuiButtonBase-root-50 MuiIconButton-root-44 MuiIconButton-colorInherit-45 Header-menuButton-3"
-        disabled={false}
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
-        type="button"
-      >
-        <span
-          className="MuiIconButton-label-49"
-        >
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root-53"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-            <path
-              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-            />
-          </svg>
-        </span>
-        <span
-          className="MuiTouchRipple-root-62"
-        />
-      </button>
       <h2
-        className="MuiTypography-root-69 MuiTypography-title-75 MuiTypography-colorInherit-89 Header-grow-2"
+        className="MuiTypography-root-44 MuiTypography-title-50 MuiTypography-colorInherit-64 Header-grow-2"
       >
         Open Digital Flugreisebuch
       </h2>
@@ -57,7 +17,7 @@ Array [
         <button
           aria-haspopup="true"
           aria-owns={null}
-          className="MuiButtonBase-root-50 MuiIconButton-root-44 MuiIconButton-colorInherit-45"
+          className="MuiButtonBase-root-76 MuiIconButton-root-70 MuiIconButton-colorInherit-71"
           data-cy="user-button"
           disabled={false}
           onBlur={[Function]}
@@ -75,11 +35,11 @@ Array [
           type="button"
         >
           <span
-            className="MuiIconButton-label-49"
+            className="MuiIconButton-label-75"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-53"
+              className="MuiSvgIcon-root-79"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -94,7 +54,7 @@ Array [
             </svg>
           </span>
           <span
-            className="MuiTouchRipple-root-62"
+            className="MuiTouchRipple-root-88"
           />
         </button>
       </div>
@@ -103,23 +63,23 @@ Array [
   <div
     className="OrganizationDetail-container-99"
   >
-    <h2
-      className="MuiTypography-root-69 MuiTypography-title-75"
+    <h1
+      className="MuiTypography-root-44 MuiTypography-display1-48 MuiTypography-gutterBottom-62"
     >
       my_org
-    </h2>
+    </h1>
     <div
-      className="MuiGrid-container-104 MuiGrid-spacing-xs-24-128 AircraftList-container-100"
+      className="MuiGrid-container-103 MuiGrid-spacing-xs-24-127"
       data-cy="aircraft-list"
     >
       <div
-        className="MuiGrid-item-105 MuiGrid-grid-xs-12-144 MuiGrid-grid-sm-4-150"
+        className="MuiGrid-item-104 MuiGrid-grid-xs-12-143 MuiGrid-grid-sm-4-149"
       >
         <div
-          className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-201 AircraftList-card-101"
+          className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-200 AircraftList-card-100"
         >
           <a
-            className="MuiButtonBase-root-50 MuiCardActionArea-root-202 AircraftList-actionArea-103"
+            className="MuiButtonBase-root-76 MuiCardActionArea-root-201 AircraftList-actionArea-102"
             href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
             onBlur={[Function]}
             onClick={[Function]}
@@ -136,31 +96,31 @@ Array [
             tabIndex="0"
           >
             <div
-              className="MuiCardContent-root-205 AircraftList-cardContent-102"
+              className="MuiCardContent-root-204 AircraftList-cardContent-101"
             >
               <h2
-                className="MuiTypography-root-69 MuiTypography-title-75"
+                className="MuiTypography-root-44 MuiTypography-title-50"
               >
                 HBKFW
               </h2>
             </div>
             <span
-              className="MuiCardActionArea-focusHighlight-204"
+              className="MuiCardActionArea-focusHighlight-203"
             />
             <span
-              className="MuiTouchRipple-root-62"
+              className="MuiTouchRipple-root-88"
             />
           </a>
         </div>
       </div>
       <div
-        className="MuiGrid-item-105 MuiGrid-grid-xs-12-144 MuiGrid-grid-sm-4-150"
+        className="MuiGrid-item-104 MuiGrid-grid-xs-12-143 MuiGrid-grid-sm-4-149"
       >
         <div
-          className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-201 AircraftList-card-101"
+          className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-200 AircraftList-card-100"
         >
           <a
-            className="MuiButtonBase-root-50 MuiCardActionArea-root-202 AircraftList-actionArea-103"
+            className="MuiButtonBase-root-76 MuiCardActionArea-root-201 AircraftList-actionArea-102"
             href="/organizations/my_org/aircrafts/BKi7HYAIoe1i75H3LMk1"
             onBlur={[Function]}
             onClick={[Function]}
@@ -177,19 +137,19 @@ Array [
             tabIndex="0"
           >
             <div
-              className="MuiCardContent-root-205 AircraftList-cardContent-102"
+              className="MuiCardContent-root-204 AircraftList-cardContent-101"
             >
               <h2
-                className="MuiTypography-root-69 MuiTypography-title-75"
+                className="MuiTypography-root-44 MuiTypography-title-50"
               >
                 HBKOF
               </h2>
             </div>
             <span
-              className="MuiCardActionArea-focusHighlight-204"
+              className="MuiCardActionArea-focusHighlight-203"
             />
             <span
-              className="MuiTouchRipple-root-62"
+              className="MuiTouchRipple-root-88"
             />
           </a>
         </div>

@@ -70,7 +70,11 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="title" data-cy="organization-title" gutterBottom>
+        <Typography
+          variant="display1"
+          data-cy="organization-title"
+          gutterBottom
+        >
           {organization.id}
         </Typography>
         <Button
