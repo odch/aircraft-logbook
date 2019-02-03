@@ -12,15 +12,7 @@ import {
   aircraft as aircraftShape
 } from '../../../../../../shapes'
 
-const styles = theme => ({
-  container: {
-    padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
-      width: 1000,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
-  },
+const styles = {
   card: {
     height: 150
   },
@@ -32,18 +24,13 @@ const styles = theme => ({
     height: '100%',
     verticalAlign: 'top'
   }
-})
+}
 
 class AircraftList extends React.Component {
   render() {
     const { organization, aircrafts, classes } = this.props
     return (
-      <Grid
-        container
-        className={classes.container}
-        spacing={24}
-        data-cy="aircraft-list"
-      >
+      <Grid container spacing={24} data-cy="aircraft-list">
         {aircrafts.map(aircraft => (
           <Grid item key={aircraft.id} sm={4} xs={12}>
             <Card className={classes.card}>

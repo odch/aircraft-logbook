@@ -42,12 +42,12 @@ exports[`routes organizations routes settings components OrganizationSettings re
 <div
   className="InjectIntl-OrganizationSettings--container-1"
 >
-  <h2
-    className="MuiTypography-root-15 MuiTypography-title-21 MuiTypography-gutterBottom-33"
+  <h1
+    className="MuiTypography-root-15 MuiTypography-display1-19 MuiTypography-gutterBottom-33"
     data-cy="organization-title"
   >
     my_org
-  </h2>
+  </h1>
   <button
     className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-containedPrimary-53 MuiButton-raised-55 MuiButton-raisedPrimary-56"
     disabled={false}

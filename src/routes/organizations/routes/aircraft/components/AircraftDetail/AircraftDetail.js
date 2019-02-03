@@ -126,7 +126,11 @@ class AircraftDetail extends React.Component {
         <Typography variant="display1" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Button variant="contained" onClick={this.handleCreateClick}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleCreateClick}
+        >
           <FormattedMessage id="aircraftdetail.createflight" />
         </Button>
         {flights.length > 0 ? (
