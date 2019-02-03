@@ -12,6 +12,7 @@ describe('routes', () => {
               it('renders correctly', () => {
                 const aircraft = {
                   id: 'o7flC7jw8jmkOfWo8oyA',
+                  registration: 'HBKFW',
                   settings: {
                     fuelTypes: [
                       {
