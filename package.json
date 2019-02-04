@@ -15,6 +15,7 @@
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "start:cy": "npm run start --project=cypress",
     "start:dev": "npm run start --project=dev",
+    "start:prod": "npm run start --project=prod",
     "test": "jest"
   },
   "jest": {
