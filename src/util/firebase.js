@@ -9,7 +9,7 @@ export const initFirebase = store => {
     import('@firebase/firestore'),
     window.Cypress && import('@firebase/functions')
   ]).then(([reactReduxFirebase, reduxFirestore, firebase]) => {
-    firebase.default.initializeApp(__CONF__)
+    firebase.default.initializeApp(__CONF__.firebase)
 
     firebase.default.firestore().settings({ timestampsInSnapshots: true })
 

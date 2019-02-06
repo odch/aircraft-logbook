@@ -1,8 +1,10 @@
 {
-  "apiKey": "AIzaSyBOCcYtQVyYk1RCmooZlPZkWa7gonq4HO8",
-  "authDomain": "odch-aircraft-logbook-dev.firebaseapp.com",
-  "databaseURL": "https://odch-aircraft-logbook-dev.firebaseio.com",
-  "projectId": "odch-aircraft-logbook-dev",
-  "storageBucket": "odch-aircraft-logbook-dev.appspot.com",
-  "messagingSenderId": "271005642047"
+  "firebase": {
+    "apiKey": "AIzaSyBOCcYtQVyYk1RCmooZlPZkWa7gonq4HO8",
+    "authDomain": "odch-aircraft-logbook-dev.firebaseapp.com",
+    "databaseURL": "https://odch-aircraft-logbook-dev.firebaseio.com",
+    "projectId": "odch-aircraft-logbook-dev",
+    "storageBucket": "odch-aircraft-logbook-dev.appspot.com",
+    "messagingSenderId": "271005642047"
+  }
 }

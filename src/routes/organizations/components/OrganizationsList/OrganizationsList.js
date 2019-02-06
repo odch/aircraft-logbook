@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
+import featureToggles from 'feature-toggles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -71,21 +72,23 @@ class OrganizationsList extends React.Component {
         spacing={24}
         data-cy="organizations-list"
       >
-        <Grid item key="new" sm={4} xs={12}>
-          <Card className={classes.card} data-cy="organization-create-button">
-            <CardActionArea
-              className={classes.actionArea}
-              onClick={this.handleCreateClick}
-            >
-              <CardContent className={classes.cardContent}>
-                <CreateNewFolder className={classes.createIcon} />
-                <Typography variant="button" className={classes.createText}>
-                  <FormattedMessage id="organizations.create" />
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
+        {featureToggles.isFeatureEnabled('organizationsManagement') && (
+          <Grid item key="new" sm={4} xs={12}>
+            <Card className={classes.card} data-cy="organization-create-button">
+              <CardActionArea
+                className={classes.actionArea}
+                onClick={this.handleCreateClick}
+              >
+                <CardContent className={classes.cardContent}>
+                  <CreateNewFolder className={classes.createIcon} />
+                  <Typography variant="button" className={classes.createText}>
+                    <FormattedMessage id="organizations.create" />
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        )}
         {organizations.map(organization => (
           <Grid item key={organization.id} sm={4} xs={12}>
             <Card className={classes.card}>
