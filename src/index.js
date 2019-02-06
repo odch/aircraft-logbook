@@ -17,6 +17,7 @@ import mainReducer, { sagas } from './modules'
 import autoRestartSaga from './util/autoRestartSaga'
 import messages from './messages'
 import App from './containers/AppContainer'
+import { init as initFeatureToggles } from './util/featureToggles'
 
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 
@@ -24,6 +25,8 @@ const LOCALE = 'de'
 
 moment.locale(LOCALE)
 addLocaleData([...de])
+
+initFeatureToggles()
 
 const createReducer = asyncReducers => {
   return combineReducers({

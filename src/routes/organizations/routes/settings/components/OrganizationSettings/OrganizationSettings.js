@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import featureToggles from 'feature-toggles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
@@ -85,16 +86,20 @@ class OrganizationSettings extends React.Component {
           <FormattedMessage id="organization.settings.createmember" />
         </Button>
         <MemberList organizationId={organization.id} />
-        <Divider className={classes.divider} />
-        <div className={classes.deleteButtonContainer}>
-          <DeleteButton
-            label={this.props.intl.formatMessage({
-              id: 'organizations.delete'
-            })}
-            onClick={this.handleDeleteButtonClick}
-            data-cy="organization-delete-button"
-          />
-        </div>
+        {featureToggles.isFeatureEnabled('organizationsManagement') && (
+          <React.Fragment>
+            <Divider className={classes.divider} />
+            <div className={classes.deleteButtonContainer}>
+              <DeleteButton
+                label={this.props.intl.formatMessage({
+                  id: 'organizations.delete'
+                })}
+                onClick={this.handleDeleteButtonClick}
+                data-cy="organization-delete-button"
+              />
+            </div>
+          </React.Fragment>
+        )}
         {createMemberDialogOpen && (
           <CreateMemberDialog organizationId={organization.id} />
         )}

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import Button from '@material-ui/core/Button'
 import withStyles from '@material-ui/core/styles/withStyles'
+import featureToggles from 'feature-toggles'
 import LoginForm from '../../containers/LoginFormContainer'
 
 const styles = theme => ({
@@ -35,16 +36,18 @@ class LoginPage extends React.Component {
     return (
       <main className={classes.layout}>
         <LoginForm />
-        <Button
-          className={classes.registrationButton}
-          href="/register"
-          variant="raised"
-          color="primary"
-          data-cy="registration"
-          fullWidth
-        >
-          <FormattedMessage id="login.registration" />
-        </Button>
+        {featureToggles.isFeatureEnabled('registration') && (
+          <Button
+            className={classes.registrationButton}
+            href="/register"
+            variant="raised"
+            color="primary"
+            data-cy="registration"
+            fullWidth
+          >
+            <FormattedMessage id="login.registration" />
+          </Button>
+        )}
       </main>
     )
   }

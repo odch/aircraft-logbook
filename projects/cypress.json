@@ -1,8 +1,10 @@
 {
-  "apiKey": "AIzaSyDnW5H1BrVM_v5g_azA_50wMgP_hkyykrk",
-  "authDomain": "odch-aircraft-logbook-cypress.firebaseapp.com",
-  "databaseURL": "https://odch-aircraft-logbook-cypress.firebaseio.com",
-  "projectId": "odch-aircraft-logbook-cypress",
-  "storageBucket": "odch-aircraft-logbook-cypress.appspot.com",
-  "messagingSenderId": "131596079006"
+  "firebase": {
+    "apiKey": "AIzaSyDnW5H1BrVM_v5g_azA_50wMgP_hkyykrk",
+    "authDomain": "odch-aircraft-logbook-cypress.firebaseapp.com",
+    "databaseURL": "https://odch-aircraft-logbook-cypress.firebaseio.com",
+    "projectId": "odch-aircraft-logbook-cypress",
+    "storageBucket": "odch-aircraft-logbook-cypress.appspot.com",
+    "messagingSenderId": "131596079006"
+  }
 }
