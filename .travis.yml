@@ -11,14 +11,15 @@ install:
 jobs:
   include:
     - stage: unit tests
-      script: npm test
+      script:
+        - npm test
+        - npm run codecov
     - stage: integration tests
       script:
         - npm run build
         - npm run cy:test
-    - stage: coverage
-      script: npm run codecov
     - stage: deploy to staging
+      script: npm run build
       deploy:
         provider: firebase
         project: "odch-aircraft-logbook-dev"
