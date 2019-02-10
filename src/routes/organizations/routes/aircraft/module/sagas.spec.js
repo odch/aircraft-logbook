@@ -507,6 +507,122 @@ describe('routes', () => {
               expect(errors.blockOnTime).toEqual(undefined)
             })
 
+            it('should return an error if takeOffTime is before blockOffTime', () => {
+              const errors = sagas.validateFlight({
+                blockOffTime: '2019-05-01 09:00',
+                takeOffTime: '2019-05-01 08:59'
+              })
+              expect(errors.takeOffTime).toEqual('not_before_block_off_time')
+            })
+
+            it('should return an error if landingTime is before takeOffTime', () => {
+              const errors = sagas.validateFlight({
+                takeOffTime: '2019-05-01 09:00',
+                landingTime: '2019-05-01 08:59'
+              })
+              expect(errors.landingTime).toEqual('not_before_take_off_time')
+            })
+
+            it('should return an error if blockOnTime is before landingTime', () => {
+              const errors = sagas.validateFlight({
+                landingTime: '2019-05-01 09:00',
+                blockOnTime: '2019-05-01 08:59'
+              })
+              expect(errors.blockOnTime).toEqual('not_before_landing_time')
+            })
+
+            it('should return an error if flight hours start counter is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors['counters.flightHours.start']).toEqual('required')
+            })
+
+            it('should return no error if flight hours start counter is set', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  flightHours: {
+                    start: 10000
+                  }
+                }
+              })
+              expect(errors['counters.flightHours.start']).toEqual(undefined)
+            })
+
+            it('should return an error if flight hours end counter is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors['counters.flightHours.end']).toEqual('required')
+            })
+
+            it('should return no error if flight hours end counter is set', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  flightHours: {
+                    end: 10000
+                  }
+                }
+              })
+              expect(errors['counters.flightHours.end']).toEqual(undefined)
+            })
+
+            it('should return an error if flight hours end counter is before start counter', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  flightHours: {
+                    start: 10000,
+                    end: 9999
+                  }
+                }
+              })
+              expect(errors['counters.flightHours.end']).toEqual(
+                'not_before_start_counter'
+              )
+            })
+
+            it('should return an error if engine hours start counter is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors['counters.engineHours.start']).toEqual('required')
+            })
+
+            it('should return no error if engine hours start counter is set', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  engineHours: {
+                    start: 10000
+                  }
+                }
+              })
+              expect(errors['counters.engineHours.start']).toEqual(undefined)
+            })
+
+            it('should return an error if engine hours end counter is missing', () => {
+              const errors = sagas.validateFlight({})
+              expect(errors['counters.engineHours.end']).toEqual('required')
+            })
+
+            it('should return no error if engine hours end counter is set', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  engineHours: {
+                    end: 10000
+                  }
+                }
+              })
+              expect(errors['counters.engineHours.end']).toEqual(undefined)
+            })
+
+            it('should return an error if engine hours end counter is before start counter', () => {
+              const errors = sagas.validateFlight({
+                counters: {
+                  engineHours: {
+                    start: 10000,
+                    end: 9999
+                  }
+                }
+              })
+              expect(errors['counters.engineHours.end']).toEqual(
+                'not_before_start_counter'
+              )
+            })
+
             it('should return an error if landings is missing', () => {
               const errors = sagas.validateFlight({})
               expect(errors.landings).toEqual('required')
