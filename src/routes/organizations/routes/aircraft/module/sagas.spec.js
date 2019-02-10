@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call, put } from 'redux-saga/effects'
+import { all, takeEvery, fork, call, put, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
 import { getFirestore } from '../../../../../util/firebase'
@@ -317,7 +317,16 @@ describe('routes', () => {
               )
 
               expect(generator.next().value).toEqual(
-                put(actions.fetchFlights(organizationId, aircraftId))
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                page: 0,
+                rowsPerPage: 10
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                put(actions.fetchFlights(organizationId, aircraftId, 0, 10))
               )
               expect(generator.next().value).toEqual(
                 put(actions.createFlightSuccess())
@@ -813,7 +822,16 @@ describe('routes', () => {
               )
 
               expect(generator.next().value).toEqual(
-                put(actions.fetchFlights('my_org', aircraftId))
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                page: 0,
+                rowsPerPage: 10
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                put(actions.fetchFlights('my_org', aircraftId, 0, 10))
               )
               expect(generator.next().value).toEqual(
                 put(actions.closeDeleteFlightDialog())

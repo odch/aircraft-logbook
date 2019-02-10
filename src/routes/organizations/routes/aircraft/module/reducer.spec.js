@@ -26,7 +26,8 @@ const INITIAL_STATE = {
     open: false
   },
   flights: {
-    page: 0
+    page: 0,
+    rowsPerPage: 10
   }
 }
 
@@ -44,14 +45,16 @@ describe('routes', () => {
               reducer(
                 {
                   flights: {
-                    page: 1
+                    page: 1,
+                    rowsPerPage: 10
                   }
                 },
                 actions.setFlightsPage(2)
               )
             ).toEqual({
               flights: {
-                page: 2
+                page: 2,
+                rowsPerPage: 10
               }
             })
           })

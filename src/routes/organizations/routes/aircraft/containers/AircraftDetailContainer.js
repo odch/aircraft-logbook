@@ -17,8 +17,6 @@ import {
   deleteFlight
 } from '../module'
 
-export const FLIGHTS_PER_PAGE = 10
-
 const mapStateToProps = (state, ownProps) => {
   const {
     match: {
@@ -38,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     ? {
         rowsCount: aircraft.counters ? aircraft.counters.flights || 0 : 0,
         page: state.aircraft.flights.page,
-        rowsPerPage: FLIGHTS_PER_PAGE
+        rowsPerPage: state.aircraft.flights.rowsPerPage
       }
     : undefined
 
