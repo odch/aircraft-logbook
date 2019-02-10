@@ -329,7 +329,7 @@ export function* initCreateFlightDialog({
     }
   }
 
-  const readOnlyFields = []
+  const readOnlyFields = ['landingTime']
   if (departureAerodrome) readOnlyFields.push('departureAerodrome')
   if (flightHoursStart) readOnlyFields.push('counters.flightHours.start')
   if (engineHoursStart) readOnlyFields.push('counters.engineHours.start')

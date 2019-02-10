@@ -1,5 +1,6 @@
 import _set from 'lodash.set'
 import { createReducer } from '../../../../../util/reducer'
+import { addHours } from '../../../../../util/dates'
 import * as actions from './actions'
 
 export const INITIAL_STATE = {
@@ -67,6 +68,18 @@ const setInitialCreateFlightDialogData = (state, action) => {
   }
 }
 
+export const updateLandingTime = data => {
+  if (data.takeOffTime && data.counters && data.counters.flightHours) {
+    const flightHours = data.counters.flightHours
+    if (flightHours.start && flightHours.end) {
+      const flightDuration = (flightHours.end - flightHours.start) / 100
+      data.landingTime = addHours(data.takeOffTime, flightDuration)
+    }
+  }
+}
+
+const dataModifiers = [updateLandingTime]
+
 const updateCreateFlightDialogData = (state, action) => {
   const newData = {
     ...state.createFlightDialog.data
@@ -81,6 +94,8 @@ const updateCreateFlightDialogData = (state, action) => {
 
     delete newValidationErrors[key]
   })
+
+  dataModifiers.forEach(modifier => modifier(newData))
 
   return {
     ...state,
