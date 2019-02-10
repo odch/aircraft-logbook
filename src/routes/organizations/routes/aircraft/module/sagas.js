@@ -15,6 +15,7 @@ export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
 export const flightsSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const aircraftFlightsViewSelector = state => state.aircraft.flights
 
 export function* getStartFlightDocument(organizationId, aircraftId, page) {
   if (page === 0) {
@@ -232,7 +233,10 @@ export function* createFlight({
       dataToStore
     )
 
-    yield put(actions.fetchFlights(organizationId, aircraftId))
+    const { page, rowsPerPage } = yield select(aircraftFlightsViewSelector)
+    yield put(
+      actions.fetchFlights(organizationId, aircraftId, page, rowsPerPage)
+    )
     yield put(actions.createFlightSuccess())
   } catch (e) {
     error(`Failed to create flight`, e)
@@ -399,7 +403,8 @@ export function* deleteFlight({
       deleted: true
     }
   )
-  yield put(actions.fetchFlights(organizationId, aircraftId))
+  const { page, rowsPerPage } = yield select(aircraftFlightsViewSelector)
+  yield put(actions.fetchFlights(organizationId, aircraftId, page, rowsPerPage))
   yield put(actions.closeDeleteFlightDialog())
 }
 

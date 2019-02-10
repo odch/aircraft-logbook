@@ -28,13 +28,15 @@ export const INITIAL_STATE = {
     open: false
   },
   flights: {
-    page: 0
+    page: 0,
+    rowsPerPage: 10
   }
 }
 
 const setFlightsPage = (state, action) => ({
   ...state,
   flights: {
+    ...state.flights,
     page: action.payload.page
   }
 })
