@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import reducer from './reducer'
+import reducer, { updateLandingTime } from './reducer'
 
 const INITIAL_STATE = {
   createFlightDialog: {
@@ -190,6 +190,43 @@ describe('routes', () => {
             })
           })
 
+          it('sets landing time in UPDATE_CREATE_FLIGHT_DIALOG_DATA handler', () => {
+            expect(
+              reducer(
+                {
+                  createFlightDialog: {
+                    data: {
+                      takeOffTime: '2018-12-15 10:15',
+                      counters: {
+                        flightHours: {
+                          start: 348967,
+                          end: null
+                        }
+                      }
+                    }
+                  }
+                },
+                actions.updateCreateFlightDialogData({
+                  'counters.flightHours.end': 348977
+                })
+              )
+            ).toEqual({
+              createFlightDialog: {
+                data: {
+                  takeOffTime: '2018-12-15 10:15',
+                  landingTime: '2018-12-15 10:21',
+                  counters: {
+                    flightHours: {
+                      start: 348967,
+                      end: 348977
+                    }
+                  }
+                },
+                validationErrors: {}
+              }
+            })
+          })
+
           it('handles SET_CREATE_FLIGHT_DIALOG_SUBMITTING action', () => {
             expect(
               reducer(
@@ -315,6 +352,99 @@ describe('routes', () => {
                   id: 'flight-id'
                 }
               }
+            })
+          })
+
+          describe('updateLandingTime', () => {
+            it('does nothing if takeoff time not set', () => {
+              const data = {
+                counters: {
+                  flightHours: {
+                    start: 348967,
+                    end: 349015
+                  }
+                }
+              }
+
+              updateLandingTime(data)
+
+              expect(data).toEqual({
+                counters: {
+                  flightHours: {
+                    start: 348967,
+                    end: 349015
+                  }
+                }
+              })
+            })
+
+            it('does nothing if start counter not set', () => {
+              const data = {
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    end: 349015
+                  }
+                }
+              }
+
+              updateLandingTime(data)
+
+              expect(data).toEqual({
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    end: 349015
+                  }
+                }
+              })
+            })
+
+            it('does nothing if end counter not set', () => {
+              const data = {
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    start: 348967
+                  }
+                }
+              }
+
+              updateLandingTime(data)
+
+              expect(data).toEqual({
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    start: 348967
+                  }
+                }
+              })
+            })
+
+            it('sets landing time if takeoff time and counters set', () => {
+              const data = {
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    start: 348967,
+                    end: 349015
+                  }
+                }
+              }
+
+              updateLandingTime(data)
+
+              expect(data).toEqual({
+                takeOffTime: '2018-12-15 10:30',
+                landingTime: '2018-12-15 10:58',
+                counters: {
+                  flightHours: {
+                    start: 348967,
+                    end: 349015
+                  }
+                }
+              })
             })
           })
         })

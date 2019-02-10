@@ -618,6 +618,7 @@ describe('routes', () => {
               }
 
               const expectedReadOnlyFields = [
+                'landingTime',
                 'departureAerodrome',
                 'counters.flightHours.start',
                 'counters.engineHours.start'

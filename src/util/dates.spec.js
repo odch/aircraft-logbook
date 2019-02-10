@@ -1,4 +1,4 @@
-import { formatDate, formatTime } from './dates'
+import { formatDate, formatTime, addHours } from './dates'
 
 describe('util', () => {
   describe('dates', () => {
@@ -17,6 +17,12 @@ describe('util', () => {
           toDate: () => Date.parse('2018-11-20 10:00')
         }
         expect(formatTime(firestoreTimestamp)).toEqual('10:00')
+      })
+    })
+
+    describe('addHours', () => {
+      it('should return a date time string with the hours added', () => {
+        expect(addHours('2018-11-20 10:00', 2.1)).toEqual('2018-11-20 12:06')
       })
     })
   })

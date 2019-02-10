@@ -136,10 +136,6 @@ class FlightCreateDialog extends React.Component {
           {this.renderSelect('nature', flightNatures)}
           {this.renderSelect('departureAerodrome', aerodromeOptions)}
           {this.renderSelect('destinationAerodrome', aerodromeOptions)}
-          {this.renderTimePicker('blockOffTime')}
-          {this.renderTimePicker('takeOffTime')}
-          {this.renderTimePicker('landingTime')}
-          {this.renderTimePicker('blockOnTime')}
           {this.renderInTwoColumns(
             'counters.flighthours',
             this.renderDecimalField('counters.flightHours.start'),
@@ -150,6 +146,10 @@ class FlightCreateDialog extends React.Component {
             this.renderDecimalField('counters.engineHours.start'),
             this.renderDecimalField('counters.engineHours.end')
           )}
+          {this.renderTimePicker('blockOffTime')}
+          {this.renderTimePicker('takeOffTime')}
+          {this.renderTimePicker('landingTime')}
+          {this.renderTimePicker('blockOnTime')}
           {this.renderIntegerField('landings')}
           {this.renderInTwoColumns(
             'fuel',
