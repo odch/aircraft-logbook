@@ -280,6 +280,21 @@ export function validateFlight(data) {
   if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
     errors['blockOnTime'] = 'invalid'
   }
+  if (!errors['blockOffTime'] && !errors['takeOffTime']) {
+    if (data.takeOffTime < data.blockOffTime) {
+      errors['takeOffTime'] = 'not_before_block_off_time'
+    }
+  }
+  if (!errors['takeOffTime'] && !errors['landingTime']) {
+    if (data.landingTime < data.takeOffTime) {
+      errors['landingTime'] = 'not_before_take_off_time'
+    }
+  }
+  if (!errors['landingTime'] && !errors['blockOnTime']) {
+    if (data.blockOnTime < data.landingTime) {
+      errors['blockOnTime'] = 'not_before_landing_time'
+    }
+  }
   if (typeof data.landings !== 'number' || data.landings < 1) {
     errors['landings'] = 'required'
   }
@@ -296,6 +311,36 @@ export function validateFlight(data) {
     (typeof data.oilUplift !== 'number' || data.oilUplift < 0)
   ) {
     errors['oilUplift'] = 'invalid'
+  }
+
+  const flightHoursStart = _get(data, 'counters.flightHours.start')
+  const flightHoursEnd = _get(data, 'counters.flightHours.end')
+
+  if (typeof flightHoursStart === 'undefined') {
+    errors['counters.flightHours.start'] = 'required'
+  }
+  if (typeof flightHoursEnd === 'undefined') {
+    errors['counters.flightHours.end'] = 'required'
+  }
+  if (flightHoursStart && flightHoursEnd) {
+    if (flightHoursEnd < flightHoursStart) {
+      errors['counters.flightHours.end'] = 'not_before_start_counter'
+    }
+  }
+
+  const engineHoursStart = _get(data, 'counters.engineHours.start')
+  const engineHoursEnd = _get(data, 'counters.engineHours.end')
+
+  if (typeof engineHoursStart === 'undefined') {
+    errors['counters.engineHours.start'] = 'required'
+  }
+  if (typeof engineHoursEnd === 'undefined') {
+    errors['counters.engineHours.end'] = 'required'
+  }
+  if (engineHoursStart && engineHoursEnd) {
+    if (engineHoursEnd < engineHoursStart) {
+      errors['counters.engineHours.end'] = 'not_before_start_counter'
+    }
   }
 
   return errors
