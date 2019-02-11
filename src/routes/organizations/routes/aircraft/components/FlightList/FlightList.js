@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -12,6 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Divider from '@material-ui/core/Divider'
+import Tooltip from '@material-ui/core/Tooltip'
 import FlightDetails from './FlightDetails'
 import FlightDeleteDialog from '../FlightDeleteDialog'
 import {
@@ -50,6 +51,8 @@ class FlightList extends React.Component {
     })
   }
 
+  msg = id => this.props.intl.formatMessage({ id })
+
   render() {
     const {
       organization,
@@ -66,7 +69,8 @@ class FlightList extends React.Component {
     const { expanded } = this.state
     return (
       <div className={classes.container}>
-        {flights.map(flight => {
+        {flights.map((flight, index) => {
+          const isNewestFlight = index === 0 && pagination.page === 0
           return (
             <ExpansionPanel
               key={flight.id}
@@ -105,9 +109,23 @@ class FlightList extends React.Component {
                 </ExpansionPanelDetails>,
                 <Divider key={`divider-${flight.id}`} />,
                 <ExpansionPanelActions key={`actions-${flight.id}`}>
-                  <IconButton onClick={() => openFlightDeleteDialog(flight)}>
-                    <DeleteIcon />
-                  </IconButton>
+                  <Tooltip
+                    title={this.msg(
+                      isNewestFlight
+                        ? 'flightlist.delete'
+                        : 'flightlist.delete.not_newest'
+                    )}
+                  >
+                    {/*  span required to render tooltip for disabled button */}
+                    <span>
+                      <IconButton
+                        onClick={() => openFlightDeleteDialog(flight)}
+                        disabled={!isNewestFlight}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
                 </ExpansionPanelActions>
               ]}
             </ExpansionPanel>
@@ -157,10 +175,11 @@ FlightList.propTypes = {
     rowsPerPage: PropTypes.number.isRequired
   }).isRequired,
   classes: PropTypes.object.isRequired,
+  intl: intlShape.isRequired,
   openFlightDeleteDialog: PropTypes.func.isRequired,
   closeFlightDeleteDialog: PropTypes.func.isRequired,
   deleteFlight: PropTypes.func.isRequired,
   setFlightsPage: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(FlightList)
+export default injectIntl(withStyles(styles)(FlightList))

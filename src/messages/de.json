@@ -49,6 +49,8 @@
   "flightlist.oiluplift": "Öl",
   "flightlist.landings": "Landungen",
   "flightlist.remarks": "Bemerkungen",
+  "flightlist.delete": "Flug löschen",
+  "flightlist.delete.not_newest": "Dieser Flug kann nicht mehr gelöscht werden, da bereits ein Folgeflug erfasst wurde.",
 
   "flight.create.dialog.title": "Flug erfassen",
   "flight.create.dialog.date": "Datum",
