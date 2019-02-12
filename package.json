@@ -62,7 +62,7 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "@date-io/moment": "^0.0.2",
+    "@date-io/moment": "^1.1.0",
     "@firebase/app": "^0.3.4",
     "@firebase/auth": "^0.7.8",
     "@firebase/firestore": "^0.8.6",
@@ -71,7 +71,7 @@
     "feature-toggles": "^1.4.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
-    "material-ui-pickers": "^2.0.3",
+    "material-ui-pickers": "^2.2.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",
     "prop-types": "^15.6.2",
