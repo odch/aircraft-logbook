@@ -16,6 +16,8 @@ export const organizationMembersSelector = state =>
 export const flightsSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`flights-${aircraftId}-${page}`]
 export const aircraftFlightsViewSelector = state => state.aircraft.flights
+export const aircraftSettingsSelector = (state, aircraftId) =>
+  state.firestore.data.organizationAircrafts[aircraftId].settings
 
 export function* getStartFlightDocument(organizationId, aircraftId, page) {
   if (page === 0) {
@@ -149,7 +151,9 @@ export function* createFlight({
   try {
     yield put(actions.setCreateFlightDialogSubmitting())
 
-    const validationErrors = yield call(validateFlight, data)
+    const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
+
+    const validationErrors = yield call(validateFlight, data, aircraftSettings)
     if (
       validationErrors &&
       Object.getOwnPropertyNames(validationErrors).length > 0
@@ -252,9 +256,10 @@ export function* createFlight({
  * 'flight.create.dialog.validation.date.invalid'.
  *
  * @param data
+ * @param aircraftSettings
  * @return a map containing the error message for the mapped fields
  */
-export function validateFlight(data) {
+export function validateFlight(data, aircraftSettings) {
   const errors = {}
 
   if (!data.date || !DATE_PATTERN.test(data.date)) {
@@ -332,18 +337,20 @@ export function validateFlight(data) {
     }
   }
 
-  const engineHoursStart = _get(data, 'counters.engineHours.start')
-  const engineHoursEnd = _get(data, 'counters.engineHours.end')
+  if (aircraftSettings.engineHoursCounterEnabled === true) {
+    const engineHoursStart = _get(data, 'counters.engineHours.start')
+    const engineHoursEnd = _get(data, 'counters.engineHours.end')
 
-  if (typeof engineHoursStart === 'undefined') {
-    errors['counters.engineHours.start'] = 'required'
-  }
-  if (typeof engineHoursEnd === 'undefined') {
-    errors['counters.engineHours.end'] = 'required'
-  }
-  if (engineHoursStart && engineHoursEnd) {
-    if (engineHoursEnd < engineHoursStart) {
-      errors['counters.engineHours.end'] = 'not_before_start_counter'
+    if (typeof engineHoursStart === 'undefined') {
+      errors['counters.engineHours.start'] = 'required'
+    }
+    if (typeof engineHoursEnd === 'undefined') {
+      errors['counters.engineHours.end'] = 'required'
+    }
+    if (engineHoursStart && engineHoursEnd) {
+      if (engineHoursEnd < engineHoursStart) {
+        errors['counters.engineHours.end'] = 'not_before_start_counter'
+      }
     }
   }
 

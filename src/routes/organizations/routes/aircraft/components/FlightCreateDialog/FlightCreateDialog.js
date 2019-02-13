@@ -121,7 +121,7 @@ class FlightCreateDialog extends React.Component {
       organizationMembers = [],
       flightNatures = [],
       aerodromes = [],
-      fuelTypes = []
+      aircraftSettings: { fuelTypes, engineHoursCounterEnabled }
     } = this.props
 
     const memberOptions = getMemberOptions(organizationMembers)
@@ -141,11 +141,12 @@ class FlightCreateDialog extends React.Component {
             this.renderDecimalField('counters.flightHours.start'),
             this.renderDecimalField('counters.flightHours.end')
           )}
-          {this.renderInTwoColumns(
-            'counters.enginehours',
-            this.renderDecimalField('counters.engineHours.start'),
-            this.renderDecimalField('counters.engineHours.end')
-          )}
+          {engineHoursCounterEnabled &&
+            this.renderInTwoColumns(
+              'counters.enginehours',
+              this.renderDecimalField('counters.engineHours.start'),
+              this.renderDecimalField('counters.engineHours.end')
+            )}
           {this.renderTimePicker('blockOffTime')}
           {this.renderTimePicker('takeOffTime')}
           {this.renderTimePicker('landingTime')}
@@ -367,12 +368,15 @@ FlightCreateDialog.propTypes = {
     })
   ),
   aerodromes: PropTypes.arrayOf(aerodromeShape),
-  fuelTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    })
-  ),
+  aircraftSettings: PropTypes.shape({
+    fuelTypes: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    engineHoursCounterEnabled: PropTypes.bool.isRequired
+  }).isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

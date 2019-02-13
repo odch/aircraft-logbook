@@ -11,6 +11,7 @@ export default PropTypes.shape({
   id: PropTypes.string.isRequired,
   registration: PropTypes.string.isRequired,
   settings: PropTypes.shape({
-    fuelTypes
+    fuelTypes,
+    engineHoursCounterEnabled: PropTypes.bool
   })
 })

@@ -16,14 +16,19 @@ const flightNatures = intl =>
     label: intl.formatMessage({ id: `flight.nature.${nature}` })
   }))
 
-const fuelTypes = (state, aircraftId) => {
+const aircraftSettings = (state, aircraftId) => {
   const aircraftSettings = getAircraft(state, aircraftId).settings
   if (aircraftSettings) {
     const fuelTypes = aircraftSettings.fuelTypes || []
-    return fuelTypes.map(fuelType => ({
+    const fuelTypeOptions = fuelTypes.map(fuelType => ({
       value: fuelType.name,
       label: fuelType.description || fuelType.name
     }))
+    return {
+      fuelTypes: fuelTypeOptions,
+      engineHoursCounterEnabled:
+        aircraftSettings.engineHoursCounterEnabled === true
+    }
   }
 }
 
@@ -33,7 +38,7 @@ const mapStateToProps = (state, ownProps) => {
     organizationMembers: state.firestore.ordered.organizationMembers,
     flightNatures: flightNatures(intl),
     aerodromes: state.firestore.ordered.aerodromes,
-    fuelTypes: fuelTypes(state, aircraftId),
+    aircraftSettings: aircraftSettings(state, aircraftId),
     data: state.aircraft.createFlightDialog.data,
     validationErrors: state.aircraft.createFlightDialog.validationErrors,
     submitting: state.aircraft.createFlightDialog.submitting,
