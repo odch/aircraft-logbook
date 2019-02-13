@@ -1,6 +1,6 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 import renderIntl from '../../testutil/renderIntl'
 import Header from './Header'
 import configureStore from 'redux-mock-store'
@@ -20,7 +20,9 @@ describe('components', () => {
       })
       const tree = renderIntl(
         <Provider store={store}>
-          <Header auth={auth} logout={() => {}} />
+          <Router>
+            <Header auth={auth} logout={() => {}} />
+          </Router>
         </Provider>
       ).toJSON()
       expect(tree).toMatchSnapshot()
@@ -30,9 +32,11 @@ describe('components', () => {
       const auth = {
         isEmpty: true
       }
-      const tree = renderer
-        .create(<Header auth={auth} logout={() => {}} />)
-        .toJSON()
+      const tree = renderIntl(
+        <Router>
+          <Header auth={auth} logout={() => {}} />
+        </Router>
+      ).toJSON()
       expect(tree).toMatchSnapshot()
     })
   })
