@@ -3,21 +3,27 @@
 exports[`routes organizations routes settings components OrganizationSettingsPage renders correctly 1`] = `
 Array [
   <header
-    className="MuiPaper-root-13 MuiPaper-elevation4-19 MuiAppBar-root-4 MuiAppBar-positionStatic-8 MuiAppBar-colorPrimary-11"
+    className="MuiPaper-root-14 MuiPaper-elevation4-20 MuiAppBar-root-5 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-12"
   >
     <div
-      className="MuiToolbar-root-40 MuiToolbar-regular-42 MuiToolbar-gutters-41"
+      className="MuiToolbar-root-41 MuiToolbar-regular-43 MuiToolbar-gutters-42"
     >
       <h2
-        className="MuiTypography-root-44 MuiTypography-title-50 MuiTypography-colorInherit-64 Header-grow-2"
+        className="MuiTypography-root-45 MuiTypography-title-51 MuiTypography-colorInherit-65 Header-grow-2"
       >
-        Open Digital Flugreisebuch
+        <a
+          className="Header-homeLink-4"
+          href="/"
+          onClick={[Function]}
+        >
+          Open Digital Flugreisebuch
+        </a>
       </h2>
       <div>
         <button
           aria-haspopup="true"
           aria-owns={null}
-          className="MuiButtonBase-root-76 MuiIconButton-root-70 MuiIconButton-colorInherit-71"
+          className="MuiButtonBase-root-77 MuiIconButton-root-71 MuiIconButton-colorInherit-72"
           data-cy="user-button"
           disabled={false}
           onBlur={[Function]}
@@ -35,11 +41,11 @@ Array [
           type="button"
         >
           <span
-            className="MuiIconButton-label-75"
+            className="MuiIconButton-label-76"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-79"
+              className="MuiSvgIcon-root-80"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -54,23 +60,23 @@ Array [
             </svg>
           </span>
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </button>
       </div>
     </div>
   </header>,
   <div
-    className="InjectIntl-OrganizationSettings--container-99"
+    className="InjectIntl-OrganizationSettings--container-100"
   >
     <h1
-      className="MuiTypography-root-44 MuiTypography-display1-48 MuiTypography-gutterBottom-62"
+      className="MuiTypography-root-45 MuiTypography-display1-49 MuiTypography-gutterBottom-63"
       data-cy="organization-title"
     >
       my_org
     </h1>
     <button
-      className="MuiButtonBase-root-76 MuiButton-root-102 MuiButton-contained-113 MuiButton-containedPrimary-114 MuiButton-raised-116 MuiButton-raisedPrimary-117"
+      className="MuiButtonBase-root-77 MuiButton-root-103 MuiButton-contained-114 MuiButton-containedPrimary-115 MuiButton-raised-117 MuiButton-raisedPrimary-118"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -87,46 +93,46 @@ Array [
       type="button"
     >
       <span
-        className="MuiButton-label-103"
+        className="MuiButton-label-104"
       >
         <span>
           Mitglied hinzufügen
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-88"
+        className="MuiTouchRipple-root-89"
       />
     </button>
     <ul
-      className="MuiList-root-128 MuiList-padding-129"
+      className="MuiList-root-129 MuiList-padding-130"
     >
       <li
-        className="MuiListItem-container-133"
+        className="MuiListItem-container-134"
       >
         <div
-          className="MuiListItem-root-132 MuiListItem-default-135 MuiListItem-secondaryAction-141"
+          className="MuiListItem-root-133 MuiListItem-default-136 MuiListItem-secondaryAction-142"
           disabled={false}
         >
           <div
-            className="MuiListItemText-root-143"
+            className="MuiListItemText-root-144"
           >
             <span
-              className="MuiTypography-root-44 MuiTypography-subheading-51 MuiListItemText-primary-146"
+              className="MuiTypography-root-45 MuiTypography-subheading-52 MuiListItemText-primary-147"
             >
               Muster Max
             </span>
             <p
-              className="MuiTypography-root-44 MuiTypography-body1-53 MuiTypography-colorTextSecondary-68 MuiListItemText-secondary-147"
+              className="MuiTypography-root-45 MuiTypography-body1-54 MuiTypography-colorTextSecondary-69 MuiListItemText-secondary-148"
             >
               
             </p>
           </div>
         </div>
         <div
-          className="MuiListItemSecondaryAction-root-149"
+          className="MuiListItemSecondaryAction-root-150"
         >
           <button
-            className="MuiButtonBase-root-76 MuiIconButton-root-70"
+            className="MuiButtonBase-root-77 MuiIconButton-root-71"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}
@@ -143,11 +149,11 @@ Array [
             type="button"
           >
             <span
-              className="MuiIconButton-label-75"
+              className="MuiIconButton-label-76"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-79"
+                className="MuiSvgIcon-root-80"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -162,38 +168,38 @@ Array [
               </svg>
             </span>
             <span
-              className="MuiTouchRipple-root-88"
+              className="MuiTouchRipple-root-89"
             />
           </button>
         </div>
       </li>
       <li
-        className="MuiListItem-container-133"
+        className="MuiListItem-container-134"
       >
         <div
-          className="MuiListItem-root-132 MuiListItem-default-135 MuiListItem-secondaryAction-141"
+          className="MuiListItem-root-133 MuiListItem-default-136 MuiListItem-secondaryAction-142"
           disabled={false}
         >
           <div
-            className="MuiListItemText-root-143"
+            className="MuiListItemText-root-144"
           >
             <span
-              className="MuiTypography-root-44 MuiTypography-subheading-51 MuiListItemText-primary-146"
+              className="MuiTypography-root-45 MuiTypography-subheading-52 MuiListItemText-primary-147"
             >
               Keller Hans
             </span>
             <p
-              className="MuiTypography-root-44 MuiTypography-body1-53 MuiTypography-colorTextSecondary-68 MuiListItemText-secondary-147"
+              className="MuiTypography-root-45 MuiTypography-body1-54 MuiTypography-colorTextSecondary-69 MuiListItemText-secondary-148"
             >
               
             </p>
           </div>
         </div>
         <div
-          className="MuiListItemSecondaryAction-root-149"
+          className="MuiListItemSecondaryAction-root-150"
         >
           <button
-            className="MuiButtonBase-root-76 MuiIconButton-root-70"
+            className="MuiButtonBase-root-77 MuiIconButton-root-71"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}
@@ -210,11 +216,11 @@ Array [
             type="button"
           >
             <span
-              className="MuiIconButton-label-75"
+              className="MuiIconButton-label-76"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-79"
+                className="MuiSvgIcon-root-80"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -229,31 +235,31 @@ Array [
               </svg>
             </span>
             <span
-              className="MuiTouchRipple-root-88"
+              className="MuiTouchRipple-root-89"
             />
           </button>
         </div>
       </li>
     </ul>
     <div
-      className="MuiTablePagination-root-150"
+      className="MuiTablePagination-root-151"
     >
       <div
-        className="MuiToolbar-root-40 MuiToolbar-regular-42 MuiToolbar-gutters-41 MuiTablePagination-toolbar-151"
+        className="MuiToolbar-root-41 MuiToolbar-regular-43 MuiToolbar-gutters-42 MuiTablePagination-toolbar-152"
       >
         <div
-          className="MuiTablePagination-spacer-152"
+          className="MuiTablePagination-spacer-153"
         />
         <span
-          className="MuiTypography-root-44 MuiTypography-caption-54 MuiTablePagination-caption-153"
+          className="MuiTypography-root-45 MuiTypography-caption-55 MuiTablePagination-caption-154"
         >
           1-2 of 2
         </span>
         <div
-          className="MuiTablePagination-actions-159"
+          className="MuiTablePagination-actions-160"
         >
           <button
-            className="MuiButtonBase-root-76 MuiButtonBase-disabled-77 MuiIconButton-root-70 MuiIconButton-disabled-74"
+            className="MuiButtonBase-root-77 MuiButtonBase-disabled-78 MuiIconButton-root-71 MuiIconButton-disabled-75"
             disabled={true}
             onBlur={[Function]}
             onClick={[Function]}
@@ -270,11 +276,11 @@ Array [
             type="button"
           >
             <span
-              className="MuiIconButton-label-75"
+              className="MuiIconButton-label-76"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-79"
+                className="MuiSvgIcon-root-80"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -286,7 +292,7 @@ Array [
             </span>
           </button>
           <button
-            className="MuiButtonBase-root-76 MuiButtonBase-disabled-77 MuiIconButton-root-70 MuiIconButton-disabled-74"
+            className="MuiButtonBase-root-77 MuiButtonBase-disabled-78 MuiIconButton-root-71 MuiIconButton-disabled-75"
             disabled={true}
             onBlur={[Function]}
             onClick={[Function]}
@@ -303,11 +309,11 @@ Array [
             type="button"
           >
             <span
-              className="MuiIconButton-label-75"
+              className="MuiIconButton-label-76"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-79"
+                className="MuiSvgIcon-root-80"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -322,13 +328,13 @@ Array [
       </div>
     </div>
     <hr
-      className="MuiDivider-root-160 InjectIntl-OrganizationSettings--divider-100"
+      className="MuiDivider-root-161 InjectIntl-OrganizationSettings--divider-101"
     />
     <div
-      className="InjectIntl-OrganizationSettings--deleteButtonContainer-101"
+      className="InjectIntl-OrganizationSettings--deleteButtonContainer-102"
     >
       <button
-        className="MuiButtonBase-root-76 MuiButton-root-102 MuiButton-text-104 MuiButton-flat-107 DeleteButton-button-164"
+        className="MuiButtonBase-root-77 MuiButton-root-103 MuiButton-text-105 MuiButton-flat-108 DeleteButton-button-165"
         data-cy="organization-delete-button"
         disabled={false}
         onBlur={[Function]}
@@ -346,11 +352,11 @@ Array [
         type="button"
       >
         <span
-          className="MuiButton-label-103"
+          className="MuiButton-label-104"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-79 DeleteButton-leftIcon-165"
+            className="MuiSvgIcon-root-80 DeleteButton-leftIcon-166"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -366,7 +372,7 @@ Array [
           Organisation löschen
         </span>
         <span
-          className="MuiTouchRipple-root-88"
+          className="MuiTouchRipple-root-89"
         />
       </button>
     </div>

@@ -3,21 +3,27 @@
 exports[`components OrganizationsPage renders correctly 1`] = `
 Array [
   <header
-    className="MuiPaper-root-13 MuiPaper-elevation4-19 MuiAppBar-root-4 MuiAppBar-positionStatic-8 MuiAppBar-colorPrimary-11"
+    className="MuiPaper-root-14 MuiPaper-elevation4-20 MuiAppBar-root-5 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-12"
   >
     <div
-      className="MuiToolbar-root-40 MuiToolbar-regular-42 MuiToolbar-gutters-41"
+      className="MuiToolbar-root-41 MuiToolbar-regular-43 MuiToolbar-gutters-42"
     >
       <h2
-        className="MuiTypography-root-44 MuiTypography-title-50 MuiTypography-colorInherit-64 Header-grow-2"
+        className="MuiTypography-root-45 MuiTypography-title-51 MuiTypography-colorInherit-65 Header-grow-2"
       >
-        Open Digital Flugreisebuch
+        <a
+          className="Header-homeLink-4"
+          href="/"
+          onClick={[Function]}
+        >
+          Open Digital Flugreisebuch
+        </a>
       </h2>
       <div>
         <button
           aria-haspopup="true"
           aria-owns={null}
-          className="MuiButtonBase-root-76 MuiIconButton-root-70 MuiIconButton-colorInherit-71"
+          className="MuiButtonBase-root-77 MuiIconButton-root-71 MuiIconButton-colorInherit-72"
           data-cy="user-button"
           disabled={false}
           onBlur={[Function]}
@@ -35,11 +41,11 @@ Array [
           type="button"
         >
           <span
-            className="MuiIconButton-label-75"
+            className="MuiIconButton-label-76"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-79"
+              className="MuiSvgIcon-root-80"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -54,25 +60,25 @@ Array [
             </svg>
           </span>
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </button>
       </div>
     </div>
   </header>,
   <div
-    className="MuiGrid-container-105 MuiGrid-spacing-xs-24-129 OrganizationsList-container-99"
+    className="MuiGrid-container-106 MuiGrid-spacing-xs-24-130 OrganizationsList-container-100"
     data-cy="organizations-list"
   >
     <div
-      className="MuiGrid-item-106 MuiGrid-grid-xs-12-145 MuiGrid-grid-sm-4-151"
+      className="MuiGrid-item-107 MuiGrid-grid-xs-12-146 MuiGrid-grid-sm-4-152"
     >
       <div
-        className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-202 OrganizationsList-card-100"
+        className="MuiPaper-root-14 MuiPaper-elevation1-17 MuiPaper-rounded-15 MuiCard-root-203 OrganizationsList-card-101"
         data-cy="organization-create-button"
       >
         <button
-          className="MuiButtonBase-root-76 MuiCardActionArea-root-203 OrganizationsList-actionArea-102"
+          className="MuiButtonBase-root-77 MuiCardActionArea-root-204 OrganizationsList-actionArea-103"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -88,11 +94,11 @@ Array [
           type="button"
         >
           <div
-            className="MuiCardContent-root-206 OrganizationsList-cardContent-101"
+            className="MuiCardContent-root-207 OrganizationsList-cardContent-102"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-79 OrganizationsList-createIcon-103"
+              className="MuiSvgIcon-root-80 OrganizationsList-createIcon-104"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -106,7 +112,7 @@ Array [
               />
             </svg>
             <span
-              className="MuiTypography-root-44 MuiTypography-button-55 OrganizationsList-createText-104"
+              className="MuiTypography-root-45 MuiTypography-button-56 OrganizationsList-createText-105"
             >
               <span>
                 Neue Organisation erstellen
@@ -114,22 +120,22 @@ Array [
             </span>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-205"
+            className="MuiCardActionArea-focusHighlight-206"
           />
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </button>
       </div>
     </div>
     <div
-      className="MuiGrid-item-106 MuiGrid-grid-xs-12-145 MuiGrid-grid-sm-4-151"
+      className="MuiGrid-item-107 MuiGrid-grid-xs-12-146 MuiGrid-grid-sm-4-152"
     >
       <div
-        className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-202 OrganizationsList-card-100"
+        className="MuiPaper-root-14 MuiPaper-elevation1-17 MuiPaper-rounded-15 MuiCard-root-203 OrganizationsList-card-101"
       >
         <a
-          className="MuiButtonBase-root-76 MuiCardActionArea-root-203 OrganizationsList-actionArea-102"
+          className="MuiButtonBase-root-77 MuiCardActionArea-root-204 OrganizationsList-actionArea-103"
           href="/organizations/org1"
           onBlur={[Function]}
           onClick={[Function]}
@@ -146,31 +152,31 @@ Array [
           tabIndex="0"
         >
           <div
-            className="MuiCardContent-root-206 OrganizationsList-cardContent-101"
+            className="MuiCardContent-root-207 OrganizationsList-cardContent-102"
           >
             <h2
-              className="MuiTypography-root-44 MuiTypography-title-50"
+              className="MuiTypography-root-45 MuiTypography-title-51"
             >
               org1
             </h2>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-205"
+            className="MuiCardActionArea-focusHighlight-206"
           />
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </a>
       </div>
     </div>
     <div
-      className="MuiGrid-item-106 MuiGrid-grid-xs-12-145 MuiGrid-grid-sm-4-151"
+      className="MuiGrid-item-107 MuiGrid-grid-xs-12-146 MuiGrid-grid-sm-4-152"
     >
       <div
-        className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-202 OrganizationsList-card-100"
+        className="MuiPaper-root-14 MuiPaper-elevation1-17 MuiPaper-rounded-15 MuiCard-root-203 OrganizationsList-card-101"
       >
         <a
-          className="MuiButtonBase-root-76 MuiCardActionArea-root-203 OrganizationsList-actionArea-102"
+          className="MuiButtonBase-root-77 MuiCardActionArea-root-204 OrganizationsList-actionArea-103"
           href="/organizations/org2"
           onBlur={[Function]}
           onClick={[Function]}
@@ -187,31 +193,31 @@ Array [
           tabIndex="0"
         >
           <div
-            className="MuiCardContent-root-206 OrganizationsList-cardContent-101"
+            className="MuiCardContent-root-207 OrganizationsList-cardContent-102"
           >
             <h2
-              className="MuiTypography-root-44 MuiTypography-title-50"
+              className="MuiTypography-root-45 MuiTypography-title-51"
             >
               org2
             </h2>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-205"
+            className="MuiCardActionArea-focusHighlight-206"
           />
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </a>
       </div>
     </div>
     <div
-      className="MuiGrid-item-106 MuiGrid-grid-xs-12-145 MuiGrid-grid-sm-4-151"
+      className="MuiGrid-item-107 MuiGrid-grid-xs-12-146 MuiGrid-grid-sm-4-152"
     >
       <div
-        className="MuiPaper-root-13 MuiPaper-elevation1-16 MuiPaper-rounded-14 MuiCard-root-202 OrganizationsList-card-100"
+        className="MuiPaper-root-14 MuiPaper-elevation1-17 MuiPaper-rounded-15 MuiCard-root-203 OrganizationsList-card-101"
       >
         <a
-          className="MuiButtonBase-root-76 MuiCardActionArea-root-203 OrganizationsList-actionArea-102"
+          className="MuiButtonBase-root-77 MuiCardActionArea-root-204 OrganizationsList-actionArea-103"
           href="/organizations/org3"
           onBlur={[Function]}
           onClick={[Function]}
@@ -228,19 +234,19 @@ Array [
           tabIndex="0"
         >
           <div
-            className="MuiCardContent-root-206 OrganizationsList-cardContent-101"
+            className="MuiCardContent-root-207 OrganizationsList-cardContent-102"
           >
             <h2
-              className="MuiTypography-root-44 MuiTypography-title-50"
+              className="MuiTypography-root-45 MuiTypography-title-51"
             >
               org3
             </h2>
           </div>
           <span
-            className="MuiCardActionArea-focusHighlight-205"
+            className="MuiCardActionArea-focusHighlight-206"
           />
           <span
-            className="MuiTouchRipple-root-88"
+            className="MuiTouchRipple-root-89"
           />
         </a>
       </div>
