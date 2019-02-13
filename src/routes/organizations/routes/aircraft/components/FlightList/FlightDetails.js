@@ -62,11 +62,12 @@ const FlightDetails = ({ aircraft, flight, intl }) => {
           )}
           {flight.counters.engineHours && (
             <Grid item xs={6} sm={4}>
-              {renderField(
-                'enginehours',
-                getDecimalRange(flight.counters.engineHours),
-                intl
-              )}
+              {aircraft.settings.engineHoursCounterEnabled &&
+                renderField(
+                  'enginehours',
+                  getDecimalRange(flight.counters.engineHours),
+                  intl
+                )}
             </Grid>
           )}
         </Grid>

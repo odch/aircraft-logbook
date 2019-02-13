@@ -4,6 +4,20 @@ import MomentUtils from '@date-io/moment'
 import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import FlightCreateDialog from './FlightCreateDialog'
 
+const AIRCRAFT_SETTINGS = {
+  fuelTypes: [
+    {
+      value: 'mogas',
+      label: 'MoGas'
+    },
+    {
+      value: 'avgas',
+      label: 'AvGas'
+    }
+  ],
+  engineHoursCounterEnabled: true
+}
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -25,6 +39,7 @@ describe('routes', () => {
                       blockOnTime: '2018-11-30 16:40'
                     }}
                     updateData={() => {}}
+                    aircraftSettings={AIRCRAFT_SETTINGS}
                   />
                 </MuiPickersUtilsProvider>,
                 true
@@ -48,6 +63,7 @@ describe('routes', () => {
                     }}
                     submitting
                     updateData={() => {}}
+                    aircraftSettings={AIRCRAFT_SETTINGS}
                   />
                 </MuiPickersUtilsProvider>,
                 true
@@ -71,6 +87,7 @@ describe('routes', () => {
                     }}
                     readOnlyFields={['date', 'blockOffTime']}
                     updateData={() => {}}
+                    aircraftSettings={AIRCRAFT_SETTINGS}
                   />
                 </MuiPickersUtilsProvider>,
                 true

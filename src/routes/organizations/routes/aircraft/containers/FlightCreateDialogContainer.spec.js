@@ -69,7 +69,7 @@ describe('routes', () => {
                 'organizationMembers',
                 'flightNatures',
                 'aerodromes',
-                'fuelTypes',
+                'aircraftSettings',
                 'data',
                 'submitting',
                 'readOnlyFields'
