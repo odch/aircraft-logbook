@@ -449,6 +449,31 @@ describe('routes', () => {
                 }
               })
             })
+
+            it('sets landing time if takeoff time and counters set (start counter 0)', () => {
+              const data = {
+                takeOffTime: '2018-12-15 10:30',
+                counters: {
+                  flightHours: {
+                    start: 0,
+                    end: 100
+                  }
+                }
+              }
+
+              updateLandingTime(data)
+
+              expect(data).toEqual({
+                takeOffTime: '2018-12-15 10:30',
+                landingTime: '2018-12-15 11:30',
+                counters: {
+                  flightHours: {
+                    start: 0,
+                    end: 100
+                  }
+                }
+              })
+            })
           })
         })
       })

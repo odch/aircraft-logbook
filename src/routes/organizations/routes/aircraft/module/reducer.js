@@ -73,7 +73,10 @@ const setInitialCreateFlightDialogData = (state, action) => {
 export const updateLandingTime = data => {
   if (data.takeOffTime && data.counters && data.counters.flightHours) {
     const flightHours = data.counters.flightHours
-    if (flightHours.start && flightHours.end) {
+    if (
+      typeof flightHours.start === 'number' &&
+      typeof flightHours.end === 'number'
+    ) {
       const flightDuration = (flightHours.end - flightHours.start) / 100
       data.landingTime = addHours(data.takeOffTime, flightDuration)
     }
