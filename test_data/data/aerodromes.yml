@@ -7,7 +7,7 @@
 - name: 'Amlikon'
   identification: 'LSPA'
   timezone: 'Europe/Zurich'
-- name: 'Bad'
+- name: 'Bad Ragaz'
   identification: 'LSZE'
   timezone: 'Europe/Zurich'
 - name: 'Basel-Mulhouse'
