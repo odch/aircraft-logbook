@@ -360,14 +360,32 @@ export function validateFlight(data, aircraftSettings) {
 export function* initCreateFlightDialog({
   payload: { organizationId, aircraftId }
 }) {
+  const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
   const currentMember = yield call(getCurrentMember)
   const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+
+  const readOnlyFields = ['landingTime']
+
   const departureAerodrome = lastFlight
     ? yield call(getDestinationAerodrome, lastFlight)
     : null
+  if (departureAerodrome) readOnlyFields.push('departureAerodrome')
+
+  const counters = {}
 
   const flightHoursStart = _get(lastFlight, 'counters.flightHours.end')
-  const engineHoursStart = _get(lastFlight, 'counters.engineHours.end')
+  counters.flightHours = {
+    start: flightHoursStart
+  }
+  if (flightHoursStart) readOnlyFields.push('counters.flightHours.start')
+
+  if (aircraftSettings.engineHoursCounterEnabled === true) {
+    const engineHoursStart = _get(lastFlight, 'counters.engineHours.end')
+    counters.engineHours = {
+      start: engineHoursStart
+    }
+    if (engineHoursStart) readOnlyFields.push('counters.engineHours.start')
+  }
 
   const data = {
     date: moment().format('YYYY-MM-DD'),
@@ -375,20 +393,8 @@ export function* initCreateFlightDialog({
     departureAerodrome: departureAerodrome
       ? getAerodromeOption(departureAerodrome)
       : null,
-    counters: {
-      flightHours: {
-        start: flightHoursStart
-      },
-      engineHours: {
-        start: engineHoursStart
-      }
-    }
+    counters
   }
-
-  const readOnlyFields = ['landingTime']
-  if (departureAerodrome) readOnlyFields.push('departureAerodrome')
-  if (flightHoursStart) readOnlyFields.push('counters.flightHours.start')
-  if (engineHoursStart) readOnlyFields.push('counters.engineHours.start')
 
   yield put(actions.setInitialCreateFlightDialogData(data, readOnlyFields))
 }

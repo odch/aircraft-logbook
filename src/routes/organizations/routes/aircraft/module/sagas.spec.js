@@ -838,13 +838,47 @@ describe('routes', () => {
           })
 
           describe('initCreateFlightDialog', () => {
+            const orgId = 'my_org'
+            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+            const action = actions.initCreateFlightDialog(orgId, aircraftId)
+
+            const today = moment().format('YYYY-MM-DD')
+
+            const currentMember = {
+              id: 'memberid',
+              lastname: 'Müller',
+              firstname: 'Max'
+            }
+            const lastFlight = {
+              counters: {
+                flightHours: {
+                  start: 10145,
+                  end: 10250
+                },
+                engineHours: {
+                  start: 10378,
+                  end: 10502
+                }
+              }
+            }
+            const destinationAerodrome = {
+              id: 'aerodromeid',
+              name: 'Lommis',
+              identification: 'LSZT'
+            }
+
             it('should set the default values for the new flight', () => {
-              const orgId = 'my_org'
-              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+              const aircraftSettings = {
+                engineHoursCounterEnabled: true
+              }
 
-              const action = actions.initCreateFlightDialog(orgId, aircraftId)
-
-              const today = moment().format('YYYY-MM-DD')
+              const expectedReadOnlyFields = [
+                'landingTime',
+                'departureAerodrome',
+                'counters.flightHours.start',
+                'counters.engineHours.start'
+              ]
 
               const expectedDefaultValues = {
                 date: today,
@@ -866,34 +900,54 @@ describe('routes', () => {
                 }
               }
 
+              return expectSaga(sagas.initCreateFlightDialog, action)
+                .provide([
+                  [call(sagas.getCurrentMember), currentMember],
+                  [call(sagas.getLastFlight, orgId, aircraftId), lastFlight],
+                  [
+                    call(sagas.getDestinationAerodrome, lastFlight),
+                    destinationAerodrome
+                  ],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(
+                  actions.setInitialCreateFlightDialogData(
+                    expectedDefaultValues,
+                    expectedReadOnlyFields
+                  )
+                )
+                .run()
+            })
+
+            it('should not set engine hours start counter if not enabled', () => {
+              const aircraftSettings = {
+                engineHoursCounterEnabled: false
+              }
+
               const expectedReadOnlyFields = [
                 'landingTime',
                 'departureAerodrome',
-                'counters.flightHours.start',
-                'counters.engineHours.start'
+                'counters.flightHours.start'
               ]
 
-              const currentMember = {
-                id: 'memberid',
-                lastname: 'Müller',
-                firstname: 'Max'
-              }
-              const lastFlight = {
+              const expectedDefaultValues = {
+                date: today,
+                pilot: {
+                  value: 'memberid',
+                  label: 'Müller Max'
+                },
+                departureAerodrome: {
+                  value: 'aerodromeid',
+                  label: 'Lommis (LSZT)'
+                },
                 counters: {
                   flightHours: {
-                    start: 10145,
-                    end: 10250
-                  },
-                  engineHours: {
-                    start: 10378,
-                    end: 10502
+                    start: 10250
                   }
                 }
-              }
-              const destinationAerodrome = {
-                id: 'aerodromeid',
-                name: 'Lommis',
-                identification: 'LSZT'
               }
 
               return expectSaga(sagas.initCreateFlightDialog, action)
@@ -903,6 +957,10 @@ describe('routes', () => {
                   [
                     call(sagas.getDestinationAerodrome, lastFlight),
                     destinationAerodrome
+                  ],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
                   ]
                 ])
                 .put(
