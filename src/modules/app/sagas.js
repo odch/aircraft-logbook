@@ -135,7 +135,8 @@ export function* watchAerodromes() {
   const firestore = yield call(getFirestore)
   yield call(firestore.setListener, {
     collection: 'aerodromes',
-    orderBy: 'name'
+    orderBy: 'name',
+    storeAs: 'allAerodromes'
   })
 }
 

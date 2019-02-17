@@ -502,7 +502,8 @@ describe('modules', () => {
           expect(generator.next(firestore).value).toEqual(
             call(firestore.setListener, {
               collection: 'aerodromes',
-              orderBy: 'name'
+              orderBy: 'name',
+              storeAs: 'allAerodromes'
             })
           )
 
