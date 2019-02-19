@@ -83,6 +83,7 @@
   "flight.create.dialog.validation.departureaerodrome.required": "Bitte Startflugplatz auswählen",
   "flight.create.dialog.validation.destinationaerodrome.required": "Bitte Zielflugplatz auswählen",
   "flight.create.dialog.validation.blockofftime.invalid": "Bitte gültige Block-off-Zeit eingeben (HH:MM)",
+  "flight.create.dialog.validation.blockofftime.not_before_block_on_time_last_flight": "Block-off-Zeit darf nicht vor Block-on-Zeit des letzten Flugs liegen",
   "flight.create.dialog.validation.takeofftime.invalid": "Bitte gültige Take-off-Zeit eingeben (HH:MM)",
   "flight.create.dialog.validation.takeofftime.not_before_block_off_time": "Take-off-Zeit darf nicht vor Block-off-Zeit liegen",
   "flight.create.dialog.validation.landingtime.invalid": "Bitte gültige Landungszeit eingeben (HH:MM)",

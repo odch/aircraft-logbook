@@ -6,9 +6,8 @@ import * as actions from './actions'
 import { getMemberOption, getAerodromeOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
 import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
-
-const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
-const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
+import getLastFlight from './util/getLastFlight'
+import validateFlight from './util/validateFlight'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
@@ -102,33 +101,6 @@ export function* getFlight(organizationId, aircraftId, flightId) {
   ])
 }
 
-export function* getLastFlight(organizationId, aircraftId) {
-  const firestore = yield call(getFirestore)
-  const lastFlight = yield call(
-    firestore.get,
-    {
-      collection: 'organizations',
-      doc: organizationId,
-      subcollections: [
-        {
-          collection: 'aircrafts',
-          doc: aircraftId,
-          subcollections: [
-            {
-              collection: 'flights'
-            }
-          ]
-        }
-      ],
-      where: ['deleted', '==', false],
-      orderBy: ['blockOffTime', 'desc'],
-      limit: 1
-    },
-    {}
-  )
-  return !lastFlight.empty ? lastFlight.docs[0].data() : null
-}
-
 export async function getDestinationAerodrome(flight) {
   if (flight.destinationAerodrome) {
     const document = await flight.destinationAerodrome.get()
@@ -153,7 +125,13 @@ export function* createFlight({
 
     const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
 
-    const validationErrors = yield call(validateFlight, data, aircraftSettings)
+    const validationErrors = yield call(
+      validateFlight,
+      data,
+      organizationId,
+      aircraftId,
+      aircraftSettings
+    )
     if (
       validationErrors &&
       Object.getOwnPropertyNames(validationErrors).length > 0
@@ -246,115 +224,6 @@ export function* createFlight({
     error(`Failed to create flight`, e)
     yield put(actions.createFlightFailure())
   }
-}
-
-/**
- * error message keys are automatically prefixed with
- * "flight.create.dialog.validation.{fieldName}." and transformed to lower case.
- *
- * e.g.: if { date: 'invalid' } is returned, the used message key will be
- * 'flight.create.dialog.validation.date.invalid'.
- *
- * @param data
- * @param aircraftSettings
- * @return a map containing the error message for the mapped fields
- */
-export function validateFlight(data, aircraftSettings) {
-  const errors = {}
-
-  if (!data.date || !DATE_PATTERN.test(data.date)) {
-    errors['date'] = 'invalid'
-  }
-  if (!data.pilot) {
-    errors['pilot'] = 'required'
-  }
-  if (!data.nature) {
-    errors['nature'] = 'required'
-  }
-  if (!data.departureAerodrome) {
-    errors['departureAerodrome'] = 'required'
-  }
-  if (!data.destinationAerodrome) {
-    errors['destinationAerodrome'] = 'required'
-  }
-  if (!data.blockOffTime || !DATE_TIME_PATTERN.test(data.blockOffTime)) {
-    errors['blockOffTime'] = 'invalid'
-  }
-  if (!data.takeOffTime || !DATE_TIME_PATTERN.test(data.takeOffTime)) {
-    errors['takeOffTime'] = 'invalid'
-  }
-  if (!data.landingTime || !DATE_TIME_PATTERN.test(data.landingTime)) {
-    errors['landingTime'] = 'invalid'
-  }
-  if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
-    errors['blockOnTime'] = 'invalid'
-  }
-  if (!errors['blockOffTime'] && !errors['takeOffTime']) {
-    if (data.takeOffTime < data.blockOffTime) {
-      errors['takeOffTime'] = 'not_before_block_off_time'
-    }
-  }
-  if (!errors['takeOffTime'] && !errors['landingTime']) {
-    if (data.landingTime < data.takeOffTime) {
-      errors['landingTime'] = 'not_before_take_off_time'
-    }
-  }
-  if (!errors['landingTime'] && !errors['blockOnTime']) {
-    if (data.blockOnTime < data.landingTime) {
-      errors['blockOnTime'] = 'not_before_landing_time'
-    }
-  }
-  if (typeof data.landings !== 'number' || data.landings < 1) {
-    errors['landings'] = 'required'
-  }
-  if (data.fuelUplift) {
-    if (typeof data.fuelUplift !== 'number' || data.fuelUplift < 0) {
-      errors['fuelUplift'] = 'invalid'
-    }
-    if (!data.fuelType) {
-      errors['fuelType'] = 'required'
-    }
-  }
-  if (
-    data.oilUplift &&
-    (typeof data.oilUplift !== 'number' || data.oilUplift < 0)
-  ) {
-    errors['oilUplift'] = 'invalid'
-  }
-
-  const flightHoursStart = _get(data, 'counters.flightHours.start')
-  const flightHoursEnd = _get(data, 'counters.flightHours.end')
-
-  if (typeof flightHoursStart === 'undefined') {
-    errors['counters.flightHours.start'] = 'required'
-  }
-  if (typeof flightHoursEnd === 'undefined') {
-    errors['counters.flightHours.end'] = 'required'
-  }
-  if (flightHoursStart && flightHoursEnd) {
-    if (flightHoursEnd < flightHoursStart) {
-      errors['counters.flightHours.end'] = 'not_before_start_counter'
-    }
-  }
-
-  if (aircraftSettings.engineHoursCounterEnabled === true) {
-    const engineHoursStart = _get(data, 'counters.engineHours.start')
-    const engineHoursEnd = _get(data, 'counters.engineHours.end')
-
-    if (typeof engineHoursStart === 'undefined') {
-      errors['counters.engineHours.start'] = 'required'
-    }
-    if (typeof engineHoursEnd === 'undefined') {
-      errors['counters.engineHours.end'] = 'required'
-    }
-    if (engineHoursStart && engineHoursEnd) {
-      if (engineHoursEnd < engineHoursStart) {
-        errors['counters.engineHours.end'] = 'not_before_start_counter'
-      }
-    }
-  }
-
-  return errors
 }
 
 export function* initCreateFlightDialog({
