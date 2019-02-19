@@ -5,7 +5,8 @@ import { getFirestore } from '../../../../../util/firebase'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
-import { getAerodrome } from './sagas'
+import getLastFlight from './util/getLastFlight'
+import validateFlight from './util/validateFlight'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -70,77 +71,6 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
-            })
-          })
-
-          describe('getLastFlight', () => {
-            const organizationId = 'my_org'
-            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
-
-            const queryOptions = {
-              collection: 'organizations',
-              doc: organizationId,
-              subcollections: [
-                {
-                  collection: 'aircrafts',
-                  doc: aircraftId,
-                  subcollections: [
-                    {
-                      collection: 'flights'
-                    }
-                  ]
-                }
-              ],
-              where: ['deleted', '==', false],
-              orderBy: ['blockOffTime', 'desc'],
-              limit: 1
-            }
-
-            const firestore = {
-              get: () => {}
-            }
-
-            it('should return the last flight if there is one', () => {
-              const lastFlight = {
-                remarks: 'test flight'
-              }
-
-              const lastFlightQuerySnapshot = {
-                empty: false,
-                docs: [
-                  {
-                    data: () => lastFlight
-                  }
-                ]
-              }
-
-              return expectSaga(sagas.getLastFlight, organizationId, aircraftId)
-                .provide([
-                  [call(getFirestore), firestore],
-                  [
-                    call(firestore.get, queryOptions, {}),
-                    lastFlightQuerySnapshot
-                  ]
-                ])
-                .returns(lastFlight)
-                .run()
-            })
-
-            it('should return null if there is no last flight', () => {
-              const lastFlightQuerySnapshot = {
-                empty: true
-              }
-
-              return expectSaga(sagas.getLastFlight, organizationId, aircraftId)
-                .provide([
-                  [call(getFirestore), firestore],
-                  [
-                    call(firestore.get, queryOptions, {}),
-                    lastFlightQuerySnapshot
-                  ]
-                ])
-                .returns(null)
-                .run()
             })
           })
 
@@ -237,7 +167,13 @@ describe('routes', () => {
               }
 
               expect(generator.next(aircraftSettings).value).toEqual(
-                call(sagas.validateFlight, data, aircraftSettings)
+                call(
+                  validateFlight,
+                  data,
+                  organizationId,
+                  aircraftId,
+                  aircraftSettings
+                )
               )
 
               const validationErrors = {}
@@ -275,10 +211,10 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
-                call(getAerodrome, data.departureAerodrome.value)
+                call(sagas.getAerodrome, data.departureAerodrome.value)
               )
               expect(generator.next(departureAerodrome).value).toEqual(
-                call(getAerodrome, data.destinationAerodrome.value)
+                call(sagas.getAerodrome, data.destinationAerodrome.value)
               )
 
               expect(generator.next(destinationAerodrome).value).toEqual(
@@ -372,7 +308,13 @@ describe('routes', () => {
               }
 
               expect(generator.next(aircraftSettings).value).toEqual(
-                call(sagas.validateFlight, data, aircraftSettings)
+                call(
+                  validateFlight,
+                  data,
+                  organizationId,
+                  aircraftId,
+                  aircraftSettings
+                )
               )
 
               const validationErrors = {
@@ -385,455 +327,6 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
-            })
-          })
-
-          describe('validateFlight', () => {
-            const aircraftSettings1 = {
-              engineHoursCounterEnabled: true
-            }
-            const aircraftSettings2 = {
-              engineHoursCounterEnabled: false
-            }
-
-            it('should return an error if date is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.date).toEqual('invalid')
-            })
-
-            it('should return an error if date is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  date: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.date).toEqual('invalid')
-            })
-
-            it('should return no error if date is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  date: '2019-01-05'
-                },
-                aircraftSettings1
-              )
-              expect(errors.date).toEqual(undefined)
-            })
-
-            it('should return an error if pilot is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.pilot).toEqual('required')
-            })
-
-            it('should return no error if pilot is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  pilot: {}
-                },
-                aircraftSettings1
-              )
-              expect(errors.pilot).toEqual(undefined)
-            })
-
-            it('should return an error if nature is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.nature).toEqual('required')
-            })
-
-            it('should return no error if nature is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  nature: {}
-                },
-                aircraftSettings1
-              )
-              expect(errors.nature).toEqual(undefined)
-            })
-
-            it('should return an error if departureAerodrome is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.departureAerodrome).toEqual('required')
-            })
-
-            it('should return no error if departureAerodrome is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  departureAerodrome: {}
-                },
-                aircraftSettings1
-              )
-              expect(errors.departureAerodrome).toEqual(undefined)
-            })
-
-            it('should return an error if destinationAerodrome is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.destinationAerodrome).toEqual('required')
-            })
-
-            it('should return no error if destinationAerodrome is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  destinationAerodrome: {}
-                },
-                aircraftSettings1
-              )
-              expect(errors.destinationAerodrome).toEqual(undefined)
-            })
-
-            it('should return an error if blockOffTime is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.blockOffTime).toEqual('invalid')
-            })
-
-            it('should return an error if blockOffTime is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  blockOffTime: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.blockOffTime).toEqual('invalid')
-            })
-
-            it('should return no error if blockOffTime is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  blockOffTime: '2019-05-01 09:00'
-                },
-                aircraftSettings1
-              )
-              expect(errors.blockOffTime).toEqual(undefined)
-            })
-
-            it('should return an error if takeOffTime is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.takeOffTime).toEqual('invalid')
-            })
-
-            it('should return an error if takeOffTime is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  takeOffTime: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.takeOffTime).toEqual('invalid')
-            })
-
-            it('should return no error if takeOffTime is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  takeOffTime: '2019-05-01 09:00'
-                },
-                aircraftSettings1
-              )
-              expect(errors.takeOffTime).toEqual(undefined)
-            })
-
-            it('should return an error if landingTime is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.landingTime).toEqual('invalid')
-            })
-
-            it('should return an error if landingTime is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  landingTime: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.landingTime).toEqual('invalid')
-            })
-
-            it('should return no error if landingTime is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  landingTime: '2019-05-01 09:00'
-                },
-                aircraftSettings1
-              )
-              expect(errors.landingTime).toEqual(undefined)
-            })
-
-            it('should return an error if blockOnTime is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.blockOnTime).toEqual('invalid')
-            })
-
-            it('should return an error if blockOnTime is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  blockOnTime: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.blockOnTime).toEqual('invalid')
-            })
-
-            it('should return no error if blockOnTime is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  blockOnTime: '2019-05-01 09:00'
-                },
-                aircraftSettings1
-              )
-              expect(errors.blockOnTime).toEqual(undefined)
-            })
-
-            it('should return an error if takeOffTime is before blockOffTime', () => {
-              const errors = sagas.validateFlight(
-                {
-                  blockOffTime: '2019-05-01 09:00',
-                  takeOffTime: '2019-05-01 08:59'
-                },
-                aircraftSettings1
-              )
-              expect(errors.takeOffTime).toEqual('not_before_block_off_time')
-            })
-
-            it('should return an error if landingTime is before takeOffTime', () => {
-              const errors = sagas.validateFlight(
-                {
-                  takeOffTime: '2019-05-01 09:00',
-                  landingTime: '2019-05-01 08:59'
-                },
-                aircraftSettings1
-              )
-              expect(errors.landingTime).toEqual('not_before_take_off_time')
-            })
-
-            it('should return an error if blockOnTime is before landingTime', () => {
-              const errors = sagas.validateFlight(
-                {
-                  landingTime: '2019-05-01 09:00',
-                  blockOnTime: '2019-05-01 08:59'
-                },
-                aircraftSettings1
-              )
-              expect(errors.blockOnTime).toEqual('not_before_landing_time')
-            })
-
-            it('should return an error if flight hours start counter is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors['counters.flightHours.start']).toEqual('required')
-            })
-
-            it('should return no error if flight hours start counter is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    flightHours: {
-                      start: 10000
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.flightHours.start']).toEqual(undefined)
-            })
-
-            it('should return an error if flight hours end counter is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors['counters.flightHours.end']).toEqual('required')
-            })
-
-            it('should return no error if flight hours end counter is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    flightHours: {
-                      end: 10000
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.flightHours.end']).toEqual(undefined)
-            })
-
-            it('should return an error if flight hours end counter is before start counter', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    flightHours: {
-                      start: 10000,
-                      end: 9999
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.flightHours.end']).toEqual(
-                'not_before_start_counter'
-              )
-            })
-
-            it('should return an error if engine hours start counter is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors['counters.engineHours.start']).toEqual('required')
-            })
-
-            it('should return no error if engine hours start counter is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    engineHours: {
-                      start: 10000
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.engineHours.start']).toEqual(undefined)
-            })
-
-            it('should return an error if engine hours end counter is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors['counters.engineHours.end']).toEqual('required')
-            })
-
-            it('should return no error if engine hours end counter is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    engineHours: {
-                      end: 10000
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.engineHours.end']).toEqual(undefined)
-            })
-
-            it('should return an error if engine hours end counter is before start counter', () => {
-              const errors = sagas.validateFlight(
-                {
-                  counters: {
-                    engineHours: {
-                      start: 10000,
-                      end: 9999
-                    }
-                  }
-                },
-                aircraftSettings1
-              )
-              expect(errors['counters.engineHours.end']).toEqual(
-                'not_before_start_counter'
-              )
-            })
-
-            it('should return no error if engine hours counter is missing or invalid but not enabled in settings', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings2)
-              expect(errors['counters.engineHours.start']).toEqual(undefined)
-            })
-
-            it('should return an error if landings is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.landings).toEqual('required')
-            })
-
-            it('should return an error if landings is invalid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  landings: -1
-                },
-                aircraftSettings1
-              )
-              expect(errors.landings).toEqual('required')
-            })
-
-            it('should return no error if landings is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  landings: 1
-                },
-                aircraftSettings1
-              )
-              expect(errors.landings).toEqual(undefined)
-            })
-
-            it('should return an error if fuelUplift is not a number', () => {
-              const errors = sagas.validateFlight(
-                {
-                  fuelUplift: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.fuelUplift).toEqual('invalid')
-            })
-
-            it('should return an error if fuelUplift is negative', () => {
-              const errors = sagas.validateFlight(
-                {
-                  fuelUplift: -1
-                },
-                aircraftSettings1
-              )
-              expect(errors.fuelUplift).toEqual('invalid')
-            })
-
-            it('should return an error if fuelUplift is set and fuelType is missing', () => {
-              const errors = sagas.validateFlight(
-                {
-                  fuelUplift: 10
-                },
-                aircraftSettings1
-              )
-              expect(errors.fuelType).toEqual('required')
-            })
-
-            it('should return no error if fuelUplift is not set and fuelType is missing', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.fuelType).toEqual(undefined)
-            })
-
-            it('should return no error if fuelUplift is set and valid and fuelType is set', () => {
-              const errors = sagas.validateFlight(
-                {
-                  fuelUplift: 10,
-                  fuelType: {}
-                },
-                aircraftSettings1
-              )
-              expect(errors.fuelUplift).toEqual(undefined)
-              expect(errors.fuelType).toEqual(undefined)
-            })
-
-            it('should return an error if oilUplift is not a number', () => {
-              const errors = sagas.validateFlight(
-                {
-                  oilUplift: 'foobar'
-                },
-                aircraftSettings1
-              )
-              expect(errors.oilUplift).toEqual('invalid')
-            })
-
-            it('should return an error if oilUplift is negative', () => {
-              const errors = sagas.validateFlight(
-                {
-                  oilUplift: -1
-                },
-                aircraftSettings1
-              )
-              expect(errors.oilUplift).toEqual('invalid')
-            })
-
-            it('should return no error if oilUplift is not set', () => {
-              const errors = sagas.validateFlight({}, aircraftSettings1)
-              expect(errors.oilUplift).toEqual(undefined)
-            })
-
-            it('should return no error if oilUplift is valid', () => {
-              const errors = sagas.validateFlight(
-                {
-                  oilUplift: 1
-                },
-                aircraftSettings1
-              )
-              expect(errors.oilUplift).toEqual(undefined)
             })
           })
 
@@ -903,7 +396,7 @@ describe('routes', () => {
               return expectSaga(sagas.initCreateFlightDialog, action)
                 .provide([
                   [call(sagas.getCurrentMember), currentMember],
-                  [call(sagas.getLastFlight, orgId, aircraftId), lastFlight],
+                  [call(getLastFlight, orgId, aircraftId), lastFlight],
                   [
                     call(sagas.getDestinationAerodrome, lastFlight),
                     destinationAerodrome
@@ -953,7 +446,7 @@ describe('routes', () => {
               return expectSaga(sagas.initCreateFlightDialog, action)
                 .provide([
                   [call(sagas.getCurrentMember), currentMember],
-                  [call(sagas.getLastFlight, orgId, aircraftId), lastFlight],
+                  [call(getLastFlight, orgId, aircraftId), lastFlight],
                   [
                     call(sagas.getDestinationAerodrome, lastFlight),
                     destinationAerodrome
