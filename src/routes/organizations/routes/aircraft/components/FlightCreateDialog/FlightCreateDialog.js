@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { DatePicker, TimePicker } from 'material-ui-pickers'
 import Select from '../../../../../../components/Select'
 import DecimalField from '../../../../../../components/DecimalField'
+import IntegerField from '../../../../../../components/IntegerField'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import {
   aerodrome as aerodromeShape,
@@ -48,12 +49,8 @@ class FlightCreateDialog extends React.Component {
     this.updateData(name, value)
   }
 
-  handleIntegerChange = name => e => {
-    const value = e.target.value
-    if (/^\d*$/.test(value)) {
-      const intValue = value ? parseInt(value) : undefined
-      this.updateData(name, intValue)
-    }
+  handleIntegerChange = name => value => {
+    this.updateData(name, value)
   }
 
   handleMultilineTextChange = name => e => {
@@ -284,12 +281,11 @@ class FlightCreateDialog extends React.Component {
 
   renderIntegerField(name) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
-      <TextField
+      <IntegerField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.getValue(name, '')}
+        value={this.getValue(name)}
         onChange={this.handleIntegerChange(name)}
         cy={`${name}-field`}
-        type="number"
         margin="normal"
         fullWidth
         error={hasError}

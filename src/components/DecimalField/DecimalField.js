@@ -8,7 +8,8 @@ class DecimalField extends React.Component {
   state = {
     stringValue: this.props.value
       ? formatWithTwoDecimals(this.props.value / 100)
-      : ''
+      : '',
+    focused: false
   }
 
   handleChange = e => {
@@ -17,20 +18,36 @@ class DecimalField extends React.Component {
     })
   }
 
+  handleFocus = () => {
+    this.setState({
+      focused: true
+    })
+  }
+
   handleBlur = () => {
     const { onChange } = this.props
+
+    const newState = {
+      focused: false
+    }
 
     const floatValue = parseFloat(this.state.stringValue)
     if (!isNaN(floatValue)) {
       const twoDecimals = Math.round(floatValue * 100) / 100
-      this.setState({
-        stringValue: formatWithTwoDecimals(twoDecimals)
-      })
+      newState.stringValue = formatWithTwoDecimals(twoDecimals)
 
       if (onChange) {
         const hundredths = Math.round(twoDecimals * 100)
         onChange(hundredths)
       }
+    }
+
+    this.setState(newState)
+  }
+
+  handleWheel = e => {
+    if (this.state.focused === true) {
+      e.preventDefault() // prevent number from being changed by scrolling
     }
   }
 
@@ -42,7 +59,9 @@ class DecimalField extends React.Component {
         label={label}
         value={stringValue}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
         onBlur={this.handleBlur}
+        onWheel={this.handleWheel}
         type="number"
         inputProps={{ step: '.01' }}
         data-cy={cy}
