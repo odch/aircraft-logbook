@@ -5,6 +5,13 @@ export const formatDate = timestamp => moment(timestamp.toDate()).format('L')
 export const formatTime = timestamp =>
   moment(timestamp.toDate()).format('HH:mm')
 
+export const getTimeDiff = (startTimestamp, endTimestamp) => {
+  const start = moment(startTimestamp.toDate())
+  const end = moment(endTimestamp.toDate())
+  const diff = end.diff(start)
+  return moment.utc(diff).format('HH:mm')
+}
+
 /**
  * @param dateTime Date time string in a format MomentJS understands
  *                 (e.g. YYYY-MM-DD HH:mm)

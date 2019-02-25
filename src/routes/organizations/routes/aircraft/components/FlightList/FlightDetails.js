@@ -3,7 +3,11 @@ import { injectIntl, intlShape } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import { aircraft, flight } from '../../../../../../shapes'
-import { formatDate, formatTime } from '../../../../../../util/dates'
+import {
+  formatDate,
+  formatTime,
+  getTimeDiff
+} from '../../../../../../util/dates'
 
 const FlightDetails = ({ aircraft, flight, intl }) => {
   return (
@@ -43,35 +47,12 @@ const FlightDetails = ({ aircraft, flight, intl }) => {
           )}
         </Grid>
         <Grid item xs={6} sm={4}>
-          {renderField('landingtime', formatTime(flight.landingTime), intl)}
-        </Grid>
-        <Grid item xs={6} sm={4}>
           {renderField('blockontime', formatTime(flight.blockOnTime), intl)}
         </Grid>
-      </Grid>
-      {flight.counters && (
-        <Grid item xs={12} container>
-          {flight.counters.flightHours && (
-            <Grid item xs={6} sm={4}>
-              {renderField(
-                'flighthours',
-                getDecimalRange(flight.counters.flightHours),
-                intl
-              )}
-            </Grid>
-          )}
-          {flight.counters.engineHours && (
-            <Grid item xs={6} sm={4}>
-              {aircraft.settings.engineHoursCounterEnabled &&
-                renderField(
-                  'enginehours',
-                  getDecimalRange(flight.counters.engineHours),
-                  intl
-                )}
-            </Grid>
-          )}
+        <Grid item xs={6} sm={4}>
+          {renderField('landingtime', formatTime(flight.landingTime), intl)}
         </Grid>
-      )}
+      </Grid>
       <Grid item xs={12} container>
         <Grid item xs={12} sm={4}>
           {renderField('nature', getFlightNature(flight.nature, intl), intl)}
@@ -101,6 +82,45 @@ const FlightDetails = ({ aircraft, flight, intl }) => {
           {renderField('remarks', flight.remarks || '-', intl)}
         </Grid>
       </Grid>
+      <Grid item xs={12} container>
+        <Grid item xs={6} sm={4}>
+          {renderField(
+            'flighthours_time',
+            getTimeDiff(flight.takeOffTime, flight.landingTime),
+            intl
+          )}
+        </Grid>
+        <Grid item xs={6} sm={4}>
+          {renderField(
+            'blockhours',
+            getTimeDiff(flight.blockOffTime, flight.blockOnTime),
+            intl
+          )}
+        </Grid>
+      </Grid>
+      {flight.counters && (
+        <Grid item xs={12} container>
+          {flight.counters.flightHours && (
+            <Grid item xs={6} sm={4}>
+              {renderField(
+                'flighthours_counter',
+                getDecimalRange(flight.counters.flightHours),
+                intl
+              )}
+            </Grid>
+          )}
+          {flight.counters.engineHours && (
+            <Grid item xs={6} sm={4}>
+              {aircraft.settings.engineHoursCounterEnabled &&
+                renderField(
+                  'enginehours',
+                  getDecimalRange(flight.counters.engineHours),
+                  intl
+                )}
+            </Grid>
+          )}
+        </Grid>
+      )}
     </Grid>
   )
 }
@@ -142,10 +162,17 @@ const getFuelTypeDescription = (fuelType, aircraftFuelTypes) => {
 
 const getOil = oilUplift => (oilUplift && oilUplift > 0 ? `${oilUplift}L` : '-')
 
-const getDecimalRange = range =>
-  `${Number(range.start / 100).toFixed(2)} - ${Number(range.end / 100).toFixed(
-    2
-  )}`
+const getDecimalRange = range => {
+  const diff = range.end - range.start
+
+  const startFormatted = format2Decimals(range.start)
+  const endFormatted = format2Decimals(range.end)
+  const diffFormatted = format2Decimals(diff)
+
+  return `${diffFormatted} (${startFormatted} - ${endFormatted})`
+}
+
+const format2Decimals = value => Number(value / 100).toFixed(2)
 
 FlightDetails.propTypes = {
   aircraft,
