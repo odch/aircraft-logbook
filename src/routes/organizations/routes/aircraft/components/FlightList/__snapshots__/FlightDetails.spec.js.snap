@@ -242,37 +242,6 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
           className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
           data-shrink={true}
         >
-          Landung
-        </label>
-        <div
-          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            className="MuiInputBase-input-139 MuiInput-input-124"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            readOnly={true}
-            required={false}
-            type="text"
-            value="11:00"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
-    >
-      <div
-        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
-      >
-        <label
-          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
-          data-shrink={true}
-        >
           Block on
         </label>
         <div
@@ -294,10 +263,6 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
-  >
     <div
       className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
     >
@@ -308,7 +273,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
           className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
           data-shrink={true}
         >
-          Flugstunden
+          Landung
         </label>
         <div
           className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
@@ -324,14 +289,11 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             readOnly={true}
             required={false}
             type="text"
-            value="101.56 - 102.43"
+            value="11:00"
           />
         </div>
       </div>
     </div>
-    <div
-      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
-    />
   </div>
   <div
     className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
@@ -501,6 +463,110 @@ remarks"
         </div>
       </div>
     </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Flugstunden (nach Start- und Landezeit)
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="00:50"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Blockstunden
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="01:10"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Flugstunden (nach Zähler)
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="0.87 (101.56 - 102.43)"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    />
   </div>
 </div>
 `;
@@ -747,37 +813,6 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
           className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
           data-shrink={true}
         >
-          Landung
-        </label>
-        <div
-          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            className="MuiInputBase-input-139 MuiInput-input-124"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            readOnly={true}
-            required={false}
-            type="text"
-            value="11:00"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
-    >
-      <div
-        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
-      >
-        <label
-          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
-          data-shrink={true}
-        >
           Block on
         </label>
         <div
@@ -799,10 +834,6 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
-  >
     <div
       className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
     >
@@ -813,7 +844,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
           className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
           data-shrink={true}
         >
-          Flugstunden
+          Landung
         </label>
         <div
           className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
@@ -829,38 +860,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             readOnly={true}
             required={false}
             type="text"
-            value="101.56 - 102.43"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
-    >
-      <div
-        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
-      >
-        <label
-          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
-          data-shrink={true}
-        >
-          Motorstunden
-        </label>
-        <div
-          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            className="MuiInputBase-input-139 MuiInput-input-124"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            readOnly={true}
-            required={false}
-            type="text"
-            value="104.89 - 106.04"
+            value="11:00"
           />
         </div>
       </div>
@@ -1030,6 +1030,138 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             value="my
 test
 remarks"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Flugstunden (nach Start- und Landezeit)
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="00:50"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Blockstunden
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="01:10"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-1 MuiGrid-item-2 MuiGrid-grid-xs-12-41"
+  >
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Flugstunden (nach Zähler)
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="0.87 (101.56 - 102.43)"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-item-2 MuiGrid-grid-xs-6-35 MuiGrid-grid-sm-4-47"
+    >
+      <div
+        className="MuiFormControl-root-98 MuiFormControl-marginNormal-99 MuiFormControl-fullWidth-101"
+      >
+        <label
+          className="MuiFormLabel-root-109 MuiFormLabel-filled-113 MuiInputLabel-root-102 MuiInputLabel-formControl-103 MuiInputLabel-animated-106 MuiInputLabel-shrink-105"
+          data-shrink={true}
+        >
+          Motorstunden
+        </label>
+        <div
+          className="MuiInputBase-root-129 MuiInput-root-116 MuiInputBase-fullWidth-138 MuiInput-fullWidth-123 MuiInputBase-formControl-130 MuiInput-formControl-117"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            className="MuiInputBase-input-139 MuiInput-input-124"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            type="text"
+            value="1.15 (104.89 - 106.04)"
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { formatDate, formatTime, addHours } from './dates'
+import { formatDate, formatTime, addHours, getTimeDiff } from './dates'
 
 describe('util', () => {
   describe('dates', () => {
@@ -17,6 +17,18 @@ describe('util', () => {
           toDate: () => Date.parse('2018-11-20 10:00')
         }
         expect(formatTime(firestoreTimestamp)).toEqual('10:00')
+      })
+    })
+
+    describe('getTimeDiff', () => {
+      it('should return a formatted time diff string', () => {
+        const startTimestamp = {
+          toDate: () => Date.parse('2018-11-20 10:00')
+        }
+        const endTimestamp = {
+          toDate: () => Date.parse('2018-11-20 11:15')
+        }
+        expect(getTimeDiff(startTimestamp, endTimestamp)).toEqual('01:15')
       })
     })
 
