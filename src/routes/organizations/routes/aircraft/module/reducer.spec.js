@@ -6,21 +6,9 @@ const INITIAL_STATE = {
     open: false,
     submitting: false,
     data: {
-      initialized: false,
-      date: null,
-      pilot: null,
-      blockOffTime: null,
-      takeOffTime: null,
-      landingTime: null,
-      blockOnTime: null,
-      counters: {
-        flightHours: {
-          start: null,
-          end: null
-        }
-      }
+      initialized: false
     },
-    readOnlyFields: []
+    initialData: {}
   },
   deleteFlightDialog: {
     open: false
@@ -79,7 +67,7 @@ describe('routes', () => {
                 submitting: false,
                 open: true,
                 data: INITIAL_STATE.createFlightDialog.data,
-                readOnlyFields: []
+                initialData: {}
               }
             })
           })
@@ -110,7 +98,7 @@ describe('routes', () => {
                       initialized: false,
                       date: null,
                       counters: {
-                        flightHours: {
+                        flightTimeCounter: {
                           start: null,
                           end: null
                         }
@@ -118,17 +106,14 @@ describe('routes', () => {
                     }
                   }
                 },
-                actions.setInitialCreateFlightDialogData(
-                  {
-                    date: '2018-12-15',
-                    counters: {
-                      flightHours: {
-                        start: 348967
-                      }
+                actions.setInitialCreateFlightDialogData({
+                  date: '2018-12-15',
+                  counters: {
+                    flightTimeCounter: {
+                      start: 348967
                     }
-                  },
-                  ['counters.flightHours.start']
-                )
+                  }
+                })
               )
             ).toEqual({
               createFlightDialog: {
@@ -136,12 +121,19 @@ describe('routes', () => {
                   initialized: true,
                   date: '2018-12-15',
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       start: 348967
                     }
                   }
                 },
-                readOnlyFields: ['counters.flightHours.start']
+                initialData: {
+                  date: '2018-12-15',
+                  counters: {
+                    flightTimeCounter: {
+                      start: 348967
+                    }
+                  }
+                }
               }
             })
           })
@@ -155,7 +147,7 @@ describe('routes', () => {
                       date: '2018-12-15',
                       blockOffTime: '2018-12-15 10:15',
                       counters: {
-                        flightHours: {
+                        flightTimeCounter: {
                           start: 348967,
                           end: null
                         }
@@ -168,7 +160,7 @@ describe('routes', () => {
                   }
                 },
                 actions.updateCreateFlightDialogData({
-                  'counters.flightHours.start': 348970,
+                  'counters.flightTimeCounter.start': 348970,
                   blockOffTime: '2018-12-15 10:30',
                   blockOnTime: '2018-12-15 11:30'
                 })
@@ -180,7 +172,7 @@ describe('routes', () => {
                   blockOffTime: '2018-12-15 10:30',
                   blockOnTime: '2018-12-15 11:30',
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       start: 348970,
                       end: null
                     }
@@ -201,7 +193,7 @@ describe('routes', () => {
                     data: {
                       takeOffTime: '2018-12-15 10:15',
                       counters: {
-                        flightHours: {
+                        flightTimeCounter: {
                           start: 348967,
                           end: null
                         }
@@ -210,7 +202,7 @@ describe('routes', () => {
                   }
                 },
                 actions.updateCreateFlightDialogData({
-                  'counters.flightHours.end': 348977
+                  'counters.flightTimeCounter.end': 348977
                 })
               )
             ).toEqual({
@@ -219,7 +211,7 @@ describe('routes', () => {
                   takeOffTime: '2018-12-15 10:15',
                   landingTime: '2018-12-15 10:21',
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       start: 348967,
                       end: 348977
                     }
@@ -362,7 +354,7 @@ describe('routes', () => {
             it('does nothing if takeoff time not set', () => {
               const data = {
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967,
                     end: 349015
                   }
@@ -373,7 +365,7 @@ describe('routes', () => {
 
               expect(data).toEqual({
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967,
                     end: 349015
                   }
@@ -385,7 +377,7 @@ describe('routes', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     end: 349015
                   }
                 }
@@ -396,7 +388,7 @@ describe('routes', () => {
               expect(data).toEqual({
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     end: 349015
                   }
                 }
@@ -407,7 +399,7 @@ describe('routes', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967
                   }
                 }
@@ -418,7 +410,7 @@ describe('routes', () => {
               expect(data).toEqual({
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967
                   }
                 }
@@ -429,7 +421,7 @@ describe('routes', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967,
                     end: 349015
                   }
@@ -442,7 +434,7 @@ describe('routes', () => {
                 takeOffTime: '2018-12-15 10:30',
                 landingTime: '2018-12-15 10:58',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 348967,
                     end: 349015
                   }
@@ -454,7 +446,7 @@ describe('routes', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 0,
                     end: 100
                   }
@@ -467,7 +459,7 @@ describe('routes', () => {
                 takeOffTime: '2018-12-15 10:30',
                 landingTime: '2018-12-15 11:30',
                 counters: {
-                  flightHours: {
+                  flightTimeCounter: {
                     start: 0,
                     end: 100
                   }

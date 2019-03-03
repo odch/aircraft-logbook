@@ -48,11 +48,10 @@ export const closeCreateFlightDialog = () => ({
   type: CLOSE_CREATE_FLIGHT_DIALOG
 })
 
-export const setInitialCreateFlightDialogData = (data, readOnlyFields) => ({
+export const setInitialCreateFlightDialogData = data => ({
   type: SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA,
   payload: {
-    data,
-    readOnlyFields
+    data
   }
 })
 

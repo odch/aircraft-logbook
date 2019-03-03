@@ -72,7 +72,7 @@ describe('routes', () => {
                 'aircraftSettings',
                 'data',
                 'submitting',
-                'readOnlyFields'
+                'initialData'
               ]
 
               expect(Object.keys(component.props)).toEqual(

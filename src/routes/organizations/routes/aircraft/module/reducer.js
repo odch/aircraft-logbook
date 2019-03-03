@@ -1,4 +1,5 @@
 import _set from 'lodash.set'
+import _cloneDeep from 'lodash.clonedeep'
 import { createReducer } from '../../../../../util/reducer'
 import { addHours } from '../../../../../util/dates'
 import * as actions from './actions'
@@ -7,22 +8,10 @@ export const INITIAL_STATE = {
   createFlightDialog: {
     open: false,
     submitting: false,
+    initialData: {},
     data: {
-      initialized: false,
-      date: null,
-      pilot: null,
-      blockOffTime: null,
-      takeOffTime: null,
-      landingTime: null,
-      blockOnTime: null,
-      counters: {
-        flightHours: {
-          start: null,
-          end: null
-        }
-      }
-    },
-    readOnlyFields: []
+      initialized: false
+    }
   },
   deleteFlightDialog: {
     open: false
@@ -58,26 +47,30 @@ const setInitialCreateFlightDialogData = (state, action) => {
     const value = action.payload.data[key]
     _set(newData, key, value)
   })
+
+  const initialData = _cloneDeep(newData)
+
   newData.initialized = true
+  delete initialData.initialized
 
   return {
     ...state,
     createFlightDialog: {
       ...state.createFlightDialog,
       data: newData,
-      readOnlyFields: action.payload.readOnlyFields
+      initialData
     }
   }
 }
 
 export const updateLandingTime = data => {
-  if (data.takeOffTime && data.counters && data.counters.flightHours) {
-    const flightHours = data.counters.flightHours
+  if (data.takeOffTime && data.counters && data.counters.flightTimeCounter) {
+    const flightTime = data.counters.flightTimeCounter
     if (
-      typeof flightHours.start === 'number' &&
-      typeof flightHours.end === 'number'
+      typeof flightTime.start === 'number' &&
+      typeof flightTime.end === 'number'
     ) {
-      const flightDuration = (flightHours.end - flightHours.start) / 100
+      const flightDuration = (flightTime.end - flightTime.start) / 100
       data.landingTime = addHours(data.takeOffTime, flightDuration)
     }
   }

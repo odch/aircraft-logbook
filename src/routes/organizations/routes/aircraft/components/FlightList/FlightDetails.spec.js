@@ -2,6 +2,8 @@ import React from 'react'
 import renderIntl from '../../../../../../testutil/renderIntl'
 import FlightDetails from './FlightDetails'
 
+const counter = (start, end) => ({ start, end })
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -54,14 +56,10 @@ describe('routes', () => {
                   lastname: 'Keller'
                 },
                 counters: {
-                  flightHours: {
-                    start: 10156,
-                    end: 10243
-                  },
-                  engineHours: {
-                    start: 10489,
-                    end: 10604
-                  }
+                  flightHours: counter(10156, 10243),
+                  blockHours: counter(10267, 10391),
+                  engineHours: counter(10489, 10604),
+                  landings: counter(234, 235)
                 },
                 nature: 'vp',
                 landings: 1,
