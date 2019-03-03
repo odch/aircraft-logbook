@@ -42,7 +42,7 @@ const mapStateToProps = (state, ownProps) => {
     data: state.aircraft.createFlightDialog.data,
     validationErrors: state.aircraft.createFlightDialog.validationErrors,
     submitting: state.aircraft.createFlightDialog.submitting,
-    readOnlyFields: state.aircraft.createFlightDialog.readOnlyFields
+    initialData: state.aircraft.createFlightDialog.initialData
   }
 }
 

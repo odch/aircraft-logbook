@@ -253,139 +253,139 @@ describe('routes', () => {
               )
             })
 
-            it('should return an error if flight hours start counter is missing', () => {
+            it('should return an error if flight time start counter is missing', () => {
               return testFn(
                 {},
                 aircraftSettings1,
-                'counters.flightHours.start',
+                'counters.flightTimeCounter.start',
                 'required'
               )
             })
 
-            it('should return no error if flight hours start counter is set', () => {
+            it('should return no error if flight time start counter is set', () => {
               return testFn(
                 {
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       start: 10000
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.flightHours.start',
+                'counters.flightTimeCounter.start',
                 undefined
               )
             })
 
-            it('should return an error if flight hours end counter is missing', () => {
+            it('should return an error if flight time end counter is missing', () => {
               return testFn(
                 {},
                 aircraftSettings1,
-                'counters.flightHours.end',
+                'counters.flightTimeCounter.end',
                 'required'
               )
             })
 
-            it('should return no error if flight hours end counter is set', () => {
+            it('should return no error if flight time end counter is set', () => {
               return testFn(
                 {
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       end: 10000
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.flightHours.end',
+                'counters.flightTimeCounter.end',
                 undefined
               )
             })
 
-            it('should return an error if flight hours end counter is before start counter', () => {
+            it('should return an error if flight time end counter is before start counter', () => {
               return testFn(
                 {
                   counters: {
-                    flightHours: {
+                    flightTimeCounter: {
                       start: 10000,
                       end: 9999
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.flightHours.end',
+                'counters.flightTimeCounter.end',
                 'not_before_start_counter'
               )
             })
 
-            it('should return an error if engine hours start counter is missing', () => {
+            it('should return an error if engine time start counter is missing', () => {
               return testFn(
                 {},
                 aircraftSettings1,
-                'counters.engineHours.start',
+                'counters.engineTimeCounter.start',
                 'required'
               )
             })
 
-            it('should return no error if engine hours start counter is set', () => {
+            it('should return no error if engine time start counter is set', () => {
               return testFn(
                 {
                   counters: {
-                    engineHours: {
+                    engineTimeCounter: {
                       start: 10000
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.engineHours.start',
+                'counters.engineTimeCounter.start',
                 undefined
               )
             })
 
-            it('should return an error if engine hours end counter is missing', () => {
+            it('should return an error if engine time end counter is missing', () => {
               return testFn(
                 {},
                 aircraftSettings1,
-                'counters.engineHours.end',
+                'counters.engineTimeCounter.end',
                 'required'
               )
             })
 
-            it('should return no error if engine hours end counter is set', () => {
+            it('should return no error if engine time end counter is set', () => {
               return testFn(
                 {
                   counters: {
-                    engineHours: {
+                    engineTimeCounter: {
                       end: 10000
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.engineHours.end',
+                'counters.engineTimeCounter.end',
                 undefined
               )
             })
 
-            it('should return an error if engine hours end counter is before start counter', () => {
+            it('should return an error if engine time end counter is before start counter', () => {
               return testFn(
                 {
                   counters: {
-                    engineHours: {
+                    engineTimeCounter: {
                       start: 10000,
                       end: 9999
                     }
                   }
                 },
                 aircraftSettings1,
-                'counters.engineHours.end',
+                'counters.engineTimeCounter.end',
                 'not_before_start_counter'
               )
             })
 
-            it('should return no error if engine hours counter is missing or invalid but not enabled in settings', () => {
+            it('should return no error if engine time counter is missing or invalid but not enabled in settings', () => {
               return testFn(
                 {},
                 aircraftSettings2,
-                'counters.engineHours.start',
+                'counters.engineTimeCounter.start',
                 undefined
               )
             })

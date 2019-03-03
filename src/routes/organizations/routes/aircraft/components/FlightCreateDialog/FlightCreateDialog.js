@@ -12,6 +12,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { DatePicker, TimePicker } from 'material-ui-pickers'
 import Select from '../../../../../../components/Select'
@@ -23,12 +24,18 @@ import {
   member as memberShape
 } from '../../../../../../shapes'
 import { getMemberOptions, getAerodromeOptions } from '../../util/getOptions'
+import getMissingFields from '../../util/getMissingFields'
 
-const styles = {
+const styles = theme => ({
   loadingIconContainer: {
     height: 200
+  },
+  initialValuesContainer: {
+    backgroundColor: theme.palette.grey[100],
+    padding: '1em',
+    borderRadius: 4
   }
-}
+})
 
 class FlightCreateDialog extends React.Component {
   handleDateChange = name => momentDate => {
@@ -99,6 +106,8 @@ class FlightCreateDialog extends React.Component {
 
   msg = id => this.props.intl.formatMessage({ id })
 
+  hasInitialValue = name => !!_get(this.props.initialData, name)
+
   render() {
     const { data } = this.props
     return (
@@ -127,6 +136,7 @@ class FlightCreateDialog extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <DialogContent>
+          {this.renderRequiredInitialValueFields()}
           {this.renderDatePicker('date')}
           {this.renderSelect('pilot', memberOptions)}
           {this.renderSelect('instructor', memberOptions)}
@@ -134,19 +144,25 @@ class FlightCreateDialog extends React.Component {
           {this.renderSelect('departureAerodrome', aerodromeOptions)}
           {this.renderSelect('destinationAerodrome', aerodromeOptions)}
           {this.renderInTwoColumns(
-            'counters.flighthours',
-            this.renderDecimalField('counters.flightHours.start'),
-            this.renderDecimalField('counters.flightHours.end')
+            'counters.flighttimecounter',
+            this.renderDecimalField(
+              'counters.flightTimeCounter.start',
+              this.hasInitialValue('counters.flightTimeCounter.start')
+            ),
+            this.renderDecimalField('counters.flightTimeCounter.end')
           )}
           {engineHoursCounterEnabled &&
             this.renderInTwoColumns(
-              'counters.enginehours',
-              this.renderDecimalField('counters.engineHours.start'),
-              this.renderDecimalField('counters.engineHours.end')
+              'counters.enginetimecounter',
+              this.renderDecimalField(
+                'counters.engineTimeCounter.start',
+                this.hasInitialValue('counters.engineTimeCounter.start')
+              ),
+              this.renderDecimalField('counters.engineTimeCounter.end')
             )}
           {this.renderTimePicker('blockOffTime')}
           {this.renderTimePicker('takeOffTime')}
-          {this.renderTimePicker('landingTime')}
+          {this.renderTimePicker('landingTime', true)}
           {this.renderTimePicker('blockOnTime')}
           {this.renderIntegerField('landings')}
           {this.renderInTwoColumns(
@@ -174,6 +190,48 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
+  renderRequiredInitialValueFields() {
+    const {
+      initialData,
+      aircraftSettings: { engineHoursCounterEnabled },
+      classes
+    } = this.props
+
+    const requiredFields = [
+      'counters.flights.start',
+      'counters.landings.start',
+      'counters.flightHours.start',
+      'counters.blockHours.start'
+    ]
+    if (engineHoursCounterEnabled) {
+      requiredFields.push('counters.engineHours.start')
+    }
+
+    const requiredInitialValues = getMissingFields(initialData, requiredFields)
+
+    if (requiredInitialValues.length === 0) {
+      return null
+    }
+
+    return (
+      <div className={classes.initialValuesContainer}>
+        <Typography>
+          <FormattedMessage id={`flight.create.dialog.requiredinitialvalues`} />
+        </Typography>
+        {requiredInitialValues.includes('counters.flights.start') &&
+          this.renderIntegerField('counters.flights.start')}
+        {requiredInitialValues.includes('counters.landings.start') &&
+          this.renderIntegerField('counters.landings.start')}
+        {requiredInitialValues.includes('counters.flightHours.start') &&
+          this.renderDecimalField('counters.flightHours.start')}
+        {requiredInitialValues.includes('counters.blockHours.start') &&
+          this.renderDecimalField('counters.blockHours.start')}
+        {requiredInitialValues.includes('counters.engineHours.start') &&
+          this.renderDecimalField('counters.engineHours.start')}
+      </div>
+    )
+  }
+
   renderInTwoColumns(label, component1, component2) {
     return (
       <FormControl component="fieldset" margin="normal" fullWidth>
@@ -196,9 +254,7 @@ class FlightCreateDialog extends React.Component {
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
 
-    const isDisabled =
-      this.props.submitting ||
-      (this.props.readOnlyFields && this.props.readOnlyFields.includes(name))
+    const isDisabled = this.props.submitting
 
     return (
       <FormControl fullWidth error={hasError} disabled={isDisabled}>
@@ -243,7 +299,7 @@ class FlightCreateDialog extends React.Component {
     ))
   }
 
-  renderTimePicker(name) {
+  renderTimePicker(name, disabled) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TimePicker
         keyboard
@@ -258,12 +314,12 @@ class FlightCreateDialog extends React.Component {
         clearable
         invalidDateMessage={this.msg('flight.create.dialog.timeinvalid')}
         error={hasError}
-        disabled={isDisabled}
+        disabled={disabled || isDisabled}
       />
     ))
   }
 
-  renderDecimalField(name) {
+  renderDecimalField(name, disabled) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <DecimalField
         name={name}
@@ -274,7 +330,7 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         fullWidth
         error={hasError}
-        disabled={isDisabled}
+        disabled={disabled || isDisabled}
       />
     ))
   }
@@ -319,43 +375,75 @@ class FlightCreateDialog extends React.Component {
   }
 }
 
+const flightDataShape = PropTypes.shape({
+  date: PropTypes.string,
+  nature: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  blockOffTime: PropTypes.string,
+  takeOffTime: PropTypes.string,
+  landingTime: PropTypes.string,
+  blockOnTime: PropTypes.string,
+  pilot: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  departureAerodrome: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  destinationAerodrome: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  landings: PropTypes.number,
+  fuelUplift: PropTypes.number,
+  fuelType: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  oilUplift: PropTypes.number,
+  remarks: PropTypes.string,
+  counters: PropTypes.shape({
+    flights: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    landings: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    flightHours: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    blockHours: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    engineHours: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    flightTimeCounter: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    }),
+    engineTimeCounter: PropTypes.shape({
+      start: PropTypes.number,
+      end: PropTypes.number
+    })
+  })
+})
+
 FlightCreateDialog.propTypes = {
   organizationId: PropTypes.string.isRequired,
   aircraftId: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    date: PropTypes.string,
-    nature: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    }),
-    blockOffTime: PropTypes.string,
-    takeOffTime: PropTypes.string,
-    landingTime: PropTypes.string,
-    blockOnTime: PropTypes.string,
-    pilot: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    }),
-    departureAerodrome: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    }),
-    destinationAerodrome: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    }),
-    landings: PropTypes.number,
-    fuelUplift: PropTypes.number,
-    fuelType: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    }),
-    oilUplift: PropTypes.number,
-    remarks: PropTypes.string
-  }).isRequired,
+  initialData: flightDataShape.isRequired,
+  data: flightDataShape.isRequired,
   validationErrors: PropTypes.objectOf(PropTypes.string),
   submitting: PropTypes.bool,
-  readOnlyFields: PropTypes.arrayOf(PropTypes.string),
   organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
     PropTypes.shape({

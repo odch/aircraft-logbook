@@ -1,6 +1,5 @@
 import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
-import _get from 'lodash.get'
 import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
 import { getMemberOption, getAerodromeOption } from '../util/getOptions'
@@ -8,6 +7,7 @@ import { error } from '../../../../../util/log'
 import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import validateFlight from './util/validateFlight'
+import { getCounters } from './util/counters'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
@@ -171,6 +171,8 @@ export function* createFlight({
     const oilUplift =
       typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
 
+    const counters = getCounters(data)
+
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
@@ -199,7 +201,7 @@ export function* createFlight({
         data.blockOnTime,
         destinationTimezone
       ),
-      counters: data.counters,
+      counters,
       landings: data.landings,
       fuelUplift,
       fuelType,
@@ -233,27 +235,30 @@ export function* initCreateFlightDialog({
   const currentMember = yield call(getCurrentMember)
   const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
 
-  const readOnlyFields = ['landingTime']
-
-  const departureAerodrome = lastFlight
-    ? yield call(getDestinationAerodrome, lastFlight)
-    : null
-  if (departureAerodrome) readOnlyFields.push('departureAerodrome')
-
-  const counters = {}
-
-  const flightHoursStart = _get(lastFlight, 'counters.flightHours.end')
-  counters.flightHours = {
-    start: flightHoursStart
-  }
-  if (flightHoursStart) readOnlyFields.push('counters.flightHours.start')
+  const counterNames = [
+    'flights',
+    'landings',
+    'flightHours',
+    'blockHours',
+    'flightTimeCounter'
+  ]
 
   if (aircraftSettings.engineHoursCounterEnabled === true) {
-    const engineHoursStart = _get(lastFlight, 'counters.engineHours.end')
-    counters.engineHours = {
-      start: engineHoursStart
-    }
-    if (engineHoursStart) readOnlyFields.push('counters.engineHours.start')
+    counterNames.push('engineTimeCounter')
+    counterNames.push('engineHours')
+  }
+
+  const counters = initCounters(counterNames)
+
+  let departureAerodrome
+
+  if (lastFlight) {
+    departureAerodrome = yield call(getDestinationAerodrome, lastFlight)
+    setStartCounters(counters, lastFlight.counters || {}, counterNames)
+  }
+
+  if (typeof counters.flights.start === 'undefined') {
+    counters.flights.start = 0
   }
 
   const data = {
@@ -262,10 +267,30 @@ export function* initCreateFlightDialog({
     departureAerodrome: departureAerodrome
       ? getAerodromeOption(departureAerodrome)
       : null,
-    counters
+    counters,
+    blockOffTime: null,
+    takeOffTime: null,
+    landingTime: null,
+    blockOnTime: null
   }
 
-  yield put(actions.setInitialCreateFlightDialogData(data, readOnlyFields))
+  yield put(actions.setInitialCreateFlightDialogData(data))
+}
+
+export function initCounters(names) {
+  const counters = {}
+  names.forEach(name => {
+    counters[name] = {}
+  })
+  return counters
+}
+
+export function setStartCounters(target, source, counterNames) {
+  counterNames.forEach(counterName => {
+    if (source[counterName] && source[counterName].end) {
+      target[counterName].start = source[counterName].end
+    }
+  })
 }
 
 export function* deleteFlight({

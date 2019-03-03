@@ -114,34 +114,34 @@ export function validateSync(
     errors['oilUplift'] = 'invalid'
   }
 
-  const flightHoursStart = _get(data, 'counters.flightHours.start')
-  const flightHoursEnd = _get(data, 'counters.flightHours.end')
+  const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
+  const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
 
-  if (typeof flightHoursStart === 'undefined') {
-    errors['counters.flightHours.start'] = 'required'
+  if (typeof flightTimeStart === 'undefined') {
+    errors['counters.flightTimeCounter.start'] = 'required'
   }
-  if (typeof flightHoursEnd === 'undefined') {
-    errors['counters.flightHours.end'] = 'required'
+  if (typeof flightTimeEnd === 'undefined') {
+    errors['counters.flightTimeCounter.end'] = 'required'
   }
-  if (flightHoursStart && flightHoursEnd) {
-    if (flightHoursEnd < flightHoursStart) {
-      errors['counters.flightHours.end'] = 'not_before_start_counter'
+  if (flightTimeStart && flightTimeEnd) {
+    if (flightTimeEnd < flightTimeStart) {
+      errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
     }
   }
 
   if (aircraftSettings.engineHoursCounterEnabled === true) {
-    const engineHoursStart = _get(data, 'counters.engineHours.start')
-    const engineHoursEnd = _get(data, 'counters.engineHours.end')
+    const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
+    const engineTimeEnd = _get(data, 'counters.engineTimeCounter.end')
 
-    if (typeof engineHoursStart === 'undefined') {
-      errors['counters.engineHours.start'] = 'required'
+    if (typeof engineTimeStart === 'undefined') {
+      errors['counters.engineTimeCounter.start'] = 'required'
     }
-    if (typeof engineHoursEnd === 'undefined') {
-      errors['counters.engineHours.end'] = 'required'
+    if (typeof engineTimeEnd === 'undefined') {
+      errors['counters.engineTimeCounter.end'] = 'required'
     }
-    if (engineHoursStart && engineHoursEnd) {
-      if (engineHoursEnd < engineHoursStart) {
-        errors['counters.engineHours.end'] = 'not_before_start_counter'
+    if (engineTimeStart && engineTimeEnd) {
+      if (engineTimeEnd < engineTimeStart) {
+        errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
       }
     }
   }

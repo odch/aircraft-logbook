@@ -8,6 +8,8 @@ import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
 import validateFlight from './util/validateFlight'
 
+const counter = (start, end) => ({ start, end })
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -130,14 +132,13 @@ describe('routes', () => {
                 landingTime: '2018-12-15 10:35',
                 blockOnTime: '2018-12-15 10:40',
                 counters: {
-                  flightHours: {
-                    start: 45780,
-                    end: 45830
-                  },
-                  engineHours: {
-                    start: 50145,
-                    end: 50612
-                  }
+                  flightTimeCounter: counter(45780, 45830),
+                  engineTimeCounter: counter(50145, 50612),
+                  flightHours: { start: 58658 },
+                  blockHours: { start: 61254 },
+                  engineHours: { start: 65865 },
+                  flights: { start: 464 },
+                  landings: { start: 3846 }
                 },
                 landings: 3,
                 fuelUplift: 5789,
@@ -240,14 +241,13 @@ describe('routes', () => {
                     landingTime: new Date('2018-12-15T09:35:00.000Z'),
                     blockOnTime: new Date('2018-12-15T09:40:00.000Z'),
                     counters: {
-                      flightHours: {
-                        start: 45780,
-                        end: 45830
-                      },
-                      engineHours: {
-                        start: 50145,
-                        end: 50612
-                      }
+                      flightTimeCounter: counter(45780, 45830),
+                      engineTimeCounter: counter(50145, 50612),
+                      flightHours: counter(58658, 58708),
+                      blockHours: counter(61254, 61321),
+                      engineHours: counter(65865, 66332),
+                      flights: counter(464, 465),
+                      landings: counter(3846, 3849)
                     },
                     landings: 3,
                     fuelUplift: 57.89,
@@ -345,14 +345,13 @@ describe('routes', () => {
             }
             const lastFlight = {
               counters: {
-                flightHours: {
-                  start: 10145,
-                  end: 10250
-                },
-                engineHours: {
-                  start: 10378,
-                  end: 10502
-                }
+                flights: counter(122, 123),
+                flightHours: counter(10145, 10250),
+                engineHours: counter(10378, 10502),
+                blockHours: counter(10145, 10250),
+                landings: counter(2356, 2357),
+                flightTimeCounter: counter(9145, 9250),
+                engineTimeCounter: counter(9378, 9502)
               }
             }
             const destinationAerodrome = {
@@ -366,13 +365,6 @@ describe('routes', () => {
                 engineHoursCounterEnabled: true
               }
 
-              const expectedReadOnlyFields = [
-                'landingTime',
-                'departureAerodrome',
-                'counters.flightHours.start',
-                'counters.engineHours.start'
-              ]
-
               const expectedDefaultValues = {
                 date: today,
                 pilot: {
@@ -384,13 +376,18 @@ describe('routes', () => {
                   label: 'Lommis (LSZT)'
                 },
                 counters: {
-                  flightHours: {
-                    start: 10250
-                  },
-                  engineHours: {
-                    start: 10502
-                  }
-                }
+                  flights: { start: 123 },
+                  flightHours: { start: 10250 },
+                  blockHours: { start: 10250 },
+                  engineHours: { start: 10502 },
+                  landings: { start: 2357 },
+                  flightTimeCounter: { start: 9250 },
+                  engineTimeCounter: { start: 9502 }
+                },
+                blockOffTime: null,
+                takeOffTime: null,
+                landingTime: null,
+                blockOnTime: null
               }
 
               return expectSaga(sagas.initCreateFlightDialog, action)
@@ -408,8 +405,7 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues,
-                    expectedReadOnlyFields
+                    expectedDefaultValues
                   )
                 )
                 .run()
@@ -420,12 +416,6 @@ describe('routes', () => {
                 engineHoursCounterEnabled: false
               }
 
-              const expectedReadOnlyFields = [
-                'landingTime',
-                'departureAerodrome',
-                'counters.flightHours.start'
-              ]
-
               const expectedDefaultValues = {
                 date: today,
                 pilot: {
@@ -437,10 +427,16 @@ describe('routes', () => {
                   label: 'Lommis (LSZT)'
                 },
                 counters: {
-                  flightHours: {
-                    start: 10250
-                  }
-                }
+                  flights: { start: 123 },
+                  flightHours: { start: 10250 },
+                  blockHours: { start: 10250 },
+                  landings: { start: 2357 },
+                  flightTimeCounter: { start: 9250 }
+                },
+                blockOffTime: null,
+                takeOffTime: null,
+                landingTime: null,
+                blockOnTime: null
               }
 
               return expectSaga(sagas.initCreateFlightDialog, action)
@@ -458,8 +454,7 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues,
-                    expectedReadOnlyFields
+                    expectedDefaultValues
                   )
                 )
                 .run()

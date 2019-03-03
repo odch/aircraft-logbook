@@ -2,6 +2,7 @@ import React from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
+import Divider from '@material-ui/core/Divider'
 import { aircraft, flight } from '../../../../../../shapes'
 import {
   formatDate,
@@ -11,117 +12,148 @@ import {
 
 const FlightDetails = ({ aircraft, flight, intl }) => {
   return (
-    <Grid container>
-      <Grid item xs={12} container>
-        <Grid item xs={12} sm={4}>
-          {renderField('date', formatDate(flight.blockOffTime), intl)}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('pilot', getMemberName(flight.pilot), intl)}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('instructor', getMemberName(flight.instructor), intl)}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} container>
-        <Grid item xs={12} sm={4}>
-          {renderField(
-            'departureaerodrome',
-            getAerodromeName(flight.departureAerodrome),
-            intl
-          )}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('blockofftime', formatTime(flight.blockOffTime), intl)}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('takeofftime', formatTime(flight.takeOffTime), intl)}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} container>
-        <Grid item xs={12} sm={4}>
-          {renderField(
-            'destinationaerodrome',
-            getAerodromeName(flight.destinationAerodrome),
-            intl
-          )}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('blockontime', formatTime(flight.blockOnTime), intl)}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField('landingtime', formatTime(flight.landingTime), intl)}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} container>
-        <Grid item xs={12} sm={4}>
-          {renderField('nature', getFlightNature(flight.nature, intl), intl)}
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          {renderField(
-            'fueluplift',
-            getFuel(
-              flight.fuelUplift,
-              flight.fuelType,
-              aircraft.settings.fuelTypes
-            ),
-            intl
-          )}
-        </Grid>
-        <Grid item xs={12} sm={4}>
+    <div>
+      <Grid container>
+        <Grid item xs={12} container>
           <Grid item xs={12} sm={4}>
-            {renderField('oiluplift', getOil(flight.oilUplift), intl)}
+            {renderField('date', formatDate(flight.blockOffTime), intl)}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('pilot', getMemberName(flight.pilot), intl)}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('instructor', getMemberName(flight.instructor), intl)}
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs={12} container>
-        <Grid item xs={12} sm={4}>
-          {renderField('landings', flight.landings, intl)}
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          {renderField('remarks', flight.remarks || '-', intl)}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} container>
-        <Grid item xs={6} sm={4}>
-          {renderField(
-            'flighthours_time',
-            getTimeDiff(flight.takeOffTime, flight.landingTime),
-            intl
-          )}
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField(
-            'blockhours',
-            getTimeDiff(flight.blockOffTime, flight.blockOnTime),
-            intl
-          )}
-        </Grid>
-      </Grid>
-      {flight.counters && (
         <Grid item xs={12} container>
-          {flight.counters.flightHours && (
-            <Grid item xs={6} sm={4}>
-              {renderField(
-                'flighthours_counter',
-                getDecimalRange(flight.counters.flightHours),
-                intl
-              )}
+          <Grid item xs={12} sm={4}>
+            {renderField(
+              'departureaerodrome',
+              getAerodromeName(flight.departureAerodrome),
+              intl
+            )}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('blockofftime', formatTime(flight.blockOffTime), intl)}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('takeofftime', formatTime(flight.takeOffTime), intl)}
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={4}>
+            {renderField(
+              'destinationaerodrome',
+              getAerodromeName(flight.destinationAerodrome),
+              intl
+            )}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('blockontime', formatTime(flight.blockOnTime), intl)}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField('landingtime', formatTime(flight.landingTime), intl)}
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={4}>
+            {renderField('nature', getFlightNature(flight.nature, intl), intl)}
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            {renderField(
+              'fueluplift',
+              getFuel(
+                flight.fuelUplift,
+                flight.fuelType,
+                aircraft.settings.fuelTypes
+              ),
+              intl
+            )}
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4}>
+              {renderField('oiluplift', getOil(flight.oilUplift), intl)}
             </Grid>
-          )}
-          {flight.counters.engineHours && (
-            <Grid item xs={6} sm={4}>
-              {aircraft.settings.engineHoursCounterEnabled &&
-                renderField(
-                  'enginehours',
-                  getDecimalRange(flight.counters.engineHours),
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={4}>
+            {renderField('landings', flight.landings, intl)}
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            {renderField('remarks', flight.remarks || '-', intl)}
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container>
+          <Grid item xs={6} sm={4}>
+            {renderField(
+              'flighthours_time',
+              getTimeDiff(flight.takeOffTime, flight.landingTime),
+              intl
+            )}
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            {renderField(
+              'blockhours',
+              getTimeDiff(flight.blockOffTime, flight.blockOnTime),
+              intl
+            )}
+          </Grid>
+        </Grid>
+        {flight.counters && (
+          <Grid item xs={12} container>
+            {flight.counters.flightTimeCounter && (
+              <Grid item xs={6} sm={4}>
+                {renderField(
+                  'flighthours_counter',
+                  getDecimalRange(flight.counters.flightTimeCounter),
                   intl
                 )}
-            </Grid>
+              </Grid>
+            )}
+            {flight.counters.engineTimeCounter && (
+              <Grid item xs={6} sm={4}>
+                {aircraft.settings.engineHoursCounterEnabled &&
+                  renderField(
+                    'enginehours',
+                    getDecimalRange(flight.counters.engineTimeCounter),
+                    intl
+                  )}
+              </Grid>
+            )}
+          </Grid>
+        )}
+      </Grid>
+      <Divider />
+      <Grid item xs={12} container>
+        <Grid item xs={6} sm={4}>
+          {renderField(
+            'total.flighthours',
+            format2Decimals(flight.counters.flightHours.end),
+            intl
           )}
         </Grid>
-      )}
-    </Grid>
+        <Grid item xs={6} sm={4}>
+          {renderField(
+            'total.blockhours',
+            format2Decimals(flight.counters.blockHours.end),
+            intl
+          )}
+        </Grid>
+        {flight.counters.engineHours && (
+          <Grid item xs={6} sm={4}>
+            {renderField(
+              'total.enginehours',
+              format2Decimals(flight.counters.engineHours.end),
+              intl
+            )}
+          </Grid>
+        )}
+        <Grid item xs={6} sm={4}>
+          {renderField('total.landings', flight.counters.landings.end, intl)}
+        </Grid>
+      </Grid>
+    </div>
   )
 }
 
