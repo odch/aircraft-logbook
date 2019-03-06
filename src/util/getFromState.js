@@ -36,3 +36,14 @@ export const getAircraftFlights = (state, aircraftId, page) => {
   }
   return undefined
 }
+
+export const getAircraftFlightsCount = (state, aircraftId) => {
+  const flights = state.firestore.ordered[`flights-${aircraftId}-0`]
+  if (flights) {
+    if (flights.length > 0) {
+      const newestFlight = flights[0]
+      return newestFlight.counters.flights.end
+    }
+  }
+  return 0
+}

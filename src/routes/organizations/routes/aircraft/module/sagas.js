@@ -217,10 +217,9 @@ export function* createFlight({
       dataToStore
     )
 
-    const { page, rowsPerPage } = yield select(aircraftFlightsViewSelector)
-    yield put(
-      actions.fetchFlights(organizationId, aircraftId, page, rowsPerPage)
-    )
+    const { rowsPerPage } = yield select(aircraftFlightsViewSelector)
+    yield put(actions.fetchFlights(organizationId, aircraftId, 0, rowsPerPage))
+    yield put(actions.setFlightsPage(0))
     yield put(actions.createFlightSuccess())
   } catch (e) {
     error(`Failed to create flight`, e)

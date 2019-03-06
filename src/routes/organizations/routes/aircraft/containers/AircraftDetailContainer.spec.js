@@ -43,6 +43,9 @@ describe('routes', () => {
                         pilot: {
                           firstname: 'Max',
                           lastname: 'Muster'
+                        },
+                        counters: {
+                          flights: { end: 2 }
                         }
                       },
                       {
@@ -58,6 +61,9 @@ describe('routes', () => {
                         pilot: {
                           firstname: 'Hans',
                           lastname: 'Meier'
+                        },
+                        counters: {
+                          flights: { end: 1 }
                         }
                       }
                     ]
@@ -115,7 +121,8 @@ describe('routes', () => {
                 'match',
                 'organization',
                 'aircraft',
-                'flights'
+                'flights',
+                'flightsPagination'
               ]
 
               expect(Object.keys(component.props)).toEqual(
