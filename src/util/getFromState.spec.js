@@ -1,7 +1,8 @@
 import {
   getOrganization,
   getAircraft,
-  getAircraftFlights
+  getAircraftFlights,
+  getAircraftFlightsCount
 } from './getFromState'
 
 describe('util', () => {
@@ -173,6 +174,68 @@ describe('util', () => {
 
         const flights = getAircraftFlights(state, 'o7flC7jw8jmkOfWo8oyA', 0)
         expect(flights).toEqual([])
+      })
+    })
+
+    describe('getAircraftFlightsCount', () => {
+      it('should return fights end counter of last flight', () => {
+        const state = {
+          firestore: {
+            ordered: {
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
+                {
+                  counters: {
+                    flights: { end: 4 }
+                  }
+                },
+                {
+                  counters: {
+                    flights: { end: 3 }
+                  }
+                }
+              ],
+              'flights-o7flC7jw8jmkOfWo8oyA-1': [
+                {
+                  counters: {
+                    flights: { end: 2 }
+                  }
+                },
+                {
+                  counters: {
+                    flights: { end: 1 }
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const count = getAircraftFlightsCount(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(count).toEqual(4)
+      })
+
+      it('should return 0 if flights not loaded', () => {
+        const state = {
+          firestore: {
+            ordered: {}
+          }
+        }
+
+        const count = getAircraftFlightsCount(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(count).toEqual(0)
+      })
+
+      it('should return 0 if it has no flights', () => {
+        const state = {
+          firestore: {
+            ordered: {
+              'flights-o7flC7jw8jmkOfWo8oyA-0': []
+            }
+          }
+        }
+
+        const count = getAircraftFlightsCount(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(count).toEqual(0)
       })
     })
   })

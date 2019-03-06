@@ -4,7 +4,8 @@ import AircraftDetail from '../components/AircraftDetail'
 import {
   getOrganization,
   getAircraft,
-  getAircraftFlights
+  getAircraftFlights,
+  getAircraftFlightsCount
 } from '../../../../../util/getFromState'
 import { fetchAircrafts, fetchMembers } from '../../../module'
 import {
@@ -34,7 +35,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const flightsPagination = aircraft
     ? {
-        rowsCount: aircraft.counters ? aircraft.counters.flights || 0 : 0,
+        rowsCount: getAircraftFlightsCount(state, aircraftId),
         page: state.aircraft.flights.page,
         rowsPerPage: state.aircraft.flights.rowsPerPage
       }

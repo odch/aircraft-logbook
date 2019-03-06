@@ -265,12 +265,14 @@ describe('routes', () => {
               )
 
               const aircraftFlightsView = {
-                page: 0,
                 rowsPerPage: 10
               }
 
               expect(generator.next(aircraftFlightsView).value).toEqual(
                 put(actions.fetchFlights(organizationId, aircraftId, 0, 10))
+              )
+              expect(generator.next().value).toEqual(
+                put(actions.setFlightsPage(0))
               )
               expect(generator.next().value).toEqual(
                 put(actions.createFlightSuccess())
