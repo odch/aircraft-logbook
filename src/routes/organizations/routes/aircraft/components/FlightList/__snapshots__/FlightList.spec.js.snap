@@ -35,13 +35,13 @@ exports[`routes organizations routes aircraft components FlightList renders corr
             <span
               className="FlightList-bold-4"
             >
-              Lommis
+              LSZT
             </span>
              nach 
             <span
               className="FlightList-bold-4"
             >
-              Lommis
+              LSZT
             </span>
              — Max Muster
           </span>
@@ -146,13 +146,13 @@ exports[`routes organizations routes aircraft components FlightList renders corr
             <span
               className="FlightList-bold-4"
             >
-              Lommis
+              LSZT
             </span>
              nach 
             <span
               className="FlightList-bold-4"
             >
-              Lommis
+              LSZT
             </span>
              — Hans Meier
           </span>
