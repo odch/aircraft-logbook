@@ -84,12 +84,12 @@ class FlightList extends React.Component {
                     values={{
                       departureAerodrome: (
                         <span className={classes.bold}>
-                          {flight.departureAerodrome.name}
+                          {flight.departureAerodrome.identification}
                         </span>
                       ),
                       destinationAerodrome: (
                         <span className={classes.bold}>
-                          {flight.destinationAerodrome.name}
+                          {flight.destinationAerodrome.identification}
                         </span>
                       ),
                       firstname: flight.pilot.firstname,
