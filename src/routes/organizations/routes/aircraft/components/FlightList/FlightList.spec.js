@@ -12,8 +12,8 @@ describe('routes', () => {
               const flights = [
                 {
                   id: 'sStfyLd2XArT7oUZPFDn',
-                  departureAerodrome: { name: 'Lommis' },
-                  destinationAerodrome: { name: 'Lommis' },
+                  departureAerodrome: { name: 'Lommis', identification: 'LSZT' },
+                  destinationAerodrome: { name: 'Lommis', identification: 'LSZT' },
                   blockOffTime: {
                     toDate: () => Date.parse('2018-11-20 10:00')
                   },
@@ -33,8 +33,8 @@ describe('routes', () => {
                 },
                 {
                   id: 'sStfyLd2XArT7oUZPFDa',
-                  departureAerodrome: { name: 'Lommis' },
-                  destinationAerodrome: { name: 'Lommis' },
+                  departureAerodrome: { name: 'Lommis', identification: 'LSZT' },
+                  destinationAerodrome: { name: 'Lommis', identification: 'LSZT' },
                   blockOffTime: {
                     toDate: () => Date.parse('2018-11-21 10:00')
                   },
