@@ -15,7 +15,7 @@ admin.initializeApp({
 const firestore = admin.firestore()
 
 fs.createReadStream('./data/airports_openflights.csv')
-  .pipe(csv())
+  .pipe(csv.parse())
   .on('data', function(data) {
     const aerodrome = {
       name: data[1],
