@@ -32,7 +32,7 @@ admin.initializeApp({
 const firestore = admin.firestore()
 
 fs.createReadStream('./members.csv')
-  .pipe(csv())
+  .pipe(csv.parse())
   .on('data', function(data) {
     const member = {
       nr: data[0],
