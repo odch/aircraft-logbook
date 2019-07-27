@@ -42,7 +42,12 @@ export const loadRoute = (
 
             if (route.historyListeners) {
               for (const name in route.historyListeners) {
-                if (route.historyListeners.hasOwnProperty(name)) {
+                if (
+                  Object.prototype.hasOwnProperty.call(
+                    route.historyListeners,
+                    name
+                  )
+                ) {
                   const existingListener = historyListeners[name]
                   if (existingListener) {
                     existingListener.unlisten()
