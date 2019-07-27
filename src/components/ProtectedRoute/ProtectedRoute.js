@@ -22,7 +22,8 @@ const ProtectedRoute = ({ render, protect, authed, ...rest }) => (
 ProtectedRoute.propTypes = {
   render: PropTypes.func.isRequired,
   protect: PropTypes.bool,
-  authed: PropTypes.bool.isRequired
+  authed: PropTypes.bool.isRequired,
+  location: PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => ({
