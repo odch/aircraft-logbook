@@ -13,7 +13,7 @@ function getToggles() {
   const projectToggles = __CONF__.features || {}
 
   Object.keys(projectToggles).forEach(feature => {
-    if (merged.hasOwnProperty(feature)) {
+    if (Object.prototype.hasOwnProperty.call(merged, feature)) {
       merged[feature] = projectToggles[feature]
     } else {
       throw `Unknown feature toggle '${feature}'`
