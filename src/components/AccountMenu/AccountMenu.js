@@ -32,9 +32,7 @@ class AccountMenu extends React.Component {
             data-cy="menu-item-selected-organization"
             component={Link}
             to={`/organizations/${this.props.organization.id}`}
-            key={`menu-item-selected-organization-${
-              this.props.organization.id
-            }`}
+            key={`menu-item-selected-organization-${this.props.organization.id}`}
           >
             {this.props.organization.id}
           </MenuItem>,
@@ -42,9 +40,7 @@ class AccountMenu extends React.Component {
             data-cy="menu-item-selected-organization-settings"
             component={Link}
             to={`/organizations/${this.props.organization.id}/settings`}
-            key={`menu-item-selected-organization-settings-${
-              this.props.organization.id
-            }`}
+            key={`menu-item-selected-organization-settings-${this.props.organization.id}`}
           >
             <FormattedMessage id="menu.account.organizationsettings" />
           </MenuItem>,

@@ -69,18 +69,17 @@ class MemberList extends React.Component {
           page={pagination.page}
           onChangePage={(event, page) => setMembersPage(page)}
         />
-        {deleteMemberDialog &&
-          deleteMemberDialog.open && (
-            <DeleteMemberDialog
-              organizationId={organizationId}
-              member={deleteMemberDialog.member}
-              submitting={deleteMemberDialog.submitting}
-              onConfirm={() =>
-                deleteMember(organizationId, deleteMemberDialog.member.id)
-              }
-              onClose={closeDeleteMemberDialog}
-            />
-          )}
+        {deleteMemberDialog && deleteMemberDialog.open && (
+          <DeleteMemberDialog
+            organizationId={organizationId}
+            member={deleteMemberDialog.member}
+            submitting={deleteMemberDialog.submitting}
+            onConfirm={() =>
+              deleteMember(organizationId, deleteMemberDialog.member.id)
+            }
+            onClose={closeDeleteMemberDialog}
+          />
+        )}
       </React.Fragment>
     )
   }
