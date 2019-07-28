@@ -2,13 +2,12 @@ import {
   setUsername,
   setPassword,
   login,
-  setSubmitted,
-  logout
+  setSubmitted
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export { setUsername, setPassword, login, setSubmitted, logout }
+export { setUsername, setPassword, login, setSubmitted }
 
 export { sagas }
 
