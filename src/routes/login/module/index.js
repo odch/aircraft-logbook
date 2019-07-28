@@ -1,9 +1,4 @@
-import {
-  setUsername,
-  setPassword,
-  login,
-  setSubmitted
-} from './actions'
+import { setUsername, setPassword, login, setSubmitted } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 

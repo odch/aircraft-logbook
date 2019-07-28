@@ -37,9 +37,7 @@ class AircraftList extends React.Component {
               <CardActionArea
                 className={classes.actionArea}
                 component={Link}
-                to={`/organizations/${organization.id}/aircrafts/${
-                  aircraft.id
-                }`}
+                to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
               >
                 <CardContent className={classes.cardContent}>
                   <Typography variant="title">
