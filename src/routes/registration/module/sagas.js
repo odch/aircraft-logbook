@@ -1,4 +1,4 @@
-import { fork, put, takeLatest, all, call } from 'redux-saga/effects'
+import { put, takeLatest, all, call } from 'redux-saga/effects'
 import { getFirebase } from '../../../util/firebase'
 import * as actions from './actions'
 import { error } from '../../../util/log'
@@ -19,5 +19,5 @@ export function* register(action) {
 }
 
 export default function* sagas() {
-  yield all([fork(takeLatest, actions.REGISTER, register)])
+  yield all([takeLatest(actions.REGISTER, register)])
 }

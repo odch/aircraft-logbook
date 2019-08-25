@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call, put, select } from 'redux-saga/effects'
+import { all, takeEvery, call, put, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
 import { getFirestore } from '../../../../../util/firebase'
@@ -551,14 +551,13 @@ describe('routes', () => {
 
               expect(generator.next().value).toEqual(
                 all([
-                  fork(takeEvery, actions.FETCH_FLIGHTS, sagas.fetchFlights),
-                  fork(takeEvery, actions.CREATE_FLIGHT, sagas.createFlight),
-                  fork(
-                    takeEvery,
+                  takeEvery(actions.FETCH_FLIGHTS, sagas.fetchFlights),
+                  takeEvery(actions.CREATE_FLIGHT, sagas.createFlight),
+                  takeEvery(
                     actions.INIT_CREATE_FLIGHT_DIALOG,
                     sagas.initCreateFlightDialog
                   ),
-                  fork(takeEvery, actions.DELETE_FLIGHT, sagas.deleteFlight)
+                  takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight)
                 ])
               )
             })

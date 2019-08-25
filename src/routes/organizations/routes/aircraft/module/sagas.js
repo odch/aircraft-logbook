@@ -1,4 +1,4 @@
-import { fork, takeEvery, all, call, put, select } from 'redux-saga/effects'
+import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
 import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
@@ -316,9 +316,9 @@ export function* deleteFlight({
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, actions.FETCH_FLIGHTS, fetchFlights),
-    fork(takeEvery, actions.CREATE_FLIGHT, createFlight),
-    fork(takeEvery, actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
-    fork(takeEvery, actions.DELETE_FLIGHT, deleteFlight)
+    takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
+    takeEvery(actions.CREATE_FLIGHT, createFlight),
+    takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    takeEvery(actions.DELETE_FLIGHT, deleteFlight)
   ])
 }

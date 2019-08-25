@@ -1,12 +1,4 @@
-import {
-  all,
-  takeEvery,
-  take,
-  fork,
-  call,
-  put,
-  select
-} from 'redux-saga/effects'
+import { all, takeEvery, take, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
 import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
 import * as actions from './actions'
@@ -331,23 +323,11 @@ describe('modules', () => {
 
           expect(generator.next().value).toEqual(
             all([
-              fork(
-                takeEvery,
-                actions.CREATE_ORGANIZATION,
-                sagas.createOrganization
-              ),
-              fork(
-                takeEvery,
-                actions.SELECT_ORGANIZATION,
-                sagas.selectOrganization
-              ),
-              fork(
-                takeEvery,
-                actions.DELETE_ORGANIZATION,
-                sagas.deleteOrganization
-              ),
-              fork(takeEvery, actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
-              fork(takeEvery, actions.FETCH_MEMBERS, sagas.fetchMembers)
+              takeEvery(actions.CREATE_ORGANIZATION, sagas.createOrganization),
+              takeEvery(actions.SELECT_ORGANIZATION, sagas.selectOrganization),
+              takeEvery(actions.DELETE_ORGANIZATION, sagas.deleteOrganization),
+              takeEvery(actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
+              takeEvery(actions.FETCH_MEMBERS, sagas.fetchMembers)
             ])
           )
         })
