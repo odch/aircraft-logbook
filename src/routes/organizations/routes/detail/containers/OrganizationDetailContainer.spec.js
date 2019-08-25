@@ -15,7 +15,6 @@ describe('routes', () => {
           describe('OrganizationDetailContainer', () => {
             let wrapper
             let component
-            let container
 
             beforeEach(() => {
               jest.resetAllMocks()
@@ -56,14 +55,12 @@ describe('routes', () => {
                 </Provider>
               )
 
-              container = wrapper.root.find(
-                el => el.type === OrganizationDetailContainer
+              component = wrapper.root.find(
+                el => el.type === OrganizationDetail
               )
-              component = container.find(el => el.type === OrganizationDetail)
             })
 
-            it('should render both the container and the component ', () => {
-              expect(container).toBeTruthy()
+            it('should render the component ', () => {
               expect(component).toBeTruthy()
             })
 

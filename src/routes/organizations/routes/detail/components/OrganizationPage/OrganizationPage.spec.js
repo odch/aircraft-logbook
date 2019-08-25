@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import configureStore from 'redux-mock-store'
-import renderIntl from '../../../../../../testutil/renderIntl'
+import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import OrganizationPage from './OrganizationPage'
 
 describe('routes', () => {
@@ -53,14 +53,15 @@ describe('routes', () => {
                 }
               }
 
-              const tree = renderIntl(
+              const renderedValue = renderIntlMaterial(
                 <Provider store={store}>
                   <Router>
                     <OrganizationPage {...props} />
                   </Router>
-                </Provider>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+                </Provider>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
           })
         })

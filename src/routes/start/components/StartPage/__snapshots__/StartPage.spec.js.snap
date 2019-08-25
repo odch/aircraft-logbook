@@ -17,7 +17,7 @@ exports[`routes start components StartPage renders loading icon as long as selec
   className="LoadingIcon-container-1"
 >
   <div
-    className="MuiCircularProgress-root-3 MuiCircularProgress-colorPrimary-6 MuiCircularProgress-indeterminate-5 LoadingIcon-icon-2"
+    className="MuiCircularProgress-root LoadingIcon-icon-2 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -27,11 +27,11 @@ exports[`routes start components StartPage renders loading icon as long as selec
     }
   >
     <svg
-      className="MuiCircularProgress-svg-8"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-9 MuiCircularProgress-circleIndeterminate-11"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"

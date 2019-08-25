@@ -17,7 +17,6 @@ describe('routes', () => {
               describe('AircraftSettingsContainer', () => {
                 let wrapper
                 let component
-                let container
 
                 beforeEach(() => {
                   jest.resetAllMocks()
@@ -59,14 +58,12 @@ describe('routes', () => {
                     </Provider>
                   )
 
-                  container = wrapper.root.find(
-                    el => el.type === AircraftSettingsContainer
+                  component = wrapper.root.find(
+                    el => el.type === AircraftSettings
                   )
-                  component = container.find(el => el.type === AircraftSettings)
                 })
 
-                it('should render both the container and the component ', () => {
-                  expect(container).toBeTruthy()
+                it('should render the component ', () => {
                   expect(component).toBeTruthy()
                 })
 

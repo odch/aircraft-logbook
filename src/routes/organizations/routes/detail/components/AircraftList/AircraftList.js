@@ -30,7 +30,7 @@ class AircraftList extends React.Component {
   render() {
     const { organization, aircrafts, classes } = this.props
     return (
-      <Grid container spacing={24} data-cy="aircraft-list">
+      <Grid container spacing={3} data-cy="aircraft-list">
         {aircrafts.map(aircraft => (
           <Grid item key={aircraft.id} sm={4} xs={12}>
             <Card className={classes.card}>
@@ -40,9 +40,7 @@ class AircraftList extends React.Component {
                 to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
               >
                 <CardContent className={classes.cardContent}>
-                  <Typography variant="title">
-                    {aircraft.registration}
-                  </Typography>
+                  <Typography variant="h6">{aircraft.registration}</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>

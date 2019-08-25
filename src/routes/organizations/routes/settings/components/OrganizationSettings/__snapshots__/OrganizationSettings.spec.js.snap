@@ -11,7 +11,7 @@ exports[`routes organizations routes settings components OrganizationSettings re
   className="LoadingIcon-container-4"
 >
   <div
-    className="MuiCircularProgress-root-6 MuiCircularProgress-colorPrimary-9 MuiCircularProgress-indeterminate-8 LoadingIcon-icon-5"
+    className="MuiCircularProgress-root LoadingIcon-icon-5 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -21,11 +21,11 @@ exports[`routes organizations routes settings components OrganizationSettings re
     }
   >
     <svg
-      className="MuiCircularProgress-svg-11"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-12 MuiCircularProgress-circleIndeterminate-14"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"
@@ -40,19 +40,20 @@ exports[`routes organizations routes settings components OrganizationSettings re
 
 exports[`routes organizations routes settings components OrganizationSettings renders organization settings if loaded 1`] = `
 <div
-  className="InjectIntl-OrganizationSettings--container-1"
+  className="injectIntl(OrganizationSettings)-container-1"
 >
-  <h1
-    className="MuiTypography-root-15 MuiTypography-display1-19 MuiTypography-gutterBottom-33"
+  <h4
+    className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
     data-cy="organization-title"
   >
     my_org
-  </h1>
+  </h4>
   <button
-    className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-containedPrimary-53 MuiButton-raised-55 MuiButton-raisedPrimary-56"
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -62,53 +63,49 @@ exports[`routes organizations routes settings components OrganizationSettings re
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
-    tabIndex="0"
+    tabIndex={0}
     type="button"
   >
     <span
-      className="MuiButton-label-42"
+      className="MuiButton-label"
     >
-      <span>
-        Mitglied hinzufügen
-      </span>
+      Mitglied hinzufügen
     </span>
-    <span
-      className="MuiTouchRipple-root-70"
-    />
   </button>
   <ul
-    className="MuiList-root-77 MuiList-padding-78"
+    className="MuiList-root MuiList-padding"
   >
     <li
-      className="MuiListItem-container-82"
+      className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root-81 MuiListItem-default-84 MuiListItem-secondaryAction-90"
+        className="MuiListItem-root MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-92"
+          className="MuiListItemText-root MuiListItemText-multiline"
         >
           <span
-            className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
           >
             Keller Hans
           </span>
           <p
-            className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
           >
             Manager
           </p>
         </div>
       </div>
       <div
-        className="MuiListItemSecondaryAction-root-98"
+        className="MuiListItemSecondaryAction-root"
       >
         <button
-          className="MuiButtonBase-root-67 MuiIconButton-root-99"
+          className="MuiButtonBase-root MuiIconButton-root"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -118,15 +115,15 @@ exports[`routes organizations routes settings components OrganizationSettings re
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex="0"
+          tabIndex={0}
           type="button"
         >
           <span
-            className="MuiIconButton-label-104"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-105"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -134,48 +131,42 @@ exports[`routes organizations routes settings components OrganizationSettings re
               <path
                 d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
               />
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
             </svg>
           </span>
-          <span
-            className="MuiTouchRipple-root-70"
-          />
         </button>
       </div>
     </li>
     <li
-      className="MuiListItem-container-82"
+      className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root-81 MuiListItem-default-84 MuiListItem-secondaryAction-90"
+        className="MuiListItem-root MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-92"
+          className="MuiListItemText-root MuiListItemText-multiline"
         >
           <span
-            className="MuiTypography-root-15 MuiTypography-subheading-22 MuiListItemText-primary-95"
+            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
           >
             Muster Max
           </span>
           <p
-            className="MuiTypography-root-15 MuiTypography-body1-24 MuiTypography-colorTextSecondary-39 MuiListItemText-secondary-96"
+            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
           >
             Benutzer
           </p>
         </div>
       </div>
       <div
-        className="MuiListItemSecondaryAction-root-98"
+        className="MuiListItemSecondaryAction-root"
       >
         <button
-          className="MuiButtonBase-root-67 MuiIconButton-root-99"
+          className="MuiButtonBase-root MuiIconButton-root"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -185,15 +176,15 @@ exports[`routes organizations routes settings components OrganizationSettings re
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex="0"
+          tabIndex={0}
           type="button"
         >
           <span
-            className="MuiIconButton-label-104"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-105"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -201,41 +192,35 @@ exports[`routes organizations routes settings components OrganizationSettings re
               <path
                 d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
               />
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
             </svg>
           </span>
-          <span
-            className="MuiTouchRipple-root-70"
-          />
         </button>
       </div>
     </li>
   </ul>
   <div
-    className="MuiTablePagination-root-114"
+    className="MuiTablePagination-root"
   >
     <div
-      className="MuiToolbar-root-124 MuiToolbar-regular-126 MuiToolbar-gutters-125 MuiTablePagination-toolbar-115"
+      className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
     >
       <div
-        className="MuiTablePagination-spacer-116"
+        className="MuiTablePagination-spacer"
       />
       <span
-        className="MuiTypography-root-15 MuiTypography-caption-25 MuiTablePagination-caption-117"
+        className="MuiTypography-root MuiTablePagination-caption MuiTypography-caption MuiTypography-colorInherit"
       >
         1-2 of 2
       </span>
       <div
-        className="MuiTablePagination-actions-123"
+        className="MuiTablePagination-actions"
       >
         <button
-          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-99 MuiIconButton-disabled-103"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
           disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -245,15 +230,15 @@ exports[`routes organizations routes settings components OrganizationSettings re
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex="-1"
+          tabIndex={-1}
           type="button"
         >
           <span
-            className="MuiIconButton-label-104"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-105"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -265,10 +250,11 @@ exports[`routes organizations routes settings components OrganizationSettings re
           </span>
         </button>
         <button
-          className="MuiButtonBase-root-67 MuiButtonBase-disabled-68 MuiIconButton-root-99 MuiIconButton-disabled-103"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
           disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -278,15 +264,15 @@ exports[`routes organizations routes settings components OrganizationSettings re
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex="-1"
+          tabIndex={-1}
           type="button"
         >
           <span
-            className="MuiIconButton-label-104"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-105"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -301,17 +287,18 @@ exports[`routes organizations routes settings components OrganizationSettings re
     </div>
   </div>
   <hr
-    className="MuiDivider-root-128 InjectIntl-OrganizationSettings--divider-2"
+    className="MuiDivider-root injectIntl(OrganizationSettings)-divider-2"
   />
   <div
-    className="InjectIntl-OrganizationSettings--deleteButtonContainer-3"
+    className="injectIntl(OrganizationSettings)-deleteButtonContainer-3"
   >
     <button
-      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-text-43 MuiButton-flat-46 DeleteButton-button-132"
+      className="MuiButtonBase-root MuiButton-root MuiButton-text"
       data-cy="organization-delete-button"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
+      onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
@@ -321,15 +308,15 @@ exports[`routes organizations routes settings components OrganizationSettings re
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
-      tabIndex="0"
+      tabIndex={0}
       type="button"
     >
       <span
-        className="MuiButton-label-42"
+        className="MuiButton-label"
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-105 DeleteButton-leftIcon-133"
+          className="MuiSvgIcon-root"
           focusable="false"
           role="presentation"
           viewBox="0 0 24 24"
@@ -337,16 +324,9 @@ exports[`routes organizations routes settings components OrganizationSettings re
           <path
             d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
           />
-          <path
-            d="M0 0h24v24H0z"
-            fill="none"
-          />
         </svg>
         Organisation löschen
       </span>
-      <span
-        className="MuiTouchRipple-root-70"
-      />
     </button>
   </div>
 </div>

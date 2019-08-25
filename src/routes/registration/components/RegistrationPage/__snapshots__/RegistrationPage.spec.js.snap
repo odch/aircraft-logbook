@@ -14,31 +14,30 @@ exports[`components RegistrationPage renders registration form if not authentica
     onSubmit={[Function]}
   >
     <div
-      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
         data-shrink={true}
         htmlFor="firstname"
       >
-        <span>
-          Vorname
-        </span>
+        Vorname
         <span
-          className="MuiFormLabel-asterisk-20"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="firstname"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoFocus={true}
-          className="MuiInputBase-input-44 MuiInput-input-29"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="firstname"
           name="firstname"
@@ -52,30 +51,29 @@ exports[`components RegistrationPage renders registration form if not authentica
       </div>
     </div>
     <div
-      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
         data-shrink={true}
         htmlFor="lastname"
       >
-        <span>
-          Nachname
-        </span>
+        Nachname
         <span
-          className="MuiFormLabel-asterisk-20"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="lastname"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
-          className="MuiInputBase-input-44 MuiInput-input-29"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="lastname"
           name="lastname"
@@ -89,30 +87,29 @@ exports[`components RegistrationPage renders registration form if not authentica
       </div>
     </div>
     <div
-      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
         data-shrink={true}
         htmlFor="email"
       >
-        <span>
-          E-Mail
-        </span>
+        E-Mail
         <span
-          className="MuiFormLabel-asterisk-20"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="email"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
-          className="MuiInputBase-input-44 MuiInput-input-29 MuiInputBase-inputType-47 MuiInput-inputType-32"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="email"
           name="email"
@@ -126,30 +123,29 @@ exports[`components RegistrationPage renders registration form if not authentica
       </div>
     </div>
     <div
-      className="MuiFormControl-root-3 MuiFormControl-marginNormal-4 MuiFormControl-fullWidth-6"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-14 MuiFormLabel-filled-18 MuiFormLabel-required-19 MuiInputLabel-root-7 MuiInputLabel-formControl-8 MuiInputLabel-animated-11 MuiInputLabel-shrink-10"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
         data-shrink={true}
         htmlFor="password"
       >
-        <span>
-          Passwort
-        </span>
+        Passwort
         <span
-          className="MuiFormLabel-asterisk-20"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-34 MuiInput-root-21 MuiInput-underline-25 MuiInputBase-formControl-35 MuiInput-formControl-22"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="password"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
-          className="MuiInputBase-input-44 MuiInput-input-29 MuiInputBase-inputType-47 MuiInput-inputType-32"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="password"
           name="password"
@@ -163,10 +159,11 @@ exports[`components RegistrationPage renders registration form if not authentica
       </div>
     </div>
     <button
-      className="MuiButtonBase-root-77 MuiButton-root-51 MuiButton-contained-62 MuiButton-containedPrimary-63 MuiButton-raised-65 MuiButton-raisedPrimary-66 MuiButton-fullWidth-76"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
       data-cy="submit"
       disabled={false}
       onBlur={[Function]}
+      onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
@@ -176,19 +173,14 @@ exports[`components RegistrationPage renders registration form if not authentica
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
-      tabIndex="0"
+      tabIndex={0}
       type="submit"
     >
       <span
-        className="MuiButton-label-52"
+        className="MuiButton-label"
       >
-        <span>
-          Registrieren
-        </span>
+        Registrieren
       </span>
-      <span
-        className="MuiTouchRipple-root-80"
-      />
     </button>
   </form>
 </main>

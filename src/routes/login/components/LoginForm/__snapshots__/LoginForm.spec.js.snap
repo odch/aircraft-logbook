@@ -5,24 +5,23 @@ exports[`components LoginForm renders correctly 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="MuiFormControl-root-2 MuiFormControl-marginNormal-3 MuiFormControl-fullWidth-5"
+    className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
   >
     <label
-      className="MuiFormLabel-root-13 MuiFormLabel-filled-17 MuiFormLabel-required-18 MuiInputLabel-root-6 MuiInputLabel-formControl-7 MuiInputLabel-animated-10 MuiInputLabel-shrink-9"
+      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
       data-shrink={true}
       htmlFor="email"
     >
-      <span>
-        E-Mail
-      </span>
+      E-Mail
       <span
-        className="MuiFormLabel-asterisk-19"
+        className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
       >
-         *
+         
+        *
       </span>
     </label>
     <div
-      className="MuiInputBase-root-33 MuiInput-root-20 MuiInput-underline-24 MuiInputBase-formControl-34 MuiInput-formControl-21"
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
       data-cy="email"
       onClick={[Function]}
     >
@@ -30,7 +29,7 @@ exports[`components LoginForm renders correctly 1`] = `
         aria-invalid={false}
         autoComplete="email"
         autoFocus={true}
-        className="MuiInputBase-input-43 MuiInput-input-28"
+        className="MuiInputBase-input MuiInput-input"
         disabled={false}
         id="email"
         name="email"
@@ -44,31 +43,30 @@ exports[`components LoginForm renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiFormControl-root-2 MuiFormControl-marginNormal-3 MuiFormControl-fullWidth-5"
+    className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
   >
     <label
-      className="MuiFormLabel-root-13 MuiFormLabel-filled-17 MuiFormLabel-required-18 MuiInputLabel-root-6 MuiInputLabel-formControl-7 MuiInputLabel-animated-10 MuiInputLabel-shrink-9"
+      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
       data-shrink={true}
       htmlFor="password"
     >
-      <span>
-        Passwort
-      </span>
+      Passwort
       <span
-        className="MuiFormLabel-asterisk-19"
+        className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
       >
-         *
+         
+        *
       </span>
     </label>
     <div
-      className="MuiInputBase-root-33 MuiInput-root-20 MuiInput-underline-24 MuiInputBase-formControl-34 MuiInput-formControl-21"
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
       data-cy="password"
       onClick={[Function]}
     >
       <input
         aria-invalid={false}
         autoComplete="current-password"
-        className="MuiInputBase-input-43 MuiInput-input-28 MuiInputBase-inputType-46 MuiInput-inputType-31"
+        className="MuiInputBase-input MuiInput-input"
         disabled={false}
         id="password"
         name="password"
@@ -82,10 +80,11 @@ exports[`components LoginForm renders correctly 1`] = `
     </div>
   </div>
   <button
-    className="MuiButtonBase-root-76 MuiButton-root-50 MuiButton-contained-61 MuiButton-containedPrimary-62 MuiButton-raised-64 MuiButton-raisedPrimary-65 MuiButton-fullWidth-75"
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
     data-cy="submit"
     disabled={false}
     onBlur={[Function]}
+    onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -95,19 +94,14 @@ exports[`components LoginForm renders correctly 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
-    tabIndex="0"
+    tabIndex={0}
     type="submit"
   >
     <span
-      className="MuiButton-label-51"
+      className="MuiButton-label"
     >
-      <span>
-        Anmelden
-      </span>
+      Anmelden
     </span>
-    <span
-      className="MuiTouchRipple-root-79"
-    />
   </button>
 </form>
 `;
@@ -115,34 +109,31 @@ exports[`components LoginForm renders correctly 1`] = `
 exports[`components LoginForm renders error message if login failed 1`] = `
 Array [
   <p
-    className="MuiTypography-root-86 MuiTypography-body1-95 LoginForm-failureMessage-1"
+    className="MuiTypography-root LoginForm-failureMessage-1 MuiTypography-body1"
   >
-    <span>
-      Die Anmeldung ist fehlgeschlagen.
-    </span>
+    Die Anmeldung ist fehlgeschlagen.
   </p>,
   <form
     onSubmit={[Function]}
   >
     <div
-      className="MuiFormControl-root-2 MuiFormControl-marginNormal-3 MuiFormControl-fullWidth-5"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-13 MuiFormLabel-filled-17 MuiFormLabel-required-18 MuiInputLabel-root-6 MuiInputLabel-formControl-7 MuiInputLabel-animated-10 MuiInputLabel-shrink-9"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
         data-shrink={true}
         htmlFor="email"
       >
-        <span>
-          E-Mail
-        </span>
+        E-Mail
         <span
-          className="MuiFormLabel-asterisk-19"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-33 MuiInput-root-20 MuiInput-underline-24 MuiInputBase-formControl-34 MuiInput-formControl-21"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="email"
         onClick={[Function]}
       >
@@ -150,7 +141,7 @@ Array [
           aria-invalid={false}
           autoComplete="email"
           autoFocus={true}
-          className="MuiInputBase-input-43 MuiInput-input-28"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="email"
           name="email"
@@ -164,31 +155,30 @@ Array [
       </div>
     </div>
     <div
-      className="MuiFormControl-root-2 MuiFormControl-marginNormal-3 MuiFormControl-fullWidth-5"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
     >
       <label
-        className="MuiFormLabel-root-13 MuiFormLabel-required-18 MuiInputLabel-root-6 MuiInputLabel-formControl-7 MuiInputLabel-animated-10"
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
         data-shrink={false}
         htmlFor="password"
       >
-        <span>
-          Passwort
-        </span>
+        Passwort
         <span
-          className="MuiFormLabel-asterisk-19"
+          className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
         >
-           *
+           
+          *
         </span>
       </label>
       <div
-        className="MuiInputBase-root-33 MuiInput-root-20 MuiInput-underline-24 MuiInputBase-formControl-34 MuiInput-formControl-21"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
         data-cy="password"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoComplete="current-password"
-          className="MuiInputBase-input-43 MuiInput-input-28 MuiInputBase-inputType-46 MuiInput-inputType-31"
+          className="MuiInputBase-input MuiInput-input"
           disabled={false}
           id="password"
           name="password"
@@ -202,10 +192,11 @@ Array [
       </div>
     </div>
     <button
-      className="MuiButtonBase-root-76 MuiButton-root-50 MuiButton-contained-61 MuiButton-containedPrimary-62 MuiButton-raised-64 MuiButton-raisedPrimary-65 MuiButton-fullWidth-75"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
       data-cy="submit"
       disabled={false}
       onBlur={[Function]}
+      onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
@@ -215,18 +206,16 @@ Array [
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
-      tabIndex="0"
+      tabIndex={0}
       type="submit"
     >
       <span
-        className="MuiButton-label-51"
+        className="MuiButton-label"
       >
-        <span>
-          Anmelden
-        </span>
+        Anmelden
       </span>
       <span
-        className="MuiTouchRipple-root-79"
+        className="MuiTouchRipple-root"
       />
     </button>
   </form>,
