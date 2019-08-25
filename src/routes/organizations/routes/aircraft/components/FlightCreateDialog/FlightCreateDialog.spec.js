@@ -1,5 +1,5 @@
 import React from 'react'
-import { MuiPickersUtilsProvider } from 'material-ui-pickers'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
 import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import FlightCreateDialog from './FlightCreateDialog'

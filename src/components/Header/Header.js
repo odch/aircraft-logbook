@@ -47,7 +47,7 @@ class Header extends React.Component {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
             <Link to="/" className={classes.homeLink}>
               Open Digital Flugreisebuch
             </Link>

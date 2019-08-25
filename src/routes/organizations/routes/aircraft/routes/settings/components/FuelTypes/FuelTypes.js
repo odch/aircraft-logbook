@@ -12,7 +12,7 @@ class FuelTypes extends React.Component {
 
     return (
       <div>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           <FormattedMessage id="aircraft.settings.fueltypes" />
         </Typography>
         {types.length > 0 ? (

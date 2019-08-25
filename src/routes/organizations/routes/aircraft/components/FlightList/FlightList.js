@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -18,7 +18,8 @@ import FlightDeleteDialog from '../FlightDeleteDialog'
 import {
   aircraft as aircraftShape,
   flight as flightShape,
-  organization as organizationShape
+  organization as organizationShape,
+  intl as intlShape
 } from '../../../../../../shapes'
 import { formatDate, formatTime } from '../../../../../../util/dates'
 

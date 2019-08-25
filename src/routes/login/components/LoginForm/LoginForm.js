@@ -76,7 +76,7 @@ class LoginForm extends React.Component {
           <Button
             type="submit"
             fullWidth
-            variant="raised"
+            variant="contained"
             color="primary"
             disabled={submitted}
             data-cy="submit"

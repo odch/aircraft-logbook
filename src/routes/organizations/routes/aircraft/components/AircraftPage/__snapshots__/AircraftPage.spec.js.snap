@@ -3,13 +3,13 @@
 exports[`routes organizations routes aircraft components AircraftPage renders correctly 1`] = `
 Array [
   <header
-    className="MuiPaper-root-14 MuiPaper-elevation4-20 MuiAppBar-root-5 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-12"
+    className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary"
   >
     <div
-      className="MuiToolbar-root-41 MuiToolbar-regular-43 MuiToolbar-gutters-42"
+      className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
-      <h2
-        className="MuiTypography-root-45 MuiTypography-title-51 MuiTypography-colorInherit-65 Header-grow-2"
+      <h6
+        className="MuiTypography-root Header-grow-2 MuiTypography-h6 MuiTypography-colorInherit"
       >
         <a
           className="Header-homeLink-4"
@@ -18,16 +18,17 @@ Array [
         >
           Open Digital Flugreisebuch
         </a>
-      </h2>
+      </h6>
       <div>
         <button
           aria-haspopup="true"
           aria-owns={null}
-          className="MuiButtonBase-root-77 MuiIconButton-root-71 MuiIconButton-colorInherit-72"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
           data-cy="user-button"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -37,15 +38,15 @@ Array [
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex="0"
+          tabIndex={0}
           type="button"
         >
           <span
-            className="MuiIconButton-label-76"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-80"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -53,24 +54,17 @@ Array [
               <path
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
               />
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
             </svg>
           </span>
-          <span
-            className="MuiTouchRipple-root-89"
-          />
         </button>
       </div>
     </div>
   </header>,
   <div
-    className="LoadingIcon-container-101"
+    className="LoadingIcon-container-100"
   >
     <div
-      className="MuiCircularProgress-root-103 MuiCircularProgress-colorPrimary-106 MuiCircularProgress-indeterminate-105 LoadingIcon-icon-102"
+      className="MuiCircularProgress-root LoadingIcon-icon-101 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
       role="progressbar"
       style={
         Object {
@@ -80,11 +74,11 @@ Array [
       }
     >
       <svg
-        className="MuiCircularProgress-svg-108"
+        className="MuiCircularProgress-svg"
         viewBox="22 22 44 44"
       >
         <circle
-          className="MuiCircularProgress-circle-109 MuiCircularProgress-circleIndeterminate-111"
+          className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
           cx={44}
           cy={44}
           fill="none"

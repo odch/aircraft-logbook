@@ -1,5 +1,5 @@
 import React from 'react'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
@@ -10,7 +10,8 @@ import {
   getTimeDiff
 } from '../../../../../../util/dates'
 
-const FlightDetails = ({ aircraft, flight, intl }) => {
+const FlightDetails = ({ aircraft, flight }) => {
+  const intl = useIntl()
   return (
     <div>
       <Grid container>
@@ -208,8 +209,7 @@ const format2Decimals = value => Number(value / 100).toFixed(2)
 
 FlightDetails.propTypes = {
   aircraft,
-  flight,
-  intl: intlShape
+  flight
 }
 
-export default injectIntl(FlightDetails)
+export default FlightDetails

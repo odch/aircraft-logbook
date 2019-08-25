@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import renderIntl from '../../../../../../testutil/renderIntl'
+import renderIntl, {
+  renderIntlMaterial
+} from '../../../../../../testutil/renderIntl'
 import OrganizationDetail from './OrganizationDetail'
 
 const OrganizationsPage = () => <div>Organizations Page</div>
@@ -12,28 +14,30 @@ describe('routes', () => {
         describe('components', () => {
           describe('OrganizationDetail', () => {
             it('renders loading icon if organization not loaded', () => {
-              const tree = renderIntl(
+              const renderedValue = renderIntlMaterial(
                 <OrganizationDetail
                   organization={undefined}
                   fetchAircrafts={() => {}}
-                />
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+                />,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
 
             it('renders loading icon if aircrafts not loaded', () => {
-              const tree = renderIntl(
+              const renderedValue = renderIntlMaterial(
                 <OrganizationDetail
                   organization={{ id: 'my_org' }}
                   aircrafts={undefined}
                   fetchAircrafts={() => {}}
-                />
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+                />,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
 
             it('redirects to organizations page if organization was not found', () => {
-              const tree = renderIntl(
+              const renderedValue = renderIntlMaterial(
                 <Router>
                   <Switch>
                     <Route
@@ -47,13 +51,14 @@ describe('routes', () => {
                       fetchAircrafts={() => {}}
                     />
                   </Switch>
-                </Router>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+                </Router>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
 
             it('renders organization if organizatino and aircrafts loaded', () => {
-              const tree = renderIntl(
+              const renderedValue = renderIntlMaterial(
                 <Router>
                   <OrganizationDetail
                     organization={{ id: 'my_org' }}
@@ -69,15 +74,16 @@ describe('routes', () => {
                     ]}
                     fetchAircrafts={() => {}}
                   />
-                </Router>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+                </Router>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
 
             it('calls fetchAircrafts when mounted with organization', () => {
               const fetchAircrafts = jest.fn()
 
-              renderIntl(
+              renderIntlMaterial(
                 <OrganizationDetail
                   organization={{ id: 'my_org' }}
                   aircrafts={undefined}
@@ -91,7 +97,7 @@ describe('routes', () => {
             it('does not call fetchAircrafts when mounted without organization', () => {
               const fetchAircrafts = jest.fn()
 
-              renderIntl(
+              renderIntlMaterial(
                 <OrganizationDetail
                   organization={undefined}
                   aircrafts={undefined}

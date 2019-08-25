@@ -19,17 +19,13 @@ const styles = theme => ({
   },
   input: {
     display: 'flex',
-    padding: 0
+    padding: '6px 0 11px'
   },
   valueContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden'
-  },
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`
+    alignItems: 'center'
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -40,7 +36,7 @@ const styles = theme => ({
     )
   },
   noOptionsMessage: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+    padding: 4
   },
   singleValue: {
     fontSize: 16
@@ -53,12 +49,8 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     zIndex: 1,
-    marginTop: theme.spacing.unit,
     left: 0,
     right: 0
-  },
-  divider: {
-    height: theme.spacing.unit * 2
   }
 })
 

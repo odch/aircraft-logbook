@@ -1,21 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`routes organizations routes settings components DeleteMemberDialog renders correctly 1`] = `
-"<div class=\\"MuiModal-root-14 MuiDialog-root-2 MuiDialog-scrollPaper-3\\" role=\\"dialog\\" data-cy=\\"member-delete-dialog\\">
-  <div class=\\"MuiBackdrop-root-16\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
-  <div class=\\"MuiPaper-root-18 MuiPaper-elevation24-44 MuiPaper-rounded-19 MuiDialog-paper-5 MuiDialog-paperScrollPaper-6 MuiDialog-paperWidthSm-9\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
-    <div class=\\"MuiDialogTitle-root-45\\">
-      <h2 class=\\"MuiTypography-root-46 MuiTypography-title-52\\"><span>Mitglied löschen</span></h2>
-    </div>
-    <div class=\\"MuiDialogContent-root-72\\">
-      <p class=\\"MuiTypography-root-46 MuiDialogContentText-root-73 MuiTypography-subheading-53 MuiTypography-colorTextSecondary-70\\"><span>Bist du sicher, dass du dieses Mitglied löschen möchtest?</span></p>
-      <div class=\\"InjectIntl-DeleteMemberDialog--attributesWrapper-1\\">
-        <p class=\\"MuiTypography-root-46 MuiDialogContentText-root-73 MuiTypography-subheading-53 MuiTypography-colorTextSecondary-70\\"><span>Vorname</span>:&nbsp;Max</p>
-        <p class=\\"MuiTypography-root-46 MuiDialogContentText-root-73 MuiTypography-subheading-53 MuiTypography-colorTextSecondary-70\\"><span>Nachname</span>:&nbsp;Muster</p>
-        <p class=\\"MuiTypography-root-46 MuiDialogContentText-root-73 MuiTypography-subheading-53 MuiTypography-colorTextSecondary-70\\"><span>Mitgliedernummer</span>:&nbsp;23563</p>
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"member-delete-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Mitglied löschen</h2>
       </div>
+      <div class=\\"MuiDialogContent-root\\">
+        <p class=\\"MuiTypography-root MuiDialogContentText-root MuiTypography-body1 MuiTypography-colorTextSecondary\\">Bist du sicher, dass du dieses Mitglied löschen möchtest?</p>
+        <div class=\\"injectIntl(DeleteMemberDialog)-attributesWrapper-1\\">
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Vorname:&nbsp;Max</p>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Nachname:&nbsp;Muster</p>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Mitgliedernummer:&nbsp;23563</p>
+        </div>
+      </div>
+      <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary\\" tabindex=\\"0\\" type=\\"button\\" data-cy=\\"member-delete-button\\"><span class=\\"MuiButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\\"></path></svg>Mitglied löschen</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
     </div>
-    <div class=\\"MuiDialogActions-root-74\\"><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-102 MuiButton-root-76 MuiButton-text-78 MuiButton-flat-81 MuiDialogActions-action-75\\" type=\\"button\\"><span class=\\"MuiButton-label-77\\"><span>Abbrechen</span></span><span class=\\"MuiTouchRipple-root-105\\"></span></button><button tabindex=\\"0\\" class=\\"MuiButtonBase-root-102 MuiButton-root-76 MuiButton-contained-87 MuiButton-containedSecondary-89 MuiButton-raised-90 MuiButton-raisedSecondary-92 DeleteButton-button-112\\" type=\\"button\\" data-cy=\\"member-delete-button\\"><span class=\\"MuiButton-label-77\\"><svg class=\\"MuiSvgIcon-root-114 DeleteButton-leftIcon-113\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\\"></path><path fill=\\"none\\" d=\\"M0 0h24v24H0z\\"></path></svg>Mitglied löschen</span><span class=\\"MuiTouchRipple-root-105\\"></span></button></div>
   </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
 </div>"
 `;

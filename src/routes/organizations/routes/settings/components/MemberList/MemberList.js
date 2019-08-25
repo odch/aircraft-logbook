@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -8,7 +8,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import TablePagination from '@material-ui/core/TablePagination'
-import { member as memberShape } from '../../../../../../shapes'
+import {
+  member as memberShape,
+  intl as intlShape
+} from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteMemberDialog from '../DeleteMemberDialog'

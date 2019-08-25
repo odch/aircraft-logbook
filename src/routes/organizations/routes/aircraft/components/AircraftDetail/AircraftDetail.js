@@ -18,7 +18,7 @@ import FlightCreateDialog from '../../containers/FlightCreateDialogContainer'
 const styles = theme => ({
   container: {
     padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
+    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
       width: 1000,
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -123,7 +123,7 @@ class AircraftDetail extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="display1" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
         <Button

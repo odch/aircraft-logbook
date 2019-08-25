@@ -2,9 +2,10 @@
 
 exports[`components DeleteButton renders correctly 1`] = `
 <button
-  className="MuiButtonBase-root-29 MuiButton-root-3 MuiButton-text-5 MuiButton-flat-8 DeleteButton-button-1"
+  className="MuiButtonBase-root MuiButton-root MuiButton-text"
   disabled={false}
   onBlur={[Function]}
+  onDragLeave={[Function]}
   onFocus={[Function]}
   onKeyDown={[Function]}
   onKeyUp={[Function]}
@@ -14,15 +15,15 @@ exports[`components DeleteButton renders correctly 1`] = `
   onTouchEnd={[Function]}
   onTouchMove={[Function]}
   onTouchStart={[Function]}
-  tabIndex="0"
+  tabIndex={0}
   type="button"
 >
   <span
-    className="MuiButton-label-4"
+    className="MuiButton-label"
   >
     <svg
       aria-hidden="true"
-      className="MuiSvgIcon-root-32 DeleteButton-leftIcon-2"
+      className="MuiSvgIcon-root"
       focusable="false"
       role="presentation"
       viewBox="0 0 24 24"
@@ -30,15 +31,8 @@ exports[`components DeleteButton renders correctly 1`] = `
       <path
         d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
       />
-      <path
-        d="M0 0h24v24H0z"
-        fill="none"
-      />
     </svg>
     Delete foobar
   </span>
-  <span
-    className="MuiTouchRipple-root-41"
-  />
 </button>
 `;
