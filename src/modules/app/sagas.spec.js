@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call, select, put } from 'redux-saga/effects'
+import { all, takeEvery, call, select, put } from 'redux-saga/effects'
 import { constants as reduxFirebaseConstants } from 'react-redux-firebase'
 import { constants as reduxFirestoreConstants } from 'redux-firestore'
 import { getFirebase, getFirestore } from '../../util/firebase'
@@ -155,7 +155,9 @@ describe('modules', () => {
 
           const allEffect = generator.next().value
 
-          const docs = allEffect.ALL.map(callEffect => callEffect.CALL.fn())
+          const docs = allEffect.payload.map(callEffect =>
+            callEffect.payload.fn()
+          )
 
           expect(generator.next(docs).value).toEqual(
             put(actions.setMyOrganizations([{ id: 'org1' }, { id: 'org2' }]))
@@ -276,7 +278,7 @@ describe('modules', () => {
 
           const callEffect = generator.next().value
 
-          const callResult = callEffect.CALL.fn()
+          const callResult = callEffect.payload.fn()
 
           expect(generator.next(callResult).value).toEqual({
             id,
@@ -418,7 +420,7 @@ describe('modules', () => {
 
           const allEffect = generator.next().value
 
-          expect(allEffect.ALL.length).toEqual(1)
+          expect(allEffect.payload.length).toEqual(1)
 
           const resolvedDocs = [
             {
@@ -517,28 +519,24 @@ describe('modules', () => {
 
           expect(generator.next().value).toEqual(
             all([
-              fork(
-                takeEvery,
+              takeEvery(
                 reduxFirebaseConstants.actionTypes.LOGIN,
                 sagas.watchCurrentUser
               ),
-              fork(
-                takeEvery,
+              takeEvery(
                 reduxFirebaseConstants.actionTypes.LOGOUT,
                 sagas.unwatchCurrentUser
               ),
-              fork(
-                takeEvery,
+              takeEvery(
                 reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
                 sagas.onListenerResponse
               ),
-              fork(
-                takeEvery,
+              takeEvery(
                 reduxFirestoreConstants.actionTypes.GET_SUCCESS,
                 sagas.onGetSuccess
               ),
-              fork(takeEvery, actions.LOGOUT, sagas.logout),
-              fork(takeEvery, actions.WATCH_AERODROMES, sagas.watchAerodromes)
+              takeEvery(actions.LOGOUT, sagas.logout),
+              takeEvery(actions.WATCH_AERODROMES, sagas.watchAerodromes)
             ])
           )
         })

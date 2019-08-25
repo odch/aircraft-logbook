@@ -1,4 +1,4 @@
-import { fork, takeEvery, all, call, put } from 'redux-saga/effects'
+import { takeEvery, all, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { fetchMembers } from '../../../module'
 import { error } from '../../../../../util/log'
@@ -38,7 +38,7 @@ export function* deleteMember({ payload: { organizationId, memberId } }) {
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, actions.CREATE_MEMBER, createMember),
-    fork(takeEvery, actions.DELETE_MEMBER, deleteMember)
+    takeEvery(actions.CREATE_MEMBER, createMember),
+    takeEvery(actions.DELETE_MEMBER, deleteMember)
   ])
 }

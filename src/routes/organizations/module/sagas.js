@@ -1,12 +1,4 @@
-import {
-  fork,
-  takeEvery,
-  take,
-  all,
-  call,
-  put,
-  select
-} from 'redux-saga/effects'
+import { takeEvery, take, all, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
 import * as actions from './actions'
 import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
@@ -111,10 +103,10 @@ export function* fetchMembers({ payload: { organizationId } }) {
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, actions.CREATE_ORGANIZATION, createOrganization),
-    fork(takeEvery, actions.SELECT_ORGANIZATION, selectOrganization),
-    fork(takeEvery, actions.DELETE_ORGANIZATION, deleteOrganization),
-    fork(takeEvery, actions.FETCH_AIRCRAFTS, fetchAircrafts),
-    fork(takeEvery, actions.FETCH_MEMBERS, fetchMembers)
+    takeEvery(actions.CREATE_ORGANIZATION, createOrganization),
+    takeEvery(actions.SELECT_ORGANIZATION, selectOrganization),
+    takeEvery(actions.DELETE_ORGANIZATION, deleteOrganization),
+    takeEvery(actions.FETCH_AIRCRAFTS, fetchAircrafts),
+    takeEvery(actions.FETCH_MEMBERS, fetchMembers)
   ])
 }

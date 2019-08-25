@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call } from 'redux-saga/effects'
+import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
@@ -69,8 +69,8 @@ describe('routes', () => {
 
               expect(generator.next().value).toEqual(
                 all([
-                  fork(takeEvery, actions.CREATE_MEMBER, sagas.createMember),
-                  fork(takeEvery, actions.DELETE_MEMBER, sagas.deleteMember)
+                  takeEvery(actions.CREATE_MEMBER, sagas.createMember),
+                  takeEvery(actions.DELETE_MEMBER, sagas.deleteMember)
                 ])
               )
             })
