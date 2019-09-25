@@ -147,6 +147,10 @@
   "organization.member.create.dialog.buttons.cancel": "Abbrechen",
   "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen",
 
+  "organization.settings.exportflights": "Flüge exportieren",
+  "organization.settings.exportflights.startdate": "Startdatum",
+  "organization.settings.exportflights.enddate": "Enddatum",
+
   "organization.member.delete.dialog.title": "Mitglied löschen",
   "organization.member.delete.dialog.text": "Bist du sicher, dass du dieses Mitglied löschen möchtest?",
   "organization.member.delete.dialog.firstname": "Vorname",
