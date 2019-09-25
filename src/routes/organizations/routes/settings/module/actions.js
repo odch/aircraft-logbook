@@ -17,6 +17,9 @@ export const CLOSE_DELETE_MEMBER_DIALOG =
   'organizationSettings/CLOSE_DELETE_MEMBER_DIALOG'
 export const DELETE_MEMBER = 'organizationSettings/DELETE_MEMBER'
 export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
+export const EXPORT_FLIGHTS = 'organizationSettings/EXPORT_FLIGHTS'
+export const SET_EXPORT_FLIGHTS_FORM_SUBMITTING =
+  'organizationSettings/SET_EXPORT_FLIGHTS_FORM_SUBMITTING'
 
 export const openCreateMemberDialog = () => ({
   type: OPEN_CREATE_MEMBER_DIALOG
@@ -76,5 +79,21 @@ export const setMembersPage = page => ({
   type: SET_MEMBERS_PAGE,
   payload: {
     page
+  }
+})
+
+export const exportFlights = (organizationId, startDate, endDate) => ({
+  type: EXPORT_FLIGHTS,
+  payload: {
+    organizationId,
+    startDate,
+    endDate
+  }
+})
+
+export const setExportFlightsDialogSubmitting = submitting => ({
+  type: SET_EXPORT_FLIGHTS_FORM_SUBMITTING,
+  payload: {
+    submitting
   }
 })

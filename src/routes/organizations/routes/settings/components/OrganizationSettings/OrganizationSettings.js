@@ -17,6 +17,7 @@ import DeleteButton from '../../../../../../components/DeleteButton'
 import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
+import ExportFlightsForm from '../../containers/ExportFlightsFormContainer'
 
 const styles = theme => ({
   container: {
@@ -42,6 +43,10 @@ class OrganizationSettings extends React.Component {
 
   handleCreateMemberClick = () => {
     this.props.openCreateMemberDialog()
+  }
+
+  handleFlightsExportClick = () => {
+    this.props.exportFlights()
   }
 
   handleDeleteButtonClick = () => {
@@ -85,6 +90,7 @@ class OrganizationSettings extends React.Component {
           <FormattedMessage id="organization.settings.createmember" />
         </Button>
         <MemberList organizationId={organization.id} />
+        <ExportFlightsForm organizationId={organization.id} />
         {featureToggles.isFeatureEnabled('organizationsManagement') && (
           <React.Fragment>
             <Divider className={classes.divider} />
@@ -118,6 +124,7 @@ OrganizationSettings.propTypes = {
   createMemberDialogOpen: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   openCreateMemberDialog: PropTypes.func.isRequired,
+  exportFlights: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
   intl: intlShape
 }

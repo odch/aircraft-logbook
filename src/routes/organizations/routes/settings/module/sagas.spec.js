@@ -1,4 +1,4 @@
-import { all, takeEvery, call } from 'redux-saga/effects'
+import { all, takeEvery, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
@@ -63,6 +63,33 @@ describe('routes', () => {
             })
           })
 
+          describe('exportFlights', () => {
+            it('should download a flights CSV', () => {
+              const orgId = 'my_org'
+              const startDate = '2019-08-01'
+              const endDate = '2019-08-31'
+
+              const action = actions.exportFlights(orgId, startDate, endDate)
+
+              return expectSaga(sagas.exportFlights, action)
+                .provide([
+                  [select(sagas.tokenSelector), 'testtoken'],
+                  [
+                    call(
+                      sagas.generateExport,
+                      orgId,
+                      startDate,
+                      endDate,
+                      'testtoken'
+                    )
+                  ]
+                ])
+                .put(actions.setExportFlightsDialogSubmitting(true))
+                .put(actions.setExportFlightsDialogSubmitting(false))
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
@@ -70,7 +97,8 @@ describe('routes', () => {
               expect(generator.next().value).toEqual(
                 all([
                   takeEvery(actions.CREATE_MEMBER, sagas.createMember),
-                  takeEvery(actions.DELETE_MEMBER, sagas.deleteMember)
+                  takeEvery(actions.DELETE_MEMBER, sagas.deleteMember),
+                  takeEvery(actions.EXPORT_FLIGHTS, sagas.exportFlights)
                 ])
               )
             })

@@ -2,8 +2,10 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import configureStore from 'redux-mock-store'
-import renderIntl from '../../../../../../testutil/renderIntl'
+import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import OrganizationSettingsPage from './OrganizationSettingsPage'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import MomentUtils from '@date-io/moment'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -48,6 +50,9 @@ describe('routes', () => {
                   deleteMemberDialog: {
                     open: false
                   },
+                  exportFlightsForm: {
+                    submitting: false
+                  },
                   members: {
                     page: 0
                   }
@@ -66,14 +71,17 @@ describe('routes', () => {
                 }
               }
 
-              const tree = renderIntl(
-                <Provider store={store}>
-                  <Router>
-                    <OrganizationSettingsPage {...props} />
-                  </Router>
-                </Provider>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+              const renderedValue = renderIntlMaterial(
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <Provider store={store}>
+                    <Router>
+                      <OrganizationSettingsPage {...props} />
+                    </Router>
+                  </Provider>
+                </MuiPickersUtilsProvider>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
           })
         })

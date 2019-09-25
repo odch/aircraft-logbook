@@ -15,6 +15,9 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false
   },
+  exportFlightsForm: {
+    submitting: false
+  },
   members: {
     page: 0
   }
@@ -226,6 +229,23 @@ describe('routes', () => {
             ).toEqual({
               members: {
                 page: 2
+              }
+            })
+          })
+
+          it('handles SET_EXPORT_FLIGHTS_FORM_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  exportFlightsForm: {
+                    submitting: false
+                  }
+                },
+                actions.setExportFlightsDialogSubmitting(true)
+              )
+            ).toEqual({
+              exportFlightsForm: {
+                submitting: true
               }
             })
           })

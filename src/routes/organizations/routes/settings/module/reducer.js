@@ -16,6 +16,9 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false
   },
+  exportFlightsForm: {
+    submitting: false
+  },
   members: {
     page: 0
   }
@@ -102,6 +105,13 @@ const setMembersPage = (state, action) => ({
   }
 })
 
+const setExportFlightsFormSubmitting = (state, action) => ({
+  ...state,
+  exportFlightsForm: {
+    submitting: action.payload.submitting
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
@@ -112,7 +122,8 @@ const ACTION_HANDLERS = {
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
-  [actions.SET_MEMBERS_PAGE]: setMembersPage
+  [actions.SET_MEMBERS_PAGE]: setMembersPage,
+  [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

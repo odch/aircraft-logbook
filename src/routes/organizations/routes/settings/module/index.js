@@ -1,5 +1,6 @@
 import {
   openCreateMemberDialog,
+  exportFlights,
   closeCreateMemberDialog,
   updateCreateMemberDialogData,
   createMember,
@@ -13,6 +14,7 @@ import sagas from './sagas'
 
 export {
   openCreateMemberDialog,
+  exportFlights,
   closeCreateMemberDialog,
   updateCreateMemberDialogData,
   createMember,
