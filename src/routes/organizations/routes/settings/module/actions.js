@@ -20,6 +20,8 @@ export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
 export const EXPORT_FLIGHTS = 'organizationSettings/EXPORT_FLIGHTS'
 export const SET_EXPORT_FLIGHTS_FORM_SUBMITTING =
   'organizationSettings/SET_EXPORT_FLIGHTS_FORM_SUBMITTING'
+export const UPDATE_EXPORT_FLIGHTS_FORM_DATA =
+  'organizationSettings/UPDATE_EXPORT_FLIGHTS_FORM_DATA'
 
 export const openCreateMemberDialog = () => ({
   type: OPEN_CREATE_MEMBER_DIALOG
@@ -95,5 +97,12 @@ export const setExportFlightsDialogSubmitting = submitting => ({
   type: SET_EXPORT_FLIGHTS_FORM_SUBMITTING,
   payload: {
     submitting
+  }
+})
+
+export const updateExportFlightsFormData = data => ({
+  type: UPDATE_EXPORT_FLIGHTS_FORM_DATA,
+  payload: {
+    data
   }
 })
