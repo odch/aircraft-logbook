@@ -77,7 +77,11 @@ describe('routes', () => {
                     open: false
                   },
                   exportFlightsForm: {
-                    submitting: false
+                    submitting: false,
+                    data: {
+                      startDate: '2019-08-01',
+                      endDate: '2019-08-31'
+                    }
                   }
                 }
               })

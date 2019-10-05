@@ -1,18 +1,20 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { exportFlights } from '../module'
+import { exportFlights, updateExportFlightsFormData } from '../module'
 import ExportFlightsForm from '../components/ExportFlightsForm'
 import { getOrganization } from '../../../../../util/getFromState'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     organization: getOrganization(state, ownProps.organizationId),
-    submitting: state.organizationSettings.exportFlightsForm.submitting
+    submitting: state.organizationSettings.exportFlightsForm.submitting,
+    data: state.organizationSettings.exportFlightsForm.data
   }
 }
 
 const mapActionCreators = {
-  exportFlights
+  exportFlights,
+  updateData: updateExportFlightsFormData
 }
 
 export default compose(
