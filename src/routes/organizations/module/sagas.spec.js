@@ -317,6 +317,36 @@ describe('modules', () => {
         })
       })
 
+      describe('fetchAerodromes', () => {
+        it('should load the aeorodromes of an organization', () => {
+          const fetchAeorodromesAction = actions.fetchAerodromes('my_org')
+
+          const generator = sagas.fetchAerodromes(fetchAeorodromesAction)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(
+              firestore.get,
+              {
+                collection: 'organizations',
+                doc: 'my_org',
+                subcollections: [{ collection: 'aerodromes' }],
+                where: ['deleted', '==', false],
+                orderBy: [['name'], ['identification']],
+                storeAs: 'organizationAerodromes'
+              },
+              {}
+            )
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
@@ -327,7 +357,8 @@ describe('modules', () => {
               takeEvery(actions.SELECT_ORGANIZATION, sagas.selectOrganization),
               takeEvery(actions.DELETE_ORGANIZATION, sagas.deleteOrganization),
               takeEvery(actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
-              takeEvery(actions.FETCH_MEMBERS, sagas.fetchMembers)
+              takeEvery(actions.FETCH_MEMBERS, sagas.fetchMembers),
+              takeEvery(actions.FETCH_AERODROMES, sagas.fetchAerodromes)
             ])
           )
         })

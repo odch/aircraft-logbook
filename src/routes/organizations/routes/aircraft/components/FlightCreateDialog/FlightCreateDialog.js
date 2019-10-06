@@ -26,6 +26,7 @@ import {
 } from '../../../../../../shapes'
 import { getMemberOptions, getAerodromeOptions } from '../../util/getOptions'
 import getMissingFields from '../../util/getMissingFields'
+import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
 
 const styles = theme => ({
   loadingIconContainer: {
@@ -51,6 +52,10 @@ class FlightCreateDialog extends React.Component {
 
   handleSelectChange = name => value => {
     this.updateData(name, value)
+  }
+
+  handleSelectCreateOption = name => (/*value*/) => {
+    this.props.openCreateAerodromeDialog(name)
   }
 
   handleDecimalChange = name => value => {
@@ -110,14 +115,19 @@ class FlightCreateDialog extends React.Component {
   hasInitialValue = name => !!_get(this.props.initialData, name)
 
   render() {
-    const { data } = this.props
+    const { data, createAerodromeDialogOpen, organizationId } = this.props
     return (
-      <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
-        <DialogTitle>
-          <FormattedMessage id="flight.create.dialog.title" />
-        </DialogTitle>
-        {data.initialized ? this.renderForm() : this.renderLoadingIcon()}
-      </Dialog>
+      <React.Fragment>
+        <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
+          <DialogTitle>
+            <FormattedMessage id="flight.create.dialog.title" />
+          </DialogTitle>
+          {data.initialized ? this.renderForm() : this.renderLoadingIcon()}
+        </Dialog>
+        {createAerodromeDialogOpen && (
+          <CreateAerodromeDialog organizationId={organizationId} />
+        )}
+      </React.Fragment>
     )
   }
 
@@ -142,8 +152,8 @@ class FlightCreateDialog extends React.Component {
           {this.renderSelect('pilot', memberOptions)}
           {this.renderSelect('instructor', memberOptions)}
           {this.renderSelect('nature', flightNatures)}
-          {this.renderSelect('departureAerodrome', aerodromeOptions)}
-          {this.renderSelect('destinationAerodrome', aerodromeOptions)}
+          {this.renderSelect('departureAerodrome', aerodromeOptions, true)}
+          {this.renderSelect('destinationAerodrome', aerodromeOptions, true)}
           {this.renderInTwoColumns(
             'counters.flighttimecounter',
             this.renderDecimalField(
@@ -265,7 +275,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderSelect(name, options) {
+  renderSelect(name, options, creatable = false) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -276,6 +286,9 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         error={hasError}
         disabled={isDisabled}
+        creatable={creatable}
+        onCreateOption={this.handleSelectCreateOption(name)}
+        onCreateOptionText="Flugplatz nicht gefunden? Klicke hier, um einen neuen Flugplatz zu erstellen."
       />
     ))
   }
@@ -460,9 +473,11 @@ FlightCreateDialog.propTypes = {
     ).isRequired,
     engineHoursCounterEnabled: PropTypes.bool.isRequired
   }).isRequired,
+  createAerodromeDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,
+  openCreateAerodromeDialog: PropTypes.func.isRequired,
   intl: intlShape,
   classes: PropTypes.object.isRequired
 }

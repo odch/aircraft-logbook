@@ -6,7 +6,8 @@ import {
   selectOrganization,
   deleteOrganization,
   fetchAircrafts,
-  fetchMembers
+  fetchMembers,
+  fetchAerodromes
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -19,7 +20,8 @@ export {
   selectOrganization,
   deleteOrganization,
   fetchAircrafts,
-  fetchMembers
+  fetchMembers,
+  fetchAerodromes
 }
 
 export { sagas }

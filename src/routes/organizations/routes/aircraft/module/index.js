@@ -8,7 +8,11 @@ import {
   createFlight,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
-  deleteFlight
+  deleteFlight,
+  openCreateAerodromeDialog,
+  closeCreateAerodromeDialog,
+  updateCreateAerodromeDialogData,
+  createAerodrome
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -23,7 +27,11 @@ export {
   createFlight,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
-  deleteFlight
+  deleteFlight,
+  openCreateAerodromeDialog,
+  closeCreateAerodromeDialog,
+  updateCreateAerodromeDialogData,
+  createAerodrome
 }
 
 export { sagas }

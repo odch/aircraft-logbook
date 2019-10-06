@@ -7,6 +7,7 @@ import * as actions from './actions'
 import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
 import validateFlight from './util/validateFlight'
+import { fetchAerodromes } from '../../../module'
 
 const counter = (start, end) => ({ start, end })
 
@@ -212,10 +213,18 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
-                call(sagas.getAerodrome, data.departureAerodrome.value)
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.departureAerodrome.value
+                )
               )
               expect(generator.next(departureAerodrome).value).toEqual(
-                call(sagas.getAerodrome, data.destinationAerodrome.value)
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.destinationAerodrome.value
+                )
               )
 
               expect(generator.next(destinationAerodrome).value).toEqual(
@@ -545,6 +554,55 @@ describe('routes', () => {
             })
           })
 
+          describe('createAerodrome', () => {
+            const orgId = 'my_org'
+            const fieldName = 'destination'
+            const data = {
+              identification: 'LSXX',
+              name: 'Hagenbuch',
+              timezone: 'Europe/Zurich'
+            }
+
+            const action = actions.createAerodrome(orgId, fieldName, data)
+
+            it('should create the aerodrome in the organization', () => {
+              const expectedDataToStore = {
+                identification: data.identification,
+                name: data.name,
+                timezone: data.timezone.value,
+                deleted: false
+              }
+
+              const createdAerodromeDoc = {
+                id: 'newAerodromeId'
+              }
+
+              return expectSaga(sagas.createAerodrome, action)
+                .provide([
+                  [
+                    call(
+                      addDoc,
+                      ['organizations', orgId, 'aerodromes'],
+                      expectedDataToStore
+                    ),
+                    createdAerodromeDoc
+                  ]
+                ])
+                .put(actions.setCreateAerodromeDialogSubmitting())
+                .put(
+                  actions.updateCreateFlightDialogData({
+                    [fieldName]: {
+                      value: 'newAerodromeId',
+                      label: 'Hagenbuch (LSXX)'
+                    }
+                  })
+                )
+                .put(fetchAerodromes(orgId))
+                .put(actions.createAeorodromeSuccess())
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
@@ -557,7 +615,8 @@ describe('routes', () => {
                     actions.INIT_CREATE_FLIGHT_DIALOG,
                     sagas.initCreateFlightDialog
                   ),
-                  takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight)
+                  takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight),
+                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome)
                 ])
               )
             })
