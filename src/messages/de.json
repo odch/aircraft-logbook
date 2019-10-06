@@ -159,6 +159,13 @@
   "organization.member.delete.dialog.buttons.cancel": "Abbrechen",
   "organization.member.delete.dialog.buttons.delete": "Mitglied löschen",
 
+  "organization.aerodrome.create.dialog.title": "Flugplatz erstellen",
+  "organization.aerodrome.create.dialog.identification": "ICAO-Code",
+  "organization.aerodrome.create.dialog.name": "Name",
+  "organization.aerodrome.create.dialog.timezone": "Zeitzone",
+  "organization.aerodrome.create.dialog.buttons.cancel": "Abbrechen",
+  "organization.aerodrome.create.dialog.buttons.create": "Flugplatz erstellen",
+
   "aircraft.settings.fueltypes": "Treibstofftypen",
   "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst"
 }

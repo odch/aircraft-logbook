@@ -16,6 +16,15 @@ export const INITIAL_STATE = {
   deleteFlightDialog: {
     open: false
   },
+  createAerodromeDialog: {
+    open: false,
+    fieldName: null,
+    data: {
+      identification: '',
+      name: '',
+      timezone: null
+    }
+  },
   flights: {
     page: 0,
     rowsPerPage: 10
@@ -159,6 +168,56 @@ const setDeleteFlightDialogSubmitted = state => ({
   }
 })
 
+const openCreateAerodromeDialog = (state, action) => ({
+  ...state,
+  createAerodromeDialog: {
+    open: true,
+    fieldName: action.payload.fieldName,
+    data: INITIAL_STATE.createAerodromeDialog.data
+  }
+})
+
+const updateCreateAerodromeDialogData = (state, action) => {
+  const newData = {
+    ...state.createAerodromeDialog.data
+  }
+
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+
+  return {
+    ...state,
+    createAerodromeDialog: {
+      ...state.createAerodromeDialog,
+      data: newData
+    }
+  }
+}
+
+const setCreateAerodromeDialogSubmitting = state =>
+  updateCreateAerodromeDialogSubmitting(state, true)
+
+const unsetCreateAerodromeDialogSubmitting = state =>
+  updateCreateAerodromeDialogSubmitting(state, false)
+
+const updateCreateAerodromeDialogSubmitting = (state, submitting) => ({
+  ...state,
+  createAerodromeDialog: {
+    ...state.createAerodromeDialog,
+    submitting: submitting
+  }
+})
+
+const closeCreateAerodromeDialog = state => ({
+  ...state,
+  createAerodromeDialog: {
+    ...state.createAerodromeDialog,
+    open: false
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.SET_FLIGHTS_PAGE]: setFlightsPage,
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
@@ -171,7 +230,13 @@ const ACTION_HANDLERS = {
   [actions.CREATE_FLIGHT_FAILURE]: unsetCreateFlightDialogSubmitting,
   [actions.OPEN_DELETE_FLIGHT_DIALOG]: openDeleteFlightDialog,
   [actions.CLOSE_DELETE_FLIGHT_DIALOG]: closeDeleteFlightDialog,
-  [actions.DELETE_FLIGHT]: setDeleteFlightDialogSubmitted
+  [actions.DELETE_FLIGHT]: setDeleteFlightDialogSubmitted,
+  [actions.OPEN_CREATE_AERODROME_DIALOG]: openCreateAerodromeDialog,
+  [actions.CLOSE_CREATE_AERODROME_DIALOG]: closeCreateAerodromeDialog,
+  [actions.UPDATE_CREATE_AERODROME_DIALOG_DATA]: updateCreateAerodromeDialogData,
+  [actions.SET_CREATE_AERODROME_DIALOG_SUBMITTING]: setCreateAerodromeDialogSubmitting,
+  [actions.CREATE_AERODROME_SUCCESS]: closeCreateAerodromeDialog,
+  [actions.CREATE_AERODROME_FAILURE]: unsetCreateAerodromeDialogSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

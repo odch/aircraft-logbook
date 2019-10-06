@@ -8,6 +8,7 @@ import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import validateFlight from './util/validateFlight'
 import { getCounters } from './util/counters'
+import { fetchAerodromes } from '../../../module/actions'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
@@ -77,8 +78,20 @@ export function* getCurrentMember() {
   return member
 }
 
-export function* getAerodrome(aerodromeId) {
-  return yield call(getDoc, ['aerodromes', aerodromeId])
+export function* getAerodrome(organizationId, aerodromeId) {
+  let aerodrome = yield call(getDoc, ['aerodromes', aerodromeId])
+  if (aerodrome.exists !== true) {
+    aerodrome = yield call(getDoc, [
+      'organizations',
+      organizationId,
+      'aerodromes',
+      aerodromeId
+    ])
+  }
+  if (aerodrome.exists !== true) {
+    throw new Error(`Aeorodrome not found for id ${aerodromeId}`)
+  }
+  return aerodrome
 }
 
 export function* getMember(organizationId, memberId) {
@@ -151,10 +164,12 @@ export function* createFlight({
 
     const departureAerodrome = yield call(
       getAerodrome,
+      organizationId,
       data.departureAerodrome.value
     )
     const destinationAerodrome = yield call(
       getAerodrome,
+      organizationId,
       data.destinationAerodrome.value
     )
 
@@ -314,11 +329,44 @@ export function* deleteFlight({
   yield put(actions.closeDeleteFlightDialog())
 }
 
+export function* createAerodrome({
+  payload: { organizationId, fieldName, data }
+}) {
+  try {
+    yield put(actions.setCreateAerodromeDialogSubmitting())
+    const dataToStore = {
+      identification: data.identification,
+      name: data.name,
+      timezone: data.timezone.value,
+      deleted: false
+    }
+    const doc = yield call(
+      addDoc,
+      ['organizations', organizationId, 'aerodromes'],
+      dataToStore
+    )
+    yield put(
+      actions.updateCreateFlightDialogData({
+        [fieldName]: {
+          value: doc.id,
+          label: `${data.name} (${data.identification})`
+        }
+      })
+    )
+    yield put(fetchAerodromes(organizationId))
+    yield put(actions.createAeorodromeSuccess())
+  } catch (e) {
+    error(`Failed to add aerodrome ${data.identification} ${data.name}`, e)
+    yield put(actions.createAeorodromeFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
-    takeEvery(actions.DELETE_FLIGHT, deleteFlight)
+    takeEvery(actions.DELETE_FLIGHT, deleteFlight),
+    takeEvery(actions.CREATE_AERODROME, createAerodrome)
   ])
 }

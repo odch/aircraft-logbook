@@ -13,6 +13,15 @@ const INITIAL_STATE = {
   deleteFlightDialog: {
     open: false
   },
+  createAerodromeDialog: {
+    open: false,
+    fieldName: null,
+    data: {
+      identification: '',
+      name: '',
+      timezone: null
+    }
+  },
   flights: {
     page: 0,
     rowsPerPage: 10
@@ -345,6 +354,137 @@ describe('routes', () => {
                 submitted: true,
                 flight: {
                   id: 'flight-id'
+                }
+              }
+            })
+          })
+
+          it('handles OPEN_CREATE_AERODROME_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createAerodromeDialog: {
+                    submitting: true,
+                    open: false,
+                    data: {
+                      identification: 'LSXX',
+                      name: 'Hagenbuch',
+                      timezone: 'Europe/Zurich'
+                    }
+                  }
+                },
+                actions.openCreateAerodromeDialog('destinationAerodrome')
+              )
+            ).toEqual({
+              createAerodromeDialog: {
+                open: true,
+                fieldName: 'destinationAerodrome',
+                data: INITIAL_STATE.createAerodromeDialog.data
+              }
+            })
+          })
+
+          it('handles CLOSE_CREATE_AERODROME_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createAerodromeDialog: {
+                    open: true
+                  }
+                },
+                actions.closeCreateAerodromeDialog()
+              )
+            ).toEqual({
+              createAerodromeDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles SET_CREATE_AERODROME_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  createAerodromeDialog: {
+                    submitting: false,
+                    open: true,
+                    data: {
+                      identification: 'LSXX',
+                      name: 'Hagenbuch',
+                      timezone: 'Europe/Zurich'
+                    }
+                  }
+                },
+                actions.setCreateAerodromeDialogSubmitting()
+              )
+            ).toEqual({
+              createAerodromeDialog: {
+                submitting: true,
+                open: true,
+                data: {
+                  identification: 'LSXX',
+                  name: 'Hagenbuch',
+                  timezone: 'Europe/Zurich'
+                }
+              }
+            })
+          })
+
+          it('handles CREATE_AERODROME_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  createAerodromeDialog: {
+                    submitting: true,
+                    open: true,
+                    data: {
+                      identification: 'LSXX',
+                      name: 'Hagenbuch',
+                      timezone: 'Europe/Zurich'
+                    }
+                  }
+                },
+                actions.createAeorodromeFailure()
+              )
+            ).toEqual({
+              createAerodromeDialog: {
+                submitting: false,
+                open: true,
+                data: {
+                  identification: 'LSXX',
+                  name: 'Hagenbuch',
+                  timezone: 'Europe/Zurich'
+                }
+              }
+            })
+          })
+
+          it('handles UPDATE_CREATE_AERODROME_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createAerodromeDialog: {
+                    submitting: false,
+                    open: true,
+                    data: {
+                      identification: 'LSXX',
+                      name: 'H',
+                      timezone: 'Europe/Zurich'
+                    }
+                  }
+                },
+                actions.updateCreateAerodromeDialogData({
+                  name: 'Hagenbuch'
+                })
+              )
+            ).toEqual({
+              createAerodromeDialog: {
+                submitting: false,
+                open: true,
+                data: {
+                  identification: 'LSXX',
+                  name: 'Hagenbuch',
+                  timezone: 'Europe/Zurich'
                 }
               }
             })

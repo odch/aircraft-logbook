@@ -2,7 +2,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Select from 'react-select'
+import Select, { createFilter } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import NoSsr from '@material-ui/core/NoSsr'
@@ -90,15 +91,18 @@ function Control(props) {
 }
 
 function Option(props) {
+  // eslint-disable-next-line no-unused-vars
+  const { onMouseMove, onMouseOver, ...newInnerProps } = props.innerProps // remove event handlers to fix lag
   return (
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
       component="div"
       style={{
-        fontWeight: props.isSelected ? 500 : 400
+        fontWeight: props.isSelected ? 500 : 400,
+        whiteSpace: 'normal'
       }}
-      {...props.innerProps}
+      {...newInnerProps}
     >
       {props.children}
     </MenuItem>
@@ -181,6 +185,9 @@ const components = {
 }
 
 class IntegrationReactSelect extends React.Component {
+  getSelectCmp = () =>
+    this.props.creatable === true ? CreatableSelect : Select
+
   render() {
     const {
       options,
@@ -192,7 +199,9 @@ class IntegrationReactSelect extends React.Component {
       margin,
       required,
       error,
-      disabled
+      disabled,
+      onCreateOption,
+      onCreateOptionText
     } = this.props
 
     const selectStyles = {
@@ -208,10 +217,12 @@ class IntegrationReactSelect extends React.Component {
       })
     }
 
+    const Cmp = this.getSelectCmp()
+
     return (
       <div className={classes.root}>
         <NoSsr>
-          <Select
+          <Cmp
             classes={classes}
             styles={selectStyles}
             margin={margin}
@@ -221,6 +232,11 @@ class IntegrationReactSelect extends React.Component {
             onChange={onChange}
             isMulti={isMulti}
             isDisabled={disabled}
+            onCreateOption={onCreateOption}
+            formatCreateLabel={() =>
+              onCreateOptionText ||
+              'Klicke hier, um eine neue Option zu erstellen'
+            }
             placeholder=""
             textFieldProps={{
               label,
@@ -231,6 +247,7 @@ class IntegrationReactSelect extends React.Component {
                 shrink: true
               }
             }}
+            filterOption={createFilter({ ignoreAccents: false })} // fix lag for large lists
           />
         </NoSsr>
       </div>
@@ -253,7 +270,10 @@ IntegrationReactSelect.propTypes = {
   margin: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  creatable: PropTypes.bool,
+  onCreateOption: PropTypes.func,
+  onCreateOptionText: PropTypes.string
 }
 
 export default withStyles(styles)(IntegrationReactSelect)

@@ -7,7 +7,7 @@ import {
   getAircraftFlights,
   getAircraftFlightsCount
 } from '../../../../../util/getFromState'
-import { fetchAircrafts, fetchMembers } from '../../../module'
+import { fetchAircrafts, fetchMembers, fetchAerodromes } from '../../../module'
 import {
   fetchFlights,
   setFlightsPage,
@@ -54,6 +54,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapActionCreators = {
   fetchAircrafts,
   fetchMembers,
+  fetchAerodromes,
   fetchFlights,
   setFlightsPage,
   openCreateFlightDialog,

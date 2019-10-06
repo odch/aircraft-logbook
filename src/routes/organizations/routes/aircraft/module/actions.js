@@ -17,6 +17,17 @@ export const SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA =
 export const OPEN_DELETE_FLIGHT_DIALOG = 'aircraft/OPEN_DELETE_FLIGHT_DIALOG'
 export const CLOSE_DELETE_FLIGHT_DIALOG = 'aircraft/CLOSE_DELETE_FLIGHT_DIALOG'
 export const DELETE_FLIGHT = 'aircraft/DELETE_FLIGHT'
+export const OPEN_CREATE_AERODROME_DIALOG =
+  'aircraft/OPEN_CREATE_AERODROME_DIALOG'
+export const CLOSE_CREATE_AERODROME_DIALOG =
+  'aircraft/CLOSE_CREATE_AERODROME_DIALOG'
+export const UPDATE_CREATE_AERODROME_DIALOG_DATA =
+  'aircraft/UPDATE_CREATE_AERODROME_DIALOG_DATA'
+export const CREATE_AERODROME = 'aircraft/CREATE_AERODROME'
+export const SET_CREATE_AERODROME_DIALOG_SUBMITTING =
+  'aircraft/SET_CREATE_AERODROME_DIALOG_SUBMITTING'
+export const CREATE_AERODROME_SUCCESS = 'aircraft/CREATE_AERODROME_SUCCESS'
+export const CREATE_AERODROME_FAILURE = 'aircraft/CREATE_AERODROME_FAILURE'
 
 export const fetchFlights = (
   organizationId,
@@ -116,4 +127,43 @@ export const deleteFlight = (organizationId, aircraftId, flightId) => ({
     aircraftId,
     flightId
   }
+})
+
+export const openCreateAerodromeDialog = fieldName => ({
+  type: OPEN_CREATE_AERODROME_DIALOG,
+  payload: {
+    fieldName
+  }
+})
+
+export const closeCreateAerodromeDialog = () => ({
+  type: CLOSE_CREATE_AERODROME_DIALOG
+})
+
+export const updateCreateAerodromeDialogData = data => ({
+  type: UPDATE_CREATE_AERODROME_DIALOG_DATA,
+  payload: {
+    data
+  }
+})
+
+export const createAerodrome = (organizationId, fieldName, data) => ({
+  type: CREATE_AERODROME,
+  payload: {
+    organizationId,
+    fieldName,
+    data
+  }
+})
+
+export const setCreateAerodromeDialogSubmitting = () => ({
+  type: SET_CREATE_AERODROME_DIALOG_SUBMITTING
+})
+
+export const createAeorodromeSuccess = () => ({
+  type: CREATE_AERODROME_SUCCESS
+})
+
+export const createAeorodromeFailure = () => ({
+  type: CREATE_AERODROME_FAILURE
 })

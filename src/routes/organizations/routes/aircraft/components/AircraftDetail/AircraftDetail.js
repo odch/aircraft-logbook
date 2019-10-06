@@ -40,12 +40,14 @@ class AircraftDetail extends React.Component {
       flightsPagination,
       fetchAircrafts,
       fetchMembers,
+      fetchAerodromes,
       fetchFlights
     } = this.props
 
     if (organization) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
+      fetchAerodromes(organization.id)
 
       if (aircraft) {
         fetchFlights(
@@ -65,6 +67,7 @@ class AircraftDetail extends React.Component {
       flightsPagination,
       fetchAircrafts,
       fetchMembers,
+      fetchAerodromes,
       fetchFlights
     } = this.props
 
@@ -74,6 +77,7 @@ class AircraftDetail extends React.Component {
     ) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
+      fetchAerodromes(organization.id)
     }
 
     if (
@@ -179,6 +183,7 @@ AircraftDetail.propTypes = {
   }).isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
+  fetchAerodromes: PropTypes.func.isRequired,
   fetchFlights: PropTypes.func.isRequired,
   openCreateFlightDialog: PropTypes.func.isRequired,
   initCreateFlightDialog: PropTypes.func.isRequired,

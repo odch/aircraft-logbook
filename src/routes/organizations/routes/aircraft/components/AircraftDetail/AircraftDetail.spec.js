@@ -20,6 +20,7 @@ describe('routes', () => {
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -41,6 +42,7 @@ describe('routes', () => {
                   fetchAircrafts={() => {}}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -64,6 +66,7 @@ describe('routes', () => {
                       fetchAircrafts={() => {}}
                       fetchFlights={() => {}}
                       fetchMembers={() => {}}
+                      fetchAerodromes={() => {}}
                       openCreateFlightDialog={() => {}}
                       initCreateFlightDialog={() => {}}
                       openDeleteFlightDialog={() => {}}
@@ -97,6 +100,7 @@ describe('routes', () => {
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
                     fetchMembers={() => {}}
+                    fetchAerodromes={() => {}}
                     openCreateFlightDialog={() => {}}
                     initCreateFlightDialog={() => {}}
                     openDeleteFlightDialog={() => {}}
@@ -151,6 +155,7 @@ describe('routes', () => {
                     fetchAircrafts={() => {}}
                     fetchFlights={() => {}}
                     fetchMembers={() => {}}
+                    fetchAerodromes={() => {}}
                     openCreateFlightDialog={() => {}}
                     initCreateFlightDialog={() => {}}
                     openDeleteFlightDialog={() => {}}
@@ -175,6 +180,7 @@ describe('routes', () => {
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -207,6 +213,7 @@ describe('routes', () => {
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -236,6 +243,7 @@ describe('routes', () => {
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -261,6 +269,7 @@ describe('routes', () => {
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -285,6 +294,7 @@ describe('routes', () => {
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -305,6 +315,7 @@ describe('routes', () => {
                   fetchAircrafts={fetchAircrafts}
                   fetchFlights={() => {}}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -334,6 +345,7 @@ describe('routes', () => {
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}
@@ -362,6 +374,7 @@ describe('routes', () => {
                   fetchAircrafts={() => {}}
                   fetchFlights={fetchFlights}
                   fetchMembers={() => {}}
+                  fetchAerodromes={() => {}}
                   openCreateFlightDialog={() => {}}
                   initCreateFlightDialog={() => {}}
                   openDeleteFlightDialog={() => {}}

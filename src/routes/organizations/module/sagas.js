@@ -101,12 +101,29 @@ export function* fetchMembers({ payload: { organizationId } }) {
   )
 }
 
+export function* fetchAerodromes({ payload: { organizationId } }) {
+  const firestore = yield call(getFirestore)
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [{ collection: 'aerodromes' }],
+      where: ['deleted', '==', false],
+      orderBy: [['name'], ['identification']],
+      storeAs: 'organizationAerodromes'
+    },
+    {}
+  )
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_ORGANIZATION, createOrganization),
     takeEvery(actions.SELECT_ORGANIZATION, selectOrganization),
     takeEvery(actions.DELETE_ORGANIZATION, deleteOrganization),
     takeEvery(actions.FETCH_AIRCRAFTS, fetchAircrafts),
-    takeEvery(actions.FETCH_MEMBERS, fetchMembers)
+    takeEvery(actions.FETCH_MEMBERS, fetchMembers),
+    takeEvery(actions.FETCH_AERODROMES, fetchAerodromes)
   ])
 }

@@ -6,7 +6,8 @@ import FlightCreateDialog from '../components/FlightCreateDialog'
 import {
   closeCreateFlightDialog,
   updateCreateFlightDialogData,
-  createFlight
+  createFlight,
+  openCreateAerodromeDialog
 } from '../module'
 import { getAircraft } from '../../../../../util/getFromState'
 
@@ -32,24 +33,40 @@ const aircraftSettings = (state, aircraftId) => {
   }
 }
 
+const aerodromes = state => {
+  const mainAerodromes = state.firestore.ordered.allAerodromes
+  const organizationAerodromes = state.firestore.ordered.organizationAerodromes
+
+  const merged = [...mainAerodromes, ...organizationAerodromes]
+  return merged.sort((a, b) => {
+    let cmp = a.name.localeCompare(b.name)
+    if (cmp === 0) {
+      cmp = a.identification.localeCompare(b.identification)
+    }
+    return cmp
+  })
+}
+
 const mapStateToProps = (state, ownProps) => {
   const { aircraftId, intl } = ownProps
   return {
     organizationMembers: state.firestore.ordered.organizationMembers,
     flightNatures: flightNatures(intl),
-    aerodromes: state.firestore.ordered.allAerodromes,
+    aerodromes: aerodromes(state),
     aircraftSettings: aircraftSettings(state, aircraftId),
     data: state.aircraft.createFlightDialog.data,
     validationErrors: state.aircraft.createFlightDialog.validationErrors,
     submitting: state.aircraft.createFlightDialog.submitting,
-    initialData: state.aircraft.createFlightDialog.initialData
+    initialData: state.aircraft.createFlightDialog.initialData,
+    createAerodromeDialogOpen: state.aircraft.createAerodromeDialog.open
   }
 }
 
 const mapActionCreators = {
   onClose: closeCreateFlightDialog,
   updateData: updateCreateFlightDialogData,
-  onSubmit: createFlight
+  onSubmit: createFlight,
+  openCreateAerodromeDialog
 }
 
 export default injectIntl(
