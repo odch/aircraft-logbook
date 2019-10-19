@@ -1,222 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components OrganizationsList renders loading icon if organizations not loaded 1`] = `
-<div
-  className="LoadingIcon-container-7"
->
-  <div
-    className="MuiCircularProgress-root-9 MuiCircularProgress-colorPrimary-12 MuiCircularProgress-indeterminate-11 LoadingIcon-icon-8"
-    role="progressbar"
-    style={
-      Object {
-        "height": 40,
-        "width": 40,
-      }
-    }
-  >
-    <svg
-      className="MuiCircularProgress-svg-14"
-      viewBox="22 22 44 44"
-    >
-      <circle
-        className="MuiCircularProgress-circle-15 MuiCircularProgress-circleIndeterminate-17"
-        cx={44}
-        cy={44}
-        fill="none"
-        r={20.2}
-        strokeWidth={3.6}
-        style={Object {}}
-      />
-    </svg>
-  </div>
-</div>
+"<div class=\\"LoadingIcon-container-7\\">
+  <div class=\\"MuiCircularProgress-root LoadingIcon-icon-8 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate\\" style=\\"width: 40px; height: 40px;\\" role=\\"progressbar\\"><svg class=\\"MuiCircularProgress-svg\\" viewBox=\\"22 22 44 44\\">
+      <circle class=\\"MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate\\" cx=\\"44\\" cy=\\"44\\" r=\\"20.2\\" fill=\\"none\\" stroke-width=\\"3.6\\"></circle>
+    </svg></div>
+</div>"
 `;
 
 exports[`components OrganizationsList renders organizations if loaded 1`] = `
-<div
-  className="MuiGrid-container-18 MuiGrid-spacing-xs-24-42 OrganizationsList-container-1"
-  data-cy="organizations-list"
->
-  <div
-    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
-  >
-    <div
-      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
-      data-cy="organization-create-button"
-    >
-      <button
-        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
-        type="button"
-      >
-        <div
-          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
-        >
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root-150 OrganizationsList-createIcon-5"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M0 0h24v24H0V0z"
-              fill="none"
-            />
-            <path
-              d="M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"
-            />
-          </svg>
-          <span
-            className="MuiTypography-root-159 MuiTypography-button-170 OrganizationsList-createText-6"
-          >
-            <span>
-              Neue Organisation erstellen
-            </span>
-          </span>
-        </div>
-        <span
-          className="MuiCardActionArea-focusHighlight-145"
-        />
-        <span
-          className="MuiTouchRipple-root-185"
-        />
-      </button>
-    </div>
+"<div class=\\"MuiGrid-root OrganizationsList-container-1 MuiGrid-container MuiGrid-spacing-xs-3\\" data-cy=\\"organizations-list\\">
+  <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\" data-cy=\\"organization-create-button\\"><button class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" type=\\"button\\">
+        <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\"><svg class=\\"MuiSvgIcon-root OrganizationsList-createIcon-5\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\">
+            <path fill=\\"none\\" d=\\"M0 0h24v24H0V0z\\"></path>
+            <path d=\\"M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z\\"></path>
+          </svg><span class=\\"MuiTypography-root OrganizationsList-createText-6 MuiTypography-button\\">Neue Organisation erstellen</span></div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+      </button></div>
   </div>
-  <div
-    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
-  >
-    <div
-      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
-    >
-      <a
-        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
-        href="/organizations/org1"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        role="button"
-        tabIndex="0"
-      >
-        <div
-          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
-        >
-          <h2
-            className="MuiTypography-root-159 MuiTypography-title-165"
-          >
-            org1
-          </h2>
-        </div>
-        <span
-          className="MuiCardActionArea-focusHighlight-145"
-        />
-        <span
-          className="MuiTouchRipple-root-185"
-        />
-      </a>
-    </div>
+  <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org1\\">
+        <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
+          <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org1</h6>
+        </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+      </a></div>
   </div>
-  <div
-    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
-  >
-    <div
-      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
-    >
-      <a
-        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
-        href="/organizations/org2"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        role="button"
-        tabIndex="0"
-      >
-        <div
-          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
-        >
-          <h2
-            className="MuiTypography-root-159 MuiTypography-title-165"
-          >
-            org2
-          </h2>
-        </div>
-        <span
-          className="MuiCardActionArea-focusHighlight-145"
-        />
-        <span
-          className="MuiTouchRipple-root-185"
-        />
-      </a>
-    </div>
+  <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org2\\">
+        <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
+          <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org2</h6>
+        </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+      </a></div>
   </div>
-  <div
-    className="MuiGrid-item-19 MuiGrid-grid-xs-12-58 MuiGrid-grid-sm-4-64"
-  >
-    <div
-      className="MuiPaper-root-116 MuiPaper-elevation1-119 MuiPaper-rounded-117 MuiCard-root-115 OrganizationsList-card-2"
-    >
-      <a
-        className="MuiButtonBase-root-146 MuiCardActionArea-root-143 OrganizationsList-actionArea-4"
-        href="/organizations/org3"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        role="button"
-        tabIndex="0"
-      >
-        <div
-          className="MuiCardContent-root-149 OrganizationsList-cardContent-3"
-        >
-          <h2
-            className="MuiTypography-root-159 MuiTypography-title-165"
-          >
-            org3
-          </h2>
-        </div>
-        <span
-          className="MuiCardActionArea-focusHighlight-145"
-        />
-        <span
-          className="MuiTouchRipple-root-185"
-        />
-      </a>
-    </div>
+  <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org3\\">
+        <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
+          <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org3</h6>
+        </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+      </a></div>
   </div>
-</div>
+</div>"
 `;

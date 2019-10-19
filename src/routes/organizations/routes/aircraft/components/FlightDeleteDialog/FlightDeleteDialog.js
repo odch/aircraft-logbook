@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -11,12 +11,13 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DeleteButton from '../../../../../../components/DeleteButton'
 import {
   aircraft as aircraftShape,
-  flight as flightShape
+  flight as flightShape,
+  intl as intlShape
 } from '../../../../../../shapes'
 import { formatDate, formatTime } from '../../../../../../util/dates'
 
 const FlightAttribute = props => (
-  <DialogContentText>
+  <DialogContentText className={props.className}>
     <FormattedMessage id={`flight.delete.dialog.${props.label}`} />
     :&nbsp;
     {props.value}
@@ -25,12 +26,16 @@ const FlightAttribute = props => (
 
 FlightAttribute.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string
 }
 
 const styles = {
   attributesWrapper: {
     marginTop: '1em'
+  },
+  attribute: {
+    marginBottom: 1
   }
 }
 
@@ -56,26 +61,32 @@ class FlightDeleteDialog extends React.Component {
             <FlightAttribute
               label="date"
               value={formatDate(flight.blockOffTime)}
+              className={classes.attribute}
             />
             <FlightAttribute
               label="pilot"
               value={`${flight.pilot.firstname} ${flight.pilot.lastname}`}
+              className={classes.attribute}
             />
             <FlightAttribute
               label="departureaerodrome"
               value={flight.departureAerodrome.name}
+              className={classes.attribute}
             />
             <FlightAttribute
               label="destinationaerodrome"
               value={flight.destinationAerodrome.name}
+              className={classes.attribute}
             />
             <FlightAttribute
               label="blockofftime"
               value={formatTime(flight.blockOffTime)}
+              className={classes.attribute}
             />
             <FlightAttribute
               label="blockontime"
               value={formatTime(flight.blockOnTime)}
+              className={classes.attribute}
             />
           </div>
         </DialogContent>

@@ -1,12 +1,4 @@
-import {
-  all,
-  takeEvery,
-  take,
-  fork,
-  call,
-  put,
-  select
-} from 'redux-saga/effects'
+import { all, takeEvery, take, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
 import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
 import * as actions from './actions'
@@ -325,29 +317,48 @@ describe('modules', () => {
         })
       })
 
+      describe('fetchAerodromes', () => {
+        it('should load the aeorodromes of an organization', () => {
+          const fetchAeorodromesAction = actions.fetchAerodromes('my_org')
+
+          const generator = sagas.fetchAerodromes(fetchAeorodromesAction)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+          expect(generator.next(firestore).value).toEqual(
+            call(
+              firestore.get,
+              {
+                collection: 'organizations',
+                doc: 'my_org',
+                subcollections: [{ collection: 'aerodromes' }],
+                where: ['deleted', '==', false],
+                orderBy: [['name'], ['identification']],
+                storeAs: 'organizationAerodromes'
+              },
+              {}
+            )
+          )
+
+          expect(generator.next().done).toEqual(true)
+        })
+      })
+
       describe('default', () => {
         it('should fork all sagas', () => {
           const generator = sagas.default()
 
           expect(generator.next().value).toEqual(
             all([
-              fork(
-                takeEvery,
-                actions.CREATE_ORGANIZATION,
-                sagas.createOrganization
-              ),
-              fork(
-                takeEvery,
-                actions.SELECT_ORGANIZATION,
-                sagas.selectOrganization
-              ),
-              fork(
-                takeEvery,
-                actions.DELETE_ORGANIZATION,
-                sagas.deleteOrganization
-              ),
-              fork(takeEvery, actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
-              fork(takeEvery, actions.FETCH_MEMBERS, sagas.fetchMembers)
+              takeEvery(actions.CREATE_ORGANIZATION, sagas.createOrganization),
+              takeEvery(actions.SELECT_ORGANIZATION, sagas.selectOrganization),
+              takeEvery(actions.DELETE_ORGANIZATION, sagas.deleteOrganization),
+              takeEvery(actions.FETCH_AIRCRAFTS, sagas.fetchAircrafts),
+              takeEvery(actions.FETCH_MEMBERS, sagas.fetchMembers),
+              takeEvery(actions.FETCH_AERODROMES, sagas.fetchAerodromes)
             ])
           )
         })

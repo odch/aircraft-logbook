@@ -23,7 +23,6 @@ describe('routes', () => {
       describe('StartPageContainer', () => {
         let wrapper
         let component
-        let container
 
         beforeEach(() => {
           jest.resetAllMocks()
@@ -42,12 +41,10 @@ describe('routes', () => {
             }
           })
 
-          container = wrapper.root.find(el => el.type === StartPageContainer)
-          component = container.find(el => el.type === StartPage)
+          component = wrapper.root.find(el => el.type === StartPage)
         })
 
-        it('should render both the container and the component ', () => {
-          expect(container).toBeTruthy()
+        it('should render the component', () => {
           expect(component).toBeTruthy()
         })
 
@@ -77,8 +74,7 @@ describe('routes', () => {
             }
           })
 
-          container = wrapper.root.find(el => el.type === StartPageContainer)
-          component = container.find(el => el.type === StartPage)
+          component = wrapper.root.find(el => el.type === StartPage)
           expect(component.props.selectedOrganization).toEqual(undefined)
         })
 
@@ -98,8 +94,7 @@ describe('routes', () => {
             }
           })
 
-          container = wrapper.root.find(el => el.type === StartPageContainer)
-          component = container.find(el => el.type === StartPage)
+          component = wrapper.root.find(el => el.type === StartPage)
           expect(component.props.selectedOrganization).toEqual(undefined)
         })
 
@@ -119,8 +114,7 @@ describe('routes', () => {
             }
           })
 
-          container = wrapper.root.find(el => el.type === StartPageContainer)
-          component = container.find(el => el.type === StartPage)
+          component = wrapper.root.find(el => el.type === StartPage)
           expect(component.props.selectedOrganization).toEqual(null)
         })
 
@@ -142,8 +136,7 @@ describe('routes', () => {
             }
           })
 
-          container = wrapper.root.find(el => el.type === StartPageContainer)
-          component = container.find(el => el.type === StartPage)
+          component = wrapper.root.find(el => el.type === StartPage)
           expect(component.props.selectedOrganization).toEqual(myOrg)
         })
       })

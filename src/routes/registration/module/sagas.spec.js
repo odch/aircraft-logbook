@@ -1,4 +1,4 @@
-import { put, all, takeLatest, fork, call } from 'redux-saga/effects'
+import { put, all, takeLatest, call } from 'redux-saga/effects'
 import { getFirebase } from '../../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -96,7 +96,7 @@ describe('modules', () => {
           const generator = sagas.default()
 
           expect(generator.next().value).toEqual(
-            all([fork(takeLatest, actions.REGISTER, sagas.register)])
+            all([takeLatest(actions.REGISTER, sagas.register)])
           )
         })
       })

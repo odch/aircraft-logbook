@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import renderIntl from '../../../../testutil/renderIntl'
+import { renderIntlMaterial } from '../../../../testutil/renderIntl'
 import OrganizationsList from './OrganizationsList'
 
 describe('components', () => {
@@ -13,7 +13,7 @@ describe('components', () => {
     }
 
     it('renders loading icon if organizations not loaded', () => {
-      const tree = renderIntl(
+      const renderedValue = renderIntlMaterial(
         <OrganizationsList
           organizations={undefined}
           createDialog={createDialog}
@@ -21,14 +21,15 @@ describe('components', () => {
           closeCreateOrganizationDialog={() => {}}
           updateCreateOrganizationDialogData={() => {}}
           createOrganization={() => {}}
-        />
-      ).toJSON()
-      expect(tree).toMatchSnapshot()
+        />,
+        true
+      )
+      expect(renderedValue).toMatchSnapshot()
     })
 
     it('renders organizations if loaded', () => {
       const organizations = [{ id: 'org1' }, { id: 'org2' }, { id: 'org3' }]
-      const tree = renderIntl(
+      const renderedValue = renderIntlMaterial(
         <Router>
           <OrganizationsList
             organizations={organizations}
@@ -38,9 +39,10 @@ describe('components', () => {
             updateCreateOrganizationDialogData={() => {}}
             createOrganization={() => {}}
           />
-        </Router>
-      ).toJSON()
-      expect(tree).toMatchSnapshot()
+        </Router>,
+        true
+      )
+      expect(renderedValue).toMatchSnapshot()
     })
   })
 })

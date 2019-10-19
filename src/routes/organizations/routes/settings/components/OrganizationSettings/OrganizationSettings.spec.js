@@ -2,8 +2,12 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
-import renderIntl from '../../../../../../testutil/renderIntl'
+import renderIntl, {
+  renderIntlMaterial
+} from '../../../../../../testutil/renderIntl'
 import OrganizationSettings from './OrganizationSettings'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import MomentUtils from '@date-io/moment'
 
 const StartPage = () => <div>Start Page</div>
 
@@ -42,6 +46,11 @@ describe('routes', () => {
 
             it('renders organization settings if loaded', () => {
               const store = configureStore()({
+                main: {
+                  app: {
+                    organizations: [{ id: 'my_org' }]
+                  }
+                },
                 firestore: {
                   ordered: {
                     organizationMembers: [
@@ -66,22 +75,32 @@ describe('routes', () => {
                   },
                   deleteMemberDialog: {
                     open: false
+                  },
+                  exportFlightsForm: {
+                    submitting: false,
+                    data: {
+                      startDate: '2019-08-01',
+                      endDate: '2019-08-31'
+                    }
                   }
                 }
               })
 
-              const tree = renderIntl(
-                <Provider store={store}>
-                  <Router>
-                    <OrganizationSettings
-                      organization={{ id: 'my_org' }}
-                      deleteOrganization={() => {}}
-                      openCreateMemberDialog={() => {}}
-                    />
-                  </Router>
-                </Provider>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
+              const renderedValue = renderIntlMaterial(
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <Provider store={store}>
+                    <Router>
+                      <OrganizationSettings
+                        organization={{ id: 'my_org' }}
+                        deleteOrganization={() => {}}
+                        openCreateMemberDialog={() => {}}
+                      />
+                    </Router>
+                  </Provider>
+                </MuiPickersUtilsProvider>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
             })
           })
         })

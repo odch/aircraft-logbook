@@ -18,7 +18,7 @@ import FlightCreateDialog from '../../containers/FlightCreateDialogContainer'
 const styles = theme => ({
   container: {
     padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
+    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
       width: 1000,
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -40,12 +40,14 @@ class AircraftDetail extends React.Component {
       flightsPagination,
       fetchAircrafts,
       fetchMembers,
+      fetchAerodromes,
       fetchFlights
     } = this.props
 
     if (organization) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
+      fetchAerodromes(organization.id)
 
       if (aircraft) {
         fetchFlights(
@@ -65,6 +67,7 @@ class AircraftDetail extends React.Component {
       flightsPagination,
       fetchAircrafts,
       fetchMembers,
+      fetchAerodromes,
       fetchFlights
     } = this.props
 
@@ -74,6 +77,7 @@ class AircraftDetail extends React.Component {
     ) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
+      fetchAerodromes(organization.id)
     }
 
     if (
@@ -123,7 +127,7 @@ class AircraftDetail extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography variant="display1" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
         <Button
@@ -179,6 +183,7 @@ AircraftDetail.propTypes = {
   }).isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
+  fetchAerodromes: PropTypes.func.isRequired,
   fetchFlights: PropTypes.func.isRequired,
   openCreateFlightDialog: PropTypes.func.isRequired,
   initCreateFlightDialog: PropTypes.func.isRequired,

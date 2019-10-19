@@ -11,7 +11,6 @@ describe('containers', () => {
   describe('AccountMenuContainer', () => {
     let wrapper
     let component
-    let container
 
     beforeEach(() => {
       jest.resetAllMocks()
@@ -36,12 +35,10 @@ describe('containers', () => {
         </Provider>
       )
 
-      container = wrapper.root.find(el => el.type === AccountMenuContainer)
-      component = container.find(el => el.type === AccountMenu)
+      component = wrapper.root.find(el => el.type === AccountMenu)
     })
 
-    it('should render both the container and the component ', () => {
-      expect(container).toBeTruthy()
+    it('should render the component ', () => {
       expect(component).toBeTruthy()
     })
 

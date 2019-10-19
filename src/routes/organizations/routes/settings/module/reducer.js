@@ -1,4 +1,5 @@
 import _set from 'lodash.set'
+import moment from 'moment-timezone'
 import { createReducer } from '../../../../../util/reducer'
 import * as actions from './actions'
 
@@ -15,6 +16,19 @@ export const INITIAL_STATE = {
   deleteMemberDialog: {
     open: false,
     submitting: false
+  },
+  exportFlightsForm: {
+    submitting: false,
+    data: {
+      startDate: moment()
+        .subtract(1, 'months')
+        .startOf('month')
+        .format('YYYY-MM-DD'),
+      endDate: moment()
+        .subtract(1, 'months')
+        .endOf('month')
+        .format('YYYY-MM-DD')
+    }
   },
   members: {
     page: 0
@@ -102,6 +116,33 @@ const setMembersPage = (state, action) => ({
   }
 })
 
+const setExportFlightsFormSubmitting = (state, action) => ({
+  ...state,
+  exportFlightsForm: {
+    ...state.exportFlightsForm,
+    submitting: action.payload.submitting
+  }
+})
+
+const updateExportFlightsFormData = (state, action) => {
+  const newData = {
+    ...state.exportFlightsForm.data
+  }
+
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+
+  return {
+    ...state,
+    exportFlightsForm: {
+      ...state.exportFlightsForm,
+      data: newData
+    }
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
@@ -112,7 +153,9 @@ const ACTION_HANDLERS = {
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
-  [actions.SET_MEMBERS_PAGE]: setMembersPage
+  [actions.SET_MEMBERS_PAGE]: setMembersPage,
+  [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,
+  [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

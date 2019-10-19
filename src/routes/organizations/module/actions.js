@@ -19,6 +19,7 @@ export const DELETE_ORGANIZATION_FAILURE =
   'organizations/DELETE_ORGANIZATION_FAILURE'
 export const FETCH_AIRCRAFTS = 'organizations/FETCH_AIRCRAFTS'
 export const FETCH_MEMBERS = 'organizations/FETCH_MEMBERS'
+export const FETCH_AERODROMES = 'organizations/FETCH_AERODROMES'
 
 export const openCreateOrganizationDialog = () => ({
   type: OPEN_CREATE_ORGANIZATION_DIALOG
@@ -85,6 +86,13 @@ export const fetchAircrafts = organizationId => ({
 
 export const fetchMembers = organizationId => ({
   type: FETCH_MEMBERS,
+  payload: {
+    organizationId
+  }
+})
+
+export const fetchAerodromes = organizationId => ({
+  type: FETCH_AERODROMES,
   payload: {
     organizationId
   }

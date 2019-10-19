@@ -16,55 +16,53 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
 <div
   className="AircraftSettings-container-1"
 >
-  <h1
-    className="MuiTypography-root-13 MuiTypography-display1-17 MuiTypography-gutterBottom-31"
+  <h4
+    className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
   >
     HBKFW
-  </h1>
+  </h4>
   <div>
-    <h2
-      className="MuiTypography-root-13 MuiTypography-title-19 MuiTypography-gutterBottom-31"
+    <h5
+      className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
     >
-      <span>
-        Treibstofftypen
-      </span>
-    </h2>
+      Treibstofftypen
+    </h5>
     <ul
-      className="MuiList-root-39 MuiList-dense-41 MuiList-padding-40"
+      className="MuiList-root MuiList-dense MuiList-padding"
     >
       <li
-        className="MuiListItem-root-43 MuiListItem-default-46 MuiListItem-dense-47"
+        className="MuiListItem-root MuiListItem-dense"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-54 MuiListItemText-dense-56"
+          className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
         >
           <span
-            className="MuiTypography-root-13 MuiTypography-subheading-20 MuiListItemText-primary-57 MuiListItemText-textDense-59"
+            className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
           >
             AvGas
           </span>
           <p
-            className="MuiTypography-root-13 MuiTypography-body1-22 MuiTypography-colorTextSecondary-37 MuiListItemText-secondary-58 MuiListItemText-textDense-59"
+            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
           >
             avgas
           </p>
         </div>
       </li>
       <li
-        className="MuiListItem-root-43 MuiListItem-default-46 MuiListItem-dense-47"
+        className="MuiListItem-root MuiListItem-dense"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-54 MuiListItemText-dense-56"
+          className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
         >
           <span
-            className="MuiTypography-root-13 MuiTypography-subheading-20 MuiListItemText-primary-57 MuiListItemText-textDense-59"
+            className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
           >
             MoGas
           </span>
           <p
-            className="MuiTypography-root-13 MuiTypography-body1-22 MuiTypography-colorTextSecondary-37 MuiListItemText-secondary-58 MuiListItemText-textDense-59"
+            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
           >
             mogas
           </p>
@@ -80,7 +78,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
   className="LoadingIcon-container-2"
 >
   <div
-    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -90,11 +88,11 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
     }
   >
     <svg
-      className="MuiCircularProgress-svg-9"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"
@@ -112,7 +110,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
   className="LoadingIcon-container-2"
 >
   <div
-    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -122,11 +120,11 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
     }
   >
     <svg
-      className="MuiCircularProgress-svg-9"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"

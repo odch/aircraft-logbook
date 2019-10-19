@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import _get from 'lodash.get'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -14,17 +14,19 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
-import { DatePicker, TimePicker } from 'material-ui-pickers'
+import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import Select from '../../../../../../components/Select'
 import DecimalField from '../../../../../../components/DecimalField'
 import IntegerField from '../../../../../../components/IntegerField'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import {
   aerodrome as aerodromeShape,
-  member as memberShape
+  member as memberShape,
+  intl as intlShape
 } from '../../../../../../shapes'
 import { getMemberOptions, getAerodromeOptions } from '../../util/getOptions'
 import getMissingFields from '../../util/getMissingFields'
+import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
 
 const styles = theme => ({
   loadingIconContainer: {
@@ -50,6 +52,10 @@ class FlightCreateDialog extends React.Component {
 
   handleSelectChange = name => value => {
     this.updateData(name, value)
+  }
+
+  handleSelectCreateOption = name => (/*value*/) => {
+    this.props.openCreateAerodromeDialog(name)
   }
 
   handleDecimalChange = name => value => {
@@ -109,14 +115,19 @@ class FlightCreateDialog extends React.Component {
   hasInitialValue = name => !!_get(this.props.initialData, name)
 
   render() {
-    const { data } = this.props
+    const { data, createAerodromeDialogOpen, organizationId } = this.props
     return (
-      <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
-        <DialogTitle>
-          <FormattedMessage id="flight.create.dialog.title" />
-        </DialogTitle>
-        {data.initialized ? this.renderForm() : this.renderLoadingIcon()}
-      </Dialog>
+      <React.Fragment>
+        <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
+          <DialogTitle>
+            <FormattedMessage id="flight.create.dialog.title" />
+          </DialogTitle>
+          {data.initialized ? this.renderForm() : this.renderLoadingIcon()}
+        </Dialog>
+        {createAerodromeDialogOpen && (
+          <CreateAerodromeDialog organizationId={organizationId} />
+        )}
+      </React.Fragment>
     )
   }
 
@@ -141,8 +152,8 @@ class FlightCreateDialog extends React.Component {
           {this.renderSelect('pilot', memberOptions)}
           {this.renderSelect('instructor', memberOptions)}
           {this.renderSelect('nature', flightNatures)}
-          {this.renderSelect('departureAerodrome', aerodromeOptions)}
-          {this.renderSelect('destinationAerodrome', aerodromeOptions)}
+          {this.renderSelect('departureAerodrome', aerodromeOptions, true)}
+          {this.renderSelect('destinationAerodrome', aerodromeOptions, true)}
           {this.renderInTwoColumns(
             'counters.flighttimecounter',
             this.renderDecimalField(
@@ -238,7 +249,7 @@ class FlightCreateDialog extends React.Component {
         <FormLabel component="legend">
           <FormattedMessage id={`flight.create.dialog.${label}`} />
         </FormLabel>
-        <Grid container spacing={24}>
+        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             {component1}
           </Grid>
@@ -264,7 +275,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderSelect(name, options) {
+  renderSelect(name, options, creatable = false) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -275,14 +286,16 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         error={hasError}
         disabled={isDisabled}
+        creatable={creatable}
+        onCreateOption={this.handleSelectCreateOption(name)}
+        onCreateOptionText="Flugplatz nicht gefunden? Klicke hier, um einen neuen Flugplatz zu erstellen."
       />
     ))
   }
 
   renderDatePicker(name) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
-      <DatePicker
-        keyboard
+      <KeyboardDatePicker
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name)}
         onChange={this.handleDateChange(name)}
@@ -301,8 +314,7 @@ class FlightCreateDialog extends React.Component {
 
   renderTimePicker(name, disabled) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
-      <TimePicker
-        keyboard
+      <KeyboardTimePicker
         ampm={false}
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name)}
@@ -461,9 +473,11 @@ FlightCreateDialog.propTypes = {
     ).isRequired,
     engineHoursCounterEnabled: PropTypes.bool.isRequired
   }).isRequired,
+  createAerodromeDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,
+  openCreateAerodromeDialog: PropTypes.func.isRequired,
   intl: intlShape,
   classes: PropTypes.object.isRequired
 }

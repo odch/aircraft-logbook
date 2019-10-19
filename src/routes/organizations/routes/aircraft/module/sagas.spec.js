@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, call, put, select } from 'redux-saga/effects'
+import { all, takeEvery, call, put, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
 import { getFirestore } from '../../../../../util/firebase'
@@ -7,8 +7,11 @@ import * as actions from './actions'
 import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
 import validateFlight from './util/validateFlight'
+import { fetchAerodromes } from '../../../module'
 
 const counter = (start, end) => ({ start, end })
+
+const getFromMap = map => name => map[name]
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -65,7 +68,8 @@ describe('routes', () => {
                     populate: [
                       'departureAerodrome',
                       'destinationAerodrome',
-                      'pilot'
+                      'pilot',
+                      'instructor'
                     ]
                   },
                   {}
@@ -187,17 +191,40 @@ describe('routes', () => {
                 id: 'member-id'
               }
               const owner = { ref: 'owner-ref' }
-              const pilot = { ref: 'pilot-ref' }
-              const instructor = { ref: 'instructor-ref' }
+              const pilot = {
+                exists: true,
+                ref: 'pilot-ref',
+                id: 'pilot-id',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999'
+                })
+              }
+              const instructor = {
+                exists: true,
+                ref: 'instructor-ref',
+                id: 'instructor-id',
+                get: getFromMap({
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer'
+                })
+              }
               const departureAerodrome = {
                 ref: 'dep-ad-ref',
-                data: () => ({
+                id: 'dep-ad-id',
+                get: getFromMap({
+                  identification: 'LSZT',
+                  name: 'Lommis',
                   timezone: 'Europe/Zurich'
                 })
               }
               const destinationAerodrome = {
                 ref: 'dest-ad-ref',
-                data: () => ({
+                id: 'dest-ad-id',
+                get: getFromMap({
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
                   timezone: 'Europe/Zurich'
                 })
               }
@@ -212,10 +239,18 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
-                call(sagas.getAerodrome, data.departureAerodrome.value)
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.departureAerodrome.value
+                )
               )
               expect(generator.next(departureAerodrome).value).toEqual(
-                call(sagas.getAerodrome, data.destinationAerodrome.value)
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.destinationAerodrome.value
+                )
               )
 
               expect(generator.next(destinationAerodrome).value).toEqual(
@@ -231,11 +266,35 @@ describe('routes', () => {
                   {
                     deleted: false,
                     owner: 'owner-ref',
-                    pilot: 'pilot-ref',
-                    instructor: 'instructor-ref',
+                    pilot: {
+                      firstname: 'Max',
+                      lastname: 'Superpilot',
+                      nr: '9999',
+                      member: 'pilot-ref',
+                      id: 'pilot-id'
+                    },
+                    instructor: {
+                      firstname: 'Hans',
+                      lastname: 'Superfluglehrer',
+                      nr: null,
+                      member: 'instructor-ref',
+                      id: 'instructor-id'
+                    },
                     nature: 'vp',
-                    departureAerodrome: 'dep-ad-ref',
-                    destinationAerodrome: 'dest-ad-ref',
+                    departureAerodrome: {
+                      aerodrome: 'dep-ad-ref',
+                      id: 'dep-ad-id',
+                      identification: 'LSZT',
+                      name: 'Lommis',
+                      timezone: 'Europe/Zurich'
+                    },
+                    destinationAerodrome: {
+                      aerodrome: 'dest-ad-ref',
+                      id: 'dest-ad-id',
+                      identification: 'LSPV',
+                      name: 'Wangen-Lachen',
+                      timezone: 'Europe/Zurich'
+                    },
                     blockOffTime: new Date('2018-12-15T09:00:00.000Z'),
                     takeOffTime: new Date('2018-12-15T09:05:00.000Z'),
                     landingTime: new Date('2018-12-15T09:35:00.000Z'),
@@ -545,20 +604,69 @@ describe('routes', () => {
             })
           })
 
+          describe('createAerodrome', () => {
+            const orgId = 'my_org'
+            const fieldName = 'destination'
+            const data = {
+              identification: 'LSXX',
+              name: 'Hagenbuch',
+              timezone: 'Europe/Zurich'
+            }
+
+            const action = actions.createAerodrome(orgId, fieldName, data)
+
+            it('should create the aerodrome in the organization', () => {
+              const expectedDataToStore = {
+                identification: data.identification,
+                name: data.name,
+                timezone: data.timezone.value,
+                deleted: false
+              }
+
+              const createdAerodromeDoc = {
+                id: 'newAerodromeId'
+              }
+
+              return expectSaga(sagas.createAerodrome, action)
+                .provide([
+                  [
+                    call(
+                      addDoc,
+                      ['organizations', orgId, 'aerodromes'],
+                      expectedDataToStore
+                    ),
+                    createdAerodromeDoc
+                  ]
+                ])
+                .put(actions.setCreateAerodromeDialogSubmitting())
+                .put(
+                  actions.updateCreateFlightDialogData({
+                    [fieldName]: {
+                      value: 'newAerodromeId',
+                      label: 'Hagenbuch (LSXX)'
+                    }
+                  })
+                )
+                .put(fetchAerodromes(orgId))
+                .put(actions.createAeorodromeSuccess())
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
 
               expect(generator.next().value).toEqual(
                 all([
-                  fork(takeEvery, actions.FETCH_FLIGHTS, sagas.fetchFlights),
-                  fork(takeEvery, actions.CREATE_FLIGHT, sagas.createFlight),
-                  fork(
-                    takeEvery,
+                  takeEvery(actions.FETCH_FLIGHTS, sagas.fetchFlights),
+                  takeEvery(actions.CREATE_FLIGHT, sagas.createFlight),
+                  takeEvery(
                     actions.INIT_CREATE_FLIGHT_DIALOG,
                     sagas.initCreateFlightDialog
                   ),
-                  fork(takeEvery, actions.DELETE_FLIGHT, sagas.deleteFlight)
+                  takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight),
+                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome)
                 ])
               )
             })

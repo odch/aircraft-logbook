@@ -11,7 +11,6 @@ describe('containers', () => {
   describe('LoginFormContainer', () => {
     let wrapper
     let component
-    let container
 
     beforeEach(() => {
       jest.resetAllMocks()
@@ -28,12 +27,10 @@ describe('containers', () => {
         </Provider>
       )
 
-      container = wrapper.root.find(el => el.type === LoginFormContainer)
-      component = container.find(el => el.type === LoginForm)
+      component = wrapper.root.find(el => el.type === LoginForm)
     })
 
-    it('should render both the container and the component ', () => {
-      expect(container).toBeTruthy()
+    it('should render the component ', () => {
       expect(component).toBeTruthy()
     })
 

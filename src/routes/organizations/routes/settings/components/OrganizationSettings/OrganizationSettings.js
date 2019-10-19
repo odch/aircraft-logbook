@@ -1,31 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import featureToggles from 'feature-toggles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
-import { organization as organizationShape } from '../../../../../../shapes'
+import {
+  organization as organizationShape,
+  intl as intlShape
+} from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
 import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
+import ExportFlightsForm from '../../containers/ExportFlightsFormContainer'
 
 const styles = theme => ({
   container: {
     padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
+    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
       width: 1000,
       marginLeft: 'auto',
       marginRight: 'auto'
     }
   },
   divider: {
-    margin: theme.spacing.unit / 5 + 'em'
+    margin: theme.spacing(0.2) + 'em'
   },
   deleteButtonContainer: {
     textAlign: 'center'
@@ -39,6 +43,10 @@ class OrganizationSettings extends React.Component {
 
   handleCreateMemberClick = () => {
     this.props.openCreateMemberDialog()
+  }
+
+  handleFlightsExportClick = () => {
+    this.props.exportFlights()
   }
 
   handleDeleteButtonClick = () => {
@@ -71,11 +79,7 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Typography
-          variant="display1"
-          data-cy="organization-title"
-          gutterBottom
-        >
+        <Typography variant="h4" data-cy="organization-title" gutterBottom>
           {organization.id}
         </Typography>
         <Button
@@ -86,6 +90,7 @@ class OrganizationSettings extends React.Component {
           <FormattedMessage id="organization.settings.createmember" />
         </Button>
         <MemberList organizationId={organization.id} />
+        <ExportFlightsForm organizationId={organization.id} />
         {featureToggles.isFeatureEnabled('organizationsManagement') && (
           <React.Fragment>
             <Divider className={classes.divider} />
@@ -119,6 +124,7 @@ OrganizationSettings.propTypes = {
   createMemberDialogOpen: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   openCreateMemberDialog: PropTypes.func.isRequired,
+  exportFlights: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
   intl: intlShape
 }

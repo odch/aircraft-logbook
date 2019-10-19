@@ -1,3 +1,4 @@
+import moment from 'moment-timezone'
 import * as actions from './actions'
 import reducer from './reducer'
 
@@ -14,6 +15,19 @@ export const INITIAL_STATE = {
   deleteMemberDialog: {
     open: false,
     submitting: false
+  },
+  exportFlightsForm: {
+    submitting: false,
+    data: {
+      startDate: moment()
+        .subtract(1, 'months')
+        .startOf('month')
+        .format('YYYY-MM-DD'),
+      endDate: moment()
+        .subtract(1, 'months')
+        .endOf('month')
+        .format('YYYY-MM-DD')
+    }
   },
   members: {
     page: 0
@@ -226,6 +240,58 @@ describe('routes', () => {
             ).toEqual({
               members: {
                 page: 2
+              }
+            })
+          })
+
+          it('handles SET_EXPORT_FLIGHTS_FORM_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  exportFlightsForm: {
+                    submitting: false,
+                    data: {
+                      startDate: '2019-08-01',
+                      endDate: '2019-08-31'
+                    }
+                  }
+                },
+                actions.setExportFlightsDialogSubmitting(true)
+              )
+            ).toEqual({
+              exportFlightsForm: {
+                submitting: true,
+                data: {
+                  startDate: '2019-08-01',
+                  endDate: '2019-08-31'
+                }
+              }
+            })
+          })
+
+          it('handles UPDATE_EXPORT_FLIGHTS_FORM_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  exportFlightsForm: {
+                    submitting: false,
+                    data: {
+                      startDate: '2019-08-01',
+                      endDate: '2019-08-31'
+                    }
+                  }
+                },
+                actions.updateExportFlightsFormData({
+                  startDate: '2019-07-01'
+                })
+              )
+            ).toEqual({
+              exportFlightsForm: {
+                submitting: false,
+                data: {
+                  startDate: '2019-07-01',
+                  endDate: '2019-08-31'
+                }
               }
             })
           })

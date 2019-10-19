@@ -18,7 +18,7 @@ import OrganizationsCreateDialog from '../OrganizationsCreateDialog'
 const styles = theme => ({
   container: {
     padding: '1em',
-    [theme.breakpoints.up(1000 + theme.spacing.unit * 3 * 2)]: {
+    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
       width: 1000,
       marginLeft: 'auto',
       marginRight: 'auto'
@@ -39,8 +39,7 @@ const styles = theme => ({
     float: 'left'
   },
   createText: {
-    fontSize: '1rem',
-    marginLeft: '2em'
+    fontSize: '1rem'
   }
 })
 
@@ -69,7 +68,7 @@ class OrganizationsList extends React.Component {
       <Grid
         container
         className={classes.container}
-        spacing={24}
+        spacing={3}
         data-cy="organizations-list"
       >
         {featureToggles.isFeatureEnabled('organizationsManagement') && (
@@ -98,7 +97,7 @@ class OrganizationsList extends React.Component {
                 to={`/organizations/${organization.id}`}
               >
                 <CardContent className={classes.cardContent}>
-                  <Typography variant="title">{organization.id}</Typography>
+                  <Typography variant="h6">{organization.id}</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>

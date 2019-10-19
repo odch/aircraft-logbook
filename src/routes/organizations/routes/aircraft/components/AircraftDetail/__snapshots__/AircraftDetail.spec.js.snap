@@ -10,16 +10,17 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
 <div
   className="AircraftDetail-container-1"
 >
-  <h1
-    className="MuiTypography-root-13 MuiTypography-display1-17 MuiTypography-gutterBottom-31"
+  <h4
+    className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
   >
     HBKFW
-  </h1>
+  </h4>
   <button
-    className="MuiButtonBase-root-65 MuiButton-root-39 MuiButton-contained-50 MuiButton-containedPrimary-51 MuiButton-raised-53 MuiButton-raisedPrimary-54"
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -29,31 +30,28 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
-    tabIndex="0"
+    tabIndex={0}
     type="button"
   >
     <span
-      className="MuiButton-label-40"
+      className="MuiButton-label"
     >
-      <span>
-        Flug erfassen
-      </span>
+      Flug erfassen
     </span>
-    <span
-      className="MuiTouchRipple-root-68"
-    />
   </button>
   <div
-    className="FlightList-container-75"
+    className="FlightList-container-66"
   >
     <div
-      className="MuiPaper-root-82 MuiPaper-elevation1-85 MuiExpansionPanel-root-79"
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
     >
       <div
+        aria-disabled={false}
         aria-expanded={false}
-        className="MuiButtonBase-root-65 MuiExpansionPanelSummary-root-109"
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
         onBlur={[Function]}
         onClick={[Function]}
+        onDragLeave={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
@@ -64,32 +62,30 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content-113"
+          className="MuiExpansionPanelSummary-content"
         >
           <p
-            className="MuiTypography-root-13 MuiTypography-body1-22 FlightList-flightHeading-76"
+            className="MuiTypography-root FlightList-flightHeading-67 MuiTypography-body1"
           >
-            <span>
-              Von 
-              <span
-                className="FlightList-bold-78"
-              >
-                Lommis
-              </span>
-               nach 
-              <span
-                className="FlightList-bold-78"
-              >
-                Lommis
-              </span>
-               — Max Muster
+            Von 
+            <span
+              className="FlightList-bold-69"
+            >
+              Lommis
             </span>
+             nach 
+            <span
+              className="FlightList-bold-69"
+            >
+              Lommis
+            </span>
+             — Max Muster
           </p>
           <p
-            className="MuiTypography-root-13 MuiTypography-body1-22 FlightList-flightSecondaryHeading-77"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-68 MuiTypography-body1"
           >
             20.11.2018
             ,
@@ -100,9 +96,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           </p>
         </div>
         <div
-          aria-hidden="true"
-          className="MuiButtonBase-root-65 MuiIconButton-root-115 MuiExpansionPanelSummary-expandIcon-114"
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
           onBlur={[Function]}
+          onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -116,11 +114,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           tabIndex={-1}
         >
           <span
-            className="MuiIconButton-label-120"
+            className="MuiIconButton-label"
           >
             <svg
               aria-hidden="true"
-              className="MuiSvgIcon-root-121"
+              className="MuiSvgIcon-root"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -128,20 +126,12 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
               <path
                 d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
               />
-              <path
-                d="M0 0h24v24H0z"
-                fill="none"
-              />
             </svg>
           </span>
-          <span
-            className="MuiTouchRipple-root-68"
-          />
         </div>
       </div>
       <div
-        aria-hidden="true"
-        className="MuiCollapse-container-130"
+        className="MuiCollapse-container MuiCollapse-hidden"
         style={
           Object {
             "minHeight": "0px",
@@ -149,36 +139,41 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         }
       >
         <div
-          className="MuiCollapse-wrapper-132"
+          className="MuiCollapse-wrapper"
         >
           <div
-            className="MuiCollapse-wrapperInner-133"
-          />
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      className="MuiTablePagination-root-134"
+      className="MuiTablePagination-root"
     >
       <div
-        className="MuiToolbar-root-144 MuiToolbar-regular-146 MuiToolbar-gutters-145 MuiTablePagination-toolbar-135"
+        className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
       >
         <div
-          className="MuiTablePagination-spacer-136"
+          className="MuiTablePagination-spacer"
         />
         <span
-          className="MuiTypography-root-13 MuiTypography-caption-23 MuiTablePagination-caption-137"
+          className="MuiTypography-root MuiTablePagination-caption MuiTypography-caption MuiTypography-colorInherit"
         >
           1-10 of 45
         </span>
         <div
-          className="MuiTablePagination-actions-143"
+          className="MuiTablePagination-actions"
         >
           <button
-            className="MuiButtonBase-root-65 MuiButtonBase-disabled-66 MuiIconButton-root-115 MuiIconButton-disabled-119"
+            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
             disabled={true}
             onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
@@ -188,15 +183,15 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex="-1"
+            tabIndex={-1}
             type="button"
           >
             <span
-              className="MuiIconButton-label-120"
+              className="MuiIconButton-label"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-121"
+                className="MuiSvgIcon-root"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -208,10 +203,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </span>
           </button>
           <button
-            className="MuiButtonBase-root-65 MuiIconButton-root-115"
+            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
@@ -221,15 +217,15 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex="0"
+            tabIndex={0}
             type="button"
           >
             <span
-              className="MuiIconButton-label-120"
+              className="MuiIconButton-label"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-121"
+                className="MuiSvgIcon-root"
                 focusable="false"
                 role="presentation"
                 viewBox="0 0 24 24"
@@ -239,9 +235,6 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
                 />
               </svg>
             </span>
-            <span
-              className="MuiTouchRipple-root-68"
-            />
           </button>
         </div>
       </div>
@@ -255,7 +248,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   className="LoadingIcon-container-2"
 >
   <div
-    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -265,11 +258,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     }
   >
     <svg
-      className="MuiCircularProgress-svg-9"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"
@@ -287,7 +280,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   className="LoadingIcon-container-2"
 >
   <div
-    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -297,11 +290,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     }
   >
     <svg
-      className="MuiCircularProgress-svg-9"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"
@@ -319,7 +312,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   className="LoadingIcon-container-2"
 >
   <div
-    className="MuiCircularProgress-root-4 MuiCircularProgress-colorPrimary-7 MuiCircularProgress-indeterminate-6 LoadingIcon-icon-3"
+    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -329,11 +322,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     }
   >
     <svg
-      className="MuiCircularProgress-svg-9"
+      className="MuiCircularProgress-svg"
       viewBox="22 22 44 44"
     >
       <circle
-        className="MuiCircularProgress-circle-10 MuiCircularProgress-circleIndeterminate-12"
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
         cx={44}
         cy={44}
         fill="none"

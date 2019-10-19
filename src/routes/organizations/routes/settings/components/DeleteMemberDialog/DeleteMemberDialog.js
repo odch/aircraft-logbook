@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -9,10 +9,13 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DeleteButton from '../../../../../../components/DeleteButton'
-import { member as memberShape } from '../../../../../../shapes'
+import {
+  member as memberShape,
+  intl as intlShape
+} from '../../../../../../shapes'
 
 const MemberAttribute = props => (
-  <DialogContentText>
+  <DialogContentText className={props.className}>
     <FormattedMessage id={`organization.member.delete.dialog.${props.label}`} />
     :&nbsp;
     {props.value}
@@ -21,12 +24,16 @@ const MemberAttribute = props => (
 
 MemberAttribute.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string
 }
 
 const styles = {
   attributesWrapper: {
     marginTop: '1em'
+  },
+  attribute: {
+    margin: 1
   }
 }
 
@@ -50,12 +57,26 @@ class DeleteMemberDialog extends React.Component {
           </DialogContentText>
           <div className={classes.attributesWrapper}>
             {member.firstname && (
-              <MemberAttribute label="firstname" value={member.firstname} />
+              <MemberAttribute
+                label="firstname"
+                value={member.firstname}
+                className={classes.attribute}
+              />
             )}
             {member.lastname && (
-              <MemberAttribute label="lastname" value={member.lastname} />
+              <MemberAttribute
+                label="lastname"
+                value={member.lastname}
+                className={classes.attribute}
+              />
             )}
-            {member.nr && <MemberAttribute label="nr" value={member.nr} />}
+            {member.nr && (
+              <MemberAttribute
+                label="nr"
+                value={member.nr}
+                className={classes.attribute}
+              />
+            )}
           </div>
         </DialogContent>
         <DialogActions>

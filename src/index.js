@@ -4,10 +4,9 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { IntlProvider, addLocaleData } from 'react-intl'
-import de from 'react-intl/locale-data/de'
+import { IntlProvider } from 'react-intl'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
-import { MuiPickersUtilsProvider } from 'material-ui-pickers'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
 import moment from 'moment'
 import 'moment/locale/de'
@@ -24,7 +23,6 @@ import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 const LOCALE = 'de'
 
 moment.locale(LOCALE)
-addLocaleData([...de])
 
 initFeatureToggles()
 

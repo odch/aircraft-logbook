@@ -1,4 +1,4 @@
-import { fork, takeEvery, all, call, select, put } from 'redux-saga/effects'
+import { takeEvery, all, call, select, put } from 'redux-saga/effects'
 import { constants as reduxFirebaseConstants } from 'react-redux-firebase'
 import { constants as reduxFirestoreConstants } from 'redux-firestore'
 import { getFirebase, getFirestore } from '../../util/firebase'
@@ -82,8 +82,13 @@ export const collectReferences = (data, referenceItems) => {
 }
 
 export function* resolveReference(id, ref) {
-  const doc = yield call(ref.get.bind(ref))
-  const data = doc.data()
+  let data = ref
+
+  if (ref && typeof ref.get === 'function') {
+    const doc = yield call(ref.get.bind(ref))
+    data = doc.data()
+  }
+
   return {
     id,
     data
@@ -142,23 +147,14 @@ export function* watchAerodromes() {
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, reduxFirebaseConstants.actionTypes.LOGIN, watchCurrentUser),
-    fork(
-      takeEvery,
-      reduxFirebaseConstants.actionTypes.LOGOUT,
-      unwatchCurrentUser
-    ),
-    fork(
-      takeEvery,
+    takeEvery(reduxFirebaseConstants.actionTypes.LOGIN, watchCurrentUser),
+    takeEvery(reduxFirebaseConstants.actionTypes.LOGOUT, unwatchCurrentUser),
+    takeEvery(
       reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
       onListenerResponse
     ),
-    fork(
-      takeEvery,
-      reduxFirestoreConstants.actionTypes.GET_SUCCESS,
-      onGetSuccess
-    ),
-    fork(takeEvery, actions.LOGOUT, logout),
-    fork(takeEvery, actions.WATCH_AERODROMES, watchAerodromes)
+    takeEvery(reduxFirestoreConstants.actionTypes.GET_SUCCESS, onGetSuccess),
+    takeEvery(actions.LOGOUT, logout),
+    takeEvery(actions.WATCH_AERODROMES, watchAerodromes)
   ])
 }
