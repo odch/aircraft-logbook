@@ -121,10 +121,13 @@ export function* getFlight(organizationId, aircraftId, flightId) {
 
 export async function getDestinationAerodrome(flight) {
   if (flight.destinationAerodrome) {
-    const document = await flight.destinationAerodrome.get()
-    const data = document.data()
-    data.id = flight.destinationAerodrome.id
-    return data
+    if (typeof flight.destinationAerodrome.get === 'function') {
+      const document = await flight.destinationAerodrome.get()
+      const data = document.data()
+      data.id = flight.destinationAerodrome.id
+      return data
+    }
+    return flight.destinationAerodrome
   }
   return null
 }
@@ -139,7 +142,8 @@ export const aerodromeObject = aeodromeDocument => ({
   name: aeodromeDocument.get('name') || null,
   identification: aeodromeDocument.get('identification') || null,
   timezone: aeodromeDocument.get('timezone') || null,
-  aerodrome: aeodromeDocument.ref
+  aerodrome: aeodromeDocument.ref,
+  id: aeodromeDocument.id
 })
 
 export const memberObject = memberDocument =>
@@ -148,7 +152,8 @@ export const memberObject = memberDocument =>
         firstname: memberDocument.get('firstname') || null,
         lastname: memberDocument.get('lastname') || null,
         nr: memberDocument.get('nr') || null,
-        member: memberDocument.ref
+        member: memberDocument.ref,
+        id: memberDocument.id
       }
     : null
 

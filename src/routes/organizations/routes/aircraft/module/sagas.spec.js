@@ -194,6 +194,7 @@ describe('routes', () => {
               const pilot = {
                 exists: true,
                 ref: 'pilot-ref',
+                id: 'pilot-id',
                 get: getFromMap({
                   firstname: 'Max',
                   lastname: 'Superpilot',
@@ -203,6 +204,7 @@ describe('routes', () => {
               const instructor = {
                 exists: true,
                 ref: 'instructor-ref',
+                id: 'instructor-id',
                 get: getFromMap({
                   firstname: 'Hans',
                   lastname: 'Superfluglehrer'
@@ -210,6 +212,7 @@ describe('routes', () => {
               }
               const departureAerodrome = {
                 ref: 'dep-ad-ref',
+                id: 'dep-ad-id',
                 get: getFromMap({
                   identification: 'LSZT',
                   name: 'Lommis',
@@ -218,6 +221,7 @@ describe('routes', () => {
               }
               const destinationAerodrome = {
                 ref: 'dest-ad-ref',
+                id: 'dest-ad-id',
                 get: getFromMap({
                   identification: 'LSPV',
                   name: 'Wangen-Lachen',
@@ -266,23 +270,27 @@ describe('routes', () => {
                       firstname: 'Max',
                       lastname: 'Superpilot',
                       nr: '9999',
-                      member: 'pilot-ref'
+                      member: 'pilot-ref',
+                      id: 'pilot-id'
                     },
                     instructor: {
                       firstname: 'Hans',
                       lastname: 'Superfluglehrer',
                       nr: null,
-                      member: 'instructor-ref'
+                      member: 'instructor-ref',
+                      id: 'instructor-id'
                     },
                     nature: 'vp',
                     departureAerodrome: {
                       aerodrome: 'dep-ad-ref',
+                      id: 'dep-ad-id',
                       identification: 'LSZT',
                       name: 'Lommis',
                       timezone: 'Europe/Zurich'
                     },
                     destinationAerodrome: {
                       aerodrome: 'dest-ad-ref',
+                      id: 'dest-ad-id',
                       identification: 'LSPV',
                       name: 'Wangen-Lachen',
                       timezone: 'Europe/Zurich'
