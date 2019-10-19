@@ -62,7 +62,12 @@ export function* fetchFlights({
       startAfter: startFlightDocument,
       limit: rowsPerPage,
       storeAs: `flights-${aircraftId}-${page}`,
-      populate: ['departureAerodrome', 'destinationAerodrome', 'pilot']
+      populate: [
+        'departureAerodrome',
+        'destinationAerodrome',
+        'pilot',
+        'instructor'
+      ]
     },
     {}
   )
@@ -130,6 +135,23 @@ export const mergeDateAndTime = (date, time, timezone) => {
   return moment.tz(date + ' ' + timeString, dateTimeFormat, timezone).toDate()
 }
 
+export const aerodromeObject = aeodromeDocument => ({
+  name: aeodromeDocument.get('name') || null,
+  identification: aeodromeDocument.get('identification') || null,
+  timezone: aeodromeDocument.get('timezone') || null,
+  aerodrome: aeodromeDocument.ref
+})
+
+export const memberObject = memberDocument =>
+  memberDocument && memberDocument.exists
+    ? {
+        firstname: memberDocument.get('firstname') || null,
+        lastname: memberDocument.get('lastname') || null,
+        nr: memberDocument.get('nr') || null,
+        member: memberDocument.ref
+      }
+    : null
+
 export function* createFlight({
   payload: { organizationId, aircraftId, data }
 }) {
@@ -173,9 +195,6 @@ export function* createFlight({
       data.destinationAerodrome.value
     )
 
-    const departureTimezone = departureAerodrome.data().timezone
-    const destinationTimezone = destinationAerodrome.data().timezone
-
     const fuelUplift =
       typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
     const fuelType =
@@ -192,29 +211,29 @@ export function* createFlight({
       deleted: false,
       owner: owner.ref,
       nature: data.nature.value,
-      pilot: pilot.ref,
-      instructor: instructor ? instructor.ref : null,
-      departureAerodrome: departureAerodrome.ref,
-      destinationAerodrome: destinationAerodrome.ref,
+      pilot: memberObject(pilot),
+      instructor: memberObject(instructor),
+      departureAerodrome: aerodromeObject(departureAerodrome),
+      destinationAerodrome: aerodromeObject(destinationAerodrome),
       blockOffTime: mergeDateAndTime(
         data.date,
         data.blockOffTime,
-        departureTimezone
+        departureAerodrome.get('timezone')
       ),
       takeOffTime: mergeDateAndTime(
         data.date,
         data.takeOffTime,
-        departureTimezone
+        departureAerodrome.get('timezone')
       ),
       landingTime: mergeDateAndTime(
         data.date,
         data.landingTime,
-        destinationTimezone
+        destinationAerodrome.get('timezone')
       ),
       blockOnTime: mergeDateAndTime(
         data.date,
         data.blockOnTime,
-        destinationTimezone
+        destinationAerodrome.get('timezone')
       ),
       counters,
       landings: data.landings,

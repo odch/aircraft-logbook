@@ -11,6 +11,8 @@ import { fetchAerodromes } from '../../../module'
 
 const counter = (start, end) => ({ start, end })
 
+const getFromMap = map => name => map[name]
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -66,7 +68,8 @@ describe('routes', () => {
                     populate: [
                       'departureAerodrome',
                       'destinationAerodrome',
-                      'pilot'
+                      'pilot',
+                      'instructor'
                     ]
                   },
                   {}
@@ -188,17 +191,36 @@ describe('routes', () => {
                 id: 'member-id'
               }
               const owner = { ref: 'owner-ref' }
-              const pilot = { ref: 'pilot-ref' }
-              const instructor = { ref: 'instructor-ref' }
+              const pilot = {
+                exists: true,
+                ref: 'pilot-ref',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999'
+                })
+              }
+              const instructor = {
+                exists: true,
+                ref: 'instructor-ref',
+                get: getFromMap({
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer'
+                })
+              }
               const departureAerodrome = {
                 ref: 'dep-ad-ref',
-                data: () => ({
+                get: getFromMap({
+                  identification: 'LSZT',
+                  name: 'Lommis',
                   timezone: 'Europe/Zurich'
                 })
               }
               const destinationAerodrome = {
                 ref: 'dest-ad-ref',
-                data: () => ({
+                get: getFromMap({
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
                   timezone: 'Europe/Zurich'
                 })
               }
@@ -240,11 +262,31 @@ describe('routes', () => {
                   {
                     deleted: false,
                     owner: 'owner-ref',
-                    pilot: 'pilot-ref',
-                    instructor: 'instructor-ref',
+                    pilot: {
+                      firstname: 'Max',
+                      lastname: 'Superpilot',
+                      nr: '9999',
+                      member: 'pilot-ref'
+                    },
+                    instructor: {
+                      firstname: 'Hans',
+                      lastname: 'Superfluglehrer',
+                      nr: null,
+                      member: 'instructor-ref'
+                    },
                     nature: 'vp',
-                    departureAerodrome: 'dep-ad-ref',
-                    destinationAerodrome: 'dest-ad-ref',
+                    departureAerodrome: {
+                      aerodrome: 'dep-ad-ref',
+                      identification: 'LSZT',
+                      name: 'Lommis',
+                      timezone: 'Europe/Zurich'
+                    },
+                    destinationAerodrome: {
+                      aerodrome: 'dest-ad-ref',
+                      identification: 'LSPV',
+                      name: 'Wangen-Lachen',
+                      timezone: 'Europe/Zurich'
+                    },
                     blockOffTime: new Date('2018-12-15T09:00:00.000Z'),
                     takeOffTime: new Date('2018-12-15T09:05:00.000Z'),
                     landingTime: new Date('2018-12-15T09:35:00.000Z'),
