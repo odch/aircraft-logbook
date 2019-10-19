@@ -82,8 +82,13 @@ export const collectReferences = (data, referenceItems) => {
 }
 
 export function* resolveReference(id, ref) {
-  const doc = yield call(ref.get.bind(ref))
-  const data = doc.data()
+  let data = ref
+
+  if (ref && typeof ref.get === 'function') {
+    const doc = yield call(ref.get.bind(ref))
+    data = doc.data()
+  }
+
   return {
     id,
     data

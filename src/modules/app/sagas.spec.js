@@ -287,6 +287,24 @@ describe('modules', () => {
 
           expect(generator.next().done).toEqual(true)
         })
+
+        it('should return data right away if not a reference', () => {
+          const data = { name: 'Lommis' }
+
+          const id = {
+            key: 'vuB0UPVhvhl8ikOgJjvC',
+            item: 'departureAerodrome'
+          }
+
+          const generator = sagas.resolveReference(id, data)
+
+          expect(generator.next().value).toEqual({
+            id,
+            data: { name: 'Lommis' }
+          })
+
+          expect(generator.next().done).toEqual(true)
+        })
       })
 
       describe('populate', () => {
