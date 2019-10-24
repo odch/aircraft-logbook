@@ -5,6 +5,8 @@
   "login.logout": "Abmelden",
   "login.failed": "Die Anmeldung ist fehlgeschlagen.",
   "login.registration": "Noch kein Konto? Hier registrieren!",
+  "login.or": "oder",
+  "login.google": "Mit Google anmelden",
 
   "registration.firstname": "Vorname",
   "registration.lastname": "Nachname",
