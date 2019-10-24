@@ -10,6 +10,44 @@ exports[`components LoginPage renders login form if not authenticated 1`] = `
 <main
   className="LoginPage-layout-1"
 >
+  <div
+    className="LoginPage-google-3"
+  >
+    <button
+      className="MuiButtonBase-root MuiButton-root GoogleLogin-button-5 MuiButton-contained MuiButton-sizeLarge MuiButton-fullWidth"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        <img
+          alt="Google Logo"
+          className="GoogleLogin-logo-6"
+          src="test-file-stub"
+        />
+        Mit Google anmelden
+      </span>
+    </button>
+  </div>
+  <p
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-gutterBottom MuiTypography-alignCenter"
+  >
+    oder
+  </p>
   <form
     onSubmit={[Function]}
   >

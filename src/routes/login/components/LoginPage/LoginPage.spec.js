@@ -46,7 +46,10 @@ describe('components', () => {
           username: 'test@example.com',
           password: 'mypassword',
           failed: false,
-          submitted: false
+          submitted: false,
+          googleLogin: {
+            failed: false
+          }
         }
       })
       const tree = renderIntl(

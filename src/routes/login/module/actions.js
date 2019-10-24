@@ -4,6 +4,8 @@ export const LOGIN = 'login/LOGIN'
 export const LOGIN_SUCCESS = 'login/LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'login/LOGIN_FAILURE'
 export const SET_SUBMITTED = 'login/SET_SUBMITTED'
+export const LOGIN_GOOGLE = 'login/LOGIN_GOOGLE'
+export const LOGIN_GOOGLE_FAILURE = 'login/LOGIN_GOOGLE_FAILURE'
 
 export const setUsername = username => ({
   type: SET_USERNAME,
@@ -37,4 +39,12 @@ export const loginFailure = () => ({
 
 export const setSubmitted = () => ({
   type: SET_SUBMITTED
+})
+
+export const loginGoogle = () => ({
+  type: LOGIN_GOOGLE
+})
+
+export const loginGoogleFailure = () => ({
+  type: LOGIN_GOOGLE_FAILURE
 })

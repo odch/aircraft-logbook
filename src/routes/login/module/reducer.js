@@ -5,7 +5,10 @@ export const INITIAL_STATE = {
   username: '',
   password: '',
   failed: false,
-  submitted: false
+  submitted: false,
+  googleLogin: {
+    failed: false
+  }
 }
 
 const setUsername = (state, action) => {
@@ -40,12 +43,21 @@ const setSubmitted = state => {
   })
 }
 
+const loginGoogleFailure = state => {
+  return Object.assign({}, state, {
+    googleLogin: Object.assign({}, state.googleLogin, {
+      failed: true
+    })
+  })
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_USERNAME]: setUsername,
   [actions.SET_PASSWORD]: setPassword,
   [actions.LOGIN_SUCCESS]: loginSuccess,
   [actions.LOGIN_FAILURE]: loginFailure,
-  [actions.SET_SUBMITTED]: setSubmitted
+  [actions.SET_SUBMITTED]: setSubmitted,
+  [actions.LOGIN_GOOGLE_FAILURE]: loginGoogleFailure
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
