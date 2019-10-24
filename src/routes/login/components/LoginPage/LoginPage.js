@@ -5,7 +5,9 @@ import { FormattedMessage } from 'react-intl'
 import Button from '@material-ui/core/Button'
 import withStyles from '@material-ui/core/styles/withStyles'
 import featureToggles from 'feature-toggles'
+import GoogleLogin from '../../containers/GoogleLoginContainer'
 import LoginForm from '../../containers/LoginFormContainer'
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   layout: {
@@ -22,6 +24,9 @@ const styles = theme => ({
   },
   registrationButton: {
     marginTop: '1em'
+  },
+  google: {
+    marginBottom: '2em'
   }
 })
 
@@ -35,6 +40,10 @@ class LoginPage extends React.Component {
 
     return (
       <main className={classes.layout}>
+        <GoogleLogin className={classes.google} />
+        <Typography align="center" color="textSecondary" gutterBottom>
+          <FormattedMessage id="login.or" />
+        </Typography>
         <LoginForm />
         {featureToggles.isFeatureEnabled('registration') && (
           <Button

@@ -5,7 +5,10 @@ const INITIAL_STATE = {
   username: '',
   password: '',
   failed: false,
-  submitted: false
+  submitted: false,
+  googleLogin: {
+    failed: false
+  }
 }
 
 describe('modules', () => {
@@ -44,6 +47,25 @@ describe('modules', () => {
       it('handles SET_SUBMITTED action', () => {
         expect(reducer({}, actions.setSubmitted())).toEqual({
           submitted: true
+        })
+      })
+
+      it('handles LOGIN_GOOGLE_FAILURE action', () => {
+        expect(
+          reducer(
+            {
+              username: 'foo',
+              googleLogin: {
+                failed: false
+              }
+            },
+            actions.loginGoogleFailure()
+          )
+        ).toEqual({
+          username: 'foo',
+          googleLogin: {
+            failed: true
+          }
         })
       })
     })
