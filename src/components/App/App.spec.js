@@ -46,11 +46,7 @@ describe('components', () => {
       expect(tree).toMatchSnapshot()
     })
 
-    it('calls watchAerodromes when mounted', () => {
-      const auth = {
-        isLoaded: false,
-        isEmpty: true
-      }
+    const testWatchAerodromes = (auth, expectCall) => {
       const store = configureStore()({
         firebase: {
           auth
@@ -61,11 +57,41 @@ describe('components', () => {
 
       renderIntl(
         <Provider store={store}>
-          <App auth={auth} watchAerodromes={watchAerodromes} />
+          <App auth={auth} watchAerodromes={watchAerodromes}>
+            <div>content</div>
+          </App>
         </Provider>
       )
 
-      expect(watchAerodromes).toBeCalled()
+      if (expectCall) {
+        expect(watchAerodromes).toBeCalled()
+      } else {
+        expect(watchAerodromes).not.toBeCalled()
+      }
+    }
+
+    it('calls watchAerodromes when mounted and logged in', () => {
+      const auth = {
+        isLoaded: true,
+        isEmpty: false
+      }
+      testWatchAerodromes(auth, true)
+    })
+
+    it('does not watchAerodromes when mounted and auth loaded but empty', () => {
+      const auth = {
+        isLoaded: true,
+        isEmpty: true
+      }
+      testWatchAerodromes(auth, false)
+    })
+
+    it('does not watchAerodromes when auth not loaded', () => {
+      const auth = {
+        isLoaded: false,
+        isEmpty: true
+      }
+      testWatchAerodromes(auth, false)
     })
   })
 })

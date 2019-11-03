@@ -2,6 +2,7 @@ import start from './start'
 import organizations from './organizations'
 import detail from './organizations/routes/detail'
 import settings from './organizations/routes/settings'
+import invite from './organizations/routes/invite'
 import aircraft from './organizations/routes/aircraft'
 import aircraftSettings from './organizations/routes/aircraft/routes/settings'
 import login from './login'
@@ -31,6 +32,12 @@ export const createRoutes = store => [
     exact: true,
     render: settings(store),
     protected: true
+  },
+  {
+    path: '/organizations/:organizationId/invite/:inviteId',
+    exact: true,
+    render: invite(store),
+    protected: false
   },
   {
     path: '/organizations/:organizationId/aircrafts/:aircraftId',

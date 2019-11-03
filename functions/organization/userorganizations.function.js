@@ -19,17 +19,23 @@ const updateUserOrganizations = (change, fieldName, organizationRef) => {
 
   if (previousData && previousData[fieldName]) {
     promises.push(
-      previousData[fieldName].update({
-        organizations: admin.firestore.FieldValue.arrayRemove(organizationRef)
-      })
+      previousData[fieldName].set(
+        {
+          organizations: admin.firestore.FieldValue.arrayRemove(organizationRef)
+        },
+        { merge: true }
+      )
     )
   }
 
   if (data && data[fieldName]) {
     promises.push(
-      data[fieldName].update({
-        organizations: admin.firestore.FieldValue.arrayUnion(organizationRef)
-      })
+      data[fieldName].set(
+        {
+          organizations: admin.firestore.FieldValue.arrayUnion(organizationRef)
+        },
+        { merge: true }
+      )
     )
   }
 

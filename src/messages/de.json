@@ -168,6 +168,13 @@
   "organization.aerodrome.create.dialog.buttons.cancel": "Abbrechen",
   "organization.aerodrome.create.dialog.buttons.create": "Flugplatz erstellen",
 
+  "organization.invite.greeting": "Hallo {firstname}!",
+  "organization.invite.text": "Du wurdest eingeladen, der Organisation {organization} beizutreten.",
+  "organization.invite.login": "Melde dich an, um fortzufahren.",
+  "organization.invite.accept": "Mit Konto {account} beitreten",
+  "organization.invite.change_account": "Mit anderem Konto beitreten",
+  "organization.invite.invalid": "Die angeforderte Einladung wurde nicht gefunden oder ist nicht mehr gültig.",
+
   "aircraft.settings.fueltypes": "Treibstofftypen",
   "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst"
 }
