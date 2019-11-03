@@ -3,8 +3,20 @@ import PropTypes from 'prop-types'
 import LoadingIcon from './LoadingIcon'
 
 class App extends React.Component {
+  loadAerodromes = () => {
+    const { auth, watchAerodromes } = this.props
+
+    if (auth.isLoaded && !auth.isEmpty) {
+      watchAerodromes()
+    }
+  }
+
   componentDidMount() {
-    this.props.watchAerodromes()
+    this.loadAerodromes()
+  }
+
+  componentDidUpdate() {
+    this.loadAerodromes()
   }
 
   render() {
@@ -19,7 +31,7 @@ App.propTypes = {
   auth: PropTypes.shape({
     isLoaded: PropTypes.bool.isRequired,
     isEmpty: PropTypes.bool.isRequired
-  }),
+  }).isRequired,
   children: PropTypes.element,
   watchAerodromes: PropTypes.func.isRequired
 }
