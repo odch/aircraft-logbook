@@ -41,7 +41,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root MuiListItem-secondaryAction"
+        className="MuiListItem-root MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
@@ -95,6 +95,9 @@ Array [
               />
             </svg>
           </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
         </button>
       </div>
     </li>
@@ -102,11 +105,19 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-pending-19 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
+          aria-describedby={null}
           className="MuiListItemText-root MuiListItemText-multiline"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          title="Noch nicht beigetreten"
         >
           <span
             className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
@@ -156,6 +167,9 @@ Array [
               />
             </svg>
           </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
         </button>
       </div>
     </li>

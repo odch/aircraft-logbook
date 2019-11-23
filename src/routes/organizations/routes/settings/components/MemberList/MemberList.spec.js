@@ -51,13 +51,15 @@ describe('routes', () => {
                       firstname: 'Hans',
                       lastname: 'Keller',
                       nr: '34646',
-                      roles: ['manager']
+                      roles: ['manager'],
+                      user: 'users/user1'
                     },
                     {
                       id: 'member2',
                       firstname: 'Max',
                       lastname: 'Muster',
-                      roles: ['user']
+                      roles: ['user'],
+                      user: undefined // not yet joined
                     }
                   ]}
                   deleteMemberDialog={{ open: false }}
