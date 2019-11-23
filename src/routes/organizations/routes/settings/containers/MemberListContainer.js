@@ -15,19 +15,29 @@ const mapStateToProps = (state /*, ownProps*/) => {
   let members = undefined
   let pagination = undefined
 
-  if (state.firestore.ordered.organizationMembers) {
+  const organizationMembers = state.firestore.ordered.organizationMembers
+  if (organizationMembers) {
     pagination = {
-      rowsCount: state.firestore.ordered.organizationMembers.length,
+      rowsCount: organizationMembers.length,
       page: state.organizationSettings.members.page,
       rowsPerPage: MEMBERS_PER_PAGE
     }
 
+    const joinedMembersFirst = Array.prototype.slice
+      .call(organizationMembers)
+      .sort((m1, m2) => {
+        if (!m1.user && m2.user) {
+          return 1
+        }
+        if (!m2.user && m1.user) {
+          return -1
+        }
+        return 0
+      })
+
     const startIndex = pagination.page * MEMBERS_PER_PAGE
     const endIndex = startIndex + MEMBERS_PER_PAGE
-    members = state.firestore.ordered.organizationMembers.slice(
-      startIndex,
-      endIndex
-    )
+    members = joinedMembersFirst.slice(startIndex, endIndex)
   }
 
   return {

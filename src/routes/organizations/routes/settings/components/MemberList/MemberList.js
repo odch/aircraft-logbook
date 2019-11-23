@@ -2,11 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
 import TablePagination from '@material-ui/core/TablePagination'
 import {
   member as memberShape,
@@ -14,6 +9,7 @@ import {
 } from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
+import Member from './Member'
 import DeleteMemberDialog from '../DeleteMemberDialog'
 
 class MemberList extends React.Component {
@@ -21,11 +17,6 @@ class MemberList extends React.Component {
     const { organizationId, fetchMembers } = this.props
     fetchMembers(organizationId)
   }
-
-  getRoleNames = roles =>
-    roles
-      ? roles.map(role => this.msg(`organization.role.${role}`)).join(', ')
-      : ''
 
   msg = id => this.props.intl.formatMessage({ id })
 
@@ -49,19 +40,11 @@ class MemberList extends React.Component {
       <React.Fragment>
         <List>
           {members.map(member => (
-            <ListItem key={member.id} disableGutters>
-              <ListItemText
-                primary={`${member.lastname} ${member.firstname}${
-                  member.nr ? ` (${member.nr})` : ''
-                }`}
-                secondary={this.getRoleNames(member.roles)}
-              />
-              <ListItemSecondaryAction>
-                <IconButton onClick={() => openDeleteMemberDialog(member)}>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+            <Member
+              key={member.id}
+              member={member}
+              openDeleteMemberDialog={openDeleteMemberDialog}
+            />
           ))}
         </List>
         <TablePagination
