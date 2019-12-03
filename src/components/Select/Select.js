@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Select, { createFilter } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
+import Async from 'react-select/async'
+import AsyncCreatableSelect from 'react-select/async-creatable'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import NoSsr from '@material-ui/core/NoSsr'
@@ -184,13 +186,34 @@ const components = {
   ValueContainer
 }
 
+const isValidNewOption = (inputValue /*, selectValue, selectOptions*/) =>
+  inputValue.length >= 3
+
+const noOptionsMessage = ({ inputValue }) => {
+  if (!inputValue || inputValue.length < 3) {
+    return 'Gib mindestens drei Zeichen ein...'
+  }
+  return 'Kein Eintrag gefunden'
+}
+
 class IntegrationReactSelect extends React.Component {
-  getSelectCmp = () =>
-    this.props.creatable === true ? CreatableSelect : Select
+  getSelectCmp = () => {
+    if (this.props.creatable === true && this.props.loadOptions) {
+      return AsyncCreatableSelect
+    }
+    if (this.props.creatable === true) {
+      return CreatableSelect
+    }
+    if (this.props.loadOptions) {
+      return Async
+    }
+    return Select
+  }
 
   render() {
     const {
       options,
+      loadOptions,
       value,
       onChange,
       isMulti,
@@ -226,7 +249,18 @@ class IntegrationReactSelect extends React.Component {
             classes={classes}
             styles={selectStyles}
             margin={margin}
-            options={options}
+            options={!loadOptions ? options : undefined}
+            loadOptions={
+              loadOptions
+                ? (inputValue, callback) => {
+                    if (!inputValue || inputValue.length < 3) {
+                      callback([])
+                    } else {
+                      loadOptions(inputValue, callback)
+                    }
+                  }
+                : undefined
+            }
             components={components}
             value={value}
             onChange={onChange}
@@ -237,6 +271,8 @@ class IntegrationReactSelect extends React.Component {
               onCreateOptionText ||
               'Klicke hier, um eine neue Option zu erstellen'
             }
+            isValidNewOption={isValidNewOption}
+            noOptionsMessage={noOptionsMessage}
             placeholder=""
             textFieldProps={{
               label,
@@ -262,6 +298,7 @@ IntegrationReactSelect.propTypes = {
       label: PropTypes.string.isRequired
     })
   ),
+  loadOptions: PropTypes.func,
   value: PropTypes.object,
   isMulti: PropTypes.bool,
   required: PropTypes.bool,
