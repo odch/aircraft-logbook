@@ -19,12 +19,7 @@ import Select from '../../../../../../components/Select'
 import DecimalField from '../../../../../../components/DecimalField'
 import IntegerField from '../../../../../../components/IntegerField'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
-import {
-  aerodrome as aerodromeShape,
-  member as memberShape,
-  intl as intlShape
-} from '../../../../../../shapes'
-import { getMemberOptions, getAerodromeOptions } from '../../util/getOptions'
+import { intl as intlShape } from '../../../../../../shapes'
 import getMissingFields from '../../util/getMissingFields'
 import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
 
@@ -135,25 +130,22 @@ class FlightCreateDialog extends React.Component {
     const {
       submitting,
       onClose,
-      organizationMembers = [],
       flightNatures = [],
-      aerodromes = [],
+      loadMembers,
+      loadAerodromes,
       aircraftSettings: { fuelTypes, engineHoursCounterEnabled }
     } = this.props
-
-    const memberOptions = getMemberOptions(organizationMembers)
-    const aerodromeOptions = getAerodromeOptions(aerodromes)
 
     return (
       <form onSubmit={this.handleSubmit}>
         <DialogContent>
           {this.renderRequiredInitialValueFields()}
           {this.renderDatePicker('date')}
-          {this.renderSelect('pilot', memberOptions)}
-          {this.renderSelect('instructor', memberOptions)}
+          {this.renderMemberSelect('pilot', loadMembers)}
+          {this.renderMemberSelect('instructor', loadMembers)}
           {this.renderSelect('nature', flightNatures)}
-          {this.renderSelect('departureAerodrome', aerodromeOptions, true)}
-          {this.renderSelect('destinationAerodrome', aerodromeOptions, true)}
+          {this.renderAerodromeSelect('departureAerodrome', loadAerodromes)}
+          {this.renderAerodromeSelect('destinationAerodrome', loadAerodromes)}
           {this.renderInTwoColumns(
             'counters.flighttimecounter',
             this.renderDecimalField(
@@ -275,7 +267,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderSelect(name, options, creatable = false) {
+  renderSelect(name, options) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -286,7 +278,37 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         error={hasError}
         disabled={isDisabled}
-        creatable={creatable}
+      />
+    ))
+  }
+
+  renderMemberSelect(name, loadMembers) {
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
+      <Select
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        value={this.getValue(name)}
+        onChange={this.handleSelectChange(name)}
+        loadOptions={loadMembers}
+        data-cy={`${name}-field`}
+        margin="normal"
+        error={hasError}
+        disabled={isDisabled}
+      />
+    ))
+  }
+
+  renderAerodromeSelect(name, loadAerodromes) {
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
+      <Select
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        value={this.getValue(name)}
+        onChange={this.handleSelectChange(name)}
+        loadOptions={loadAerodromes}
+        data-cy={`${name}-field`}
+        margin="normal"
+        error={hasError}
+        disabled={isDisabled}
+        creatable={true}
         onCreateOption={this.handleSelectCreateOption(name)}
         onCreateOptionText="Flugplatz nicht gefunden? Klicke hier, um einen neuen Flugplatz zu erstellen."
       />
@@ -456,14 +478,14 @@ FlightCreateDialog.propTypes = {
   data: flightDataShape.isRequired,
   validationErrors: PropTypes.objectOf(PropTypes.string),
   submitting: PropTypes.bool,
-  organizationMembers: PropTypes.arrayOf(memberShape),
   flightNatures: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
     })
   ),
-  aerodromes: PropTypes.arrayOf(aerodromeShape),
+  loadMembers: PropTypes.func.isRequired,
+  loadAerodromes: PropTypes.func.isRequired,
   aircraftSettings: PropTypes.shape({
     fuelTypes: PropTypes.arrayOf(
       PropTypes.shape({

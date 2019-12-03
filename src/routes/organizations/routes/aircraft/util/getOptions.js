@@ -15,9 +15,3 @@ export const getMemberOption = member => ({
   value: member.id,
   label: `${member.lastname} ${member.firstname}`
 })
-
-export const getAerodromeOptions = aerodromes =>
-  aerodromes.map(aerodrome => getAerodromeOption(aerodrome))
-
-export const getMemberOptions = members =>
-  members.map(member => getMemberOption(member))
