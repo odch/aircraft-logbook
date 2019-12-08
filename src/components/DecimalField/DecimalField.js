@@ -40,6 +40,8 @@ class DecimalField extends React.Component {
         const hundredths = Math.round(twoDecimals * 100)
         onChange(hundredths)
       }
+    } else if (this.state.stringValue === '' && onChange) {
+      onChange(null)
     }
 
     this.setState(newState)
