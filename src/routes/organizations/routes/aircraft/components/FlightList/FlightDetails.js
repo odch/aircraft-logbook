@@ -134,13 +134,6 @@ const FlightDetails = ({ aircraft, flight }) => {
             intl
           )}
         </Grid>
-        <Grid item xs={6} sm={4}>
-          {renderField(
-            'total.blockhours',
-            format2Decimals(flight.counters.blockHours.end),
-            intl
-          )}
-        </Grid>
         {flight.counters.engineHours && (
           <Grid item xs={6} sm={4}>
             {renderField(

@@ -10,10 +10,6 @@ export const getCounters = data => {
 
   const flights = interval(c.flights.start, c.flights.start + 1)
   const landings = interval(c.landings.start, c.landings.start + data.landings)
-  const blockHours = interval(
-    c.blockHours.start,
-    addTimeDiff(c.blockHours.start, data.blockOffTime, data.blockOnTime)
-  )
   const flightHours = interval(
     c.flightHours.start,
     flightTimeCounter
@@ -30,8 +26,7 @@ export const getCounters = data => {
   const counters = {
     flights,
     landings,
-    flightHours,
-    blockHours
+    flightHours
   }
 
   if (engineHours) counters.engineHours = engineHours
@@ -57,9 +52,6 @@ export const validate = data => {
   }
   if (!counters.landings || typeof counters.landings.start !== 'number') {
     throw 'Property `counters.landings.start` missing or not a number'
-  }
-  if (!counters.blockHours || typeof counters.blockHours.start !== 'number') {
-    throw 'Property `counters.blockHours.start` missing or not a number'
   }
   if (!counters.flightHours || typeof counters.flightHours.start !== 'number') {
     throw 'Property `counters.flightHours.start` missing or not a number'

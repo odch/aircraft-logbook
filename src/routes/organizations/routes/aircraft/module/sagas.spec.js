@@ -139,7 +139,6 @@ describe('routes', () => {
                   flightTimeCounter: counter(45780, 45830),
                   engineTimeCounter: counter(50145, 50612),
                   flightHours: { start: 58658 },
-                  blockHours: { start: 61254 },
                   engineHours: { start: 65865 },
                   flights: { start: 464 },
                   landings: { start: 3846 }
@@ -303,7 +302,6 @@ describe('routes', () => {
                       flightTimeCounter: counter(45780, 45830),
                       engineTimeCounter: counter(50145, 50612),
                       flightHours: counter(58658, 58708),
-                      blockHours: counter(61254, 61321),
                       engineHours: counter(65865, 66332),
                       flights: counter(464, 465),
                       landings: counter(3846, 3849)
@@ -409,7 +407,6 @@ describe('routes', () => {
                 flights: counter(122, 123),
                 flightHours: counter(10145, 10250),
                 engineHours: counter(10378, 10502),
-                blockHours: counter(10145, 10250),
                 landings: counter(2356, 2357),
                 flightTimeCounter: counter(9145, 9250),
                 engineTimeCounter: counter(9378, 9502)
@@ -439,7 +436,6 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  blockHours: { start: 10250 },
                   engineHours: { start: 10502 },
                   landings: { start: 2357 },
                   flightTimeCounter: { start: 9250 },
@@ -490,7 +486,6 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  blockHours: { start: 10250 },
                   landings: { start: 2357 },
                   flightTimeCounter: { start: 9250 }
                 },
