@@ -277,7 +277,6 @@ export function* initCreateFlightDialog({
     'flights',
     'landings',
     'flightHours',
-    'blockHours',
     'flightTimeCounter'
   ]
 

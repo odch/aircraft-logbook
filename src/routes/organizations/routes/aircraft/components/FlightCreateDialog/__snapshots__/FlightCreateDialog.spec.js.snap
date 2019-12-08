@@ -24,11 +24,6 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               </div>
             </div>
             <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-              <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.blockHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Totale Anzahl Blockstunden vor diesem Flug</label>
-                <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
-              </div>
-            </div>
-            <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
               <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.engineHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Totale Anzahl Motorstunden vor diesem Flug</label>
                 <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
               </div>
@@ -319,11 +314,6 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               </div>
             </div>
             <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-              <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.blockHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Totale Anzahl Blockstunden vor diesem Flug</label>
-                <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
-              </div>
-            </div>
-            <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
               <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.engineHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Totale Anzahl Motorstunden vor diesem Flug</label>
                 <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
               </div>
@@ -610,11 +600,6 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
             <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
               <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.flightHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Totale Anzahl Flugstunden vor diesem Flug</label>
-                <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
-              </div>
-            </div>
-            <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-              <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"counters.blockHours.start-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Totale Anzahl Blockstunden vor diesem Flug</label>
                 <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\".01\\" value=\\"\\"></div>
               </div>
             </div>

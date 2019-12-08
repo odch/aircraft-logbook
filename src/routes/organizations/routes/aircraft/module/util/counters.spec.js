@@ -21,9 +21,6 @@ describe('routes', () => {
                     landings: {
                       start: 25
                     },
-                    blockHours: {
-                      start: 1035
-                    },
                     flightHours: {
                       start: 947
                     }
@@ -33,10 +30,6 @@ describe('routes', () => {
                 const counters = getCounters(data)
 
                 expect(counters).toEqual({
-                  blockHours: {
-                    start: 1035,
-                    end: 1135
-                  },
                   flightHours: {
                     start: 947,
                     end: 1030
@@ -81,22 +74,6 @@ describe('routes', () => {
                 )
               })
 
-              it('should throw error if property counters.blockHours.start is missing', () => {
-                const data = {
-                  counters: {
-                    flights: {
-                      start: 12
-                    },
-                    landings: {
-                      start: 25
-                    }
-                  }
-                }
-                expect(() => getCounters(data)).toThrow(
-                  'Property `counters.blockHours.start` missing or not a number'
-                )
-              })
-
               it('should throw error if property counters.flightHours.start is missing', () => {
                 const data = {
                   counters: {
@@ -105,9 +82,6 @@ describe('routes', () => {
                     },
                     landings: {
                       start: 25
-                    },
-                    blockHours: {
-                      start: 1035
                     }
                   }
                 }
@@ -124,9 +98,6 @@ describe('routes', () => {
                     },
                     landings: {
                       start: 25
-                    },
-                    blockHours: {
-                      start: 1035
                     },
                     flightHours: {
                       start: 947
@@ -148,9 +119,6 @@ describe('routes', () => {
                     landings: {
                       start: 25
                     },
-                    blockHours: {
-                      start: 1035
-                    },
                     flightHours: {
                       start: 947
                     }
@@ -171,9 +139,6 @@ describe('routes', () => {
                     },
                     landings: {
                       start: 25
-                    },
-                    blockHours: {
-                      start: 1035
                     },
                     flightHours: {
                       start: 947
@@ -197,9 +162,6 @@ describe('routes', () => {
                     landings: {
                       start: 25
                     },
-                    blockHours: {
-                      start: 1035
-                    },
                     flightHours: {
                       start: 947
                     }
@@ -222,9 +184,6 @@ describe('routes', () => {
                     },
                     landings: {
                       start: 25
-                    },
-                    blockHours: {
-                      start: 1035
                     },
                     flightHours: {
                       start: 947
