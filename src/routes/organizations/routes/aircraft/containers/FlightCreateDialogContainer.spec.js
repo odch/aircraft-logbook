@@ -116,11 +116,11 @@ describe('routes', () => {
                 expect(callback).toHaveBeenCalledWith([
                   {
                     value: '4',
-                    label: 'Alommalo (I99)'
+                    label: 'I99 (Alommalo)'
                   },
                   {
                     value: '1',
-                    label: 'Lommis (LSZT)'
+                    label: 'LSZT (Lommis)'
                   }
                 ])
               })
@@ -131,11 +131,11 @@ describe('routes', () => {
                 expect(callback).toHaveBeenCalledWith([
                   {
                     value: '3',
-                    label: 'Hagenbuch (LSZZ)'
+                    label: 'LSZZ (Hagenbuch)'
                   },
                   {
                     value: '1',
-                    label: 'Lommis (LSZT)'
+                    label: 'LSZT (Lommis)'
                   }
                 ])
               })

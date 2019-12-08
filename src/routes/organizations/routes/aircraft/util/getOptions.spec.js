@@ -7,7 +7,7 @@ describe('routes', () => {
         describe('util', () => {
           describe('getOptions', () => {
             describe('getAerodromeOption', () => {
-              it('should return the name and identification as label', () => {
+              it('should return the identification and name as label', () => {
                 expect(
                   getAerodromeOption({
                     id: '3ADs5GZQxKbTk0of0qtS',
@@ -17,20 +17,7 @@ describe('routes', () => {
                   })
                 ).toEqual({
                   value: '3ADs5GZQxKbTk0of0qtS',
-                  label: 'Winterthur (LSPH)'
-                })
-              })
-
-              it('should return only the name as label if identification missing', () => {
-                expect(
-                  getAerodromeOption({
-                    id: '3ADs5GZQxKbTk0of0qtS',
-                    name: 'Winterthur',
-                    timezone: 'Europe/Zurich'
-                  })
-                ).toEqual({
-                  value: '3ADs5GZQxKbTk0of0qtS',
-                  label: 'Winterthur'
+                  label: 'LSPH (Winterthur)'
                 })
               })
             })

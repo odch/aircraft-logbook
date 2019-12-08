@@ -431,7 +431,7 @@ describe('routes', () => {
                 },
                 departureAerodrome: {
                   value: 'aerodromeid',
-                  label: 'Lommis (LSZT)'
+                  label: 'LSZT (Lommis)'
                 },
                 counters: {
                   flights: { start: 123 },
@@ -481,7 +481,7 @@ describe('routes', () => {
                 },
                 departureAerodrome: {
                   value: 'aerodromeid',
-                  label: 'Lommis (LSZT)'
+                  label: 'LSZT (Lommis)'
                 },
                 counters: {
                   flights: { start: 123 },
@@ -638,7 +638,7 @@ describe('routes', () => {
                   actions.updateCreateFlightDialogData({
                     [fieldName]: {
                       value: 'newAerodromeId',
-                      label: 'Hagenbuch (LSXX)'
+                      label: 'LSXX (Hagenbuch)'
                     }
                   })
                 )

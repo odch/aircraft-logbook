@@ -1,14 +1,6 @@
-const getAerodromeLabel = aerodrome => {
-  let label = aerodrome.name
-  if (aerodrome.identification) {
-    label += ' (' + aerodrome.identification + ')'
-  }
-  return label
-}
-
 export const getAerodromeOption = aerodrome => ({
   value: aerodrome.id,
-  label: getAerodromeLabel(aerodrome)
+  label: `${aerodrome.identification} (${aerodrome.name})`
 })
 
 export const getMemberOption = member => ({
