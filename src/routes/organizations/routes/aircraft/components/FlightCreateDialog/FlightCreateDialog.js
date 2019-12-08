@@ -144,7 +144,11 @@ class FlightCreateDialog extends React.Component {
           {this.renderMemberSelect('pilot', loadMembers)}
           {this.renderMemberSelect('instructor', loadMembers)}
           {this.renderSelect('nature', flightNatures)}
-          {this.renderAerodromeSelect('departureAerodrome', loadAerodromes)}
+          {this.renderAerodromeSelect(
+            'departureAerodrome',
+            loadAerodromes,
+            this.hasInitialValue('departureAerodrome')
+          )}
           {this.renderAerodromeSelect('destinationAerodrome', loadAerodromes)}
           {this.renderInTwoColumns(
             'counters.flighttimecounter',
@@ -294,7 +298,7 @@ class FlightCreateDialog extends React.Component {
     ))
   }
 
-  renderAerodromeSelect(name, loadAerodromes) {
+  renderAerodromeSelect(name, loadAerodromes, disabled) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -304,7 +308,7 @@ class FlightCreateDialog extends React.Component {
         data-cy={`${name}-field`}
         margin="normal"
         error={hasError}
-        disabled={isDisabled}
+        disabled={disabled || isDisabled}
         creatable={true}
         onCreateOption={this.handleSelectCreateOption(name)}
         onCreateOptionText="Flugplatz nicht gefunden? Klicke hier, um einen neuen Flugplatz zu erstellen."
