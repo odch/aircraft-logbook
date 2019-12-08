@@ -131,7 +131,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="Lommis (LSZT)"
+              value="LSZT (Lommis)"
             />
           </div>
         </div>
@@ -228,7 +228,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="Lommis (LSZT)"
+              value="LSZT (Lommis)"
             />
           </div>
         </div>
@@ -769,7 +769,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="Lommis (LSZT)"
+              value="LSZT (Lommis)"
             />
           </div>
         </div>
@@ -866,7 +866,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="Lommis (LSZT)"
+              value="LSZT (Lommis)"
             />
           </div>
         </div>

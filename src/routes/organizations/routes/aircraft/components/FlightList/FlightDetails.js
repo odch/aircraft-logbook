@@ -168,7 +168,7 @@ const getMemberName = member =>
   member ? `${member.firstname} ${member.lastname}` : '-'
 
 const getAerodromeName = aerodrome =>
-  `${aerodrome.name} (${aerodrome.identification})`
+  `${aerodrome.identification} (${aerodrome.name})`
 
 const getFlightNature = (nature, intl) =>
   intl.formatMessage({ id: `flight.nature.${nature}` })
