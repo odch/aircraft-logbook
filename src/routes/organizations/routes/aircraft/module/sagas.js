@@ -372,7 +372,7 @@ export function* createAerodrome({
       actions.updateCreateFlightDialogData({
         [fieldName]: {
           value: doc.id,
-          label: `${data.name} (${data.identification})`
+          label: `${data.identification} (${data.name})`
         }
       })
     )
