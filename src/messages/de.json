@@ -56,7 +56,6 @@
   "flightlist.delete": "Flug löschen",
   "flightlist.delete.not_newest": "Dieser Flug kann nicht mehr gelöscht werden, da bereits ein Folgeflug erfasst wurde.",
   "flightlist.total.flighthours": "Flugstunden total",
-  "flightlist.total.blockhours": "Blockstunden total",
   "flightlist.total.enginehours": "Motorstunden total",
   "flightlist.total.landings": "Landungen total",
 
@@ -113,7 +112,6 @@
   "flight.create.dialog.requiredinitialvalues": "Es fehlen einige benötigte Startwerte für dieses Flugzeug. Bitte trage diese in den folgenden Feldern ein.",
   "flight.create.dialog.counters.landings.start": "Totale Anzahl Landungen vor diesem Flug",
   "flight.create.dialog.counters.flighthours.start": "Totale Anzahl Flugstunden vor diesem Flug",
-  "flight.create.dialog.counters.blockhours.start": "Totale Anzahl Blockstunden vor diesem Flug",
   "flight.create.dialog.counters.enginehours.start": "Totale Anzahl Motorstunden vor diesem Flug",
 
   "flight.delete.dialog.title": "Flug löschen",

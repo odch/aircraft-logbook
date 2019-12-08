@@ -38,20 +38,12 @@ describe('routes', () => {
                       flights: {
                         start: 34
                       },
-                      landings: {},
-                      blockHours: {}
+                      landings: {}
                     }
                   },
-                  [
-                    'counters.flights.start',
-                    'counters.landings.start',
-                    'counters.blockHours.start'
-                  ]
+                  ['counters.flights.start', 'counters.landings.start']
                 )
-              ).toEqual([
-                'counters.landings.start',
-                'counters.blockHours.start'
-              ])
+              ).toEqual(['counters.landings.start'])
             })
           })
         })

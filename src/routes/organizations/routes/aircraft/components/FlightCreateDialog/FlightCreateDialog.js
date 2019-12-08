@@ -203,8 +203,7 @@ class FlightCreateDialog extends React.Component {
     const requiredFields = [
       'counters.flights.start',
       'counters.landings.start',
-      'counters.flightHours.start',
-      'counters.blockHours.start'
+      'counters.flightHours.start'
     ]
     if (engineHoursCounterEnabled) {
       requiredFields.push('counters.engineHours.start')
@@ -227,8 +226,6 @@ class FlightCreateDialog extends React.Component {
           this.renderIntegerField('counters.landings.start')}
         {requiredInitialValues.includes('counters.flightHours.start') &&
           this.renderDecimalField('counters.flightHours.start')}
-        {requiredInitialValues.includes('counters.blockHours.start') &&
-          this.renderDecimalField('counters.blockHours.start')}
         {requiredInitialValues.includes('counters.engineHours.start') &&
           this.renderDecimalField('counters.engineHours.start')}
       </div>
@@ -449,10 +446,6 @@ const flightDataShape = PropTypes.shape({
       end: PropTypes.number
     }),
     flightHours: PropTypes.shape({
-      start: PropTypes.number,
-      end: PropTypes.number
-    }),
-    blockHours: PropTypes.shape({
       start: PropTypes.number,
       end: PropTypes.number
     }),

@@ -37,10 +37,6 @@ const COLUMNS = {
   LandingsCounterStart: (aircraft, flight) =>
     flight.get('counters.landings.start'),
   LandingsCounterEnd: (aircraft, flight) => flight.get('counters.landings.end'),
-  BlockHoursCounterStart: (aircraft, flight) =>
-    flight.get('counters.blockHours.start'),
-  BlockHoursCounterEnd: (aircraft, flight) =>
-    flight.get('counters.blockHours.end'),
   FlightHoursCounterStart: (aircraft, flight) =>
     flight.get('counters.flightHours.start'),
   FlightHoursCounterEnd: (aircraft, flight) =>

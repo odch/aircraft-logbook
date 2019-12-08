@@ -57,7 +57,6 @@ describe('routes', () => {
                 },
                 counters: {
                   flightHours: counter(10156, 10243),
-                  blockHours: counter(10267, 10391),
                   engineHours: counter(10489, 10604),
                   landings: counter(234, 235)
                 },
