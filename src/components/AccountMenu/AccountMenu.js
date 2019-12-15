@@ -8,6 +8,9 @@ import Divider from '@material-ui/core/Divider'
 import organizationShape from '../../shapes/organization'
 
 class AccountMenu extends React.Component {
+  isOrganizationManager = () =>
+    this.props.organization.roles.includes('manager')
+
   render() {
     return (
       <Menu
@@ -27,7 +30,7 @@ class AccountMenu extends React.Component {
           {this.props.auth.email}
         </MenuItem>
         <Divider key="username-divider" />
-        {this.props.organization && [
+        {this.props.organization && (
           <MenuItem
             data-cy="menu-item-selected-organization"
             component={Link}
@@ -35,7 +38,9 @@ class AccountMenu extends React.Component {
             key={`menu-item-selected-organization-${this.props.organization.id}`}
           >
             {this.props.organization.id}
-          </MenuItem>,
+          </MenuItem>
+        )}
+        {this.props.organization && this.isOrganizationManager() && (
           <MenuItem
             data-cy="menu-item-selected-organization-settings"
             component={Link}
@@ -43,9 +48,11 @@ class AccountMenu extends React.Component {
             key={`menu-item-selected-organization-settings-${this.props.organization.id}`}
           >
             <FormattedMessage id="menu.account.organizationsettings" />
-          </MenuItem>,
+          </MenuItem>
+        )}
+        {this.props.organization && (
           <Divider key="selected-organization-divider" />
-        ]}
+        )}
         <MenuItem
           data-cy="menu-item-organizations"
           component={Link}

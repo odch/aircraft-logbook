@@ -44,11 +44,27 @@ describe('routes', () => {
               expect(tree).toMatchSnapshot()
             })
 
+            it('redirects to start page if not manager of organization', () => {
+              const tree = renderIntl(
+                <Router>
+                  <Switch>
+                    <Route exact path="/" component={StartPage} />
+                    <OrganizationSettings
+                      organization={{ id: 'my_org', roles: ['user'] }}
+                      deleteOrganization={() => {}}
+                      openCreateMemberDialog={() => {}}
+                    />
+                  </Switch>
+                </Router>
+              ).toJSON()
+              expect(tree).toMatchSnapshot()
+            })
+
             it('renders organization settings if loaded', () => {
               const store = configureStore()({
                 main: {
                   app: {
-                    organizations: [{ id: 'my_org' }]
+                    organizations: [{ id: 'my_org', roles: ['manager'] }]
                   }
                 },
                 firestore: {
@@ -91,7 +107,7 @@ describe('routes', () => {
                   <Provider store={store}>
                     <Router>
                       <OrganizationSettings
-                        organization={{ id: 'my_org' }}
+                        organization={{ id: 'my_org', roles: ['manager'] }}
                         deleteOrganization={() => {}}
                         openCreateMemberDialog={() => {}}
                       />

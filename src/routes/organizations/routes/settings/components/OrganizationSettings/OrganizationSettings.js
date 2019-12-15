@@ -61,6 +61,9 @@ class OrganizationSettings extends React.Component {
     })
   }
 
+  isOrganizationManager = () =>
+    this.props.organization.roles.includes('manager')
+
   render() {
     const {
       organization,
@@ -74,6 +77,10 @@ class OrganizationSettings extends React.Component {
     }
 
     if (!organization) {
+      return <Redirect to="/" />
+    }
+
+    if (!this.isOrganizationManager()) {
       return <Redirect to="/" />
     }
 

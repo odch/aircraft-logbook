@@ -1,9 +1,11 @@
 import { all, takeEvery, call, select, put } from 'redux-saga/effects'
 import { constants as reduxFirebaseConstants } from 'react-redux-firebase'
 import { constants as reduxFirestoreConstants } from 'redux-firestore'
+import { getDoc } from '../../util/firestoreUtils'
 import { getFirebase, getFirestore } from '../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
+import { getWithRoles } from './sagas'
 
 describe('modules', () => {
   describe('app', () => {
@@ -139,12 +141,22 @@ describe('modules', () => {
 
           const orgRefs = [{ get: () => org1 }, { get: () => org2 }]
 
+          const currentUserDoc = {
+            ref: {}
+          }
+
+          const orgsWithRoles = [
+            { id: 'org1', roles: ['manager'] },
+            { id: 'org2', roles: ['user'] }
+          ]
+
           const action = {
             type: reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
             payload: {
               data: {},
               ordered: [
                 {
+                  id: 'current-user-id',
                   organizations: orgRefs
                 }
               ]
@@ -160,7 +172,18 @@ describe('modules', () => {
           )
 
           expect(generator.next(docs).value).toEqual(
-            put(actions.setMyOrganizations([{ id: 'org1' }, { id: 'org2' }]))
+            call(getDoc, ['users', 'current-user-id'])
+          )
+
+          const getAllWithRolesEffect = generator.next(currentUserDoc).value
+
+          expect(getAllWithRolesEffect.payload).toEqual([
+            call(getWithRoles, org1, currentUserDoc.ref),
+            call(getWithRoles, org2, currentUserDoc.ref)
+          ])
+
+          expect(generator.next(orgsWithRoles).value).toEqual(
+            put(actions.setMyOrganizations(orgsWithRoles))
           )
 
           expect(generator.next().done).toEqual(true)
@@ -203,6 +226,52 @@ describe('modules', () => {
           )
 
           expect(generator.next().done).toEqual(true)
+        })
+      })
+
+      describe('getWithRoles', () => {
+        const memberDoc = roles => ({
+          get: field => (field === 'roles' ? roles : undefined)
+        })
+
+        it('should return the organization data along with the roles of the current user', () => {
+          const orgDoc = {
+            id: 'org-id',
+            data: () => ({
+              id: 'org-id'
+            })
+          }
+          const userRef = {}
+
+          const generator = sagas.getWithRoles(orgDoc, userRef)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+
+          expect(generator.next(firestore).value).toEqual(
+            call(firestore.get, {
+              collection: 'organizations',
+              doc: 'org-id',
+              subcollections: [{ collection: 'members' }],
+              where: ['user', '==', userRef],
+              storeAs: 'org-user-member'
+            })
+          )
+
+          const members = {
+            docs: [memberDoc(['user']), memberDoc(['manager'])]
+          }
+
+          const next = generator.next(members)
+
+          expect(next.value).toEqual({
+            id: 'org-id',
+            roles: ['user', 'manager']
+          })
+          expect(next.done).toEqual(true)
         })
       })
 
