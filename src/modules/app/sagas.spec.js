@@ -238,10 +238,15 @@ describe('modules', () => {
           const orgDoc = {
             id: 'org-id',
             data: () => ({
-              id: 'org-id'
+              id: 'org-id',
+              owner: {
+                id: 'some-other-user-id'
+              }
             })
           }
-          const userRef = {}
+          const userRef = {
+            id: 'current-user-id'
+          }
 
           const generator = sagas.getWithRoles(orgDoc, userRef)
 
@@ -269,7 +274,58 @@ describe('modules', () => {
 
           expect(next.value).toEqual({
             id: 'org-id',
+            owner: {
+              id: 'some-other-user-id'
+            },
             roles: ['user', 'manager']
+          })
+          expect(next.done).toEqual(true)
+        })
+
+        it('should return organization data with manager role if is owner', () => {
+          const orgDoc = {
+            id: 'org-id',
+            data: () => ({
+              id: 'org-id',
+              owner: {
+                id: 'current-user-id'
+              }
+            })
+          }
+          const userRef = {
+            id: 'current-user-id'
+          }
+
+          const generator = sagas.getWithRoles(orgDoc, userRef)
+
+          expect(generator.next().value).toEqual(call(getFirestore))
+
+          const firestore = {
+            get: () => {}
+          }
+
+          expect(generator.next(firestore).value).toEqual(
+            call(firestore.get, {
+              collection: 'organizations',
+              doc: 'org-id',
+              subcollections: [{ collection: 'members' }],
+              where: ['user', '==', userRef],
+              storeAs: 'org-user-member'
+            })
+          )
+
+          const members = {
+            docs: []
+          }
+
+          const next = generator.next(members)
+
+          expect(next.value).toEqual({
+            id: 'org-id',
+            owner: {
+              id: 'current-user-id'
+            },
+            roles: ['manager']
           })
           expect(next.done).toEqual(true)
         })

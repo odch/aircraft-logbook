@@ -38,6 +38,12 @@ export function* unwatchCurrentUser() {
 export function* getWithRoles(organizationDoc, userRef) {
   const allRoles = []
 
+  const orgData = organizationDoc.data()
+
+  if (orgData.owner.id === userRef.id) {
+    allRoles.push('manager')
+  }
+
   const firestore = yield call(getFirestore)
   const members = yield call(firestore.get, {
     collection: 'organizations',
@@ -56,7 +62,6 @@ export function* getWithRoles(organizationDoc, userRef) {
     }
   })
 
-  const orgData = organizationDoc.data()
   orgData.roles = allRoles
 
   return orgData
