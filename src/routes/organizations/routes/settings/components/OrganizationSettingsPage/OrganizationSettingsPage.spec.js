@@ -40,7 +40,7 @@ describe('routes', () => {
                 },
                 main: {
                   app: {
-                    organizations: [{ id: 'my_org' }]
+                    organizations: [{ id: 'my_org', roles: ['manager'] }]
                   }
                 },
                 organizationSettings: {

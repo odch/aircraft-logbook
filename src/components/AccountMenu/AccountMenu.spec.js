@@ -44,7 +44,28 @@ describe('components', () => {
             }}
             open
             organization={{
-              id: 'my_org'
+              id: 'my_org',
+              roles: ['manager']
+            }}
+            logout={() => {}}
+            onClose={() => {}}
+          />
+        </Router>
+      ).html()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('renders without organization settings if not manager', () => {
+      const tree = renderIntlMaterial(
+        <Router>
+          <AccountMenu
+            auth={{
+              email: 'test@opendigital.ch'
+            }}
+            open
+            organization={{
+              id: 'my_org',
+              roles: ['user']
             }}
             logout={() => {}}
             onClose={() => {}}

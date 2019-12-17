@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`routes organizations routes settings components OrganizationSettings redirects to start page if not manager of organization 1`] = `
+<div>
+  Start Page
+</div>
+`;
+
 exports[`routes organizations routes settings components OrganizationSettings redirects to start page if organization was not found 1`] = `
 <div>
   Start Page

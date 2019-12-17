@@ -2,6 +2,7 @@ import { takeEvery, all, call, select, put } from 'redux-saga/effects'
 import { constants as reduxFirebaseConstants } from 'react-redux-firebase'
 import { constants as reduxFirestoreConstants } from 'redux-firestore'
 import { getFirebase, getFirestore } from '../../util/firebase'
+import { getDoc } from '../../util/firestoreUtils'
 import * as actions from './actions'
 
 export const uidSelector = state => state.firebase.auth.uid
@@ -34,16 +35,52 @@ export function* unwatchCurrentUser() {
   })
 }
 
+export function* getWithRoles(organizationDoc, userRef) {
+  const allRoles = []
+
+  const orgData = organizationDoc.data()
+
+  if (orgData.owner.id === userRef.id) {
+    allRoles.push('manager')
+  }
+
+  const firestore = yield call(getFirestore)
+  const members = yield call(firestore.get, {
+    collection: 'organizations',
+    doc: organizationDoc.id,
+    subcollections: [{ collection: 'members' }],
+    where: ['user', '==', userRef],
+    storeAs: 'org-user-member'
+  })
+
+  // maybe the current user is linked to multiple members
+  // -> get roles from all returned results
+  members.docs.forEach(member => {
+    const memberRoles = member.get('roles')
+    if (memberRoles && memberRoles.length > 0) {
+      allRoles.push.apply(allRoles, memberRoles)
+    }
+  })
+
+  orgData.roles = allRoles
+
+  return orgData
+}
+
 export function* fetchMyOrganizations(action) {
   let organizations = []
 
   if (action.payload.data) {
-    const organizationRefs = action.payload.ordered[0].organizations
+    const currentUser = action.payload.ordered[0]
+    const organizationRefs = currentUser.organizations
     if (organizationRefs) {
       const organizationDocs = yield all(
         organizationRefs.map(ref => call(ref.get.bind(ref)))
       )
-      organizations = organizationDocs.map(doc => doc.data())
+      const userDoc = yield call(getDoc, ['users', currentUser.id])
+      organizations = yield all(
+        organizationDocs.map(doc => call(getWithRoles, doc, userDoc.ref))
+      )
     }
   }
 
