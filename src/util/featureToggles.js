@@ -1,6 +1,7 @@
 import featureToggles from 'feature-toggles'
 
 const TOGGLES = {
+  emailPasswordAuth: true,
   registration: true,
   organizationsManagement: true
 }

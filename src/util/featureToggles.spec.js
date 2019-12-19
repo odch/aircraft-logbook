@@ -1,7 +1,11 @@
 import featureToggles from 'feature-toggles'
 import { init } from './featureToggles'
 
-const TOGGLE_NAMES = ['registration', 'organizationsManagement']
+const TOGGLE_NAMES = [
+  'emailPasswordAuth',
+  'registration',
+  'organizationsManagement'
+]
 
 describe('util', () => {
   describe('featureToggles', () => {
