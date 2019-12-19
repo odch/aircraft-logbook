@@ -8,6 +8,7 @@
     "messagingSenderId": "190534692909"
   },
   "features": {
+    "emailPasswordAuth": false,
     "registration": false,
     "organizationsManagement": false
   }
