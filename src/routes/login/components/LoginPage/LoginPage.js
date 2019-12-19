@@ -41,21 +41,25 @@ class LoginPage extends React.Component {
     return (
       <main className={classes.layout}>
         <GoogleLogin className={classes.google} />
-        <Typography align="center" color="textSecondary" gutterBottom>
-          <FormattedMessage id="login.or" />
-        </Typography>
-        <LoginForm />
-        {featureToggles.isFeatureEnabled('registration') && (
-          <Button
-            className={classes.registrationButton}
-            href="/register"
-            variant="text"
-            color="primary"
-            data-cy="registration"
-            fullWidth
-          >
-            <FormattedMessage id="login.registration" />
-          </Button>
+        {featureToggles.isFeatureEnabled('emailPasswordAuth') && (
+          <React.Fragment>
+            <Typography align="center" color="textSecondary" gutterBottom>
+              <FormattedMessage id="login.or" />
+            </Typography>
+            <LoginForm />
+            {featureToggles.isFeatureEnabled('registration') && (
+              <Button
+                className={classes.registrationButton}
+                href="/register"
+                variant="text"
+                color="primary"
+                data-cy="registration"
+                fullWidth
+              >
+                <FormattedMessage id="login.registration" />
+              </Button>
+            )}
+          </React.Fragment>
         )}
       </main>
     )
