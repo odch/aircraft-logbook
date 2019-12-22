@@ -99,6 +99,9 @@ export function validateSync(
   if (typeof data.landings !== 'number' || data.landings < 1) {
     errors['landings'] = 'required'
   }
+  if (typeof data.personsOnBoard !== 'number' || data.personsOnBoard < 1) {
+    errors['personsOnBoard'] = 'required'
+  }
   if (data.fuelUplift) {
     if (typeof data.fuelUplift !== 'number' || data.fuelUplift < 0) {
       errors['fuelUplift'] = 'invalid'

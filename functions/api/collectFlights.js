@@ -26,6 +26,7 @@ const COLUMNS = {
   InstructorMemberNr: (aircraft, flight) =>
     resolveRefAndGet(flight, 'instructor', 'nr'),
   Landings: (aircraft, flight) => flight.get('landings'),
+  PersonsOnBoard: (aircraft, flight) => flight.get('personsOnBoard'),
   FuelUplift: (aircraft, flight) => flight.get('fuelUplift'),
   FuelUnit: (aircraft, flight) => flight.get('fuelUnit'),
   FuelType: (aircraft, flight) => flight.get('fuelType'),

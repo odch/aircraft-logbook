@@ -62,6 +62,7 @@ describe('routes', () => {
                 },
                 nature: 'vp',
                 landings: 1,
+                personsOnBoard: 3,
                 remarks: 'my\ntest\nremarks',
                 fuelUplift: 58.68,
                 fuelType: 'mogas_homebase',
