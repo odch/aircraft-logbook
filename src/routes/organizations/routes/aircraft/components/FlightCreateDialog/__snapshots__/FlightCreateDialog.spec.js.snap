@@ -232,6 +232,11 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
             </div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
+              <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
+            </div>
+          </div>
           <fieldset class=\\"MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
             <legend class=\\"MuiFormLabel-root\\">Treibstoff</legend>
             <div class=\\"MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3\\">
@@ -522,6 +527,11 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"number\\" value=\\"\\"></div>
             </div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
+              <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"number\\" value=\\"\\"></div>
+            </div>
+          </div>
           <fieldset class=\\"MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
             <legend class=\\"MuiFormLabel-root\\">Treibstoff</legend>
             <div class=\\"MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3\\">
@@ -809,6 +819,11 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Landungen</label>
+              <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
+            </div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
             </div>
           </div>

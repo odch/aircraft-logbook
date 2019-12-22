@@ -242,6 +242,7 @@ export function* createFlight({
       ),
       counters,
       landings: data.landings,
+      personsOnBoard: data.personsOnBoard,
       fuelUplift,
       fuelType,
       fuelUnit: 'litre',
