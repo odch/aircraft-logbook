@@ -412,6 +412,28 @@ describe('routes', () => {
               )
             })
 
+            it('should return an error if personsOnBoard is missing', () => {
+              return testFn({}, aircraftSettings1, 'personsOnBoard', 'required')
+            })
+
+            it('should return an error if personsOnBoard is invalid', () => {
+              return testFn(
+                { personsOnBoard: -1 },
+                aircraftSettings1,
+                'personsOnBoard',
+                'required'
+              )
+            })
+
+            it('should return no error if personsOnBoard is valid', () => {
+              return testFn(
+                { personsOnBoard: 1 },
+                aircraftSettings1,
+                'personsOnBoard',
+                undefined
+              )
+            })
+
             it('should return an error if fuelUplift is not a number', () => {
               return testFn(
                 { fuelUplift: 'foobar' },

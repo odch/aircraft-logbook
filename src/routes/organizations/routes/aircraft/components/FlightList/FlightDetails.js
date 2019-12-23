@@ -81,6 +81,9 @@ const FlightDetails = ({ aircraft, flight }) => {
           <Grid item xs={12} sm={4}>
             {renderField('landings', flight.landings, intl)}
           </Grid>
+          <Grid item xs={12} sm={4}>
+            {renderField('personsonboard', flight.personsOnBoard || '-', intl)}
+          </Grid>
           <Grid item xs={12} sm={8}>
             {renderField('remarks', flight.remarks || '-', intl)}
           </Grid>

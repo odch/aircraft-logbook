@@ -172,6 +172,7 @@ class FlightCreateDialog extends React.Component {
           {this.renderTimePicker('landingTime', true)}
           {this.renderTimePicker('blockOnTime')}
           {this.renderIntegerField('landings')}
+          {this.renderIntegerField('personsOnBoard')}
           {this.renderInTwoColumns(
             'fuel',
             this.renderDecimalField('fuelUplift'),
