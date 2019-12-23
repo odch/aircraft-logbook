@@ -93,7 +93,11 @@ const getFlights = async (aircraft, start, end) =>
 const resolveRef = async (doc, prop) => {
   const ref = doc.get(prop)
   if (ref) {
-    return ref.get()
+    if (typeof ref.get === 'function') {
+      return ref.get().then(doc => doc.data())
+    } else {
+      return Promise.resolve(ref)
+    }
   } else {
     return Promise.resolve(null)
   }
@@ -102,7 +106,7 @@ const resolveRef = async (doc, prop) => {
 const resolveRefAndGet = async (doc, ref, prop) => {
   const resolvedDoc = await resolveRef(doc, ref)
   if (resolvedDoc) {
-    return resolvedDoc.get(prop)
+    return resolvedDoc[prop]
   }
   return null
 }
