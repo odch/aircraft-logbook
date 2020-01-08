@@ -6,7 +6,7 @@ import { getMemberOption, getAerodromeOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
 import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
-import validateFlight from './util/validateFlight'
+import { validateSync, validateAsync } from './util/validateFlight'
 import { getCounters } from './util/counters'
 import { fetchAerodromes } from '../../../module/actions'
 
@@ -165,29 +165,17 @@ export function* createFlight({
 
     const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
 
-    const validationErrors = yield call(
-      validateFlight,
+    let validationErrors = yield call(
+      validateSync,
       data,
       organizationId,
       aircraftId,
       aircraftSettings
     )
-    if (
-      validationErrors &&
-      Object.getOwnPropertyNames(validationErrors).length > 0
-    ) {
+    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
       yield put(actions.setFlightValidationErrors(validationErrors))
       return
     }
-
-    const currentMember = yield call(getCurrentMember)
-
-    const owner = yield call(getMember, organizationId, currentMember.id)
-    const pilot = yield call(getMember, organizationId, data.pilot.value)
-    const instructor =
-      data.instructor && data.instructor.value
-        ? yield call(getMember, organizationId, data.instructor.value)
-        : null
 
     const departureAerodrome = yield call(
       getAerodrome,
@@ -200,26 +188,10 @@ export function* createFlight({
       data.destinationAerodrome.value
     )
 
-    const fuelUplift =
-      typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
-    const fuelType =
-      typeof fuelUplift === 'number' && fuelUplift > 0
-        ? data.fuelType.value
-        : null
-
-    const oilUplift =
-      typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
-
     const counters = getCounters(data)
 
-    const dataToStore = {
-      deleted: false,
-      owner: owner.ref,
-      nature: data.nature.value,
-      pilot: memberObject(pilot),
-      instructor: memberObject(instructor),
-      departureAerodrome: aerodromeObject(departureAerodrome),
-      destinationAerodrome: aerodromeObject(destinationAerodrome),
+    data = {
+      ...data,
       blockOffTime: mergeDateAndTime(
         data.date,
         data.blockOffTime,
@@ -239,7 +211,51 @@ export function* createFlight({
         data.date,
         data.blockOnTime,
         destinationAerodrome.get('timezone')
-      ),
+      )
+    }
+
+    validationErrors = yield call(
+      validateAsync,
+      data,
+      organizationId,
+      aircraftId
+    )
+    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
+      yield put(actions.setFlightValidationErrors(validationErrors))
+      return
+    }
+
+    const currentMember = yield call(getCurrentMember)
+
+    const owner = yield call(getMember, organizationId, currentMember.id)
+    const pilot = yield call(getMember, organizationId, data.pilot.value)
+    const instructor =
+      data.instructor && data.instructor.value
+        ? yield call(getMember, organizationId, data.instructor.value)
+        : null
+
+    const fuelUplift =
+      typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
+    const fuelType =
+      typeof fuelUplift === 'number' && fuelUplift > 0
+        ? data.fuelType.value
+        : null
+
+    const oilUplift =
+      typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
+
+    const dataToStore = {
+      deleted: false,
+      owner: owner.ref,
+      nature: data.nature.value,
+      pilot: memberObject(pilot),
+      instructor: memberObject(instructor),
+      departureAerodrome: aerodromeObject(departureAerodrome),
+      destinationAerodrome: aerodromeObject(destinationAerodrome),
+      blockOffTime: data.blockOffTime,
+      takeOffTime: data.takeOffTime,
+      landingTime: data.landingTime,
+      blockOnTime: data.blockOnTime,
       counters,
       landings: data.landings,
       personsOnBoard: data.personsOnBoard,

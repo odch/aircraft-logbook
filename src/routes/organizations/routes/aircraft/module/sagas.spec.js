@@ -6,7 +6,7 @@ import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
-import validateFlight from './util/validateFlight'
+import { validateSync, validateAsync } from './util/validateFlight'
 import { fetchAerodromes } from '../../../module'
 
 const counter = (start, end) => ({ start, end })
@@ -130,7 +130,7 @@ describe('routes', () => {
                 nature: { value: 'vp' },
                 departureAerodrome: { value: 'dep-ad-id' },
                 destinationAerodrome: { value: 'dest-ad-id' },
-                date: '2018-12-15',
+                date: '2018-12-13',
                 blockOffTime: '2018-12-15 10:00',
                 takeOffTime: '2018-12-15 10:05',
                 landingTime: '2018-12-15 10:35',
@@ -172,7 +172,7 @@ describe('routes', () => {
 
               expect(generator.next(aircraftSettings).value).toEqual(
                 call(
-                  validateFlight,
+                  validateSync,
                   data,
                   organizationId,
                   aircraftId,
@@ -183,7 +183,11 @@ describe('routes', () => {
               const validationErrors = {}
 
               expect(generator.next(validationErrors).value).toEqual(
-                call(sagas.getCurrentMember)
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.departureAerodrome.value
+                )
               )
 
               const currentMember = {
@@ -227,7 +231,32 @@ describe('routes', () => {
                   timezone: 'Europe/Zurich'
                 })
               }
+              const dataWithMergedDateAndTime = {
+                ...data,
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z')
+              }
 
+              expect(generator.next(departureAerodrome).value).toEqual(
+                call(
+                  sagas.getAerodrome,
+                  organizationId,
+                  data.destinationAerodrome.value
+                )
+              )
+              expect(generator.next(destinationAerodrome).value).toEqual(
+                call(
+                  validateAsync,
+                  dataWithMergedDateAndTime,
+                  organizationId,
+                  aircraftId
+                )
+              )
+              expect(generator.next(validationErrors).value).toEqual(
+                call(sagas.getCurrentMember)
+              )
               expect(generator.next(currentMember).value).toEqual(
                 call(sagas.getMember, organizationId, currentMember.id)
               )
@@ -238,21 +267,6 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
-                call(
-                  sagas.getAerodrome,
-                  organizationId,
-                  data.departureAerodrome.value
-                )
-              )
-              expect(generator.next(departureAerodrome).value).toEqual(
-                call(
-                  sagas.getAerodrome,
-                  organizationId,
-                  data.destinationAerodrome.value
-                )
-              )
-
-              expect(generator.next(destinationAerodrome).value).toEqual(
                 call(
                   addDoc,
                   [
@@ -294,10 +308,10 @@ describe('routes', () => {
                       name: 'Wangen-Lachen',
                       timezone: 'Europe/Zurich'
                     },
-                    blockOffTime: new Date('2018-12-15T09:00:00.000Z'),
-                    takeOffTime: new Date('2018-12-15T09:05:00.000Z'),
-                    landingTime: new Date('2018-12-15T09:35:00.000Z'),
-                    blockOnTime: new Date('2018-12-15T09:40:00.000Z'),
+                    blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                    takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                    landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                    blockOnTime: new Date('2018-12-13T09:40:00.000Z'),
                     counters: {
                       flightTimeCounter: counter(45780, 45830),
                       engineTimeCounter: counter(50145, 50612),
@@ -368,7 +382,7 @@ describe('routes', () => {
 
               expect(generator.next(aircraftSettings).value).toEqual(
                 call(
-                  validateFlight,
+                  validateSync,
                   data,
                   organizationId,
                   aircraftId,
