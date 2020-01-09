@@ -323,7 +323,7 @@ class FlightCreateDialog extends React.Component {
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
         value={this.getValue(name)}
         onChange={this.handleDateChange(name)}
-        format="L"
+        format="DD.MM.YYYY"
         data-cy={`${name}-field`}
         margin="normal"
         fullWidth
