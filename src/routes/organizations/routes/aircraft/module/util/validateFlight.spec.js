@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan'
 import { call } from 'redux-saga/effects'
-import validateFlight, { validateSync } from './validateFlight'
+import { validateSync, validateAsync } from './validateFlight'
 import getLastFlight from './getLastFlight'
 
 describe('routes', () => {
@@ -8,7 +8,7 @@ describe('routes', () => {
     describe('routes', () => {
       describe('aircraft', () => {
         describe('util', () => {
-          describe('validateFlight', () => {
+          describe('validateSync', () => {
             const orgId = 'my_org'
             const aircraftId = 'my_aircraft'
             const aircraftSettings1 = {
@@ -22,18 +22,15 @@ describe('routes', () => {
               data,
               aircraftSettings,
               name,
-              expectedError,
-              effectProviders = []
+              expectedError
             ) => {
               const { returnValue } = await expectSaga(
-                validateFlight,
+                validateSync,
                 data,
                 orgId,
                 aircraftId,
                 aircraftSettings
-              )
-                .provide(effectProviders)
-                .run()
+              ).run()
               expect(returnValue[name]).toEqual(expectedError)
             }
 
@@ -519,6 +516,28 @@ describe('routes', () => {
                 undefined
               )
             })
+          })
+
+          describe('validateAsync', () => {
+            const orgId = 'my_org'
+            const aircraftId = 'my_aircraft'
+
+            const testFn = async (
+              data,
+              name,
+              expectedError,
+              effectProviders = []
+            ) => {
+              const { returnValue } = await expectSaga(
+                validateAsync,
+                data,
+                orgId,
+                aircraftId
+              )
+                .provide(effectProviders)
+                .run()
+              expect(returnValue[name]).toEqual(expectedError)
+            }
 
             it('should return an error if block off time is before block on time of last flight', () => {
               const lastFlight = {
@@ -527,26 +546,12 @@ describe('routes', () => {
               const data = {
                 blockOffTime: '2019-05-01 08:59'
               }
-              const emptySyncErrors = {}
 
               return testFn(
                 data,
-                aircraftSettings1,
                 'blockOffTime',
                 'not_before_block_on_time_last_flight',
-                [
-                  [
-                    call(
-                      validateSync,
-                      data,
-                      orgId,
-                      aircraftId,
-                      aircraftSettings1
-                    ),
-                    emptySyncErrors
-                  ],
-                  [call(getLastFlight, orgId, aircraftId), lastFlight]
-                ]
+                [[call(getLastFlight, orgId, aircraftId), lastFlight]]
               )
             })
 
@@ -557,27 +562,10 @@ describe('routes', () => {
               const data = {
                 blockOffTime: '2019-05-01 09:00'
               }
-              const emptySyncErrors = {}
 
-              return testFn(
-                data,
-                aircraftSettings1,
-                'blockOffTime',
-                undefined,
-                [
-                  [
-                    call(
-                      validateSync,
-                      data,
-                      orgId,
-                      aircraftId,
-                      aircraftSettings1
-                    ),
-                    emptySyncErrors
-                  ],
-                  [call(getLastFlight, orgId, aircraftId), lastFlight]
-                ]
-              )
+              return testFn(data, 'blockOffTime', undefined, [
+                [call(getLastFlight, orgId, aircraftId), lastFlight]
+              ])
             })
           })
         })

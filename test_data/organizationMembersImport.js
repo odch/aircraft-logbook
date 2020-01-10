@@ -18,6 +18,7 @@
 const fs = require('fs')
 const csv = require('fast-csv')
 const admin = require('firebase-admin')
+const util = require('util')
 
 const serviceAccount = require('./serviceAccountKey.json')
 
@@ -73,6 +74,6 @@ function getSingleSnapshot(snapshot) {
   } else if (snapshot.size === 1) {
     return snapshot.docs[0]
   } else {
-    throw `More than 1 snapshot found`
+    throw `More than 1 snapshot found. First: ${util.inspect(snapshot.docs[0])}`
   }
 }

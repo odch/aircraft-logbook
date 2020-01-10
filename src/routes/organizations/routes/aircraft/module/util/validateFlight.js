@@ -19,34 +19,8 @@ const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
  * @param aircraftSettings
  * @return a map containing the error message for the mapped fields
  */
-export default function* validateFlight(
-  data,
-  organizationId,
-  aircraftId,
-  aircraftSettings
-) {
-  let errors = yield call(
-    validateSync,
-    data,
-    organizationId,
-    aircraftId,
-    aircraftSettings
-  )
-
-  if (Object.keys(errors).length === 0) {
-    errors = yield call(
-      validateAsync,
-      data,
-      organizationId,
-      aircraftId,
-      aircraftSettings
-    )
-  }
-
-  return errors
-}
-
-export function validateSync(
+// eslint-disable-next-line require-yield
+export function* validateSync(
   data,
   organizationId,
   aircraftId,
