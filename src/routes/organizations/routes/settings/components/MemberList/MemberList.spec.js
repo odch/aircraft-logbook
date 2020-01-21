@@ -54,12 +54,24 @@ describe('routes', () => {
                       roles: ['manager'],
                       user: 'users/user1'
                     },
+
+                    // invited but not yet joined
                     {
                       id: 'member2',
                       firstname: 'Max',
                       lastname: 'Muster',
                       roles: ['user'],
-                      user: undefined // not yet joined
+                      inviteTimestamp: {
+                        toDate: () => Date.parse('2020-01-20 20:48')
+                      }
+                    },
+
+                    // not invited
+                    {
+                      id: 'member3',
+                      firstname: 'Mike',
+                      lastname: 'Müller',
+                      roles: ['user']
                     }
                   ]}
                   deleteMemberDialog={{ open: false }}

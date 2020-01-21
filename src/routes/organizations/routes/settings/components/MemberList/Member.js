@@ -10,6 +10,7 @@ import {
   member as memberShape,
   intl as intlShape
 } from '../../../../../../shapes'
+import { formatDate, formatTime } from '../../../../../../util/dates'
 import Tooltip from '@material-ui/core/Tooltip'
 import { withStyles } from '@material-ui/core'
 
@@ -26,7 +27,17 @@ class Member extends React.Component {
       ? roles.map(role => this.msg(`organization.role.${role}`)).join(', ')
       : ''
 
-  msg = id => this.props.intl.formatMessage({ id })
+  msg = (id, values) => this.props.intl.formatMessage({ id }, values)
+
+  getPendingInvitationTooltip = member => {
+    if (member.inviteTimestamp) {
+      return this.msg('organization.invite.pending', {
+        inviteDate: formatDate(member.inviteTimestamp),
+        inviteTime: formatTime(member.inviteTimestamp)
+      })
+    }
+    return this.msg('organization.invite.notsent')
+  }
 
   render() {
     const { member, openDeleteMemberDialog, classes } = this.props
@@ -51,7 +62,7 @@ class Member extends React.Component {
       >
         {invitePending ? (
           <Tooltip
-            title={this.msg('organization.invite.pending')}
+            title={this.getPendingInvitationTooltip(member)}
             placement="bottom-start"
           >
             {itemText}

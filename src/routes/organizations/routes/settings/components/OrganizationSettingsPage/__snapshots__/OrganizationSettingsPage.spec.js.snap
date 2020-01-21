@@ -12,7 +12,7 @@ exports[`routes organizations routes settings components OrganizationSettingsPag
   <ul class=\\"MuiList-root MuiList-padding\\">
     <li class=\\"MuiListItem-container\\">
       <div class=\\"MuiListItem-root Member-pending-123 MuiListItem-divider MuiListItem-secondaryAction\\">
-        <div class=\\"MuiListItemText-root MuiListItemText-multiline\\" title=\\"Noch nicht beigetreten\\"><span class=\\"MuiTypography-root MuiListItemText-primary MuiTypography-body1\\">Muster Max</span>
+        <div class=\\"MuiListItemText-root MuiListItemText-multiline\\" title=\\"Keine Einladung gesendet\\"><span class=\\"MuiTypography-root MuiListItemText-primary MuiTypography-body1\\">Muster Max</span>
           <p class=\\"MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary\\"></p>
         </div>
       </div>
@@ -20,7 +20,7 @@ exports[`routes organizations routes settings components OrganizationSettingsPag
     </li>
     <li class=\\"MuiListItem-container\\">
       <div class=\\"MuiListItem-root Member-pending-123 MuiListItem-divider MuiListItem-secondaryAction\\">
-        <div class=\\"MuiListItemText-root MuiListItemText-multiline\\" title=\\"Noch nicht beigetreten\\"><span class=\\"MuiTypography-root MuiListItemText-primary MuiTypography-body1\\">Keller Hans</span>
+        <div class=\\"MuiListItemText-root MuiListItemText-multiline\\" title=\\"Keine Einladung gesendet\\"><span class=\\"MuiTypography-root MuiListItemText-primary MuiTypography-body1\\">Keller Hans</span>
           <p class=\\"MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary\\"></p>
         </div>
       </div>
