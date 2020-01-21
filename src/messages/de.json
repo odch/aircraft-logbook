@@ -175,7 +175,8 @@
   "organization.invite.accept": "Mit Konto {account} beitreten",
   "organization.invite.change_account": "Mit anderem Konto beitreten",
   "organization.invite.invalid": "Die angeforderte Einladung wurde nicht gefunden oder ist nicht mehr gültig.",
-  "organization.invite.pending": "Noch nicht beigetreten",
+  "organization.invite.pending": "Noch nicht beigetreten (eingeladen am {inviteDate} um {inviteTime})",
+  "organization.invite.notsent": "Keine Einladung gesendet",
 
   "aircraft.settings.fueltypes": "Treibstofftypen",
   "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst"

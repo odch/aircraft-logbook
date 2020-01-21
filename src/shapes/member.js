@@ -6,6 +6,7 @@ export default PropTypes.shape({
   lastname: PropTypes.string.isRequired,
   nr: PropTypes.string,
   inviteEmail: PropTypes.string,
+  inviteTimestamp: PropTypes.object,
   roles: PropTypes.arrayOf(PropTypes.string),
   user: PropTypes.object
 })
