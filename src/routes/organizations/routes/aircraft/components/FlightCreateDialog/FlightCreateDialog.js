@@ -105,9 +105,35 @@ class FlightCreateDialog extends React.Component {
     }
   }
 
-  msg = id => this.props.intl.formatMessage({ id })
+  msg = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   hasInitialValue = name => !!_get(this.props.initialData, name)
+
+  withSpace = aerodromeValue =>
+    aerodromeValue === undefined ? '' : ' ' + aerodromeValue.label
+
+  getLandingsLabel = () => {
+    const destinationAerodrome = this.withSpace(
+      this.getValue('destinationAerodrome')
+    )
+    return this.msg(`flight.create.dialog.landings`, {
+      destinationAerodrome
+    })
+  }
+
+  getLandingsHelperText = () => {
+    const departureAerodrome = this.withSpace(
+      this.getValue('departureAerodrome')
+    )
+    const destinationAerodrome = this.withSpace(
+      this.getValue('destinationAerodrome')
+    )
+
+    return this.msg(`flight.create.dialog.landings.helpertext`, {
+      departureAerodrome,
+      destinationAerodrome
+    })
+  }
 
   render() {
     const { data, createAerodromeDialogOpen, organizationId } = this.props
@@ -171,7 +197,11 @@ class FlightCreateDialog extends React.Component {
           {this.renderTimePicker('takeOffTime')}
           {this.renderTimePicker('landingTime', true)}
           {this.renderTimePicker('blockOnTime')}
-          {this.renderIntegerField('landings')}
+          {this.renderIntegerField(
+            'landings',
+            this.getLandingsLabel(),
+            this.getLandingsHelperText()
+          )}
           {this.renderIntegerField('personsOnBoard')}
           {this.renderInTwoColumns(
             'fuel',
@@ -255,7 +285,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderInFormControl(name, renderFn) {
+  renderInFormControl(name, renderFn, helperText) {
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
 
@@ -265,6 +295,7 @@ class FlightCreateDialog extends React.Component {
       <FormControl fullWidth error={hasError} disabled={isDisabled}>
         {renderFn(hasError, isDisabled)}
         {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     )
   }
@@ -371,19 +402,27 @@ class FlightCreateDialog extends React.Component {
     ))
   }
 
-  renderIntegerField(name) {
-    return this.renderInFormControl(name, (hasError, isDisabled) => (
-      <IntegerField
-        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.getValue(name)}
-        onChange={this.handleIntegerChange(name)}
-        cy={`${name}-field`}
-        margin="normal"
-        fullWidth
-        error={hasError}
-        disabled={isDisabled}
-      />
-    ))
+  renderIntegerField(name, label, helperText) {
+    if (!label) {
+      label = this.msg(`flight.create.dialog.${name.toLowerCase()}`)
+    }
+
+    return this.renderInFormControl(
+      name,
+      (hasError, isDisabled) => (
+        <IntegerField
+          label={label}
+          value={this.getValue(name)}
+          onChange={this.handleIntegerChange(name)}
+          cy={`${name}-field`}
+          margin="normal"
+          fullWidth
+          error={hasError}
+          disabled={isDisabled}
+        />
+      ),
+      helperText
+    )
   }
 
   renderMultilineTextField(name) {
