@@ -431,12 +431,16 @@ describe('routes', () => {
               )
             })
 
+            it('should return an error if fuelUplift is missing', () => {
+              return testFn({}, aircraftSettings1, 'fuelUplift', 'required')
+            })
+
             it('should return an error if fuelUplift is not a number', () => {
               return testFn(
                 { fuelUplift: 'foobar' },
                 aircraftSettings1,
                 'fuelUplift',
-                'invalid'
+                'required'
               )
             })
 
@@ -445,7 +449,16 @@ describe('routes', () => {
                 { fuelUplift: -1 },
                 aircraftSettings1,
                 'fuelUplift',
-                'invalid'
+                'required'
+              )
+            })
+
+            it('should return no error if fuelUplift is 0', () => {
+              return testFn(
+                { fuelUplift: 0 },
+                aircraftSettings1,
+                'fuelUplift',
+                undefined
               )
             })
 
@@ -455,6 +468,15 @@ describe('routes', () => {
                 aircraftSettings1,
                 'fuelType',
                 'required'
+              )
+            })
+
+            it('should return no error if fuelUplift 0 and fuelType is missing', () => {
+              return testFn(
+                { fuelUplift: 0 },
+                aircraftSettings1,
+                'fuelType',
+                undefined
               )
             })
 
