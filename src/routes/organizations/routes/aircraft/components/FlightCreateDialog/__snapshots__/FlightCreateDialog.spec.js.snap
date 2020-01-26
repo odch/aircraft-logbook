@@ -228,9 +228,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Landungen</label>
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Landungen am Zielflugplatz</label>
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
             </div>
+            <p class=\\"MuiFormHelperText-root\\">Alle Landungen beziehen sich auf den Zielflugplatz. Erfolgte beispielsweise bei einem Flug vom Startflugplatz zum Zielflugplatz auf dem Startflugplatz vor dem Verlassen des Platzverkehrs eine Platzrunde mit Landung, sollten zwei separate Flüge erfasst werden: ein Flug vom Startflugplatz zum gleichen Flugplatz und ein Flug vom Startflugplatz zum Zielflugplatz.</p>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
@@ -523,9 +524,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Landungen</label>
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Landungen am Zielflugplatz</label>
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"number\\" value=\\"\\"></div>
             </div>
+            <p class=\\"MuiFormHelperText-root Mui-disabled\\">Alle Landungen beziehen sich auf den Zielflugplatz. Erfolgte beispielsweise bei einem Flug vom Startflugplatz zum Zielflugplatz auf dem Startflugplatz vor dem Verlassen des Platzverkehrs eine Platzrunde mit Landung, sollten zwei separate Flüge erfasst werden: ein Flug vom Startflugplatz zum gleichen Flugplatz und ein Flug vom Startflugplatz zum Zielflugplatz.</p>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
@@ -818,9 +820,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Landungen</label>
+            <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"landings-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Landungen am Zielflugplatz</label>
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" value=\\"\\"></div>
             </div>
+            <p class=\\"MuiFormHelperText-root\\">Alle Landungen beziehen sich auf den Zielflugplatz. Erfolgte beispielsweise bei einem Flug vom Startflugplatz zum Zielflugplatz auf dem Startflugplatz vor dem Verlassen des Platzverkehrs eine Platzrunde mit Landung, sollten zwei separate Flüge erfasst werden: ein Flug vom Startflugplatz zum gleichen Flugplatz und ein Flug vom Startflugplatz zum Zielflugplatz.</p>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" cy=\\"personsOnBoard-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Personen an Bord (inkl. Pilot)</label>
