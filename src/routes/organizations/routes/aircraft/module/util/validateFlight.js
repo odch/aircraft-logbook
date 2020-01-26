@@ -76,13 +76,10 @@ export function* validateSync(
   if (typeof data.personsOnBoard !== 'number' || data.personsOnBoard < 1) {
     errors['personsOnBoard'] = 'required'
   }
-  if (data.fuelUplift) {
-    if (typeof data.fuelUplift !== 'number' || data.fuelUplift < 0) {
-      errors['fuelUplift'] = 'invalid'
-    }
-    if (!data.fuelType) {
-      errors['fuelType'] = 'required'
-    }
+  if (typeof data.fuelUplift !== 'number' || data.fuelUplift < 0) {
+    errors['fuelUplift'] = 'required'
+  } else if (data.fuelUplift > 0 && !data.fuelType) {
+    errors['fuelType'] = 'required'
   }
   if (
     data.oilUplift &&

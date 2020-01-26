@@ -108,7 +108,7 @@
   "flight.create.dialog.validation.counters.enginetimecounter.end.not_before_start_counter": "Endzähler darf nicht kleiner als Startzähler sein",
   "flight.create.dialog.validation.landings.required": "Bitte gültige Anzahl Landungen eingeben (mindestens eine)",
   "flight.create.dialog.validation.personsonboard.required": "Bitte gültige Anzahl Personen an Bord eingeben (mindestens eine)",
-  "flight.create.dialog.validation.fueluplift.invalid": "Bitte gültige Treibstoff-Menge eingeben",
+  "flight.create.dialog.validation.fueluplift.required": "Bitte gültige Treibstoff-Menge eingeben (0 oder grösser als 0)",
   "flight.create.dialog.validation.fueltype.required": "Bitte Treibstofftyp auswählen",
   "flight.create.dialog.validation.oiluplift.invalid": "Bitte gültige Öl-Menge eingeben",
   "flight.create.dialog.dateinvalid": "Datum im Format TT.MM.JJJJ eingeben (z.B. 07.09.2018)",
