@@ -17,6 +17,18 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false
   },
+  editMemberDialog: {
+    open: false,
+    submitting: false,
+    member: undefined,
+    data: {
+      firstname: '',
+      lastname: '',
+      nr: '',
+      inviteEmail: '',
+      reinvite: false
+    }
+  },
   exportFlightsForm: {
     submitting: false,
     data: {
@@ -44,24 +56,22 @@ const openCreateMemberDialog = state => ({
   }
 })
 
-const updateCreateMemberDialogData = (state, action) => {
-  const newData = {
-    ...state.createMemberDialog.data
-  }
-
-  Object.keys(action.payload.data).forEach(key => {
-    const value = action.payload.data[key]
+const mergeData = (initialData, actionData) => {
+  const newData = { ...initialData }
+  Object.keys(actionData).forEach(key => {
+    const value = actionData[key]
     _set(newData, key, value)
   })
-
-  return {
-    ...state,
-    createMemberDialog: {
-      ...state.createMemberDialog,
-      data: newData
-    }
-  }
+  return newData
 }
+
+const updateCreateMemberDialogData = (state, action) => ({
+  ...state,
+  createMemberDialog: {
+    ...state.createMemberDialog,
+    data: mergeData(state.createMemberDialog.data, action.payload.data)
+  }
+})
 
 const setCreateMemberDialogSubmitting = state =>
   updateCreateMemberDialogSubmitting(state, true)
@@ -109,6 +119,48 @@ const setDeleteMemberDialogSubmitting = state => ({
   }
 })
 
+const openEditMemberDialog = (state, { payload: { member } }) => ({
+  ...state,
+  editMemberDialog: {
+    ...INITIAL_STATE.editMemberDialog,
+    open: true,
+    member,
+    data: {
+      firstname: member.firstname,
+      lastname: member.lastname,
+      nr: member.nr,
+      inviteEmail: member.inviteEmail
+    }
+  }
+})
+
+const updateEditMemberDialogData = (state, action) => ({
+  ...state,
+  editMemberDialog: {
+    ...state.editMemberDialog,
+    data: mergeData(state.editMemberDialog.data, action.payload.data)
+  }
+})
+
+const closeEditMemberDialog = state => ({
+  ...state,
+  editMemberDialog: INITIAL_STATE.editMemberDialog
+})
+
+const setEditMemberDialogSubmitting = state =>
+  updateEditMemberDialogSubmitting(state, true)
+
+const unsetEditMemberDialogSubmitting = state =>
+  updateEditMemberDialogSubmitting(state, false)
+
+const updateEditMemberDialogSubmitting = (state, submitting) => ({
+  ...state,
+  editMemberDialog: {
+    ...state.editMemberDialog,
+    submitting: submitting
+  }
+})
+
 const setMembersPage = (state, action) => ({
   ...state,
   members: {
@@ -153,6 +205,12 @@ const ACTION_HANDLERS = {
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
+  [actions.OPEN_EDIT_MEMBER_DIALOG]: openEditMemberDialog,
+  [actions.CLOSE_EDIT_MEMBER_DIALOG]: closeEditMemberDialog,
+  [actions.UPDATE_EDIT_MEMBER_DIALOG_DATA]: updateEditMemberDialogData,
+  [actions.SET_EDIT_MEMBER_DIALOG_SUBMITTING]: setEditMemberDialogSubmitting,
+  [actions.UPDATE_MEMBER_SUCCESS]: closeEditMemberDialog,
+  [actions.UPDATE_MEMBER_FAILURE]: unsetEditMemberDialogSubmitting,
   [actions.SET_MEMBERS_PAGE]: setMembersPage,
   [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,
   [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData

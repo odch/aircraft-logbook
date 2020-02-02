@@ -11,6 +11,7 @@ import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import Member from './Member'
 import DeleteMemberDialog from '../DeleteMemberDialog'
+import EditMemberDialog from '../EditMemberDialog'
 
 class MemberList extends React.Component {
   componentDidMount() {
@@ -26,9 +27,14 @@ class MemberList extends React.Component {
       members,
       pagination,
       deleteMemberDialog,
+      editMemberDialog,
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
       deleteMember,
+      openEditMemberDialog,
+      updateEditMemberDialogData,
+      closeEditMemberDialog,
+      updateMember,
       setMembersPage
     } = this.props
 
@@ -44,6 +50,7 @@ class MemberList extends React.Component {
               key={member.id}
               member={member}
               openDeleteMemberDialog={openDeleteMemberDialog}
+              openEditMemberDialog={openEditMemberDialog}
             />
           ))}
         </List>
@@ -66,6 +73,18 @@ class MemberList extends React.Component {
             onClose={closeDeleteMemberDialog}
           />
         )}
+        {editMemberDialog && editMemberDialog.open && (
+          <EditMemberDialog
+            organizationId={organizationId}
+            member={editMemberDialog.member}
+            data={editMemberDialog.data}
+            submitting={editMemberDialog.submitting}
+            reinviteInProgress={editMemberDialog.reinviteInProgress}
+            onSubmit={updateMember}
+            onClose={closeEditMemberDialog}
+            updateData={updateEditMemberDialogData}
+          />
+        )}
       </React.Fragment>
     )
   }
@@ -84,10 +103,27 @@ MemberList.propTypes = {
     submitting: PropTypes.bool,
     member: memberShape
   }),
+  editMemberDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitting: PropTypes.bool,
+    reinviteInProgress: PropTypes.bool,
+    member: memberShape,
+    data: PropTypes.shape({
+      firstname: PropTypes.string,
+      lastname: PropTypes.string,
+      nr: PropTypes.string,
+      inviteEmail: PropTypes.string,
+      reinvite: false
+    }).isRequired
+  }),
   fetchMembers: PropTypes.func.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
   closeDeleteMemberDialog: PropTypes.func.isRequired,
   deleteMember: PropTypes.func.isRequired,
+  openEditMemberDialog: PropTypes.func.isRequired,
+  updateEditMemberDialogData: PropTypes.func.isRequired,
+  closeEditMemberDialog: PropTypes.func.isRequired,
+  updateMember: PropTypes.func.isRequired,
   setMembersPage: PropTypes.func.isRequired,
   intl: intlShape.isRequired
 }

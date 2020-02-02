@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes settings components EditMemberDialog renders readonly if submitting 1`] = `
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"member-edit-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Mitglied bearbeiten</h2>
+      </div>
+      <form>
+        <div class=\\"MuiDialogContent-root\\">
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled MuiFormLabel-filled Mui-required Mui-required\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled MuiFormLabel-filled Mui-required Mui-required\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Mitgliedernummer</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\" value=\\"\\"></div>
+          </div>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(EditMemberDialog)-inviteText-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Die Einladung wurde am 03.02.2020 um 15:54 versendet. Das Mitglied hat die Einladung noch nicht angenommen.</p>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"inviteEmail-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled MuiFormLabel-filled\\" data-shrink=\\"true\\">Einladung an E-Mail</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"email\\" value=\\"max@muster.ch\\"></div>
+          </div><label class=\\"MuiFormControlLabel-root injectIntl(EditMemberDialog)-reinviteCheckbox-3 Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-180 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-181 Mui-checked PrivateSwitchBase-disabled-182 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\\"></path></svg><input class=\\"PrivateSwitchBase-input-183\\" disabled=\\"\\" type=\\"checkbox\\" data-indeterminate=\\"false\\" value=\\"reinvite\\" checked=\\"\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">Einladung erneut senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung erneut versendet wird)</span></label>
+        </div>
+        <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiButton-label\\">Abbrechen</span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" type=\\"submit\\" disabled=\\"\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\"><div class=\\"MuiCircularProgress-root injectIntl(EditMemberDialog)-loadingIndicator-1 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate\\" style=\\"width: 16px; height: 16px;\\" role=\\"progressbar\\"><svg class=\\"MuiCircularProgress-svg\\" viewBox=\\"22 22 44 44\\"><circle class=\\"MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate\\" cx=\\"44\\" cy=\\"44\\" r=\\"20.2\\" fill=\\"none\\" stroke-width=\\"3.6\\"></circle></svg></div>Änderungen speichern</span></button></div>
+      </form>
+    </div>
+  </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
+</div>"
+`;
+
+exports[`routes organizations routes settings components EditMemberDialog renders with email field and checkbox if invited but not joined 1`] = `
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"member-edit-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Mitglied bearbeiten</h2>
+      </div>
+      <form>
+        <div class=\\"MuiDialogContent-root\\">
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-focused Mui-focused Mui-required Mui-required\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Mitgliedernummer</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"text\\" value=\\"\\"></div>
+          </div>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(EditMemberDialog)-inviteText-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Die Einladung wurde am 03.02.2020 um 15:54 versendet. Das Mitglied hat die Einladung noch nicht angenommen.</p>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"inviteEmail-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled\\" data-shrink=\\"true\\">Einladung an E-Mail</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"email\\" value=\\"max@muster.ch\\"></div>
+          </div><label class=\\"MuiFormControlLabel-root injectIntl(EditMemberDialog)-reinviteCheckbox-3\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-180 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-181 Mui-checked MuiIconButton-colorPrimary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\\"></path></svg><input class=\\"PrivateSwitchBase-input-183\\" type=\\"checkbox\\" data-indeterminate=\\"false\\" value=\\"reinvite\\" checked=\\"\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Einladung erneut senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung erneut versendet wird)</span></label>
+        </div>
+        <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Änderungen speichern</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
+      </form>
+    </div>
+  </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
+</div>"
+`;
+
+exports[`routes organizations routes settings components EditMemberDialog renders with email field if not invited 1`] = `
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"member-edit-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Mitglied bearbeiten</h2>
+      </div>
+      <form>
+        <div class=\\"MuiDialogContent-root\\">
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-focused Mui-focused Mui-required Mui-required\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Mitgliedernummer</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"text\\" value=\\"\\"></div>
+          </div>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(EditMemberDialog)-inviteText-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Es wurde noch keine Einladung an dieses Mitglied gesendet. Trage eine E-Mail-Adresse im folgenden Feld ein und speichere die Änderung, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird).</p>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"inviteEmail-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled\\" data-shrink=\\"true\\">Einladung an E-Mail</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"email\\" value=\\"max@muster.ch\\"></div>
+          </div>
+        </div>
+        <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Änderungen speichern</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
+      </form>
+    </div>
+  </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
+</div>"
+`;
+
+exports[`routes organizations routes settings components EditMemberDialog renders without email field if member joined 1`] = `
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"member-edit-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Mitglied bearbeiten</h2>
+      </div>
+      <form>
+        <div class=\\"MuiDialogContent-root\\">
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"firstname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-focused Mui-focused Mui-required Mui-required\\" data-shrink=\\"true\\">Vorname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Max\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"lastname-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required\\" data-shrink=\\"true\\">Nachname<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" required=\\"\\" type=\\"text\\" value=\\"Muster\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Mitgliedernummer</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"text\\" value=\\"\\"></div>
+          </div>
+        </div>
+        <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Änderungen speichern</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
+      </form>
+    </div>
+  </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
+</div>"
+`;
