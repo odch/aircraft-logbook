@@ -5,14 +5,16 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Tooltip from '@material-ui/core/Tooltip'
+import { withStyles } from '@material-ui/core'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import {
   member as memberShape,
   intl as intlShape
 } from '../../../../../../shapes'
 import { formatDate, formatTime } from '../../../../../../util/dates'
-import Tooltip from '@material-ui/core/Tooltip'
-import { withStyles } from '@material-ui/core'
 
 const styles = {
   pending: {
@@ -22,6 +24,25 @@ const styles = {
 }
 
 class Member extends React.Component {
+  state = {
+    anchorEl: null
+  }
+
+  handleMenuOpen = event => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
+
+  handleMenuClose = () => {
+    this.setState({ anchorEl: null })
+  }
+
+  handleMenuItemClick = (callback, args) => () => {
+    if (typeof callback === 'function') {
+      callback(...args)
+    }
+    this.handleMenuClose()
+  }
+
   getRoleNames = roles =>
     roles
       ? roles.map(role => this.msg(`organization.role.${role}`)).join(', ')
@@ -40,7 +61,7 @@ class Member extends React.Component {
   }
 
   render() {
-    const { member, openDeleteMemberDialog, classes } = this.props
+    const { member, classes } = this.props
 
     const invitePending = !member.user
 
@@ -54,28 +75,50 @@ class Member extends React.Component {
     )
 
     return (
-      <ListItem
-        key={member.id}
-        disableGutters
-        className={invitePending ? classes.pending : undefined}
-        divider
-      >
-        {invitePending ? (
-          <Tooltip
-            title={this.getPendingInvitationTooltip(member)}
-            placement="bottom-start"
-          >
-            {itemText}
-          </Tooltip>
-        ) : (
-          itemText
-        )}
-        <ListItemSecondaryAction>
-          <IconButton onClick={() => openDeleteMemberDialog(member)}>
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <React.Fragment>
+        <ListItem
+          key={member.id}
+          disableGutters
+          className={invitePending ? classes.pending : undefined}
+          divider
+        >
+          {invitePending ? (
+            <Tooltip
+              title={this.getPendingInvitationTooltip(member)}
+              placement="bottom-start"
+            >
+              {itemText}
+            </Tooltip>
+          ) : (
+            itemText
+          )}
+          <ListItemSecondaryAction>
+            <IconButton onClick={this.handleMenuOpen}>
+              <MoreVertIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        {this.state.anchorEl && this.renderMenu()}
+      </React.Fragment>
+    )
+  }
+
+  renderMenu() {
+    const { member, openEditMemberDialog, openDeleteMemberDialog } = this.props
+
+    return (
+      <Menu anchorEl={this.state.anchorEl} onClose={this.handleMenuClose} open>
+        <MenuItem
+          onClick={this.handleMenuItemClick(openEditMemberDialog, [member])}
+        >
+          {this.msg('organization.settings.member.edit')}
+        </MenuItem>
+        <MenuItem
+          onClick={this.handleMenuItemClick(openDeleteMemberDialog, [member])}
+        >
+          {this.msg('organization.settings.member.delete')}
+        </MenuItem>
+      </Menu>
     )
   }
 }
@@ -83,6 +126,7 @@ class Member extends React.Component {
 Member.propTypes = {
   member: memberShape.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
+  openEditMemberDialog: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired
 }

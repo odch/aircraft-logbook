@@ -5,6 +5,10 @@ import {
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
+  openEditMemberDialog,
+  updateEditMemberDialogData,
+  closeEditMemberDialog,
+  updateMember,
   setMembersPage
 } from '../module'
 import MemberList from '../components/MemberList'
@@ -43,7 +47,8 @@ const mapStateToProps = (state /*, ownProps*/) => {
   return {
     members,
     pagination,
-    deleteMemberDialog: state.organizationSettings.deleteMemberDialog
+    deleteMemberDialog: state.organizationSettings.deleteMemberDialog,
+    editMemberDialog: state.organizationSettings.editMemberDialog
   }
 }
 
@@ -52,6 +57,10 @@ const mapActionCreators = {
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
+  openEditMemberDialog,
+  updateEditMemberDialogData,
+  closeEditMemberDialog,
+  updateMember,
   setMembersPage
 }
 

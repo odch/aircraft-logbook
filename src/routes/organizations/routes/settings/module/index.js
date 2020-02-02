@@ -8,6 +8,10 @@ import {
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
+  openEditMemberDialog,
+  updateEditMemberDialogData,
+  closeEditMemberDialog,
+  updateMember,
   setMembersPage
 } from './actions'
 import reducer from './reducer'
@@ -23,6 +27,10 @@ export {
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
+  openEditMemberDialog,
+  updateEditMemberDialogData,
+  closeEditMemberDialog,
+  updateMember,
   setMembersPage
 }
 

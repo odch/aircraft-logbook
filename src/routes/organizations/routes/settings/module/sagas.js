@@ -3,6 +3,7 @@ import * as actions from './actions'
 import { fetchMembers } from '../../../module'
 import { error } from '../../../../../util/log'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import { getFirestore } from '../../../../../util/firebase'
 
 export const tokenSelector = state =>
   state.firebase.auth.stsTokenManager.accessToken
@@ -37,6 +38,34 @@ export function* deleteMember({ payload: { organizationId, memberId } }) {
   )
   yield put(fetchMembers(organizationId))
   yield put(actions.closeDeleteMemberDialog())
+}
+
+export function* updateMember({ payload: { organizationId, memberId, data } }) {
+  try {
+    yield put(actions.setEditMemberDialogSubmitting())
+
+    const dataToStore = {
+      ...data
+    }
+
+    if (dataToStore.reinvite === true) {
+      const firestore = yield call(getFirestore)
+      dataToStore.inviteTimestamp = firestore.FieldValue.delete()
+      delete dataToStore.reinvite
+    }
+
+    yield call(
+      updateDoc,
+      ['organizations', organizationId, 'members', memberId],
+      dataToStore
+    )
+
+    yield put(fetchMembers(organizationId))
+    yield put(actions.updateMemberSuccess())
+  } catch (e) {
+    error(`Failed to update member ${memberId} (org: ${organizationId})`, e)
+    yield put(actions.updateMemberFailure())
+  }
 }
 
 export function* exportFlights({
@@ -80,6 +109,7 @@ export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_MEMBER, createMember),
     takeEvery(actions.DELETE_MEMBER, deleteMember),
+    takeEvery(actions.UPDATE_MEMBER, updateMember),
     takeEvery(actions.EXPORT_FLIGHTS, exportFlights)
   ])
 }
