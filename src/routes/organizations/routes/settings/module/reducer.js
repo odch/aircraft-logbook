@@ -10,7 +10,8 @@ export const INITIAL_STATE = {
     data: {
       firstname: '',
       lastname: '',
-      nr: ''
+      nr: '',
+      inviteEmail: ''
     }
   },
   deleteMemberDialog: {

@@ -10,12 +10,16 @@ import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import { intl as intlShape } from '../../../../../../shapes'
+import DialogContentText from '@material-ui/core/DialogContentText'
 
-const styles = {
+const styles = theme => ({
   loadingIndicator: {
     marginRight: 5
+  },
+  inviteText: {
+    marginTop: theme.spacing(0.2) + 'em'
   }
-}
+})
 
 class CreateMemberDialog extends React.Component {
   handleChange = name => e => {
@@ -59,6 +63,10 @@ class CreateMemberDialog extends React.Component {
             {this.renderTextField('firstname', true, true)}
             {this.renderTextField('lastname', false, true)}
             {this.renderTextField('nr', false, false)}
+            <DialogContentText className={classes.inviteText}>
+              {this.msg('organization.member.create.dialog.invitation.text')}
+            </DialogContentText>
+            {this.renderTextField('inviteEmail', false, false, 'email')}
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} disabled={submitting}>
@@ -85,11 +93,11 @@ class CreateMemberDialog extends React.Component {
     )
   }
 
-  renderTextField(name, autoFocus, required) {
+  renderTextField(name, autoFocus, required, type = 'text') {
     return (
       <TextField
         label={this.msg(`organization.member.create.dialog.${name}`)}
-        type="text"
+        type={type}
         fullWidth
         required={required}
         value={this.props.data[name]}
@@ -106,7 +114,9 @@ CreateMemberDialog.propTypes = {
   organizationId: PropTypes.string.isRequired,
   data: PropTypes.shape({
     firstname: PropTypes.string,
-    lastname: PropTypes.string
+    lastname: PropTypes.string,
+    nr: PropTypes.string,
+    inviteEmail: PropTypes.string
   }).isRequired,
   submitting: PropTypes.bool,
   onClose: PropTypes.func,
