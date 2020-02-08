@@ -9,7 +9,8 @@ export const INITIAL_STATE = {
     data: {
       firstname: '',
       lastname: '',
-      nr: ''
+      nr: '',
+      inviteEmail: ''
     }
   },
   deleteMemberDialog: {
@@ -65,7 +66,8 @@ describe('routes', () => {
                     data: {
                       firstname: 'Max',
                       lastname: 'Meier',
-                      nr: '34534'
+                      nr: '34534',
+                      inviteEmail: ''
                     }
                   }
                 },
@@ -78,7 +80,8 @@ describe('routes', () => {
                 data: {
                   firstname: '',
                   lastname: '',
-                  nr: ''
+                  nr: '',
+                  inviteEmail: ''
                 }
               }
             })

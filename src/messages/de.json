@@ -152,8 +152,10 @@
   "organization.member.create.dialog.firstname": "Vorname",
   "organization.member.create.dialog.lastname": "Nachname",
   "organization.member.create.dialog.nr": "Mitgliedernummer",
+  "organization.member.create.dialog.inviteEmail": "Einladung an E-Mail",
   "organization.member.create.dialog.buttons.cancel": "Abbrechen",
   "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen",
+  "organization.member.create.dialog.invitation.text": "Trage eine E-Mail-Adresse im folgenden Feld ein, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird). Du kannst die E-Mail-Adresse aber auch später noch eintragen, um die Einladung nachträglich zu senden.",
 
   "organization.member.edit.dialog.title": "Mitglied bearbeiten",
   "organization.member.edit.dialog.firstname": "Vorname",
