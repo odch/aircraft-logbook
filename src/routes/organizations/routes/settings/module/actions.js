@@ -15,6 +15,19 @@ export const OPEN_DELETE_MEMBER_DIALOG =
   'organizationSettings/OPEN_DELETE_MEMBER_DIALOG'
 export const CLOSE_DELETE_MEMBER_DIALOG =
   'organizationSettings/CLOSE_DELETE_MEMBER_DIALOG'
+export const OPEN_EDIT_MEMBER_DIALOG =
+  'organizationSettings/OPEN_EDIT_MEMBER_DIALOG'
+export const CLOSE_EDIT_MEMBER_DIALOG =
+  'organizationSettings/CLOSE_EDIT_MEMBER_DIALOG'
+export const UPDATE_EDIT_MEMBER_DIALOG_DATA =
+  'organizationSettings/UPDATE_EDIT_MEMBER_DIALOG_DATA'
+export const UPDATE_MEMBER = 'organizationSettings/UPDATE_MEMBER'
+export const SET_EDIT_MEMBER_DIALOG_SUBMITTING =
+  'organizationSettings/SET_EDIT_MEMBER_DIALOG_SUBMITTING'
+export const UPDATE_MEMBER_SUCCESS =
+  'organizationSettings/UPDATE_MEMBER_SUCCESS'
+export const UPDATE_MEMBER_FAILURE =
+  'organizationSettings/UPDATE_MEMBER_FAILURE'
 export const DELETE_MEMBER = 'organizationSettings/DELETE_MEMBER'
 export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
 export const EXPORT_FLIGHTS = 'organizationSettings/EXPORT_FLIGHTS'
@@ -75,6 +88,45 @@ export const deleteMember = (organizationId, memberId) => ({
     organizationId,
     memberId
   }
+})
+
+export const openEditMemberDialog = member => ({
+  type: OPEN_EDIT_MEMBER_DIALOG,
+  payload: {
+    member
+  }
+})
+
+export const updateEditMemberDialogData = data => ({
+  type: UPDATE_EDIT_MEMBER_DIALOG_DATA,
+  payload: {
+    data
+  }
+})
+
+export const closeEditMemberDialog = () => ({
+  type: CLOSE_EDIT_MEMBER_DIALOG
+})
+
+export const updateMember = (organizationId, memberId, data) => ({
+  type: UPDATE_MEMBER,
+  payload: {
+    organizationId,
+    memberId,
+    data
+  }
+})
+
+export const setEditMemberDialogSubmitting = () => ({
+  type: SET_EDIT_MEMBER_DIALOG_SUBMITTING
+})
+
+export const updateMemberSuccess = () => ({
+  type: UPDATE_MEMBER_SUCCESS
+})
+
+export const updateMemberFailure = () => ({
+  type: UPDATE_MEMBER_FAILURE
 })
 
 export const setMembersPage = page => ({

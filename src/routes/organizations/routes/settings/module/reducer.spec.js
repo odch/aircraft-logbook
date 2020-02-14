@@ -9,12 +9,25 @@ export const INITIAL_STATE = {
     data: {
       firstname: '',
       lastname: '',
-      nr: ''
+      nr: '',
+      inviteEmail: ''
     }
   },
   deleteMemberDialog: {
     open: false,
     submitting: false
+  },
+  editMemberDialog: {
+    open: false,
+    submitting: false,
+    member: undefined,
+    data: {
+      firstname: '',
+      lastname: '',
+      nr: '',
+      inviteEmail: '',
+      reinvite: false
+    }
   },
   exportFlightsForm: {
     submitting: false,
@@ -53,7 +66,8 @@ describe('routes', () => {
                     data: {
                       firstname: 'Max',
                       lastname: 'Meier',
-                      nr: '34534'
+                      nr: '34534',
+                      inviteEmail: ''
                     }
                   }
                 },
@@ -66,7 +80,8 @@ describe('routes', () => {
                 data: {
                   firstname: '',
                   lastname: '',
-                  nr: ''
+                  nr: '',
+                  inviteEmail: ''
                 }
               }
             })
@@ -223,6 +238,137 @@ describe('routes', () => {
             ).toEqual({
               deleteMemberDialog: {
                 submitting: true
+              }
+            })
+          })
+
+          it('handles OPEN_EDIT_MEMBER_DIALOG action', () => {
+            const member = {
+              firstname: 'Max',
+              lastname: 'Keller',
+              nr: '34345',
+              inviteEmail: 'hans@keller.ch'
+            }
+
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    open: false,
+                    submitting: true,
+                    data: {
+                      firstname: '',
+                      lastname: '',
+                      nr: '',
+                      inviteEmail: ''
+                    }
+                  }
+                },
+                actions.openEditMemberDialog(member)
+              )
+            ).toEqual({
+              editMemberDialog: {
+                open: true,
+                submitting: false,
+                member,
+                data: {
+                  firstname: 'Max',
+                  lastname: 'Keller',
+                  nr: '34345',
+                  inviteEmail: 'hans@keller.ch'
+                }
+              }
+            })
+          })
+
+          it('handles CLOSE_EDIT_MEMBER_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    open: true
+                  }
+                },
+                actions.closeEditMemberDialog()
+              )
+            ).toEqual({
+              editMemberDialog: INITIAL_STATE.editMemberDialog
+            })
+          })
+
+          it('handles UPDATE_EDIT_MEMBER_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    data: {
+                      firstname: 'Max',
+                      lastname: '',
+                      nr: ''
+                    }
+                  }
+                },
+                actions.updateEditMemberDialogData({
+                  lastname: 'Muster',
+                  nr: '34534'
+                })
+              )
+            ).toEqual({
+              editMemberDialog: {
+                data: {
+                  firstname: 'Max',
+                  lastname: 'Muster',
+                  nr: '34534'
+                }
+              }
+            })
+          })
+
+          it('handles SET_EDIT_MEMBER_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    submitting: false
+                  }
+                },
+                actions.setEditMemberDialogSubmitting()
+              )
+            ).toEqual({
+              editMemberDialog: {
+                submitting: true
+              }
+            })
+          })
+
+          it('handles UPDATE_MEMBER_SUCCESS action', () => {
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    open: true
+                  }
+                },
+                actions.updateMemberSuccess()
+              )
+            ).toEqual({
+              editMemberDialog: INITIAL_STATE.editMemberDialog
+            })
+          })
+
+          it('handles UPDATE_MEMBER_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    submitting: true
+                  }
+                },
+                actions.updateMemberFailure()
+              )
+            ).toEqual({
+              editMemberDialog: {
+                submitting: false
               }
             })
           })

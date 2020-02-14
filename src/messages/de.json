@@ -144,12 +144,29 @@
   "organization.role.user": "Benutzer",
 
   "organization.settings.createmember": "Mitglied hinzufügen",
+
+  "organization.settings.member.edit": "Bearbeiten",
+  "organization.settings.member.delete": "Löschen",
+
   "organization.member.create.dialog.title": "Mitglied hinzufügen",
   "organization.member.create.dialog.firstname": "Vorname",
   "organization.member.create.dialog.lastname": "Nachname",
   "organization.member.create.dialog.nr": "Mitgliedernummer",
+  "organization.member.create.dialog.inviteEmail": "Einladung an E-Mail",
   "organization.member.create.dialog.buttons.cancel": "Abbrechen",
   "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen",
+  "organization.member.create.dialog.invitation.text": "Trage eine E-Mail-Adresse im folgenden Feld ein, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird). Du kannst die E-Mail-Adresse aber auch später noch eintragen, um die Einladung nachträglich zu senden.",
+
+  "organization.member.edit.dialog.title": "Mitglied bearbeiten",
+  "organization.member.edit.dialog.firstname": "Vorname",
+  "organization.member.edit.dialog.lastname": "Nachname",
+  "organization.member.edit.dialog.nr": "Mitgliedernummer",
+  "organization.member.edit.dialog.inviteEmail": "Einladung an E-Mail",
+  "organization.member.edit.dialog.buttons.cancel": "Abbrechen",
+  "organization.member.edit.dialog.buttons.save": "Änderungen speichern",
+  "organization.member.edit.dialog.invitation.text_invited": "Die Einladung wurde am {inviteDate} um {inviteTime} versendet. Das Mitglied hat die Einladung noch nicht angenommen.",
+  "organization.member.edit.dialog.invitation.checkbox_reinvite": "Einladung erneut senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung erneut versendet wird)",
+  "organization.member.edit.dialog.invitation.text_not_invited": "Es wurde noch keine Einladung an dieses Mitglied gesendet. Trage eine E-Mail-Adresse im folgenden Feld ein und speichere die Änderung, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird).",
 
   "organization.settings.exportflights": "Flüge exportieren",
   "organization.settings.exportflights.startdate": "Startdatum",
