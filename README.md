@@ -41,14 +41,17 @@ Query Parameters:
 
 ## Cloud Functions Config
 
+Set the following config options using the command `firebase function:config:set ${name}={value}`
+(e.g.`firebase functions:config:set smtp.port=465`)
+
+### General requirements in order to send mails
+
+* `smtp.host`: SMTP host name (e.g. "smtp.mailgun.org")
+* `smtp.port`: SMTP port number (e.g. 465)
+* `smtp.user`: SMTP user name (e.g. "odch@xyz.mailgun.org")
+* `smtp.password`: Password of the SMTP user (e.g. "xyz123")
+* `smtp.email`: Address to send the mails from (e.g. "noreply@opendigital.ch")
+
 ### Organization Member Invitation Mail
 
-Set the following config options using the command `firebase function:config:set ${name}={value}`
-(e.g.`firebase functions:config:set invite.sender.port=465`)
-
-* `invite.sender.host`: SMTP host name (e.g. "smtp.mailgun.org")
-* `invite.sender.port`: SMTP port number (e.g. 465)
-* `invite.sender.user`: SMTP user name (e.g. "odch@xyz.mailgun.org")
-* `invite.sender.password`: Password of the SMTP user (e.g. "xyz123")
-* `invite.sender.email`: Address to send the invitation mail from (e.g. "noreply@opendigital.ch")
 * `invite.url`: Base web address for the invitation link in the mail (e.g. "https://logbook.opendigital.ch")
