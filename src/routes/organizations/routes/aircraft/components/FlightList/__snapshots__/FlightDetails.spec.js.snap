@@ -475,22 +475,44 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             Bemerkungen
           </label>
           <div
-            className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+            className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
             onClick={[Function]}
           >
-            <input
+            <textarea
               aria-invalid={false}
-              className="MuiInputBase-input MuiInput-input"
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
               disabled={false}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               readOnly={true}
               required={false}
-              type="text"
+              rows={1}
+              style={
+                Object {
+                  "height": undefined,
+                  "overflow": null,
+                }
+              }
               value="my
 test
 remarks"
+            />
+            <textarea
+              aria-hidden={true}
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              readOnly={true}
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                }
+              }
+              tabIndex={-1}
             />
           </div>
         </div>
@@ -1144,22 +1166,44 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             Bemerkungen
           </label>
           <div
-            className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+            className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
             onClick={[Function]}
           >
-            <input
+            <textarea
               aria-invalid={false}
-              className="MuiInputBase-input MuiInput-input"
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
               disabled={false}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               readOnly={true}
               required={false}
-              type="text"
+              rows={1}
+              style={
+                Object {
+                  "height": undefined,
+                  "overflow": null,
+                }
+              }
               value="my
 test
 remarks"
+            />
+            <textarea
+              aria-hidden={true}
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              readOnly={true}
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                }
+              }
+              tabIndex={-1}
             />
           </div>
         </div>

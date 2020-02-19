@@ -85,7 +85,7 @@ const FlightDetails = ({ aircraft, flight }) => {
             {renderField('personsonboard', flight.personsOnBoard || '-', intl)}
           </Grid>
           <Grid item xs={12} sm={8}>
-            {renderField('remarks', flight.remarks || '-', intl)}
+            {renderField('remarks', flight.remarks || '-', intl, true)}
           </Grid>
         </Grid>
         <Grid item xs={12} container>
@@ -154,7 +154,7 @@ const FlightDetails = ({ aircraft, flight }) => {
   )
 }
 
-const renderField = (label, value, intl) => (
+const renderField = (label, value, intl, multiline = false) => (
   <TextField
     label={intl.formatMessage({ id: `flightlist.${label}` })}
     value={value}
@@ -164,6 +164,7 @@ const renderField = (label, value, intl) => (
       disableUnderline: true
     }}
     fullWidth
+    multiline={multiline}
   />
 )
 
