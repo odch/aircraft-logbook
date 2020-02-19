@@ -69,10 +69,21 @@ describe('routes', () => {
                 oilUplift: 0.7
               }
 
+              const renderToJson = component =>
+                renderIntl(component, {
+                  createNodeMock: element => {
+                    if (element.type === 'textarea') {
+                      // mock for TextareaAutosize
+                      return document.createElement('textarea')
+                    }
+                    return null
+                  }
+                }).toJSON()
+
               it('renders correctly', () => {
-                const tree = renderIntl(
+                const tree = renderToJson(
                   <FlightDetails aircraft={aircraft} flight={flight} />
-                ).toJSON()
+                )
                 expect(tree).toMatchSnapshot()
               })
 
@@ -84,9 +95,9 @@ describe('routes', () => {
                     engineHoursCounterEnabled: false
                   }
                 }
-                const tree = renderIntl(
+                const tree = renderToJson(
                   <FlightDetails aircraft={testAircraft} flight={flight} />
-                ).toJSON()
+                )
                 expect(tree).toMatchSnapshot()
               })
             })
