@@ -17,7 +17,14 @@ const FlightDetails = ({ aircraft, flight }) => {
       <Grid container>
         <Grid item xs={12} container>
           <Grid item xs={12} sm={4}>
-            {renderField('date', formatDate(flight.blockOffTime), intl)}
+            {renderField(
+              'date',
+              formatDate(
+                flight.blockOffTime,
+                flight.departureAerodrome.timezone
+              ),
+              intl
+            )}
           </Grid>
           <Grid item xs={6} sm={4}>
             {renderField('pilot', getMemberName(flight.pilot), intl)}
@@ -35,10 +42,24 @@ const FlightDetails = ({ aircraft, flight }) => {
             )}
           </Grid>
           <Grid item xs={6} sm={4}>
-            {renderField('blockofftime', formatTime(flight.blockOffTime), intl)}
+            {renderField(
+              'blockofftime',
+              formatTimeWithUtc(
+                flight.blockOffTime,
+                flight.departureAerodrome.timezone
+              ),
+              intl
+            )}
           </Grid>
           <Grid item xs={6} sm={4}>
-            {renderField('takeofftime', formatTime(flight.takeOffTime), intl)}
+            {renderField(
+              'takeofftime',
+              formatTimeWithUtc(
+                flight.takeOffTime,
+                flight.departureAerodrome.timezone
+              ),
+              intl
+            )}
           </Grid>
         </Grid>
         <Grid item xs={12} container>
@@ -50,10 +71,24 @@ const FlightDetails = ({ aircraft, flight }) => {
             )}
           </Grid>
           <Grid item xs={6} sm={4}>
-            {renderField('blockontime', formatTime(flight.blockOnTime), intl)}
+            {renderField(
+              'blockontime',
+              formatTimeWithUtc(
+                flight.blockOnTime,
+                flight.destinationAerodrome.timezone
+              ),
+              intl
+            )}
           </Grid>
           <Grid item xs={6} sm={4}>
-            {renderField('landingtime', formatTime(flight.landingTime), intl)}
+            {renderField(
+              'landingtime',
+              formatTimeWithUtc(
+                flight.landingTime,
+                flight.destinationAerodrome.timezone
+              ),
+              intl
+            )}
           </Grid>
         </Grid>
         <Grid item xs={12} container>
@@ -203,6 +238,9 @@ const getDecimalRange = range => {
 }
 
 const format2Decimals = value => Number(value / 100).toFixed(2)
+
+const formatTimeWithUtc = (timestamp, timezone) =>
+  `${formatTime(timestamp, timezone)} (${formatTime(timestamp, 'UTC')} UTC)`
 
 FlightDetails.propTypes = {
   aircraft,

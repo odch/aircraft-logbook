@@ -162,7 +162,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="10:00"
+              value="10:00 (09:00 UTC)"
             />
           </div>
         </div>
@@ -193,7 +193,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="10:10"
+              value="10:10 (09:10 UTC)"
             />
           </div>
         </div>
@@ -259,7 +259,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="11:10"
+              value="11:10 (10:10 UTC)"
             />
           </div>
         </div>
@@ -290,7 +290,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="11:00"
+              value="11:00 (10:00 UTC)"
             />
           </div>
         </div>
@@ -853,7 +853,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="10:00"
+              value="10:00 (09:00 UTC)"
             />
           </div>
         </div>
@@ -884,7 +884,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="10:10"
+              value="10:10 (09:10 UTC)"
             />
           </div>
         </div>
@@ -950,7 +950,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="11:10"
+              value="11:10 (10:10 UTC)"
             />
           </div>
         </div>
@@ -981,7 +981,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
               readOnly={true}
               required={false}
               type="text"
-              value="11:00"
+              value="11:00 (10:00 UTC)"
             />
           </div>
         </div>

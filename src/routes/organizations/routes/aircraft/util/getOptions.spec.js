@@ -17,7 +17,8 @@ describe('routes', () => {
                   })
                 ).toEqual({
                   value: '3ADs5GZQxKbTk0of0qtS',
-                  label: 'LSPH (Winterthur)'
+                  label: 'LSPH (Winterthur)',
+                  timezone: 'Europe/Zurich'
                 })
               })
             })

@@ -60,7 +60,10 @@ class FlightDeleteDialog extends React.Component {
           <div className={classes.attributesWrapper}>
             <FlightAttribute
               label="date"
-              value={formatDate(flight.blockOffTime)}
+              value={formatDate(
+                flight.blockOffTime,
+                flight.departureAerodrome.timezone
+              )}
               className={classes.attribute}
             />
             <FlightAttribute
@@ -80,12 +83,18 @@ class FlightDeleteDialog extends React.Component {
             />
             <FlightAttribute
               label="blockofftime"
-              value={formatTime(flight.blockOffTime)}
+              value={formatTime(
+                flight.blockOffTime,
+                flight.departureAerodrome.timezone
+              )}
               className={classes.attribute}
             />
             <FlightAttribute
               label="blockontime"
-              value={formatTime(flight.blockOnTime)}
+              value={formatTime(
+                flight.blockOnTime,
+                flight.destinationAerodrome.timezone
+              )}
               className={classes.attribute}
             />
           </div>

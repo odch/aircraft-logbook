@@ -1,7 +1,8 @@
 import _get from 'lodash.get'
 import { call } from 'redux-saga/effects'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import getLastFlight from './getLastFlight'
+import { isBefore } from '../../../../../../util/dates'
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
@@ -55,18 +56,52 @@ export function* validateSync(
   if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
     errors['blockOnTime'] = 'invalid'
   }
-  if (!errors['blockOffTime'] && !errors['takeOffTime']) {
-    if (data.takeOffTime < data.blockOffTime) {
+  if (
+    !errors['blockOffTime'] &&
+    !errors['takeOffTime'] &&
+    data.departureAerodrome
+  ) {
+    if (
+      isBefore(
+        data.takeOffTime,
+        data.departureAerodrome.timezone,
+        data.blockOffTime,
+        data.departureAerodrome.timezone
+      )
+    ) {
       errors['takeOffTime'] = 'not_before_block_off_time'
     }
   }
-  if (!errors['takeOffTime'] && !errors['landingTime']) {
-    if (data.landingTime < data.takeOffTime) {
+  if (
+    !errors['takeOffTime'] &&
+    !errors['landingTime'] &&
+    data.departureAerodrome &&
+    data.destinationAerodrome
+  ) {
+    if (
+      isBefore(
+        data.landingTime,
+        data.destinationAerodrome.timezone,
+        data.takeOffTime,
+        data.departureAerodrome.timezone
+      )
+    ) {
       errors['landingTime'] = 'not_before_take_off_time'
     }
   }
-  if (!errors['landingTime'] && !errors['blockOnTime']) {
-    if (data.blockOnTime < data.landingTime) {
+  if (
+    !errors['landingTime'] &&
+    !errors['blockOnTime'] &&
+    data.destinationAerodrome
+  ) {
+    if (
+      isBefore(
+        data.blockOnTime,
+        data.destinationAerodrome.timezone,
+        data.landingTime,
+        data.destinationAerodrome.timezone
+      )
+    ) {
       errors['blockOnTime'] = 'not_before_landing_time'
     }
   }

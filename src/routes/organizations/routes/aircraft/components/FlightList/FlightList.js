@@ -99,9 +99,20 @@ class FlightList extends React.Component {
                   />
                 </Typography>
                 <Typography className={classes.flightSecondaryHeading}>
-                  {formatDate(flight.blockOffTime)},{' '}
-                  {formatTime(flight.blockOffTime)}-
-                  {formatTime(flight.blockOnTime)}
+                  {formatDate(
+                    flight.blockOffTime,
+                    flight.departureAerodrome.timezone
+                  )}
+                  ,{' '}
+                  {formatTime(
+                    flight.blockOffTime,
+                    flight.departureAerodrome.timezone
+                  )}
+                  -
+                  {formatTime(
+                    flight.blockOnTime,
+                    flight.destinationAerodrome.timezone
+                  )}
                 </Typography>
               </ExpansionPanelSummary>
               {expanded === flight.id && [
