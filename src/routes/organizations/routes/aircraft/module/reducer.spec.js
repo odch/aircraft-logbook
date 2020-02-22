@@ -206,6 +206,12 @@ describe('routes', () => {
                           start: 348967,
                           end: null
                         }
+                      },
+                      departureAerodrome: {
+                        timezone: 'Europe/London'
+                      },
+                      destinationAerodrome: {
+                        timezone: 'Europe/Zurich'
                       }
                     }
                   }
@@ -218,12 +224,18 @@ describe('routes', () => {
               createFlightDialog: {
                 data: {
                   takeOffTime: '2018-12-15 10:15',
-                  landingTime: '2018-12-15 10:21',
+                  landingTime: '2018-12-15 11:21',
                   counters: {
                     flightTimeCounter: {
                       start: 348967,
                       end: 348977
                     }
+                  },
+                  departureAerodrome: {
+                    timezone: 'Europe/London'
+                  },
+                  destinationAerodrome: {
+                    timezone: 'Europe/Zurich'
                   }
                 },
                 validationErrors: {}
@@ -557,7 +569,7 @@ describe('routes', () => {
               })
             })
 
-            it('sets landing time if takeoff time and counters set', () => {
+            it('sets landing time if takeoff time, counters and aerodromes set', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
@@ -565,6 +577,12 @@ describe('routes', () => {
                     start: 348967,
                     end: 349015
                   }
+                },
+                departureAerodrome: {
+                  timezone: 'Europe/London'
+                },
+                destinationAerodrome: {
+                  timezone: 'Europe/Zurich'
                 }
               }
 
@@ -572,17 +590,23 @@ describe('routes', () => {
 
               expect(data).toEqual({
                 takeOffTime: '2018-12-15 10:30',
-                landingTime: '2018-12-15 10:58',
+                landingTime: '2018-12-15 11:58',
                 counters: {
                   flightTimeCounter: {
                     start: 348967,
                     end: 349015
                   }
+                },
+                departureAerodrome: {
+                  timezone: 'Europe/London'
+                },
+                destinationAerodrome: {
+                  timezone: 'Europe/Zurich'
                 }
               })
             })
 
-            it('sets landing time if takeoff time and counters set (start counter 0)', () => {
+            it('sets landing time if takeoff time, counters and aerodromes set (start counter 0)', () => {
               const data = {
                 takeOffTime: '2018-12-15 10:30',
                 counters: {
@@ -590,6 +614,12 @@ describe('routes', () => {
                     start: 0,
                     end: 100
                   }
+                },
+                departureAerodrome: {
+                  timezone: 'Europe/London'
+                },
+                destinationAerodrome: {
+                  timezone: 'Europe/Zurich'
                 }
               }
 
@@ -597,12 +627,18 @@ describe('routes', () => {
 
               expect(data).toEqual({
                 takeOffTime: '2018-12-15 10:30',
-                landingTime: '2018-12-15 11:30',
+                landingTime: '2018-12-15 12:30',
                 counters: {
                   flightTimeCounter: {
                     start: 0,
                     end: 100
                   }
+                },
+                departureAerodrome: {
+                  timezone: 'Europe/London'
+                },
+                destinationAerodrome: {
+                  timezone: 'Europe/Zurich'
                 }
               })
             })

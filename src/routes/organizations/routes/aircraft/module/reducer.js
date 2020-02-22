@@ -73,14 +73,27 @@ const setInitialCreateFlightDialogData = (state, action) => {
 }
 
 export const updateLandingTime = data => {
-  if (data.takeOffTime && data.counters && data.counters.flightTimeCounter) {
+  if (
+    data.takeOffTime &&
+    data.counters &&
+    data.counters.flightTimeCounter &&
+    data.departureAerodrome &&
+    data.departureAerodrome.timezone &&
+    data.destinationAerodrome &&
+    data.destinationAerodrome.timezone
+  ) {
     const flightTime = data.counters.flightTimeCounter
     if (
       typeof flightTime.start === 'number' &&
       typeof flightTime.end === 'number'
     ) {
       const flightDuration = (flightTime.end - flightTime.start) / 100
-      data.landingTime = addHours(data.takeOffTime, flightDuration)
+      data.landingTime = addHours(
+        data.takeOffTime,
+        flightDuration,
+        data.departureAerodrome.timezone,
+        data.destinationAerodrome.timezone
+      )
     }
   }
 }

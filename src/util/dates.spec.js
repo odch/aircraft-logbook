@@ -11,18 +11,20 @@ describe('util', () => {
     describe('formatDate', () => {
       it('should return a formatted date string', () => {
         const firestoreTimestamp = {
-          toDate: () => Date.parse('2018-11-20 10:00')
+          toDate: () => Date.parse('2018-11-20 10:00 GMT+0100')
         }
-        expect(formatDate(firestoreTimestamp)).toEqual('20.11.2018')
+        expect(formatDate(firestoreTimestamp, 'Europe/Zurich)')).toEqual(
+          '20.11.2018'
+        )
       })
     })
 
     describe('formatTime', () => {
       it('should return a formatted time string', () => {
         const firestoreTimestamp = {
-          toDate: () => Date.parse('2018-11-20 10:00')
+          toDate: () => Date.parse('2018-11-20 10:00 GMT+0100')
         }
-        expect(formatTime(firestoreTimestamp)).toEqual('10:00')
+        expect(formatTime(firestoreTimestamp, 'Europe/Zurich')).toEqual('10:00')
       })
     })
 
@@ -39,8 +41,16 @@ describe('util', () => {
     })
 
     describe('addHours', () => {
-      it('should return a date time string with the hours added', () => {
-        expect(addHours('2018-11-20 10:00', 2.1)).toEqual('2018-11-20 12:06')
+      it('should return a date time string with the hours added (same tz)', () => {
+        expect(
+          addHours('2018-11-20 10:00', 2.1, 'Europe/Zurich', 'Europe/Zurich')
+        ).toEqual('2018-11-20 12:06')
+      })
+
+      it('should return a date time string with the hours added (different tz)', () => {
+        expect(
+          addHours('2018-11-20 10:00', 2.1, 'Europe/Zurich', 'Europe/Athens')
+        ).toEqual('2018-11-20 13:06')
       })
     })
 

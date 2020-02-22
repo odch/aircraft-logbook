@@ -12,19 +12,25 @@ describe('routes', () => {
               const flights = [
                 {
                   id: 'sStfyLd2XArT7oUZPFDn',
-                  departureAerodrome: { identification: 'LSZT' },
-                  destinationAerodrome: { identification: 'LSZT' },
+                  departureAerodrome: {
+                    identification: 'LSZT',
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    identification: 'LSZT',
+                    timezone: 'Europe/Zurich'
+                  },
                   blockOffTime: {
-                    toDate: () => Date.parse('2018-11-20 10:00')
+                    toDate: () => Date.parse('2018-11-20 10:00 GMT+0100')
                   },
                   blockOnTime: {
-                    toDate: () => Date.parse('2018-11-20 11:10')
+                    toDate: () => Date.parse('2018-11-20 11:10 GMT+0100')
                   },
                   takeOffTime: {
-                    toDate: () => Date.parse('2018-11-20 10:10')
+                    toDate: () => Date.parse('2018-11-20 10:10 GMT+0100')
                   },
                   landingTime: {
-                    toDate: () => Date.parse('2018-11-20 11:00')
+                    toDate: () => Date.parse('2018-11-20 11:00 GMT+0100')
                   },
                   pilot: {
                     firstname: 'Max',
@@ -33,19 +39,25 @@ describe('routes', () => {
                 },
                 {
                   id: 'sStfyLd2XArT7oUZPFDa',
-                  departureAerodrome: { identification: 'LSZT' },
-                  destinationAerodrome: { identification: 'LSZT' },
+                  departureAerodrome: {
+                    identification: 'LSZT',
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    identification: 'LSZT',
+                    timezone: 'Europe/Zurich'
+                  },
                   blockOffTime: {
-                    toDate: () => Date.parse('2018-11-21 10:00')
+                    toDate: () => Date.parse('2018-11-21 10:00 GMT+0100')
                   },
                   blockOnTime: {
-                    toDate: () => Date.parse('2018-11-21 11:10')
+                    toDate: () => Date.parse('2018-11-21 11:10 GMT+0100')
                   },
                   takeOffTime: {
-                    toDate: () => Date.parse('2018-11-20 10:10')
+                    toDate: () => Date.parse('2018-11-20 10:10 GMT+0100')
                   },
                   landingTime: {
-                    toDate: () => Date.parse('2018-11-20 11:00')
+                    toDate: () => Date.parse('2018-11-20 11:00 GMT+0100')
                   },
                   pilot: {
                     firstname: 'Hans',
