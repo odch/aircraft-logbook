@@ -29,23 +29,25 @@ describe('routes', () => {
                 id: 'sStfyLd2XArT7oUZPFDn',
                 departureAerodrome: {
                   name: 'Lommis',
-                  identification: 'LSZT'
+                  identification: 'LSZT',
+                  timezone: 'Europe/Zurich'
                 },
                 destinationAerodrome: {
                   name: 'Lommis',
-                  identification: 'LSZT'
+                  identification: 'LSZT',
+                  timezone: 'Europe/Zurich'
                 },
                 blockOffTime: {
-                  toDate: () => Date.parse('2018-11-20 10:00')
+                  toDate: () => Date.parse('2018-11-20 10:00 GMT+0100')
                 },
                 blockOnTime: {
-                  toDate: () => Date.parse('2018-11-20 11:10')
+                  toDate: () => Date.parse('2018-11-20 11:10 GMT+0100')
                 },
                 takeOffTime: {
-                  toDate: () => Date.parse('2018-11-20 10:10')
+                  toDate: () => Date.parse('2018-11-20 10:10 GMT+0100')
                 },
                 landingTime: {
-                  toDate: () => Date.parse('2018-11-20 11:00')
+                  toDate: () => Date.parse('2018-11-20 11:00 GMT+0100')
                 },
                 pilot: {
                   firstname: 'Max',
@@ -69,10 +71,21 @@ describe('routes', () => {
                 oilUplift: 0.7
               }
 
+              const renderToJson = component =>
+                renderIntl(component, {
+                  createNodeMock: element => {
+                    if (element.type === 'textarea') {
+                      // mock for TextareaAutosize
+                      return document.createElement('textarea')
+                    }
+                    return null
+                  }
+                }).toJSON()
+
               it('renders correctly', () => {
-                const tree = renderIntl(
+                const tree = renderToJson(
                   <FlightDetails aircraft={aircraft} flight={flight} />
-                ).toJSON()
+                )
                 expect(tree).toMatchSnapshot()
               })
 
@@ -84,9 +97,9 @@ describe('routes', () => {
                     engineHoursCounterEnabled: false
                   }
                 }
-                const tree = renderIntl(
+                const tree = renderToJson(
                   <FlightDetails aircraft={testAircraft} flight={flight} />
-                ).toJSON()
+                )
                 expect(tree).toMatchSnapshot()
               })
             })

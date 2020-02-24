@@ -218,7 +218,13 @@ describe('routes', () => {
               return testFn(
                 {
                   blockOffTime: '2019-05-01 09:00',
-                  takeOffTime: '2019-05-01 08:59'
+                  takeOffTime: '2019-05-01 08:59',
+                  departureAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  }
                 },
                 aircraftSettings1,
                 'takeOffTime',
@@ -230,7 +236,13 @@ describe('routes', () => {
               return testFn(
                 {
                   takeOffTime: '2019-05-01 09:00',
-                  landingTime: '2019-05-01 08:59'
+                  landingTime: '2019-05-01 08:59',
+                  departureAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  }
                 },
                 aircraftSettings1,
                 'landingTime',
@@ -238,11 +250,35 @@ describe('routes', () => {
               )
             })
 
-            it('should return an error if blockOnTime is before landingTime', () => {
+            it('should return an error if blockOnTime is before landingTime (same timezone)', () => {
               return testFn(
                 {
                   landingTime: '2019-05-01 09:00',
-                  blockOnTime: '2019-05-01 08:59'
+                  blockOnTime: '2019-05-01 08:59',
+                  departureAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  }
+                },
+                aircraftSettings1,
+                'blockOnTime',
+                'not_before_landing_time'
+              )
+            })
+
+            it('should return an error if blockOnTime is before landingTime (different timezone)', () => {
+              return testFn(
+                {
+                  landingTime: '2019-05-01 09:00',
+                  blockOnTime: '2019-05-01 08:59',
+                  departureAerodrome: {
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: {
+                    timezone: 'Europe/London'
+                  }
                 },
                 aircraftSettings1,
                 'blockOnTime',

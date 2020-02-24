@@ -1,9 +1,24 @@
-import moment from 'moment'
+import moment from 'moment-timezone'
 
-export const formatDate = timestamp => moment(timestamp.toDate()).format('L')
+/**
+ * @param timestamp The Firestore timestamp to format
+ * @param timezone The timezone to format the timestamp in (default is the current tz of the user)
+ * @returns the formatted date in the current MomentJS locale (without time)
+ */
+export const formatDate = (timestamp, timezone = moment.tz.guess()) =>
+  moment(timestamp.toDate())
+    .tz(timezone)
+    .format('L')
 
-export const formatTime = timestamp =>
-  moment(timestamp.toDate()).format('HH:mm')
+/**
+ * @param timestamp The Firestore timestamp to format
+ * @param timezone The timezone to format the timestamp in (default is the current tz of the user)
+ * @returns the time in the format 'HH:mm'
+ */
+export const formatTime = (timestamp, timezone = moment.tz.guess()) =>
+  moment(timestamp.toDate())
+    .tz(timezone)
+    .format('HH:mm')
 
 export const getTimeDiff = (startTimestamp, endTimestamp) => {
   const start = moment(startTimestamp.toDate())
@@ -15,12 +30,34 @@ export const getTimeDiff = (startTimestamp, endTimestamp) => {
 /**
  * @param dateTime Date time string in a format MomentJS understands
  *                 (e.g. YYYY-MM-DD HH:mm)
+ * @param timezone The timezone of the date time
+ * @param comparisonDateTime Date time string in a format MomentJS understands that
+ *                           the first date time should be compared with
+ * @param comparisonTimezone The timezone of the comparison date time
+ * @returns {boolean} true if the first date time is before the comparison date
+ *                    time, otherwise false.
+ */
+export const isBefore = (
+  dateTime,
+  timezone,
+  comparisonDateTime,
+  comparisonTimezone
+) =>
+  moment
+    .tz(dateTime, timezone)
+    .isBefore(moment.tz(comparisonDateTime, comparisonTimezone))
+
+/**
+ * @param dateTime Date time string in a format MomentJS understands
+ *                 (e.g. YYYY-MM-DD HH:mm)
  * @param hours Number of hours to add (can be a floating point number)
  * @returns {string} the new date time string in format YYYY-MM-DD HH:mm
  */
-export const addHours = (dateTime, hours) =>
-  moment(dateTime)
+export const addHours = (dateTime, hours, initialTimezone, targetTimezone) =>
+  moment
+    .tz(dateTime, initialTimezone)
     .add(hours, 'hours')
+    .tz(targetTimezone)
     .format('YYYY-MM-DD HH:mm')
 
 /**

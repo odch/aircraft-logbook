@@ -429,7 +429,8 @@ describe('routes', () => {
             const destinationAerodrome = {
               id: 'aerodromeid',
               name: 'Lommis',
-              identification: 'LSZT'
+              identification: 'LSZT',
+              timezone: 'Europe/Zurich'
             }
 
             it('should set the default values for the new flight', () => {
@@ -445,7 +446,8 @@ describe('routes', () => {
                 },
                 departureAerodrome: {
                   value: 'aerodromeid',
-                  label: 'LSZT (Lommis)'
+                  label: 'LSZT (Lommis)',
+                  timezone: 'Europe/Zurich'
                 },
                 counters: {
                   flights: { start: 123 },
@@ -495,7 +497,8 @@ describe('routes', () => {
                 },
                 departureAerodrome: {
                   value: 'aerodromeid',
-                  label: 'LSZT (Lommis)'
+                  label: 'LSZT (Lommis)',
+                  timezone: 'Europe/Zurich'
                 },
                 counters: {
                   flights: { start: 123 },

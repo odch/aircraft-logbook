@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import 'moment/locale/de'
 
 import { initFirebase } from './util/firebase'

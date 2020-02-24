@@ -1,36 +1,11 @@
 /* eslint-disable no-empty */
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-const nodemailer = require('nodemailer')
+const sendMail = require('../utils/sendMail')
 
 const config = functions.config()
 
-if (!config.invite || !config.invite.sender || !config.invite.sender.host) {
-  throw new Error(
-    'Required configuration property `invite.sender.host` not defined'
-  )
-}
-if (!config.invite.sender.port) {
-  throw new Error(
-    'Required configuration property `invite.sender.port` not defined'
-  )
-}
-if (!config.invite.sender.email) {
-  throw new Error(
-    'Required configuration property `invite.sender.email` not defined'
-  )
-}
-if (!config.invite.sender.user) {
-  throw new Error(
-    'Required configuration property `invite.sender.user` not defined'
-  )
-}
-if (!config.invite.sender.password) {
-  throw new Error(
-    'Required configuration property `invite.sender.password` not defined'
-  )
-}
-if (!config.invite.url) {
+if (!config.invite || !config.invite.url) {
   throw new Error('Required configuration property `invite.url` not defined')
 }
 
@@ -39,17 +14,7 @@ try {
   admin.initializeApp(functions.config().firebase)
 } catch (e) {}
 
-const transporter = nodemailer.createTransport({
-  host: config.invite.sender.host,
-  port: config.invite.sender.port,
-  secure: true,
-  auth: {
-    user: config.invite.sender.user,
-    pass: config.invite.sender.password
-  }
-})
-
-const sendMail = (inviteEmail, firstname, orgId, memberId) => {
+const sendInvitationMail = (inviteEmail, firstname, orgId, memberId) => {
   console.log(
     `sending invitation mail (to: ${inviteEmail}, firstname: ${firstname}, org id: ${orgId}, member id: ${memberId})`
   )
@@ -60,14 +25,9 @@ const sendMail = (inviteEmail, firstname, orgId, memberId) => {
      <p>Du wurdest eingeladen, der Organisation <strong>${orgId}</strong> beizutreten.</p>
      <p><a href="${link}">Klicke hier</a>, um die Einladung anzunehmen.</p>`
 
-  const mailOptions = {
-    from: config.invite.sender.email,
-    to: inviteEmail,
-    subject: `Digitales Flugreisebuch: Einladung in Organisation ${orgId}`,
-    html
-  }
+  const subject = `Digitales Flugreisebuch: Einladung in Organisation ${orgId}`
 
-  return transporter.sendMail(mailOptions)
+  return sendMail(inviteEmail, subject, html)
 }
 
 const setTimestamp = memberRef =>
@@ -87,7 +47,7 @@ const sendInvitation = change => {
     const orgId = change.after.ref.parent.parent.id
     const memberId = change.after.ref.id
 
-    return sendMail(email, firstname, orgId, memberId).then(() =>
+    return sendInvitationMail(email, firstname, orgId, memberId).then(() =>
       setTimestamp(change.after.ref)
     )
   }
