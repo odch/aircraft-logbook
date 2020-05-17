@@ -22,3 +22,11 @@ export function* updateDoc(path, data) {
   const firestore = yield call(getFirestore)
   return yield call(firestore.update, pathString, data)
 }
+
+export function* addArrayItem(path, arrayPath, item) {
+  const pathString = path.join('/')
+  const firestore = yield call(getFirestore)
+  return yield call(firestore.update, pathString, {
+    [arrayPath]: firestore.FieldValue.arrayUnion(item)
+  })
+}
