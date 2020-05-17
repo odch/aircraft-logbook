@@ -36,11 +36,17 @@ describe('routes', () => {
                           }
                         }
                       }
+                    },
+                    aircraftSettings: {
+                      createFuelTypeDialog: {
+                        open: false
+                      }
                     }
                   }
                   const store = configureStore()(state)
 
                   const props = {
+                    organizationId: 'org_id',
                     aircraftId: 'o7flC7jw8jmkOfWo8oyA'
                   }
 

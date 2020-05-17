@@ -62,7 +62,7 @@ class AircraftSettings extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <FuelTypes aircraftId={aircraft.id} />
+        <FuelTypes organizationId={organization.id} aircraftId={aircraft.id} />
       </div>
     )
   }

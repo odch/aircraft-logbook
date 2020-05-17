@@ -40,6 +40,11 @@ describe('routes', () => {
                           }
                         }
                       }
+                    },
+                    aircraftSettings: {
+                      createFuelTypeDialog: {
+                        open: false
+                      }
                     }
                   }
 

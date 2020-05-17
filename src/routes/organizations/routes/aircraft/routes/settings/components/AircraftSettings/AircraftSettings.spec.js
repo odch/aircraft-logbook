@@ -87,6 +87,11 @@ describe('routes', () => {
                           }
                         }
                       }
+                    },
+                    aircraftSettings: {
+                      createFuelTypeDialog: {
+                        open: false
+                      }
                     }
                   })
                   const tree = renderIntl(

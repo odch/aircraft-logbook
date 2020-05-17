@@ -197,5 +197,11 @@
   "organization.invite.notsent": "Keine Einladung gesendet",
 
   "aircraft.settings.fueltypes": "Treibstofftypen",
-  "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst"
+  "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst",
+  "aircraft.settings.fueltypes.create": "Treibstofftyp hinzufügen",
+  "aircraft.settings.fueltype.create.dialog.title": "Treibstofftyp hinzufügen",
+  "aircraft.settings.fueltype.create.dialog.name": "Name (nur Kleinbuchstaben und _)",
+  "aircraft.settings.fueltype.create.dialog.description": "Bezeichnung",
+  "aircraft.settings.fueltype.create.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.settings.fueltype.create.dialog.buttons.create": "Treibstofftyp hinzufügen"
 }
