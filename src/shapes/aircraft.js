@@ -7,6 +7,13 @@ export const fuelTypes = PropTypes.arrayOf(
   })
 )
 
+export const check = PropTypes.shape({
+  description: PropTypes.string.isRequired,
+  dateLimit: PropTypes.object,
+  counterLimit: PropTypes.number,
+  counterReference: PropTypes.string
+})
+
 export default PropTypes.shape({
   id: PropTypes.string.isRequired,
   registration: PropTypes.string.isRequired,

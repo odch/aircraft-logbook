@@ -42,6 +42,9 @@ describe('routes', () => {
                       }
                     },
                     aircraftSettings: {
+                      createCheckDialog: {
+                        open: false
+                      },
                       createFuelTypeDialog: {
                         open: false
                       }
