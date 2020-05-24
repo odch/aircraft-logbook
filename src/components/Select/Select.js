@@ -266,6 +266,7 @@ class IntegrationReactSelect extends React.Component {
             onChange={onChange}
             isMulti={isMulti}
             isDisabled={disabled}
+            isClearable={true}
             onCreateOption={onCreateOption}
             formatCreateLabel={() =>
               onCreateOptionText ||
