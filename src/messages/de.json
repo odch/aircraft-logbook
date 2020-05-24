@@ -196,6 +196,17 @@
   "organization.invite.pending": "Noch nicht beigetreten (eingeladen am {inviteDate} um {inviteTime})",
   "organization.invite.notsent": "Keine Einladung gesendet",
 
+  "aircraft.settings.checks": "Checks",
+  "aircraft.settings.checks.none": "Keine Checks erfasst",
+  "aircraft.settings.checks.create": "Check hinzufügen",
+  "aircraft.settings.check.create.dialog.title": "Check hinzufügen",
+  "aircraft.settings.check.create.dialog.description": "Bezeichnung",
+  "aircraft.settings.check.create.dialog.datelimit": "Fälligkeit (Datum)",
+  "aircraft.settings.check.create.dialog.counterreference": "Zähler",
+  "aircraft.settings.check.create.dialog.counterlimit": "Fälligkeit (Zähler)",
+  "aircraft.settings.check.create.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.settings.check.create.dialog.buttons.create": "Check hinzufügen",
+
   "aircraft.settings.fueltypes": "Treibstofftypen",
   "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst",
   "aircraft.settings.fueltypes.create": "Treibstofftyp hinzufügen",
@@ -203,5 +214,9 @@
   "aircraft.settings.fueltype.create.dialog.name": "Name (nur Kleinbuchstaben und _)",
   "aircraft.settings.fueltype.create.dialog.description": "Bezeichnung",
   "aircraft.settings.fueltype.create.dialog.buttons.cancel": "Abbrechen",
-  "aircraft.settings.fueltype.create.dialog.buttons.create": "Treibstofftyp hinzufügen"
+  "aircraft.settings.fueltype.create.dialog.buttons.create": "Treibstofftyp hinzufügen",
+
+  "aircraft.counter.flighthours": "Flugstunden",
+  "aircraft.counter.enginehours": "Motorstunden",
+  "aircraft.counter.landings": "Landungen"
 }

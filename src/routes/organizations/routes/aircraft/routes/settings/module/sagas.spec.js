@@ -12,6 +12,35 @@ describe('routes', () => {
         describe('routes', () => {
           describe('settings', () => {
             describe('sagas', () => {
+              describe('createCheck', () => {
+                it('should add a check to the aircraft', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+                  const check = {
+                    description: 'Next Foobar Check',
+                    dateLimit: new Date(2020, 6, 30)
+                  }
+
+                  const action = actions.createCheck(orgId, aircraftId, check)
+
+                  return expectSaga(sagas.createCheck, action)
+                    .provide([
+                      [
+                        call(
+                          addArrayItem,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          'checks',
+                          check
+                        )
+                      ]
+                    ])
+                    .put(actions.setCreateCheckDialogSubmitting())
+                    .put(fetchAircrafts(orgId))
+                    .put(actions.createCheckSuccess())
+                    .run()
+                })
+              })
+
               describe('createFuelType', () => {
                 it('should add a fuel type to the aircraft', () => {
                   const orgId = 'my_org'
@@ -51,6 +80,7 @@ describe('routes', () => {
 
                   expect(generator.next().value).toEqual(
                     all([
+                      takeEvery(actions.CREATE_CHECK, sagas.createCheck),
                       takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType)
                     ])
                   )

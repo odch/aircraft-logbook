@@ -9,6 +9,7 @@ import {
   aircraft as aircraftShape
 } from '../../../../../../../../shapes'
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
+import Checks from '../../containers/ChecksContainer'
 import FuelTypes from '../../containers/FuelTypesContainer'
 
 const styles = theme => ({
@@ -62,6 +63,7 @@ class AircraftSettings extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
+        <Checks organizationId={organization.id} aircraftId={aircraft.id} />
         <FuelTypes organizationId={organization.id} aircraftId={aircraft.id} />
       </div>
     )
