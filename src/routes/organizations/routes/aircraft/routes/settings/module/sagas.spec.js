@@ -1,9 +1,13 @@
 import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
-import { addArrayItem } from '../../../../../../../util/firestoreUtils'
+import {
+  addArrayItem,
+  removeArrayItem
+} from '../../../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchAircrafts } from '../../../../../module'
+import { deleteCheck } from './sagas'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -37,6 +41,35 @@ describe('routes', () => {
                     .put(actions.setCreateCheckDialogSubmitting())
                     .put(fetchAircrafts(orgId))
                     .put(actions.createCheckSuccess())
+                    .run()
+                })
+              })
+
+              describe('deleteCheck', () => {
+                it('should remove a check of the aircraft', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+                  const check = {
+                    description: 'Next Foobar Check',
+                    dateLimit: new Date(2020, 6, 30)
+                  }
+
+                  const action = actions.deleteCheck(orgId, aircraftId, check)
+
+                  return expectSaga(sagas.deleteCheck, action)
+                    .provide([
+                      [
+                        call(
+                          removeArrayItem,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          'checks',
+                          check
+                        )
+                      ]
+                    ])
+                    .put(actions.setDeleteCheckDialogSubmitting())
+                    .put(fetchAircrafts(orgId))
+                    .put(actions.closeDeleteCheckDialog())
                     .run()
                 })
               })
@@ -81,6 +114,7 @@ describe('routes', () => {
                   expect(generator.next().value).toEqual(
                     all([
                       takeEvery(actions.CREATE_CHECK, sagas.createCheck),
+                      takeEvery(actions.DELETE_CHECK, deleteCheck),
                       takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType)
                     ])
                   )

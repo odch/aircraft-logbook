@@ -13,6 +13,11 @@ export const INITIAL_STATE = {
       counterReference: null
     }
   },
+  deleteCheckDialog: {
+    open: false,
+    submitting: false,
+    check: null
+  },
   createFuelTypeDialog: {
     open: false,
     submitting: false,
@@ -232,6 +237,72 @@ describe('routes', () => {
                 ).toEqual({
                   createFuelTypeDialog: {
                     open: false
+                  }
+                })
+              })
+
+              it('handles OPEN_DELETE_CHECK_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteCheckDialog: {
+                        submitting: true,
+                        open: false,
+                        check: {
+                          description: 'Next Foobar Check',
+                          dateLimit: new Date(2020, 6, 30)
+                        }
+                      }
+                    },
+                    actions.openDeleteCheckDialog({
+                      description: 'Some Check',
+                      counterLimit: 100,
+                      counterReference: 'landings'
+                    })
+                  )
+                ).toEqual({
+                  deleteCheckDialog: {
+                    ...INITIAL_STATE.deleteCheckDialog,
+                    open: true,
+                    check: {
+                      description: 'Some Check',
+                      counterLimit: 100,
+                      counterReference: 'landings'
+                    }
+                  }
+                })
+              })
+
+              it('handles CLOSE_DELETE_CHECK_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteCheckDialog: {
+                        open: true
+                      }
+                    },
+                    actions.closeDeleteCheckDialog()
+                  )
+                ).toEqual({
+                  deleteCheckDialog: {
+                    open: false
+                  }
+                })
+              })
+
+              it('handles SET_DELETE_CHECK_DIALOG_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteCheckDialog: {
+                        submitting: false
+                      }
+                    },
+                    actions.setDeleteCheckDialogSubmitting()
+                  )
+                ).toEqual({
+                  deleteCheckDialog: {
+                    submitting: true
                   }
                 })
               })

@@ -207,6 +207,13 @@
   "aircraft.settings.check.create.dialog.buttons.cancel": "Abbrechen",
   "aircraft.settings.check.create.dialog.buttons.create": "Check hinzufügen",
 
+  "aircraft.settings.check.delete": "Löschen",
+
+  "aircraft.settings.check.delete.dialog.title": "Check löschen",
+  "aircraft.settings.check.delete.dialog.text": "Bist du sicher, dass du den Check {check} löschen möchtest?",
+  "aircraft.settings.check.delete.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.settings.check.delete.dialog.buttons.delete": "Check löschen",
+
   "aircraft.settings.fueltypes": "Treibstofftypen",
   "aircraft.settings.fueltypes.none": "Keine Treibstofftypen erfasst",
   "aircraft.settings.fueltypes.create": "Treibstofftyp hinzufügen",

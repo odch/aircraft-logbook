@@ -45,6 +45,9 @@ describe('routes', () => {
                       createCheckDialog: {
                         open: false
                       },
+                      deleteCheckDialog: {
+                        open: false
+                      },
                       createFuelTypeDialog: {
                         open: false
                       }

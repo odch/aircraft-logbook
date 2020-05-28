@@ -13,6 +13,11 @@ export const INITIAL_STATE = {
       counterReference: null
     }
   },
+  deleteCheckDialog: {
+    open: false,
+    submitting: false,
+    check: null
+  },
   createFuelTypeDialog: {
     open: false,
     submitting: false,
@@ -118,6 +123,30 @@ const setCreateFuelTypeDialogSubmitting = state => ({
   }
 })
 
+const openDeleteCheckDialog = (state, { payload }) => ({
+  ...state,
+  deleteCheckDialog: {
+    ...INITIAL_STATE.deleteCheckDialog,
+    open: true,
+    check: payload.check
+  }
+})
+
+const closeDeleteCheckDialog = state => ({
+  ...state,
+  deleteCheckDialog: {
+    open: false
+  }
+})
+
+const setDeleteCheckDialogSubmitting = state => ({
+  ...state,
+  deleteCheckDialog: {
+    ...state.deleteCheckDialog,
+    submitting: true
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_CHECK_DIALOG]: openCreateCheckDialog,
   [actions.CLOSE_CREATE_CHECK_DIALOG]: closeCreateCheckDialog,
@@ -128,7 +157,10 @@ const ACTION_HANDLERS = {
   [actions.CLOSE_CREATE_FUEL_TYPE_DIALOG]: closeCreateFuelTypeDialog,
   [actions.CREATE_FUEL_TYPE_SUCCESS]: closeCreateFuelTypeDialog,
   [actions.UPDATE_CREATE_FUEL_TYPE_DIALOG_DATA]: updateCreateFuelTypeDialogData,
-  [actions.SET_CREATE_FUEL_TYPE_DIALOG_SUBMITTING]: setCreateFuelTypeDialogSubmitting
+  [actions.SET_CREATE_FUEL_TYPE_DIALOG_SUBMITTING]: setCreateFuelTypeDialogSubmitting,
+  [actions.OPEN_DELETE_CHECK_DIALOG]: openDeleteCheckDialog,
+  [actions.CLOSE_DELETE_CHECK_DIALOG]: closeDeleteCheckDialog,
+  [actions.SET_DELETE_CHECK_DIALOG_SUBMITTING]: setDeleteCheckDialogSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

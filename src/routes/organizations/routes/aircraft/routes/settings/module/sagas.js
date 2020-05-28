@@ -2,7 +2,10 @@ import { takeEvery, all, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { fetchAircrafts } from '../../../../../module'
 import { error } from '../../../../../../../util/log'
-import { addArrayItem } from '../../../../../../../util/firestoreUtils'
+import {
+  addArrayItem,
+  removeArrayItem
+} from '../../../../../../../util/firestoreUtils'
 
 export function* createCheck({
   payload: { organizationId, aircraftId, data }
@@ -33,6 +36,22 @@ export function* createCheck({
   }
 }
 
+export function* deleteCheck({
+  payload: { organizationId, aircraftId, check }
+}) {
+  yield put(actions.setDeleteCheckDialogSubmitting())
+
+  yield call(
+    removeArrayItem,
+    ['organizations', organizationId, 'aircrafts', aircraftId],
+    'checks',
+    check
+  )
+
+  yield put(fetchAircrafts(organizationId))
+  yield put(actions.closeDeleteCheckDialog())
+}
+
 export function* createFuelType({
   payload: { organizationId, aircraftId, data }
 }) {
@@ -55,6 +74,7 @@ export function* createFuelType({
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_CHECK, createCheck),
+    takeEvery(actions.DELETE_CHECK, deleteCheck),
     takeEvery(actions.CREATE_FUEL_TYPE, createFuelType)
   ])
 }
