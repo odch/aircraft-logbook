@@ -30,3 +30,11 @@ export function* addArrayItem(path, arrayPath, item) {
     [arrayPath]: firestore.FieldValue.arrayUnion(item)
   })
 }
+
+export function* removeArrayItem(path, arrayPath, item) {
+  const pathString = path.join('/')
+  const firestore = yield call(getFirestore)
+  return yield call(firestore.update, pathString, {
+    [arrayPath]: firestore.FieldValue.arrayRemove(item)
+  })
+}

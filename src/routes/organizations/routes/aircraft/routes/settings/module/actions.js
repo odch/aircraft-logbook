@@ -22,6 +22,13 @@ export const CREATE_FUEL_TYPE_SUCCESS =
   'aircraftSettings/CREATE_FUEL_TYPE_SUCCESS'
 export const CREATE_FUEL_TYPE_FAILURE =
   'aircraftSettings/CREATE_FUEL_TYPE_FAILURE'
+export const OPEN_DELETE_CHECK_DIALOG =
+  'aircraftSettings/OPEN_DELETE_CHECK_DIALOG'
+export const CLOSE_DELETE_CHECK_DIALOG =
+  'aircraftSettings/CLOSE_DELETE_CHECK_DIALOG'
+export const DELETE_CHECK = 'aircraftSettings/DELETE_CHECK'
+export const SET_DELETE_CHECK_DIALOG_SUBMITTING =
+  'aircraftSettings/SET_DELETE_CHECK_DIALOG_SUBMITTING'
 
 export const openCreateCheckDialog = () => ({
   type: OPEN_CREATE_CHECK_DIALOG
@@ -93,4 +100,28 @@ export const createFuelTypeSuccess = () => ({
 
 export const createFuelTypeFailure = () => ({
   type: CREATE_FUEL_TYPE_FAILURE
+})
+
+export const openDeleteCheckDialog = check => ({
+  type: OPEN_DELETE_CHECK_DIALOG,
+  payload: {
+    check
+  }
+})
+
+export const closeDeleteCheckDialog = () => ({
+  type: CLOSE_DELETE_CHECK_DIALOG
+})
+
+export const deleteCheck = (organizationId, aircraftId, check) => ({
+  type: DELETE_CHECK,
+  payload: {
+    organizationId,
+    aircraftId,
+    check
+  }
+})
+
+export const setDeleteCheckDialogSubmitting = () => ({
+  type: SET_DELETE_CHECK_DIALOG_SUBMITTING
 })
