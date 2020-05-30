@@ -14,11 +14,20 @@ export const check = PropTypes.shape({
   counterReference: PropTypes.string
 })
 
+export const counters = PropTypes.shape({
+  flights: PropTypes.number.isRequired,
+  flightHours: PropTypes.number.isRequired,
+  landings: PropTypes.number.isRequired,
+  engineHours: PropTypes.number
+})
+
 export default PropTypes.shape({
   id: PropTypes.string.isRequired,
   registration: PropTypes.string.isRequired,
   settings: PropTypes.shape({
     fuelTypes,
     engineHoursCounterEnabled: PropTypes.bool
-  })
+  }),
+  checks: PropTypes.arrayOf(check),
+  counters
 })

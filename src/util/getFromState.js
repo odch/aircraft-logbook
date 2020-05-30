@@ -15,7 +15,9 @@ export const getAircraft = (state, aircraftId) => {
   if (organizationAircrafts) {
     const foundAircraft = organizationAircrafts[aircraftId]
     if (foundAircraft) {
-      return { ...foundAircraft, id: aircraftId }
+      const aircraft = { ...foundAircraft, id: aircraftId }
+      aircraft.counters = getAircraftCounters(state, aircraftId)
+      return aircraft
     }
     return null // not found
   }
@@ -37,13 +39,37 @@ export const getAircraftFlights = (state, aircraftId, page) => {
   return undefined
 }
 
-export const getAircraftFlightsCount = (state, aircraftId) => {
-  const flights = state.firestore.ordered[`flights-${aircraftId}-0`]
-  if (flights) {
-    if (flights.length > 0) {
-      const newestFlight = flights[0]
-      return newestFlight.counters.flights.end
+export const getAircraftFlightsCount = (state, aircraftId) =>
+  getAircraftCounters(state, aircraftId).flights
+
+const getAircraftCounters = (state, aircraftId) => {
+  const latestFlight = getLatestFlight(state, aircraftId)
+
+  if (latestFlight) {
+    const counters = {
+      flights: latestFlight.counters.flights.end,
+      landings: latestFlight.counters.landings.end,
+      flightHours: latestFlight.counters.flightHours.end
+    }
+    if (latestFlight.counters.engineHours) {
+      counters.engineHours = latestFlight.counters.engineHours.end
+    }
+    return counters
+  }
+
+  return {
+    flights: 0,
+    landings: 0,
+    flightHours: 0
+  }
+}
+
+const getLatestFlight = (state, aircraftId) => {
+  if (state.firestore && state.firestore.ordered) {
+    const flights = state.firestore.ordered[`flights-${aircraftId}-0`]
+    if (flights && flights.length > 0) {
+      return flights[0]
     }
   }
-  return 0
+  return null
 }

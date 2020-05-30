@@ -85,7 +85,7 @@ describe('util', () => {
         expect(aircraft).toEqual(null)
       })
 
-      it('should return found aircraft', () => {
+      it('should return found aircraft with default counters', () => {
         const state = {
           firestore: {
             data: {
@@ -104,7 +104,48 @@ describe('util', () => {
         const aircraft = getAircraft(state, 'o7flC7jw8jmkOfWo8oyA')
         expect(aircraft).toEqual({
           id: 'o7flC7jw8jmkOfWo8oyA',
-          registration: 'HBKLA'
+          registration: 'HBKLA',
+          counters: {
+            flights: 0,
+            landings: 0,
+            flightHours: 0
+          }
+        })
+      })
+
+      it('should return found aircraft with counters from latest flight', () => {
+        const state = {
+          firestore: {
+            data: {
+              organizationAircrafts: {
+                o7flC7jw8jmkOfWo8oyA: {
+                  registration: 'HBKLA'
+                }
+              }
+            },
+            ordered: {
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
+                {
+                  counters: {
+                    flights: { end: 1 },
+                    landings: { end: 3 },
+                    flightHours: { end: 120 }
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const aircraft = getAircraft(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(aircraft).toEqual({
+          id: 'o7flC7jw8jmkOfWo8oyA',
+          registration: 'HBKLA',
+          counters: {
+            flights: 1,
+            landings: 3,
+            flightHours: 120
+          }
         })
       })
     })
@@ -185,24 +226,32 @@ describe('util', () => {
               'flights-o7flC7jw8jmkOfWo8oyA-0': [
                 {
                   counters: {
-                    flights: { end: 4 }
+                    flights: { end: 4 },
+                    landings: { end: 9 },
+                    flightHours: { end: 400 }
                   }
                 },
                 {
                   counters: {
-                    flights: { end: 3 }
+                    flights: { end: 3 },
+                    landings: { end: 4 },
+                    flightHours: { end: 300 }
                   }
                 }
               ],
               'flights-o7flC7jw8jmkOfWo8oyA-1': [
                 {
                   counters: {
-                    flights: { end: 2 }
+                    flights: { end: 2 },
+                    landings: { end: 4 },
+                    flightHours: { end: 200 }
                   }
                 },
                 {
                   counters: {
-                    flights: { end: 1 }
+                    flights: { end: 1 },
+                    landings: { end: 1 },
+                    flightHours: { end: 100 }
                   }
                 }
               ]

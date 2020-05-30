@@ -13,6 +13,7 @@ import {
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import FlightList from '../FlightList'
+import Checks from '../Checks'
 import FlightCreateDialog from '../../containers/FlightCreateDialogContainer'
 
 const styles = theme => ({
@@ -129,6 +130,10 @@ class AircraftDetail extends React.Component {
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
+        </Typography>
+        <Checks checks={aircraft.checks} counters={aircraft.counters} />
+        <Typography variant="h5" gutterBottom>
+          <FormattedMessage id="aircraftdetail.flights" />
         </Typography>
         <Button
           variant="contained"

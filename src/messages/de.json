@@ -31,6 +31,15 @@
   "organizations.delete.dialog.buttons.cancel": "Abbrechen",
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
 
+  "aircraftdetail.checks": "Nächste Checks",
+  "aircraftdetail.checks.date.text": "am {date}",
+  "aircraftdetail.checks.date.remaining": "{diff} verbleibend",
+  "aircraftdetail.checks.date.due": "{diff} überfällig",
+  "aircraftdetail.checks.counter.text": "bei {limit}",
+  "aircraftdetail.checks.counter.remaining": "{diff} {counterName} verbleibend",
+  "aircraftdetail.checks.counter.due": "{diff} {counterName} überfällig",
+
+  "aircraftdetail.flights": "Erfasste Flüge",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
   "aircraftdetail.createflight": "Flug erfassen",
 
