@@ -23,7 +23,7 @@ const counters = (state, aircraftId, intl) => {
       ? [
           {
             value: 'engineHours',
-            label: counterLabel(intl, 'engineHours')
+            label: counterLabel(intl, 'enginehours')
           }
         ]
       : []),
