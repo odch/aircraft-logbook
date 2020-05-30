@@ -15,6 +15,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   >
     HBKFW
   </h4>
+  <h5
+    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+  >
+    Erfasste Flüge
+  </h5>
   <button
     className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
     disabled={false}
@@ -40,7 +45,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-66"
+    className="FlightList-container-67"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -68,24 +73,24 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <p
-            className="MuiTypography-root FlightList-flightHeading-67 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightHeading-68 MuiTypography-body1"
           >
             Von 
             <span
-              className="FlightList-bold-69"
+              className="FlightList-bold-70"
             >
               LSZT
             </span>
              nach 
             <span
-              className="FlightList-bold-69"
+              className="FlightList-bold-70"
             >
               LSZT
             </span>
              — Max Muster
           </p>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-68 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-69 MuiTypography-body1"
           >
             20.11.2018
             ,
