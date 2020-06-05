@@ -39,9 +39,13 @@
   "aircraftdetail.checks.counter.remaining": "{diff} {counterName} verbleibend",
   "aircraftdetail.checks.counter.due": "{diff} {counterName} überfällig",
 
-  "aircraftdetail.flights": "Erfasste Flüge",
+  "aircraftdetail.flights": "Neueste Flüge",
+  "aircraftdetail.flights.all": "Alle anzeigen",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
   "aircraftdetail.createflight": "Flug erfassen",
+
+  "aircraft.flights": "Erfasste Flüge",
+  "aircraft.flights.tooverview": "Zurück zur Übersicht",
 
   "flightlist.flight.heading": "Von {departureAerodrome} nach {destinationAerodrome} — {firstname} {lastname}",
   "flightlist.date": "Datum",

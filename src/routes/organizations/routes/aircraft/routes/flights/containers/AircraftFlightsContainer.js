@@ -1,8 +1,15 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import AircraftDetail from '../components/AircraftDetail'
-import { getOrganization, getAircraft } from '../../../../../util/getFromState'
-import { fetchAircrafts, fetchMembers, fetchAerodromes } from '../../../module'
+import AircraftFlights from '../components/AircraftFlights'
+import {
+  getOrganization,
+  getAircraft
+} from '../../../../../../../util/getFromState'
+import {
+  fetchAircrafts,
+  fetchMembers,
+  fetchAerodromes
+} from '../../../../../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -31,4 +38,4 @@ export default compose(
     mapStateToProps,
     mapActionCreators
   )
-)(AircraftDetail)
+)(AircraftFlights)

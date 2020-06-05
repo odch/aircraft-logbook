@@ -26,6 +26,8 @@ export const INITIAL_STATE = {
     }
   },
   flights: {
+    organizationId: null,
+    aircraftId: null,
     page: 0,
     rowsPerPage: 10
   }
@@ -36,6 +38,16 @@ const setFlightsPage = (state, action) => ({
   flights: {
     ...state.flights,
     page: action.payload.page
+  }
+})
+
+const setFlightsParams = (state, { payload }) => ({
+  ...state,
+  flights: {
+    organizationId: payload.organizationId,
+    aircraftId: payload.aircraftId,
+    page: 0,
+    rowsPerPage: payload.rowsPerPage
   }
 })
 
@@ -233,6 +245,7 @@ const closeCreateAerodromeDialog = state => ({
 
 const ACTION_HANDLERS = {
   [actions.SET_FLIGHTS_PAGE]: setFlightsPage,
+  [actions.SET_FLIGHTS_PARAMS]: setFlightsParams,
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
   [actions.SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA]: setInitialCreateFlightDialogData,

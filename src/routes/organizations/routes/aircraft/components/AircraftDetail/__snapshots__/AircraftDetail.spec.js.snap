@@ -18,7 +18,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   <h5
     className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
   >
-    Erfasste Flüge
+    Neueste Flüge
   </h5>
   <button
     className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
@@ -45,7 +45,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-67"
+    className="FlightList-container-48"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -73,24 +73,24 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <p
-            className="MuiTypography-root FlightList-flightHeading-68 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightHeading-49 MuiTypography-body1"
           >
             Von 
             <span
-              className="FlightList-bold-70"
+              className="FlightList-bold-51"
             >
               LSZT
             </span>
              nach 
             <span
-              className="FlightList-bold-70"
+              className="FlightList-bold-51"
             >
               LSZT
             </span>
              — Max Muster
           </p>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-69 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-50 MuiTypography-body1"
           >
             20.11.2018
             ,
@@ -156,131 +156,34 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         </div>
       </div>
     </div>
-    <div
-      className="MuiTablePagination-root"
-    >
-      <div
-        className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
-      >
-        <div
-          className="MuiTablePagination-spacer"
-        />
-        <span
-          className="MuiTypography-root MuiTablePagination-caption MuiTypography-caption MuiTypography-colorInherit"
-        >
-          1-10 of 45
-        </span>
-        <div
-          className="MuiTablePagination-actions"
-        >
-          <button
-            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit Mui-disabled Mui-disabled"
-            disabled={true}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={-1}
-            type="button"
-          >
-            <span
-              className="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                className="MuiSvgIcon-root"
-                focusable="false"
-                role="presentation"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
-                />
-              </svg>
-            </span>
-          </button>
-          <button
-            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            <span
-              className="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                className="MuiSvgIcon-root"
-                focusable="false"
-                role="presentation"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
+  <a
+    aria-disabled={false}
+    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary"
+    href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA/flights"
+    onBlur={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Alle anzeigen
+    </span>
+  </a>
 </div>
 `;
 
 exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if aircraft not loaded 1`] = `
-<div
-  className="LoadingIcon-container-2"
->
-  <div
-    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-    role="progressbar"
-    style={
-      Object {
-        "height": 40,
-        "width": 40,
-      }
-    }
-  >
-    <svg
-      className="MuiCircularProgress-svg"
-      viewBox="22 22 44 44"
-    >
-      <circle
-        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-        cx={44}
-        cy={44}
-        fill="none"
-        r={20.2}
-        strokeWidth={3.6}
-        style={Object {}}
-      />
-    </svg>
-  </div>
-</div>
-`;
-
-exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if flights not loaded 1`] = `
 <div
   className="LoadingIcon-container-2"
 >
