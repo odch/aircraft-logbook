@@ -18,18 +18,52 @@ describe('routes', () => {
     describe('routes', () => {
       describe('aircraft', () => {
         describe('sagas', () => {
-          describe('fetchFlights', () => {
-            it('should load the flights of an aircraft', () => {
-              const fetchFlightsAction = actions.fetchFlights(
+          describe('initFlightsList', () => {
+            it('should init the flight list state', () => {
+              const action = actions.initFlightsList(
                 'my_org',
                 'o7flC7jw8jmkOfWo8oyA',
-                0,
-                10
+                5
               )
+              return expectSaga(sagas.initFlightsList, action)
+                .provide([[call(sagas.fetchFlights)]])
+                .put(
+                  actions.setFlightsParams('my_org', 'o7flC7jw8jmkOfWo8oyA', 5)
+                )
+                .call(sagas.fetchFlights)
+                .run()
+            })
+          })
+
+          describe('changeFlightsPage', () => {
+            it('should change the page of the flight list', () => {
+              const action = actions.changeFlightsPage(2)
+              return expectSaga(sagas.changeFlightsPage, action)
+                .provide([[call(sagas.fetchFlights)]])
+                .put(actions.setFlightsPage(2))
+                .call(sagas.fetchFlights)
+                .run()
+            })
+          })
+
+          describe('fetchFlights', () => {
+            it('should load the flights of an aircraft', () => {
+              const fetchFlightsAction = actions.fetchFlights()
 
               const generator = sagas.fetchFlights(fetchFlightsAction)
 
               expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
                 call(
                   sagas.getStartFlightDocument,
                   'my_org',
@@ -332,18 +366,7 @@ describe('routes', () => {
               )
 
               expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
-              )
-
-              const aircraftFlightsView = {
-                rowsPerPage: 10
-              }
-
-              expect(generator.next(aircraftFlightsView).value).toEqual(
-                put(actions.fetchFlights(organizationId, aircraftId, 0, 10))
-              )
-              expect(generator.next().value).toEqual(
-                put(actions.setFlightsPage(0))
+                put(actions.changeFlightsPage(0))
               )
               expect(generator.next().value).toEqual(
                 put(actions.createFlightSuccess())
@@ -565,16 +588,7 @@ describe('routes', () => {
               )
 
               expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
-              )
-
-              const aircraftFlightsView = {
-                page: 0,
-                rowsPerPage: 10
-              }
-
-              expect(generator.next(aircraftFlightsView).value).toEqual(
-                put(actions.fetchFlights('my_org', aircraftId, 0, 10))
+                put(actions.fetchFlights())
               )
               expect(generator.next().value).toEqual(
                 put(actions.closeDeleteFlightDialog())
@@ -671,6 +685,11 @@ describe('routes', () => {
 
               expect(generator.next().value).toEqual(
                 all([
+                  takeEvery(actions.INIT_FLIGHTS_LIST, sagas.initFlightsList),
+                  takeEvery(
+                    actions.CHANGE_FLIGHTS_PAGE,
+                    sagas.changeFlightsPage
+                  ),
                   takeEvery(actions.FETCH_FLIGHTS, sagas.fetchFlights),
                   takeEvery(actions.CREATE_FLIGHT, sagas.createFlight),
                   takeEvery(

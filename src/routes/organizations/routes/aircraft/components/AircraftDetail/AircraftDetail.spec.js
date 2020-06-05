@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
 import renderIntl from '../../../../../../testutil/renderIntl'
 import AircraftDetail from './AircraftDetail'
 
@@ -15,18 +17,9 @@ describe('routes', () => {
               const tree = renderIntl(
                 <AircraftDetail
                   organization={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -37,18 +30,9 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={() => {}}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -61,18 +45,9 @@ describe('routes', () => {
                     <Route exact path="/" component={StartPage} />
                     <AircraftDetail
                       organization={null}
-                      createFlightDialogOpen={false}
-                      flightDeleteDialog={{ open: false }}
                       fetchAircrafts={() => {}}
-                      fetchFlights={() => {}}
                       fetchMembers={() => {}}
                       fetchAerodromes={() => {}}
-                      openCreateFlightDialog={() => {}}
-                      initCreateFlightDialog={() => {}}
-                      openDeleteFlightDialog={() => {}}
-                      closeDeleteFlightDialog={() => {}}
-                      deleteFlight={() => {}}
-                      setFlightsPage={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -80,57 +55,32 @@ describe('routes', () => {
               expect(tree).toMatchSnapshot()
             })
 
-            it('renders loading icon if flights not loaded', () => {
-              const tree = renderIntl(
-                <Router>
-                  <AircraftDetail
-                    organization={{ id: 'my_org' }}
-                    aircraft={{
-                      id: 'o7flC7jw8jmkOfWo8oyA',
-                      registration: 'HBKFW'
-                    }}
-                    flights={undefined}
-                    flightsPagination={{
-                      page: 0,
-                      rowsPerPage: 10,
-                      rowsCount: 45
-                    }}
-                    createFlightDialogOpen={false}
-                    flightDeleteDialog={{ open: false }}
-                    fetchAircrafts={() => {}}
-                    fetchFlights={() => {}}
-                    fetchMembers={() => {}}
-                    fetchAerodromes={() => {}}
-                    openCreateFlightDialog={() => {}}
-                    initCreateFlightDialog={() => {}}
-                    openDeleteFlightDialog={() => {}}
-                    closeDeleteFlightDialog={() => {}}
-                    deleteFlight={() => {}}
-                    setFlightsPage={() => {}}
-                  />
-                </Router>
-              ).toJSON()
-              expect(tree).toMatchSnapshot()
-            })
-
             it('renders aircraft detail when everything is loaded', () => {
-              const tree = renderIntl(
-                <Router>
-                  <AircraftDetail
-                    organization={{ id: 'my_org' }}
-                    aircraft={{
-                      id: 'o7flC7jw8jmkOfWo8oyA',
-                      registration: 'HBKFW'
-                    }}
-                    flights={[
+              const store = configureStore()({
+                aircraft: {
+                  flights: {
+                    page: 0
+                  },
+                  createFlightDialog: {
+                    open: false
+                  },
+                  deleteFlightDialog: {
+                    open: false
+                  }
+                },
+                firestore: {
+                  ordered: {
+                    'flights-o7flC7jw8jmkOfWo8oyA-0': [
                       {
                         id: 'sStfyLd2XArT7oUZPFDn',
                         departureAerodrome: {
                           identification: 'LSZT',
+                          name: 'Lommis',
                           timezone: 'Europe/Zurich'
                         },
                         destinationAerodrome: {
                           identification: 'LSZT',
+                          name: 'Lommis',
                           timezone: 'Europe/Zurich'
                         },
                         blockOffTime: {
@@ -148,28 +98,33 @@ describe('routes', () => {
                         pilot: {
                           firstname: 'Max',
                           lastname: 'Muster'
+                        },
+                        counters: {
+                          flights: { end: 1 },
+                          landings: { end: 1 },
+                          flightHours: { end: 100 }
                         }
                       }
-                    ]}
-                    flightsPagination={{
-                      page: 0,
-                      rowsPerPage: 10,
-                      rowsCount: 45
-                    }}
-                    createFlightDialogOpen={false}
-                    flightDeleteDialog={{ open: false }}
-                    fetchAircrafts={() => {}}
-                    fetchFlights={() => {}}
-                    fetchMembers={() => {}}
-                    fetchAerodromes={() => {}}
-                    openCreateFlightDialog={() => {}}
-                    initCreateFlightDialog={() => {}}
-                    openDeleteFlightDialog={() => {}}
-                    closeDeleteFlightDialog={() => {}}
-                    deleteFlight={() => {}}
-                    setFlightsPage={() => {}}
-                  />
-                </Router>
+                    ]
+                  }
+                }
+              })
+
+              const tree = renderIntl(
+                <Provider store={store}>
+                  <Router>
+                    <AircraftDetail
+                      organization={{ id: 'my_org' }}
+                      aircraft={{
+                        id: 'o7flC7jw8jmkOfWo8oyA',
+                        registration: 'HBKFW'
+                      }}
+                      fetchAircrafts={() => {}}
+                      fetchMembers={() => {}}
+                      fetchAerodromes={() => {}}
+                    />
+                  </Router>
+                </Provider>
               ).toJSON()
               expect(tree).toMatchSnapshot()
             })
@@ -181,60 +136,13 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               )
 
               expect(fetchAircrafts).toBeCalledWith('my_org')
-            })
-
-            it('calls fetchFlights when mounted with organization and aircraft', () => {
-              const fetchFlights = jest.fn()
-
-              renderIntl(
-                <AircraftDetail
-                  organization={{ id: 'my_org' }}
-                  aircraft={{
-                    id: 'o7flC7jw8jmkOfWo8oyA',
-                    registration: 'HBKFW'
-                  }}
-                  flightsPagination={{
-                    page: 0,
-                    rowsPerPage: 10,
-                    rowsCount: 45
-                  }}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
-                  fetchAircrafts={() => {}}
-                  fetchFlights={fetchFlights}
-                  fetchMembers={() => {}}
-                  fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
-                />
-              )
-
-              expect(fetchFlights).toBeCalledWith(
-                'my_org',
-                'o7flC7jw8jmkOfWo8oyA',
-                0,
-                10
-              )
             })
 
             it('does not call fetchAircrafts when mounted without organization', () => {
@@ -244,44 +152,9 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
-                />
-              )
-
-              expect(fetchAircrafts).not.toBeCalled()
-            })
-
-            it('does not call fetchFlights when mounted without organization', () => {
-              const fetchAircrafts = jest.fn()
-              const fetchFlights = jest.fn()
-
-              renderIntl(
-                <AircraftDetail
-                  organization={undefined}
-                  aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
-                  fetchAircrafts={fetchAircrafts}
-                  fetchFlights={fetchFlights}
-                  fetchMembers={() => {}}
-                  fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               )
 
@@ -295,18 +168,9 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={undefined}
                   aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               )
 
@@ -316,86 +180,13 @@ describe('routes', () => {
                 <AircraftDetail
                   organization={{ id: 'my_org' }}
                   aircraft={undefined}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
                   fetchAircrafts={fetchAircrafts}
-                  fetchFlights={() => {}}
                   fetchMembers={() => {}}
                   fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
                 />
               )
 
               expect(fetchAircrafts).toBeCalledWith('my_org')
-            })
-
-            it('calls fetchFlights when updated with new aircraft', () => {
-              const fetchFlights = jest.fn()
-
-              const renderer = renderIntl(
-                <AircraftDetail
-                  organization={{ id: 'my_org' }}
-                  aircraft={undefined}
-                  flightsPagination={{
-                    page: 0,
-                    rowsPerPage: 10,
-                    rowsCount: 45
-                  }}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
-                  fetchAircrafts={() => {}}
-                  fetchFlights={fetchFlights}
-                  fetchMembers={() => {}}
-                  fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
-                />
-              )
-
-              expect(fetchFlights).not.toBeCalled()
-
-              renderer.update(
-                <AircraftDetail
-                  organization={{ id: 'my_org' }}
-                  aircraft={{
-                    id: 'o7flC7jw8jmkOfWo8oyA',
-                    registration: 'HBKFW'
-                  }}
-                  flightsPagination={{
-                    page: 0,
-                    rowsPerPage: 10,
-                    rowsCount: 45
-                  }}
-                  createFlightDialogOpen={false}
-                  flightDeleteDialog={{ open: false }}
-                  fetchAircrafts={() => {}}
-                  fetchFlights={fetchFlights}
-                  fetchMembers={() => {}}
-                  fetchAerodromes={() => {}}
-                  openCreateFlightDialog={() => {}}
-                  initCreateFlightDialog={() => {}}
-                  openDeleteFlightDialog={() => {}}
-                  closeDeleteFlightDialog={() => {}}
-                  deleteFlight={() => {}}
-                  setFlightsPage={() => {}}
-                />
-              )
-
-              expect(fetchFlights).toBeCalledWith(
-                'my_org',
-                'o7flC7jw8jmkOfWo8oyA',
-                0,
-                10
-              )
             })
           })
         })

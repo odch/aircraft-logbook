@@ -1,6 +1,7 @@
 import {
+  initFlightsList,
   fetchFlights,
-  setFlightsPage,
+  changeFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   closeCreateFlightDialog,
@@ -18,8 +19,9 @@ import reducer from './reducer'
 import sagas from './sagas'
 
 export {
+  initFlightsList,
   fetchFlights,
-  setFlightsPage,
+  changeFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
   closeCreateFlightDialog,

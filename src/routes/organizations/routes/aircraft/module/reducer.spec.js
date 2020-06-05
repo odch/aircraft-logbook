@@ -23,6 +23,8 @@ const INITIAL_STATE = {
     }
   },
   flights: {
+    organizationId: null,
+    aircraftId: null,
     page: 0,
     rowsPerPage: 10
   }
@@ -52,6 +54,29 @@ describe('routes', () => {
               flights: {
                 page: 2,
                 rowsPerPage: 10
+              }
+            })
+          })
+
+          it('handles SET_FLIGHTS_PARAMS action', () => {
+            expect(
+              reducer(
+                {
+                  flights: {
+                    organizationId: null,
+                    aircraftId: null,
+                    page: 12,
+                    rowsPerPage: 10
+                  }
+                },
+                actions.setFlightsParams('my_org', 'my_aircraft', 5)
+              )
+            ).toEqual({
+              flights: {
+                organizationId: 'my_org',
+                aircraftId: 'my_aircraft',
+                page: 0,
+                rowsPerPage: 5
               }
             })
           })

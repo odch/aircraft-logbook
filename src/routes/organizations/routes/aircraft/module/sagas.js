@@ -31,9 +31,22 @@ export function* getStartFlightDocument(organizationId, aircraftId, page) {
   return null
 }
 
-export function* fetchFlights({
-  payload: { organizationId, aircraftId, page, rowsPerPage }
+export function* initFlightsList({
+  payload: { organizationId, aircraftId, rowsPerPage }
 }) {
+  yield put(actions.setFlightsParams(organizationId, aircraftId, rowsPerPage))
+  yield call(fetchFlights)
+}
+
+export function* changeFlightsPage({ payload: { page } }) {
+  yield put(actions.setFlightsPage(page))
+  yield call(fetchFlights)
+}
+
+export function* fetchFlights() {
+  const { organizationId, aircraftId, page, rowsPerPage } = yield select(
+    aircraftFlightsViewSelector
+  )
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
@@ -273,9 +286,7 @@ export function* createFlight({
       dataToStore
     )
 
-    const { rowsPerPage } = yield select(aircraftFlightsViewSelector)
-    yield put(actions.fetchFlights(organizationId, aircraftId, 0, rowsPerPage))
-    yield put(actions.setFlightsPage(0))
+    yield put(actions.changeFlightsPage(0))
     yield put(actions.createFlightSuccess())
   } catch (e) {
     error(`Failed to create flight`, e)
@@ -364,8 +375,7 @@ export function* deleteFlight({
       deleted: true
     }
   )
-  const { page, rowsPerPage } = yield select(aircraftFlightsViewSelector)
-  yield put(actions.fetchFlights(organizationId, aircraftId, page, rowsPerPage))
+  yield put(actions.fetchFlights())
   yield put(actions.closeDeleteFlightDialog())
 }
 
@@ -403,6 +413,8 @@ export function* createAerodrome({
 
 export default function* sagas() {
   yield all([
+    takeEvery(actions.INIT_FLIGHTS_LIST, initFlightsList),
+    takeEvery(actions.CHANGE_FLIGHTS_PAGE, changeFlightsPage),
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),

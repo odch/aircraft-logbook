@@ -1,67 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`routes organizations routes aircraft components FlightList renders correctly 1`] = `
-<div
-  className="FlightList-container-1"
->
+Array [
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Flug erfassen
+    </span>
+  </button>,
   <div
-    className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+    className="FlightList-container-2"
   >
     <div
-      aria-disabled={false}
-      aria-expanded={false}
-      className="MuiButtonBase-root MuiExpansionPanelSummary-root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      role="button"
-      tabIndex={0}
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
     >
       <div
-        className="MuiExpansionPanelSummary-content"
-      >
-        <p
-          className="MuiTypography-root FlightList-flightHeading-2 MuiTypography-body1"
-        >
-          Von 
-          <span
-            className="FlightList-bold-4"
-          >
-            LSZT
-          </span>
-           nach 
-          <span
-            className="FlightList-bold-4"
-          >
-            LSZT
-          </span>
-           — Max Muster
-        </p>
-        <p
-          className="MuiTypography-root FlightList-flightSecondaryHeading-3 MuiTypography-body1"
-        >
-          20.11.2018
-          ,
-           
-          10:00
-          -
-          11:10
-        </p>
-      </div>
-      <div
         aria-disabled={false}
-        aria-hidden={true}
-        className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
+        aria-expanded={false}
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
         onBlur={[Function]}
+        onClick={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -73,177 +49,44 @@ exports[`routes organizations routes aircraft components FlightList renders corr
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         role="button"
-        tabIndex={-1}
-      >
-        <span
-          className="MuiIconButton-label"
-        >
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-            />
-          </svg>
-        </span>
-      </div>
-    </div>
-    <div
-      className="MuiCollapse-container MuiCollapse-hidden"
-      style={
-        Object {
-          "minHeight": "0px",
-        }
-      }
-    >
-      <div
-        className="MuiCollapse-wrapper"
+        tabIndex={0}
       >
         <div
-          className="MuiCollapse-wrapperInner"
+          className="MuiExpansionPanelSummary-content"
         >
-          <div
-            role="region"
-          />
+          <p
+            className="MuiTypography-root FlightList-flightHeading-3 MuiTypography-body1"
+          >
+            Von 
+            <span
+              className="FlightList-bold-5"
+            >
+              LSZT
+            </span>
+             nach 
+            <span
+              className="FlightList-bold-5"
+            >
+              LSZT
+            </span>
+             — Max Muster
+          </p>
+          <p
+            className="MuiTypography-root FlightList-flightSecondaryHeading-4 MuiTypography-body1"
+          >
+            20.11.2018
+            ,
+             
+            10:00
+            -
+            11:10
+          </p>
         </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
-  >
-    <div
-      aria-disabled={false}
-      aria-expanded={false}
-      className="MuiButtonBase-root MuiExpansionPanelSummary-root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      role="button"
-      tabIndex={0}
-    >
-      <div
-        className="MuiExpansionPanelSummary-content"
-      >
-        <p
-          className="MuiTypography-root FlightList-flightHeading-2 MuiTypography-body1"
-        >
-          Von 
-          <span
-            className="FlightList-bold-4"
-          >
-            LSZT
-          </span>
-           nach 
-          <span
-            className="FlightList-bold-4"
-          >
-            LSZT
-          </span>
-           — Hans Meier
-        </p>
-        <p
-          className="MuiTypography-root FlightList-flightSecondaryHeading-3 MuiTypography-body1"
-        >
-          21.11.2018
-          ,
-           
-          10:00
-          -
-          11:10
-        </p>
-      </div>
-      <div
-        aria-disabled={false}
-        aria-hidden={true}
-        className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
-        onBlur={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        role="button"
-        tabIndex={-1}
-      >
-        <span
-          className="MuiIconButton-label"
-        >
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-            />
-          </svg>
-        </span>
-      </div>
-    </div>
-    <div
-      className="MuiCollapse-container MuiCollapse-hidden"
-      style={
-        Object {
-          "minHeight": "0px",
-        }
-      }
-    >
-      <div
-        className="MuiCollapse-wrapper"
-      >
         <div
-          className="MuiCollapse-wrapperInner"
-        >
-          <div
-            role="region"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiTablePagination-root"
-  >
-    <div
-      className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
-    >
-      <div
-        className="MuiTablePagination-spacer"
-      />
-      <span
-        className="MuiTypography-root MuiTablePagination-caption MuiTypography-caption MuiTypography-colorInherit"
-      >
-        11-20 of 25
-      </span>
-      <div
-        className="MuiTablePagination-actions"
-      >
-        <button
-          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-          disabled={false}
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
           onBlur={[Function]}
-          onClick={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -254,8 +97,8 @@ exports[`routes organizations routes aircraft components FlightList renders corr
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
+          role="button"
+          tabIndex={-1}
         >
           <span
             className="MuiIconButton-label"
@@ -268,16 +111,91 @@ exports[`routes organizations routes aircraft components FlightList renders corr
               viewBox="0 0 24 24"
             >
               <path
-                d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
               />
             </svg>
           </span>
-        </button>
-        <button
-          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-          disabled={false}
+        </div>
+      </div>
+      <div
+        className="MuiCollapse-container MuiCollapse-hidden"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper"
+        >
+          <div
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+    >
+      <div
+        aria-disabled={false}
+        aria-expanded={false}
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <div
+          className="MuiExpansionPanelSummary-content"
+        >
+          <p
+            className="MuiTypography-root FlightList-flightHeading-3 MuiTypography-body1"
+          >
+            Von 
+            <span
+              className="FlightList-bold-5"
+            >
+              LSZT
+            </span>
+             nach 
+            <span
+              className="FlightList-bold-5"
+            >
+              LSZT
+            </span>
+             — Hans Meier
+          </p>
+          <p
+            className="MuiTypography-root FlightList-flightSecondaryHeading-4 MuiTypography-body1"
+          >
+            21.11.2018
+            ,
+             
+            10:00
+            -
+            11:10
+          </p>
+        </div>
+        <div
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
           onBlur={[Function]}
-          onClick={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -288,8 +206,8 @@ exports[`routes organizations routes aircraft components FlightList renders corr
           onTouchEnd={[Function]}
           onTouchMove={[Function]}
           onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
+          role="button"
+          tabIndex={-1}
         >
           <span
             className="MuiIconButton-label"
@@ -302,13 +220,121 @@ exports[`routes organizations routes aircraft components FlightList renders corr
               viewBox="0 0 24 24"
             >
               <path
-                d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
               />
             </svg>
           </span>
-        </button>
+        </div>
+      </div>
+      <div
+        className="MuiCollapse-container MuiCollapse-hidden"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper"
+        >
+          <div
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+    <div
+      className="MuiTablePagination-root"
+    >
+      <div
+        className="MuiToolbar-root MuiToolbar-regular MuiTablePagination-toolbar MuiToolbar-gutters"
+      >
+        <div
+          className="MuiTablePagination-spacer"
+        />
+        <span
+          className="MuiTypography-root MuiTablePagination-caption MuiTypography-caption MuiTypography-colorInherit"
+        >
+          11-20 of 25
+        </span>
+        <div
+          className="MuiTablePagination-actions"
+        >
+          <button
+            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;

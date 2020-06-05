@@ -1,5 +1,8 @@
+export const INIT_FLIGHTS_LIST = 'aircraft/INIT_FLIGHTS_LIST'
 export const FETCH_FLIGHTS = 'aircraft/FETCH_FLIGHTS'
+export const CHANGE_FLIGHTS_PAGE = 'aircraft/CHANGE_FLIGHTS_PAGE'
 export const SET_FLIGHTS_PAGE = 'aircraft/SET_FLIGHTS_PAGE'
+export const SET_FLIGHTS_PARAMS = 'aircraft/SET_FLIGHTS_PARAMS'
 export const OPEN_CREATE_FLIGHT_DIALOG = 'aircraft/OPEN_CREATE_FLIGHT_DIALOG'
 export const CLOSE_CREATE_FLIGHT_DIALOG = 'aircraft/CLOSE_CREATE_FLIGHT_DIALOG'
 export const UPDATE_CREATE_FLIGHT_DIALOG_DATA =
@@ -29,18 +32,23 @@ export const SET_CREATE_AERODROME_DIALOG_SUBMITTING =
 export const CREATE_AERODROME_SUCCESS = 'aircraft/CREATE_AERODROME_SUCCESS'
 export const CREATE_AERODROME_FAILURE = 'aircraft/CREATE_AERODROME_FAILURE'
 
-export const fetchFlights = (
-  organizationId,
-  aircraftId,
-  page,
-  rowsPerPage
-) => ({
-  type: FETCH_FLIGHTS,
+export const initFlightsList = (organizationId, aircraftId, rowsPerPage) => ({
+  type: INIT_FLIGHTS_LIST,
   payload: {
     organizationId,
     aircraftId,
-    page,
     rowsPerPage
+  }
+})
+
+export const fetchFlights = () => ({
+  type: FETCH_FLIGHTS
+})
+
+export const changeFlightsPage = page => ({
+  type: CHANGE_FLIGHTS_PAGE,
+  payload: {
+    page
   }
 })
 
@@ -48,6 +56,15 @@ export const setFlightsPage = page => ({
   type: SET_FLIGHTS_PAGE,
   payload: {
     page
+  }
+})
+
+export const setFlightsParams = (organizationId, aircraftId, rowsPerPage) => ({
+  type: SET_FLIGHTS_PARAMS,
+  payload: {
+    organizationId,
+    aircraftId,
+    rowsPerPage
   }
 })
 
