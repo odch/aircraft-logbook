@@ -1,6 +1,6 @@
 import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
-import { getFirestore } from '../../../../../util/firebase'
+import { getFirestore, callFunction } from '../../../../../util/firebase'
 import * as actions from './actions'
 import { getMemberOption, getAerodromeOption } from '../util/getOptions'
 import { error } from '../../../../../util/log'
@@ -8,14 +8,20 @@ import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { getCounters } from './util/counters'
-import { fetchAerodromes } from '../../../module/actions'
+import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
+import { isClosed } from '../../../../../util/techlogStatus'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
 export const flightsSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const techlogPageSelector = (aircraftId, page) => state =>
+  state.firestore.ordered[`techlog-${aircraftId}-${page}`]
+export const openTechlogEntriesSelector = aircraftId => state =>
+  state.firestore.ordered[`techlog-${aircraftId}-open`]
 export const aircraftFlightsViewSelector = state => state.aircraft.flights
+export const aircraftTechlogViewSelector = state => state.aircraft.techlog
 export const aircraftSettingsSelector = (state, aircraftId) =>
   state.firestore.data.organizationAircrafts[aircraftId].settings
 
@@ -129,6 +135,17 @@ export function* getFlight(organizationId, aircraftId, flightId) {
     aircraftId,
     'flights',
     flightId
+  ])
+}
+
+export function* getTechlogEntry(organizationId, aircraftId, techlogEntryId) {
+  return yield call(getDoc, [
+    'organizations',
+    organizationId,
+    'aircrafts',
+    aircraftId,
+    'techlog',
+    techlogEntryId
   ])
 }
 
@@ -411,6 +428,228 @@ export function* createAerodrome({
   }
 }
 
+export function* initTechlog({
+  payload: { organizationId, aircraftId, showOnlyOpen }
+}) {
+  yield put(actions.setTechlogParams(organizationId, aircraftId, showOnlyOpen))
+  yield call(fetchTechlog)
+}
+
+export function* changeTechlogPage({ payload: { page } }) {
+  yield put(actions.setTechlogPage(page))
+  yield call(fetchTechlog)
+}
+
+export function* getStartTechlogDocument(organizationId, aircraftId, page) {
+  if (page === 0) {
+    return null
+  }
+  const previousPage = yield select(techlogPageSelector(aircraftId, page - 1))
+  if (previousPage && previousPage.length > 0) {
+    const lastEntry = previousPage[previousPage.length - 1]
+    return yield call(getTechlogEntry, organizationId, aircraftId, lastEntry.id)
+  }
+  return null
+}
+
+export function* fetchTechlog() {
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showOnlyOpen
+  } = yield select(aircraftTechlogViewSelector)
+  const firestore = yield call(getFirestore)
+  const techlogEntries = yield showOnlyOpen
+    ? call(fetchOpenTechlogEntries, firestore, organizationId, aircraftId)
+    : call(
+        fetchTechlogPage,
+        firestore,
+        organizationId,
+        aircraftId,
+        page,
+        rowsPerPage
+      )
+  yield call(
+    fetchTechlogActions,
+    firestore,
+    organizationId,
+    aircraftId,
+    techlogEntries
+  )
+}
+
+export function* fetchOpenTechlogEntries(
+  firestore,
+  organizationId,
+  aircraftId
+) {
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog'
+            }
+          ]
+        }
+      ],
+      where: [['deleted', '==', false], ['closed', '==', false]],
+      orderBy: ['timestamp', 'desc'],
+      storeAs: `techlog-${aircraftId}-open`
+    },
+    {}
+  )
+  return yield select(openTechlogEntriesSelector(aircraftId))
+}
+
+export function* fetchTechlogPage(
+  firestore,
+  organizationId,
+  aircraftId,
+  page,
+  rowsPerPage
+) {
+  const startDocument = yield call(
+    getStartTechlogDocument,
+    organizationId,
+    aircraftId,
+    page
+  )
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog'
+            }
+          ]
+        }
+      ],
+      where: [['deleted', '==', false]],
+      orderBy: ['timestamp', 'desc'],
+      startAfter: startDocument,
+      limit: rowsPerPage,
+      storeAs: `techlog-${aircraftId}-${page}`
+    },
+    {}
+  )
+  return yield select(techlogPageSelector(aircraftId, page))
+}
+
+export function* fetchTechlogActions(
+  firestore,
+  organizationId,
+  aircraftId,
+  techlogEntries
+) {
+  yield all(
+    techlogEntries.map(entry =>
+      getTechlogActionsQuery(firestore, organizationId, aircraftId, entry.id)
+    )
+  )
+}
+
+const getTechlogActionsQuery = (
+  firestore,
+  organizationId,
+  aircraftId,
+  techlogEntryId
+) =>
+  call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog',
+              doc: techlogEntryId,
+              subcollections: [
+                {
+                  collection: 'actions'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      orderBy: 'timestamp',
+      storeAs: `techlog-entry-actions-${techlogEntryId}`
+    },
+    {}
+  )
+
+export function* createTechlogEntry({
+  payload: { organizationId, aircraftId, data }
+}) {
+  try {
+    yield put(actions.setCreateTechlogEntryDialogSubmitting())
+    const entry = {
+      description: data.description,
+      initial_status: data.status.value,
+      current_status: data.status.value,
+      closed: isClosed(data.status.value)
+    }
+    yield call(callFunction, 'addTechlogEntry', {
+      organizationId,
+      aircraftId,
+      entry
+    })
+    yield put(fetchAircrafts(organizationId))
+    yield call(fetchTechlog)
+    yield put(actions.createTechlogEntrySuccess())
+  } catch (e) {
+    error('Failed to create techlog entry', e)
+    yield put(actions.createTechlogEntryFailure())
+  }
+}
+
+export function* createTechlogEntryAction({
+  payload: { organizationId, aircraftId, techlogEntryId, data }
+}) {
+  try {
+    yield put(actions.setCreateTechlogEntryActionDialogSubmitting())
+    const action = {
+      description: data.description,
+      status: data.status.value
+    }
+    if (data.signature) {
+      action.signature = data.signature
+    }
+    yield call(callFunction, 'addTechlogEntryAction', {
+      organizationId,
+      aircraftId,
+      techlogEntryId,
+      techlogEntryClosed: isClosed(data.status.value),
+      action
+    })
+    yield put(fetchAircrafts(organizationId))
+    yield call(fetchTechlog)
+    yield put(actions.createTechlogEntryActionSuccess())
+  } catch (e) {
+    error('Failed to create techlog entry action', e)
+    yield put(actions.createTechlogEntryActionFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.INIT_FLIGHTS_LIST, initFlightsList),
@@ -419,6 +658,10 @@ export default function* sagas() {
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
     takeEvery(actions.DELETE_FLIGHT, deleteFlight),
-    takeEvery(actions.CREATE_AERODROME, createAerodrome)
+    takeEvery(actions.CREATE_AERODROME, createAerodrome),
+    takeEvery(actions.INIT_TECHLOG, initTechlog),
+    takeEvery(actions.CHANGE_TECHLOG_PAGE, changeTechlogPage),
+    takeEvery(actions.CREATE_TECHLOG_ENTRY, createTechlogEntry),
+    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction)
   ])
 }

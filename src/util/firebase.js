@@ -7,6 +7,7 @@ export const initFirebase = store => {
     import('firebase/app'),
     import('firebase/auth'),
     import('firebase/firestore'),
+    import('firebase/functions'),
     window.Cypress && import('firebase/functions')
   ]).then(([reactReduxFirebase, reduxFirestore, firebase]) => {
     firebase.default.initializeApp(__CONF__.firebase)
@@ -39,3 +40,9 @@ export const initFirebase = store => {
 export const getFirebase = () => initPromise.then(store => store.firebase)
 
 export const getFirestore = () => initPromise.then(store => store.firestore)
+
+export const callFunction = async (name, args) => {
+  const firebase = await getFirebase()
+  const fn = firebase.functions().httpsCallable(name)
+  return fn(args)
+}

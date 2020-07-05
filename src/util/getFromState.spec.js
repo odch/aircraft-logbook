@@ -108,7 +108,8 @@ describe('util', () => {
           counters: {
             flights: 0,
             landings: 0,
-            flightHours: 0
+            flightHours: 0,
+            techlogEntries: 0
           }
         })
       })
@@ -144,7 +145,48 @@ describe('util', () => {
           counters: {
             flights: 1,
             landings: 3,
-            flightHours: 120
+            flightHours: 120,
+            techlogEntries: 0
+          }
+        })
+      })
+
+      it('should return techlog entries count from aircraft counters object', () => {
+        const state = {
+          firestore: {
+            data: {
+              organizationAircrafts: {
+                o7flC7jw8jmkOfWo8oyA: {
+                  registration: 'HBKLA',
+                  counters: {
+                    techlogEntries: 32
+                  }
+                }
+              }
+            },
+            ordered: {
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
+                {
+                  counters: {
+                    flights: { end: 1 },
+                    landings: { end: 3 },
+                    flightHours: { end: 120 }
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const aircraft = getAircraft(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(aircraft).toEqual({
+          id: 'o7flC7jw8jmkOfWo8oyA',
+          registration: 'HBKLA',
+          counters: {
+            flights: 1,
+            landings: 3,
+            flightHours: 120,
+            techlogEntries: 32
           }
         })
       })

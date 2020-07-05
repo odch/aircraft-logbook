@@ -5,15 +5,13 @@ import { Redirect } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import isLoaded from '../../../../../../util/isLoaded'
+import isLoaded from '../../../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
   aircraft as aircraftShape
-} from '../../../../../../shapes'
-import LoadingIcon from '../../../../../../components/LoadingIcon'
-import FlightList from '../../containers/FlightListContainer'
+} from '../../../../../../../../shapes'
+import LoadingIcon from '../../../../../../../../components/LoadingIcon'
 import Techlog from '../../containers/TechlogContainer'
-import Checks from '../Checks'
 
 const styles = theme => ({
   container: {
@@ -26,7 +24,7 @@ const styles = theme => ({
   }
 })
 
-class AircraftDetail extends React.Component {
+class AircraftTechlog extends React.Component {
   componentDidMount() {
     const {
       organization,
@@ -80,38 +78,22 @@ class AircraftDetail extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Checks checks={aircraft.checks} counters={aircraft.counters} />
-        <Typography variant="h5" gutterBottom>
-          <FormattedMessage id="aircraftdetail.techlog" />
-        </Typography>
-        <Techlog organization={organization} aircraft={aircraft} showOnlyOpen />
         <Button
-          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/techlog`}
+          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
           color="primary"
         >
-          <FormattedMessage id="aircraftdetail.techlog.all" />
+          <FormattedMessage id="aircraft.techlog.tooverview" />
         </Button>
         <Typography variant="h5" gutterBottom>
-          <FormattedMessage id="aircraftdetail.flights" />
+          <FormattedMessage id="aircraft.techlog" />
         </Typography>
-        <FlightList
-          organization={organization}
-          aircraft={aircraft}
-          rowsPerPage={5}
-          hidePagination
-        />
-        <Button
-          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/flights`}
-          color="primary"
-        >
-          <FormattedMessage id="aircraftdetail.flights.all" />
-        </Button>
+        <Techlog organization={organization} aircraft={aircraft} />
       </div>
     )
   }
 }
 
-AircraftDetail.propTypes = {
+AircraftTechlog.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
   classes: PropTypes.object.isRequired,
@@ -120,4 +102,4 @@ AircraftDetail.propTypes = {
   fetchAerodromes: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(AircraftDetail)
+export default withStyles(styles)(AircraftTechlog)

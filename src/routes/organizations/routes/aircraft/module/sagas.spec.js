@@ -1,13 +1,14 @@
 import { all, takeEvery, call, put, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
-import { getFirestore } from '../../../../../util/firebase'
+import { callFunction, getFirestore } from '../../../../../util/firebase'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { fetchAerodromes } from '../../../module'
+import { fetchAircrafts } from '../../../module/actions'
 
 const counter = (start, end) => ({ start, end })
 
@@ -679,6 +680,125 @@ describe('routes', () => {
             })
           })
 
+          describe('initTechlog', () => {
+            it('should init the techlog list state', () => {
+              const action = actions.initTechlog(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                true
+              )
+              return expectSaga(sagas.initTechlog, action)
+                .provide([[call(sagas.fetchTechlog)]])
+                .put(
+                  actions.setTechlogParams(
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    true
+                  )
+                )
+                .call(sagas.fetchTechlog)
+                .run()
+            })
+          })
+
+          describe('changeTechlogPage', () => {
+            it('should change the page of the techlog list', () => {
+              const action = actions.changeTechlogPage(2)
+              return expectSaga(sagas.changeTechlogPage, action)
+                .provide([[call(sagas.fetchTechlog)]])
+                .put(actions.setTechlogPage(2))
+                .call(sagas.fetchTechlog)
+                .run()
+            })
+          })
+
+          describe('createTechlogEntry', () => {
+            it('should create a techlog entry', () => {
+              const data = {
+                status: { value: 'not_airworthy' },
+                description: 'Schraube am Bugfahrwerk locker'
+              }
+              const expectedDataToStore = {
+                description: 'Schraube am Bugfahrwerk locker',
+                initial_status: 'not_airworthy',
+                current_status: 'not_airworthy',
+                closed: false
+              }
+              const action = actions.createTechlogEntry(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                data
+              )
+              return expectSaga(sagas.createTechlogEntry, action)
+                .provide([
+                  [call(sagas.fetchTechlog)],
+                  [
+                    call(callFunction, 'addTechlogEntry', {
+                      organizationId: 'my_org',
+                      aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                      entry: expectedDataToStore
+                    })
+                  ]
+                ])
+                .put(actions.setCreateTechlogEntryDialogSubmitting())
+                .call(callFunction, 'addTechlogEntry', {
+                  organizationId: 'my_org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  entry: expectedDataToStore
+                })
+                .put(fetchAircrafts('my_org'))
+                .call(sagas.fetchTechlog)
+                .put(actions.createTechlogEntrySuccess())
+                .run()
+            })
+          })
+
+          describe('createTechlogEntryAction', () => {
+            it('should create a techlog entry action', () => {
+              const data = {
+                status: { value: 'not_airworthy' },
+                description: 'Schraube bestellt',
+                signature: 'XYZ-123'
+              }
+              const expectedDataToStore = {
+                description: 'Schraube bestellt',
+                status: 'not_airworthy',
+                signature: 'XYZ-123'
+              }
+              const action = actions.createTechlogEntryAction(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                'asdf245asfjkl',
+                data
+              )
+              return expectSaga(sagas.createTechlogEntryAction, action)
+                .provide([
+                  [call(sagas.fetchTechlog)],
+                  [
+                    call(callFunction, 'addTechlogEntryAction', {
+                      organizationId: 'my_org',
+                      aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                      techlogEntryId: 'asdf245asfjkl',
+                      action: expectedDataToStore,
+                      techlogEntryClosed: false
+                    })
+                  ]
+                ])
+                .put(actions.setCreateTechlogEntryActionDialogSubmitting())
+                .call(callFunction, 'addTechlogEntryAction', {
+                  organizationId: 'my_org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  techlogEntryId: 'asdf245asfjkl',
+                  action: expectedDataToStore,
+                  techlogEntryClosed: false
+                })
+                .put(fetchAircrafts('my_org'))
+                .call(sagas.fetchTechlog)
+                .put(actions.createTechlogEntryActionSuccess())
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
@@ -697,7 +817,20 @@ describe('routes', () => {
                     sagas.initCreateFlightDialog
                   ),
                   takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight),
-                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome)
+                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome),
+                  takeEvery(actions.INIT_TECHLOG, sagas.initTechlog),
+                  takeEvery(
+                    actions.CHANGE_TECHLOG_PAGE,
+                    sagas.changeTechlogPage
+                  ),
+                  takeEvery(
+                    actions.CREATE_TECHLOG_ENTRY,
+                    sagas.createTechlogEntry
+                  ),
+                  takeEvery(
+                    actions.CREATE_TECHLOG_ENTRY_ACTION,
+                    sagas.createTechlogEntryAction
+                  )
                 ])
               )
             })
