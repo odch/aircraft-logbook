@@ -27,6 +27,31 @@ const INITIAL_STATE = {
     aircraftId: null,
     page: 0,
     rowsPerPage: 10
+  },
+  techlog: {
+    organizationId: null,
+    aircraftId: null,
+    page: 0,
+    rowsPerPage: 10,
+    showOnlyOpen: false
+  },
+  createTechlogEntryDialog: {
+    open: false,
+    submitting: false,
+    data: {
+      description: '',
+      status: null
+    }
+  },
+  createTechlogEntryActionDialog: {
+    open: false,
+    submitting: false,
+    techlogEntryId: null,
+    data: {
+      description: '',
+      status: null,
+      signature: null
+    }
   }
 }
 
@@ -522,6 +547,255 @@ describe('routes', () => {
                   identification: 'LSXX',
                   name: 'Hagenbuch',
                   timezone: 'Europe/Zurich'
+                }
+              }
+            })
+          })
+
+          it('handles SET_TECHLOG_PAGE action', () => {
+            expect(
+              reducer(
+                {
+                  techlog: { page: 1 }
+                },
+                actions.setTechlogPage(2)
+              )
+            ).toEqual({
+              techlog: { page: 2 }
+            })
+          })
+
+          it('handles SET_TECHLOG_PARAMS action', () => {
+            expect(
+              reducer(
+                {
+                  techlog: {
+                    organizationId: null,
+                    aircraftId: null,
+                    page: 0,
+                    rowsPerPage: 10,
+                    showOnlyOpen: false
+                  }
+                },
+                actions.setTechlogParams('my_org', 'my_aircraft', true)
+              )
+            ).toEqual({
+              techlog: {
+                organizationId: 'my_org',
+                aircraftId: 'my_aircraft',
+                page: 0,
+                rowsPerPage: undefined,
+                showOnlyOpen: true
+              }
+            })
+          })
+
+          it('handles OPEN_CREATE_TECHLOG_ENTRY_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryDialog: {
+                    open: false,
+                    submitting: true,
+                    data: {
+                      description: 'big problem',
+                      status: 'not_airworthy'
+                    }
+                  }
+                },
+                actions.openCreateTechlogEntryDialog()
+              )
+            ).toEqual({
+              createTechlogEntryDialog: {
+                open: true,
+                submitting: false,
+                data: {
+                  description: '',
+                  status: null
+                }
+              }
+            })
+          })
+
+          it('handles CLOSE_CREATE_TECHLOG_ENTRY_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryDialog: {
+                    open: true
+                  }
+                },
+                actions.closeCreateTechlogEntryDialog()
+              )
+            ).toEqual({
+              createTechlogEntryDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles OPEN_CREATE_TECHLOG_ENTRY_ACTION_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryActionDialog: {
+                    open: false,
+                    submitting: true,
+                    techlogEntryId: 'entry-1',
+                    data: {
+                      description: 'action xyz taken',
+                      status: { value: 'crs' },
+                      signature: 'XYZ-123'
+                    }
+                  }
+                },
+                actions.openCreateTechlogEntryActionDialog(
+                  'entry-2',
+                  'for_information_only'
+                )
+              )
+            ).toEqual({
+              createTechlogEntryActionDialog: {
+                open: true,
+                submitting: false,
+                techlogEntryId: 'entry-2',
+                data: {
+                  description: '',
+                  status: 'for_information_only',
+                  signature: null
+                }
+              }
+            })
+          })
+
+          it('handles CLOSE_CREATE_TECHLOG_ENTRY_ACTION_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryActionDialog: {
+                    open: true
+                  }
+                },
+                actions.closeCreateTechlogEntryActionDialog()
+              )
+            ).toEqual({
+              createTechlogEntryActionDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles SET_CREATE_TECHLOG_ENTRY_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryDialog: { submitting: false }
+                },
+                actions.setCreateTechlogEntryDialogSubmitting()
+              )
+            ).toEqual({
+              createTechlogEntryDialog: { submitting: true }
+            })
+          })
+
+          it('handles SET_CREATE_TECHLOG_ENTRY_ACTION_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryActionDialog: { submitting: false }
+                },
+                actions.setCreateTechlogEntryActionDialogSubmitting()
+              )
+            ).toEqual({
+              createTechlogEntryActionDialog: { submitting: true }
+            })
+          })
+
+          it('handles CREATE_TECHLOG_ENTRY_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryDialog: { submitting: true }
+                },
+                actions.createTechlogEntryFailure()
+              )
+            ).toEqual({
+              createTechlogEntryDialog: { submitting: false }
+            })
+          })
+
+          it('handles CREATE_TECHLOG_ENTRY_ACTION_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryActionDialog: { submitting: true }
+                },
+                actions.createTechlogEntryActionFailure()
+              )
+            ).toEqual({
+              createTechlogEntryActionDialog: { submitting: false }
+            })
+          })
+
+          it('handles UPDATE_CREATE_TECHLOG_ENTRY_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryDialog: {
+                    submitting: false,
+                    open: true,
+                    data: {
+                      description: '',
+                      status: { value: 'for_information_only' }
+                    }
+                  }
+                },
+                actions.updateCreateTechlogEntryDialogData({
+                  description: 'Some problem occurred',
+                  status: { value: 'not_airworthy' }
+                })
+              )
+            ).toEqual({
+              createTechlogEntryDialog: {
+                submitting: false,
+                open: true,
+                data: {
+                  description: 'Some problem occurred',
+                  status: { value: 'not_airworthy' }
+                }
+              }
+            })
+          })
+
+          it('handles UPDATE_CREATE_TECHLOG_ENTRY_ACTION_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createTechlogEntryActionDialog: {
+                    open: true,
+                    submitting: false,
+                    techlogEntryId: 'entry-1',
+                    data: {
+                      description: 'action xyz taken',
+                      status: 'crs',
+                      signature: null
+                    }
+                  }
+                },
+                actions.updateCreateTechlogEntryActionDialogData({
+                  description: 'action xyz taken, and also action 123',
+                  signature: 'XYZ-123'
+                })
+              )
+            ).toEqual({
+              createTechlogEntryActionDialog: {
+                open: true,
+                submitting: false,
+                techlogEntryId: 'entry-1',
+                data: {
+                  description: 'action xyz taken, and also action 123',
+                  status: 'crs',
+                  signature: 'XYZ-123'
                 }
               }
             })

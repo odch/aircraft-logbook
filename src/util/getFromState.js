@@ -16,7 +16,14 @@ export const getAircraft = (state, aircraftId) => {
     const foundAircraft = organizationAircrafts[aircraftId]
     if (foundAircraft) {
       const aircraft = { ...foundAircraft, id: aircraftId }
+
+      const techlogEntriesCount =
+        aircraft.counters && aircraft.counters.techlogEntries
+          ? aircraft.counters.techlogEntries
+          : 0
       aircraft.counters = getAircraftCounters(state, aircraftId)
+      aircraft.counters.techlogEntries = techlogEntriesCount
+
       return aircraft
     }
     return null // not found
@@ -72,4 +79,21 @@ const getLatestFlight = (state, aircraftId) => {
     }
   }
   return null
+}
+
+export const getAircraftTechlog = (state, aircraftId, page) =>
+  techlogWithActions(state, `techlog-${aircraftId}-${page}`)
+
+export const getAircraftTechlogOpen = (state, aircraftId) =>
+  techlogWithActions(state, `techlog-${aircraftId}-open`)
+
+const techlogWithActions = (state, stateId) => {
+  const techlogEntries = state.firestore.ordered[stateId]
+  if (techlogEntries) {
+    return techlogEntries.map(entry => ({
+      ...entry,
+      actions: state.firestore.ordered[`techlog-entry-actions-${entry.id}`]
+    }))
+  }
+  return undefined
 }

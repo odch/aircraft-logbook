@@ -13,7 +13,18 @@ import {
   openCreateAerodromeDialog,
   closeCreateAerodromeDialog,
   updateCreateAerodromeDialogData,
-  createAerodrome
+  createAerodrome,
+  initTechlog,
+  fetchTechlog,
+  changeTechlogPage,
+  openCreateTechlogEntryDialog,
+  updateCreateTechlogEntryDialogData,
+  closeCreateTechlogEntryDialog,
+  createTechlogEntry,
+  openCreateTechlogEntryActionDialog,
+  updateCreateTechlogEntryActionDialogData,
+  closeCreateTechlogEntryActionDialog,
+  createTechlogEntryAction
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -33,7 +44,18 @@ export {
   openCreateAerodromeDialog,
   closeCreateAerodromeDialog,
   updateCreateAerodromeDialogData,
-  createAerodrome
+  createAerodrome,
+  initTechlog,
+  fetchTechlog,
+  changeTechlogPage,
+  openCreateTechlogEntryDialog,
+  updateCreateTechlogEntryDialogData,
+  closeCreateTechlogEntryDialog,
+  createTechlogEntry,
+  openCreateTechlogEntryActionDialog,
+  updateCreateTechlogEntryActionDialogData,
+  closeCreateTechlogEntryActionDialog,
+  createTechlogEntryAction
 }
 
 export { sagas }

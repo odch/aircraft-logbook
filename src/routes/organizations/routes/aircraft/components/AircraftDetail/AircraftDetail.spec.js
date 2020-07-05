@@ -66,6 +66,12 @@ describe('routes', () => {
                   },
                   deleteFlightDialog: {
                     open: false
+                  },
+                  createTechlogEntryDialog: {
+                    open: false
+                  },
+                  createTechlogEntryActionDialog: {
+                    open: false
                   }
                 },
                 firestore: {
@@ -103,6 +109,19 @@ describe('routes', () => {
                           flights: { end: 1 },
                           landings: { end: 1 },
                           flightHours: { end: 100 }
+                        }
+                      }
+                    ],
+                    'techlog-o7flC7jw8jmkOfWo8oyA-open': [
+                      {
+                        description: 'Schraube am Bugfahrwerk locker',
+                        author: {
+                          firstname: 'Hans',
+                          lastname: 'Meier'
+                        },
+                        current_status: 'not_airworthy',
+                        timestamp: {
+                          toDate: () => Date.parse('2020-06-25 10:54 GMT+0100')
                         }
                       }
                     ]

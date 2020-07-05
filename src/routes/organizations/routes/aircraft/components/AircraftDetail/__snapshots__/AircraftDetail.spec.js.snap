@@ -18,6 +18,170 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   <h5
     className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
   >
+    Offene Techlog-Einträge
+  </h5>
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Eintrag erfassen
+    </span>
+  </button>
+  <div
+    className="Techlog-container-48"
+  >
+    <div
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+    >
+      <div
+        aria-disabled={false}
+        aria-expanded={false}
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <div
+          className="MuiExpansionPanelSummary-content"
+        >
+          <div
+            className="Techlog-entryHeading-49"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+            >
+              Schraube am Bugfahrwerk locker
+              <br />
+            </p>
+            <span
+              className="MuiTypography-root EntryStatus-status-109 EntryStatus-error-110 MuiTypography-body1"
+            >
+              Nicht flugtauglich
+            </span>
+          </div>
+          <p
+            className="MuiTypography-root Techlog-entrySecondaryHeading-50 MuiTypography-body1"
+          >
+            Hans
+             
+            Meier
+            , 
+            25.06.2020
+             
+            04:54
+          </p>
+        </div>
+        <div
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiCollapse-container MuiCollapse-hidden"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper"
+        >
+          <div
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a
+    aria-disabled={false}
+    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary"
+    href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA/techlog"
+    onBlur={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Alle anzeigen
+    </span>
+  </a>
+  <h5
+    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+  >
     Neueste Flüge
   </h5>
   <button
@@ -45,7 +209,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-48"
+    className="FlightList-container-137"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -73,24 +237,24 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <p
-            className="MuiTypography-root FlightList-flightHeading-49 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightHeading-138 MuiTypography-body1"
           >
             Von 
             <span
-              className="FlightList-bold-51"
+              className="FlightList-bold-140"
             >
               LSZT
             </span>
              nach 
             <span
-              className="FlightList-bold-51"
+              className="FlightList-bold-140"
             >
               LSZT
             </span>
              — Max Muster
           </p>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-50 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-139 MuiTypography-body1"
           >
             20.11.2018
             ,

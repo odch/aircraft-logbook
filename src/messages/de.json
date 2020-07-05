@@ -39,6 +39,38 @@
   "aircraftdetail.checks.counter.remaining": "{diff} {counterName} verbleibend",
   "aircraftdetail.checks.counter.due": "{diff} {counterName} überfällig",
 
+  "aircraftdetail.techlog": "Offene Techlog-Einträge",
+  "aircraftdetail.techlog.all": "Alle anzeigen",
+  "aircraftdetail.techlog.none": "Keine Einträge erfasst.",
+  "aircraftdetail.techlog.create": "Eintrag erfassen",
+  "aircraftdetail.techlog.action.none": "Noch keine Aktualisierung erfasst.",
+  "aircraftdetail.techlog.action.create": "Aktualisierung erfassen",
+  "aircraftdetail.techlog.action.signature": "Signatur",
+
+  "techlog.entry.status.for_information_only": "Nur zur Information",
+  "techlog.entry.status.not_airworthy": "Nicht flugtauglich",
+  "techlog.entry.status.not_flight_relevant": "Nicht flugrelevant",
+  "techlog.entry.status.closed": "Geschlossen",
+  "techlog.entry.status.crs": "CRS",
+  "techlog.entry.status.crs_check": "CRS Check",
+  "techlog.entry.status.annual_review": "Jahreskontrolle",
+
+  "aircraft.techlog": "Techlog",
+  "aircraft.techlog.tooverview": "Zurück zur Übersicht",
+
+  "aircraft.techlog.create.dialog.title": "Techlog-Eintrag erfassen",
+  "aircraft.techlog.create.dialog.description": "Beschreibung",
+  "aircraft.techlog.create.dialog.status": "Status",
+  "aircraft.techlog.create.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.techlog.create.dialog.buttons.create": "Speichern",
+
+  "aircraft.techlog.action.create.dialog.title": "Aktualisierung erfassen",
+  "aircraft.techlog.action.create.dialog.description": "Beschreibung",
+  "aircraft.techlog.action.create.dialog.status": "Neuer Status",
+  "aircraft.techlog.action.create.dialog.signature": "Signatur",
+  "aircraft.techlog.action.create.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.techlog.action.create.dialog.buttons.create": "Speichern",
+
   "aircraftdetail.flights": "Neueste Flüge",
   "aircraftdetail.flights.all": "Alle anzeigen",
   "aircraftdetail.noflights": "Noch keine Flüge erfasst.",
@@ -154,6 +186,7 @@
 
   "organization.role.owner": "Besitzer",
   "organization.role.manager": "Manager",
+  "organization.role.techlogmanager": "Techlog-Manager",
   "organization.role.user": "Benutzer",
 
   "organization.settings.createmember": "Mitglied hinzufügen",
