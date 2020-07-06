@@ -16,7 +16,7 @@
     "start:cy": "npm run start --project=cypress",
     "start:dev": "npm run start --project=dev",
     "start:prod": "npm run start --project=prod",
-    "test": "jest"
+    "test": "TZ=UTC jest"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
