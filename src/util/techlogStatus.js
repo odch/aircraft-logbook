@@ -13,6 +13,9 @@ export const getTechlogStatus = isTechlogManager =>
     ? STATUS.slice(0)
     : STATUS.filter(status => status.closed === false)
 
+export const getOpenTechlogStatus = () =>
+  STATUS.filter(status => status.closed === false)
+
 export const isClosed = statusId => {
   const status = STATUS.find(status => status.id === statusId)
   if (!status) {
