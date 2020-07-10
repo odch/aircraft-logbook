@@ -11,11 +11,18 @@ import {
 } from '../module'
 import { getAircraft } from '../../../../../util/getFromState'
 import { getAerodromeOption, getMemberOption } from '../util/getOptions'
+import { getOpenTechlogStatus } from '../../../../../util/techlogStatus'
 
 const flightNatures = intl =>
   getFlightNatures().map(nature => ({
     value: nature,
     label: intl.formatMessage({ id: `flight.nature.${nature}` })
+  }))
+
+const techlogEntryStatus = intl =>
+  getOpenTechlogStatus().map(status => ({
+    value: status.id,
+    label: intl.formatMessage({ id: `techlog.entry.status.${status.id}` })
   }))
 
 const aircraftSettings = (state, aircraftId) => {
@@ -87,6 +94,7 @@ const mapStateToProps = (state, ownProps) => {
   const { aircraftId, intl } = ownProps
   return {
     flightNatures: flightNatures(intl),
+    techlogEntryStatusOptions: techlogEntryStatus(intl),
     loadMembers: loadMembers(state),
     loadAerodromes: loadAerodromes(state),
     aircraftSettings: aircraftSettings(state, aircraftId),

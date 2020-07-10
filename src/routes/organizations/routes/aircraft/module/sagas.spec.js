@@ -182,7 +182,9 @@ describe('routes', () => {
                 fuelUplift: 5789,
                 fuelType: { value: 'avgas_homebase' },
                 oilUplift: 245,
-                remarks: 'bemerkung zeile 1\nzeile2'
+                troublesObservations: 'troubles',
+                techlogEntryStatus: { value: 'not_airworthy' },
+                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n   '
               }
 
               const action = actions.createFlight(
@@ -360,12 +362,35 @@ describe('routes', () => {
                     fuelUnit: 'litre',
                     fuelType: 'avgas_homebase',
                     oilUplift: 2.45,
-                    oilUnit: 'litre',
-                    remarks: 'bemerkung zeile 1\nzeile2'
+                    oilUnit: 'litre'
                   }
                 )
               )
 
+              const flightDoc = {
+                id: 'new-flight-id'
+              }
+
+              const expectedEntry = {
+                description: 'Schraube am Bugfahrwerkt locker',
+                initial_status: 'not_airworthy',
+                current_status: 'not_airworthy',
+                closed: false,
+                flight: 'new-flight-id'
+              }
+
+              expect(generator.next(flightDoc).value).toEqual(
+                call(callFunction, 'addTechlogEntry', {
+                  organizationId: 'my-org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  entry: expectedEntry
+                })
+              )
+
+              expect(generator.next().value).toEqual(
+                put(fetchAircrafts('my-org'))
+              )
+              expect(generator.next().value).toEqual(call(sagas.fetchTechlog))
               expect(generator.next().value).toEqual(
                 put(actions.changeFlightsPage(0))
               )
@@ -722,7 +747,8 @@ describe('routes', () => {
                 description: 'Schraube am Bugfahrwerk locker',
                 initial_status: 'not_airworthy',
                 current_status: 'not_airworthy',
-                closed: false
+                closed: false,
+                flight: null
               }
               const action = actions.createTechlogEntry(
                 'my_org',

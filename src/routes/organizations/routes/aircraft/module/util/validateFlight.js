@@ -155,6 +155,18 @@ export function* validateSync(
     }
   }
 
+  if (!data.troublesObservations) {
+    errors['troublesObservations'] = 'required'
+  }
+  if (data.troublesObservations === 'troubles') {
+    if (!data.techlogEntryStatus) {
+      errors['techlogEntryStatus'] = 'required'
+    }
+    if (!data.techlogEntryDescription || !data.techlogEntryDescription.trim()) {
+      errors['techlogEntryDescription'] = 'required'
+    }
+  }
+
   return errors
 }
 

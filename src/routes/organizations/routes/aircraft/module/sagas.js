@@ -293,15 +293,31 @@ export function* createFlight({
       fuelType,
       fuelUnit: 'litre',
       oilUplift,
-      oilUnit: 'litre',
-      remarks: data.remarks || null
+      oilUnit: 'litre'
     }
 
-    yield call(
+    const flightDoc = yield call(
       addDoc,
       ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
       dataToStore
     )
+
+    if (data.troublesObservations === 'troubles') {
+      const entry = {
+        description: data.techlogEntryDescription.trim(),
+        initial_status: data.techlogEntryStatus.value,
+        current_status: data.techlogEntryStatus.value,
+        closed: isClosed(data.techlogEntryStatus.value),
+        flight: flightDoc.id
+      }
+      yield call(callFunction, 'addTechlogEntry', {
+        organizationId,
+        aircraftId,
+        entry
+      })
+      yield put(fetchAircrafts(organizationId))
+      yield call(fetchTechlog)
+    }
 
     yield put(actions.changeFlightsPage(0))
     yield put(actions.createFlightSuccess())
@@ -460,24 +476,26 @@ export function* fetchTechlog() {
     rowsPerPage,
     showOnlyOpen
   } = yield select(aircraftTechlogViewSelector)
-  const firestore = yield call(getFirestore)
-  const techlogEntries = yield showOnlyOpen
-    ? call(fetchOpenTechlogEntries, firestore, organizationId, aircraftId)
-    : call(
-        fetchTechlogPage,
-        firestore,
-        organizationId,
-        aircraftId,
-        page,
-        rowsPerPage
-      )
-  yield call(
-    fetchTechlogActions,
-    firestore,
-    organizationId,
-    aircraftId,
-    techlogEntries
-  )
+  if (organizationId && aircraftId) {
+    const firestore = yield call(getFirestore)
+    const techlogEntries = yield showOnlyOpen
+      ? call(fetchOpenTechlogEntries, firestore, organizationId, aircraftId)
+      : call(
+          fetchTechlogPage,
+          firestore,
+          organizationId,
+          aircraftId,
+          page,
+          rowsPerPage
+        )
+    yield call(
+      fetchTechlogActions,
+      firestore,
+      organizationId,
+      aircraftId,
+      techlogEntries
+    )
+  }
 }
 
 export function* fetchOpenTechlogEntries(
@@ -606,7 +624,8 @@ export function* createTechlogEntry({
       description: data.description,
       initial_status: data.status.value,
       current_status: data.status.value,
-      closed: isClosed(data.status.value)
+      closed: isClosed(data.status.value),
+      flight: null
     }
     yield call(callFunction, 'addTechlogEntry', {
       organizationId,

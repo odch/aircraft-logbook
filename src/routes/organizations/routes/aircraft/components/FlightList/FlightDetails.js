@@ -120,7 +120,8 @@ const FlightDetails = ({ aircraft, flight }) => {
             {renderField('personsonboard', flight.personsOnBoard || '-', intl)}
           </Grid>
           <Grid item xs={12} sm={8}>
-            {renderField('remarks', flight.remarks || '-', intl, true)}
+            {flight.remarks &&
+              renderField('remarks', flight.remarks || '-', intl, true)}
           </Grid>
         </Grid>
         <Grid item xs={12} container>

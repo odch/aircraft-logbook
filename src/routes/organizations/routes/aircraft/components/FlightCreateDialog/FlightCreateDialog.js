@@ -8,10 +8,13 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
@@ -63,6 +66,10 @@ class FlightCreateDialog extends React.Component {
 
   handleMultilineTextChange = name => e => {
     this.updateData(name, e.target.value)
+  }
+
+  handleTroublesRadioChange = e => {
+    this.updateData('troublesObservations', e.target.value)
   }
 
   updateData = (name, value) => {
@@ -209,7 +216,7 @@ class FlightCreateDialog extends React.Component {
             this.renderSelect('fuelType', fuelTypes)
           )}
           {this.renderDecimalField('oilUplift')}
-          {this.renderMultilineTextField('remarks')}
+          {this.renderObservationsSection()}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary" disabled={submitting}>
@@ -285,14 +292,19 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderInFormControl(name, renderFn, helperText) {
+  renderInFormControl(name, renderFn, helperText, margin) {
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
 
     const isDisabled = this.props.submitting
 
     return (
-      <FormControl fullWidth error={hasError} disabled={isDisabled}>
+      <FormControl
+        fullWidth
+        margin={margin}
+        error={hasError}
+        disabled={isDisabled}
+      >
         {renderFn(hasError, isDisabled)}
         {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
@@ -435,10 +447,55 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         multiline
         fullWidth
+        rows={5}
         error={hasError}
         disabled={isDisabled}
       />
     ))
+  }
+
+  renderObservationsSection() {
+    const { techlogEntryStatusOptions, data } = this.props
+    const value = data.troublesObservations || ''
+    return this.renderInFormControl(
+      'troublesObservations',
+      (hasError, isDisabled) => (
+        <>
+          <FormLabel component="legend">
+            <FormattedMessage id="flight.create.dialog.troublesobservations" />
+          </FormLabel>
+          <RadioGroup
+            name="troublesObservations"
+            value={value}
+            onChange={this.handleTroublesRadioChange}
+          >
+            <FormControlLabel
+              value="nil"
+              control={<Radio disabled={isDisabled} />}
+              label={this.msg('flight.create.dialog.troublesobservations.nil')}
+            />
+            <FormControlLabel
+              value="troubles"
+              control={<Radio disabled={isDisabled} />}
+              label={this.msg(
+                'flight.create.dialog.troublesobservations.troubles'
+              )}
+            />
+          </RadioGroup>
+          {value === 'troubles' && (
+            <>
+              {this.renderSelect(
+                'techlogEntryStatus',
+                techlogEntryStatusOptions
+              )}
+              {this.renderMultilineTextField('techlogEntryDescription')}
+            </>
+          )}
+        </>
+      ),
+      null,
+      'normal'
+    )
   }
 
   renderLoadingIcon() {
@@ -516,6 +573,12 @@ FlightCreateDialog.propTypes = {
   validationErrors: PropTypes.objectOf(PropTypes.string),
   submitting: PropTypes.bool,
   flightNatures: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ),
+  techlogEntryStatusOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
