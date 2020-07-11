@@ -305,8 +305,8 @@ export function* createFlight({
     if (data.troublesObservations === 'troubles') {
       const entry = {
         description: data.techlogEntryDescription.trim(),
-        initial_status: data.techlogEntryStatus.value,
-        current_status: data.techlogEntryStatus.value,
+        initialStatus: data.techlogEntryStatus.value,
+        currentStatus: data.techlogEntryStatus.value,
         closed: isClosed(data.techlogEntryStatus.value),
         flight: flightDoc.id
       }
@@ -622,8 +622,8 @@ export function* createTechlogEntry({
     yield put(actions.setCreateTechlogEntryDialogSubmitting())
     const entry = {
       description: data.description,
-      initial_status: data.status.value,
-      current_status: data.status.value,
+      initialStatus: data.status.value,
+      currentStatus: data.status.value,
       closed: isClosed(data.status.value),
       flight: null
     }

@@ -163,7 +163,7 @@ class Techlog extends React.Component {
     const {
       id,
       description,
-      current_status,
+      currentStatus,
       timestamp,
       author: { firstname, lastname }
     } = entry
@@ -171,7 +171,7 @@ class Techlog extends React.Component {
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         className={
-          isClosed(current_status) && this.state.expanded !== id
+          isClosed(currentStatus) && this.state.expanded !== id
             ? classes.closed
             : null
         }
@@ -185,7 +185,7 @@ class Techlog extends React.Component {
               </React.Fragment>
             ))}
           </Typography>
-          <EntryStatus id={current_status} />
+          <EntryStatus id={currentStatus} />
         </div>
         <Typography className={classes.entrySecondaryHeading}>
           {firstname} {lastname}, {formatDate(timestamp)}{' '}
@@ -211,7 +211,7 @@ class Techlog extends React.Component {
                 color="primary"
                 onClick={this.handleCreateActionClick(
                   entry.id,
-                  entry.current_status
+                  entry.currentStatus
                 )}
               >
                 <FormattedMessage id="aircraftdetail.techlog.action.create" />

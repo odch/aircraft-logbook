@@ -49,7 +49,7 @@ const TechlogEntryDetail = ({ entry, classes }) => {
         const isFirst = index === 0
         const isLast = index === entry.actions.length - 1
         const statusBefore = isFirst
-          ? entry.initial_status
+          ? entry.initialStatus
           : entry.actions[index - 1].status
         return (
           <EntryAction
