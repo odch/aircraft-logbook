@@ -23,6 +23,9 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  sectionHeading: {
+    marginTop: '1.5em'
   }
 })
 
@@ -80,8 +83,23 @@ class AircraftDetail extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Checks checks={aircraft.checks} counters={aircraft.counters} />
-        <Typography variant="h5" gutterBottom>
+        {aircraft.checks && aircraft.checks.length > 0 && (
+          <>
+            <Typography
+              variant="h5"
+              gutterBottom
+              className={classes.sectionHeading}
+            >
+              <FormattedMessage id="aircraftdetail.checks" />
+            </Typography>
+            <Checks checks={aircraft.checks} counters={aircraft.counters} />
+          </>
+        )}
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.sectionHeading}
+        >
           <FormattedMessage id="aircraftdetail.techlog" />
         </Typography>
         <Techlog organization={organization} aircraft={aircraft} showOnlyOpen />
@@ -91,7 +109,11 @@ class AircraftDetail extends React.Component {
         >
           <FormattedMessage id="aircraftdetail.techlog.all" />
         </Button>
-        <Typography variant="h5" gutterBottom>
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.sectionHeading}
+        >
           <FormattedMessage id="aircraftdetail.flights" />
         </Typography>
         <FlightList
