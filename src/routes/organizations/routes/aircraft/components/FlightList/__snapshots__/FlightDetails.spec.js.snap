@@ -472,7 +472,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
             data-shrink={true}
           >
-            Bemerkungen
+            Bemerkungen für Abrechnung
           </label>
           <div
             className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
@@ -1163,7 +1163,7 @@ exports[`routes organizations routes aircraft components FlightList FlightDetail
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
             data-shrink={true}
           >
-            Bemerkungen
+            Bemerkungen für Abrechnung
           </label>
           <div
             className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"

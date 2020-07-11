@@ -182,6 +182,7 @@ describe('routes', () => {
                 fuelUplift: 5789,
                 fuelType: { value: 'avgas_homebase' },
                 oilUplift: 245,
+                remarks: 'bemerkung zeile 1\nzeile2',
                 troublesObservations: 'troubles',
                 techlogEntryStatus: { value: 'not_airworthy' },
                 techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n   '
@@ -362,7 +363,8 @@ describe('routes', () => {
                     fuelUnit: 'litre',
                     fuelType: 'avgas_homebase',
                     oilUplift: 2.45,
-                    oilUnit: 'litre'
+                    oilUnit: 'litre',
+                    remarks: 'bemerkung zeile 1\nzeile2'
                   }
                 )
               )

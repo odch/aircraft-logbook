@@ -216,6 +216,7 @@ class FlightCreateDialog extends React.Component {
             this.renderSelect('fuelType', fuelTypes)
           )}
           {this.renderDecimalField('oilUplift')}
+          {this.renderMultilineTextField('remarks')}
           {this.renderObservationsSection()}
         </DialogContent>
         <DialogActions>
@@ -437,7 +438,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderMultilineTextField(name) {
+  renderMultilineTextField(name, rows) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -447,7 +448,7 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         multiline
         fullWidth
-        rows={5}
+        rows={rows}
         error={hasError}
         disabled={isDisabled}
       />
@@ -488,7 +489,7 @@ class FlightCreateDialog extends React.Component {
                 'techlogEntryStatus',
                 techlogEntryStatusOptions
               )}
-              {this.renderMultilineTextField('techlogEntryDescription')}
+              {this.renderMultilineTextField('techlogEntryDescription', 5)}
             </>
           )}
         </>
