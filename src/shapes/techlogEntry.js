@@ -8,8 +8,8 @@ export const actionShape = PropTypes.shape({
 export default PropTypes.shape({
   id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  initial_status: PropTypes.string.isRequired,
-  current_status: PropTypes.string.isRequired,
+  initialStatus: PropTypes.string.isRequired,
+  currentStatus: PropTypes.string.isRequired,
   author: PropTypes.shape({
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired

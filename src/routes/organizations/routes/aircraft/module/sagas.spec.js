@@ -373,8 +373,8 @@ describe('routes', () => {
 
               const expectedEntry = {
                 description: 'Schraube am Bugfahrwerkt locker',
-                initial_status: 'not_airworthy',
-                current_status: 'not_airworthy',
+                initialStatus: 'not_airworthy',
+                currentStatus: 'not_airworthy',
                 closed: false,
                 flight: 'new-flight-id'
               }
@@ -745,8 +745,8 @@ describe('routes', () => {
               }
               const expectedDataToStore = {
                 description: 'Schraube am Bugfahrwerk locker',
-                initial_status: 'not_airworthy',
-                current_status: 'not_airworthy',
+                initialStatus: 'not_airworthy',
+                currentStatus: 'not_airworthy',
                 closed: false,
                 flight: null
               }

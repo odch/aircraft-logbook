@@ -49,7 +49,7 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
   batch.set(newActionRef, action)
 
   batch.update(techlogEntryRef, {
-    current_status: action.status,
+    currentStatus: action.status,
     closed: techlogEntryClosed
   })
 
