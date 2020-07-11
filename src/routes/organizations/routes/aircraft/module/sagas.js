@@ -293,7 +293,8 @@ export function* createFlight({
       fuelType,
       fuelUnit: 'litre',
       oilUplift,
-      oilUnit: 'litre'
+      oilUnit: 'litre',
+      remarks: data.remarks || null
     }
 
     const flightDoc = yield call(
