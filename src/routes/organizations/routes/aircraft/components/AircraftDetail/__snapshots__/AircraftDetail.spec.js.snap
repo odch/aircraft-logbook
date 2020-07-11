@@ -16,7 +16,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     HBKFW
   </h4>
   <h5
-    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+    className="MuiTypography-root AircraftDetail-sectionHeading-2 MuiTypography-h5 MuiTypography-gutterBottom"
   >
     Offene Techlog-Einträge
   </h5>
@@ -180,7 +180,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </a>
   <h5
-    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+    className="MuiTypography-root AircraftDetail-sectionHeading-2 MuiTypography-h5 MuiTypography-gutterBottom"
   >
     Neueste Flüge
   </h5>
@@ -349,10 +349,10 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
 
 exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if aircraft not loaded 1`] = `
 <div
-  className="LoadingIcon-container-2"
+  className="LoadingIcon-container-3"
 >
   <div
-    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    className="MuiCircularProgress-root LoadingIcon-icon-4 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -381,10 +381,10 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
 
 exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if organization not loaded 1`] = `
 <div
-  className="LoadingIcon-container-2"
+  className="LoadingIcon-container-3"
 >
   <div
-    className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    className="MuiCircularProgress-root LoadingIcon-icon-4 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
