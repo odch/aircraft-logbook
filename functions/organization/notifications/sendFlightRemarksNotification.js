@@ -1,42 +1,33 @@
 const _get = require('lodash.get')
-const sendMail = require('../../utils/sendMail')
-const dates = require('../../utils/dates')
 const nl2br = require('../../utils/nl2br')
-
-const formatDate = (date, timezone) => dates.formatDate(date, timezone)
-
-const formatTime = (date, timezone) => dates.formatTime(date, timezone)
-
-const formatPilot = (firstname, lastname) => `${firstname} ${lastname}`
-
-const formatAerodrome = (identification, name) => `${identification} (${name})`
+const utils = require('./utils')
 
 const getFlightFields = flightData => {
   const fields = [
     {
       paths: ['blockOffTime', 'departureAerodrome.timezone'],
       label: 'Datum',
-      handler: formatDate
+      handler: utils.formatDate
     },
     {
       paths: ['blockOffTime', 'departureAerodrome.timezone'],
       label: 'Block off',
-      handler: formatTime
+      handler: utils.formatTime
     },
     {
       paths: ['blockOnTime', 'destinationAerodrome.timezone'],
       label: 'Block on',
-      handler: formatTime
+      handler: utils.formatTime
     },
     {
       paths: ['pilot.firstname', 'pilot.lastname'],
       label: 'Pilot',
-      handler: formatPilot
+      handler: utils.formatName
     },
     {
       paths: ['departureAerodrome.identification', 'departureAerodrome.name'],
       label: 'Startflugplatz',
-      handler: formatAerodrome
+      handler: utils.formatAerodrome
     },
     {
       paths: [
@@ -44,7 +35,7 @@ const getFlightFields = flightData => {
         'destinationAerodrome.name'
       ],
       label: 'Zielflugplatz',
-      handler: formatAerodrome
+      handler: utils.formatAerodrome
     }
   ]
 
@@ -57,25 +48,6 @@ const getFlightFields = flightData => {
     .join('\n')
 
   return `<table>${rowsHtml}</table>`
-}
-
-const collectReceivers = async organizationRef => {
-  const querySnapshot = await organizationRef
-    .collection('members')
-    .where('roles', 'array-contains', 'manager')
-    .where('notifications.flightRemarks', '==', true)
-    .get()
-  return querySnapshot.docs
-    .map(doc => doc.get('inviteEmail'))
-    .filter(mail => !!mail)
-}
-
-const sendNotificationMail = async (receivers, subject, html) => {
-  const mailPromises = receivers.map(receiver => {
-    console.log(`Sending notification mail to ${receiver}`)
-    return sendMail(receiver, subject, html)
-  })
-  return Promise.all(mailPromises)
 }
 
 const sendFlightRemarksNotification = async change => {
@@ -93,7 +65,10 @@ const sendFlightRemarksNotification = async change => {
   const aircraftRef = change.after.ref.parent.parent
   const organizationRef = aircraftRef.parent.parent
 
-  const receivers = await collectReceivers(organizationRef)
+  const receivers = await utils.collectReceivers(organizationRef, [
+    ['roles', 'array-contains', 'manager'],
+    ['notifications.flightRemarks', '==', true]
+  ])
   if (receivers.length === 0) {
     return null
   }
@@ -125,7 +100,7 @@ const sendFlightRemarksNotification = async change => {
     ${flightFields}
   `
 
-  return sendNotificationMail(receivers, subject, html)
+  return utils.sendNotificationMail(receivers, subject, html)
 }
 
 module.exports = sendFlightRemarksNotification
