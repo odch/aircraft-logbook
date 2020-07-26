@@ -61,6 +61,7 @@
   "aircraft.techlog.create.dialog.title": "Techlog-Eintrag erfassen",
   "aircraft.techlog.create.dialog.description": "Beschreibung",
   "aircraft.techlog.create.dialog.status": "Status",
+  "aircraft.techlog.create.dialog.addattachment": "Datei anhängen",
   "aircraft.techlog.create.dialog.buttons.cancel": "Abbrechen",
   "aircraft.techlog.create.dialog.buttons.create": "Speichern",
 

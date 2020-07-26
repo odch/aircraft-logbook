@@ -43,7 +43,8 @@ export const INITIAL_STATE = {
     submitting: false,
     data: {
       description: '',
-      status: null
+      status: null,
+      attachments: []
     }
   },
   createTechlogEntryActionDialog: {

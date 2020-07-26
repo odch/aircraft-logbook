@@ -743,14 +743,38 @@ describe('routes', () => {
             it('should create a techlog entry', () => {
               const data = {
                 status: { value: 'not_airworthy' },
-                description: 'Schraube am Bugfahrwerk locker'
+                description: 'Schraube am Bugfahrwerk locker',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
               }
               const expectedDataToStore = {
                 description: 'Schraube am Bugfahrwerk locker',
                 initialStatus: 'not_airworthy',
                 currentStatus: 'not_airworthy',
                 closed: false,
-                flight: null
+                flight: null,
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    base64: 'att1-base64',
+                    contentType: 'image/jpeg'
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    base64: 'att2-base64',
+                    contentType: 'application/pdf'
+                  }
+                ]
               }
               const action = actions.createTechlogEntry(
                 'my_org',
@@ -759,6 +783,21 @@ describe('routes', () => {
               )
               return expectSaga(sagas.createTechlogEntry, action)
                 .provide([
+                  [
+                    call(sagas.getAttachments, data.attachments),
+                    [
+                      {
+                        name: 'image.jpeg',
+                        base64: 'att1-base64',
+                        contentType: 'image/jpeg'
+                      },
+                      {
+                        name: 'foobar.pdf',
+                        base64: 'att2-base64',
+                        contentType: 'application/pdf'
+                      }
+                    ]
+                  ],
                   [call(sagas.fetchTechlog)],
                   [
                     call(callFunction, 'addTechlogEntry', {
@@ -769,6 +808,7 @@ describe('routes', () => {
                   ]
                 ])
                 .put(actions.setCreateTechlogEntryDialogSubmitting())
+                .call(sagas.getAttachments, data.attachments)
                 .call(callFunction, 'addTechlogEntry', {
                   organizationId: 'my_org',
                   aircraftId: 'o7flC7jw8jmkOfWo8oyA',

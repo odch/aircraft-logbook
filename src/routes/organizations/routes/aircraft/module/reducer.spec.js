@@ -40,7 +40,8 @@ const INITIAL_STATE = {
     submitting: false,
     data: {
       description: '',
-      status: null
+      status: null,
+      attachments: []
     }
   },
   createTechlogEntryActionDialog: {
@@ -599,7 +600,8 @@ describe('routes', () => {
                     submitting: true,
                     data: {
                       description: 'big problem',
-                      status: 'not_airworthy'
+                      status: 'not_airworthy',
+                      attachments: [{ name: 'att1.jpeg' }]
                     }
                   }
                 },
@@ -611,7 +613,8 @@ describe('routes', () => {
                 submitting: false,
                 data: {
                   description: '',
-                  status: null
+                  status: null,
+                  attachments: []
                 }
               }
             })
