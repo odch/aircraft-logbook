@@ -826,12 +826,36 @@ describe('routes', () => {
               const data = {
                 status: { value: 'not_airworthy' },
                 description: 'Schraube bestellt',
-                signature: 'XYZ-123'
+                signature: 'XYZ-123',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
               }
               const expectedDataToStore = {
                 description: 'Schraube bestellt',
                 status: 'not_airworthy',
-                signature: 'XYZ-123'
+                signature: 'XYZ-123',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    base64: 'att1-base64',
+                    contentType: 'image/jpeg'
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    base64: 'att2-base64',
+                    contentType: 'application/pdf'
+                  }
+                ]
               }
               const action = actions.createTechlogEntryAction(
                 'my_org',
@@ -841,6 +865,21 @@ describe('routes', () => {
               )
               return expectSaga(sagas.createTechlogEntryAction, action)
                 .provide([
+                  [
+                    call(sagas.getAttachments, data.attachments),
+                    [
+                      {
+                        name: 'image.jpeg',
+                        base64: 'att1-base64',
+                        contentType: 'image/jpeg'
+                      },
+                      {
+                        name: 'foobar.pdf',
+                        base64: 'att2-base64',
+                        contentType: 'application/pdf'
+                      }
+                    ]
+                  ],
                   [call(sagas.fetchTechlog)],
                   [
                     call(callFunction, 'addTechlogEntryAction', {
