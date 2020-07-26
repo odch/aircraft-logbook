@@ -11,6 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import { intl as intlShape } from '../../../../../../shapes'
 import Select from '../../../../../../components/Select'
+import Attachments from '../Attachments'
+import FileButton from '../FileButton'
 
 const styles = {
   root: {
@@ -18,6 +20,12 @@ const styles = {
   },
   loadingIndicator: {
     marginRight: 5
+  },
+  attachments: {
+    marginTop: '0.5em'
+  },
+  addAttachmentButton: {
+    marginTop: '0.5em'
   }
 }
 
@@ -28,6 +36,29 @@ class TechlogEntryActionCreateDialog extends React.Component {
 
   handleSelectChange = name => value => {
     this.updateData(name, value)
+  }
+
+  handleFileSelect = files => {
+    const newAttachments = [...this.props.data.attachments]
+    for (const file of files) {
+      if (
+        !newAttachments.find(
+          attachment =>
+            attachment.name === file.name && attachment.size === file.size
+        )
+      ) {
+        newAttachments.push(file)
+      }
+    }
+    this.updateData('attachments', newAttachments)
+  }
+
+  removeAttachment = (attachment, index) => {
+    const attachments = this.props.data.attachments
+    const newAttachments = attachments
+      .slice(0, index)
+      .concat(attachments.slice(index + 1, attachments.length))
+    this.updateData('attachments', newAttachments)
   }
 
   updateData = (name, value) => {
@@ -79,6 +110,20 @@ class TechlogEntryActionCreateDialog extends React.Component {
             {this.renderMultilineTextField('description', true)}
             {this.renderSelect('status', statusOptions, true)}
             {this.renderTextField('signature')}
+            <Attachments
+              attachments={this.props.data.attachments}
+              disabled={submitting}
+              className={classes.attachments}
+              onRemoveClick={this.removeAttachment}
+            />
+            <FileButton
+              label={this.msg(
+                'aircraft.techlog.action.create.dialog.addattachment'
+              )}
+              disabled={submitting}
+              className={classes.addAttachmentButton}
+              onSelect={this.handleFileSelect}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} disabled={submitting}>
@@ -174,7 +219,13 @@ TechlogEntryActionCreateDialog.propTypes = {
     status: PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired
-    })
+    }),
+    attachments: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        size: PropTypes.number.isRequired
+      })
+    ).isRequired
   }).isRequired,
   submitting: PropTypes.bool,
   onClose: PropTypes.func,

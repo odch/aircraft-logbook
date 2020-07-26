@@ -678,7 +678,8 @@ export function* createTechlogEntryAction({
     yield put(actions.setCreateTechlogEntryActionDialogSubmitting())
     const action = {
       description: data.description,
-      status: data.status.value
+      status: data.status.value,
+      attachments: yield call(getAttachments, data.attachments)
     }
     if (data.signature) {
       action.signature = data.signature

@@ -54,7 +54,8 @@ export const INITIAL_STATE = {
     data: {
       description: '',
       status: null,
-      signature: null
+      signature: null,
+      attachments: []
     }
   }
 }
