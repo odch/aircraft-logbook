@@ -1,3 +1,5 @@
+const organizationUtil = require('./utils/organization')
+
 const COLUMNS = {
   Registration: aircraft => aircraft.get('registration'),
   FlightID: (aircraft, flight) => flight.id,
@@ -55,22 +57,14 @@ const COLUMNS = {
   Remarks: (aircraft, flight) => flight.get('remarks')
 }
 
-const getOrganization = async (firstore, organization) =>
-  firstore
-    .collection('organizations')
-    .doc(organization)
-    .get()
-
 const checkPermissions = async (firestore, organization, user) => {
-  const userRef = firestore.collection('users').doc(user.uid)
-
-  const memberQuerySnapshot = await organization.ref
-    .collection('members')
-    .where('roles', 'array-contains', 'manager')
-    .where('user', '==', userRef)
-    .get()
-
-  if (memberQuerySnapshot.empty !== false) {
+  const isManager = await organizationUtil.hasMember(
+    firestore,
+    organization,
+    user,
+    'manager'
+  )
+  if (isManager !== true) {
     throw new Error('User ' + user.uid + ' not authorized')
   }
 }
@@ -158,7 +152,10 @@ const collectFlights = async (firestore, args, user) => {
   const start = new Date(args.startDate + 'T00:00:00.000Z')
   const end = new Date(args.endDate + 'T23:59:59.999Z')
 
-  const organization = await getOrganization(firestore, args.organization)
+  const organization = await organizationUtil.getOrganization(
+    firestore,
+    args.organization
+  )
 
   await checkPermissions(firestore, organization, user)
 
