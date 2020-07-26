@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, FormattedMessage } from 'react-intl'
-import classNames from 'classnames'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -10,41 +9,28 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
-import ClearIcon from '@material-ui/icons/Clear'
-import AttachmentIcon from '@material-ui/icons/Attachment'
 import {
   intl as intlShape,
   organization as organizationShape
 } from '../../../../../../shapes'
 import Select from '../../../../../../components/Select'
-import humanFileSize from '../../../../../../util/humanFileSize'
+import FileButton from '../FileButton'
+import Attachments from '../Attachments'
 
-const styles = theme => ({
+const styles = {
   root: {
     overflow: 'visible'
   },
   buttonIcon: {
     marginRight: 5
   },
-  removeAttachmentButton: {
-    marginLeft: '0.3em'
-  },
   attachments: {
     marginTop: '0.5em'
   },
-  attachmentIcon: {
-    verticalAlign: 'middle',
-    height: '0.85em',
-    marginRight: '0.1em'
-  },
   addAttachmentButton: {
     marginTop: '0.5em'
-  },
-  disabledText: {
-    color: theme.palette.text.disabled
   }
-})
+}
 
 class TechlogEntryCreateDialog extends React.Component {
   handleChange = name => e => {
@@ -55,9 +41,9 @@ class TechlogEntryCreateDialog extends React.Component {
     this.updateData(name, value)
   }
 
-  handleUploadChange = e => {
+  handleFileSelect = files => {
     const newAttachments = [...this.props.data.attachments]
-    for (const file of e.target.files) {
+    for (const file of files) {
       if (
         !newAttachments.find(
           attachment =>
@@ -68,10 +54,9 @@ class TechlogEntryCreateDialog extends React.Component {
       }
     }
     this.updateData('attachments', newAttachments)
-    e.target.value = null
   }
 
-  removeAttachment = index => () => {
+  removeAttachment = (attachment, index) => {
     const attachments = this.props.data.attachments
     const newAttachments = attachments
       .slice(0, index)
@@ -120,8 +105,18 @@ class TechlogEntryCreateDialog extends React.Component {
           <DialogContent className={classes.root}>
             {this.renderMultilineTextField('description', true)}
             {this.renderSelect('status', statusOptions, true)}
-            {this.renderAttachments()}
-            {this.renderAddAttachmentButton()}
+            <Attachments
+              attachments={this.props.data.attachments}
+              disabled={submitting}
+              className={classes.attachments}
+              onRemoveClick={this.removeAttachment}
+            />
+            <FileButton
+              label={this.msg('aircraft.techlog.create.dialog.addattachment')}
+              disabled={submitting}
+              className={classes.addAttachmentButton}
+              onSelect={this.handleFileSelect}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} disabled={submitting}>
@@ -142,65 +137,6 @@ class TechlogEntryCreateDialog extends React.Component {
           </DialogActions>
         </form>
       </Dialog>
-    )
-  }
-
-  renderAttachments() {
-    const { data, submitting, classes } = this.props
-
-    if (data.attachments.length === 0) {
-      return null
-    }
-
-    return (
-      <div
-        className={classNames(
-          classes.attachments,
-          submitting && classes.disabledText
-        )}
-      >
-        {data.attachments.map((attachment, index) => (
-          <div key={`${attachment.name}-${attachment.size}`}>
-            <AttachmentIcon className={classes.attachmentIcon} />
-            <span>
-              {attachment.name} ({humanFileSize(attachment.size)})
-            </span>
-            <IconButton
-              size="small"
-              className={classes.removeAttachmentButton}
-              onClick={this.removeAttachment(index)}
-              disabled={submitting}
-            >
-              <ClearIcon />
-            </IconButton>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  renderAddAttachmentButton() {
-    const { submitting, classes } = this.props
-    return (
-      <div className={classes.addAttachmentButton}>
-        <input
-          style={{ display: 'none' }}
-          id="raised-button-file"
-          type="file"
-          onChange={this.handleUploadChange}
-          multiple
-        />
-        <label htmlFor="raised-button-file">
-          <Button
-            component="span"
-            onClick={this.handleUploadButtonClick}
-            disabled={submitting}
-          >
-            <AttachmentIcon size={16} className={classes.buttonIcon} />
-            <FormattedMessage id="aircraft.techlog.create.dialog.addattachment" />
-          </Button>
-        </label>
-      </div>
     )
   }
 
