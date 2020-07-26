@@ -19,9 +19,14 @@ const checkPermissions = async (firestore, organizationId, user) => {
   }
 }
 
+const getPath = (organizationId, aircraftId, techlogEntryId, actionId, name) =>
+  `organizations/${organizationId}/aircrafts/${aircraftId}/techlog/${techlogEntryId}/${
+    actionId ? `${actionId}/` : ''
+  }${name}`
+
 const getAttachment = async (bucket, args) => {
-  const { organization, aircraft, techlogEntry, name } = args
-  const filePath = `organizations/${organization}/aircrafts/${aircraft}/techlog/${techlogEntry}/${name}`
+  const { organization, aircraft, techlogEntry, action, name } = args
+  const filePath = getPath(organization, aircraft, techlogEntry, action, name)
   const file = bucket.file(filePath)
 
   const [metadata] = await file.getMetadata()
@@ -45,6 +50,7 @@ const getAttachment = async (bucket, args) => {
  *  * organization,
  *  * aircraft,
  *  * techlogEntry,
+ *  * action
  *  * name
  */
 const getTechlogAttachment = async (firestore, bucket, args, user) => {

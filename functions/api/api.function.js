@@ -57,7 +57,7 @@ api.get('/flights', async (req, res) => {
 })
 
 api.get('/techlog-attachment', async (req, res) => {
-  const { organization, aircraft, techlogEntry, name } = req.query
+  const { organization, aircraft, techlogEntry, action, name } = req.query
   const { originalName, contentType, data } = await getTechlogAttachment(
     admin.firestore(),
     admin.storage().bucket(),
@@ -65,6 +65,7 @@ api.get('/techlog-attachment', async (req, res) => {
       organization,
       aircraft,
       techlogEntry,
+      action,
       name
     },
     req.user
