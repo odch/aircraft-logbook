@@ -126,6 +126,13 @@ describe('routes', () => {
                       }
                     ]
                   }
+                },
+                firebase: {
+                  auth: {
+                    stsTokenManager: {
+                      accessToken: 'xyz'
+                    }
+                  }
                 }
               })
 

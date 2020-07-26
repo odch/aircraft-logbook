@@ -37,7 +37,8 @@ const mapStateToProps = (state, ownProps) => {
     pagination,
     createTechlogEntryDialogOpen: state.aircraft.createTechlogEntryDialog.open,
     createTechlogEntryActionDialogOpen:
-      state.aircraft.createTechlogEntryActionDialog.open
+      state.aircraft.createTechlogEntryActionDialog.open,
+    authToken: state.firebase.auth.stsTokenManager.accessToken
   }
 }
 

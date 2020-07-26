@@ -25,6 +25,7 @@ import { isClosed } from '../../../../../../util/techlogStatus'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import TechlogEntryDetails from './TechlogEntryDetail'
 import EntryStatus from './EntryStatus'
+import Attachments from './Attachments'
 
 const styles = theme => ({
   loadingIconContainer: {
@@ -159,13 +160,14 @@ class Techlog extends React.Component {
   }
 
   renderSummary(entry) {
-    const { classes } = this.props
+    const { organization, aircraft, authToken, classes } = this.props
     const {
       id,
       description,
       currentStatus,
       timestamp,
-      author: { firstname, lastname }
+      author: { firstname, lastname },
+      attachments
     } = entry
     return (
       <ExpansionPanelSummary
@@ -185,6 +187,13 @@ class Techlog extends React.Component {
               </React.Fragment>
             ))}
           </Typography>
+          <Attachments
+            organizationId={organization.id}
+            aircraftId={aircraft.id}
+            techlogEntryId={id}
+            authToken={authToken}
+            attachments={attachments}
+          />
           <EntryStatus id={currentStatus} />
         </div>
         <Typography className={classes.entrySecondaryHeading}>
@@ -248,6 +257,7 @@ Techlog.propTypes = {
     rowsPerPage: PropTypes.number
   }),
   showOnlyOpen: PropTypes.bool,
+  authToken: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
   initTechlog: PropTypes.func.isRequired,
