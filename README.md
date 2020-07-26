@@ -39,6 +39,20 @@ Query Parameters:
 
 **Note**: The requesting user must be a manager of the organization to be able to get the flights.
 
+#### Techlog attachment
+
+`GET /api/techlog-attachment`
+
+Content-Type: the actual content type of the requested attachment
+
+Query Parameters:
+* `organization`: ID of the organization (required)
+* `aircraft`: ID of the aircraft (required)
+* `techlogEntry`: ID of the techlog entry (required)
+* `name`: (Internal) name of the file (required)
+
+**Note**: The requesting user must be a member of the organization to be able to get the file.
+
 ## Cloud Functions Config
 
 Set the following config options using the command `firebase function:config:set ${name}={value}`
