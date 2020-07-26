@@ -616,6 +616,34 @@ const getTechlogActionsQuery = (
     {}
   )
 
+const getBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1]
+      resolve(base64)
+    }
+    reader.onerror = e => {
+      reject(e)
+    }
+  })
+
+export function* getAttachments(attachments) {
+  return yield all(
+    attachments.map(attachment => call(getAttachment, attachment))
+  )
+}
+
+export function* getAttachment(attachment) {
+  const base64 = yield call(getBase64, attachment)
+  return {
+    name: attachment.name,
+    base64,
+    contentType: attachment.type
+  }
+}
+
 export function* createTechlogEntry({
   payload: { organizationId, aircraftId, data }
 }) {
@@ -626,7 +654,8 @@ export function* createTechlogEntry({
       initialStatus: data.status.value,
       currentStatus: data.status.value,
       closed: isClosed(data.status.value),
-      flight: null
+      flight: null,
+      attachments: yield call(getAttachments, data.attachments)
     }
     yield call(callFunction, 'addTechlogEntry', {
       organizationId,
