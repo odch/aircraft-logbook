@@ -205,11 +205,16 @@ class Techlog extends React.Component {
   }
 
   renderDetails(entry) {
-    const { aircraft } = this.props
+    const { organization, aircraft, authToken } = this.props
     return (
       <React.Fragment>
         <ExpansionPanelDetails>
-          <TechlogEntryDetails aircraft={aircraft} entry={entry} />
+          <TechlogEntryDetails
+            organizationId={organization.id}
+            aircraftId={aircraft.id}
+            entry={entry}
+            authToken={authToken}
+          />
         </ExpansionPanelDetails>
         {this.isTechlogManager() && (
           <React.Fragment>

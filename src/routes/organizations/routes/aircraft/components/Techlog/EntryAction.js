@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { formatDate, formatTime } from '../../../../../../util/dates'
 import StatusTransition from './StatusTransition'
 import { FormattedMessage } from 'react-intl'
+import Attachments from './Attachments'
 
 const styles = theme => ({
   actionContainer: {
@@ -28,10 +29,22 @@ const styles = theme => ({
 })
 
 const Action = ({
-  action: { id, description, status, author, timestamp, signature },
+  organizationId,
+  aircraftId,
+  techlogEntryId,
+  action: {
+    id,
+    description,
+    status,
+    author,
+    timestamp,
+    signature,
+    attachments
+  },
   isFirst,
   isLast,
   statusBefore,
+  authToken,
   classes
 }) => (
   <React.Fragment key={id}>
@@ -52,6 +65,14 @@ const Action = ({
             :&nbsp;{signature}
           </Typography>
         )}
+        <Attachments
+          organizationId={organizationId}
+          aircraftId={aircraftId}
+          techlogEntryId={techlogEntryId}
+          techlogEntryActionId={id}
+          authToken={authToken}
+          attachments={attachments}
+        />
       </div>
       <Typography paragraph className={classes.metaInfo}>
         {author.firstname} {author.lastname}, {formatDate(timestamp)}{' '}
@@ -66,10 +87,14 @@ const Action = ({
 )
 
 Action.propTypes = {
+  organizationId: PropTypes.string.isRequired,
+  aircraftId: PropTypes.string.isRequired,
+  techlogEntryId: PropTypes.string.isRequired,
   action: PropTypes.object.isRequired,
   isFirst: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   statusBefore: PropTypes.string.isRequired,
+  authToken: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired
 }
 
