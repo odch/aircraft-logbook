@@ -4,6 +4,7 @@ import { fetchMembers } from '../../../module'
 import { error } from '../../../../../util/log'
 import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
 import { getFirestore } from '../../../../../util/firebase'
+import download from '../../../../../util/download'
 
 export const tokenSelector = state =>
   state.firebase.auth.stsTokenManager.accessToken
@@ -87,22 +88,10 @@ export async function generateExport(
   token
 ) {
   const url = `https://us-central1-${__CONF__.firebase.projectId}.cloudfunctions.net/api/flights?organization=${organizationId}&start=${startDate}&end=${endDate}`
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: 'Bearer ' + token
-    }
-  })
-  const blob = await response.blob()
-
-  const a = document.createElement('a')
-  a.href = URL.createObjectURL(blob)
-  a.download = `flights_${organizationId}_${new Date()
+  const fileName = `flights_${organizationId}_${new Date()
     .toISOString()
     .substring(0, 10)}.csv`
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
+  await download(url, token, fileName)
 }
 
 export default function* sagas() {
