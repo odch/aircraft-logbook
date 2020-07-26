@@ -27,19 +27,35 @@ const styles = {
   }
 }
 
-const getLink = (organizationId, aircraftId, techlogEntryId, name) =>
-  `https://us-central1-${__CONF__.firebase.projectId}.cloudfunctions.net/api/techlog-attachment?organization=${organizationId}&aircraft=${aircraftId}&techlogEntry=${techlogEntryId}&name=${name}`
+const getLink = (
+  organizationId,
+  aircraftId,
+  techlogEntryId,
+  techlogEntryActionId,
+  name
+) =>
+  `https://us-central1-${
+    __CONF__.firebase.projectId
+  }.cloudfunctions.net/api/techlog-attachment?organization=${organizationId}&aircraft=${aircraftId}&techlogEntry=${techlogEntryId}&name=${name}${techlogEntryActionId ?
+    `&action=${techlogEntryActionId}` : ''}`
 
 const handleDownloadClick = (
   organizationId,
   aircraftId,
   techlogEntryId,
+  techlogEntryActionId,
   name,
   authToken,
   originalName
 ) => async e => {
   e.stopPropagation() // don't open/collapse panel
-  const url = getLink(organizationId, aircraftId, techlogEntryId, name)
+  const url = getLink(
+    organizationId,
+    aircraftId,
+    techlogEntryId,
+    techlogEntryActionId,
+    name
+  )
   await download(url, authToken, originalName)
 }
 
@@ -47,6 +63,7 @@ const Attachments = ({
   organizationId,
   aircraftId,
   techlogEntryId,
+  techlogEntryActionId,
   authToken,
   attachments,
   classes
@@ -66,6 +83,7 @@ const Attachments = ({
               organizationId,
               aircraftId,
               techlogEntryId,
+              techlogEntryActionId,
               attachment.name,
               authToken,
               attachment.originalName
@@ -82,6 +100,7 @@ Attachments.propTypes = {
   organizationId: PropTypes.string.isRequired,
   aircraftId: PropTypes.string.isRequired,
   techlogEntryId: PropTypes.string.isRequired,
+  techlogEntryActionId: PropTypes.string,
   authToken: PropTypes.string.isRequired,
   attachments: PropTypes.arrayOf(attachmentShape),
   classes: PropTypes.object.isRequired

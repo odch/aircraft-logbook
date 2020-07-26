@@ -23,7 +23,13 @@ const styles = {
   }
 }
 
-const TechlogEntryDetail = ({ entry, classes }) => {
+const TechlogEntryDetail = ({
+  organizationId,
+  aircraftId,
+  entry,
+  authToken,
+  classes
+}) => {
   if (!entry.actions) {
     return (
       <div className={classes.loadingIconContainer}>
@@ -53,11 +59,15 @@ const TechlogEntryDetail = ({ entry, classes }) => {
           : entry.actions[index - 1].status
         return (
           <EntryAction
+            organizationId={organizationId}
+            aircraftId={aircraftId}
+            techlogEntryId={entry.id}
             action={action}
             key={action.id}
             isFirst={isFirst}
             isLast={isLast}
             statusBefore={statusBefore}
+            authToken={authToken}
           />
         )
       })}
@@ -66,7 +76,10 @@ const TechlogEntryDetail = ({ entry, classes }) => {
 }
 
 TechlogEntryDetail.propTypes = {
+  organizationId: PropTypes.string.isRequired,
+  aircraftId: PropTypes.string.isRequired,
   entry: techlogEntry.isRequired,
+  authToken: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired
 }
 
