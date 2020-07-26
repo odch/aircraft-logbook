@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const getMemberByUid = require('../utils/getMemberByUid')
+const addAttachments = require('./addAttachments')
 
 // Prevent firebase from initializing twice
 try {
@@ -9,6 +10,7 @@ try {
 } catch (e) {}
 
 const db = admin.firestore()
+const bucket = admin.storage().bucket()
 
 const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
   const {
@@ -46,6 +48,16 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
     .doc(techlogEntryId)
 
   const newActionRef = techlogEntryRef.collection('actions').doc()
+
+  action.attachments = await addAttachments(
+    bucket,
+    organizationId,
+    aircraftId,
+    techlogEntryId,
+    newActionRef.id,
+    action.attachments
+  )
+
   batch.set(newActionRef, action)
 
   batch.update(techlogEntryRef, {
