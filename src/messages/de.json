@@ -137,6 +137,7 @@
   "flight.create.dialog.troublesobservations.troubles": "Problem oder Beobachtung erfassen",
   "flight.create.dialog.techlogentrystatus": "Status",
   "flight.create.dialog.techlogentrydescription": "Beschreibung",
+  "flight.create.dialog.techlogentryattachment.add": "Datei anhängen",
   "flight.create.dialog.buttons.cancel": "Abbrechen",
   "flight.create.dialog.buttons.create": "Speichern",
 

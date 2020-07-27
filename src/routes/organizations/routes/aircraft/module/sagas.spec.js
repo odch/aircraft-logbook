@@ -185,7 +185,19 @@ describe('routes', () => {
                 remarks: 'bemerkung zeile 1\nzeile2',
                 troublesObservations: 'troubles',
                 techlogEntryStatus: { value: 'not_airworthy' },
-                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n   '
+                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
+                techlogEntryAttachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
               }
 
               const action = actions.createFlight(
@@ -373,15 +385,33 @@ describe('routes', () => {
                 id: 'new-flight-id'
               }
 
+              expect(generator.next(flightDoc).value).toEqual(
+                call(sagas.getAttachments, data.techlogEntryAttachments)
+              )
+
+              const attachments = [
+                {
+                  name: 'image.jpeg',
+                  base64: 'att1-base64',
+                  contentType: 'image/jpeg'
+                },
+                {
+                  name: 'foobar.pdf',
+                  base64: 'att2-base64',
+                  contentType: 'application/pdf'
+                }
+              ]
+
               const expectedEntry = {
                 description: 'Schraube am Bugfahrwerkt locker',
                 initialStatus: 'not_airworthy',
                 currentStatus: 'not_airworthy',
                 closed: false,
-                flight: 'new-flight-id'
+                flight: 'new-flight-id',
+                attachments
               }
 
-              expect(generator.next(flightDoc).value).toEqual(
+              expect(generator.next(attachments).value).toEqual(
                 call(callFunction, 'addTechlogEntry', {
                   organizationId: 'my-org',
                   aircraftId: 'o7flC7jw8jmkOfWo8oyA',
