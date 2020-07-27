@@ -24,8 +24,9 @@ const writeFile = (attachment, file) =>
   })
 
 const getPath = (organizationId, aircraftId, techlogEntryId, actionId, name) =>
-  `organizations/${organizationId}/aircrafts/${aircraftId}/techlog/${techlogEntryId}/${actionId &&
-    `${actionId}/`}${name}`
+  `organizations/${organizationId}/aircrafts/${aircraftId}/techlog/${techlogEntryId}/${
+    actionId ? `${actionId}/` : ''
+  }${name}`
 
 const addAttachment = async (
   bucket,
