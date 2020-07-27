@@ -36,8 +36,9 @@ const getLink = (
 ) =>
   `https://us-central1-${
     __CONF__.firebase.projectId
-  }.cloudfunctions.net/api/techlog-attachment?organization=${organizationId}&aircraft=${aircraftId}&techlogEntry=${techlogEntryId}&name=${name}${techlogEntryActionId ?
-    `&action=${techlogEntryActionId}` : ''}`
+  }.cloudfunctions.net/api/techlog-attachment?organization=${organizationId}&aircraft=${aircraftId}&techlogEntry=${techlogEntryId}&name=${name}${
+    techlogEntryActionId ? `&action=${techlogEntryActionId}` : ''
+  }`
 
 const handleDownloadClick = (
   organizationId,
