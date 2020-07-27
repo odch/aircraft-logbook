@@ -309,7 +309,11 @@ export function* createFlight({
         initialStatus: data.techlogEntryStatus.value,
         currentStatus: data.techlogEntryStatus.value,
         closed: isClosed(data.techlogEntryStatus.value),
-        flight: flightDoc.id
+        flight: flightDoc.id,
+        attachments: yield call(
+          getAttachments,
+          data.techlogEntryAttachments || []
+        )
       }
       yield call(callFunction, 'addTechlogEntry', {
         organizationId,

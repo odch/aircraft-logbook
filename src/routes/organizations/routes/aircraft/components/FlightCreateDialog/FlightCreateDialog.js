@@ -25,6 +25,8 @@ import LoadingIcon from '../../../../../../components/LoadingIcon'
 import { intl as intlShape } from '../../../../../../shapes'
 import getMissingFields from '../../util/getMissingFields'
 import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
+import Attachments from '../Attachments/'
+import FileButton from '../FileButton/'
 
 const styles = theme => ({
   loadingIconContainer: {
@@ -34,6 +36,12 @@ const styles = theme => ({
     backgroundColor: theme.palette.grey[100],
     padding: '1em',
     borderRadius: 4
+  },
+  techlogEntryAttachments: {
+    marginTop: '0.5em'
+  },
+  addTechlogEntryAttachmentButton: {
+    marginTop: '0.5em'
   }
 })
 
@@ -70,6 +78,29 @@ class FlightCreateDialog extends React.Component {
 
   handleTroublesRadioChange = e => {
     this.updateData('troublesObservations', e.target.value)
+  }
+
+  handleFileSelect = files => {
+    const newAttachments = [...(this.props.data.techlogEntryAttachments || [])]
+    for (const file of files) {
+      if (
+        !newAttachments.find(
+          attachment =>
+            attachment.name === file.name && attachment.size === file.size
+        )
+      ) {
+        newAttachments.push(file)
+      }
+    }
+    this.updateData('techlogEntryAttachments', newAttachments)
+  }
+
+  removeAttachment = (attachment, index) => {
+    const attachments = this.props.data.techlogEntryAttachments
+    const newAttachments = attachments
+      .slice(0, index)
+      .concat(attachments.slice(index + 1, attachments.length))
+    this.updateData('techlogEntryAttachments', newAttachments)
   }
 
   updateData = (name, value) => {
@@ -456,7 +487,7 @@ class FlightCreateDialog extends React.Component {
   }
 
   renderObservationsSection() {
-    const { techlogEntryStatusOptions, data } = this.props
+    const { techlogEntryStatusOptions, data, submitting, classes } = this.props
     const value = data.troublesObservations || ''
     return this.renderInFormControl(
       'troublesObservations',
@@ -490,6 +521,20 @@ class FlightCreateDialog extends React.Component {
                 techlogEntryStatusOptions
               )}
               {this.renderMultilineTextField('techlogEntryDescription', 5)}
+              <Attachments
+                attachments={data.techlogEntryAttachments}
+                disabled={submitting}
+                onRemoveClick={this.removeAttachment}
+                className={classes.techlogEntryAttachments}
+              />
+              <FileButton
+                disabled={submitting}
+                label={this.msg(
+                  'flight.create.dialog.techlogentryattachment.add'
+                )}
+                onSelect={this.handleFileSelect}
+                className={classes.addTechlogEntryAttachmentButton}
+              />
             </>
           )}
         </>
@@ -538,6 +583,18 @@ const flightDataShape = PropTypes.shape({
   }),
   oilUplift: PropTypes.number,
   remarks: PropTypes.string,
+  troublesObservations: PropTypes.oneOf(['nil', 'troubles']),
+  techlogEntryStatus: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }),
+  techlogEntryDescription: PropTypes.string,
+  techlogEntryAttachments: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      size: PropTypes.number.isRequired
+    })
+  ),
   counters: PropTypes.shape({
     flights: PropTypes.shape({
       start: PropTypes.number,
