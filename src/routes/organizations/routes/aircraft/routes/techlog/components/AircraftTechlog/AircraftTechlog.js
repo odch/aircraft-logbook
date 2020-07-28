@@ -73,6 +73,14 @@ class AircraftTechlog extends React.Component {
       return <Redirect to={`/organizations/${organization.id}`} />
     }
 
+    if (aircraft.settings.techlogEnabled !== true) {
+      return (
+        <Redirect
+          to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
+        />
+      )
+    }
+
     return (
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
