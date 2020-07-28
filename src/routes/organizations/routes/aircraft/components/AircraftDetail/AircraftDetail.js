@@ -95,20 +95,28 @@ class AircraftDetail extends React.Component {
             <Checks checks={aircraft.checks} counters={aircraft.counters} />
           </>
         )}
-        <Typography
-          variant="h5"
-          gutterBottom
-          className={classes.sectionHeading}
-        >
-          <FormattedMessage id="aircraftdetail.techlog" />
-        </Typography>
-        <Techlog organization={organization} aircraft={aircraft} showOnlyOpen />
-        <Button
-          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/techlog`}
-          color="primary"
-        >
-          <FormattedMessage id="aircraftdetail.techlog.all" />
-        </Button>
+        {aircraft.settings.techlogEnabled === true && (
+          <>
+            <Typography
+              variant="h5"
+              gutterBottom
+              className={classes.sectionHeading}
+            >
+              <FormattedMessage id="aircraftdetail.techlog" />
+            </Typography>
+            <Techlog
+              organization={organization}
+              aircraft={aircraft}
+              showOnlyOpen
+            />
+            <Button
+              href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/techlog`}
+              color="primary"
+            >
+              <FormattedMessage id="aircraftdetail.techlog.all" />
+            </Button>
+          </>
+        )}
         <Typography
           variant="h5"
           gutterBottom

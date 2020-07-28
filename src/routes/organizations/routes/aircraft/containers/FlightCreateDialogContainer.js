@@ -36,7 +36,8 @@ const aircraftSettings = (state, aircraftId) => {
     return {
       fuelTypes: fuelTypeOptions,
       engineHoursCounterEnabled:
-        aircraftSettings.engineHoursCounterEnabled === true
+        aircraftSettings.engineHoursCounterEnabled === true,
+      techlogEnabled: aircraftSettings.techlogEnabled === true
     }
   }
 }

@@ -15,7 +15,8 @@ const AIRCRAFT_SETTINGS = {
       label: 'AvGas'
     }
   ],
-  engineHoursCounterEnabled: true
+  engineHoursCounterEnabled: true,
+  techlogEnabled: true
 }
 
 describe('routes', () => {

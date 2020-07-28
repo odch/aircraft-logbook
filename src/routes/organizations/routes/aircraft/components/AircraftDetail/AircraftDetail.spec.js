@@ -143,7 +143,10 @@ describe('routes', () => {
                       organization={{ id: 'my_org' }}
                       aircraft={{
                         id: 'o7flC7jw8jmkOfWo8oyA',
-                        registration: 'HBKFW'
+                        registration: 'HBKFW',
+                        settings: {
+                          techlogEnabled: true
+                        }
                       }}
                       fetchAircrafts={() => {}}
                       fetchMembers={() => {}}

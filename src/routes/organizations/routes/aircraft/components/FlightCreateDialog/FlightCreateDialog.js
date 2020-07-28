@@ -197,7 +197,7 @@ class FlightCreateDialog extends React.Component {
       flightNatures = [],
       loadMembers,
       loadAerodromes,
-      aircraftSettings: { fuelTypes, engineHoursCounterEnabled }
+      aircraftSettings: { fuelTypes, engineHoursCounterEnabled, techlogEnabled }
     } = this.props
 
     return (
@@ -248,7 +248,7 @@ class FlightCreateDialog extends React.Component {
           )}
           {this.renderDecimalField('oilUplift')}
           {this.renderMultilineTextField('remarks')}
-          {this.renderObservationsSection()}
+          {techlogEnabled && this.renderObservationsSection()}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary" disabled={submitting}>
@@ -651,7 +651,8 @@ FlightCreateDialog.propTypes = {
         label: PropTypes.string.isRequired
       })
     ).isRequired,
-    engineHoursCounterEnabled: PropTypes.bool.isRequired
+    engineHoursCounterEnabled: PropTypes.bool.isRequired,
+    techlogEnabled: PropTypes.bool.isRequired
   }).isRequired,
   createAerodromeDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
