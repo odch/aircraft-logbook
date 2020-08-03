@@ -28,10 +28,11 @@ describe('routes', () => {
           jest.resetAllMocks()
 
           wrapper = renderWithState({
-            firebase: {
-              auth: {},
-              profile: {
-                selectedOrganization: 'my_org'
+            firestore: {
+              data: {
+                currentUser: {
+                  selectedOrganization: 'my_org'
+                }
               }
             },
             main: {
@@ -64,12 +65,11 @@ describe('routes', () => {
           )
         })
 
-        it('should return undefined for selectedOrganization if profile not loaded', () => {
+        it('should return undefined for selectedOrganization if current user not loaded', () => {
           wrapper = renderWithState({
-            firebase: {
-              auth: {},
-              profile: {
-                isLoaded: false
+            firestore: {
+              data: {
+                // no `currentUser` here
               }
             }
           })
@@ -80,11 +80,11 @@ describe('routes', () => {
 
         it('should return undefined for selectedOrganization if organizations are not loaded', () => {
           wrapper = renderWithState({
-            firebase: {
-              auth: {},
-              profile: {
-                isLoaded: true,
-                selectedOrganization: 'my_org'
+            firestore: {
+              data: {
+                currentUser: {
+                  selectedOrganization: 'my_org'
+                }
               }
             },
             main: {
@@ -100,11 +100,11 @@ describe('routes', () => {
 
         it('should return null for selectedOrganization if organization not found', () => {
           wrapper = renderWithState({
-            firebase: {
-              auth: {},
-              profile: {
-                isLoaded: true,
-                selectedOrganization: 'my_org'
+            firestore: {
+              data: {
+                currentUser: {
+                  selectedOrganization: 'my_org'
+                }
               }
             },
             main: {
@@ -122,11 +122,11 @@ describe('routes', () => {
           const myOrg = { id: 'my_org' }
 
           wrapper = renderWithState({
-            firebase: {
-              auth: {},
-              profile: {
-                isLoaded: true,
-                selectedOrganization: 'my_org'
+            firestore: {
+              data: {
+                currentUser: {
+                  selectedOrganization: 'my_org'
+                }
               }
             },
             main: {

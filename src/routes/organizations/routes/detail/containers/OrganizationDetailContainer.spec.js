@@ -20,7 +20,13 @@ describe('routes', () => {
               jest.resetAllMocks()
 
               const state = {
-                firebase: {},
+                firebase: {
+                  auth: {
+                    isLoaded: true,
+                    isEmpty: false,
+                    email: 'test@opendigital.ch'
+                  }
+                },
                 main: {
                   app: {
                     organizations: [{ id: 'my_org' }]

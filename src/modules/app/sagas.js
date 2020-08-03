@@ -6,14 +6,18 @@ import { getDoc } from '../../util/firestoreUtils'
 import * as actions from './actions'
 
 export const uidSelector = state => state.firebase.auth.uid
-export const currentUserUid = state => state.firestore.ordered.currentUser[0].id
+export const currentUserUid = state => state.firestore.data.currentUser.id
 
-export const customListenerResponseSagas = {
-  currentUser: fetchMyOrganizations
-}
-
-export function* watchCurrentUser() {
+export function* onLogin() {
+  const firebase = yield call(getFirebase)
   const firestore = yield call(getFirestore)
+
+  // Calling `updateProfile` is sort of a workaround because it seems
+  // like react-redux-firebase doesn't always create the user profile
+  // in the Firestore database when a new user is created.
+  // If we update the profile here, it's always created correctly.
+  yield call(firebase.updateProfile, { lastLogin: new Date() })
+
   const uid = yield select(uidSelector)
   if (!uid) {
     throw 'UID not available'
@@ -21,9 +25,10 @@ export function* watchCurrentUser() {
   yield call(firestore.setListener, {
     collection: 'users',
     doc: uid,
-    storeAs: 'currentUser',
-    listenerId: 'currentUser'
+    storeAs: 'currentUser'
   })
+
+  yield put(actions.fetchOrganizations())
 }
 
 export function* unwatchCurrentUser() {
@@ -67,34 +72,27 @@ export function* getWithRoles(organizationDoc, userRef) {
   return orgData
 }
 
-export function* fetchMyOrganizations(action) {
+export function* fetchOrganizations() {
   let organizations = []
 
-  if (action.payload.data) {
-    const currentUser = action.payload.ordered[0]
-    const organizationRefs = currentUser.organizations
-    if (organizationRefs) {
-      const organizationDocs = yield all(
-        organizationRefs.map(ref => call(ref.get.bind(ref)))
-      )
-      const userDoc = yield call(getDoc, ['users', currentUser.id])
-      organizations = yield all(
-        organizationDocs.map(doc => call(getWithRoles, doc, userDoc.ref))
-      )
-    }
+  const uid = yield select(uidSelector)
+  if (!uid) {
+    throw 'UID not available'
+  }
+  const userDoc = yield call(getDoc, ['users', uid])
+  const organizationRefs = userDoc.get('organizations')
+  if (organizationRefs && organizationRefs.length > 0) {
+    const organizationDocs = yield all(
+      organizationRefs.map(ref => call(ref.get.bind(ref)))
+    )
+    organizations = yield all(
+      organizationDocs
+        .filter(doc => doc.exists === true)
+        .map(doc => call(getWithRoles, doc, userDoc.ref))
+    )
   }
 
   yield put(actions.setMyOrganizations(organizations))
-}
-
-export function* onListenerResponse(action) {
-  const listenerId = action.meta.listenerId
-  if (listenerId) {
-    const customSaga = customListenerResponseSagas[listenerId]
-    if (customSaga) {
-      yield call(customSaga, action)
-    }
-  }
 }
 
 export const collectReferences = (data, referenceItems) => {
@@ -171,6 +169,7 @@ export function* onGetSuccess(action) {
 export function* logout() {
   const firebase = yield call(getFirebase)
   yield call(firebase.logout)
+  yield put(actions.setMyOrganizations(undefined))
 }
 
 export function* watchAerodromes() {
@@ -184,14 +183,11 @@ export function* watchAerodromes() {
 
 export default function* sagas() {
   yield all([
-    takeEvery(reduxFirebaseConstants.actionTypes.LOGIN, watchCurrentUser),
+    takeEvery(reduxFirebaseConstants.actionTypes.LOGIN, onLogin),
     takeEvery(reduxFirebaseConstants.actionTypes.LOGOUT, unwatchCurrentUser),
-    takeEvery(
-      reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
-      onListenerResponse
-    ),
     takeEvery(reduxFirestoreConstants.actionTypes.GET_SUCCESS, onGetSuccess),
     takeEvery(actions.LOGOUT, logout),
-    takeEvery(actions.WATCH_AERODROMES, watchAerodromes)
+    takeEvery(actions.WATCH_AERODROMES, watchAerodromes),
+    takeEvery(actions.FETCH_ORGANIZATIONS, fetchOrganizations)
   ])
 }
