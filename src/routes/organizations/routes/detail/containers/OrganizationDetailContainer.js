@@ -1,7 +1,7 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import OrganizationDetail from '../components/OrganizationDetail'
-import { getOrganization } from '../../../../../util/getFromState'
+import { getOrganization, getUserEmail } from '../../../../../util/getFromState'
 import { fetchAircrafts } from '../../../module'
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,6 +12,8 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
+    organizationId,
+    userEmail: getUserEmail(state),
     organization: getOrganization(state, organizationId),
     aircrafts: state.firestore.ordered.organizationAircrafts
   }

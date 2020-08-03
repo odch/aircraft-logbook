@@ -1,11 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import renderIntl, {
   renderIntlMaterial
 } from '../../../../../../testutil/renderIntl'
 import OrganizationDetail from './OrganizationDetail'
-
-const OrganizationsPage = () => <div>Organizations Page</div>
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -36,28 +34,21 @@ describe('routes', () => {
               expect(renderedValue).toMatchSnapshot()
             })
 
-            it('redirects to organizations page if organization was not found', () => {
+            it('shows message if organization was not found or user is not granted', () => {
               const renderedValue = renderIntlMaterial(
-                <Router>
-                  <Switch>
-                    <Route
-                      exact
-                      path="/organizations"
-                      component={OrganizationsPage}
-                    />
-                    <OrganizationDetail
-                      organization={null}
-                      aircrafts={null}
-                      fetchAircrafts={() => {}}
-                    />
-                  </Switch>
-                </Router>,
+                <OrganizationDetail
+                  organizationId="my_org"
+                  userEmail="test@opendigital.ch"
+                  organization={null}
+                  aircrafts={null}
+                  fetchAircrafts={() => {}}
+                />,
                 true
               )
               expect(renderedValue).toMatchSnapshot()
             })
 
-            it('renders organization if organizatino and aircrafts loaded', () => {
+            it('renders organization if organization and aircrafts loaded', () => {
               const renderedValue = renderIntlMaterial(
                 <Router>
                   <OrganizationDetail

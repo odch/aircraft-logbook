@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { FormattedHTMLMessage } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import isLoaded from '../../../../../../util/isLoaded'
@@ -19,6 +19,10 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  notFoundMessage: {
+    textAlign: 'center',
+    marginTop: '1em'
   }
 })
 
@@ -40,28 +44,52 @@ class OrganizationDetail extends React.Component {
   }
 
   render() {
-    const { organization, aircrafts, classes } = this.props
+    const {
+      organizationId,
+      userEmail,
+      organization,
+      aircrafts,
+      classes
+    } = this.props
 
-    if (!isLoaded(organization) || !isLoaded(aircrafts)) {
+    if (!isLoaded(organization)) {
       return <LoadingIcon />
     }
 
     if (!organization) {
-      return <Redirect to="/organizations" />
+      return this.renderContent(
+        <div className={classes.notFoundMessage}>
+          <FormattedHTMLMessage
+            id="organization.notfound"
+            values={{ organizationId, userEmail }}
+          />
+        </div>
+      )
     }
 
-    return (
-      <div className={classes.container}>
+    if (!isLoaded(aircrafts)) {
+      return <LoadingIcon />
+    }
+
+    return this.renderContent(
+      <>
         <Typography variant="h4" gutterBottom>
-          {organization.id}
+          {organizationId}
         </Typography>
         <AircraftList organization={organization} aircrafts={aircrafts} />
-      </div>
+      </>
     )
+  }
+
+  renderContent(content) {
+    const { classes } = this.props
+    return <div className={classes.container}>{content}</div>
   }
 }
 
 OrganizationDetail.propTypes = {
+  organizationId: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
   organization: organizationShape,
   aircrafts: PropTypes.arrayOf(aircraftShape),
   classes: PropTypes.object.isRequired,

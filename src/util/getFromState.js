@@ -1,3 +1,14 @@
+export const getUserEmail = state => {
+  const auth = state.firebase.auth
+  if (auth.isLoaded !== true) {
+    return undefined
+  }
+  if (auth.isEmpty === true) {
+    return null
+  }
+  return auth.email
+}
+
 export const getOrganization = (state, organizationId) => {
   const organizations = state.main.app.organizations
   if (organizations) {

@@ -2,11 +2,53 @@ import {
   getOrganization,
   getAircraft,
   getAircraftFlights,
-  getAircraftFlightsCount
+  getAircraftFlightsCount,
+  getUserEmail
 } from './getFromState'
 
 describe('util', () => {
   describe('getFromState', () => {
+    describe('getUserEmail', () => {
+      it('should return undefined if auth not loaded', () => {
+        expect(
+          getUserEmail({
+            firebase: {
+              auth: {
+                isLoaded: false
+              }
+            }
+          })
+        ).toEqual(undefined)
+      })
+
+      it('should return null if auth is empty', () => {
+        expect(
+          getUserEmail({
+            firebase: {
+              auth: {
+                isLoaded: true,
+                isEmpty: true
+              }
+            }
+          })
+        ).toEqual(null)
+      })
+
+      it('should return the email if auth is loaded and not empty', () => {
+        expect(
+          getUserEmail({
+            firebase: {
+              auth: {
+                isLoaded: true,
+                isEmpty: false,
+                email: 'test@opendigital.ch'
+              }
+            }
+          })
+        ).toEqual('test@opendigital.ch')
+      })
+    })
+
     describe('getOrganization', () => {
       it('should return undefined if organizations map undefined', () => {
         // correspondends to the state where organizations haven't been loaded yet

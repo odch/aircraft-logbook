@@ -42,10 +42,6 @@ const updateUserOrganizations = (change, fieldName, organizationRef) => {
   return Promise.all(promises)
 }
 
-module.exports.updateUserOrganizationsOnOrganizationWrite = functions.firestore
-  .document('organizations/{organizationID}')
-  .onWrite(change => updateUserOrganizations(change, 'owner', change.after.ref))
-
 module.exports.updateUserOrganizationsOnMemberWrite = functions.firestore
   .document('organizations/{organizationID}/members/{memberID}')
   .onWrite(change =>
