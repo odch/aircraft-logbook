@@ -6,9 +6,10 @@ const formatWithTwoDecimals = value => Number(value).toFixed(2)
 
 class DecimalField extends React.Component {
   state = {
-    stringValue: this.props.value
-      ? formatWithTwoDecimals(this.props.value / 100)
-      : '',
+    stringValue:
+      typeof this.props.value === 'number'
+        ? formatWithTwoDecimals(this.props.value / 100)
+        : '',
     focused: false
   }
 

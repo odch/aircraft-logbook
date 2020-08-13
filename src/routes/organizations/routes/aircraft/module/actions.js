@@ -18,6 +18,9 @@ export const CREATE_FLIGHT_FAILURE = 'aircraft/CREATE_FLIGHT_FAILURE'
 export const INIT_CREATE_FLIGHT_DIALOG = 'aircraft/INIT_CREATE_FLIGHT_DIALOG'
 export const SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA =
   'aircraft/SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA'
+
+export const OPEN_EDIT_FLIGHT_DIALOG = 'aircraft/OPEN_EDIT_FLIGHT_DIALOG'
+
 export const OPEN_DELETE_FLIGHT_DIALOG = 'aircraft/OPEN_DELETE_FLIGHT_DIALOG'
 export const CLOSE_DELETE_FLIGHT_DIALOG = 'aircraft/CLOSE_DELETE_FLIGHT_DIALOG'
 export const DELETE_FLIGHT = 'aircraft/DELETE_FLIGHT'
@@ -113,10 +116,25 @@ export const closeCreateFlightDialog = () => ({
   type: CLOSE_CREATE_FLIGHT_DIALOG
 })
 
-export const setInitialCreateFlightDialogData = data => ({
+export const openEditFlightDialog = (organizationId, aircraftId, flightId) => ({
+  type: OPEN_EDIT_FLIGHT_DIALOG,
+  payload: {
+    organizationId,
+    aircraftId,
+    flightId
+  }
+})
+
+export const setInitialCreateFlightDialogData = (
+  data,
+  visibleFields,
+  editableFields
+) => ({
   type: SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA,
   payload: {
-    data
+    data,
+    visibleFields,
+    editableFields
   }
 })
 

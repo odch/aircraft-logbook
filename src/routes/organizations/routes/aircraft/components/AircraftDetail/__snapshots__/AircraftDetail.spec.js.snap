@@ -213,6 +213,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-id="sStfyLd2XArT7oUZPFDn"
     >
       <div
         aria-disabled={false}

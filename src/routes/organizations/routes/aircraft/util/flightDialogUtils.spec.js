@@ -1,11 +1,11 @@
-import { loadMembers, loadAerodromes } from './FlightCreateDialogContainer'
+import { loadAerodromes, loadMembers } from './flightDialogUtils'
 
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
       describe('aircraft', () => {
-        describe('containers', () => {
-          describe('FlightCreateDialogContainer', () => {
+        describe('util', () => {
+          describe('flightDialogUtils', () => {
             describe('loadMembers', () => {
               const state = {
                 firestore: {

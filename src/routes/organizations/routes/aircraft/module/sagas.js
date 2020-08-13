@@ -2,9 +2,18 @@ import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
 import { getFirestore, callFunction } from '../../../../../util/firebase'
 import * as actions from './actions'
-import { getMemberOption, getAerodromeOption } from '../util/getOptions'
+import {
+  getMemberOption,
+  getAerodromeOption,
+  getFuelTypeOption
+} from '../util/getOptions'
 import { error } from '../../../../../util/log'
-import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  getDoc,
+  addDoc,
+  updateDoc,
+  runTransaction
+} from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { getCounters } from './util/counters'
@@ -168,6 +177,16 @@ export const mergeDateAndTime = (date, time, timezone) => {
   return moment.tz(date + ' ' + timeString, dateTimeFormat, timezone).toDate()
 }
 
+export const extractDate = (timestamp, timezone) =>
+  moment(timestamp.toDate())
+    .tz(timezone)
+    .format('YYYY-MM-DD')
+
+export const getTimeForPicker = (timestamp, timezone) =>
+  moment(timestamp.toDate())
+    .tz(timezone)
+    .format('YYYY-MM-DD HH:mm')
+
 export const aerodromeObject = aeodromeDocument => ({
   name: aeodromeDocument.get('name') || null,
   identification: aeodromeDocument.get('identification') || null,
@@ -277,7 +296,7 @@ export function* createFlight({
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
-      nature: data.nature.value,
+      nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
       pilot: memberObject(pilot),
       instructor: memberObject(instructor),
       departureAerodrome: aerodromeObject(departureAerodrome),
@@ -297,9 +316,22 @@ export function* createFlight({
       remarks: data.remarks || null
     }
 
-    const flightDoc = yield call(
-      addDoc,
-      ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
+    const oldFlightDoc = data.id
+      ? yield call(getDoc, [
+          'organizations',
+          organizationId,
+          'aircrafts',
+          aircraftId,
+          'flights',
+          data.id
+        ])
+      : null
+    const newFlightDoc = yield call(addNewFlightDoc, organizationId, aircraftId)
+    yield call(
+      runTransaction,
+      setFlightData,
+      oldFlightDoc,
+      newFlightDoc,
       dataToStore
     )
 
@@ -309,7 +341,7 @@ export function* createFlight({
         initialStatus: data.techlogEntryStatus.value,
         currentStatus: data.techlogEntryStatus.value,
         closed: isClosed(data.techlogEntryStatus.value),
-        flight: flightDoc.id,
+        flight: newFlightDoc.id,
         attachments: yield call(
           getAttachments,
           data.techlogEntryAttachments || []
@@ -330,6 +362,38 @@ export function* createFlight({
     error(`Failed to create flight`, e)
     yield put(actions.createFlightFailure())
   }
+}
+
+export function* addNewFlightDoc(organizationId, aircraftId) {
+  const newDoc = yield call(
+    addDoc,
+    ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
+    { deleted: true }
+  )
+  // fetch again with ref
+  return yield call(getDoc, [
+    'organizations',
+    organizationId,
+    'aircrafts',
+    aircraftId,
+    'flights',
+    newDoc.id
+  ])
+}
+
+export const setFlightData = (
+  oldFlightDoc,
+  newFlightDoc,
+  dataToStore
+) => async tx => {
+  if (oldFlightDoc) {
+    tx.update(oldFlightDoc.ref, {
+      deleted: true,
+      replacedWith: newFlightDoc.id
+    })
+    dataToStore.replaces = oldFlightDoc.id
+  }
+  tx.update(newFlightDoc.ref, dataToStore)
 }
 
 export function* initCreateFlightDialog({
@@ -394,6 +458,85 @@ export function setStartCounters(target, source, counterNames) {
       target[counterName].start = source[counterName].end
     }
   })
+}
+
+export function* openAndInitEditFlightDialog({
+  payload: { organizationId, aircraftId, flightId }
+}) {
+  yield put(actions.openCreateFlightDialog())
+  const flight = yield call(getFlight, organizationId, aircraftId, flightId)
+  const data = (({
+    pilot,
+    instructor,
+    nature,
+    departureAerodrome,
+    destinationAerodrome,
+    blockOffTime,
+    takeOffTime,
+    landingTime,
+    blockOnTime,
+    landings,
+    personsOnBoard,
+    fuelUplift,
+    fuelType,
+    oilUplift,
+    remarks,
+    counters
+  }) => ({
+    id: flight.id,
+    date: extractDate(blockOffTime, departureAerodrome.timezone),
+    pilot: getMemberOption(pilot),
+    instructor: instructor ? getMemberOption(instructor) : null,
+    nature,
+    departureAerodrome: getAerodromeOption(departureAerodrome),
+    destinationAerodrome: getAerodromeOption(destinationAerodrome),
+    blockOffTime: getTimeForPicker(blockOffTime, departureAerodrome.timezone),
+    takeOffTime: getTimeForPicker(takeOffTime, departureAerodrome.timezone),
+    landingTime: getTimeForPicker(landingTime, destinationAerodrome.timezone),
+    blockOnTime: getTimeForPicker(blockOnTime, destinationAerodrome.timezone),
+    landings,
+    personsOnBoard,
+    fuelUplift: fuelUplift || 0,
+    fuelType: fuelType ? getFuelTypeOption(fuelType) : null,
+    oilUplift,
+    remarks: remarks || '',
+    counters
+  }))(flight.data())
+  yield put(
+    actions.setInitialCreateFlightDialogData(
+      data,
+      [
+        'date',
+        'pilot',
+        'instructor',
+        'nature',
+        'departureAerodrome',
+        'destinationAerodrome',
+        'counters.flightTimeCounter.start',
+        'counters.flightTimeCounter.end',
+        'blockOffTime',
+        'takeOffTime',
+        'landingTime',
+        'blockOnTime',
+        'landings',
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'remarks'
+      ],
+      [
+        'pilot',
+        'instructor',
+        'nature',
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'remarks'
+      ]
+    )
+  )
 }
 
 export function* deleteFlight({
@@ -711,6 +854,7 @@ export default function* sagas() {
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    takeEvery(actions.OPEN_EDIT_FLIGHT_DIALOG, openAndInitEditFlightDialog),
     takeEvery(actions.DELETE_FLIGHT, deleteFlight),
     takeEvery(actions.CREATE_AERODROME, createAerodrome),
     takeEvery(actions.INIT_TECHLOG, initTechlog),

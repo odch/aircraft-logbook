@@ -8,3 +8,8 @@ export const getMemberOption = member => ({
   value: member.id,
   label: `${member.lastname} ${member.firstname}`
 })
+
+export const getFuelTypeOption = fuelType => ({
+  value: fuelType.name,
+  label: fuelType.description || fuelType.name
+})

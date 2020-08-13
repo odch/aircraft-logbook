@@ -106,7 +106,9 @@ const setInitialCreateFlightDialogData = (state, action) => {
     createFlightDialog: {
       ...state.createFlightDialog,
       data: newData,
-      initialData
+      initialData,
+      visibleFields: action.payload.visibleFields,
+      editableFields: action.payload.editableFields
     }
   }
 }

@@ -38,3 +38,9 @@ export function* removeArrayItem(path, arrayPath, item) {
     [arrayPath]: firestore.FieldValue.arrayRemove(item)
   })
 }
+
+export function* runTransaction(updateFunction, ...args) {
+  const firestore = yield call(getFirestore)
+  const updateFn = yield call(updateFunction, ...args)
+  return yield call(firestore.runTransaction, updateFn)
+}
