@@ -155,7 +155,7 @@ export function* validateSync(
     }
   }
 
-  if (aircraftSettings.techlogEnabled === true) {
+  if (aircraftSettings.techlogEnabled === true && !data.id) {
     if (!data.troublesObservations) {
       errors['troublesObservations'] = 'required'
     }
@@ -178,12 +178,16 @@ export function* validateSync(
 export function* validateAsync(data, organizationId, aircraftId) {
   const errors = {}
 
-  const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
-  if (
-    lastFlight &&
-    moment(data.blockOffTime).isBefore(lastFlight.blockOnTime.toDate())
-  ) {
-    errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
+  // date and time and so on currently not editable when updating flights
+  // -> no need to validate in this case
+  if (!data.id) {
+    const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+    if (
+      lastFlight &&
+      moment(data.blockOffTime).isBefore(lastFlight.blockOnTime.toDate())
+    ) {
+      errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
+    }
   }
 
   return errors

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import TablePagination from '@material-ui/core/TablePagination'
 import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Divider from '@material-ui/core/Divider'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -160,6 +161,7 @@ class FlightList extends React.Component {
         key={flight.id}
         expanded={expanded === flight.id}
         onChange={this.handleExpansionPanelChange(flight.id)}
+        data-id={flight.id}
       >
         {this.renderSummary(flight)}
         {expanded === flight.id && this.renderDetails(flight, isNewestFlight)}
@@ -200,13 +202,25 @@ class FlightList extends React.Component {
   }
 
   renderDetails(flight, isNewestFlight) {
-    const { aircraft, openDeleteFlightDialog } = this.props
+    const {
+      organization,
+      aircraft,
+      openEditFlightDialog,
+      openDeleteFlightDialog
+    } = this.props
     return [
       <ExpansionPanelDetails key={`details-${flight.id}`}>
         <FlightDetails aircraft={aircraft} flight={flight} />
       </ExpansionPanelDetails>,
       <Divider key={`divider-${flight.id}`} />,
       <ExpansionPanelActions key={`actions-${flight.id}`}>
+        <IconButton
+          onClick={() =>
+            openEditFlightDialog(organization.id, aircraft.id, flight.id)
+          }
+        >
+          <EditIcon />
+        </IconButton>
         <Tooltip
           title={this.msg(
             isNewestFlight
@@ -263,6 +277,7 @@ FlightList.propTypes = {
   fetchFlights: PropTypes.func.isRequired,
   openCreateFlightDialog: PropTypes.func.isRequired,
   initCreateFlightDialog: PropTypes.func.isRequired,
+  openEditFlightDialog: PropTypes.func.isRequired,
   openDeleteFlightDialog: PropTypes.func.isRequired,
   closeDeleteFlightDialog: PropTypes.func.isRequired,
   deleteFlight: PropTypes.func.isRequired,

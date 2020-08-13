@@ -12,27 +12,17 @@ import * as flightDialogUtils from '../util/flightDialogUtils'
 
 const mapStateToProps = (state, ownProps) => {
   const { aircraftId, intl } = ownProps
-  const {
-    initialData,
-    data,
-    submitting,
-    validationErrors,
-    visibleFields,
-    editableFields
-  } = state.aircraft.createFlightDialog
   return {
     flightNatures: flightDialogUtils.flightNatures(intl),
     techlogEntryStatusOptions: flightDialogUtils.techlogEntryStatus(intl),
     loadMembers: flightDialogUtils.loadMembers(state),
     loadAerodromes: flightDialogUtils.loadAerodromes(state),
     aircraftSettings: flightDialogUtils.aircraftSettings(state, aircraftId),
-    createAerodromeDialogOpen: state.aircraft.createAerodromeDialog.open,
-    data,
-    validationErrors,
-    submitting,
-    initialData,
-    visibleFields,
-    editableFields
+    data: state.aircraft.createFlightDialog.data,
+    validationErrors: state.aircraft.createFlightDialog.validationErrors,
+    submitting: state.aircraft.createFlightDialog.submitting,
+    initialData: state.aircraft.createFlightDialog.initialData,
+    createAerodromeDialogOpen: state.aircraft.createAerodromeDialog.open
   }
 }
 

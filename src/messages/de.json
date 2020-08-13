@@ -107,7 +107,8 @@
   "flightlist.total.enginehours": "Motorstunden total",
   "flightlist.total.landings": "Landungen total",
 
-  "flight.create.dialog.title": "Flug erfassen",
+  "flight.create.dialog.title_create": "Flug erfassen",
+  "flight.create.dialog.title_update": "Flug bearbeiten",
   "flight.create.dialog.date": "Datum",
   "flight.create.dialog.pilot": "Pilot",
   "flight.create.dialog.instructor": "Fluglehrer",
