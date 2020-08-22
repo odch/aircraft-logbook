@@ -26,10 +26,18 @@ const styles = theme => ({
   },
   sectionHeading: {
     marginTop: '1.5em'
+  },
+  settingsButton: {
+    float: 'right'
   }
 })
 
 class AircraftDetail extends React.Component {
+  isOrganizationOrTechlogManager = () =>
+    this.props.organization.roles.some(role =>
+      ['manager', 'techlogmanager'].includes(role)
+    )
+
   componentDidMount() {
     const {
       organization,
@@ -82,6 +90,15 @@ class AircraftDetail extends React.Component {
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
+          {this.isOrganizationOrTechlogManager() && (
+            <Button
+              href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/settings`}
+              color="primary"
+              className={classes.settingsButton}
+            >
+              <FormattedMessage id="aircraftdetail.settings" />
+            </Button>
+          )}
         </Typography>
         {aircraft.checks && aircraft.checks.length > 0 && (
           <>

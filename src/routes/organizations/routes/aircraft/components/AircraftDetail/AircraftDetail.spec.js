@@ -140,7 +140,7 @@ describe('routes', () => {
                 <Provider store={store}>
                   <Router>
                     <AircraftDetail
-                      organization={{ id: 'my_org' }}
+                      organization={{ id: 'my_org', roles: ['manager'] }}
                       aircraft={{
                         id: 'o7flC7jw8jmkOfWo8oyA',
                         registration: 'HBKFW',

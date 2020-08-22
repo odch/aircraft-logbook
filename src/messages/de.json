@@ -31,6 +31,8 @@
   "organizations.delete.dialog.buttons.cancel": "Abbrechen",
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
 
+  "aircraftdetail.settings": "Einstellungen bearbeiten",
+
   "aircraftdetail.checks": "Nächste Checks",
   "aircraftdetail.checks.date.text": "am {date}",
   "aircraftdetail.checks.date.remaining": "{diff} verbleibend",

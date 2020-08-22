@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`routes organizations routes aircraft routes settings components AircraftSettings redirects to aircraft page if not manager or techlog manager 1`] = `
+<div>
+  Aircraft Page
+</div>
+`;
+
 exports[`routes organizations routes aircraft routes settings components AircraftSettings redirects to organization page if aircraft was not found 1`] = `
 <div>
   Organization Page

@@ -24,6 +24,11 @@ const styles = theme => ({
 })
 
 class AircraftSettings extends React.Component {
+  isOrganizationOrTechlogManager = () =>
+    this.props.organization.roles.some(role =>
+      ['manager', 'techlogmanager'].includes(role)
+    )
+
   componentDidMount() {
     const { organization, fetchAircrafts } = this.props
 
@@ -56,6 +61,14 @@ class AircraftSettings extends React.Component {
 
     if (aircraft === null) {
       return <Redirect to={`/organizations/${organization.id}`} />
+    }
+
+    if (!this.isOrganizationOrTechlogManager()) {
+      return (
+        <Redirect
+          to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
+        />
+      )
     }
 
     return (
