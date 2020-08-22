@@ -7,6 +7,7 @@ import AircraftSettings from './AircraftSettings'
 
 const StartPage = () => <div>Start Page</div>
 const OrganizationPage = () => <div>Organization Page</div>
+const AircraftPage = () => <div>Aircraft Page</div>
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -72,6 +73,29 @@ describe('routes', () => {
                   expect(tree).toMatchSnapshot()
                 })
 
+                it('redirects to aircraft page if not manager or techlog manager', () => {
+                  const tree = renderIntl(
+                    <Router>
+                      <Switch>
+                        <Route
+                          exact
+                          path="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
+                          component={AircraftPage}
+                        />
+                        <AircraftSettings
+                          organization={{ id: 'my_org', roles: [] }}
+                          aircraft={{
+                            id: 'o7flC7jw8jmkOfWo8oyA',
+                            registration: 'HBKFW'
+                          }}
+                          fetchAircrafts={() => {}}
+                        />
+                      </Switch>
+                    </Router>
+                  ).toJSON()
+                  expect(tree).toMatchSnapshot()
+                })
+
                 it('renders aircraft settings when everything is loaded', () => {
                   const store = configureStore()({
                     firestore: {
@@ -104,7 +128,7 @@ describe('routes', () => {
                     <Provider store={store}>
                       <Router>
                         <AircraftSettings
-                          organization={{ id: 'my_org' }}
+                          organization={{ id: 'my_org', roles: ['manager'] }}
                           aircraft={{
                             id: 'o7flC7jw8jmkOfWo8oyA',
                             registration: 'HBKFW'
