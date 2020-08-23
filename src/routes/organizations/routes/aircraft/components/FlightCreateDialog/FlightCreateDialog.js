@@ -615,10 +615,13 @@ const flightDataShape = PropTypes.shape({
   oilUplift: PropTypes.number,
   remarks: PropTypes.string,
   troublesObservations: PropTypes.oneOf(['nil', 'troubles']),
-  techlogEntryStatus: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  }),
+  techlogEntryStatus: PropTypes.oneOfType([
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }),
+    PropTypes.string
+  ]),
   techlogEntryDescription: PropTypes.string,
   techlogEntryAttachments: PropTypes.arrayOf(
     PropTypes.shape({

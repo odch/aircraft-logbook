@@ -313,7 +313,14 @@ export function* createFlight({
       fuelUnit: 'litre',
       oilUplift,
       oilUnit: 'litre',
-      remarks: data.remarks || null
+      remarks: data.remarks || null,
+      troublesObservations: data.troublesObservations,
+      techlogEntryDescription: data.techlogEntryDescription
+        ? data.techlogEntryDescription.trim()
+        : null,
+      techlogEntryStatus: data.techlogEntryStatus
+        ? data.techlogEntryStatus.value
+        : null
     }
 
     const oldFlightDoc = data.id
@@ -481,7 +488,10 @@ export function* openAndInitEditFlightDialog({
     fuelType,
     oilUplift,
     remarks,
-    counters
+    counters,
+    troublesObservations,
+    techlogEntryDescription,
+    techlogEntryStatus
   }) => ({
     id: flight.id,
     date: extractDate(blockOffTime, departureAerodrome.timezone),
@@ -500,7 +510,10 @@ export function* openAndInitEditFlightDialog({
     fuelType: fuelType ? getFuelTypeOption(fuelType) : null,
     oilUplift,
     remarks: remarks || '',
-    counters
+    counters,
+    troublesObservations,
+    techlogEntryDescription,
+    techlogEntryStatus
   }))(flight.data())
   yield put(
     actions.setInitialCreateFlightDialogData(

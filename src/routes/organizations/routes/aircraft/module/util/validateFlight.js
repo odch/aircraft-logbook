@@ -155,7 +155,7 @@ export function* validateSync(
     }
   }
 
-  if (aircraftSettings.techlogEnabled === true && !data.id) {
+  if (aircraftSettings.techlogEnabled === true) {
     if (!data.troublesObservations) {
       errors['troublesObservations'] = 'required'
     }

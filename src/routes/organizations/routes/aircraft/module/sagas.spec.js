@@ -187,6 +187,7 @@ describe('routes', () => {
                 fuelType: { value: 'avgas_homebase' },
                 oilUplift: 245,
                 remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
                 troublesObservations: 'troubles',
                 techlogEntryStatus: { value: 'not_airworthy' },
                 techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
@@ -380,7 +381,11 @@ describe('routes', () => {
                 fuelType: 'avgas_homebase',
                 oilUplift: 2.45,
                 oilUnit: 'litre',
-                remarks: 'bemerkung zeile 1\nzeile2'
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                troublesObservations: 'troubles',
+                techlogEntryStatus: 'not_airworthy',
+                techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
               }
 
               expect(generator.next(newFlightDoc).value).toEqual(

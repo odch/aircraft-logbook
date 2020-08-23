@@ -3,6 +3,8 @@ import { useIntl } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
+import Box from '@material-ui/core/Box'
+import { EntryStatus } from '../Techlog'
 import { aircraft, flight } from '../../../../../../shapes'
 import {
   formatDate,
@@ -164,6 +166,27 @@ const FlightDetails = ({ aircraft, flight }) => {
           </Grid>
         )}
       </Grid>
+      {flight.troublesObservations && (
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={8}>
+            {flight.troublesObservations === 'nil' ? (
+              renderField('troublesobservations', 'NIL', intl)
+            ) : (
+              <>
+                {renderField(
+                  'troublesobservations',
+                  flight.techlogEntryDescription,
+                  intl,
+                  true
+                )}
+                <Box mb={1}>
+                  <EntryStatus id={flight.techlogEntryStatus} small />
+                </Box>
+              </>
+            )}
+          </Grid>
+        </Grid>
+      )}
       <Divider />
       <Grid item xs={12} container>
         <Grid item xs={6} sm={4}>

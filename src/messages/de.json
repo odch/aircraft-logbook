@@ -103,6 +103,7 @@
   "flightlist.landings": "Landungen",
   "flightlist.personsonboard": "Personen an Bord (inkl. Pilot)",
   "flightlist.remarks": "Bemerkungen für Abrechnung",
+  "flightlist.troublesobservations": "Probleme oder Beobachtungen",
   "flightlist.delete": "Flug löschen",
   "flightlist.delete.not_newest": "Dieser Flug kann nicht mehr gelöscht werden, da bereits ein Folgeflug erfasst wurde.",
   "flightlist.total.flighthours": "Flugstunden total",
