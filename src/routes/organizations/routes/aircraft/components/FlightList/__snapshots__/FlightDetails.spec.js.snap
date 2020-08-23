@@ -588,6 +588,72 @@ remarks"
       className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
     />
   </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+          data-shrink={true}
+        >
+          Probleme oder Beobachtungen
+        </label>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+          onClick={[Function]}
+        >
+          <textarea
+            aria-invalid={false}
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            rows={1}
+            style={
+              Object {
+                "height": undefined,
+                "overflow": null,
+              }
+            }
+            value="loose screw left main wheel"
+          />
+          <textarea
+            aria-hidden={true}
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+            readOnly={true}
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "overflow": "hidden",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            tabIndex={-1}
+          />
+        </div>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-200"
+      >
+        <span
+          className="MuiTypography-root EntryStatus-status-160 EntryStatus-error-161 EntryStatus-small-163 MuiTypography-body1"
+        >
+          Nicht flugtauglich
+        </span>
+      </div>
+    </div>
+  </div>
   <hr
     className="MuiDivider-root"
   />
@@ -1278,6 +1344,72 @@ remarks"
     <div
       className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
     />
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+          data-shrink={true}
+        >
+          Probleme oder Beobachtungen
+        </label>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+          onClick={[Function]}
+        >
+          <textarea
+            aria-invalid={false}
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={true}
+            required={false}
+            rows={1}
+            style={
+              Object {
+                "height": undefined,
+                "overflow": null,
+              }
+            }
+            value="loose screw left main wheel"
+          />
+          <textarea
+            aria-hidden={true}
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+            readOnly={true}
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "overflow": "hidden",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            tabIndex={-1}
+          />
+        </div>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-159"
+      >
+        <span
+          className="MuiTypography-root EntryStatus-status-160 EntryStatus-error-161 EntryStatus-small-163 MuiTypography-body1"
+        >
+          Nicht flugtauglich
+        </span>
+      </div>
+    </div>
   </div>
   <hr
     className="MuiDivider-root"
