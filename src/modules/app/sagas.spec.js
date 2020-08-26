@@ -129,6 +129,10 @@ describe('modules', () => {
 
           const generator = sagas.fetchOrganizations()
 
+          expect(generator.next().value).toEqual(
+            put(actions.setMyOrganizations(undefined))
+          )
+
           expect(generator.next().value).toEqual(select(sagas.uidSelector))
 
           expect(generator.next('current-user-id').value).toEqual(
@@ -157,6 +161,10 @@ describe('modules', () => {
 
         it('should set empty array if user has no organizations', () => {
           const generator = sagas.fetchOrganizations()
+
+          expect(generator.next().value).toEqual(
+            put(actions.setMyOrganizations(undefined))
+          )
 
           expect(generator.next().value).toEqual(select(sagas.uidSelector))
 
