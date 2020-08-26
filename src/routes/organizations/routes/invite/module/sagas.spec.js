@@ -1,9 +1,14 @@
 import { all, takeEvery, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
-import { getDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  addArrayItem,
+  getDoc,
+  updateDoc
+} from '../../../../../util/firestoreUtils'
 import { getFirestore } from '../../../../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
+import { fetchOrganizations } from '../../../../../modules/app'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -96,7 +101,13 @@ describe('routes', () => {
               const uid = 'user-id'
 
               const user = {
-                ref: 'user-id'
+                id: uid,
+                ref: { id: uid }
+              }
+
+              const org = {
+                id: orgId,
+                ref: { id: orgId }
               }
 
               const action = actions.acceptInvite(orgId, inviteId)
@@ -113,9 +124,12 @@ describe('routes', () => {
                         user: user.ref
                       }
                     )
-                  ]
+                  ],
+                  [call(getDoc, ['organizations', orgId]), org],
+                  [call(addArrayItem, ['users', uid], 'organizations', org.ref)]
                 ])
                 .put(actions.setAcceptInProgress())
+                .put(fetchOrganizations())
                 .put(actions.fetchInvite(orgId, inviteId))
                 .run()
             })
