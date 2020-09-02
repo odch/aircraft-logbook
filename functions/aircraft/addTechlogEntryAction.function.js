@@ -37,6 +37,25 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
     id: member.id
   }
 
+  if (action.signature) {
+    delete action.signature
+    const user = await member.get('user').get()
+    action.signature = {
+      text: user.get('signatureText') || null,
+      image: user.get('signatureImage') || null
+    }
+    if (!action.signature.text) {
+      console.log(
+        `Property 'signatureText' not set in user ${context.auth.uid}`
+      )
+    }
+    if (!action.signature.image) {
+      console.log(
+        `Property 'signatureImage' not set in user ${context.auth.uid}`
+      )
+    }
+  }
+
   const batch = db.batch()
 
   const techlogEntryRef = db
