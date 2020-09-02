@@ -792,16 +792,18 @@ describe('routes', () => {
             const data = {
               identification: 'LSXX',
               name: 'Hagenbuch',
-              timezone: 'Europe/Zurich'
+              timezone: {
+                value: 'Europe/Zurich'
+              }
             }
 
             const action = actions.createAerodrome(orgId, fieldName, data)
 
             it('should create the aerodrome in the organization', () => {
               const expectedDataToStore = {
-                identification: data.identification,
-                name: data.name,
-                timezone: data.timezone.value,
+                identification: 'LSXX',
+                name: 'Hagenbuch',
+                timezone: 'Europe/Zurich',
                 deleted: false
               }
 
@@ -825,7 +827,8 @@ describe('routes', () => {
                   actions.updateCreateFlightDialogData({
                     [fieldName]: {
                       value: 'newAerodromeId',
-                      label: 'LSXX (Hagenbuch)'
+                      label: 'LSXX (Hagenbuch)',
+                      timezone: 'Europe/Zurich'
                     }
                   })
                 )
