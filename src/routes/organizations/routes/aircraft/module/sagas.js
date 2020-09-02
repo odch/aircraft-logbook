@@ -593,7 +593,8 @@ export function* createAerodrome({
       actions.updateCreateFlightDialogData({
         [fieldName]: {
           value: doc.id,
-          label: `${data.identification} (${data.name})`
+          label: `${data.identification} (${data.name})`,
+          timezone: data.timezone.value
         }
       })
     )
