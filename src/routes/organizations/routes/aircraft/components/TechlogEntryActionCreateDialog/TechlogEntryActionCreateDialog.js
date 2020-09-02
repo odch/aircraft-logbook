@@ -8,6 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
 import { intl as intlShape } from '../../../../../../shapes'
 import Select from '../../../../../../components/Select'
@@ -36,6 +38,10 @@ class TechlogEntryActionCreateDialog extends React.Component {
 
   handleSelectChange = name => value => {
     this.updateData(name, value)
+  }
+
+  handleCheckboxChange = name => e => {
+    this.updateData(name, e.target.checked)
   }
 
   handleFileSelect = files => {
@@ -109,7 +115,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
           <DialogContent className={classes.root}>
             {this.renderMultilineTextField('description', true)}
             {this.renderSelect('status', statusOptions, true)}
-            {this.renderTextField('signature')}
+            {this.renderCheckbox('signature')}
             <Attachments
               attachments={this.props.data.attachments}
               disabled={submitting}
@@ -169,19 +175,20 @@ class TechlogEntryActionCreateDialog extends React.Component {
     )
   }
 
-  renderTextField(name, required) {
+  renderCheckbox(name) {
     return (
-      <TextField
-        label={this.msg(
-          `aircraft.techlog.action.create.dialog.${name.toLowerCase()}`
-        )}
-        value={this.props.data[name]}
-        onChange={this.handleChange(name)}
-        data-cy={`${name}-field`}
-        margin="dense"
-        fullWidth
+      <FormControlLabel
+        value={name}
+        control={
+          <Checkbox
+            color="primary"
+            checked={this.props.data[name] === true}
+            onChange={this.handleCheckboxChange(name)}
+          />
+        }
+        label={this.msg(`aircraft.techlog.action.create.dialog.${name}`)}
+        labelPlacement="end"
         disabled={this.props.submitting}
-        required={required}
       />
     )
   }

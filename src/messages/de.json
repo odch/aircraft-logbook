@@ -70,7 +70,7 @@
   "aircraft.techlog.action.create.dialog.title": "Aktualisierung erfassen",
   "aircraft.techlog.action.create.dialog.description": "Beschreibung",
   "aircraft.techlog.action.create.dialog.status": "Neuer Status",
-  "aircraft.techlog.action.create.dialog.signature": "Signatur",
+  "aircraft.techlog.action.create.dialog.signature": "Signatur einfügen",
   "aircraft.techlog.action.create.dialog.addattachment": "Datei anhängen",
   "aircraft.techlog.action.create.dialog.buttons.cancel": "Abbrechen",
   "aircraft.techlog.action.create.dialog.buttons.create": "Speichern",

@@ -59,10 +59,10 @@ const Action = ({
             </React.Fragment>
           ))}
         </Typography>
-        {signature && (
+        {signature && signature.text && (
           <Typography paragraph className={classes.signature}>
             <FormattedMessage id="aircraftdetail.techlog.action.signature" />
-            :&nbsp;{signature}
+            :&nbsp;{signature.text}
           </Typography>
         )}
         <Attachments

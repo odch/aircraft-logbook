@@ -51,7 +51,7 @@ const INITIAL_STATE = {
     data: {
       description: '',
       status: null,
-      signature: null,
+      signature: false,
       attachments: []
     }
   }
@@ -649,7 +649,7 @@ describe('routes', () => {
                     data: {
                       description: 'action xyz taken',
                       status: { value: 'crs' },
-                      signature: 'XYZ-123',
+                      signature: true,
                       attachments: [{ name: 'att1.jpeg' }]
                     }
                   }
@@ -667,7 +667,7 @@ describe('routes', () => {
                 data: {
                   description: '',
                   status: 'for_information_only',
-                  signature: null,
+                  signature: false,
                   attachments: []
                 }
               }
