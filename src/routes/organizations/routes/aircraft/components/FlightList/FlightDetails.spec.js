@@ -69,6 +69,7 @@ describe('routes', () => {
                 fuelUplift: 58.68,
                 fuelType: 'mogas_homebase',
                 oilUplift: 0.7,
+                preflightCheck: true,
                 troublesObservations: 'troubles',
                 techlogEntryStatus: 'not_airworthy',
                 techlogEntryDescription: 'loose screw left main wheel'

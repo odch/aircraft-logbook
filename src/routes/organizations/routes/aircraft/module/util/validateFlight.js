@@ -155,6 +155,10 @@ export function* validateSync(
     }
   }
 
+  if (data.preflightCheck !== true) {
+    errors['preflightCheck'] = 'required'
+  }
+
   if (aircraftSettings.techlogEnabled === true) {
     if (!data.troublesObservations) {
       errors['troublesObservations'] = 'required'

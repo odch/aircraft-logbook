@@ -37,13 +37,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Pilot</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-2-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -62,13 +62,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Fluglehrer</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-3-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -87,13 +87,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-4-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -112,13 +112,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Startflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-5-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -137,13 +137,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Zielflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-6-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -250,13 +250,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               </div>
               <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6\\">
                 <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-                  <div class=\\"IntegrationReactSelect-root-168\\">
+                  <div class=\\"IntegrationReactSelect-root-169\\">
                     <div class=\\" css-2b097c-container\\">
                       <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
                         <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                            <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                            <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                               <div class=\\"css-13fspk8\\">
                                 <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-7-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                   <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -287,9 +287,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline\\"><textarea rows=\\"1\\" aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline\\"></textarea><textarea aria-hidden=\\"true\\" class=\\"MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline\\" readonly=\\"\\" tabindex=\\"-1\\" style=\\"visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; width: 100%;\\"></textarea></div>
             </div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\\"></path></svg><input class=\\"PrivateSwitchBase-input-303\\" type=\\"checkbox\\" data-indeterminate=\\"false\\" value=\\"preflightCheck\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Preflight Check durchgeführt</span></label></div>
           <div class=\\"MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
             <legend class=\\"MuiFormLabel-root\\">Probleme oder Beobachtungen</legend>
-            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
+            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
           </div>
         </div>
         <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Speichern</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
@@ -337,13 +338,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Pilot</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-8-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -362,13 +363,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Fluglehrer</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-9-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -387,13 +388,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Typ</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-10-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -412,13 +413,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Startflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-11-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -437,13 +438,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Zielflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-12-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -550,13 +551,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               </div>
               <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6\\">
                 <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-                  <div class=\\"IntegrationReactSelect-root-168\\">
+                  <div class=\\"IntegrationReactSelect-root-169\\">
                     <div class=\\" css-14jk2my-container\\">
                       <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Typ</label>
                         <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
-                            <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
+                            <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                               <div class=\\"css-13fspk8\\">
                                 <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-13-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                   <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -587,9 +588,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline\\"><textarea rows=\\"1\\" aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline\\" disabled=\\"\\"></textarea><textarea aria-hidden=\\"true\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline\\" readonly=\\"\\" tabindex=\\"-1\\" style=\\"visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; width: 100%;\\"></textarea></div>
             </div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\"><label class=\\"MuiFormControlLabel-root Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-disabled-302 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\\"></path></svg><input class=\\"PrivateSwitchBase-input-303\\" disabled=\\"\\" type=\\"checkbox\\" data-indeterminate=\\"false\\" value=\\"preflightCheck\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">Preflight Check durchgeführt</span></label></div>
           <div class=\\"MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
             <legend class=\\"MuiFormLabel-root Mui-disabled\\">Probleme oder Beobachtungen</legend>
-            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-302 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" disabled=\\"\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-302 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" disabled=\\"\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
+            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-302 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" disabled=\\"\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root Mui-disabled\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-302 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" aria-disabled=\\"true\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" disabled=\\"\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
           </div>
         </div>
         <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" type=\\"button\\" disabled=\\"\\"><span class=\\"MuiButton-label\\">Abbrechen</span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary Mui-disabled Mui-disabled\\" tabindex=\\"-1\\" type=\\"submit\\" disabled=\\"\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Speichern</span></button></div>
@@ -637,13 +639,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Pilot</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-14-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -662,13 +664,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Fluglehrer</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-15-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -687,13 +689,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-16-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -712,13 +714,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Startflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-17-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -737,13 +739,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
             </div>
           </div>
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-            <div class=\\"IntegrationReactSelect-root-168\\">
+            <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
                 <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Zielflugplatz</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                      <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                    <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                      <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                        <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                         <div class=\\"css-13fspk8\\">
                           <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-18-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                             <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -850,13 +852,13 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               </div>
               <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6\\">
                 <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
-                  <div class=\\"IntegrationReactSelect-root-168\\">
+                  <div class=\\"IntegrationReactSelect-root-169\\">
                     <div class=\\" css-2b097c-container\\">
                       <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
                         <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
-                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-169\\" type=\\"text\\">
-                            <div class=\\"IntegrationReactSelect-valueContainer-170\\">
-                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-174 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
+                          <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
+                            <div class=\\"IntegrationReactSelect-valueContainer-171\\">
+                              <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-175 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                               <div class=\\"css-13fspk8\\">
                                 <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-19-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
                                   <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
@@ -887,9 +889,10 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
               <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline\\"><textarea rows=\\"1\\" aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline\\"></textarea><textarea aria-hidden=\\"true\\" class=\\"MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline\\" readonly=\\"\\" tabindex=\\"-1\\" style=\\"visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; width: 100%;\\"></textarea></div>
             </div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\\"></path></svg><input class=\\"PrivateSwitchBase-input-303\\" type=\\"checkbox\\" data-indeterminate=\\"false\\" value=\\"preflightCheck\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Preflight Check durchgeführt</span></label></div>
           <div class=\\"MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
             <legend class=\\"MuiFormLabel-root\\">Probleme oder Beobachtungen</legend>
-            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-304\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-305\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
+            <div class=\\"MuiFormGroup-root\\" role=\\"radiogroup\\"><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"nil\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">NIL</span></label><label class=\\"MuiFormControlLabel-root\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-300 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><div class=\\"PrivateRadioButtonIcon-root-311\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\\"></path></svg><svg class=\\"MuiSvgIcon-root PrivateRadioButtonIcon-layer-312\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z\\"></path></svg></div><input class=\\"PrivateSwitchBase-input-303\\" name=\\"troublesObservations\\" type=\\"radio\\" value=\\"troubles\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Problem oder Beobachtung erfassen</span></label></div>
           </div>
         </div>
         <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Speichern</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>

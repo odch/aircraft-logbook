@@ -188,6 +188,7 @@ describe('routes', () => {
                 oilUplift: 245,
                 remarks: 'bemerkung zeile 1\nzeile2',
                 personsOnBoard: 1,
+                preflightCheck: true,
                 troublesObservations: 'troubles',
                 techlogEntryStatus: { value: 'not_airworthy' },
                 techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
@@ -383,6 +384,7 @@ describe('routes', () => {
                 oilUnit: 'litre',
                 remarks: 'bemerkung zeile 1\nzeile2',
                 personsOnBoard: 1,
+                preflightCheck: true,
                 troublesObservations: 'troubles',
                 techlogEntryStatus: 'not_airworthy',
                 techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'

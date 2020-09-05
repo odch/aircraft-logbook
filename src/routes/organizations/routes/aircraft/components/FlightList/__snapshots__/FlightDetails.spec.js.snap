@@ -594,6 +594,31 @@ remarks"
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
     >
+      <label
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink"
+        data-shrink={true}
+      >
+        Preflight Check durchgeführt
+      </label>
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root"
+        focusable="false"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
+    >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
       >
@@ -644,10 +669,10 @@ remarks"
         </div>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-200"
+        className="MuiBox-root MuiBox-root-209"
       >
         <span
-          className="MuiTypography-root EntryStatus-status-160 EntryStatus-error-161 EntryStatus-small-163 MuiTypography-body1"
+          className="MuiTypography-root EntryStatus-status-169 EntryStatus-error-170 EntryStatus-small-172 MuiTypography-body1"
         >
           Nicht flugtauglich
         </span>
@@ -1351,6 +1376,31 @@ remarks"
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
     >
+      <label
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink"
+        data-shrink={true}
+      >
+        Preflight Check durchgeführt
+      </label>
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root"
+        focusable="false"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8"
+    >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
       >
@@ -1401,10 +1451,10 @@ remarks"
         </div>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-159"
+        className="MuiBox-root MuiBox-root-168"
       >
         <span
-          className="MuiTypography-root EntryStatus-status-160 EntryStatus-error-161 EntryStatus-small-163 MuiTypography-body1"
+          className="MuiTypography-root EntryStatus-status-169 EntryStatus-error-170 EntryStatus-small-172 MuiTypography-body1"
         >
           Nicht flugtauglich
         </span>
