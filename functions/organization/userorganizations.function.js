@@ -7,19 +7,22 @@ try {
   admin.initializeApp(functions.config().firebase)
 } catch (e) {}
 
-const updateUserOrganizations = (change, fieldName, organizationRef) => {
+const updateUserOrganizations = (change, organizationRef) => {
   const data = change.after.data()
   const previousData = change.before.data()
 
-  if (data && previousData && data[fieldName] == previousData[fieldName]) {
+  const userRef = data ? data.user : null
+  const previousUserRef = previousData ? previousData.user : null
+
+  if (userRef && previousUserRef && userRef.id === previousUserRef.id) {
     return null
   }
 
   const promises = []
 
-  if (previousData && previousData[fieldName]) {
+  if (previousUserRef) {
     promises.push(
-      previousData[fieldName].set(
+      previousUserRef.set(
         {
           organizations: admin.firestore.FieldValue.arrayRemove(organizationRef)
         },
@@ -28,9 +31,9 @@ const updateUserOrganizations = (change, fieldName, organizationRef) => {
     )
   }
 
-  if (data && data[fieldName]) {
+  if (userRef) {
     promises.push(
-      data[fieldName].set(
+      userRef.set(
         {
           organizations: admin.firestore.FieldValue.arrayUnion(organizationRef)
         },
@@ -45,5 +48,5 @@ const updateUserOrganizations = (change, fieldName, organizationRef) => {
 module.exports.updateUserOrganizationsOnMemberWrite = functions.firestore
   .document('organizations/{organizationID}/members/{memberID}')
   .onWrite(change =>
-    updateUserOrganizations(change, 'user', change.after.ref.parent.parent)
+    updateUserOrganizations(change, change.after.ref.parent.parent)
   )
