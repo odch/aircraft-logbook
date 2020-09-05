@@ -574,6 +574,28 @@ describe('routes', () => {
                 undefined
               )
             })
+
+            it('should return an error if preflightCheck is not set', () => {
+              return testFn({}, aircraftSettings1, 'preflightCheck', 'required')
+            })
+
+            it('should return an error if preflightCheck is false', () => {
+              return testFn(
+                { preflightCheck: false },
+                aircraftSettings1,
+                'preflightCheck',
+                'required'
+              )
+            })
+
+            it('should return no error if preflightCheck is true', () => {
+              return testFn(
+                { preflightCheck: true },
+                aircraftSettings1,
+                'preflightCheck',
+                undefined
+              )
+            })
           })
 
           describe('validateAsync', () => {

@@ -27,6 +27,7 @@ import getMissingFields from '../../util/getMissingFields'
 import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
 import Attachments from '../Attachments/'
 import FileButton from '../FileButton/'
+import Checkbox from '@material-ui/core/Checkbox'
 
 const styles = theme => ({
   loadingIconContainer: {
@@ -43,6 +44,9 @@ const styles = theme => ({
   },
   addTechlogEntryAttachmentButton: {
     marginTop: '0.5em'
+  },
+  error: {
+    color: theme.palette.error.main
   }
 })
 
@@ -75,6 +79,10 @@ class FlightCreateDialog extends React.Component {
 
   handleMultilineTextChange = name => e => {
     this.updateData(name, e.target.value)
+  }
+
+  handleCheckboxChange = name => e => {
+    this.updateData(name, e.target.checked)
   }
 
   handleTroublesRadioChange = e => {
@@ -271,6 +279,7 @@ class FlightCreateDialog extends React.Component {
             )}
             {this.renderDecimalField('oilUplift')}
             {this.renderMultilineTextField('remarks')}
+            {this.renderCheckbox('preflightCheck')}
             {techlogEnabled && this.renderObservationsSection()}
           </DialogContent>
           <DialogActions>
@@ -509,6 +518,25 @@ class FlightCreateDialog extends React.Component {
         fullWidth
         rows={rows}
         error={hasError}
+        disabled={isDisabled}
+      />
+    ))
+  }
+
+  renderCheckbox(name) {
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
+      <FormControlLabel
+        value={name}
+        control={
+          <Checkbox
+            color="primary"
+            checked={this.getValue(name, false)}
+            onChange={this.handleCheckboxChange(name)}
+          />
+        }
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        labelPlacement="end"
+        className={hasError ? this.props.classes.error : null}
         disabled={isDisabled}
       />
     ))
