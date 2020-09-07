@@ -31,9 +31,7 @@ context('Organizations', () => {
       '[data-cy=organization-create-dialog] [data-cy=create-button]'
     ).click()
 
-    cy.get('[data-cy=organizations-list]')
-      .contains(orgName, { timeout: 10000 })
-      .click()
+    cy.get(`[data-cy=organization-${orgName}]`).click()
 
     cy.get('[data-cy=user-button]').click()
     cy.get('[data-cy=menu-item-selected-organization-settings]').click()

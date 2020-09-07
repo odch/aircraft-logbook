@@ -90,7 +90,10 @@ class OrganizationsList extends React.Component {
         )}
         {organizations.map(organization => (
           <Grid item key={organization.id} sm={4} xs={12}>
-            <Card className={classes.card}>
+            <Card
+              className={classes.card}
+              data-cy={`organization-${organization.id}`}
+            >
               <CardActionArea
                 className={classes.actionArea}
                 component={Link}
