@@ -7,7 +7,4 @@ const mapStateToProps = (state /*, ownProps*/) => ({
 
 const mapActionCreators = {}
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(Header)
+export default connect(mapStateToProps, mapActionCreators)(Header)

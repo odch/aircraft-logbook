@@ -12,7 +12,4 @@ const mapActionCreators = {
   setSubmitted
 }
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(RegistrationForm)
+export default connect(mapStateToProps, mapActionCreators)(RegistrationForm)

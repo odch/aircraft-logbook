@@ -34,9 +34,4 @@ const mapActionCreators = {
   openCreateTechlogEntryActionDialog
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(Techlog)
+export default compose(connect(mapStateToProps, mapActionCreators))(Techlog)

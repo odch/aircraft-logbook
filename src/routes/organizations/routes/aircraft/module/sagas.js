@@ -178,14 +178,10 @@ export const mergeDateAndTime = (date, time, timezone) => {
 }
 
 export const extractDate = (timestamp, timezone) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('YYYY-MM-DD')
+  moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD')
 
 export const getTimeForPicker = (timestamp, timezone) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('YYYY-MM-DD HH:mm')
+  moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD HH:mm')
 
 export const aerodromeObject = aeodromeDocument => ({
   name: aeodromeDocument.get('name') || null,
@@ -685,7 +681,10 @@ export function* fetchOpenTechlogEntries(
           ]
         }
       ],
-      where: [['deleted', '==', false], ['closed', '==', false]],
+      where: [
+        ['deleted', '==', false],
+        ['closed', '==', false]
+      ],
       orderBy: ['timestamp', 'desc'],
       storeAs: `techlog-${aircraftId}-open`
     },

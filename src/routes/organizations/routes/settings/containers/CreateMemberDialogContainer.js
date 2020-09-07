@@ -21,10 +21,5 @@ const mapActionCreators = {
 }
 
 export default injectIntl(
-  compose(
-    connect(
-      mapStateToProps,
-      mapActionCreators
-    )
-  )(CreateMemberDialog)
+  compose(connect(mapStateToProps, mapActionCreators))(CreateMemberDialog)
 )

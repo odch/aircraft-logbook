@@ -20,9 +20,6 @@ const mapActionCreators = {
   onSubmit: createFuelType
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(CreateFuelTypeDialog)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  CreateFuelTypeDialog
+)

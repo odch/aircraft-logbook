@@ -21,7 +21,4 @@ const mapStateToProps = (state /*, ownProps*/) => ({
 
 const mapActionCreators = {}
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(StartPage)
+export default connect(mapStateToProps, mapActionCreators)(StartPage)
