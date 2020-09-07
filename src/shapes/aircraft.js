@@ -15,9 +15,9 @@ export const check = PropTypes.shape({
 })
 
 export const counters = PropTypes.shape({
-  flights: PropTypes.number.isRequired,
-  flightHours: PropTypes.number.isRequired,
-  landings: PropTypes.number.isRequired,
+  flights: PropTypes.number,
+  flightHours: PropTypes.number,
+  landings: PropTypes.number,
   engineHours: PropTypes.number
 })
 
