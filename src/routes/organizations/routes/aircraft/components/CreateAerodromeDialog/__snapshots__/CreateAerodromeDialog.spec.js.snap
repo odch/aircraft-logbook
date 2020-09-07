@@ -2,9 +2,9 @@
 
 exports[`routes organizations routes aircraft components CreateAerodromeDialog renders correctly 1`] = `
 "<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"aerodrome-create-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
-  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
   <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
-  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
     <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper CreateAerodromeDialog-root-1 MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
       <div class=\\"MuiDialogTitle-root\\">
         <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Flugplatz erstellen</h2>
@@ -25,8 +25,8 @@ exports[`routes organizations routes aircraft components CreateAerodromeDialog r
                     <div class=\\"IntegrationReactSelect-valueContainer-136\\">
                       <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-140 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                       <div class=\\"css-13fspk8\\">
-                        <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-2-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
-                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-2-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; letter-spacing: normal; text-transform: none;\\"></div>
                         </div>
                       </div>
                     </div>
@@ -51,9 +51,9 @@ exports[`routes organizations routes aircraft components CreateAerodromeDialog r
 
 exports[`routes organizations routes aircraft components CreateAerodromeDialog renders readonly if submitting 1`] = `
 "<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"aerodrome-create-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
-  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
   <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
-  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
     <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper CreateAerodromeDialog-root-1 MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
       <div class=\\"MuiDialogTitle-root\\">
         <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Flugplatz erstellen</h2>
@@ -74,8 +74,8 @@ exports[`routes organizations routes aircraft components CreateAerodromeDialog r
                     <div class=\\"IntegrationReactSelect-valueContainer-136\\">
                       <p class=\\"MuiTypography-root IntegrationReactSelect-placeholder-140 MuiTypography-body1 MuiTypography-colorTextSecondary\\"></p>
                       <div class=\\"css-13fspk8\\">
-                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-3-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
-                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; letter-spacing: normal; text-transform: none;\\"></div>
+                        <div class=\\"\\" style=\\"display: inline-block;\\"><input disabled=\\"\\" autocapitalize=\\"none\\" autocomplete=\\"off\\" autocorrect=\\"off\\" id=\\"react-select-3-input\\" spellcheck=\\"false\\" tabindex=\\"0\\" type=\\"text\\" aria-autocomplete=\\"list\\" style=\\"box-sizing: content-box; width: 2px; border: 0px; opacity: 1; outline: 0; padding: 0px;\\" value=\\"\\">
+                          <div style=\\"position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; letter-spacing: normal; text-transform: none;\\"></div>
                         </div>
                       </div>
                     </div>
