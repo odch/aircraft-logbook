@@ -54,9 +54,4 @@ const mapActionCreators = {
   deleteFlight
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(FlightList)
+export default compose(connect(mapStateToProps, mapActionCreators))(FlightList)

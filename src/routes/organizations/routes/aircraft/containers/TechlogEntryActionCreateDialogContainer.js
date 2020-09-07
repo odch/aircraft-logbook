@@ -45,10 +45,7 @@ const mapActionCreators = {
 }
 
 export default injectIntl(
-  compose(
-    connect(
-      mapStateToProps,
-      mapActionCreators
-    )
-  )(TechlogEntryActionCreateDialog)
+  compose(connect(mapStateToProps, mapActionCreators))(
+    TechlogEntryActionCreateDialog
+  )
 )

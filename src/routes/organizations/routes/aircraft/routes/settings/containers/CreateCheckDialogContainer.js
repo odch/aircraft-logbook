@@ -50,10 +50,5 @@ const mapActionCreators = {
 }
 
 export default injectIntl(
-  compose(
-    connect(
-      mapStateToProps,
-      mapActionCreators
-    )
-  )(CreateCheckDialog)
+  compose(connect(mapStateToProps, mapActionCreators))(CreateCheckDialog)
 )

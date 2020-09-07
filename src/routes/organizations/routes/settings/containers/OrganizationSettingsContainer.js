@@ -24,9 +24,6 @@ const mapActionCreators = {
   deleteOrganization
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(OrganizationSettings)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  OrganizationSettings
+)

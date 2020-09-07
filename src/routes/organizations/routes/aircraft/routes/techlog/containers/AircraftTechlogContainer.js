@@ -33,9 +33,6 @@ const mapActionCreators = {
   fetchAerodromes
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(AircraftTechlog)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  AircraftTechlog
+)

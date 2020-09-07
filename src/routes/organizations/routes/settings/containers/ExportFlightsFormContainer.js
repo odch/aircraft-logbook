@@ -17,9 +17,6 @@ const mapActionCreators = {
   updateData: updateExportFlightsFormData
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(ExportFlightsForm)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  ExportFlightsForm
+)

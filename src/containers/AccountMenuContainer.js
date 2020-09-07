@@ -17,7 +17,4 @@ const mapActionCreators = {
   logout
 }
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(AccountMenu)
+export default connect(mapStateToProps, mapActionCreators)(AccountMenu)

@@ -23,9 +23,4 @@ const mapActionCreators = {
   openCreateFuelTypeDialog
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(FuelTypes)
+export default compose(connect(mapStateToProps, mapActionCreators))(FuelTypes)

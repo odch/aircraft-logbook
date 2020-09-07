@@ -23,9 +23,6 @@ const mapActionCreators = {
   fetchAircrafts
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(OrganizationDetail)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  OrganizationDetail
+)

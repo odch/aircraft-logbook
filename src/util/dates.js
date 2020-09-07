@@ -6,9 +6,7 @@ import moment from 'moment-timezone'
  * @returns the formatted date in the current MomentJS locale (without time)
  */
 export const formatDate = (timestamp, timezone = moment.tz.guess()) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('L')
+  moment(timestamp.toDate()).tz(timezone).format('L')
 
 /**
  * @param timestamp The Firestore timestamp to calculate the duration to
@@ -39,9 +37,7 @@ export const humanDurationUntilDate = (
  * @returns the time in the format 'HH:mm'
  */
 export const formatTime = (timestamp, timezone = moment.tz.guess()) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('HH:mm')
+  moment(timestamp.toDate()).tz(timezone).format('HH:mm')
 
 export const getTimeDiff = (startTimestamp, endTimestamp) => {
   const start = moment(startTimestamp.toDate())

@@ -32,9 +32,4 @@ const mapActionCreators = {
   deleteCheck
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(Checks)
+export default compose(connect(mapStateToProps, mapActionCreators))(Checks)

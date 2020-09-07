@@ -64,9 +64,4 @@ const mapActionCreators = {
   setMembersPage
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(MemberList)
+export default compose(connect(mapStateToProps, mapActionCreators))(MemberList)

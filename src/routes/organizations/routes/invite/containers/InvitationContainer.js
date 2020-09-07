@@ -57,9 +57,4 @@ const mapActionCreators = {
   logout
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(Invitation)
+export default compose(connect(mapStateToProps, mapActionCreators))(Invitation)
