@@ -11,6 +11,7 @@ import {
   fetchFlights,
   openCreateFlightDialog,
   initCreateFlightDialog,
+  openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
   deleteFlight
@@ -49,6 +50,7 @@ const mapActionCreators = {
   changeFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
+  openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
   deleteFlight
