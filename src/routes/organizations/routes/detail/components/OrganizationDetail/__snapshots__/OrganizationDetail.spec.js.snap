@@ -40,6 +40,6 @@ exports[`routes organizations routes detail components OrganizationDetail render
 
 exports[`routes organizations routes detail components OrganizationDetail shows message if organization was not found or user is not granted 1`] = `
 "<div class=\\"OrganizationDetail-container-1\\">
-  <div class=\\"OrganizationDetail-notFoundMessage-2\\"><span>Die Organisation <strong>my_org</strong> wurde nicht gefunden oder dein Konto <strong>test@opendigital.ch</strong> ist nicht berechtigt, auf die Organisation zuzugreifen. Bitte wende dich an den Administrator der Organisation.</span></div>
+  <div class=\\"OrganizationDetail-notFoundMessage-2\\">Die Organisation <strong>my_org</strong> wurde nicht gefunden oder dein Konto <strong>test@opendigital.ch</strong> ist nicht berechtigt, auf die Organisation zuzugreifen. Bitte wende dich an den Administrator der Organisation.</div>
 </div>"
 `;
