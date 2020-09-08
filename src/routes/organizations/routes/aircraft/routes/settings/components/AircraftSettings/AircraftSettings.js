@@ -51,12 +51,12 @@ class AircraftSettings extends React.Component {
   render() {
     const { organization, aircraft, classes } = this.props
 
-    if (!isLoaded(organization) || !isLoaded(aircraft)) {
-      return <LoadingIcon />
-    }
-
     if (organization === null) {
       return <Redirect to="/" />
+    }
+
+    if (!isLoaded(organization) || !isLoaded(aircraft)) {
+      return <LoadingIcon />
     }
 
     if (aircraft === null) {
