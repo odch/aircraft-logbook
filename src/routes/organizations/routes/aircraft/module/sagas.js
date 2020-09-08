@@ -311,12 +311,15 @@ export function* createFlight({
       oilUnit: 'litre',
       remarks: data.remarks || null,
       preflightCheck:
-        typeof data.preflightCheck === 'boolean' ? data.preflightCheck : null,
-      troublesObservations: data.troublesObservations,
-      techlogEntryDescription: data.techlogEntryDescription
+        typeof data.preflightCheck === 'boolean' ? data.preflightCheck : null
+    }
+
+    if (data.troublesObservations) {
+      dataToStore.troublesObservations = data.troublesObservations
+      dataToStore.techlogEntryDescription = data.techlogEntryDescription
         ? data.techlogEntryDescription.trim()
-        : null,
-      techlogEntryStatus: data.techlogEntryStatus
+        : null
+      dataToStore.techlogEntryStatus = data.techlogEntryStatus
         ? data.techlogEntryStatus.value
         : null
     }
