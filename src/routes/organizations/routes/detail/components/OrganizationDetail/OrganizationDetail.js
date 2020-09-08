@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import isLoaded from '../../../../../../util/isLoaded'
@@ -59,9 +59,13 @@ class OrganizationDetail extends React.Component {
     if (!organization) {
       return this.renderContent(
         <div className={classes.notFoundMessage}>
-          <FormattedHTMLMessage
+          <FormattedMessage
             id="organization.notfound"
-            values={{ organizationId, userEmail }}
+            values={{
+              organizationId,
+              userEmail,
+              strong: chunks => <strong>{chunks}</strong>
+            }}
           />
         </div>
       )
