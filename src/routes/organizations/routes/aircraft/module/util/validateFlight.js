@@ -7,6 +7,8 @@ import { isBefore } from '../../../../../../util/dates'
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
 
+const isNullOrUndefined = value => value === null || value === undefined
+
 /**
  * error message keys are automatically prefixed with
  * "flight.create.dialog.validation.{fieldName}." and transformed to lower case.
@@ -126,13 +128,16 @@ export function* validateSync(
   const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
   const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
 
-  if (typeof flightTimeStart === 'undefined') {
+  if (typeof flightTimeStart !== 'number') {
     errors['counters.flightTimeCounter.start'] = 'required'
   }
-  if (typeof flightTimeEnd === 'undefined') {
+  if (typeof flightTimeEnd !== 'number') {
     errors['counters.flightTimeCounter.end'] = 'required'
   }
-  if (flightTimeStart && flightTimeEnd) {
+  if (
+    !isNullOrUndefined(flightTimeStart) &&
+    !isNullOrUndefined(flightTimeEnd)
+  ) {
     if (flightTimeEnd < flightTimeStart) {
       errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
     }
@@ -142,13 +147,16 @@ export function* validateSync(
     const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
     const engineTimeEnd = _get(data, 'counters.engineTimeCounter.end')
 
-    if (typeof engineTimeStart === 'undefined') {
+    if (typeof engineTimeStart !== 'number') {
       errors['counters.engineTimeCounter.start'] = 'required'
     }
-    if (typeof engineTimeEnd === 'undefined') {
+    if (typeof engineTimeEnd !== 'number') {
       errors['counters.engineTimeCounter.end'] = 'required'
     }
-    if (engineTimeStart && engineTimeEnd) {
+    if (
+      !isNullOrUndefined(engineTimeStart) &&
+      !isNullOrUndefined(engineTimeEnd)
+    ) {
       if (engineTimeEnd < engineTimeStart) {
         errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
       }
