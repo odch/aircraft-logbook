@@ -474,6 +474,7 @@ export function* openAndInitEditFlightDialog({
   payload: { organizationId, aircraftId, flightId }
 }) {
   yield put(actions.openCreateFlightDialog())
+  const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
   const flight = yield call(getFlight, organizationId, aircraftId, flightId)
   const data = (({
     pilot,
@@ -532,6 +533,12 @@ export function* openAndInitEditFlightDialog({
         'destinationAerodrome',
         'counters.flightTimeCounter.start',
         'counters.flightTimeCounter.end',
+        ...(aircraftSettings.engineHoursCounterEnabled === true
+          ? [
+              'counters.engineTimeCounter.start',
+              'counters.engineTimeCounter.end'
+            ]
+          : []),
         'blockOffTime',
         'takeOffTime',
         'landingTime',
