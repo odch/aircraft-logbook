@@ -295,6 +295,21 @@ describe('routes', () => {
               )
             })
 
+            it('should return an error if flight time start counter is null', () => {
+              return testFn(
+                {
+                  counters: {
+                    flightTimeCounter: {
+                      start: null
+                    }
+                  }
+                },
+                aircraftSettings1,
+                'counters.flightTimeCounter.start',
+                'required'
+              )
+            })
+
             it('should return no error if flight time start counter is set', () => {
               return testFn(
                 {
@@ -313,6 +328,21 @@ describe('routes', () => {
             it('should return an error if flight time end counter is missing', () => {
               return testFn(
                 {},
+                aircraftSettings1,
+                'counters.flightTimeCounter.end',
+                'required'
+              )
+            })
+
+            it('should return an error if flight time end counter is null', () => {
+              return testFn(
+                {
+                  counters: {
+                    flightTimeCounter: {
+                      end: null
+                    }
+                  }
+                },
                 aircraftSettings1,
                 'counters.flightTimeCounter.end',
                 'required'
@@ -359,6 +389,21 @@ describe('routes', () => {
               )
             })
 
+            it('should return an error if engine time start counter is null', () => {
+              return testFn(
+                {
+                  counters: {
+                    engineTimeCounter: {
+                      start: null
+                    }
+                  }
+                },
+                aircraftSettings1,
+                'counters.engineTimeCounter.start',
+                'required'
+              )
+            })
+
             it('should return no error if engine time start counter is set', () => {
               return testFn(
                 {
@@ -377,6 +422,21 @@ describe('routes', () => {
             it('should return an error if engine time end counter is missing', () => {
               return testFn(
                 {},
+                aircraftSettings1,
+                'counters.engineTimeCounter.end',
+                'required'
+              )
+            })
+
+            it('should return an error if engine time end counter is null', () => {
+              return testFn(
+                {
+                  counters: {
+                    engineTimeCounter: {
+                      end: null
+                    }
+                  }
+                },
                 aircraftSettings1,
                 'counters.engineTimeCounter.end',
                 'required'
