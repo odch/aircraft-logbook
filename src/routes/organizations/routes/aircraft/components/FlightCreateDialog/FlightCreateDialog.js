@@ -168,15 +168,15 @@ class FlightCreateDialog extends React.Component {
       this.props.editableFields.includes(name))
 
   withSpace = aerodromeValue =>
-    aerodromeValue === undefined ? '' : ' ' + aerodromeValue.label
+    !aerodromeValue ? '' : ' ' + aerodromeValue.label
 
   getLandingsLabel = () => {
-    const destinationAerodrome = this.withSpace(
-      this.getValue('destinationAerodrome')
-    )
-    return this.msg(`flight.create.dialog.landings`, {
-      destinationAerodrome
-    })
+    const destinationAerodrome = this.getValue('destinationAerodrome')
+    return destinationAerodrome
+      ? this.msg('flight.create.dialog.landingsknown', {
+          destinationAerodrome: destinationAerodrome.label
+        })
+      : this.msg('flight.create.dialog.landingsunknown')
   }
 
   getLandingsHelperText = () => {
