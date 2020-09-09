@@ -320,7 +320,9 @@ export function* createFlight({
         ? data.techlogEntryDescription.trim()
         : null
       dataToStore.techlogEntryStatus = data.techlogEntryStatus
-        ? data.techlogEntryStatus.value
+        ? typeof data.techlogEntryStatus === 'string'
+          ? data.techlogEntryStatus
+          : data.techlogEntryStatus.value
         : null
     }
 
@@ -343,7 +345,7 @@ export function* createFlight({
       dataToStore
     )
 
-    if (data.troublesObservations === 'troubles') {
+    if (data.troublesObservations === 'troubles' && !data.id) {
       const entry = {
         description: data.techlogEntryDescription.trim(),
         initialStatus: data.techlogEntryStatus.value,
