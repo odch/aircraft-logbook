@@ -10,7 +10,4 @@ const mapActionCreators = {
   loginGoogle
 }
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(GoogleLogin)
+export default connect(mapStateToProps, mapActionCreators)(GoogleLogin)

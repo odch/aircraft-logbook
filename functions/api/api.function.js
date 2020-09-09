@@ -6,6 +6,7 @@ const cors = require('cors')({ origin: true, credentials: true })
 const csv = require('fast-csv')
 const validateFirebaseIdToken = require('./utils/validateFirebaseIdToken')
 const collectFlights = require('./collectFlights')
+const getTechlogAttachment = require('./getTechlogAttachment')
 
 const api = express()
 
@@ -18,6 +19,16 @@ try {
 api.use(cors)
 api.use(cookieParser)
 api.use(validateFirebaseIdToken(admin))
+
+const setNoCache = res => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+  res.setHeader('Pragma', 'no-cache')
+  res.setHeader('Expires', '0')
+}
+
+const setContentType = (res, contentType) => {
+  res.setHeader('Content-Type', contentType)
+}
 
 /**
  * organization: name of the organization (required)
@@ -37,15 +48,31 @@ api.get('/flights', async (req, res) => {
     req.user
   )
 
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-  res.setHeader('Pragma', 'no-cache')
-  res.setHeader('Expires', '0')
-
-  res.setHeader('Content-Type', 'text/csv')
+  setNoCache(res)
+  setContentType(res, 'text/csv')
 
   csv.writeToStream(res, flights, {
     headers: true
   })
+})
+
+api.get('/techlog-attachment', async (req, res) => {
+  const { organization, aircraft, techlogEntry, action, name } = req.query
+  const { originalName, contentType, data } = await getTechlogAttachment(
+    admin.firestore(),
+    admin.storage().bucket(),
+    {
+      organization,
+      aircraft,
+      techlogEntry,
+      action,
+      name
+    },
+    req.user
+  )
+  setContentType(res, contentType)
+  res.setHeader('Content-Disposition', `attachment; filename="${originalName}"`)
+  res.end(data, 'binary')
 })
 
 exports.api = functions.https.onRequest(api)

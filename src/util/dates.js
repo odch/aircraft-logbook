@@ -6,9 +6,30 @@ import moment from 'moment-timezone'
  * @returns the formatted date in the current MomentJS locale (without time)
  */
 export const formatDate = (timestamp, timezone = moment.tz.guess()) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('L')
+  moment(timestamp.toDate()).tz(timezone).format('L')
+
+/**
+ * @param timestamp The Firestore timestamp to calculate the duration to
+ * @param timezone The timezone of the timestamp and to use for the current date
+ * @returns the human-readable duration from or to the given date
+ * {{past: boolean (true, if the given date is in the past), text: string}}
+ */
+export const humanDurationUntilDate = (
+  timestamp,
+  timezone = moment.tz.guess()
+) => {
+  const endMoment = moment(timestamp.toDate()).tz(timezone)
+  const today = moment().tz(timezone)
+  const duration = moment.duration(endMoment.diff(today))
+  const text = duration.humanize()
+
+  const timestampIsInPast = endMoment.isBefore(today)
+
+  return {
+    text,
+    past: timestampIsInPast
+  }
+}
 
 /**
  * @param timestamp The Firestore timestamp to format
@@ -16,9 +37,7 @@ export const formatDate = (timestamp, timezone = moment.tz.guess()) =>
  * @returns the time in the format 'HH:mm'
  */
 export const formatTime = (timestamp, timezone = moment.tz.guess()) =>
-  moment(timestamp.toDate())
-    .tz(timezone)
-    .format('HH:mm')
+  moment(timestamp.toDate()).tz(timezone).format('HH:mm')
 
 export const getTimeDiff = (startTimestamp, endTimestamp) => {
   const start = moment(startTimestamp.toDate())

@@ -1,8 +1,13 @@
-import { all, takeEvery, take, call, put, select } from 'redux-saga/effects'
+import { all, takeEvery, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
-import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
+import { fetchOrganizations } from '../../../modules/app'
 import * as actions from './actions'
 import * as sagas from './sagas'
+import {
+  addArrayItem,
+  getDoc,
+  removeArrayItem
+} from '../../../util/firestoreUtils'
 
 describe('modules', () => {
   describe('organizations', () => {
@@ -89,6 +94,7 @@ describe('modules', () => {
           )
 
           const currentUser = {
+            id: 'current-user-id',
             ref: {}
           }
           expect(generator.next(currentUser).value).toEqual(
@@ -99,28 +105,26 @@ describe('modules', () => {
             )
           )
 
-          expect(generator.next().value).toEqual(take(SET_MY_ORGANIZATIONS))
-
-          const otherOrgsAction = {
-            type: SET_MY_ORGANIZATIONS,
-            payload: {
-              organizations: [{ id: 'some_other_org' }]
-            }
-          }
-
-          // still waiting for SET_MY_ORGANIZATIONS action with the new org
-          expect(generator.next(otherOrgsAction).value).toEqual(
-            take(SET_MY_ORGANIZATIONS)
+          expect(generator.next().value).toEqual(
+            call(getDoc, ['organizations', 'my_org'])
           )
 
-          const actionWithMyNewOrg = {
-            type: SET_MY_ORGANIZATIONS,
-            payload: {
-              organizations: [{ id: 'some_other_org' }, { id: 'my_org' }]
-            }
+          const orgDoc = {
+            ref: {}
           }
 
-          expect(generator.next(actionWithMyNewOrg).value).toEqual(
+          expect(generator.next(orgDoc).value).toEqual(
+            call(
+              addArrayItem,
+              ['users', 'current-user-id'],
+              'organizations',
+              orgDoc.ref
+            )
+          )
+
+          expect(generator.next().value).toEqual(put(fetchOrganizations()))
+
+          expect(generator.next().value).toEqual(
             put(actions.createOrganizationSuccess())
           )
 
@@ -207,13 +211,39 @@ describe('modules', () => {
           const firestore = {
             delete: () => {}
           }
+
           expect(generator.next(firestore).value).toEqual(
+            call(getDoc, ['organizations', 'my_org'])
+          )
+
+          const org = {
+            ref: {}
+          }
+
+          expect(generator.next(org).value).toEqual(call(sagas.getCurrentUser))
+
+          const currentUser = {
+            id: 'current-user-id'
+          }
+
+          expect(generator.next(currentUser).value).toEqual(
             call(
               firestore.delete,
               { collection: 'organizations', doc: 'my_org' },
               {}
             )
           )
+
+          expect(generator.next().value).toEqual(
+            call(
+              removeArrayItem,
+              ['users', 'current-user-id'],
+              'organizations',
+              org.ref
+            )
+          )
+
+          expect(generator.next().value).toEqual(put(fetchOrganizations()))
 
           expect(generator.next().value).toEqual(
             put(actions.deleteOrganizationSuccess())
@@ -233,11 +263,7 @@ describe('modules', () => {
             delete: () => {}
           }
           expect(generator.next(firestore).value).toEqual(
-            call(
-              firestore.delete,
-              { collection: 'organizations', doc: 'my_org' },
-              {}
-            )
+            call(getDoc, ['organizations', 'my_org'])
           )
 
           // eslint-disable-next-line no-console

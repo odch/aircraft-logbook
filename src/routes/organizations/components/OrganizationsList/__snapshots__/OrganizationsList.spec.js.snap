@@ -19,21 +19,21 @@ exports[`components OrganizationsList renders organizations if loaded 1`] = `
       </button></div>
   </div>
   <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
-    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\" data-cy=\\"organization-org1\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org1\\">
         <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
           <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org1</h6>
         </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
       </a></div>
   </div>
   <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
-    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org2\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\" data-cy=\\"organization-org2\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org2\\">
         <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
           <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org2</h6>
         </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
       </a></div>
   </div>
   <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
-    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org3\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root OrganizationsList-card-2 MuiPaper-rounded\\" data-cy=\\"organization-org3\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root OrganizationsList-actionArea-4\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/org3\\">
         <div class=\\"MuiCardContent-root OrganizationsList-cardContent-3\\">
           <h6 class=\\"MuiTypography-root MuiTypography-h6\\">org3</h6>
         </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>

@@ -3,6 +3,11 @@ import { useIntl } from 'react-intl'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
+import Box from '@material-ui/core/Box'
+import InputLabel from '@material-ui/core/InputLabel'
+import CheckIcon from '@material-ui/icons/Check'
+import CancelIcon from '@material-ui/icons/Cancel'
+import { EntryStatus } from '../Techlog'
 import { aircraft, flight } from '../../../../../../shapes'
 import {
   formatDate,
@@ -120,7 +125,8 @@ const FlightDetails = ({ aircraft, flight }) => {
             {renderField('personsonboard', flight.personsOnBoard || '-', intl)}
           </Grid>
           <Grid item xs={12} sm={8}>
-            {renderField('remarks', flight.remarks || '-', intl, true)}
+            {flight.remarks &&
+              renderField('remarks', flight.remarks || '-', intl, true)}
           </Grid>
         </Grid>
         <Grid item xs={12} container>
@@ -163,6 +169,37 @@ const FlightDetails = ({ aircraft, flight }) => {
           </Grid>
         )}
       </Grid>
+      {typeof flight.preflightCheck === 'boolean' && (
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={8}>
+            <InputLabel shrink>
+              {intl.formatMessage({ id: 'flightlist.preflightcheck' })}
+            </InputLabel>
+            {flight.preflightCheck ? <CheckIcon /> : <CancelIcon />}
+          </Grid>
+        </Grid>
+      )}
+      {flight.troublesObservations && (
+        <Grid item xs={12} container>
+          <Grid item xs={12} sm={8}>
+            {flight.troublesObservations === 'nil' ? (
+              renderField('troublesobservations', 'NIL', intl)
+            ) : (
+              <>
+                {renderField(
+                  'troublesobservations',
+                  flight.techlogEntryDescription,
+                  intl,
+                  true
+                )}
+                <Box mb={1}>
+                  <EntryStatus id={flight.techlogEntryStatus} small />
+                </Box>
+              </>
+            )}
+          </Grid>
+        </Grid>
+      )}
       <Divider />
       <Grid item xs={12} container>
         <Grid item xs={6} sm={4}>

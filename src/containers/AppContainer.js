@@ -12,7 +12,4 @@ const mapActionCreators = {
   watchAerodromes
 }
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(App)
+export default connect(mapStateToProps, mapActionCreators)(App)

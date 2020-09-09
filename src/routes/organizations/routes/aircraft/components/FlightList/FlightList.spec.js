@@ -68,6 +68,8 @@ describe('routes', () => {
 
               const tree = renderIntl(
                 <FlightList
+                  organization={{ id: 'my_org' }}
+                  aircraft={{ id: 'my_aircraft' }}
                   flights={flights}
                   flightDeleteDialog={{ open: false }}
                   pagination={{
@@ -75,6 +77,7 @@ describe('routes', () => {
                     page: 1,
                     rowsPerPage: 10
                   }}
+                  initFlightsList={() => {}}
                   openFlightDeleteDialog={() => {}}
                   closeFlightDeleteDialog={() => {}}
                   deleteFlight={() => {}}

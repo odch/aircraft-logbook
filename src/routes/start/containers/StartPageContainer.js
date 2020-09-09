@@ -3,11 +3,16 @@ import StartPage from '../components/StartPage'
 import { getOrganization } from '../../../util/getFromState'
 
 const getSelectedOrganization = state => {
-  if (state.firebase.profile.isLoaded !== true) {
+  const currentUser = state.firestore.data.currentUser
+
+  // not yet loaded
+  if (!currentUser) {
     return undefined
   }
-  const orgId = state.firebase.profile.selectedOrganization
-  return orgId ? getOrganization(state, orgId) : null
+
+  return currentUser.selectedOrganization
+    ? getOrganization(state, currentUser.selectedOrganization)
+    : null
 }
 
 const mapStateToProps = (state /*, ownProps*/) => ({
@@ -16,7 +21,4 @@ const mapStateToProps = (state /*, ownProps*/) => ({
 
 const mapActionCreators = {}
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(StartPage)
+export default connect(mapStateToProps, mapActionCreators)(StartPage)

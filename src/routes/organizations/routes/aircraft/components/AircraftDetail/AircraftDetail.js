@@ -8,12 +8,12 @@ import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
-  aircraft as aircraftShape,
-  flight as flightShape
+  aircraft as aircraftShape
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
-import FlightList from '../FlightList'
-import FlightCreateDialog from '../../containers/FlightCreateDialogContainer'
+import FlightList from '../../containers/FlightListContainer'
+import Techlog from '../../containers/TechlogContainer'
+import Checks from '../Checks'
 
 const styles = theme => ({
   container: {
@@ -23,52 +23,42 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  sectionHeading: {
+    marginTop: '1.5em'
+  },
+  settingsButton: {
+    float: 'right'
   }
 })
 
 class AircraftDetail extends React.Component {
-  handleCreateClick = () => {
-    const { organization, aircraft } = this.props
-    this.props.openCreateFlightDialog()
-    this.props.initCreateFlightDialog(organization.id, aircraft.id)
-  }
+  isOrganizationOrTechlogManager = () =>
+    this.props.organization.roles.some(role =>
+      ['manager', 'techlogmanager'].includes(role)
+    )
 
   componentDidMount() {
     const {
       organization,
-      aircraft,
-      flightsPagination,
       fetchAircrafts,
       fetchMembers,
-      fetchAerodromes,
-      fetchFlights
+      fetchAerodromes
     } = this.props
 
     if (organization) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
       fetchAerodromes(organization.id)
-
-      if (aircraft) {
-        fetchFlights(
-          organization.id,
-          aircraft.id,
-          flightsPagination.page,
-          flightsPagination.rowsPerPage
-        )
-      }
     }
   }
 
   componentDidUpdate(prevProps) {
     const {
       organization,
-      aircraft,
-      flightsPagination,
       fetchAircrafts,
       fetchMembers,
-      fetchAerodromes,
-      fetchFlights
+      fetchAerodromes
     } = this.props
 
     if (
@@ -79,46 +69,17 @@ class AircraftDetail extends React.Component {
       fetchMembers(organization.id)
       fetchAerodromes(organization.id)
     }
-
-    if (
-      organization &&
-      aircraft &&
-      (!prevProps.aircraft ||
-        prevProps.aircraft.id !== aircraft.id ||
-        prevProps.flightsPagination.page !== flightsPagination.page ||
-        prevProps.flightsPagination.rowsPerPage !==
-          flightsPagination.rowsPerPage)
-    ) {
-      fetchFlights(
-        organization.id,
-        aircraft.id,
-        flightsPagination.page,
-        flightsPagination.rowsPerPage
-      )
-    }
   }
 
   render() {
-    const {
-      organization,
-      aircraft,
-      flights,
-      flightDeleteDialog,
-      flightsPagination,
-      classes,
-      createFlightDialogOpen,
-      openDeleteFlightDialog,
-      closeDeleteFlightDialog,
-      deleteFlight,
-      setFlightsPage
-    } = this.props
-
-    if (!isLoaded(organization) || !isLoaded(aircraft) || !isLoaded(flights)) {
-      return <LoadingIcon />
-    }
+    const { organization, aircraft, classes } = this.props
 
     if (organization === null) {
       return <Redirect to="/" />
+    }
+
+    if (!isLoaded(organization) || !isLoaded(aircraft)) {
+      return <LoadingIcon />
     }
 
     if (aircraft === null) {
@@ -129,37 +90,69 @@ class AircraftDetail extends React.Component {
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
+          {this.isOrganizationOrTechlogManager() && (
+            <Button
+              href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/settings`}
+              color="primary"
+              className={classes.settingsButton}
+            >
+              <FormattedMessage id="aircraftdetail.settings" />
+            </Button>
+          )}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleCreateClick}
+        {aircraft.checks && aircraft.checks.length > 0 && (
+          <>
+            <Typography
+              variant="h5"
+              gutterBottom
+              className={classes.sectionHeading}
+            >
+              <FormattedMessage id="aircraftdetail.checks" />
+            </Typography>
+            <Checks checks={aircraft.checks} counters={aircraft.counters} />
+          </>
+        )}
+        {aircraft.settings.techlogEnabled === true && (
+          <>
+            <Typography
+              variant="h5"
+              gutterBottom
+              className={classes.sectionHeading}
+            >
+              <FormattedMessage id="aircraftdetail.techlog" />
+            </Typography>
+            <Techlog
+              organization={organization}
+              aircraft={aircraft}
+              showOnlyOpen
+            />
+            <Button
+              href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/techlog`}
+              color="primary"
+            >
+              <FormattedMessage id="aircraftdetail.techlog.all" />
+            </Button>
+          </>
+        )}
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.sectionHeading}
         >
-          <FormattedMessage id="aircraftdetail.createflight" />
+          <FormattedMessage id="aircraftdetail.flights" />
+        </Typography>
+        <FlightList
+          organization={organization}
+          aircraft={aircraft}
+          rowsPerPage={5}
+          hidePagination
+        />
+        <Button
+          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/flights`}
+          color="primary"
+        >
+          <FormattedMessage id="aircraftdetail.flights.all" />
         </Button>
-        {flights.length > 0 ? (
-          <FlightList
-            organization={organization}
-            aircraft={aircraft}
-            flights={flights}
-            flightDeleteDialog={flightDeleteDialog}
-            pagination={flightsPagination}
-            openFlightDeleteDialog={openDeleteFlightDialog}
-            closeFlightDeleteDialog={closeDeleteFlightDialog}
-            deleteFlight={deleteFlight}
-            setFlightsPage={setFlightsPage}
-          />
-        ) : (
-          <Typography paragraph>
-            <FormattedMessage id="aircraftdetail.noflights" />
-          </Typography>
-        )}
-        {createFlightDialogOpen && (
-          <FlightCreateDialog
-            organizationId={organization.id}
-            aircraftId={aircraft.id}
-          />
-        )}
       </div>
     )
   }
@@ -168,29 +161,10 @@ class AircraftDetail extends React.Component {
 AircraftDetail.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
-  flights: PropTypes.arrayOf(flightShape),
-  flightsPagination: PropTypes.shape({
-    rowsCount: PropTypes.number.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired
-  }),
   classes: PropTypes.object.isRequired,
-  createFlightDialogOpen: PropTypes.bool.isRequired,
-  flightDeleteDialog: PropTypes.shape({
-    open: PropTypes.bool,
-    submitted: PropTypes.bool,
-    flight: flightShape
-  }).isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
-  fetchAerodromes: PropTypes.func.isRequired,
-  fetchFlights: PropTypes.func.isRequired,
-  openCreateFlightDialog: PropTypes.func.isRequired,
-  initCreateFlightDialog: PropTypes.func.isRequired,
-  openDeleteFlightDialog: PropTypes.func.isRequired,
-  closeDeleteFlightDialog: PropTypes.func.isRequired,
-  deleteFlight: PropTypes.func.isRequired,
-  setFlightsPage: PropTypes.func.isRequired
+  fetchAerodromes: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(AircraftDetail)

@@ -8,10 +8,13 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import Radio from '@material-ui/core/Radio'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
@@ -22,15 +25,28 @@ import LoadingIcon from '../../../../../../components/LoadingIcon'
 import { intl as intlShape } from '../../../../../../shapes'
 import getMissingFields from '../../util/getMissingFields'
 import CreateAerodromeDialog from '../../containers/CreateAerodromeDialogContainer'
+import Attachments from '../Attachments/'
+import FileButton from '../FileButton/'
+import Checkbox from '@material-ui/core/Checkbox'
 
 const styles = theme => ({
   loadingIconContainer: {
-    height: 200
+    height: 200,
+    width: 200
   },
   initialValuesContainer: {
     backgroundColor: theme.palette.grey[100],
     padding: '1em',
     borderRadius: 4
+  },
+  techlogEntryAttachments: {
+    marginTop: '0.5em'
+  },
+  addTechlogEntryAttachmentButton: {
+    marginTop: '0.5em'
+  },
+  error: {
+    color: theme.palette.error.main
   }
 })
 
@@ -63,6 +79,37 @@ class FlightCreateDialog extends React.Component {
 
   handleMultilineTextChange = name => e => {
     this.updateData(name, e.target.value)
+  }
+
+  handleCheckboxChange = name => e => {
+    this.updateData(name, e.target.checked)
+  }
+
+  handleTroublesRadioChange = e => {
+    this.updateData('troublesObservations', e.target.value)
+  }
+
+  handleFileSelect = files => {
+    const newAttachments = [...(this.props.data.techlogEntryAttachments || [])]
+    for (const file of files) {
+      if (
+        !newAttachments.find(
+          attachment =>
+            attachment.name === file.name && attachment.size === file.size
+        )
+      ) {
+        newAttachments.push(file)
+      }
+    }
+    this.updateData('techlogEntryAttachments', newAttachments)
+  }
+
+  removeAttachment = (attachment, index) => {
+    const attachments = this.props.data.techlogEntryAttachments
+    const newAttachments = attachments
+      .slice(0, index)
+      .concat(attachments.slice(index + 1, attachments.length))
+    this.updateData('techlogEntryAttachments', newAttachments)
   }
 
   updateData = (name, value) => {
@@ -109,16 +156,27 @@ class FlightCreateDialog extends React.Component {
 
   hasInitialValue = name => !!_get(this.props.initialData, name)
 
+  isVisibleField = name =>
+    !this.props.visibleFields ||
+    this.props.visibleFields.length === 0 ||
+    this.props.visibleFields.includes(name)
+
+  isEditableField = name =>
+    !this.props.submitting &&
+    (!this.props.editableFields ||
+      this.props.editableFields.length === 0 ||
+      this.props.editableFields.includes(name))
+
   withSpace = aerodromeValue =>
-    aerodromeValue === undefined ? '' : ' ' + aerodromeValue.label
+    !aerodromeValue ? '' : ' ' + aerodromeValue.label
 
   getLandingsLabel = () => {
-    const destinationAerodrome = this.withSpace(
-      this.getValue('destinationAerodrome')
-    )
-    return this.msg(`flight.create.dialog.landings`, {
-      destinationAerodrome
-    })
+    const destinationAerodrome = this.getValue('destinationAerodrome')
+    return destinationAerodrome
+      ? this.msg('flight.create.dialog.landingsknown', {
+          destinationAerodrome: destinationAerodrome.label
+        })
+      : this.msg('flight.create.dialog.landingsunknown')
   }
 
   getLandingsHelperText = () => {
@@ -135,14 +193,16 @@ class FlightCreateDialog extends React.Component {
     })
   }
 
+  natureOption = id => ({
+    value: id,
+    label: this.msg(`flight.nature.${id}`)
+  })
+
   render() {
     const { data, createAerodromeDialogOpen, organizationId } = this.props
     return (
       <React.Fragment>
         <Dialog onClose={this.handleClose} data-cy="flight-create-dialog" open>
-          <DialogTitle>
-            <FormattedMessage id="flight.create.dialog.title" />
-          </DialogTitle>
           {data.initialized ? this.renderForm() : this.renderLoadingIcon()}
         </Dialog>
         {createAerodromeDialogOpen && (
@@ -154,77 +214,89 @@ class FlightCreateDialog extends React.Component {
 
   renderForm() {
     const {
+      data,
       submitting,
       onClose,
       flightNatures = [],
       loadMembers,
       loadAerodromes,
-      aircraftSettings: { fuelTypes, engineHoursCounterEnabled }
+      aircraftSettings: { fuelTypes, engineHoursCounterEnabled, techlogEnabled }
     } = this.props
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <DialogContent>
-          {this.renderRequiredInitialValueFields()}
-          {this.renderDatePicker('date')}
-          {this.renderMemberSelect('pilot', loadMembers)}
-          {this.renderMemberSelect('instructor', loadMembers)}
-          {this.renderSelect('nature', flightNatures)}
-          {this.renderAerodromeSelect(
-            'departureAerodrome',
-            loadAerodromes,
-            this.hasInitialValue('departureAerodrome')
-          )}
-          {this.renderAerodromeSelect('destinationAerodrome', loadAerodromes)}
-          {this.renderInTwoColumns(
-            'counters.flighttimecounter',
-            this.renderDecimalField(
-              'counters.flightTimeCounter.start',
-              this.hasInitialValue('counters.flightTimeCounter.start')
-            ),
-            this.renderDecimalField('counters.flightTimeCounter.end')
-          )}
-          {engineHoursCounterEnabled &&
-            this.renderInTwoColumns(
-              'counters.enginetimecounter',
-              this.renderDecimalField(
-                'counters.engineTimeCounter.start',
-                this.hasInitialValue('counters.engineTimeCounter.start')
-              ),
-              this.renderDecimalField('counters.engineTimeCounter.end')
+      <>
+        <DialogTitle>
+          <FormattedMessage
+            id={`flight.create.dialog.title${data.id ? '_update' : '_create'}`}
+          />
+        </DialogTitle>
+        <form onSubmit={this.handleSubmit}>
+          <DialogContent>
+            {this.renderRequiredInitialValueFields()}
+            {this.renderDatePicker('date')}
+            {this.renderMemberSelect('pilot', loadMembers)}
+            {this.renderMemberSelect('instructor', loadMembers)}
+            {this.renderSelect('nature', flightNatures, value =>
+              typeof value === 'string' ? this.natureOption(value) : value
             )}
-          {this.renderTimePicker('blockOffTime')}
-          {this.renderTimePicker('takeOffTime')}
-          {this.renderTimePicker('landingTime', true)}
-          {this.renderTimePicker('blockOnTime')}
-          {this.renderIntegerField(
-            'landings',
-            this.getLandingsLabel(),
-            this.getLandingsHelperText()
-          )}
-          {this.renderIntegerField('personsOnBoard')}
-          {this.renderInTwoColumns(
-            'fuel',
-            this.renderDecimalField('fuelUplift'),
-            this.renderSelect('fuelType', fuelTypes)
-          )}
-          {this.renderDecimalField('oilUplift')}
-          {this.renderMultilineTextField('remarks')}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color="primary" disabled={submitting}>
-            <FormattedMessage id="flight.create.dialog.buttons.cancel" />
-          </Button>
-          <Button
-            type="submit"
-            color="primary"
-            data-cy="create-button"
-            disabled={submitting}
-          >
-            <FormattedMessage id="flight.create.dialog.buttons.create" />
-          </Button>
-        </DialogActions>
-      </form>
+            {this.renderAerodromeSelect(
+              'departureAerodrome',
+              loadAerodromes,
+              this.hasInitialValue('departureAerodrome')
+            )}
+            {this.renderAerodromeSelect('destinationAerodrome', loadAerodromes)}
+            {this.renderInTwoColumns(
+              'counters.flighttimecounter',
+              this.renderDecimalField(
+                'counters.flightTimeCounter.start',
+                this.hasInitialValue('counters.flightTimeCounter.start')
+              ),
+              this.renderDecimalField('counters.flightTimeCounter.end')
+            )}
+            {engineHoursCounterEnabled &&
+              this.renderInTwoColumns(
+                'counters.enginetimecounter',
+                this.renderDecimalField(
+                  'counters.engineTimeCounter.start',
+                  this.hasInitialValue('counters.engineTimeCounter.start')
+                ),
+                this.renderDecimalField('counters.engineTimeCounter.end')
+              )}
+            {this.renderTimePicker('blockOffTime')}
+            {this.renderTimePicker('takeOffTime')}
+            {this.renderTimePicker('landingTime', true)}
+            {this.renderTimePicker('blockOnTime')}
+            {this.renderIntegerField(
+              'landings',
+              this.getLandingsLabel(),
+              this.getLandingsHelperText()
+            )}
+            {this.renderIntegerField('personsOnBoard')}
+            {this.renderInTwoColumns(
+              'fuel',
+              this.renderDecimalField('fuelUplift'),
+              this.renderSelect('fuelType', fuelTypes)
+            )}
+            {this.renderDecimalField('oilUplift')}
+            {this.renderMultilineTextField('remarks')}
+            {this.renderCheckbox('preflightCheck')}
+            {techlogEnabled && this.renderObservationsSection()}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={onClose} color="primary" disabled={submitting}>
+              <FormattedMessage id="flight.create.dialog.buttons.cancel" />
+            </Button>
+            <Button
+              type="submit"
+              color="primary"
+              data-cy="create-button"
+              disabled={submitting}
+            >
+              <FormattedMessage id="flight.create.dialog.buttons.create" />
+            </Button>
+          </DialogActions>
+        </form>
+      </>
     )
   }
 
@@ -285,14 +357,23 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderInFormControl(name, renderFn, helperText) {
+  renderInFormControl(name, renderFn, helperText, margin) {
+    if (!this.isVisibleField(name)) {
+      return null
+    }
+
     const errorMsg = this.getErrorMessage(name)
     const hasError = !!errorMsg
 
-    const isDisabled = this.props.submitting
+    const isDisabled = !this.isEditableField(name)
 
     return (
-      <FormControl fullWidth error={hasError} disabled={isDisabled}>
+      <FormControl
+        fullWidth
+        margin={margin}
+        error={hasError}
+        disabled={isDisabled}
+      >
         {renderFn(hasError, isDisabled)}
         {hasError && <FormHelperText>{errorMsg}</FormHelperText>}
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
@@ -300,11 +381,11 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderSelect(name, options) {
+  renderSelect(name, options, valueModifier = value => value) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <Select
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
-        value={this.getValue(name)}
+        value={valueModifier(this.getValue(name))}
         onChange={this.handleSelectChange(name)}
         options={options}
         data-cy={`${name}-field`}
@@ -425,7 +506,7 @@ class FlightCreateDialog extends React.Component {
     )
   }
 
-  renderMultilineTextField(name) {
+  renderMultilineTextField(name, rows) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <TextField
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -435,10 +516,88 @@ class FlightCreateDialog extends React.Component {
         margin="normal"
         multiline
         fullWidth
+        rows={rows}
         error={hasError}
         disabled={isDisabled}
       />
     ))
+  }
+
+  renderCheckbox(name) {
+    return this.renderInFormControl(name, (hasError, isDisabled) => (
+      <FormControlLabel
+        value={name}
+        control={
+          <Checkbox
+            color="primary"
+            checked={this.getValue(name, false)}
+            onChange={this.handleCheckboxChange(name)}
+          />
+        }
+        label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
+        labelPlacement="end"
+        className={hasError ? this.props.classes.error : null}
+        disabled={isDisabled}
+      />
+    ))
+  }
+
+  renderObservationsSection() {
+    const { techlogEntryStatusOptions, data, submitting, classes } = this.props
+    const value = data.troublesObservations || ''
+    return this.renderInFormControl(
+      'troublesObservations',
+      (hasError, isDisabled) => (
+        <>
+          <FormLabel component="legend">
+            <FormattedMessage id="flight.create.dialog.troublesobservations" />
+          </FormLabel>
+          <RadioGroup
+            name="troublesObservations"
+            value={value}
+            onChange={this.handleTroublesRadioChange}
+          >
+            <FormControlLabel
+              value="nil"
+              control={<Radio disabled={isDisabled} />}
+              label={this.msg('flight.create.dialog.troublesobservations.nil')}
+            />
+            <FormControlLabel
+              value="troubles"
+              control={<Radio disabled={isDisabled} />}
+              label={this.msg(
+                'flight.create.dialog.troublesobservations.troubles'
+              )}
+            />
+          </RadioGroup>
+          {value === 'troubles' && (
+            <>
+              {this.renderSelect(
+                'techlogEntryStatus',
+                techlogEntryStatusOptions
+              )}
+              {this.renderMultilineTextField('techlogEntryDescription', 5)}
+              <Attachments
+                attachments={data.techlogEntryAttachments}
+                disabled={submitting}
+                onRemoveClick={this.removeAttachment}
+                className={classes.techlogEntryAttachments}
+              />
+              <FileButton
+                disabled={submitting}
+                label={this.msg(
+                  'flight.create.dialog.techlogentryattachment.add'
+                )}
+                onSelect={this.handleFileSelect}
+                className={classes.addTechlogEntryAttachmentButton}
+              />
+            </>
+          )}
+        </>
+      ),
+      null,
+      'normal'
+    )
   }
 
   renderLoadingIcon() {
@@ -452,10 +611,13 @@ class FlightCreateDialog extends React.Component {
 
 const flightDataShape = PropTypes.shape({
   date: PropTypes.string,
-  nature: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  }),
+  nature: PropTypes.oneOfType([
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }),
+    PropTypes.string
+  ]),
   blockOffTime: PropTypes.string,
   takeOffTime: PropTypes.string,
   landingTime: PropTypes.string,
@@ -480,6 +642,21 @@ const flightDataShape = PropTypes.shape({
   }),
   oilUplift: PropTypes.number,
   remarks: PropTypes.string,
+  troublesObservations: PropTypes.oneOf(['nil', 'troubles']),
+  techlogEntryStatus: PropTypes.oneOfType([
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }),
+    PropTypes.string
+  ]),
+  techlogEntryDescription: PropTypes.string,
+  techlogEntryAttachments: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      size: PropTypes.number.isRequired
+    })
+  ),
   counters: PropTypes.shape({
     flights: PropTypes.shape({
       start: PropTypes.number,
@@ -521,6 +698,12 @@ FlightCreateDialog.propTypes = {
       label: PropTypes.string.isRequired
     })
   ),
+  techlogEntryStatusOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ),
   loadMembers: PropTypes.func.isRequired,
   loadAerodromes: PropTypes.func.isRequired,
   aircraftSettings: PropTypes.shape({
@@ -530,9 +713,12 @@ FlightCreateDialog.propTypes = {
         label: PropTypes.string.isRequired
       })
     ).isRequired,
-    engineHoursCounterEnabled: PropTypes.bool.isRequired
+    engineHoursCounterEnabled: PropTypes.bool.isRequired,
+    techlogEnabled: PropTypes.bool.isRequired
   }).isRequired,
   createAerodromeDialogOpen: PropTypes.bool.isRequired,
+  visibleFields: PropTypes.arrayOf(PropTypes.string),
+  editableFields: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

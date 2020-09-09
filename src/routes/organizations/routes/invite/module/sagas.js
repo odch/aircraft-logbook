@@ -1,7 +1,12 @@
 import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import * as actions from './actions'
 import { getFirestore } from '../../../../../util/firebase'
-import { getDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  getDoc,
+  updateDoc,
+  addArrayItem
+} from '../../../../../util/firestoreUtils'
+import { fetchOrganizations } from '../../../../../modules/app'
 
 export const uidSelector = state => state.firebase.auth.uid
 
@@ -36,6 +41,9 @@ export function* acceptInvite({ payload: { organizationId, inviteId } }) {
       user: user.ref
     }
   )
+  const org = yield call(getDoc, ['organizations', organizationId])
+  yield call(addArrayItem, ['users', user.id], 'organizations', org.ref)
+  yield put(fetchOrganizations())
   yield put(actions.fetchInvite(organizationId, inviteId))
 }
 

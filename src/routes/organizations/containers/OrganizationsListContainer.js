@@ -20,9 +20,6 @@ const mapActionCreators = {
   createOrganization
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(OrganizationsList)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  OrganizationsList
+)

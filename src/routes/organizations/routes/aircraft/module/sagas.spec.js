@@ -1,13 +1,18 @@
 import { all, takeEvery, call, put, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import moment from 'moment'
-import { getFirestore } from '../../../../../util/firebase'
-import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import { callFunction, getFirestore } from '../../../../../util/firebase'
+import {
+  addDoc,
+  runTransaction,
+  updateDoc
+} from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { fetchAerodromes } from '../../../module'
+import { fetchAircrafts } from '../../../module/actions'
 
 const counter = (start, end) => ({ start, end })
 
@@ -18,18 +23,52 @@ describe('routes', () => {
     describe('routes', () => {
       describe('aircraft', () => {
         describe('sagas', () => {
-          describe('fetchFlights', () => {
-            it('should load the flights of an aircraft', () => {
-              const fetchFlightsAction = actions.fetchFlights(
+          describe('initFlightsList', () => {
+            it('should init the flight list state', () => {
+              const action = actions.initFlightsList(
                 'my_org',
                 'o7flC7jw8jmkOfWo8oyA',
-                0,
-                10
+                5
               )
+              return expectSaga(sagas.initFlightsList, action)
+                .provide([[call(sagas.fetchFlights)]])
+                .put(
+                  actions.setFlightsParams('my_org', 'o7flC7jw8jmkOfWo8oyA', 5)
+                )
+                .call(sagas.fetchFlights)
+                .run()
+            })
+          })
+
+          describe('changeFlightsPage', () => {
+            it('should change the page of the flight list', () => {
+              const action = actions.changeFlightsPage(2)
+              return expectSaga(sagas.changeFlightsPage, action)
+                .provide([[call(sagas.fetchFlights)]])
+                .put(actions.setFlightsPage(2))
+                .call(sagas.fetchFlights)
+                .run()
+            })
+          })
+
+          describe('fetchFlights', () => {
+            it('should load the flights of an aircraft', () => {
+              const fetchFlightsAction = actions.fetchFlights()
 
               const generator = sagas.fetchFlights(fetchFlightsAction)
 
               expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
                 call(
                   sagas.getStartFlightDocument,
                   'my_org',
@@ -147,7 +186,24 @@ describe('routes', () => {
                 fuelUplift: 5789,
                 fuelType: { value: 'avgas_homebase' },
                 oilUplift: 245,
-                remarks: 'bemerkung zeile 1\nzeile2'
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryStatus: { value: 'not_airworthy' },
+                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
+                techlogEntryAttachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
               }
 
               const action = actions.createFlight(
@@ -267,83 +323,123 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
+                call(sagas.addNewFlightDoc, organizationId, aircraftId)
+              )
+
+              const newFlightDoc = {
+                ref: {},
+                id: 'new-flight-id',
+                deleted: true
+              }
+
+              const dataToStore = {
+                deleted: false,
+                owner: 'owner-ref',
+                pilot: {
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999',
+                  member: 'pilot-ref',
+                  id: 'pilot-id'
+                },
+                instructor: {
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer',
+                  nr: null,
+                  member: 'instructor-ref',
+                  id: 'instructor-id'
+                },
+                nature: 'vp',
+                departureAerodrome: {
+                  aerodrome: 'dep-ad-ref',
+                  id: 'dep-ad-id',
+                  identification: 'LSZT',
+                  name: 'Lommis',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: {
+                  aerodrome: 'dest-ad-ref',
+                  id: 'dest-ad-id',
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
+                  timezone: 'Europe/Zurich'
+                },
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z'),
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  engineTimeCounter: counter(50145, 50612),
+                  flightHours: counter(58658, 58708),
+                  engineHours: counter(65865, 66332),
+                  flights: counter(464, 465),
+                  landings: counter(3846, 3849)
+                },
+                landings: 3,
+                fuelUplift: 57.89,
+                fuelUnit: 'litre',
+                fuelType: 'avgas_homebase',
+                oilUplift: 2.45,
+                oilUnit: 'litre',
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryStatus: 'not_airworthy',
+                techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
+              }
+
+              expect(generator.next(newFlightDoc).value).toEqual(
                 call(
-                  addDoc,
-                  [
-                    'organizations',
-                    organizationId,
-                    'aircrafts',
-                    aircraftId,
-                    'flights'
-                  ],
-                  {
-                    deleted: false,
-                    owner: 'owner-ref',
-                    pilot: {
-                      firstname: 'Max',
-                      lastname: 'Superpilot',
-                      nr: '9999',
-                      member: 'pilot-ref',
-                      id: 'pilot-id'
-                    },
-                    instructor: {
-                      firstname: 'Hans',
-                      lastname: 'Superfluglehrer',
-                      nr: null,
-                      member: 'instructor-ref',
-                      id: 'instructor-id'
-                    },
-                    nature: 'vp',
-                    departureAerodrome: {
-                      aerodrome: 'dep-ad-ref',
-                      id: 'dep-ad-id',
-                      identification: 'LSZT',
-                      name: 'Lommis',
-                      timezone: 'Europe/Zurich'
-                    },
-                    destinationAerodrome: {
-                      aerodrome: 'dest-ad-ref',
-                      id: 'dest-ad-id',
-                      identification: 'LSPV',
-                      name: 'Wangen-Lachen',
-                      timezone: 'Europe/Zurich'
-                    },
-                    blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
-                    takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
-                    landingTime: new Date('2018-12-13T09:35:00.000Z'),
-                    blockOnTime: new Date('2018-12-13T09:40:00.000Z'),
-                    counters: {
-                      flightTimeCounter: counter(45780, 45830),
-                      engineTimeCounter: counter(50145, 50612),
-                      flightHours: counter(58658, 58708),
-                      engineHours: counter(65865, 66332),
-                      flights: counter(464, 465),
-                      landings: counter(3846, 3849)
-                    },
-                    landings: 3,
-                    fuelUplift: 57.89,
-                    fuelUnit: 'litre',
-                    fuelType: 'avgas_homebase',
-                    oilUplift: 2.45,
-                    oilUnit: 'litre',
-                    remarks: 'bemerkung zeile 1\nzeile2'
-                  }
+                  runTransaction,
+                  sagas.setFlightData,
+                  null,
+                  newFlightDoc,
+                  dataToStore
                 )
               )
 
               expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
+                call(sagas.getAttachments, data.techlogEntryAttachments)
               )
 
-              const aircraftFlightsView = {
-                rowsPerPage: 10
+              const attachments = [
+                {
+                  name: 'image.jpeg',
+                  base64: 'att1-base64',
+                  contentType: 'image/jpeg'
+                },
+                {
+                  name: 'foobar.pdf',
+                  base64: 'att2-base64',
+                  contentType: 'application/pdf'
+                }
+              ]
+
+              const expectedEntry = {
+                description: 'Schraube am Bugfahrwerkt locker',
+                initialStatus: 'not_airworthy',
+                currentStatus: 'not_airworthy',
+                closed: false,
+                flight: 'new-flight-id',
+                attachments
               }
 
-              expect(generator.next(aircraftFlightsView).value).toEqual(
-                put(actions.fetchFlights(organizationId, aircraftId, 0, 10))
+              expect(generator.next(attachments).value).toEqual(
+                call(callFunction, 'addTechlogEntry', {
+                  organizationId: 'my-org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  entry: expectedEntry
+                })
               )
+
               expect(generator.next().value).toEqual(
-                put(actions.setFlightsPage(0))
+                put(fetchAircrafts('my-org'))
+              )
+              expect(generator.next().value).toEqual(call(sagas.fetchTechlog))
+              expect(generator.next().value).toEqual(
+                put(actions.changeFlightsPage(0))
               )
               expect(generator.next().value).toEqual(
                 put(actions.createFlightSuccess())
@@ -400,6 +496,91 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
+            })
+          })
+
+          describe('setFlightData', () => {
+            const oldFlightDoc = {
+              id: 'old-flight-id',
+              ref: { id: 'old-flight-id' },
+              deleted: false,
+              pilot: {
+                firstname: 'Kurt',
+                lastname: 'Meier'
+              },
+              vp: 'nature'
+            }
+            const newFlightDoc = {
+              id: 'new-flight-id',
+              ref: { id: 'new-flight-id' }
+            }
+            const dataToStore = {
+              deleted: false,
+              pilot: {
+                firstname: 'Max',
+                lastname: 'Superpilot'
+              },
+              vp: 'nature'
+            }
+
+            it('should set the new flight data', () => {
+              const fn = sagas.setFlightData(null, newFlightDoc, dataToStore)
+
+              const tx = {
+                update: jest.fn()
+              }
+
+              fn(tx)
+
+              expect(tx.update.mock.calls).toEqual([
+                [
+                  { id: 'new-flight-id' },
+                  {
+                    deleted: false,
+                    pilot: {
+                      firstname: 'Max',
+                      lastname: 'Superpilot'
+                    },
+                    vp: 'nature'
+                  }
+                ]
+              ])
+            })
+
+            it('should set the new flight data and hide old flight if update', () => {
+              const fn = sagas.setFlightData(
+                oldFlightDoc,
+                newFlightDoc,
+                dataToStore
+              )
+
+              const tx = {
+                update: jest.fn()
+              }
+
+              fn(tx)
+
+              expect(tx.update.mock.calls).toEqual([
+                [
+                  { id: 'old-flight-id' },
+                  {
+                    replacedWith: 'new-flight-id',
+                    deleted: true
+                  }
+                ],
+                [
+                  { id: 'new-flight-id' },
+                  {
+                    replaces: 'old-flight-id',
+                    deleted: false,
+                    pilot: {
+                      firstname: 'Max',
+                      lastname: 'Superpilot'
+                    },
+                    vp: 'nature'
+                  }
+                ]
+              ])
             })
           })
 
@@ -565,16 +746,7 @@ describe('routes', () => {
               )
 
               expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
-              )
-
-              const aircraftFlightsView = {
-                page: 0,
-                rowsPerPage: 10
-              }
-
-              expect(generator.next(aircraftFlightsView).value).toEqual(
-                put(actions.fetchFlights('my_org', aircraftId, 0, 10))
+                put(actions.fetchFlights())
               )
               expect(generator.next().value).toEqual(
                 put(actions.closeDeleteFlightDialog())
@@ -622,16 +794,18 @@ describe('routes', () => {
             const data = {
               identification: 'LSXX',
               name: 'Hagenbuch',
-              timezone: 'Europe/Zurich'
+              timezone: {
+                value: 'Europe/Zurich'
+              }
             }
 
             const action = actions.createAerodrome(orgId, fieldName, data)
 
             it('should create the aerodrome in the organization', () => {
               const expectedDataToStore = {
-                identification: data.identification,
-                name: data.name,
-                timezone: data.timezone.value,
+                identification: 'LSXX',
+                name: 'Hagenbuch',
+                timezone: 'Europe/Zurich',
                 deleted: false
               }
 
@@ -655,12 +829,212 @@ describe('routes', () => {
                   actions.updateCreateFlightDialogData({
                     [fieldName]: {
                       value: 'newAerodromeId',
-                      label: 'LSXX (Hagenbuch)'
+                      label: 'LSXX (Hagenbuch)',
+                      timezone: 'Europe/Zurich'
                     }
                   })
                 )
                 .put(fetchAerodromes(orgId))
                 .put(actions.createAeorodromeSuccess())
+                .run()
+            })
+          })
+
+          describe('initTechlog', () => {
+            it('should init the techlog list state', () => {
+              const action = actions.initTechlog(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                true
+              )
+              return expectSaga(sagas.initTechlog, action)
+                .provide([[call(sagas.fetchTechlog)]])
+                .put(
+                  actions.setTechlogParams(
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    true
+                  )
+                )
+                .call(sagas.fetchTechlog)
+                .run()
+            })
+          })
+
+          describe('changeTechlogPage', () => {
+            it('should change the page of the techlog list', () => {
+              const action = actions.changeTechlogPage(2)
+              return expectSaga(sagas.changeTechlogPage, action)
+                .provide([[call(sagas.fetchTechlog)]])
+                .put(actions.setTechlogPage(2))
+                .call(sagas.fetchTechlog)
+                .run()
+            })
+          })
+
+          describe('createTechlogEntry', () => {
+            it('should create a techlog entry', () => {
+              const data = {
+                status: { value: 'not_airworthy' },
+                description: 'Schraube am Bugfahrwerk locker',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
+              }
+              const expectedDataToStore = {
+                description: 'Schraube am Bugfahrwerk locker',
+                initialStatus: 'not_airworthy',
+                currentStatus: 'not_airworthy',
+                closed: false,
+                flight: null,
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    base64: 'att1-base64',
+                    contentType: 'image/jpeg'
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    base64: 'att2-base64',
+                    contentType: 'application/pdf'
+                  }
+                ]
+              }
+              const action = actions.createTechlogEntry(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                data
+              )
+              return expectSaga(sagas.createTechlogEntry, action)
+                .provide([
+                  [
+                    call(sagas.getAttachments, data.attachments),
+                    [
+                      {
+                        name: 'image.jpeg',
+                        base64: 'att1-base64',
+                        contentType: 'image/jpeg'
+                      },
+                      {
+                        name: 'foobar.pdf',
+                        base64: 'att2-base64',
+                        contentType: 'application/pdf'
+                      }
+                    ]
+                  ],
+                  [call(sagas.fetchTechlog)],
+                  [
+                    call(callFunction, 'addTechlogEntry', {
+                      organizationId: 'my_org',
+                      aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                      entry: expectedDataToStore
+                    })
+                  ]
+                ])
+                .put(actions.setCreateTechlogEntryDialogSubmitting())
+                .call(sagas.getAttachments, data.attachments)
+                .call(callFunction, 'addTechlogEntry', {
+                  organizationId: 'my_org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  entry: expectedDataToStore
+                })
+                .put(fetchAircrafts('my_org'))
+                .call(sagas.fetchTechlog)
+                .put(actions.createTechlogEntrySuccess())
+                .run()
+            })
+          })
+
+          describe('createTechlogEntryAction', () => {
+            it('should create a techlog entry action', () => {
+              const data = {
+                status: { value: 'not_airworthy' },
+                description: 'Schraube bestellt',
+                signature: 'XYZ-123',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    contentType: 'image/jpeg',
+                    file: {}
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    contentType: 'application/pdf',
+                    file: {}
+                  }
+                ]
+              }
+              const expectedDataToStore = {
+                description: 'Schraube bestellt',
+                status: 'not_airworthy',
+                signature: 'XYZ-123',
+                attachments: [
+                  {
+                    name: 'image.jpeg',
+                    base64: 'att1-base64',
+                    contentType: 'image/jpeg'
+                  },
+                  {
+                    name: 'foobar.pdf',
+                    base64: 'att2-base64',
+                    contentType: 'application/pdf'
+                  }
+                ]
+              }
+              const action = actions.createTechlogEntryAction(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                'asdf245asfjkl',
+                data
+              )
+              return expectSaga(sagas.createTechlogEntryAction, action)
+                .provide([
+                  [
+                    call(sagas.getAttachments, data.attachments),
+                    [
+                      {
+                        name: 'image.jpeg',
+                        base64: 'att1-base64',
+                        contentType: 'image/jpeg'
+                      },
+                      {
+                        name: 'foobar.pdf',
+                        base64: 'att2-base64',
+                        contentType: 'application/pdf'
+                      }
+                    ]
+                  ],
+                  [call(sagas.fetchTechlog)],
+                  [
+                    call(callFunction, 'addTechlogEntryAction', {
+                      organizationId: 'my_org',
+                      aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                      techlogEntryId: 'asdf245asfjkl',
+                      action: expectedDataToStore,
+                      techlogEntryClosed: false
+                    })
+                  ]
+                ])
+                .put(actions.setCreateTechlogEntryActionDialogSubmitting())
+                .call(callFunction, 'addTechlogEntryAction', {
+                  organizationId: 'my_org',
+                  aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                  techlogEntryId: 'asdf245asfjkl',
+                  action: expectedDataToStore,
+                  techlogEntryClosed: false
+                })
+                .put(fetchAircrafts('my_org'))
+                .call(sagas.fetchTechlog)
+                .put(actions.createTechlogEntryActionSuccess())
                 .run()
             })
           })
@@ -671,14 +1045,36 @@ describe('routes', () => {
 
               expect(generator.next().value).toEqual(
                 all([
+                  takeEvery(actions.INIT_FLIGHTS_LIST, sagas.initFlightsList),
+                  takeEvery(
+                    actions.CHANGE_FLIGHTS_PAGE,
+                    sagas.changeFlightsPage
+                  ),
                   takeEvery(actions.FETCH_FLIGHTS, sagas.fetchFlights),
                   takeEvery(actions.CREATE_FLIGHT, sagas.createFlight),
                   takeEvery(
                     actions.INIT_CREATE_FLIGHT_DIALOG,
                     sagas.initCreateFlightDialog
                   ),
+                  takeEvery(
+                    actions.OPEN_EDIT_FLIGHT_DIALOG,
+                    sagas.openAndInitEditFlightDialog
+                  ),
                   takeEvery(actions.DELETE_FLIGHT, sagas.deleteFlight),
-                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome)
+                  takeEvery(actions.CREATE_AERODROME, sagas.createAerodrome),
+                  takeEvery(actions.INIT_TECHLOG, sagas.initTechlog),
+                  takeEvery(
+                    actions.CHANGE_TECHLOG_PAGE,
+                    sagas.changeTechlogPage
+                  ),
+                  takeEvery(
+                    actions.CREATE_TECHLOG_ENTRY,
+                    sagas.createTechlogEntry
+                  ),
+                  takeEvery(
+                    actions.CREATE_TECHLOG_ENTRY_ACTION,
+                    sagas.createTechlogEntryAction
+                  )
                 ])
               )
             })

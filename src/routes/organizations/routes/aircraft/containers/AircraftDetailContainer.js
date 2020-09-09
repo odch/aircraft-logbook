@@ -1,22 +1,8 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import AircraftDetail from '../components/AircraftDetail'
-import {
-  getOrganization,
-  getAircraft,
-  getAircraftFlights,
-  getAircraftFlightsCount
-} from '../../../../../util/getFromState'
+import { getOrganization, getAircraft } from '../../../../../util/getFromState'
 import { fetchAircrafts, fetchMembers, fetchAerodromes } from '../../../module'
-import {
-  fetchFlights,
-  setFlightsPage,
-  openCreateFlightDialog,
-  initCreateFlightDialog,
-  openDeleteFlightDialog,
-  closeDeleteFlightDialog,
-  deleteFlight
-} from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -27,46 +13,19 @@ const mapStateToProps = (state, ownProps) => {
 
   const organization = getOrganization(state, organizationId)
   const aircraft = getAircraft(state, aircraftId)
-  const flights = getAircraftFlights(
-    state,
-    aircraftId,
-    state.aircraft.flights.page
-  )
-
-  const flightsPagination = aircraft
-    ? {
-        rowsCount: getAircraftFlightsCount(state, aircraftId),
-        page: state.aircraft.flights.page,
-        rowsPerPage: state.aircraft.flights.rowsPerPage
-      }
-    : undefined
 
   return {
     organization,
-    aircraft,
-    flights,
-    flightsPagination,
-    createFlightDialogOpen: state.aircraft.createFlightDialog.open,
-    flightDeleteDialog: state.aircraft.deleteFlightDialog
+    aircraft
   }
 }
 
 const mapActionCreators = {
   fetchAircrafts,
   fetchMembers,
-  fetchAerodromes,
-  fetchFlights,
-  setFlightsPage,
-  openCreateFlightDialog,
-  initCreateFlightDialog,
-  openDeleteFlightDialog,
-  closeDeleteFlightDialog,
-  deleteFlight
+  fetchAerodromes
 }
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapActionCreators
-  )
-)(AircraftDetail)
+export default compose(connect(mapStateToProps, mapActionCreators))(
+  AircraftDetail
+)

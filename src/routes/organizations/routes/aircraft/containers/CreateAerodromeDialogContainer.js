@@ -22,10 +22,5 @@ const mapActionCreators = {
 }
 
 export default injectIntl(
-  compose(
-    connect(
-      mapStateToProps,
-      mapActionCreators
-    )
-  )(CreateAerodromeDialog)
+  compose(connect(mapStateToProps, mapActionCreators))(CreateAerodromeDialog)
 )

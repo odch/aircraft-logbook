@@ -4,6 +4,8 @@ import detail from './organizations/routes/detail'
 import settings from './organizations/routes/settings'
 import invite from './organizations/routes/invite'
 import aircraft from './organizations/routes/aircraft'
+import aircraftFlights from './organizations/routes/aircraft/routes/flights'
+import aircraftTechlog from './organizations/routes/aircraft/routes/techlog'
 import aircraftSettings from './organizations/routes/aircraft/routes/settings'
 import login from './login'
 import registration from './registration'
@@ -43,6 +45,18 @@ export const createRoutes = store => [
     path: '/organizations/:organizationId/aircrafts/:aircraftId',
     exact: true,
     render: aircraft(store),
+    protected: true
+  },
+  {
+    path: '/organizations/:organizationId/aircrafts/:aircraftId/flights',
+    exact: true,
+    render: aircraftFlights(store),
+    protected: true
+  },
+  {
+    path: '/organizations/:organizationId/aircrafts/:aircraftId/techlog',
+    exact: true,
+    render: aircraftTechlog(store),
     protected: true
   },
   {

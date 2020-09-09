@@ -223,6 +223,7 @@ class IntegrationReactSelect extends React.Component {
       required,
       error,
       disabled,
+      clearable,
       onCreateOption,
       onCreateOptionText
     } = this.props
@@ -266,6 +267,7 @@ class IntegrationReactSelect extends React.Component {
             onChange={onChange}
             isMulti={isMulti}
             isDisabled={disabled}
+            isClearable={clearable}
             onCreateOption={onCreateOption}
             formatCreateLabel={() =>
               onCreateOptionText ||
@@ -291,6 +293,10 @@ class IntegrationReactSelect extends React.Component {
   }
 }
 
+IntegrationReactSelect.defaultProps = {
+  clearable: true
+}
+
 IntegrationReactSelect.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -309,6 +315,7 @@ IntegrationReactSelect.propTypes = {
   error: PropTypes.bool,
   disabled: PropTypes.bool,
   creatable: PropTypes.bool,
+  clearable: PropTypes.bool,
   onCreateOption: PropTypes.func,
   onCreateOptionText: PropTypes.string
 }

@@ -26,8 +26,37 @@ export const INITIAL_STATE = {
     }
   },
   flights: {
+    organizationId: null,
+    aircraftId: null,
     page: 0,
     rowsPerPage: 10
+  },
+  techlog: {
+    organizationId: null,
+    aircraftId: null,
+    page: 0,
+    rowsPerPage: 10,
+    showOnlyOpen: false
+  },
+  createTechlogEntryDialog: {
+    open: false,
+    submitting: false,
+    data: {
+      description: '',
+      status: null,
+      attachments: []
+    }
+  },
+  createTechlogEntryActionDialog: {
+    open: false,
+    submitting: false,
+    techlogEntryId: null,
+    data: {
+      description: '',
+      status: null,
+      signature: false,
+      attachments: []
+    }
   }
 }
 
@@ -36,6 +65,16 @@ const setFlightsPage = (state, action) => ({
   flights: {
     ...state.flights,
     page: action.payload.page
+  }
+})
+
+const setFlightsParams = (state, { payload }) => ({
+  ...state,
+  flights: {
+    organizationId: payload.organizationId,
+    aircraftId: payload.aircraftId,
+    page: 0,
+    rowsPerPage: payload.rowsPerPage
   }
 })
 
@@ -67,7 +106,9 @@ const setInitialCreateFlightDialogData = (state, action) => {
     createFlightDialog: {
       ...state.createFlightDialog,
       data: newData,
-      initialData
+      initialData,
+      visibleFields: action.payload.visibleFields,
+      editableFields: action.payload.editableFields
     }
   }
 }
@@ -231,8 +272,131 @@ const closeCreateAerodromeDialog = state => ({
   }
 })
 
+const setTechlogPage = (state, action) => ({
+  ...state,
+  techlog: {
+    ...state.techlog,
+    page: action.payload.page
+  }
+})
+
+const setTechlogParams = (state, { payload }) => ({
+  ...state,
+  techlog: {
+    organizationId: payload.organizationId,
+    aircraftId: payload.aircraftId,
+    page: 0,
+    rowsPerPage: payload.showOnlyOpen ? undefined : 10,
+    showOnlyOpen: payload.showOnlyOpen
+  }
+})
+
+const openCreateTechlogEntryDialog = state => ({
+  ...state,
+  createTechlogEntryDialog: {
+    ...INITIAL_STATE.createTechlogEntryDialog,
+    open: true
+  }
+})
+
+const updateCreateTechlogEntryDialogData = (state, action) => {
+  const newData = {
+    ...state.createTechlogEntryDialog.data
+  }
+
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+
+  return {
+    ...state,
+    createTechlogEntryDialog: {
+      ...state.createTechlogEntryDialog,
+      data: newData
+    }
+  }
+}
+
+const setCreateTechlogEntryDialogSubmitting = state =>
+  updateCreateTechlogEntryDialogSubmitting(state, true)
+
+const unsetCreateTechlogEntryDialogSubmitting = state =>
+  updateCreateTechlogEntryDialogSubmitting(state, false)
+
+const updateCreateTechlogEntryDialogSubmitting = (state, submitting) => ({
+  ...state,
+  createTechlogEntryDialog: {
+    ...state.createTechlogEntryDialog,
+    submitting: submitting
+  }
+})
+
+const closeCreateTechlogEntryDialog = state => ({
+  ...state,
+  createTechlogEntryDialog: {
+    ...state.createTechlogEntryDialog,
+    open: false
+  }
+})
+
+const openCreateTechlogEntryActionDialog = (state, { payload }) => ({
+  ...state,
+  createTechlogEntryActionDialog: {
+    ...INITIAL_STATE.createTechlogEntryActionDialog,
+    techlogEntryId: payload.techlogEntryId,
+    data: {
+      ...INITIAL_STATE.createTechlogEntryActionDialog.data,
+      status: payload.techlogEntryStatus
+    },
+    open: true
+  }
+})
+
+const updateCreateTechlogEntryActionDialogData = (state, action) => {
+  const newData = {
+    ...state.createTechlogEntryActionDialog.data
+  }
+
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+  })
+
+  return {
+    ...state,
+    createTechlogEntryActionDialog: {
+      ...state.createTechlogEntryActionDialog,
+      data: newData
+    }
+  }
+}
+
+const setCreateTechlogEntryActionDialogSubmitting = state =>
+  updateCreateTechlogEntryActionDialogSubmitting(state, true)
+
+const unsetCreateTechlogEntryActionDialogSubmitting = state =>
+  updateCreateTechlogEntryActionDialogSubmitting(state, false)
+
+const updateCreateTechlogEntryActionDialogSubmitting = (state, submitting) => ({
+  ...state,
+  createTechlogEntryActionDialog: {
+    ...state.createTechlogEntryActionDialog,
+    submitting: submitting
+  }
+})
+
+const closeCreateTechlogEntryActionDialog = state => ({
+  ...state,
+  createTechlogEntryActionDialog: {
+    ...state.createTechlogEntryActionDialog,
+    open: false
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.SET_FLIGHTS_PAGE]: setFlightsPage,
+  [actions.SET_FLIGHTS_PARAMS]: setFlightsParams,
   [actions.OPEN_CREATE_FLIGHT_DIALOG]: openCreateFlightDialog,
   [actions.CLOSE_CREATE_FLIGHT_DIALOG]: closeCreateFlightDialog,
   [actions.SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA]: setInitialCreateFlightDialogData,
@@ -249,7 +413,21 @@ const ACTION_HANDLERS = {
   [actions.UPDATE_CREATE_AERODROME_DIALOG_DATA]: updateCreateAerodromeDialogData,
   [actions.SET_CREATE_AERODROME_DIALOG_SUBMITTING]: setCreateAerodromeDialogSubmitting,
   [actions.CREATE_AERODROME_SUCCESS]: closeCreateAerodromeDialog,
-  [actions.CREATE_AERODROME_FAILURE]: unsetCreateAerodromeDialogSubmitting
+  [actions.CREATE_AERODROME_FAILURE]: unsetCreateAerodromeDialogSubmitting,
+  [actions.SET_TECHLOG_PAGE]: setTechlogPage,
+  [actions.SET_TECHLOG_PARAMS]: setTechlogParams,
+  [actions.OPEN_CREATE_TECHLOG_ENTRY_DIALOG]: openCreateTechlogEntryDialog,
+  [actions.UPDATE_CREATE_TECHLOG_ENTRY_DIALOG_DATA]: updateCreateTechlogEntryDialogData,
+  [actions.SET_CREATE_TECHLOG_ENTRY_DIALOG_SUBMITTING]: setCreateTechlogEntryDialogSubmitting,
+  [actions.CREATE_TECHLOG_ENTRY_FAILURE]: unsetCreateTechlogEntryDialogSubmitting,
+  [actions.CREATE_TECHLOG_ENTRY_SUCCESS]: closeCreateTechlogEntryDialog,
+  [actions.CLOSE_CREATE_TECHLOG_ENTRY_DIALOG]: closeCreateTechlogEntryDialog,
+  [actions.OPEN_CREATE_TECHLOG_ENTRY_ACTION_DIALOG]: openCreateTechlogEntryActionDialog,
+  [actions.UPDATE_CREATE_TECHLOG_ENTRY_ACTION_DIALOG_DATA]: updateCreateTechlogEntryActionDialogData,
+  [actions.SET_CREATE_TECHLOG_ENTRY_ACTION_DIALOG_SUBMITTING]: setCreateTechlogEntryActionDialogSubmitting,
+  [actions.CREATE_TECHLOG_ENTRY_ACTION_FAILURE]: unsetCreateTechlogEntryActionDialogSubmitting,
+  [actions.CREATE_TECHLOG_ENTRY_ACTION_SUCCESS]: closeCreateTechlogEntryActionDialog,
+  [actions.CLOSE_CREATE_TECHLOG_ENTRY_ACTION_DIALOG]: closeCreateTechlogEntryActionDialog
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

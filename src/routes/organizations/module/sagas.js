@@ -1,8 +1,13 @@
-import { takeEvery, take, all, call, put, select } from 'redux-saga/effects'
+import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import { getFirebase, getFirestore } from '../../../util/firebase'
 import * as actions from './actions'
-import { SET_MY_ORGANIZATIONS } from '../../../modules/app'
+import { fetchOrganizations } from '../../../modules/app'
 import { error } from '../../../util/log'
+import {
+  getDoc,
+  addArrayItem,
+  removeArrayItem
+} from '../../../util/firestoreUtils'
 
 export const uidSelector = state => state.firebase.auth.uid
 
@@ -38,15 +43,9 @@ export function* createOrganization({ payload: { data } }) {
         owner: user.ref
       }
     )
-
-    let creationComplete
-    do {
-      const myOrgAction = yield take(SET_MY_ORGANIZATIONS)
-      creationComplete = myOrgAction.payload.organizations.some(
-        org => org.id === data.name
-      )
-    } while (!creationComplete)
-
+    const newOrg = yield call(getDoc, ['organizations', data.name])
+    yield call(addArrayItem, ['users', user.id], 'organizations', newOrg.ref)
+    yield put(fetchOrganizations())
     yield put(actions.createOrganizationSuccess())
   } catch (e) {
     error(`Failed to create organization ${data.name}`, e)
@@ -62,7 +61,13 @@ export function* selectOrganization({ payload: { id } }) {
 export function* deleteOrganization({ payload: { id } }) {
   try {
     const firestore = yield call(getFirestore)
+    const org = yield call(getDoc, ['organizations', id])
+    const user = yield call(getCurrentUser)
+
     yield call(firestore.delete, { collection: 'organizations', doc: id }, {})
+    yield call(removeArrayItem, ['users', user.id], 'organizations', org.ref)
+
+    yield put(fetchOrganizations())
     yield put(actions.deleteOrganizationSuccess())
   } catch (e) {
     error(`Failed to delete organization ${id}`, e)

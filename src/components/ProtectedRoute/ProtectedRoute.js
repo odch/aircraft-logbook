@@ -32,7 +32,4 @@ const mapStateToProps = state => ({
 
 const mapActionCreators = {}
 
-export default connect(
-  mapStateToProps,
-  mapActionCreators
-)(ProtectedRoute)
+export default connect(mapStateToProps, mapActionCreators)(ProtectedRoute)

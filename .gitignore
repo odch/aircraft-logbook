@@ -2,3 +2,5 @@
 cypress/videos
 cypress/screenshots
 coverage
+dist/
+.firebase/

@@ -7,6 +7,8 @@ import { isBefore } from '../../../../../../util/dates'
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
 
+const isNullOrUndefined = value => value === null || value === undefined
+
 /**
  * error message keys are automatically prefixed with
  * "flight.create.dialog.validation.{fieldName}." and transformed to lower case.
@@ -126,13 +128,16 @@ export function* validateSync(
   const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
   const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
 
-  if (typeof flightTimeStart === 'undefined') {
+  if (typeof flightTimeStart !== 'number') {
     errors['counters.flightTimeCounter.start'] = 'required'
   }
-  if (typeof flightTimeEnd === 'undefined') {
+  if (typeof flightTimeEnd !== 'number') {
     errors['counters.flightTimeCounter.end'] = 'required'
   }
-  if (flightTimeStart && flightTimeEnd) {
+  if (
+    !isNullOrUndefined(flightTimeStart) &&
+    !isNullOrUndefined(flightTimeEnd)
+  ) {
     if (flightTimeEnd < flightTimeStart) {
       errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
     }
@@ -142,15 +147,39 @@ export function* validateSync(
     const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
     const engineTimeEnd = _get(data, 'counters.engineTimeCounter.end')
 
-    if (typeof engineTimeStart === 'undefined') {
+    if (typeof engineTimeStart !== 'number') {
       errors['counters.engineTimeCounter.start'] = 'required'
     }
-    if (typeof engineTimeEnd === 'undefined') {
+    if (typeof engineTimeEnd !== 'number') {
       errors['counters.engineTimeCounter.end'] = 'required'
     }
-    if (engineTimeStart && engineTimeEnd) {
+    if (
+      !isNullOrUndefined(engineTimeStart) &&
+      !isNullOrUndefined(engineTimeEnd)
+    ) {
       if (engineTimeEnd < engineTimeStart) {
         errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
+      }
+    }
+  }
+
+  if (data.preflightCheck !== true) {
+    errors['preflightCheck'] = 'required'
+  }
+
+  if (aircraftSettings.techlogEnabled === true) {
+    if (!data.troublesObservations) {
+      errors['troublesObservations'] = 'required'
+    }
+    if (data.troublesObservations === 'troubles') {
+      if (!data.techlogEntryStatus) {
+        errors['techlogEntryStatus'] = 'required'
+      }
+      if (
+        !data.techlogEntryDescription ||
+        !data.techlogEntryDescription.trim()
+      ) {
+        errors['techlogEntryDescription'] = 'required'
       }
     }
   }
@@ -161,12 +190,16 @@ export function* validateSync(
 export function* validateAsync(data, organizationId, aircraftId) {
   const errors = {}
 
-  const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
-  if (
-    lastFlight &&
-    moment(data.blockOffTime).isBefore(lastFlight.blockOnTime.toDate())
-  ) {
-    errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
+  // date and time and so on currently not editable when updating flights
+  // -> no need to validate in this case
+  if (!data.id) {
+    const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+    if (
+      lastFlight &&
+      moment(data.blockOffTime).isBefore(lastFlight.blockOnTime.toDate())
+    ) {
+      errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
+    }
   }
 
   return errors

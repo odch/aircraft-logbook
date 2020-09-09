@@ -1,21 +1,36 @@
 import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import moment from 'moment-timezone'
-import { getFirestore } from '../../../../../util/firebase'
+import { getFirestore, callFunction } from '../../../../../util/firebase'
 import * as actions from './actions'
-import { getMemberOption, getAerodromeOption } from '../util/getOptions'
+import {
+  getMemberOption,
+  getAerodromeOption,
+  getFuelTypeOption
+} from '../util/getOptions'
 import { error } from '../../../../../util/log'
-import { getDoc, addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  getDoc,
+  addDoc,
+  updateDoc,
+  runTransaction
+} from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { getCounters } from './util/counters'
-import { fetchAerodromes } from '../../../module/actions'
+import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
+import { isClosed } from '../../../../../util/techlogStatus'
 
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
 export const flightsSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const techlogPageSelector = (aircraftId, page) => state =>
+  state.firestore.ordered[`techlog-${aircraftId}-${page}`]
+export const openTechlogEntriesSelector = aircraftId => state =>
+  state.firestore.ordered[`techlog-${aircraftId}-open`]
 export const aircraftFlightsViewSelector = state => state.aircraft.flights
+export const aircraftTechlogViewSelector = state => state.aircraft.techlog
 export const aircraftSettingsSelector = (state, aircraftId) =>
   state.firestore.data.organizationAircrafts[aircraftId].settings
 
@@ -31,9 +46,22 @@ export function* getStartFlightDocument(organizationId, aircraftId, page) {
   return null
 }
 
-export function* fetchFlights({
-  payload: { organizationId, aircraftId, page, rowsPerPage }
+export function* initFlightsList({
+  payload: { organizationId, aircraftId, rowsPerPage }
 }) {
+  yield put(actions.setFlightsParams(organizationId, aircraftId, rowsPerPage))
+  yield call(fetchFlights)
+}
+
+export function* changeFlightsPage({ payload: { page } }) {
+  yield put(actions.setFlightsPage(page))
+  yield call(fetchFlights)
+}
+
+export function* fetchFlights() {
+  const { organizationId, aircraftId, page, rowsPerPage } = yield select(
+    aircraftFlightsViewSelector
+  )
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
@@ -119,6 +147,17 @@ export function* getFlight(organizationId, aircraftId, flightId) {
   ])
 }
 
+export function* getTechlogEntry(organizationId, aircraftId, techlogEntryId) {
+  return yield call(getDoc, [
+    'organizations',
+    organizationId,
+    'aircrafts',
+    aircraftId,
+    'techlog',
+    techlogEntryId
+  ])
+}
+
 export async function getDestinationAerodrome(flight) {
   if (flight.destinationAerodrome) {
     if (typeof flight.destinationAerodrome.get === 'function') {
@@ -137,6 +176,12 @@ export const mergeDateAndTime = (date, time, timezone) => {
   const timeString = moment.tz(time, dateTimeFormat, timezone).format('HH:mm')
   return moment.tz(date + ' ' + timeString, dateTimeFormat, timezone).toDate()
 }
+
+export const extractDate = (timestamp, timezone) =>
+  moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD')
+
+export const getTimeForPicker = (timestamp, timezone) =>
+  moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD HH:mm')
 
 export const aerodromeObject = aeodromeDocument => ({
   name: aeodromeDocument.get('name') || null,
@@ -247,7 +292,7 @@ export function* createFlight({
     const dataToStore = {
       deleted: false,
       owner: owner.ref,
-      nature: data.nature.value,
+      nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
       pilot: memberObject(pilot),
       instructor: memberObject(instructor),
       departureAerodrome: aerodromeObject(departureAerodrome),
@@ -264,23 +309,101 @@ export function* createFlight({
       fuelUnit: 'litre',
       oilUplift,
       oilUnit: 'litre',
-      remarks: data.remarks || null
+      remarks: data.remarks || null,
+      preflightCheck:
+        typeof data.preflightCheck === 'boolean' ? data.preflightCheck : null
     }
 
+    if (data.troublesObservations) {
+      dataToStore.troublesObservations = data.troublesObservations
+      dataToStore.techlogEntryDescription = data.techlogEntryDescription
+        ? data.techlogEntryDescription.trim()
+        : null
+      dataToStore.techlogEntryStatus = data.techlogEntryStatus
+        ? typeof data.techlogEntryStatus === 'string'
+          ? data.techlogEntryStatus
+          : data.techlogEntryStatus.value
+        : null
+    }
+
+    const oldFlightDoc = data.id
+      ? yield call(getDoc, [
+          'organizations',
+          organizationId,
+          'aircrafts',
+          aircraftId,
+          'flights',
+          data.id
+        ])
+      : null
+    const newFlightDoc = yield call(addNewFlightDoc, organizationId, aircraftId)
     yield call(
-      addDoc,
-      ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
+      runTransaction,
+      setFlightData,
+      oldFlightDoc,
+      newFlightDoc,
       dataToStore
     )
 
-    const { rowsPerPage } = yield select(aircraftFlightsViewSelector)
-    yield put(actions.fetchFlights(organizationId, aircraftId, 0, rowsPerPage))
-    yield put(actions.setFlightsPage(0))
+    if (data.troublesObservations === 'troubles' && !data.id) {
+      const entry = {
+        description: data.techlogEntryDescription.trim(),
+        initialStatus: data.techlogEntryStatus.value,
+        currentStatus: data.techlogEntryStatus.value,
+        closed: isClosed(data.techlogEntryStatus.value),
+        flight: newFlightDoc.id,
+        attachments: yield call(
+          getAttachments,
+          data.techlogEntryAttachments || []
+        )
+      }
+      yield call(callFunction, 'addTechlogEntry', {
+        organizationId,
+        aircraftId,
+        entry
+      })
+      yield put(fetchAircrafts(organizationId))
+      yield call(fetchTechlog)
+    }
+
+    yield put(actions.changeFlightsPage(0))
     yield put(actions.createFlightSuccess())
   } catch (e) {
     error(`Failed to create flight`, e)
     yield put(actions.createFlightFailure())
   }
+}
+
+export function* addNewFlightDoc(organizationId, aircraftId) {
+  const newDoc = yield call(
+    addDoc,
+    ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
+    { deleted: true }
+  )
+  // fetch again with ref
+  return yield call(getDoc, [
+    'organizations',
+    organizationId,
+    'aircrafts',
+    aircraftId,
+    'flights',
+    newDoc.id
+  ])
+}
+
+export const setFlightData = (
+  oldFlightDoc,
+  newFlightDoc,
+  dataToStore
+) => async tx => {
+  if (oldFlightDoc) {
+    tx.update(oldFlightDoc.ref, {
+      deleted: true,
+      replacedWith: newFlightDoc.id
+    })
+    dataToStore.replaces = oldFlightDoc.id
+  }
+  tx.update(newFlightDoc.ref, dataToStore)
 }
 
 export function* initCreateFlightDialog({
@@ -347,6 +470,100 @@ export function setStartCounters(target, source, counterNames) {
   })
 }
 
+export function* openAndInitEditFlightDialog({
+  payload: { organizationId, aircraftId, flightId }
+}) {
+  yield put(actions.openCreateFlightDialog())
+  const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
+  const flight = yield call(getFlight, organizationId, aircraftId, flightId)
+  const data = (({
+    pilot,
+    instructor,
+    nature,
+    departureAerodrome,
+    destinationAerodrome,
+    blockOffTime,
+    takeOffTime,
+    landingTime,
+    blockOnTime,
+    landings,
+    personsOnBoard,
+    fuelUplift,
+    fuelType,
+    oilUplift,
+    remarks,
+    counters,
+    preflightCheck,
+    troublesObservations,
+    techlogEntryDescription,
+    techlogEntryStatus
+  }) => ({
+    id: flight.id,
+    date: extractDate(blockOffTime, departureAerodrome.timezone),
+    pilot: getMemberOption(pilot),
+    instructor: instructor ? getMemberOption(instructor) : null,
+    nature,
+    departureAerodrome: getAerodromeOption(departureAerodrome),
+    destinationAerodrome: getAerodromeOption(destinationAerodrome),
+    blockOffTime: getTimeForPicker(blockOffTime, departureAerodrome.timezone),
+    takeOffTime: getTimeForPicker(takeOffTime, departureAerodrome.timezone),
+    landingTime: getTimeForPicker(landingTime, destinationAerodrome.timezone),
+    blockOnTime: getTimeForPicker(blockOnTime, destinationAerodrome.timezone),
+    landings,
+    personsOnBoard,
+    fuelUplift: fuelUplift || 0,
+    fuelType: fuelType ? getFuelTypeOption(fuelType) : null,
+    oilUplift,
+    remarks: remarks || '',
+    counters,
+    preflightCheck,
+    troublesObservations,
+    techlogEntryDescription,
+    techlogEntryStatus
+  }))(flight.data())
+  yield put(
+    actions.setInitialCreateFlightDialogData(
+      data,
+      [
+        'date',
+        'pilot',
+        'instructor',
+        'nature',
+        'departureAerodrome',
+        'destinationAerodrome',
+        'counters.flightTimeCounter.start',
+        'counters.flightTimeCounter.end',
+        ...(aircraftSettings.engineHoursCounterEnabled === true
+          ? [
+              'counters.engineTimeCounter.start',
+              'counters.engineTimeCounter.end'
+            ]
+          : []),
+        'blockOffTime',
+        'takeOffTime',
+        'landingTime',
+        'blockOnTime',
+        'landings',
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'remarks'
+      ],
+      [
+        'pilot',
+        'instructor',
+        'nature',
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'remarks'
+      ]
+    )
+  )
+}
+
 export function* deleteFlight({
   payload: { organizationId, aircraftId, flightId }
 }) {
@@ -364,8 +581,7 @@ export function* deleteFlight({
       deleted: true
     }
   )
-  const { page, rowsPerPage } = yield select(aircraftFlightsViewSelector)
-  yield put(actions.fetchFlights(organizationId, aircraftId, page, rowsPerPage))
+  yield put(actions.fetchFlights())
   yield put(actions.closeDeleteFlightDialog())
 }
 
@@ -389,7 +605,8 @@ export function* createAerodrome({
       actions.updateCreateFlightDialogData({
         [fieldName]: {
           value: doc.id,
-          label: `${data.identification} (${data.name})`
+          label: `${data.identification} (${data.name})`,
+          timezone: data.timezone.value
         }
       })
     )
@@ -401,12 +618,277 @@ export function* createAerodrome({
   }
 }
 
+export function* initTechlog({
+  payload: { organizationId, aircraftId, showOnlyOpen }
+}) {
+  yield put(actions.setTechlogParams(organizationId, aircraftId, showOnlyOpen))
+  yield call(fetchTechlog)
+}
+
+export function* changeTechlogPage({ payload: { page } }) {
+  yield put(actions.setTechlogPage(page))
+  yield call(fetchTechlog)
+}
+
+export function* getStartTechlogDocument(organizationId, aircraftId, page) {
+  if (page === 0) {
+    return null
+  }
+  const previousPage = yield select(techlogPageSelector(aircraftId, page - 1))
+  if (previousPage && previousPage.length > 0) {
+    const lastEntry = previousPage[previousPage.length - 1]
+    return yield call(getTechlogEntry, organizationId, aircraftId, lastEntry.id)
+  }
+  return null
+}
+
+export function* fetchTechlog() {
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showOnlyOpen
+  } = yield select(aircraftTechlogViewSelector)
+  if (organizationId && aircraftId) {
+    const firestore = yield call(getFirestore)
+    const techlogEntries = yield showOnlyOpen
+      ? call(fetchOpenTechlogEntries, firestore, organizationId, aircraftId)
+      : call(
+          fetchTechlogPage,
+          firestore,
+          organizationId,
+          aircraftId,
+          page,
+          rowsPerPage
+        )
+    yield call(
+      fetchTechlogActions,
+      firestore,
+      organizationId,
+      aircraftId,
+      techlogEntries
+    )
+  }
+}
+
+export function* fetchOpenTechlogEntries(
+  firestore,
+  organizationId,
+  aircraftId
+) {
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog'
+            }
+          ]
+        }
+      ],
+      where: [
+        ['deleted', '==', false],
+        ['closed', '==', false]
+      ],
+      orderBy: ['timestamp', 'desc'],
+      storeAs: `techlog-${aircraftId}-open`
+    },
+    {}
+  )
+  return yield select(openTechlogEntriesSelector(aircraftId))
+}
+
+export function* fetchTechlogPage(
+  firestore,
+  organizationId,
+  aircraftId,
+  page,
+  rowsPerPage
+) {
+  const startDocument = yield call(
+    getStartTechlogDocument,
+    organizationId,
+    aircraftId,
+    page
+  )
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog'
+            }
+          ]
+        }
+      ],
+      where: [['deleted', '==', false]],
+      orderBy: ['timestamp', 'desc'],
+      startAfter: startDocument,
+      limit: rowsPerPage,
+      storeAs: `techlog-${aircraftId}-${page}`
+    },
+    {}
+  )
+  return yield select(techlogPageSelector(aircraftId, page))
+}
+
+export function* fetchTechlogActions(
+  firestore,
+  organizationId,
+  aircraftId,
+  techlogEntries
+) {
+  yield all(
+    techlogEntries.map(entry =>
+      getTechlogActionsQuery(firestore, organizationId, aircraftId, entry.id)
+    )
+  )
+}
+
+const getTechlogActionsQuery = (
+  firestore,
+  organizationId,
+  aircraftId,
+  techlogEntryId
+) =>
+  call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog',
+              doc: techlogEntryId,
+              subcollections: [
+                {
+                  collection: 'actions'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      orderBy: 'timestamp',
+      storeAs: `techlog-entry-actions-${techlogEntryId}`
+    },
+    {}
+  )
+
+const getBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1]
+      resolve(base64)
+    }
+    reader.onerror = e => {
+      reject(e)
+    }
+  })
+
+export function* getAttachments(attachments) {
+  return yield all(
+    attachments.map(attachment => call(getAttachment, attachment))
+  )
+}
+
+export function* getAttachment(attachment) {
+  const base64 = yield call(getBase64, attachment)
+  return {
+    name: attachment.name,
+    base64,
+    contentType: attachment.type
+  }
+}
+
+export function* createTechlogEntry({
+  payload: { organizationId, aircraftId, data }
+}) {
+  try {
+    yield put(actions.setCreateTechlogEntryDialogSubmitting())
+    const entry = {
+      description: data.description,
+      initialStatus: data.status.value,
+      currentStatus: data.status.value,
+      closed: isClosed(data.status.value),
+      flight: null,
+      attachments: yield call(getAttachments, data.attachments)
+    }
+    yield call(callFunction, 'addTechlogEntry', {
+      organizationId,
+      aircraftId,
+      entry
+    })
+    yield put(fetchAircrafts(organizationId))
+    yield call(fetchTechlog)
+    yield put(actions.createTechlogEntrySuccess())
+  } catch (e) {
+    error('Failed to create techlog entry', e)
+    yield put(actions.createTechlogEntryFailure())
+  }
+}
+
+export function* createTechlogEntryAction({
+  payload: { organizationId, aircraftId, techlogEntryId, data }
+}) {
+  try {
+    yield put(actions.setCreateTechlogEntryActionDialogSubmitting())
+    const action = {
+      description: data.description,
+      status: data.status.value,
+      attachments: yield call(getAttachments, data.attachments)
+    }
+    if (data.signature) {
+      action.signature = data.signature
+    }
+    yield call(callFunction, 'addTechlogEntryAction', {
+      organizationId,
+      aircraftId,
+      techlogEntryId,
+      techlogEntryClosed: isClosed(data.status.value),
+      action
+    })
+    yield put(fetchAircrafts(organizationId))
+    yield call(fetchTechlog)
+    yield put(actions.createTechlogEntryActionSuccess())
+  } catch (e) {
+    error('Failed to create techlog entry action', e)
+    yield put(actions.createTechlogEntryActionFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
+    takeEvery(actions.INIT_FLIGHTS_LIST, initFlightsList),
+    takeEvery(actions.CHANGE_FLIGHTS_PAGE, changeFlightsPage),
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    takeEvery(actions.OPEN_EDIT_FLIGHT_DIALOG, openAndInitEditFlightDialog),
     takeEvery(actions.DELETE_FLIGHT, deleteFlight),
-    takeEvery(actions.CREATE_AERODROME, createAerodrome)
+    takeEvery(actions.CREATE_AERODROME, createAerodrome),
+    takeEvery(actions.INIT_TECHLOG, initTechlog),
+    takeEvery(actions.CHANGE_TECHLOG_PAGE, changeTechlogPage),
+    takeEvery(actions.CREATE_TECHLOG_ENTRY, createTechlogEntry),
+    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction)
   ])
 }

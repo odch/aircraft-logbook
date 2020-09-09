@@ -72,8 +72,68 @@ Array [
       <h5
         className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
       >
+        Checks
+      </h5>
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Check hinzufügen
+        </span>
+      </button>
+      <p
+        className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+      >
+        Keine Checks erfasst
+      </p>
+    </div>
+    <div>
+      <h5
+        className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+      >
         Treibstofftypen
       </h5>
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Treibstofftyp hinzufügen
+        </span>
+      </button>
       <p
         className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
       >

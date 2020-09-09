@@ -24,7 +24,7 @@ describe('routes', () => {
                     },
                     main: {
                       app: {
-                        organizations: [{ id: 'my_org' }]
+                        organizations: [{ id: 'my_org', roles: ['manager'] }]
                       }
                     },
                     firestore: {
@@ -39,6 +39,17 @@ describe('routes', () => {
                             registration: 'HBKOF'
                           }
                         }
+                      }
+                    },
+                    aircraftSettings: {
+                      createCheckDialog: {
+                        open: false
+                      },
+                      deleteCheckDialog: {
+                        open: false
+                      },
+                      createFuelTypeDialog: {
+                        open: false
                       }
                     }
                   }

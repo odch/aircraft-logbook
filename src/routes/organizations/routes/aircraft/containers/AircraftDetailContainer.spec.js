@@ -112,13 +112,7 @@ describe('routes', () => {
             })
 
             it('should map state to props', () => {
-              const expectedPropKeys = [
-                'match',
-                'organization',
-                'aircraft',
-                'flights',
-                'flightsPagination'
-              ]
+              const expectedPropKeys = ['organization', 'aircraft']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
@@ -128,10 +122,8 @@ describe('routes', () => {
             it('should map dispatch to props', () => {
               const expectedPropKeys = [
                 'fetchAircrafts',
-                'fetchFlights',
                 'fetchMembers',
-                'openCreateFlightDialog',
-                'initCreateFlightDialog'
+                'fetchAerodromes'
               ]
 
               expect(Object.keys(component.props)).toEqual(
