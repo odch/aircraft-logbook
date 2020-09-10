@@ -2,6 +2,11 @@ import React from 'react'
 import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import EditMemberDialog from './EditMemberDialog'
 
+const ROLES = [
+  { value: 'manager', label: 'Manager' },
+  { value: 'techlogmanager', label: 'Techlog-Manager' }
+]
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -13,7 +18,13 @@ describe('routes', () => {
                 <EditMemberDialog
                   organizationId="my_org"
                   member={{ user: {} }} // member has a user -> joined
-                  data={{ firstname: 'Max', lastname: 'Muster', id: '24354' }}
+                  data={{
+                    firstname: 'Max',
+                    lastname: 'Muster',
+                    nr: '24354',
+                    roles: ['manager', 'techlogmanager']
+                  }}
+                  roles={ROLES}
                   updateData={() => {}}
                 />,
                 true
@@ -29,9 +40,11 @@ describe('routes', () => {
                   data={{
                     firstname: 'Max',
                     lastname: 'Muster',
-                    id: '24354',
+                    nr: '24354',
+                    roles: ['manager', 'techlogmanager'],
                     inviteEmail: 'max@muster.ch'
                   }}
+                  roles={ROLES}
                   updateData={() => {}}
                 />,
                 true
@@ -50,10 +63,12 @@ describe('routes', () => {
                   data={{
                     firstname: 'Max',
                     lastname: 'Muster',
-                    id: '24354',
+                    nr: '24354',
+                    roles: ['manager', 'techlogmanager'],
                     inviteEmail: 'max@muster.ch',
                     reinvite: true
                   }}
+                  roles={ROLES}
                   updateData={() => {}}
                 />,
                 true
@@ -72,10 +87,12 @@ describe('routes', () => {
                   data={{
                     firstname: 'Max',
                     lastname: 'Muster',
-                    id: '24354',
+                    nr: '24354',
+                    roles: ['manager', 'techlogmanager'],
                     inviteEmail: 'max@muster.ch',
                     reinvite: true
                   }}
+                  roles={ROLES}
                   updateData={() => {}}
                   submitting
                 />,

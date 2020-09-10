@@ -36,6 +36,7 @@ class MemberList extends React.Component {
       pagination,
       deleteMemberDialog,
       editMemberDialog,
+      memberRoles,
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
       deleteMember,
@@ -91,6 +92,7 @@ class MemberList extends React.Component {
             organizationId={organizationId}
             member={editMemberDialog.member}
             data={editMemberDialog.data}
+            roles={memberRoles}
             submitting={editMemberDialog.submitting}
             reinviteInProgress={editMemberDialog.reinviteInProgress}
             onSubmit={updateMember}
@@ -125,10 +127,17 @@ MemberList.propTypes = {
       firstname: PropTypes.string,
       lastname: PropTypes.string,
       nr: PropTypes.string,
+      roles: PropTypes.arrayOf(PropTypes.string),
       inviteEmail: PropTypes.string,
       reinvite: false
     }).isRequired
   }),
+  memberRoles: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   classes: PropTypes.object.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
