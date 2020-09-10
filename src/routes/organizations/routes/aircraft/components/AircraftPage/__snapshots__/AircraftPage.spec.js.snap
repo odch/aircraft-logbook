@@ -15,7 +15,7 @@ exports[`routes organizations routes aircraft components AircraftPage renders co
         href="/"
         onClick={[Function]}
       >
-        Open Digital Flugreisebuch
+        Vuela
       </a>
     </h6>
     <div>

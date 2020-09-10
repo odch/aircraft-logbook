@@ -8,6 +8,13 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Select from '@material-ui/core/Select'
+import Input from '@material-ui/core/Input'
+import MenuItem from '@material-ui/core/MenuItem'
+import Checkbox from '@material-ui/core/Checkbox'
+import ListItemText from '@material-ui/core/ListItemText'
 import { withStyles } from '@material-ui/core/styles'
 import { intl as intlShape } from '../../../../../../shapes'
 import DialogContentText from '@material-ui/core/DialogContentText'
@@ -52,7 +59,8 @@ class CreateMemberDialog extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { submitting, classes, onClose } = this.props
+    const { roles, submitting, classes, onClose } = this.props
+    console.log('props', this.props)
     return (
       <Dialog onClose={this.handleClose} data-cy="member-create-dialog" open>
         <DialogTitle>
@@ -63,6 +71,7 @@ class CreateMemberDialog extends React.Component {
             {this.renderTextField('firstname', true, true)}
             {this.renderTextField('lastname', false, true)}
             {this.renderTextField('nr', false, false)}
+            {this.renderMultiSelect('roles', roles)}
             <DialogContentText className={classes.inviteText}>
               {this.msg('organization.member.create.dialog.invitation.text')}
             </DialogContentText>
@@ -108,6 +117,41 @@ class CreateMemberDialog extends React.Component {
       />
     )
   }
+
+  renderMultiSelect(name, options) {
+    const selectedValues = this.props.data[name] || []
+    return (
+      <FormControl fullWidth>
+        <InputLabel>
+          <FormattedMessage id={`organization.member.create.dialog.${name}`} />
+        </InputLabel>
+        <Select
+          value={selectedValues}
+          onChange={this.handleChange(name)}
+          input={<Input />}
+          renderValue={selectedValues =>
+            selectedValues
+              .map(selected => {
+                const selectedOption = options.find(
+                  option => option.value === selected
+                )
+                return selectedOption ? selectedOption.label : selected
+              })
+              .join(', ')
+          }
+          disabled={this.props.submitting}
+          multiple
+        >
+          {options.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              <Checkbox checked={selectedValues.includes(option.value)} />
+              <ListItemText primary={option.label} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    )
+  }
 }
 
 CreateMemberDialog.propTypes = {
@@ -118,6 +162,12 @@ CreateMemberDialog.propTypes = {
     nr: PropTypes.string,
     inviteEmail: PropTypes.string
   }).isRequired,
+  roles: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   submitting: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,

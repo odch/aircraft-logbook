@@ -12,6 +12,12 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel'
+import Select from '@material-ui/core/Select'
+import Input from '@material-ui/core/Input'
+import MenuItem from '@material-ui/core/MenuItem'
+import ListItemText from '@material-ui/core/ListItemText'
 import {
   member as memberShape,
   intl as intlShape
@@ -63,7 +69,7 @@ class EditMemberDialog extends React.Component {
   msg = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   render() {
-    const { submitting, classes } = this.props
+    const { roles, submitting, classes } = this.props
     return (
       <Dialog onClose={this.handleClose} data-cy="member-edit-dialog" open>
         <DialogTitle>
@@ -74,6 +80,7 @@ class EditMemberDialog extends React.Component {
             {this.renderTextField('firstname', true, true)}
             {this.renderTextField('lastname', false, true)}
             {this.renderTextField('nr', false, false)}
+            {this.renderMultiSelect('roles', roles)}
             {this.renderInviteEmailField()}
           </DialogContent>
           <DialogActions>
@@ -114,6 +121,41 @@ class EditMemberDialog extends React.Component {
         disabled={this.props.submitting}
         autoFocus={autoFocus}
       />
+    )
+  }
+
+  renderMultiSelect(name, options) {
+    const selectedValues = this.props.data[name] || []
+    return (
+      <FormControl fullWidth>
+        <InputLabel>
+          <FormattedMessage id={`organization.member.edit.dialog.${name}`} />
+        </InputLabel>
+        <Select
+          value={selectedValues}
+          onChange={this.handleChange(name)}
+          input={<Input />}
+          renderValue={selectedValues =>
+            selectedValues
+              .map(selected => {
+                const selectedOption = options.find(
+                  option => option.value === selected
+                )
+                return selectedOption ? selectedOption.label : selected
+              })
+              .join(', ')
+          }
+          disabled={this.props.submitting}
+          multiple
+        >
+          {options.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              <Checkbox checked={selectedValues.includes(option.value)} />
+              <ListItemText primary={option.label} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     )
   }
 
@@ -177,9 +219,16 @@ EditMemberDialog.propTypes = {
     firstname: PropTypes.string,
     lastname: PropTypes.string,
     nr: PropTypes.string,
+    roles: PropTypes.arrayOf(PropTypes.string),
     inviteEmail: PropTypes.string,
     reinvite: PropTypes.bool
   }).isRequired,
+  roles: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   submitting: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   onSubmit: PropTypes.func,

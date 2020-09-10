@@ -15,7 +15,7 @@ exports[`components Header does not render user button if not logged in 1`] = `
         href="/"
         onClick={[Function]}
       >
-        Open Digital Flugreisebuch
+        Vuela
       </a>
     </h6>
   </div>
@@ -37,7 +37,7 @@ exports[`components Header renders user button if logged in 1`] = `
         href="/"
         onClick={[Function]}
       >
-        Open Digital Flugreisebuch
+        Vuela
       </a>
     </h6>
     <div>
