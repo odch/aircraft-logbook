@@ -20,6 +20,13 @@ exports[`routes organizations routes settings components CreateMemberDialog rend
           <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Mitgliedernummer</label>
             <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"text\\" value=\\"\\"></div>
           </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Rollen</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl\\">
+              <div class=\\"MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input MuiInputBase-inputSelect\\" tabindex=\\"0\\" role=\\"button\\" aria-haspopup=\\"listbox\\"><span>​</span></div><input type=\\"hidden\\" value=\\"\\"><svg class=\\"MuiSvgIcon-root MuiSelect-icon\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\">
+                <path d=\\"M7 10l5 5 5-5z\\"></path>
+              </svg>
+            </div>
+          </div>
           <p class=\\"MuiTypography-root MuiDialogContentText-root CreateMemberDialog-inviteText-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Trage eine E-Mail-Adresse im folgenden Feld ein, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird). Du kannst die E-Mail-Adresse aber auch später noch eintragen, um die Einladung nachträglich zu senden.</p>
           <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"inviteEmail-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated\\" data-shrink=\\"false\\">Einladung an E-Mail</label>
             <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"email\\" value=\\"\\"></div>
@@ -52,6 +59,13 @@ exports[`routes organizations routes settings components CreateMemberDialog rend
           </div>
           <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"nr-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Mitgliedernummer</label>
             <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\" value=\\"\\"></div>
+          </div>
+          <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled\\" data-shrink=\\"true\\">Rollen</label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl\\">
+              <div class=\\"MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputSelect Mui-disabled\\" role=\\"button\\" aria-haspopup=\\"listbox\\">Manager, Techlog-Manager</div><input type=\\"hidden\\" value=\\"manager,techlogmanager\\"><svg class=\\"MuiSvgIcon-root MuiSelect-icon\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\">
+                <path d=\\"M7 10l5 5 5-5z\\"></path>
+              </svg>
+            </div>
           </div>
           <p class=\\"MuiTypography-root MuiDialogContentText-root CreateMemberDialog-inviteText-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Trage eine E-Mail-Adresse im folgenden Feld ein, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird). Du kannst die E-Mail-Adresse aber auch später noch eintragen, um die Einladung nachträglich zu senden.</p>
           <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth\\" data-cy=\\"inviteEmail-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-disabled Mui-disabled\\" data-shrink=\\"false\\">Einladung an E-Mail</label>

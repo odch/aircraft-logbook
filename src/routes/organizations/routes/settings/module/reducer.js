@@ -11,6 +11,7 @@ export const INITIAL_STATE = {
       firstname: '',
       lastname: '',
       nr: '',
+      roles: [],
       inviteEmail: ''
     }
   },
