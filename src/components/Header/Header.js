@@ -49,7 +49,7 @@ class Header extends React.Component {
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             <Link to="/" className={classes.homeLink}>
-              Open Digital Flugreisebuch
+              Vuela
             </Link>
           </Typography>
           {!auth.isEmpty && (
