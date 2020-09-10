@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
+import { withStyles } from '@material-ui/core'
 import List from '@material-ui/core/List'
 import TablePagination from '@material-ui/core/TablePagination'
 import {
@@ -12,6 +13,13 @@ import LoadingIcon from '../../../../../../components/LoadingIcon'
 import Member from './Member'
 import DeleteMemberDialog from '../DeleteMemberDialog'
 import EditMemberDialog from '../EditMemberDialog'
+
+const styles = {
+  loadingIconContainer: {
+    position: 'relative',
+    minHeight: '100px'
+  }
+}
 
 class MemberList extends React.Component {
   componentDidMount() {
@@ -35,11 +43,16 @@ class MemberList extends React.Component {
       updateEditMemberDialogData,
       closeEditMemberDialog,
       updateMember,
-      setMembersPage
+      setMembersPage,
+      classes
     } = this.props
 
     if (!isLoaded(members)) {
-      return <LoadingIcon />
+      return (
+        <div className={classes.loadingIconContainer}>
+          <LoadingIcon />
+        </div>
+      )
     }
 
     return (
@@ -116,6 +129,7 @@ MemberList.propTypes = {
       reinvite: false
     }).isRequired
   }),
+  classes: PropTypes.object.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
   closeDeleteMemberDialog: PropTypes.func.isRequired,
@@ -128,4 +142,4 @@ MemberList.propTypes = {
   intl: intlShape.isRequired
 }
 
-export default injectIntl(MemberList)
+export default injectIntl(withStyles(styles)(MemberList))
