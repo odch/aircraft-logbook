@@ -25,7 +25,7 @@ const sendInvitationMail = (inviteEmail, firstname, orgId, memberId) => {
      <p>Du wurdest eingeladen, der Organisation <strong>${orgId}</strong> beizutreten.</p>
      <p><a href="${link}">Klicke hier</a>, um die Einladung anzunehmen.</p>`
 
-  const subject = `Digitales Flugreisebuch: Einladung in Organisation ${orgId}`
+  const subject = `Vuela: Einladung in Organisation ${orgId}`
 
   return sendMail(inviteEmail, subject, html)
 }
