@@ -2,32 +2,36 @@
 
 exports[`routes organizations routes settings components MemberList renders loading icon if members not loaded 1`] = `
 <div
-  className="LoadingIcon-container-1"
+  className="MemberList-loadingIconContainer-1"
 >
   <div
-    className="MuiCircularProgress-root LoadingIcon-icon-2 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-    role="progressbar"
-    style={
-      Object {
-        "height": 40,
-        "width": 40,
-      }
-    }
+    className="LoadingIcon-container-2"
   >
-    <svg
-      className="MuiCircularProgress-svg"
-      viewBox="22 22 44 44"
+    <div
+      className="MuiCircularProgress-root LoadingIcon-icon-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+      role="progressbar"
+      style={
+        Object {
+          "height": 40,
+          "width": 40,
+        }
+      }
     >
-      <circle
-        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-        cx={44}
-        cy={44}
-        fill="none"
-        r={20.2}
-        strokeWidth={3.6}
-        style={Object {}}
-      />
-    </svg>
+      <svg
+        className="MuiCircularProgress-svg"
+        viewBox="22 22 44 44"
+      >
+        <circle
+          className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+          cx={44}
+          cy={44}
+          fill="none"
+          r={20.2}
+          strokeWidth={3.6}
+          style={Object {}}
+        />
+      </svg>
+    </div>
   </div>
 </div>
 `;
@@ -105,7 +109,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-19 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-pending-20 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
@@ -177,7 +181,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-19 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-pending-20 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
