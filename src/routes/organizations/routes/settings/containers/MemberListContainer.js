@@ -1,6 +1,7 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { fetchMembers } from '../../../module'
+import { getMemberRoles } from '../../../../../util/memberRoles'
 import {
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
@@ -12,10 +13,17 @@ import {
   setMembersPage
 } from '../module'
 import MemberList from '../components/MemberList'
+import { injectIntl } from 'react-intl'
 
 export const MEMBERS_PER_PAGE = 10
 
-const mapStateToProps = (state /*, ownProps*/) => {
+export const roles = intl =>
+  getMemberRoles().map(role => ({
+    value: role,
+    label: intl.formatMessage({ id: `organization.role.${role}` })
+  }))
+
+const mapStateToProps = (state, ownProps) => {
   let members = undefined
   let pagination = undefined
 
@@ -48,7 +56,8 @@ const mapStateToProps = (state /*, ownProps*/) => {
     members,
     pagination,
     deleteMemberDialog: state.organizationSettings.deleteMemberDialog,
-    editMemberDialog: state.organizationSettings.editMemberDialog
+    editMemberDialog: state.organizationSettings.editMemberDialog,
+    memberRoles: roles(ownProps.intl)
   }
 }
 
@@ -64,4 +73,6 @@ const mapActionCreators = {
   setMembersPage
 }
 
-export default compose(connect(mapStateToProps, mapActionCreators))(MemberList)
+export default injectIntl(
+  compose(connect(mapStateToProps, mapActionCreators))(MemberList)
+)

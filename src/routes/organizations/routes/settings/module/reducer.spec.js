@@ -26,6 +26,7 @@ export const INITIAL_STATE = {
       firstname: '',
       lastname: '',
       nr: '',
+      roles: [],
       inviteEmail: '',
       reinvite: false
     }
@@ -253,6 +254,7 @@ describe('routes', () => {
               firstname: 'Max',
               lastname: 'Keller',
               nr: '34345',
+              roles: ['manager', 'techlogmanager'],
               inviteEmail: 'hans@keller.ch'
             }
 
@@ -266,6 +268,7 @@ describe('routes', () => {
                       firstname: '',
                       lastname: '',
                       nr: '',
+                      roles: [],
                       inviteEmail: ''
                     }
                   }
@@ -281,6 +284,7 @@ describe('routes', () => {
                   firstname: 'Max',
                   lastname: 'Keller',
                   nr: '34345',
+                  roles: ['manager', 'techlogmanager'],
                   inviteEmail: 'hans@keller.ch'
                 }
               }
@@ -310,13 +314,15 @@ describe('routes', () => {
                     data: {
                       firstname: 'Max',
                       lastname: '',
-                      nr: ''
+                      nr: '',
+                      roles: ['manager', 'techlogmanager']
                     }
                   }
                 },
                 actions.updateEditMemberDialogData({
                   lastname: 'Muster',
-                  nr: '34534'
+                  nr: '34534',
+                  roles: ['manager']
                 })
               )
             ).toEqual({
@@ -324,7 +330,8 @@ describe('routes', () => {
                 data: {
                   firstname: 'Max',
                   lastname: 'Muster',
-                  nr: '34534'
+                  nr: '34534',
+                  roles: ['manager']
                 }
               }
             })
