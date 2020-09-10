@@ -2,6 +2,11 @@ import React from 'react'
 import { renderIntlMaterial } from '../../../../../../testutil/renderIntl'
 import CreateMemberDialog from './CreateMemberDialog'
 
+const ROLES = [
+  { value: 'manager', label: 'Manager' },
+  { value: 'techlogmanager', label: 'Techlog-Manager' }
+]
+
 describe('routes', () => {
   describe('organizations', () => {
     describe('routes', () => {
@@ -12,9 +17,15 @@ describe('routes', () => {
               const renderedValue = renderIntlMaterial(
                 <CreateMemberDialog
                   organizationId="my_org"
-                  data={{ firstname: 'Max', lastname: 'Muster', id: '24354' }}
+                  data={{
+                    firstname: 'Max',
+                    lastname: 'Muster',
+                    id: '24354',
+                    roles: []
+                  }}
                   updateData={() => {}}
                   open
+                  roles={ROLES}
                 />,
                 true
               )
@@ -25,9 +36,15 @@ describe('routes', () => {
               const renderedValue = renderIntlMaterial(
                 <CreateMemberDialog
                   organizationId="my_org"
-                  data={{ firstname: 'Max', lastname: 'Muster', id: '24354' }}
+                  data={{
+                    firstname: 'Max',
+                    lastname: 'Muster',
+                    id: '24354',
+                    roles: ['manager', 'techlogmanager']
+                  }}
                   updateData={() => {}}
                   submitting
+                  roles={ROLES}
                 />,
                 true
               )

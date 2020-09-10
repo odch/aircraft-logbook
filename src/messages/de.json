@@ -220,6 +220,7 @@
   "organization.member.create.dialog.firstname": "Vorname",
   "organization.member.create.dialog.lastname": "Nachname",
   "organization.member.create.dialog.nr": "Mitgliedernummer",
+  "organization.member.create.dialog.roles": "Rollen",
   "organization.member.create.dialog.inviteEmail": "Einladung an E-Mail",
   "organization.member.create.dialog.buttons.cancel": "Abbrechen",
   "organization.member.create.dialog.buttons.create": "Mitglied hinzufügen",
