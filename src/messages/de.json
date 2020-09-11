@@ -215,6 +215,8 @@
 
   "organization.settings.member.edit": "Bearbeiten",
   "organization.settings.member.delete": "Löschen",
+  "organization.settings.member.search": "Suchen",
+  "organization.settings.member.none": "Kein Mitglied gefunden",
 
   "organization.member.create.dialog.title": "Mitglied hinzufügen",
   "organization.member.create.dialog.firstname": "Vorname",

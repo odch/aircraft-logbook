@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import { withStyles } from '@material-ui/core'
 import List from '@material-ui/core/List'
 import TablePagination from '@material-ui/core/TablePagination'
+import TextField from '@material-ui/core/TextField'
+import SearchIcon from '@material-ui/icons/Search'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Typography from '@material-ui/core/Typography'
 import {
   member as memberShape,
   intl as intlShape
@@ -25,6 +29,10 @@ class MemberList extends React.Component {
   componentDidMount() {
     const { organizationId, fetchMembers } = this.props
     fetchMembers(organizationId)
+  }
+
+  handleFilterChange = e => {
+    this.props.setMembersFilter(e.target.value)
   }
 
   msg = id => this.props.intl.formatMessage({ id })
@@ -57,25 +65,46 @@ class MemberList extends React.Component {
     }
 
     return (
-      <React.Fragment>
-        <List>
-          {members.map(member => (
-            <Member
-              key={member.id}
-              member={member}
-              openDeleteMemberDialog={openDeleteMemberDialog}
-              openEditMemberDialog={openEditMemberDialog}
-            />
-          ))}
-        </List>
-        <TablePagination
-          component="div"
-          count={pagination.rowsCount}
-          rowsPerPage={pagination.rowsPerPage}
-          rowsPerPageOptions={[]}
-          page={pagination.page}
-          onChangePage={(event, page) => setMembersPage(page)}
+      <>
+        <TextField
+          placeholder={this.msg('organization.settings.member.search')}
+          onChange={this.handleFilterChange}
+          margin="normal"
+          fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
         />
+        {members.length > 0 ? (
+          <>
+            <List>
+              {members.map(member => (
+                <Member
+                  key={member.id}
+                  member={member}
+                  openDeleteMemberDialog={openDeleteMemberDialog}
+                  openEditMemberDialog={openEditMemberDialog}
+                />
+              ))}
+            </List>
+            <TablePagination
+              component="div"
+              count={pagination.rowsCount}
+              rowsPerPage={pagination.rowsPerPage}
+              rowsPerPageOptions={[]}
+              page={pagination.page}
+              onChangePage={(event, page) => setMembersPage(page)}
+            />
+          </>
+        ) : (
+          <Typography paragraph>
+            <FormattedMessage id="organization.settings.member.none" />
+          </Typography>
+        )}
         {deleteMemberDialog && deleteMemberDialog.open && (
           <DeleteMemberDialog
             organizationId={organizationId}
@@ -100,7 +129,7 @@ class MemberList extends React.Component {
             updateData={updateEditMemberDialogData}
           />
         )}
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -148,6 +177,7 @@ MemberList.propTypes = {
   closeEditMemberDialog: PropTypes.func.isRequired,
   updateMember: PropTypes.func.isRequired,
   setMembersPage: PropTypes.func.isRequired,
+  setMembersFilter: PropTypes.func.isRequired,
   intl: intlShape.isRequired
 }
 

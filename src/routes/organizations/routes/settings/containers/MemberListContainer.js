@@ -10,7 +10,8 @@ import {
   updateEditMemberDialogData,
   closeEditMemberDialog,
   updateMember,
-  setMembersPage
+  setMembersPage,
+  setMembersFilter
 } from '../module'
 import MemberList from '../components/MemberList'
 import { injectIntl } from 'react-intl'
@@ -23,20 +24,55 @@ export const roles = intl =>
     label: intl.formatMessage({ id: `organization.role.${role}` })
   }))
 
+export const matches = (value, filters) => {
+  if (value) {
+    const lowerCase = value.toLowerCase()
+    for (const filter of filters) {
+      if (lowerCase.includes(filter)) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+export const filterMembers = (members, filter) => {
+  const filters = filter
+    .split(' ')
+    .map(part => part.trim())
+    .filter(part => part.length > 0)
+    .map(part => part.toLowerCase())
+
+  return filters.length > 0
+    ? members.filter(
+        member =>
+          matches(member.lastname, filters) ||
+          matches(member.firstname, filters) ||
+          matches(member.nr, filters) ||
+          matches(member.inviteEmail, filters)
+      )
+    : members
+}
+
 const mapStateToProps = (state, ownProps) => {
   let members = undefined
   let pagination = undefined
 
   const organizationMembers = state.firestore.ordered.organizationMembers
   if (organizationMembers) {
+    const filteredMembers = filterMembers(
+      organizationMembers,
+      state.organizationSettings.members.filter || ''
+    )
+
     pagination = {
-      rowsCount: organizationMembers.length,
+      rowsCount: filteredMembers.length,
       page: state.organizationSettings.members.page,
       rowsPerPage: MEMBERS_PER_PAGE
     }
 
     const joinedMembersFirst = Array.prototype.slice
-      .call(organizationMembers)
+      .call(filteredMembers)
       .sort((m1, m2) => {
         if (!m1.user && m2.user) {
           return 1
@@ -70,7 +106,8 @@ const mapActionCreators = {
   updateEditMemberDialogData,
   closeEditMemberDialog,
   updateMember,
-  setMembersPage
+  setMembersPage,
+  setMembersFilter
 }
 
 export default injectIntl(

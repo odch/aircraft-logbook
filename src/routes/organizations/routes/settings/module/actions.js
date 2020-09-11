@@ -30,6 +30,7 @@ export const UPDATE_MEMBER_FAILURE =
   'organizationSettings/UPDATE_MEMBER_FAILURE'
 export const DELETE_MEMBER = 'organizationSettings/DELETE_MEMBER'
 export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
+export const SET_MEMBERS_FILTER = 'organizationSettings/SET_MEMBERS_FILTER'
 export const EXPORT_FLIGHTS = 'organizationSettings/EXPORT_FLIGHTS'
 export const SET_EXPORT_FLIGHTS_FORM_SUBMITTING =
   'organizationSettings/SET_EXPORT_FLIGHTS_FORM_SUBMITTING'
@@ -133,6 +134,13 @@ export const setMembersPage = page => ({
   type: SET_MEMBERS_PAGE,
   payload: {
     page
+  }
+})
+
+export const setMembersFilter = filter => ({
+  type: SET_MEMBERS_FILTER,
+  payload: {
+    filter
   }
 })
 

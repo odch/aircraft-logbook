@@ -38,6 +38,41 @@ exports[`routes organizations routes settings components MemberList renders load
 
 exports[`routes organizations routes settings components MemberList renders members if loaded 1`] = `
 Array [
+  <div
+    className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+      onClick={[Function]}
+    >
+      <div
+        className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+      </div>
+      <input
+        aria-invalid={false}
+        className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Suchen"
+        required={false}
+        type="text"
+      />
+    </div>
+  </div>,
   <ul
     className="MuiList-root MuiList-padding"
   >
@@ -109,7 +144,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-20 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-pending-71 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
@@ -181,7 +216,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-20 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-pending-71 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div
