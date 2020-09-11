@@ -12,7 +12,8 @@ import {
   updateEditMemberDialogData,
   closeEditMemberDialog,
   updateMember,
-  setMembersPage
+  setMembersPage,
+  setMembersFilter
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -31,7 +32,8 @@ export {
   updateEditMemberDialogData,
   closeEditMemberDialog,
   updateMember,
-  setMembersPage
+  setMembersPage,
+  setMembersFilter
 }
 
 export { sagas }

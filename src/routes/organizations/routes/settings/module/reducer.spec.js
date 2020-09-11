@@ -45,7 +45,8 @@ export const INITIAL_STATE = {
     }
   },
   members: {
-    page: 0
+    page: 0,
+    filter: ''
   }
 }
 
@@ -399,6 +400,25 @@ describe('routes', () => {
             ).toEqual({
               members: {
                 page: 2
+              }
+            })
+          })
+
+          it('handles SET_MEMBERS_FILTER action', () => {
+            expect(
+              reducer(
+                {
+                  members: {
+                    page: 3,
+                    filter: ''
+                  }
+                },
+                actions.setMembersFilter('hans')
+              )
+            ).toEqual({
+              members: {
+                page: 0,
+                filter: 'hans'
               }
             })
           })
