@@ -121,6 +121,9 @@ describe('routes', () => {
                       },
                       createFuelTypeDialog: {
                         open: false
+                      },
+                      deleteFuelTypeDialog: {
+                        open: false
                       }
                     }
                   })

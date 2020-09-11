@@ -25,6 +25,11 @@ export const INITIAL_STATE = {
       name: '',
       description: ''
     }
+  },
+  deleteFuelTypeDialog: {
+    open: false,
+    submitting: false,
+    fuelType: null
   }
 }
 
@@ -147,6 +152,30 @@ const setDeleteCheckDialogSubmitting = state => ({
   }
 })
 
+const openDeleteFuelTypeDialog = (state, { payload }) => ({
+  ...state,
+  deleteFuelTypeDialog: {
+    ...INITIAL_STATE.deleteFuelTypeDialog,
+    open: true,
+    fuelType: payload.fuelType
+  }
+})
+
+const closeDeleteFuelTypeDialog = state => ({
+  ...state,
+  deleteFuelTypeDialog: {
+    open: false
+  }
+})
+
+const setDeleteFuelTypeDialogSubmitting = state => ({
+  ...state,
+  deleteFuelTypeDialog: {
+    ...state.deleteFuelTypeDialog,
+    submitting: true
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_CHECK_DIALOG]: openCreateCheckDialog,
   [actions.CLOSE_CREATE_CHECK_DIALOG]: closeCreateCheckDialog,
@@ -160,7 +189,10 @@ const ACTION_HANDLERS = {
   [actions.SET_CREATE_FUEL_TYPE_DIALOG_SUBMITTING]: setCreateFuelTypeDialogSubmitting,
   [actions.OPEN_DELETE_CHECK_DIALOG]: openDeleteCheckDialog,
   [actions.CLOSE_DELETE_CHECK_DIALOG]: closeDeleteCheckDialog,
-  [actions.SET_DELETE_CHECK_DIALOG_SUBMITTING]: setDeleteCheckDialogSubmitting
+  [actions.SET_DELETE_CHECK_DIALOG_SUBMITTING]: setDeleteCheckDialogSubmitting,
+  [actions.OPEN_DELETE_FUEL_TYPE_DIALOG]: openDeleteFuelTypeDialog,
+  [actions.CLOSE_DELETE_FUEL_TYPE_DIALOG]: closeDeleteFuelTypeDialog,
+  [actions.SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING]: setDeleteFuelTypeDialogSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

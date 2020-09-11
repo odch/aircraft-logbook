@@ -71,10 +71,27 @@ export function* createFuelType({
   }
 }
 
+export function* deleteFuelType({
+  payload: { organizationId, aircraftId, fuelType }
+}) {
+  yield put(actions.setDeleteFuelTypeDialogSubmitting())
+
+  yield call(
+    removeArrayItem,
+    ['organizations', organizationId, 'aircrafts', aircraftId],
+    'settings.fuelTypes',
+    fuelType
+  )
+
+  yield put(fetchAircrafts(organizationId))
+  yield put(actions.closeDeleteFuelTypeDialog())
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_CHECK, createCheck),
     takeEvery(actions.DELETE_CHECK, deleteCheck),
-    takeEvery(actions.CREATE_FUEL_TYPE, createFuelType)
+    takeEvery(actions.CREATE_FUEL_TYPE, createFuelType),
+    takeEvery(actions.DELETE_FUEL_TYPE, deleteFuelType)
   ])
 }

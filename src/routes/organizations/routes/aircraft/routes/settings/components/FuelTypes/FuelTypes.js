@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
-import { fuelTypes as fuelTypesShape } from '../../../../../../../../shapes/aircraft'
+import { fuelType as fuelTypeShape } from '../../../../../../../../shapes/aircraft'
 import CreateFuelTypeDialog from '../../containers/CreateFuelTypeDialogContainer'
+import FuelType from './FuelType'
+import DeleteFuelTypeDialog from '../DeleteFuelTypeDialog'
 
 class FuelTypes extends React.Component {
   handleCreateClick = () => {
@@ -19,7 +19,11 @@ class FuelTypes extends React.Component {
       organizationId,
       aircraftId,
       types,
-      createFuelTypeDialogOpen
+      deleteFuelTypeDialog,
+      createFuelTypeDialogOpen,
+      openDeleteFuelTypeDialog,
+      closeDeleteFuelTypeDialog,
+      deleteFuelType
     } = this.props
 
     return (
@@ -37,12 +41,11 @@ class FuelTypes extends React.Component {
         {types.length > 0 ? (
           <List dense>
             {types.map(type => (
-              <ListItem key={type.name} disableGutters>
-                <ListItemText
-                  primary={type.description}
-                  secondary={type.name}
-                />
-              </ListItem>
+              <FuelType
+                key={type.name}
+                fuelType={type}
+                openDeleteFuelTypeDialog={openDeleteFuelTypeDialog}
+              />
             ))}
           </List>
         ) : (
@@ -56,6 +59,20 @@ class FuelTypes extends React.Component {
             aircraftId={aircraftId}
           />
         )}
+        {deleteFuelTypeDialog.open && (
+          <DeleteFuelTypeDialog
+            submitting={deleteFuelTypeDialog.submitting}
+            fuelType={deleteFuelTypeDialog.fuelType}
+            onConfirm={() =>
+              deleteFuelType(
+                organizationId,
+                aircraftId,
+                deleteFuelTypeDialog.fuelType
+              )
+            }
+            onClose={closeDeleteFuelTypeDialog}
+          />
+        )}
       </div>
     )
   }
@@ -64,9 +81,17 @@ class FuelTypes extends React.Component {
 FuelTypes.propTypes = {
   organizationId: PropTypes.string.isRequired,
   aircraftId: PropTypes.string.isRequired,
-  types: fuelTypesShape.isRequired,
+  types: PropTypes.arrayOf(fuelTypeShape).isRequired,
+  deleteFuelTypeDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitting: PropTypes.bool,
+    fuelType: fuelTypeShape
+  }).isRequired,
   createFuelTypeDialogOpen: PropTypes.bool.isRequired,
-  openCreateFuelTypeDialog: PropTypes.func.isRequired
+  openCreateFuelTypeDialog: PropTypes.func.isRequired,
+  openDeleteFuelTypeDialog: PropTypes.func.isRequired,
+  closeDeleteFuelTypeDialog: PropTypes.func.isRequired,
+  deleteFuelType: PropTypes.func.isRequired
 }
 
 export default FuelTypes

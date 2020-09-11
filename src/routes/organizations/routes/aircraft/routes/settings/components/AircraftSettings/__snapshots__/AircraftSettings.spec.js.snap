@@ -97,41 +97,125 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       className="MuiList-root MuiList-dense MuiList-padding"
     >
       <li
-        className="MuiListItem-root MuiListItem-dense"
-        disabled={false}
+        className="MuiListItem-container"
       >
         <div
-          className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
+          className="MuiListItem-root MuiListItem-dense MuiListItem-secondaryAction"
+          disabled={false}
         >
-          <span
-            className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
+          <div
+            className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
           >
-            AvGas
-          </span>
-          <p
-            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
+            >
+              AvGas
+            </span>
+            <p
+              className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
+            >
+              avgas
+            </p>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <button
+            className="MuiButtonBase-root MuiIconButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
           >
-            avgas
-          </p>
+            <span
+              className="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
       </li>
       <li
-        className="MuiListItem-root MuiListItem-dense"
-        disabled={false}
+        className="MuiListItem-container"
       >
         <div
-          className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
+          className="MuiListItem-root MuiListItem-dense MuiListItem-secondaryAction"
+          disabled={false}
         >
-          <span
-            className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
+          <div
+            className="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline"
           >
-            MoGas
-          </span>
-          <p
-            className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body2"
+            >
+              MoGas
+            </span>
+            <p
+              className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary"
+            >
+              mogas
+            </p>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <button
+            className="MuiButtonBase-root MuiIconButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
           >
-            mogas
-          </p>
+            <span
+              className="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
       </li>
     </ul>

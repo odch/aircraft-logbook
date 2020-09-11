@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import _get from 'lodash.get'
 import FuelTypes from '../components/FuelTypes'
 import { getAircraft } from '../../../../../../../util/getFromState'
-import { openCreateFuelTypeDialog } from '../module'
+import {
+  openCreateFuelTypeDialog,
+  openDeleteFuelTypeDialog,
+  closeDeleteFuelTypeDialog,
+  deleteFuelType
+} from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const { organizationId, aircraftId } = ownProps
@@ -15,12 +20,16 @@ const mapStateToProps = (state, ownProps) => {
     organizationId,
     aircraftId,
     types: fuelTypes,
-    createFuelTypeDialogOpen: state.aircraftSettings.createFuelTypeDialog.open
+    createFuelTypeDialogOpen: state.aircraftSettings.createFuelTypeDialog.open,
+    deleteFuelTypeDialog: state.aircraftSettings.deleteFuelTypeDialog
   }
 }
 
 const mapActionCreators = {
-  openCreateFuelTypeDialog
+  openCreateFuelTypeDialog,
+  openDeleteFuelTypeDialog,
+  closeDeleteFuelTypeDialog,
+  deleteFuelType
 }
 
 export default compose(connect(mapStateToProps, mapActionCreators))(FuelTypes)

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
-export const fuelTypes = PropTypes.arrayOf(
-  PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
-  })
-)
+export const fuelType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
+})
+
+export const fuelTypes = PropTypes.arrayOf(fuelType)
 
 export const check = PropTypes.shape({
   description: PropTypes.string.isRequired,

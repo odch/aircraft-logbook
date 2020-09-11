@@ -25,6 +25,11 @@ export const INITIAL_STATE = {
       name: '',
       description: ''
     }
+  },
+  deleteFuelTypeDialog: {
+    open: false,
+    submitting: false,
+    fuelType: null
   }
 }
 
@@ -302,6 +307,70 @@ describe('routes', () => {
                   )
                 ).toEqual({
                   deleteCheckDialog: {
+                    submitting: true
+                  }
+                })
+              })
+
+              it('handles OPEN_DELETE_FUEL_TYPE_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        submitting: true,
+                        open: false,
+                        fuelType: {
+                          name: 'jet_a1',
+                          description: 'Jet A1'
+                        }
+                      }
+                    },
+                    actions.openDeleteFuelTypeDialog({
+                      name: 'diesel',
+                      description: 'Diesel'
+                    })
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
+                    ...INITIAL_STATE.deleteFuelTypeDialog,
+                    open: true,
+                    fuelType: {
+                      name: 'diesel',
+                      description: 'Diesel'
+                    }
+                  }
+                })
+              })
+
+              it('handles CLOSE_DELETE_FUEL_TYPE_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        open: true
+                      }
+                    },
+                    actions.closeDeleteFuelTypeDialog()
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
+                    open: false
+                  }
+                })
+              })
+
+              it('handles SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        submitting: false
+                      }
+                    },
+                    actions.setDeleteFuelTypeDialogSubmitting()
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
                     submitting: true
                   }
                 })
