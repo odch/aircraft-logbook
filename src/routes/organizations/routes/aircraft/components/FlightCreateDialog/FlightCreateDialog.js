@@ -219,6 +219,7 @@ class FlightCreateDialog extends React.Component {
       onClose,
       flightNatures = [],
       loadMembers,
+      loadInstructors,
       loadAerodromes,
       aircraftSettings: { fuelTypes, engineHoursCounterEnabled, techlogEnabled }
     } = this.props
@@ -235,7 +236,7 @@ class FlightCreateDialog extends React.Component {
             {this.renderRequiredInitialValueFields()}
             {this.renderDatePicker('date')}
             {this.renderMemberSelect('pilot', loadMembers)}
-            {this.renderMemberSelect('instructor', loadMembers)}
+            {this.renderMemberSelect('instructor', loadInstructors)}
             {this.renderSelect('nature', flightNatures, value =>
               typeof value === 'string' ? this.natureOption(value) : value
             )}
@@ -705,6 +706,7 @@ FlightCreateDialog.propTypes = {
     })
   ),
   loadMembers: PropTypes.func.isRequired,
+  loadInstructors: PropTypes.func.isRequired,
   loadAerodromes: PropTypes.func.isRequired,
   aircraftSettings: PropTypes.shape({
     fuelTypes: PropTypes.arrayOf(
