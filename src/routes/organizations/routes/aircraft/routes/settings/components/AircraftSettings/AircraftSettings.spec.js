@@ -124,6 +124,9 @@ describe('routes', () => {
                       },
                       deleteFuelTypeDialog: {
                         open: false
+                      },
+                      advancedSettings: {
+                        submitting: false
                       }
                     }
                   })

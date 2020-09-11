@@ -2,7 +2,8 @@ import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import {
   addArrayItem,
-  removeArrayItem
+  removeArrayItem,
+  updateDoc
 } from '../../../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -140,6 +141,58 @@ describe('routes', () => {
                 })
               })
 
+              describe('updateSetting', () => {
+                it('should update techlogEnabled setting', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+
+                  const action = actions.updateSetting(
+                    orgId,
+                    aircraftId,
+                    'techlogEnabled',
+                    true
+                  )
+
+                  return expectSaga(sagas.updateSetting, action)
+                    .provide([
+                      [
+                        call(
+                          updateDoc,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          { 'settings.techlogEnabled': true }
+                        )
+                      ]
+                    ])
+                    .put(actions.setSettingSubmitting('techlogEnabled', true))
+                    .call(
+                      updateDoc,
+                      ['organizations', orgId, 'aircrafts', aircraftId],
+                      { 'settings.techlogEnabled': true }
+                    )
+                    .put(fetchAircrafts(orgId))
+                    .put(actions.setSettingSubmitting('techlogEnabled', false))
+                    .run()
+                })
+
+                it('should throw an error if unknown setting', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+
+                  const action = actions.updateSetting(
+                    orgId,
+                    aircraftId,
+                    'unknownSetting',
+                    'foo'
+                  )
+
+                  const generator = sagas.updateSetting(action)
+
+                  expect(() => generator.next()).toThrow(
+                    'Unknown setting unknownSetting'
+                  )
+                })
+              })
+
               describe('default', () => {
                 it('should fork all sagas', () => {
                   const generator = sagas.default()
@@ -149,7 +202,8 @@ describe('routes', () => {
                       takeEvery(actions.CREATE_CHECK, sagas.createCheck),
                       takeEvery(actions.DELETE_CHECK, deleteCheck),
                       takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType),
-                      takeEvery(actions.DELETE_FUEL_TYPE, sagas.deleteFuelType)
+                      takeEvery(actions.DELETE_FUEL_TYPE, sagas.deleteFuelType),
+                      takeEvery(actions.UPDATE_SETTING, sagas.updateSetting)
                     ])
                   )
                 })

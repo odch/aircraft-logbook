@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSwitch renders correctly checked 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test switch
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <span
+      className="MuiSwitch-root MuiSwitch-edgeEnd"
+    >
+      <span
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-62 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-63 Mui-checked"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={null}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <span
+            className="MuiSwitch-thumb"
+          />
+          <input
+            checked={true}
+            className="PrivateSwitchBase-input-65 MuiSwitch-input"
+            onChange={[Function]}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        className="MuiSwitch-track"
+      />
+    </span>
+  </div>
+</li>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSwitch renders correctly unchecked 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test switch
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <span
+      className="MuiSwitch-root MuiSwitch-edgeEnd"
+    >
+      <span
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-62 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={null}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <span
+            className="MuiSwitch-thumb"
+          />
+          <input
+            checked={false}
+            className="PrivateSwitchBase-input-65 MuiSwitch-input"
+            onChange={[Function]}
+            type="checkbox"
+          />
+        </span>
+      </span>
+      <span
+        className="MuiSwitch-track"
+      />
+    </span>
+  </div>
+</li>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSwitch renders switch readonly with loading indicator when submitting 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test switch
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <div
+      className="MuiCircularProgress-root SettingSwitch-loadingIndicator-1 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+      role="progressbar"
+      style={
+        Object {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    >
+      <svg
+        className="MuiCircularProgress-svg"
+        viewBox="22 22 44 44"
+      >
+        <circle
+          className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+          cx={44}
+          cy={44}
+          fill="none"
+          r={20.2}
+          strokeWidth={3.6}
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <span
+      className="MuiSwitch-root MuiSwitch-edgeEnd"
+    >
+      <span
+        aria-disabled={true}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-62 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-63 Mui-checked PrivateSwitchBase-disabled-64 Mui-disabled Mui-disabled Mui-disabled"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={-1}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <span
+            className="MuiSwitch-thumb"
+          />
+          <input
+            checked={true}
+            className="PrivateSwitchBase-input-65 MuiSwitch-input"
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+        </span>
+      </span>
+      <span
+        className="MuiSwitch-track"
+      />
+    </span>
+  </div>
+</li>
+`;

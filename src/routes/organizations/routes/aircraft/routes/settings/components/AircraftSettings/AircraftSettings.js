@@ -11,6 +11,7 @@ import {
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
 import Checks from '../../containers/ChecksContainer'
 import FuelTypes from '../../containers/FuelTypesContainer'
+import AdvancedSettings from '../../containers/AdvancedSettingsContainer'
 
 const styles = theme => ({
   container: {
@@ -78,6 +79,10 @@ class AircraftSettings extends React.Component {
         </Typography>
         <Checks organizationId={organization.id} aircraftId={aircraft.id} />
         <FuelTypes organizationId={organization.id} aircraftId={aircraft.id} />
+        <AdvancedSettings
+          organizationId={organization.id}
+          aircraftId={aircraft.id}
+        />
       </div>
     )
   }

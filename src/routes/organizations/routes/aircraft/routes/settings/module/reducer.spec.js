@@ -30,6 +30,9 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false,
     fuelType: null
+  },
+  advancedSettings: {
+    submitting: {}
   }
 }
 
@@ -372,6 +375,29 @@ describe('routes', () => {
                 ).toEqual({
                   deleteFuelTypeDialog: {
                     submitting: true
+                  }
+                })
+              })
+
+              it('handles SET_SETTING_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      advancedSettings: {
+                        submitting: {
+                          techlogEnabled: false,
+                          engineHoursCounterEnabled: true
+                        }
+                      }
+                    },
+                    actions.setSettingSubmitting('techlogEnabled', true)
+                  )
+                ).toEqual({
+                  advancedSettings: {
+                    submitting: {
+                      techlogEnabled: true,
+                      engineHoursCounterEnabled: true
+                    }
                   }
                 })
               })

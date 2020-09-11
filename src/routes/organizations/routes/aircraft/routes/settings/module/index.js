@@ -12,7 +12,8 @@ import {
   deleteCheck,
   openDeleteFuelTypeDialog,
   closeDeleteFuelTypeDialog,
-  deleteFuelType
+  deleteFuelType,
+  updateSetting
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -31,7 +32,8 @@ export {
   deleteCheck,
   openDeleteFuelTypeDialog,
   closeDeleteFuelTypeDialog,
-  deleteFuelType
+  deleteFuelType,
+  updateSetting
 }
 
 export { sagas }

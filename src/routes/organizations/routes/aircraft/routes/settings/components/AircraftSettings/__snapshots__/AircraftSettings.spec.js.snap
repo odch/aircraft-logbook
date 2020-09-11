@@ -220,6 +220,74 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       </li>
     </ul>
   </div>
+  <h5
+    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+  >
+    Erweiterte Einstellungen
+  </h5>
+  <ul
+    className="MuiList-root MuiList-padding"
+  >
+    <li
+      className="MuiListItem-container"
+    >
+      <div
+        className="MuiListItem-root MuiListItem-secondaryAction"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root"
+        >
+          <span
+            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+          >
+            Techlog aktiviert
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiListItemSecondaryAction-root"
+      >
+        <span
+          className="MuiSwitch-root MuiSwitch-edgeEnd"
+        >
+          <span
+            aria-disabled={false}
+            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-119 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+            onBlur={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={null}
+          >
+            <span
+              className="MuiIconButton-label"
+            >
+              <span
+                className="MuiSwitch-thumb"
+              />
+              <input
+                checked={false}
+                className="PrivateSwitchBase-input-122 MuiSwitch-input"
+                onChange={[Function]}
+                type="checkbox"
+              />
+            </span>
+          </span>
+          <span
+            className="MuiSwitch-track"
+          />
+        </span>
+      </div>
+    </li>
+  </ul>
 </div>
 `;
 

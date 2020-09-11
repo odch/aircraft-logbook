@@ -4,7 +4,8 @@ import { fetchAircrafts } from '../../../../../module'
 import { error } from '../../../../../../../util/log'
 import {
   addArrayItem,
-  removeArrayItem
+  removeArrayItem,
+  updateDoc
 } from '../../../../../../../util/firestoreUtils'
 
 export function* createCheck({
@@ -87,11 +88,37 @@ export function* deleteFuelType({
   yield put(actions.closeDeleteFuelTypeDialog())
 }
 
+export function* updateSetting({
+  payload: { organizationId, aircraftId, name, value }
+}) {
+  let data
+
+  switch (name) {
+    case 'techlogEnabled':
+      data = { 'settings.techlogEnabled': value }
+      break
+    default:
+      throw `Unknown setting ${name}`
+  }
+
+  yield put(actions.setSettingSubmitting(name, true))
+
+  yield call(
+    updateDoc,
+    ['organizations', organizationId, 'aircrafts', aircraftId],
+    data
+  )
+
+  yield put(fetchAircrafts(organizationId))
+  yield put(actions.setSettingSubmitting(name, false))
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_CHECK, createCheck),
     takeEvery(actions.DELETE_CHECK, deleteCheck),
     takeEvery(actions.CREATE_FUEL_TYPE, createFuelType),
-    takeEvery(actions.DELETE_FUEL_TYPE, deleteFuelType)
+    takeEvery(actions.DELETE_FUEL_TYPE, deleteFuelType),
+    takeEvery(actions.UPDATE_SETTING, updateSetting)
   ])
 }

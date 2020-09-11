@@ -30,6 +30,9 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false,
     fuelType: null
+  },
+  advancedSettings: {
+    submitting: {}
   }
 }
 
@@ -176,6 +179,17 @@ const setDeleteFuelTypeDialogSubmitting = state => ({
   }
 })
 
+const setSettingSubmitting = (state, { payload }) => ({
+  ...state,
+  advancedSettings: {
+    ...state.advancedSettings,
+    submitting: {
+      ...state.advancedSettings.submitting,
+      [payload.name]: payload.submitting
+    }
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_CHECK_DIALOG]: openCreateCheckDialog,
   [actions.CLOSE_CREATE_CHECK_DIALOG]: closeCreateCheckDialog,
@@ -192,7 +206,8 @@ const ACTION_HANDLERS = {
   [actions.SET_DELETE_CHECK_DIALOG_SUBMITTING]: setDeleteCheckDialogSubmitting,
   [actions.OPEN_DELETE_FUEL_TYPE_DIALOG]: openDeleteFuelTypeDialog,
   [actions.CLOSE_DELETE_FUEL_TYPE_DIALOG]: closeDeleteFuelTypeDialog,
-  [actions.SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING]: setDeleteFuelTypeDialogSubmitting
+  [actions.SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING]: setDeleteFuelTypeDialogSubmitting,
+  [actions.SET_SETTING_SUBMITTING]: setSettingSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
