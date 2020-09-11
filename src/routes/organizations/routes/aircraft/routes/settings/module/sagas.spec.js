@@ -107,6 +107,39 @@ describe('routes', () => {
                 })
               })
 
+              describe('deleteFuelType', () => {
+                it('should remove a fuel type of the aircraft', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+                  const fuelType = {
+                    name: 'jet_a1',
+                    description: 'Jet A1'
+                  }
+
+                  const action = actions.deleteFuelType(
+                    orgId,
+                    aircraftId,
+                    fuelType
+                  )
+
+                  return expectSaga(sagas.deleteFuelType, action)
+                    .provide([
+                      [
+                        call(
+                          removeArrayItem,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          'settings.fuelTypes',
+                          fuelType
+                        )
+                      ]
+                    ])
+                    .put(actions.setDeleteFuelTypeDialogSubmitting())
+                    .put(fetchAircrafts(orgId))
+                    .put(actions.closeDeleteFuelTypeDialog())
+                    .run()
+                })
+              })
+
               describe('default', () => {
                 it('should fork all sagas', () => {
                   const generator = sagas.default()
@@ -115,7 +148,8 @@ describe('routes', () => {
                     all([
                       takeEvery(actions.CREATE_CHECK, sagas.createCheck),
                       takeEvery(actions.DELETE_CHECK, deleteCheck),
-                      takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType)
+                      takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType),
+                      takeEvery(actions.DELETE_FUEL_TYPE, sagas.deleteFuelType)
                     ])
                   )
                 })

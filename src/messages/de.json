@@ -293,6 +293,13 @@
   "aircraft.settings.fueltype.create.dialog.buttons.cancel": "Abbrechen",
   "aircraft.settings.fueltype.create.dialog.buttons.create": "Treibstofftyp hinzufügen",
 
+  "aircraft.settings.fueltype.delete": "Löschen",
+
+  "aircraft.settings.fueltype.delete.dialog.title": "Treibstofftyp löschen",
+  "aircraft.settings.fueltype.delete.dialog.text": "Bist du sicher, dass du den Treibstofftyp {fuelType} löschen möchtest?",
+  "aircraft.settings.fueltype.delete.dialog.buttons.cancel": "Abbrechen",
+  "aircraft.settings.fueltype.delete.dialog.buttons.delete": "Typ löschen",
+
   "aircraft.counter.flighthours": "Flugstunden",
   "aircraft.counter.enginehours": "Motorstunden",
   "aircraft.counter.landings": "Landungen"

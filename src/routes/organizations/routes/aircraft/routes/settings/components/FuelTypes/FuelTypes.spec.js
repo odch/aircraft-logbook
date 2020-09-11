@@ -17,13 +17,23 @@ describe('routes', () => {
                         { name: 'avgas', description: 'AvGas' },
                         { name: 'mogas', description: 'MoGas' }
                       ]}
+                      deleteFuelTypeDialog={{
+                        open: false
+                      }}
                     />
                   ).toJSON()
                   expect(tree).toMatchSnapshot()
                 })
 
                 it('renders no types message', () => {
-                  const tree = renderIntl(<FuelTypes types={[]} />).toJSON()
+                  const tree = renderIntl(
+                    <FuelTypes
+                      types={[]}
+                      deleteFuelTypeDialog={{
+                        open: false
+                      }}
+                    />
+                  ).toJSON()
                   expect(tree).toMatchSnapshot()
                 })
               })
