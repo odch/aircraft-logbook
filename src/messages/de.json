@@ -302,6 +302,9 @@
   "aircraft.settings.fueltype.delete.dialog.buttons.cancel": "Abbrechen",
   "aircraft.settings.fueltype.delete.dialog.buttons.delete": "Typ löschen",
 
+  "aircraft.settings.advanced": "Erweiterte Einstellungen",
+  "aircraft.settings.advanced.techlogenabled": "Techlog aktiviert",
+
   "aircraft.counter.flighthours": "Flugstunden",
   "aircraft.counter.enginehours": "Motorstunden",
   "aircraft.counter.landings": "Landungen"

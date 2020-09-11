@@ -36,6 +36,8 @@ export const CLOSE_DELETE_FUEL_TYPE_DIALOG =
 export const DELETE_FUEL_TYPE = 'aircraftSettings/DELETE_FUEL_TYPE'
 export const SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING =
   'aircraftSettings/SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING'
+export const UPDATE_SETTING = 'aircraftSettings/UPDATE_SETTING'
+export const SET_SETTING_SUBMITTING = 'aircraftSettings/SET_SETTING_SUBMITTING'
 
 export const openCreateCheckDialog = () => ({
   type: OPEN_CREATE_CHECK_DIALOG
@@ -155,4 +157,22 @@ export const deleteFuelType = (organizationId, aircraftId, fuelType) => ({
 
 export const setDeleteFuelTypeDialogSubmitting = () => ({
   type: SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING
+})
+
+export const updateSetting = (organizationId, aircraftId, name, value) => ({
+  type: UPDATE_SETTING,
+  payload: {
+    organizationId,
+    aircraftId,
+    name,
+    value
+  }
+})
+
+export const setSettingSubmitting = (name, submitting) => ({
+  type: SET_SETTING_SUBMITTING,
+  payload: {
+    name,
+    submitting
+  }
 })
