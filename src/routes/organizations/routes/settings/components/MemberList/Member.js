@@ -43,9 +43,23 @@ class Member extends React.Component {
     this.handleMenuClose()
   }
 
+  getPrimaryText = member => {
+    let primaryText = `${member.lastname} ${member.firstname}`
+    if (member.nr) {
+      primaryText += ` (${member.nr})`
+    }
+    if (member.instructor) {
+      primaryText += ` — ${this.msg('organization.settings.member.instructor')}`
+    }
+    return primaryText
+  }
+
   getRoleNames = roles =>
     roles
-      ? roles.map(role => this.msg(`organization.role.${role}`)).join(', ')
+      ? roles
+          .map(role => this.msg(`organization.role.${role}`))
+          .sort()
+          .join(', ')
       : ''
 
   msg = (id, values) => this.props.intl.formatMessage({ id }, values)
@@ -67,9 +81,7 @@ class Member extends React.Component {
 
     const itemText = (
       <ListItemText
-        primary={`${member.lastname} ${member.firstname}${
-          member.nr ? ` (${member.nr})` : ''
-        }`}
+        primary={this.getPrimaryText(member)}
         secondary={this.getRoleNames(member.roles)}
       />
     )

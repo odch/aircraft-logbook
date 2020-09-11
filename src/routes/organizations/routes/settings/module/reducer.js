@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: ''
     }
   },
@@ -28,6 +29,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: '',
       reinvite: false
     }
@@ -134,6 +136,7 @@ const openEditMemberDialog = (state, { payload: { member } }) => ({
       lastname: member.lastname,
       nr: member.nr,
       roles: member.roles || [],
+      instructor: member.instructor || false,
       inviteEmail: member.inviteEmail
     }
   }

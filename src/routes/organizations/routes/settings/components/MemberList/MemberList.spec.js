@@ -52,6 +52,7 @@ describe('routes', () => {
                       lastname: 'Keller',
                       nr: '34646',
                       roles: ['manager'],
+                      instructor: true,
                       user: 'users/user1'
                     },
 

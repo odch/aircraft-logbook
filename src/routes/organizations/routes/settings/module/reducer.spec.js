@@ -11,6 +11,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: ''
     }
   },
@@ -27,6 +28,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: '',
       reinvite: false
     }
@@ -71,6 +73,7 @@ describe('routes', () => {
                       lastname: 'Meier',
                       nr: '34534',
                       roles: ['manager', 'techlogmanager'],
+                      instructor: true,
                       inviteEmail: ''
                     }
                   }
@@ -86,6 +89,7 @@ describe('routes', () => {
                   lastname: '',
                   nr: '',
                   roles: [],
+                  instructor: false,
                   inviteEmail: ''
                 }
               }
@@ -256,6 +260,7 @@ describe('routes', () => {
               lastname: 'Keller',
               nr: '34345',
               roles: ['manager', 'techlogmanager'],
+              instructor: true,
               inviteEmail: 'hans@keller.ch'
             }
 
@@ -270,6 +275,7 @@ describe('routes', () => {
                       lastname: '',
                       nr: '',
                       roles: [],
+                      instructor: false,
                       inviteEmail: ''
                     }
                   }
@@ -286,6 +292,7 @@ describe('routes', () => {
                   lastname: 'Keller',
                   nr: '34345',
                   roles: ['manager', 'techlogmanager'],
+                  instructor: true,
                   inviteEmail: 'hans@keller.ch'
                 }
               }
