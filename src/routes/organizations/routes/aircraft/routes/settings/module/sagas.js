@@ -91,25 +91,12 @@ export function* deleteFuelType({
 export function* updateSetting({
   payload: { organizationId, aircraftId, name, value }
 }) {
-  let data
-
-  switch (name) {
-    case 'techlogEnabled':
-      data = { 'settings.techlogEnabled': value }
-      break
-    case 'engineHoursCounterEnabled':
-      data = { 'settings.engineHoursCounterEnabled': value }
-      break
-    default:
-      throw `Unknown setting ${name}`
-  }
-
   yield put(actions.setSettingSubmitting(name, true))
 
   yield call(
     updateDoc,
     ['organizations', organizationId, 'aircrafts', aircraftId],
-    data
+    { [`settings.${name}`]: value }
   )
 
   yield put(fetchAircrafts(organizationId))

@@ -142,7 +142,7 @@ describe('routes', () => {
               })
 
               describe('updateSetting', () => {
-                it('should update techlogEnabled setting', () => {
+                it('should update nested setting', () => {
                   const orgId = 'my_org'
                   const aircraftId = 'my_aircraft'
 
@@ -172,66 +172,6 @@ describe('routes', () => {
                     .put(fetchAircrafts(orgId))
                     .put(actions.setSettingSubmitting('techlogEnabled', false))
                     .run()
-                })
-
-                it('should update engineHoursCounterEnabled setting', () => {
-                  const orgId = 'my_org'
-                  const aircraftId = 'my_aircraft'
-
-                  const action = actions.updateSetting(
-                    orgId,
-                    aircraftId,
-                    'engineHoursCounterEnabled',
-                    true
-                  )
-
-                  return expectSaga(sagas.updateSetting, action)
-                    .provide([
-                      [
-                        call(
-                          updateDoc,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          { 'settings.engineHoursCounterEnabled': true }
-                        )
-                      ]
-                    ])
-                    .put(
-                      actions.setSettingSubmitting(
-                        'engineHoursCounterEnabled',
-                        true
-                      )
-                    )
-                    .call(
-                      updateDoc,
-                      ['organizations', orgId, 'aircrafts', aircraftId],
-                      { 'settings.engineHoursCounterEnabled': true }
-                    )
-                    .put(fetchAircrafts(orgId))
-                    .put(
-                      actions.setSettingSubmitting(
-                        'engineHoursCounterEnabled',
-                        false
-                      )
-                    )
-                    .run()
-                })
-
-                it('should throw an error if unknown setting', () => {
-                  const orgId = 'my_org'
-                  const aircraftId = 'my_aircraft'
-
-                  const action = actions.updateSetting(
-                    orgId,
-                    aircraftId,
-                    'unknownSetting',
-                    'foo'
-                  )
-
-                  const generator = sagas.updateSetting(action)
-
-                  expect(() => generator.next()).toThrow(
-                    'Unknown setting unknownSetting'
-                  )
                 })
               })
 
