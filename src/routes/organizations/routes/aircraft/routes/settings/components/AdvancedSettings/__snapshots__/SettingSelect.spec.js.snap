@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders correctly with value 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test select
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline"
+      onClick={[Function]}
+    >
+      <div
+        aria-haspopup="listbox"
+        className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input MuiInputBase-inputSelect"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        Value 2
+      </div>
+      <input
+        type="hidden"
+        value="value2"
+      />
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders correctly without value 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test select
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline"
+      onClick={[Function]}
+    >
+      <div
+        aria-haspopup="listbox"
+        className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input MuiInputBase-inputSelect"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <span
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "&#8203;",
+            }
+          }
+        />
+      </div>
+      <input
+        type="hidden"
+      />
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders readonly with loading indicator when submitting 1`] = `
+<li
+  className="MuiListItem-container"
+>
+  <div
+    className="MuiListItem-root MuiListItem-secondaryAction"
+    disabled={false}
+  >
+    <div
+      className="MuiListItemText-root"
+    >
+      <span
+        className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+      >
+        My test select
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiListItemSecondaryAction-root"
+  >
+    <div
+      className="MuiCircularProgress-root SettingSelect-loadingIndicator-1 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+      role="progressbar"
+      style={
+        Object {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    >
+      <svg
+        className="MuiCircularProgress-svg"
+        viewBox="22 22 44 44"
+      >
+        <circle
+          className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+          cx={44}
+          cy={44}
+          fill="none"
+          r={20.2}
+          strokeWidth={3.6}
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled"
+      onClick={[Function]}
+    >
+      <div
+        aria-haspopup="listbox"
+        className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputSelect Mui-disabled"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={null}
+      >
+        Value 2
+      </div>
+      <input
+        type="hidden"
+        value="value2"
+      />
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>
+</li>
+`;

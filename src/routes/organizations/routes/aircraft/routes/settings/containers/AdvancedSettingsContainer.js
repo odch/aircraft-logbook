@@ -15,13 +15,19 @@ const mapStateToProps = (state, ownProps) => {
     'settings.engineHoursCounterEnabled',
     false
   )
+  const engineHoursCounterFractionDigits = _get(
+    aircraft,
+    'settings.engineHoursCounterFractionDigits',
+    2
+  )
 
   return {
     organizationId,
     aircraftId,
     settings: {
       techlogEnabled,
-      engineHoursCounterEnabled
+      engineHoursCounterEnabled,
+      engineHoursCounterFractionDigits
     },
     submitting: state.aircraftSettings.advancedSettings.submitting
   }
