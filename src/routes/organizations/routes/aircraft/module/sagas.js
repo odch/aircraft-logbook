@@ -470,6 +470,13 @@ export function setStartCounters(target, source, counterNames) {
   })
 }
 
+export function toFuelTypeOption(aircraftSettings, fuelTypeName) {
+  const typeObj = aircraftSettings.fuelTypes.find(
+    type => type.name === fuelTypeName
+  ) || { name: fuelTypeName }
+  return getFuelTypeOption(typeObj)
+}
+
 export function* openAndInitEditFlightDialog({
   payload: { organizationId, aircraftId, flightId }
 }) {
@@ -512,7 +519,7 @@ export function* openAndInitEditFlightDialog({
     landings,
     personsOnBoard,
     fuelUplift: fuelUplift || 0,
-    fuelType: fuelType ? getFuelTypeOption(fuelType) : null,
+    fuelType: fuelType ? toFuelTypeOption(aircraftSettings, fuelType) : null,
     oilUplift,
     remarks: remarks || '',
     counters,
