@@ -9,8 +9,12 @@ class DecimalField extends React.Component {
     stringValue:
       typeof this.props.value === 'number'
         ? formatWithTwoDecimals(this.props.value / 100)
-        : '',
-    focused: false
+        : ''
+  }
+
+  constructor(props) {
+    super(props)
+    this.numberInput = React.createRef()
   }
 
   handleChange = e => {
@@ -20,22 +24,24 @@ class DecimalField extends React.Component {
   }
 
   handleFocus = () => {
-    this.setState({
-      focused: true
+    this.numberInput.current.addEventListener('wheel', this.handleWheel, {
+      passive: false // important to register as active listener to be able to use `preventDefault` in handle wheel
     })
   }
 
   handleBlur = () => {
     const { onChange } = this.props
 
-    const newState = {
-      focused: false
-    }
+    this.numberInput.current.removeEventListener('wheel', this.handleWheel)
 
     const floatValue = parseFloat(this.state.stringValue)
     if (!isNaN(floatValue)) {
       const twoDecimals = Math.round(floatValue * 100) / 100
-      newState.stringValue = formatWithTwoDecimals(twoDecimals)
+      const stringValue = formatWithTwoDecimals(twoDecimals)
+
+      this.setState({
+        stringValue
+      })
 
       if (onChange) {
         const hundredths = Math.round(twoDecimals * 100)
@@ -44,14 +50,10 @@ class DecimalField extends React.Component {
     } else if (this.state.stringValue === '' && onChange) {
       onChange(null)
     }
-
-    this.setState(newState)
   }
 
   handleWheel = e => {
-    if (this.state.focused === true) {
-      e.preventDefault() // prevent number from being changed by scrolling
-    }
+    e.preventDefault() // prevent number from being changed by scrolling
   }
 
   render() {
@@ -64,7 +66,7 @@ class DecimalField extends React.Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
-        onWheel={this.handleWheel}
+        inputRef={this.numberInput}
         type="number"
         inputProps={{ step: '.01' }}
         data-cy={cy}
