@@ -221,7 +221,12 @@ class FlightCreateDialog extends React.Component {
       loadMembers,
       loadInstructors,
       loadAerodromes,
-      aircraftSettings: { fuelTypes, engineHoursCounterEnabled, techlogEnabled }
+      aircraftSettings: {
+        fuelTypes,
+        engineHoursCounterEnabled,
+        engineHoursCounterFractionDigits,
+        techlogEnabled
+      }
     } = this.props
 
     return (
@@ -259,9 +264,14 @@ class FlightCreateDialog extends React.Component {
                 'counters.enginetimecounter',
                 this.renderDecimalField(
                   'counters.engineTimeCounter.start',
-                  this.hasInitialValue('counters.engineTimeCounter.start')
+                  this.hasInitialValue('counters.engineTimeCounter.start'),
+                  engineHoursCounterFractionDigits
                 ),
-                this.renderDecimalField('counters.engineTimeCounter.end')
+                this.renderDecimalField(
+                  'counters.engineTimeCounter.end',
+                  false,
+                  engineHoursCounterFractionDigits
+                )
               )}
             {this.renderTimePicker('blockOffTime')}
             {this.renderTimePicker('takeOffTime')}
@@ -304,7 +314,10 @@ class FlightCreateDialog extends React.Component {
   renderRequiredInitialValueFields() {
     const {
       initialData,
-      aircraftSettings: { engineHoursCounterEnabled },
+      aircraftSettings: {
+        engineHoursCounterEnabled,
+        engineHoursCounterFractionDigits
+      },
       classes
     } = this.props
 
@@ -335,7 +348,11 @@ class FlightCreateDialog extends React.Component {
         {requiredInitialValues.includes('counters.flightHours.start') &&
           this.renderDecimalField('counters.flightHours.start')}
         {requiredInitialValues.includes('counters.engineHours.start') &&
-          this.renderDecimalField('counters.engineHours.start')}
+          this.renderDecimalField(
+            'counters.engineHours.start',
+            false,
+            engineHoursCounterFractionDigits
+          )}
       </div>
     )
   }
@@ -468,7 +485,7 @@ class FlightCreateDialog extends React.Component {
     ))
   }
 
-  renderDecimalField(name, disabled) {
+  renderDecimalField(name, disabled, fractionDigits) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <DecimalField
         name={name}
@@ -480,6 +497,7 @@ class FlightCreateDialog extends React.Component {
         fullWidth
         error={hasError}
         disabled={disabled || isDisabled}
+        fractionDigits={fractionDigits}
       />
     ))
   }
@@ -716,6 +734,7 @@ FlightCreateDialog.propTypes = {
       })
     ).isRequired,
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
+    engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
     techlogEnabled: PropTypes.bool.isRequired
   }).isRequired,
   createAerodromeDialogOpen: PropTypes.bool.isRequired,
