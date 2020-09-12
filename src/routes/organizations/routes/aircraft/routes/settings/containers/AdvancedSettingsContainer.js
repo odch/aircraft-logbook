@@ -10,12 +10,18 @@ const mapStateToProps = (state, ownProps) => {
 
   const aircraft = getAircraft(state, aircraftId)
   const techlogEnabled = _get(aircraft, 'settings.techlogEnabled', false)
+  const engineHoursCounterEnabled = _get(
+    aircraft,
+    'settings.engineHoursCounterEnabled',
+    false
+  )
 
   return {
     organizationId,
     aircraftId,
     settings: {
-      techlogEnabled
+      techlogEnabled,
+      engineHoursCounterEnabled
     },
     submitting: state.aircraftSettings.advancedSettings.submitting
   }

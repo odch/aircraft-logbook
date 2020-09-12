@@ -97,6 +97,9 @@ export function* updateSetting({
     case 'techlogEnabled':
       data = { 'settings.techlogEnabled': value }
       break
+    case 'engineHoursCounterEnabled':
+      data = { 'settings.engineHoursCounterEnabled': value }
+      break
     default:
       throw `Unknown setting ${name}`
   }

@@ -307,6 +307,7 @@
 
   "aircraft.settings.advanced": "Erweiterte Einstellungen",
   "aircraft.settings.advanced.techlogenabled": "Techlog aktiviert",
+  "aircraft.settings.advanced.enginehourscounterenabled": "Motorstunden-Zähler aktiviert",
 
   "aircraft.counter.flighthours": "Flugstunden",
   "aircraft.counter.enginehours": "Motorstunden",

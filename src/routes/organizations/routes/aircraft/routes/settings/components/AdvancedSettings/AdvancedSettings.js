@@ -11,8 +11,11 @@ const msg = (intl, id) => intl.formatMessage({ id })
 const AdvancedSettings = ({
   organizationId,
   aircraftId,
-  settings: { techlogEnabled },
-  submitting: { techlogEnabled: techlogEnabledSubmitting },
+  settings: { techlogEnabled, engineHoursCounterEnabled },
+  submitting: {
+    techlogEnabled: techlogEnabledSubmitting,
+    engineHoursCounterEnabled: engineHoursCounterEnabledSubmitting
+  },
   intl,
   updateSetting
 }) => (
@@ -21,6 +24,20 @@ const AdvancedSettings = ({
       <FormattedMessage id="aircraft.settings.advanced" />
     </Typography>
     <List>
+      <SettingSwitch
+        label={msg(
+          intl,
+          'aircraft.settings.advanced.enginehourscounterenabled'
+        )}
+        checked={engineHoursCounterEnabled}
+        submitting={engineHoursCounterEnabledSubmitting}
+        onChange={updateSetting.bind(
+          null,
+          organizationId,
+          aircraftId,
+          'engineHoursCounterEnabled'
+        )}
+      />
       <SettingSwitch
         label={msg(intl, 'aircraft.settings.advanced.techlogenabled')}
         checked={techlogEnabled}
@@ -40,10 +57,12 @@ AdvancedSettings.propTypes = {
   organizationId: PropTypes.string.isRequired,
   aircraftId: PropTypes.string.isRequired,
   settings: PropTypes.shape({
-    techlogEnabled: PropTypes.bool.isRequired
+    techlogEnabled: PropTypes.bool.isRequired,
+    engineHoursCounterEnabled: PropTypes.bool.isRequired
   }),
   submitting: PropTypes.shape({
-    techlogEnabled: PropTypes.bool
+    techlogEnabled: PropTypes.bool,
+    engineHoursCounterEnabled: PropTypes.bool
   }).isRequired,
   intl: intlShape,
   updateSetting: PropTypes.func.isRequired
