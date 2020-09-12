@@ -31,6 +31,13 @@
   "organizations.delete.dialog.buttons.cancel": "Abbrechen",
   "organizations.delete.dialog.buttons.delete": "Organisation löschen",
 
+  "aircrafts.create": "Neues Flugzeug erstellen",
+  "aircrafts.create.dialog.title": "Neues Flugzeug erstellen",
+  "aircrafts.create.dialog.text": "Trage im folgenden Feld die Immatrikulation deines Flugzeugs ein.",
+  "aircrafts.create.dialog.registration": "Immatrikulation",
+  "aircrafts.create.dialog.buttons.cancel": "Abbrechen",
+  "aircrafts.create.dialog.buttons.create": "Erstellen",
+
   "aircraftdetail.settings": "Einstellungen bearbeiten",
 
   "aircraftdetail.checks": "Nächste Checks",

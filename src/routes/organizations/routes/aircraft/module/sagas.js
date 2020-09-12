@@ -32,7 +32,7 @@ export const openTechlogEntriesSelector = aircraftId => state =>
 export const aircraftFlightsViewSelector = state => state.aircraft.flights
 export const aircraftTechlogViewSelector = state => state.aircraft.techlog
 export const aircraftSettingsSelector = (state, aircraftId) =>
-  state.firestore.data.organizationAircrafts[aircraftId].settings
+  state.firestore.data.organizationAircrafts[aircraftId].settings || {}
 
 export function* getStartFlightDocument(organizationId, aircraftId, page) {
   if (page === 0) {
