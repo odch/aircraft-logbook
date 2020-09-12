@@ -14,7 +14,11 @@ export const getOrganization = (state, organizationId) => {
   if (organizations) {
     const organization = organizations.find(org => org.id === organizationId)
     if (organization) {
-      return { ...organization, id: organizationId }
+      return {
+        ...organization,
+        id: organizationId,
+        roles: organization.roles || []
+      }
     }
     return null // not found
   }
@@ -34,6 +38,10 @@ export const getAircraft = (state, aircraftId) => {
           : 0
       aircraft.counters = getAircraftCounters(state, aircraftId)
       aircraft.counters.techlogEntries = techlogEntriesCount
+
+      if (!aircraft.settings) {
+        aircraft.settings = {}
+      }
 
       return aircraft
     }
