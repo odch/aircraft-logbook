@@ -161,7 +161,10 @@ const FlightDetails = ({ aircraft, flight }) => {
                 {aircraft.settings.engineHoursCounterEnabled &&
                   renderField(
                     'enginehours',
-                    getDecimalRange(flight.counters.engineTimeCounter),
+                    getDecimalRange(
+                      flight.counters.engineTimeCounter,
+                      aircraft.settings.engineHoursCounterFractionDigits
+                    ),
                     intl
                   )}
               </Grid>
@@ -205,7 +208,7 @@ const FlightDetails = ({ aircraft, flight }) => {
         <Grid item xs={6} sm={4}>
           {renderField(
             'total.flighthours',
-            format2Decimals(flight.counters.flightHours.end),
+            formatDecimalNumber(flight.counters.flightHours.end),
             intl
           )}
         </Grid>
@@ -213,7 +216,10 @@ const FlightDetails = ({ aircraft, flight }) => {
           <Grid item xs={6} sm={4}>
             {renderField(
               'total.enginehours',
-              format2Decimals(flight.counters.engineHours.end),
+              formatDecimalNumber(
+                flight.counters.engineHours.end,
+                aircraft.settings.engineHoursCounterFractionDigits
+              ),
               intl
             )}
           </Grid>
@@ -264,17 +270,23 @@ const getFuelTypeDescription = (fuelType, aircraftFuelTypes) => {
 
 const getOil = oilUplift => (oilUplift && oilUplift > 0 ? `${oilUplift}L` : '-')
 
-const getDecimalRange = range => {
+const getDecimalRange = (range, fractionDigits) => {
   const diff = range.end - range.start
 
-  const startFormatted = format2Decimals(range.start)
-  const endFormatted = format2Decimals(range.end)
-  const diffFormatted = format2Decimals(diff)
+  const startFormatted = formatDecimalNumber(range.start, fractionDigits)
+  const endFormatted = formatDecimalNumber(range.end, fractionDigits)
+  const diffFormatted = formatDecimalNumber(diff, fractionDigits)
 
   return `${diffFormatted} (${startFormatted} - ${endFormatted})`
 }
 
-const format2Decimals = value => Number(value / 100).toFixed(2)
+const formatDecimalNumber = (value, fractionDigits = 2) =>
+  roundDecimalNumber(value / 100, fractionDigits).toFixed(fractionDigits)
+
+const roundDecimalNumber = (value, fractionDigits = 2) => {
+  const roundingFactor = fractionDigits === 1 ? 10 : 100
+  return Number(Math.round(value * roundingFactor) / roundingFactor)
+}
 
 const formatTimeWithUtc = (timestamp, timezone) =>
   `${formatTime(timestamp, timezone)} (${formatTime(timestamp, 'UTC')} UTC)`
