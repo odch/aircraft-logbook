@@ -174,6 +174,48 @@ describe('routes', () => {
                     .run()
                 })
 
+                it('should update engineHoursCounterEnabled setting', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+
+                  const action = actions.updateSetting(
+                    orgId,
+                    aircraftId,
+                    'engineHoursCounterEnabled',
+                    true
+                  )
+
+                  return expectSaga(sagas.updateSetting, action)
+                    .provide([
+                      [
+                        call(
+                          updateDoc,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          { 'settings.engineHoursCounterEnabled': true }
+                        )
+                      ]
+                    ])
+                    .put(
+                      actions.setSettingSubmitting(
+                        'engineHoursCounterEnabled',
+                        true
+                      )
+                    )
+                    .call(
+                      updateDoc,
+                      ['organizations', orgId, 'aircrafts', aircraftId],
+                      { 'settings.engineHoursCounterEnabled': true }
+                    )
+                    .put(fetchAircrafts(orgId))
+                    .put(
+                      actions.setSettingSubmitting(
+                        'engineHoursCounterEnabled',
+                        false
+                      )
+                    )
+                    .run()
+                })
+
                 it('should throw an error if unknown setting', () => {
                   const orgId = 'my_org'
                   const aircraftId = 'my_aircraft'
