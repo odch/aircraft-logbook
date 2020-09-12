@@ -38,6 +38,11 @@ describe('routes', () => {
                       }
                     ]
                   }
+                },
+                organizationDetail: {
+                  createAircraftDialog: {
+                    open: false
+                  }
                 }
               }
 

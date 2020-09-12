@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes organizations routes detail components AircraftCreateDialog renders correctly 1`] = `
+"<div role=\\"presentation\\" class=\\"MuiDialog-root\\" data-cy=\\"aircraft-create-dialog\\" style=\\"position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;\\">
+  <div class=\\"MuiBackdrop-root\\" aria-hidden=\\"true\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\"></div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelStart\\"></div>
+  <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
+    <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
+      <div class=\\"MuiDialogTitle-root\\">
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Neues Flugzeug erstellen</h2>
+      </div>
+      <form>
+        <div class=\\"MuiDialogContent-root\\">
+          <p class=\\"MuiTypography-root MuiDialogContentText-root MuiTypography-body1 MuiTypography-colorTextSecondary\\">Trage im folgenden Feld die Immatrikulation deines Flugzeugs ein.</p>
+          <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginDense MuiFormControl-fullWidth\\" data-cy=\\"registration-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-marginDense MuiFormLabel-filled Mui-focused Mui-focused Mui-required Mui-required\\" data-shrink=\\"true\\">Immatrikulation<span class=\\"MuiFormLabel-asterisk MuiInputLabel-asterisk\\"> *</span></label>
+            <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense\\" required=\\"\\" type=\\"text\\" value=\\"HB-ABC\\"></div>
+          </div>
+        </div>
+        <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary\\" tabindex=\\"0\\" type=\\"submit\\" data-cy=\\"create-button\\"><span class=\\"MuiButton-label\\">Erstellen</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
+      </form>
+    </div>
+  </div>
+  <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>
+</div>"
+`;

@@ -52,7 +52,30 @@ describe('routes', () => {
               const renderedValue = renderIntlMaterial(
                 <Router>
                   <OrganizationDetail
-                    organization={{ id: 'my_org' }}
+                    organization={{ id: 'my_org', roles: [] }}
+                    aircrafts={[
+                      {
+                        id: 'o7flC7jw8jmkOfWo8oyA',
+                        registration: 'HBKFW'
+                      },
+                      {
+                        id: 'BKi7HYAIoe1i75H3LMk1',
+                        registration: 'HBKOF'
+                      }
+                    ]}
+                    fetchAircrafts={() => {}}
+                  />
+                </Router>,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
+            })
+
+            it('renders with create button for aircrafts if is manager', () => {
+              const renderedValue = renderIntlMaterial(
+                <Router>
+                  <OrganizationDetail
+                    organization={{ id: 'my_org', roles: ['manager'] }}
                     aircrafts={[
                       {
                         id: 'o7flC7jw8jmkOfWo8oyA',
