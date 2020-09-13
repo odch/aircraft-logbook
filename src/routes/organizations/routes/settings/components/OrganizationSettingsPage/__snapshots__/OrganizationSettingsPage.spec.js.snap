@@ -8,7 +8,7 @@ exports[`routes organizations routes settings components OrganizationSettingsPag
   </div>
 </header>
 <div class=\\"injectIntl(OrganizationSettings)-container-99\\">
-  <h4 class=\\"MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom\\" data-cy=\\"organization-title\\">my_org</h4><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Mitglied hinzufügen</span><span class=\\"MuiTouchRipple-root\\"></span></button>
+  <h4 class=\\"MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom\\" data-cy=\\"organization-title\\">my_org</h4><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Pilot hinzufügen</span><span class=\\"MuiTouchRipple-root\\"></span></button>
   <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\">
     <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart\\">
       <div class=\\"MuiInputAdornment-root MuiInputAdornment-positionStart\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\">
