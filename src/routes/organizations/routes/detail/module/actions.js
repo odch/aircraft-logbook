@@ -11,6 +11,8 @@ export const CREATE_AIRCRAFT_SUCCESS =
   'organizationDetail/CREATE_AIRCRAFT_SUCCESS'
 export const CREATE_AIRCRAFT_FAILURE =
   'organizationDetail/CREATE_AIRCRAFT_FAILURE'
+export const SET_CREATE_AIRCRAFT_DUPLICATE =
+  'organizationDetail/SET_CREATE_AIRCRAFT_DUPLICATE'
 
 export const openCreateAircraftDialog = () => ({
   type: OPEN_CREATE_AIRCRAFT_DIALOG
@@ -45,4 +47,8 @@ export const createAircraftSuccess = () => ({
 
 export const createAircraftFailure = () => ({
   type: CREATE_AIRCRAFT_FAILURE
+})
+
+export const setCreateAircraftDuplicate = () => ({
+  type: SET_CREATE_AIRCRAFT_DUPLICATE
 })

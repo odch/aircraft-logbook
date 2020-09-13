@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   createAircraftDialog: {
     open: false,
     submitted: false,
+    duplicate: false,
     data: {
       registration: ''
     }
@@ -26,6 +27,8 @@ describe('modules', () => {
                 {
                   createAircraftDialog: {
                     open: false,
+                    duplicate: true,
+                    submitted: false,
                     data: {
                       registration: 'HBABC'
                     }
@@ -36,6 +39,8 @@ describe('modules', () => {
             ).toEqual({
               createAircraftDialog: {
                 open: true,
+                duplicate: false,
+                submitted: false,
                 data: {
                   registration: ''
                 }
@@ -65,6 +70,7 @@ describe('modules', () => {
               reducer(
                 {
                   createAircraftDialog: {
+                    duplicate: true,
                     data: {
                       name: 'foo'
                     }
@@ -74,6 +80,7 @@ describe('modules', () => {
               )
             ).toEqual({
               createAircraftDialog: {
+                duplicate: false,
                 data: {
                   name: 'foobar'
                 }

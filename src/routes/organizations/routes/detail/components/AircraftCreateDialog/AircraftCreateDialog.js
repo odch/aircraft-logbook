@@ -10,6 +10,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import { intl as intlShape } from '../../../../../../shapes'
 
 const styles = {
@@ -44,7 +46,7 @@ class AircraftCreateDialog extends React.Component {
   }
 
   render() {
-    const { data, submitted, classes, onClose } = this.props
+    const { data, submitted, duplicate, classes, onClose } = this.props
     return (
       <Dialog onClose={this.handleClose} data-cy="aircraft-create-dialog" open>
         <DialogTitle>
@@ -55,20 +57,27 @@ class AircraftCreateDialog extends React.Component {
             <DialogContentText>
               <FormattedMessage id="aircrafts.create.dialog.text" />
             </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              label={this.props.intl.formatMessage({
-                id: 'aircrafts.create.dialog.registration'
-              })}
-              type="text"
-              fullWidth
-              required
-              value={data.registration}
-              onChange={this.handleRegistrationChange}
-              data-cy="registration-field"
-              disabled={submitted}
-            />
+            <FormControl fullWidth error={duplicate}>
+              <TextField
+                autoFocus
+                margin="dense"
+                label={this.props.intl.formatMessage({
+                  id: 'aircrafts.create.dialog.registration'
+                })}
+                type="text"
+                fullWidth
+                required
+                value={data.registration}
+                onChange={this.handleRegistrationChange}
+                data-cy="registration-field"
+                disabled={submitted}
+              />
+              {duplicate && (
+                <FormHelperText>
+                  <FormattedMessage id="aircrafts.create.dialog.duplicate" />
+                </FormHelperText>
+              )}
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color="primary" disabled={submitted}>
@@ -101,6 +110,7 @@ AircraftCreateDialog.propTypes = {
     registration: PropTypes.string
   }).isRequired,
   submitted: PropTypes.bool,
+  duplicate: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,

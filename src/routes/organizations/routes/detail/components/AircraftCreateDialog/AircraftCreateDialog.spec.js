@@ -18,6 +18,18 @@ describe('routes', () => {
               )
               expect(renderedValue).toMatchSnapshot()
             })
+
+            it('renders with duplicate error state', () => {
+              const renderedValue = renderIntlMaterial(
+                <AircraftCreateDialog
+                  data={{ registration: 'HB-ABC' }}
+                  updateData={() => {}}
+                  duplicate
+                />,
+                true
+              )
+              expect(renderedValue).toMatchSnapshot()
+            })
           })
         })
       })
