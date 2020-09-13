@@ -31,6 +31,7 @@
   "aircrafts.create.dialog.title": "Neues Flugzeug erstellen",
   "aircrafts.create.dialog.text": "Trage im folgenden Feld die Immatrikulation deines Flugzeugs ein.",
   "aircrafts.create.dialog.registration": "Immatrikulation",
+  "aircrafts.create.dialog.duplicate": "Es existiert bereits ein Flugzeug mit dieser Immatrikulation.",
   "aircrafts.create.dialog.buttons.cancel": "Abbrechen",
   "aircrafts.create.dialog.buttons.create": "Erstellen",
   "aircraftdetail.settings": "Einstellungen bearbeiten",

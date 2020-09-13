@@ -9,7 +9,8 @@ import AircraftCreateDialog from '../components/AircraftCreateDialog'
 
 const mapStateToProps = state => ({
   data: state.organizationDetail.createAircraftDialog.data,
-  submitted: state.organizationDetail.createAircraftDialog.submitted
+  submitted: state.organizationDetail.createAircraftDialog.submitted,
+  duplicate: state.organizationDetail.createAircraftDialog.duplicate
 })
 
 const mapActionCreators = {
