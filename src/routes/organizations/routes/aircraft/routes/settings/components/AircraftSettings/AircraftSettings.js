@@ -25,10 +25,11 @@ const styles = theme => ({
 })
 
 class AircraftSettings extends React.Component {
-  isOrganizationOrTechlogManager = () =>
-    this.props.organization.roles.some(role =>
-      ['manager', 'techlogmanager'].includes(role)
-    )
+  isOrganizationManager = () =>
+    this.props.organization.roles.includes('manager')
+
+  isTechlogManager = () =>
+    this.props.organization.roles.includes('techlogmanager')
 
   componentDidMount() {
     const { organization, fetchAircrafts } = this.props
@@ -64,7 +65,7 @@ class AircraftSettings extends React.Component {
       return <Redirect to={`/organizations/${organization.id}`} />
     }
 
-    if (!this.isOrganizationOrTechlogManager()) {
+    if (!this.isOrganizationManager() && !this.isTechlogManager()) {
       return (
         <Redirect
           to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
@@ -77,12 +78,21 @@ class AircraftSettings extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Checks organizationId={organization.id} aircraftId={aircraft.id} />
-        <FuelTypes organizationId={organization.id} aircraftId={aircraft.id} />
-        <AdvancedSettings
-          organizationId={organization.id}
-          aircraftId={aircraft.id}
-        />
+        {(this.isOrganizationManager() || this.isTechlogManager()) && (
+          <Checks organizationId={organization.id} aircraftId={aircraft.id} />
+        )}
+        {this.isOrganizationManager() && (
+          <FuelTypes
+            organizationId={organization.id}
+            aircraftId={aircraft.id}
+          />
+        )}
+        {this.isOrganizationManager() && (
+          <AdvancedSettings
+            organizationId={organization.id}
+            aircraftId={aircraft.id}
+          />
+        )}
       </div>
     )
   }
