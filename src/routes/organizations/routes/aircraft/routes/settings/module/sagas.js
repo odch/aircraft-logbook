@@ -103,12 +103,24 @@ export function* updateSetting({
   yield put(actions.setSettingSubmitting(name, false))
 }
 
+export function* deleteAircraft({ payload: { organizationId, aircraftId } }) {
+  yield put(actions.setDeleteAircraftDialogSubmitting())
+  yield call(
+    updateDoc,
+    ['organizations', organizationId, 'aircrafts', aircraftId],
+    { deleted: true }
+  )
+  yield put(fetchAircrafts(organizationId))
+  yield put(actions.closeDeleteAircraftDialog())
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_CHECK, createCheck),
     takeEvery(actions.DELETE_CHECK, deleteCheck),
     takeEvery(actions.CREATE_FUEL_TYPE, createFuelType),
     takeEvery(actions.DELETE_FUEL_TYPE, deleteFuelType),
-    takeEvery(actions.UPDATE_SETTING, updateSetting)
+    takeEvery(actions.UPDATE_SETTING, updateSetting),
+    takeEvery(actions.DELETE_AIRCRAFT, deleteAircraft)
   ])
 }

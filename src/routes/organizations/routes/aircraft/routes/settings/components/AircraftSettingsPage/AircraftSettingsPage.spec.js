@@ -56,6 +56,9 @@ describe('routes', () => {
                       },
                       advancedSettings: {
                         submitting: {}
+                      },
+                      deleteAircraftDialog: {
+                        open: false
                       }
                     }
                   }

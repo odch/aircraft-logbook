@@ -39,6 +39,11 @@ describe('routes', () => {
                           }
                         }
                       }
+                    },
+                    aircraftSettings: {
+                      deleteAircraftDialog: {
+                        open: false
+                      }
                     }
                   }
                   const store = configureStore()(state)

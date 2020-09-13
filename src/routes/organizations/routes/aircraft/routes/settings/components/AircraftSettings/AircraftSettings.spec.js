@@ -2,7 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import renderIntl from '../../../../../../../../testutil/renderIntl'
+import renderIntl, {
+  renderIntlUpdate
+} from '../../../../../../../../testutil/renderIntl'
 import AircraftSettings from './AircraftSettings'
 
 const StartPage = () => <div>Start Page</div>
@@ -140,6 +142,7 @@ describe('routes', () => {
                             registration: 'HBKFW'
                           }}
                           fetchAircrafts={() => {}}
+                          deleteAircraftDialog={{ open: false }}
                         />
                       </Router>
                     </Provider>
@@ -242,7 +245,8 @@ describe('routes', () => {
 
                   expect(fetchAircrafts).not.toBeCalled()
 
-                  renderer.update(
+                  renderIntlUpdate(
+                    renderer,
                     <AircraftSettings
                       organization={{ id: 'my_org' }}
                       aircraft={undefined}
