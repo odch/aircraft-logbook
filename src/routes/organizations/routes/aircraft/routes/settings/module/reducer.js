@@ -33,6 +33,10 @@ export const INITIAL_STATE = {
   },
   advancedSettings: {
     submitting: {}
+  },
+  deleteAircraftDialog: {
+    open: false,
+    submitting: false
   }
 }
 
@@ -190,6 +194,30 @@ const setSettingSubmitting = (state, { payload }) => ({
   }
 })
 
+const openDeleteAircraftDialog = state => ({
+  ...state,
+  deleteAircraftDialog: {
+    ...INITIAL_STATE.deleteAircraftDialog,
+    open: true
+  }
+})
+
+const closeDeleteAircraftDialog = state => ({
+  ...state,
+  deleteAircraftDialog: {
+    ...state.deleteAircraft,
+    open: false
+  }
+})
+
+const setDeleteAircraftDialogSubmitting = state => ({
+  ...state,
+  deleteAircraftDialog: {
+    ...state.deleteAircraftDialog,
+    submitting: true
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_CHECK_DIALOG]: openCreateCheckDialog,
   [actions.CLOSE_CREATE_CHECK_DIALOG]: closeCreateCheckDialog,
@@ -207,7 +235,10 @@ const ACTION_HANDLERS = {
   [actions.OPEN_DELETE_FUEL_TYPE_DIALOG]: openDeleteFuelTypeDialog,
   [actions.CLOSE_DELETE_FUEL_TYPE_DIALOG]: closeDeleteFuelTypeDialog,
   [actions.SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING]: setDeleteFuelTypeDialogSubmitting,
-  [actions.SET_SETTING_SUBMITTING]: setSettingSubmitting
+  [actions.SET_SETTING_SUBMITTING]: setSettingSubmitting,
+  [actions.OPEN_DELETE_AIRCRAFT_DIALOG]: openDeleteAircraftDialog,
+  [actions.CLOSE_DELETE_AIRCRAFT_DIALOG]: closeDeleteAircraftDialog,
+  [actions.SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING]: setDeleteAircraftDialogSubmitting
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

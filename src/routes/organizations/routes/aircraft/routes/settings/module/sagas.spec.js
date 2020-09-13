@@ -8,7 +8,6 @@ import {
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchAircrafts } from '../../../../../module'
-import { deleteCheck } from './sagas'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -175,6 +174,35 @@ describe('routes', () => {
                 })
               })
 
+              describe('deleteAircraft', () => {
+                it('should set the deleted flag on the aircraft', () => {
+                  const orgId = 'my_org'
+                  const aircraftId = 'my_aircraft'
+
+                  const action = actions.deleteAircraft(orgId, aircraftId)
+
+                  return expectSaga(sagas.deleteAircraft, action)
+                    .provide([
+                      [
+                        call(
+                          updateDoc,
+                          ['organizations', orgId, 'aircrafts', aircraftId],
+                          { deleted: true }
+                        )
+                      ]
+                    ])
+                    .put(actions.setDeleteAircraftDialogSubmitting())
+                    .call(
+                      updateDoc,
+                      ['organizations', orgId, 'aircrafts', aircraftId],
+                      { deleted: true }
+                    )
+                    .put(fetchAircrafts(orgId))
+                    .put(actions.closeDeleteAircraftDialog())
+                    .run()
+                })
+              })
+
               describe('default', () => {
                 it('should fork all sagas', () => {
                   const generator = sagas.default()
@@ -182,10 +210,11 @@ describe('routes', () => {
                   expect(generator.next().value).toEqual(
                     all([
                       takeEvery(actions.CREATE_CHECK, sagas.createCheck),
-                      takeEvery(actions.DELETE_CHECK, deleteCheck),
+                      takeEvery(actions.DELETE_CHECK, sagas.deleteCheck),
                       takeEvery(actions.CREATE_FUEL_TYPE, sagas.createFuelType),
                       takeEvery(actions.DELETE_FUEL_TYPE, sagas.deleteFuelType),
-                      takeEvery(actions.UPDATE_SETTING, sagas.updateSetting)
+                      takeEvery(actions.UPDATE_SETTING, sagas.updateSetting),
+                      takeEvery(actions.DELETE_AIRCRAFT, sagas.deleteAircraft)
                     ])
                   )
                 })

@@ -6,6 +6,11 @@ import {
   getAircraft
 } from '../../../../../../../util/getFromState'
 import { fetchAircrafts } from '../../../../../module'
+import {
+  openDeleteAircraftDialog,
+  closeDeleteAircraftDialog,
+  deleteAircraft
+} from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -19,12 +24,16 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     organization,
-    aircraft
+    aircraft,
+    deleteAircraftDialog: state.aircraftSettings.deleteAircraftDialog
   }
 }
 
 const mapActionCreators = {
-  fetchAircrafts
+  fetchAircrafts,
+  openDeleteAircraftDialog,
+  closeDeleteAircraftDialog,
+  deleteAircraft
 }
 
 export default compose(connect(mapStateToProps, mapActionCreators))(

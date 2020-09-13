@@ -33,6 +33,10 @@ export const INITIAL_STATE = {
   },
   advancedSettings: {
     submitting: {}
+  },
+  deleteAircraftDialog: {
+    open: false,
+    submitting: false
   }
 }
 
@@ -398,6 +402,59 @@ describe('routes', () => {
                       techlogEnabled: true,
                       engineHoursCounterEnabled: true
                     }
+                  }
+                })
+              })
+
+              it('handles OPEN_DELETE_AIRCRAFT_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        submitting: true,
+                        open: false
+                      }
+                    },
+                    actions.openDeleteAircraftDialog()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
+                    ...INITIAL_STATE.deleteAircraftDialog,
+                    open: true
+                  }
+                })
+              })
+
+              it('handles CLOSE_DELETE_AIRCRAFT_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        open: true
+                      }
+                    },
+                    actions.closeDeleteAircraftDialog()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
+                    open: false
+                  }
+                })
+              })
+
+              it('handles SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        submitting: false
+                      }
+                    },
+                    actions.setDeleteAircraftDialogSubmitting()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
+                    submitting: true
                   }
                 })
               })

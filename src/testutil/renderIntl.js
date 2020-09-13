@@ -16,6 +16,9 @@ const renderInIntlProvider = component => (
 const renderIntl = (component, options) =>
   renderer.create(renderInIntlProvider(component), options)
 
+export const renderIntlUpdate = (renderer, component, options) =>
+  renderer.update(renderInIntlProvider(component), options)
+
 export const renderIntlMaterial = (component, returnPrettyHtml = false) => {
   const rendered = createMount()(renderInIntlProvider(component))
   return returnPrettyHtml ? pretty(rendered.html()) : rendered

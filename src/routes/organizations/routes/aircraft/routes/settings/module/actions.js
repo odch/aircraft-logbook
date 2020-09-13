@@ -38,6 +38,13 @@ export const SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING =
   'aircraftSettings/SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING'
 export const UPDATE_SETTING = 'aircraftSettings/UPDATE_SETTING'
 export const SET_SETTING_SUBMITTING = 'aircraftSettings/SET_SETTING_SUBMITTING'
+export const OPEN_DELETE_AIRCRAFT_DIALOG =
+  'aircraftSettings/OPEN_DELETE_AIRCRAFT_DIALOG'
+export const CLOSE_DELETE_AIRCRAFT_DIALOG =
+  'aircraftSettings/CLOSE_DELETE_AIRCRAFT_DIALOG'
+export const SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING =
+  'aircraftSettings/SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING'
+export const DELETE_AIRCRAFT = 'aircraftSettings/DELETE_AIRCRAFT'
 
 export const openCreateCheckDialog = () => ({
   type: OPEN_CREATE_CHECK_DIALOG
@@ -174,5 +181,25 @@ export const setSettingSubmitting = (name, submitting) => ({
   payload: {
     name,
     submitting
+  }
+})
+
+export const openDeleteAircraftDialog = () => ({
+  type: OPEN_DELETE_AIRCRAFT_DIALOG
+})
+
+export const closeDeleteAircraftDialog = () => ({
+  type: CLOSE_DELETE_AIRCRAFT_DIALOG
+})
+
+export const setDeleteAircraftDialogSubmitting = () => ({
+  type: SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING
+})
+
+export const deleteAircraft = (organizationId, aircraftId) => ({
+  type: DELETE_AIRCRAFT,
+  payload: {
+    organizationId,
+    aircraftId
   }
 })
