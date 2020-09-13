@@ -147,6 +147,60 @@ describe('routes', () => {
                   expect(tree).toMatchSnapshot()
                 })
 
+                it('renders only certain fields for techlogmanager', () => {
+                  const store = configureStore()({
+                    firestore: {
+                      data: {
+                        organizationAircrafts: {
+                          o7flC7jw8jmkOfWo8oyA: {
+                            settings: {
+                              fuelTypes: [
+                                { name: 'avgas', description: 'AvGas' },
+                                { name: 'mogas', description: 'MoGas' }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    aircraftSettings: {
+                      createCheckDialog: {
+                        open: false
+                      },
+                      deleteCheckDialog: {
+                        open: false
+                      },
+                      createFuelTypeDialog: {
+                        open: false
+                      },
+                      deleteFuelTypeDialog: {
+                        open: false
+                      },
+                      advancedSettings: {
+                        submitting: false
+                      }
+                    }
+                  })
+                  const tree = renderIntl(
+                    <Provider store={store}>
+                      <Router>
+                        <AircraftSettings
+                          organization={{
+                            id: 'my_org',
+                            roles: ['techlogmanager']
+                          }}
+                          aircraft={{
+                            id: 'o7flC7jw8jmkOfWo8oyA',
+                            registration: 'HBKFW'
+                          }}
+                          fetchAircrafts={() => {}}
+                        />
+                      </Router>
+                    </Provider>
+                  ).toJSON()
+                  expect(tree).toMatchSnapshot()
+                })
+
                 it('calls fetchAircrafts when mounted with organization', () => {
                   const fetchAircrafts = jest.fn()
 
