@@ -83,6 +83,7 @@ export function* fetchAircrafts({ payload: { organizationId } }) {
       collection: 'organizations',
       doc: organizationId,
       subcollections: [{ collection: 'aircrafts' }],
+      where: ['deleted', '==', false],
       orderBy: 'registration',
       storeAs: 'organizationAircrafts'
     },
