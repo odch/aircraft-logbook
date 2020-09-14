@@ -255,7 +255,7 @@
   "aircraft.settings.fueltypes.none": "No types of fuels have been added",
   "aircraft.settings.fueltypes.create": "Add type of fuel",
   "aircraft.settings.fueltype.create.dialog.title": "Choose type of fuel",
-  "aircraft.settings.fueltype.create.dialog.name": "Identifier (only lowercase and _)",
+  "aircraft.settings.fueltype.create.dialog.name": "Identifier (only lowercase, digits and _)",
   "aircraft.settings.fueltype.create.dialog.description": "Description",
   "aircraft.settings.fueltype.create.dialog.buttons.cancel": "Cancel",
   "aircraft.settings.fueltype.create.dialog.buttons.create": "Add type of fuel",
