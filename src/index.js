@@ -4,25 +4,16 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { IntlProvider } from 'react-intl'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
-import moment from 'moment-timezone'
 import 'moment/locale/de'
 
 import { initFirebase } from './util/firebase'
 import mainReducer, { sagas } from './modules'
 import autoRestartSaga from './util/autoRestartSaga'
-import messages from './messages'
 import App from './containers/AppContainer'
 import { init as initFeatureToggles } from './util/featureToggles'
 
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
-
-const LOCALE = 'de'
-
-moment.locale(LOCALE)
 
 initFeatureToggles()
 
@@ -75,20 +66,16 @@ const routes = require('./routes/index').default(store)
 
 render(
   <Provider store={store}>
-    <IntlProvider locale={LOCALE} messages={messages[LOCALE]}>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <App>
-          <Router>
-            <Switch>
-              {routes.map((route, i) => (
-                <RouteWithSubRoutes key={i} {...route} />
-              ))}
-              <Redirect to="/" />
-            </Switch>
-          </Router>
-        </App>
-      </MuiPickersUtilsProvider>
-    </IntlProvider>
+    <App>
+      <Router>
+        <Switch>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    </App>
   </Provider>,
   document.getElementById('app')
 )
