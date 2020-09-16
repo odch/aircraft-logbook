@@ -1,6 +1,6 @@
 import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import * as actions from './actions'
-import { getFirestore } from '../../../../../util/firebase'
+import { callFunction } from '../../../../../util/firebase'
 import {
   getDoc,
   updateDoc,
@@ -10,23 +10,11 @@ import { fetchOrganizations } from '../../../../../modules/app'
 
 export const uidSelector = state => state.firebase.auth.uid
 
-export function* getInvite(organizationId, inviteId) {
-  const firestore = yield call(getFirestore)
-  return yield call(firestore.get, {
-    collection: 'organizations',
-    doc: organizationId,
-    subcollections: [
-      {
-        collection: 'members',
-        doc: inviteId
-      }
-    ]
-  })
-}
-
 export function* fetchInvite({ payload: { organizationId, inviteId } }) {
-  const invite = yield call(getInvite, organizationId, inviteId)
-  const data = invite.exists ? invite.data() : null
+  const { data } = yield call(callFunction, 'fetchInvite', {
+    organizationId,
+    inviteId
+  })
   yield put(actions.setInvite(data))
 }
 
