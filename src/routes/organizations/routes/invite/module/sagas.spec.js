@@ -5,7 +5,7 @@ import {
   getDoc,
   updateDoc
 } from '../../../../../util/firestoreUtils'
-import { getFirestore } from '../../../../../util/firebase'
+import { callFunction } from '../../../../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchOrganizations } from '../../../../../modules/app'
@@ -15,81 +15,29 @@ describe('routes', () => {
     describe('routes', () => {
       describe('invite', () => {
         describe('sagas', () => {
-          describe('getInvite', () => {
-            it('should load invite', () => {
-              const orgId = 'my_org'
-              const inviteId = 'invite-id'
-
-              const invite = {
-                exists: true,
-                data: () => ({
-                  firstname: 'Max',
-                  lastname: 'Muster',
-                  deleted: false
-                })
-              }
-
-              const firestore = {
-                get: () => {}
-              }
-
-              return expectSaga(sagas.getInvite, orgId, inviteId)
-                .provide([
-                  [call(getFirestore), firestore],
-                  [
-                    call(firestore.get, {
-                      collection: 'organizations',
-                      doc: orgId,
-                      subcollections: [
-                        {
-                          collection: 'members',
-                          doc: inviteId
-                        }
-                      ]
-                    }),
-                    invite
-                  ]
-                ])
-                .returns(invite)
-                .run()
-            })
-          })
-
           describe('fetchInvite', () => {
             it('should fetch invite and set to store', () => {
-              const orgId = 'my_org'
+              const organizationId = 'my_org'
               const inviteId = 'invite-id'
 
               const invite = {
-                exists: true,
-                data: () => ({
-                  firstname: 'Max',
-                  lastname: 'Muster',
-                  deleted: false
-                })
+                accepted: false,
+                firstname: 'Max'
               }
 
-              const action = actions.fetchInvite(orgId, inviteId)
+              const action = actions.fetchInvite(organizationId, inviteId)
 
               return expectSaga(sagas.fetchInvite, action)
-                .provide([[call(sagas.getInvite, orgId, inviteId), invite]])
-                .put(actions.setInvite(invite.data()))
-                .run()
-            })
-
-            it('should fetch invite and set null if does not exist', () => {
-              const orgId = 'my_org'
-              const inviteId = 'invite-id'
-
-              const invite = {
-                exists: false
-              }
-
-              const action = actions.fetchInvite(orgId, inviteId)
-
-              return expectSaga(sagas.fetchInvite, action)
-                .provide([[call(sagas.getInvite, orgId, inviteId), invite]])
-                .put(actions.setInvite(null))
+                .provide([
+                  [
+                    call(callFunction, 'fetchInvite', {
+                      organizationId,
+                      inviteId
+                    }),
+                    { data: invite }
+                  ]
+                ])
+                .put(actions.setInvite(invite))
                 .run()
             })
           })
