@@ -229,7 +229,7 @@
   "organization.aerodrome.create.dialog.buttons.cancel": "Cancel",
   "organization.aerodrome.create.dialog.buttons.create": "Create aerodrome",
   "organization.invite.greeting": "Hello {firstname}!",
-  "organization.invite.text": "You have been invited to joun the organzation {organization}.",
+  "organization.invite.text": "You have been invited to join the organzation {organization}.",
   "organization.invite.login": "Please log in to continue.",
   "organization.invite.accept": "Join with account {account}",
   "organization.invite.change_account": "Join with a different account",
