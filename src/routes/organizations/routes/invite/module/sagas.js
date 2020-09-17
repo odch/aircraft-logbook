@@ -1,11 +1,6 @@
-import { takeEvery, all, call, put, select } from 'redux-saga/effects'
+import { takeEvery, all, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { callFunction } from '../../../../../util/firebase'
-import {
-  getDoc,
-  updateDoc,
-  addArrayItem
-} from '../../../../../util/firestoreUtils'
 import { fetchOrganizations } from '../../../../../modules/app'
 
 export const uidSelector = state => state.firebase.auth.uid
@@ -20,17 +15,10 @@ export function* fetchInvite({ payload: { organizationId, inviteId } }) {
 
 export function* acceptInvite({ payload: { organizationId, inviteId } }) {
   yield put(actions.setAcceptInProgress())
-  const uid = yield select(uidSelector)
-  const user = yield call(getDoc, ['users', uid])
-  yield call(
-    updateDoc,
-    ['organizations', organizationId, 'members', inviteId],
-    {
-      user: user.ref
-    }
-  )
-  const org = yield call(getDoc, ['organizations', organizationId])
-  yield call(addArrayItem, ['users', user.id], 'organizations', org.ref)
+  yield call(callFunction, 'acceptInvite', {
+    organizationId,
+    inviteId
+  })
   yield put(fetchOrganizations())
   yield put(actions.fetchInvite(organizationId, inviteId))
 }
