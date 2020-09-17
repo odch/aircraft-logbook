@@ -43,42 +43,28 @@ describe('routes', () => {
           })
 
           describe('acceptInvite', () => {
-            it('should set user on invite', () => {
-              const orgId = 'my_org'
+            it('should call acceptInvite function', () => {
+              const organizationId = 'my_org'
               const inviteId = 'invite-id'
-              const uid = 'user-id'
 
-              const user = {
-                id: uid,
-                ref: { id: uid }
-              }
-
-              const org = {
-                id: orgId,
-                ref: { id: orgId }
-              }
-
-              const action = actions.acceptInvite(orgId, inviteId)
+              const action = actions.acceptInvite(organizationId, inviteId)
 
               return expectSaga(sagas.acceptInvite, action)
                 .provide([
-                  [select(sagas.uidSelector), uid],
-                  [call(getDoc, ['users', uid]), user],
                   [
-                    call(
-                      updateDoc,
-                      ['organizations', orgId, 'members', inviteId],
-                      {
-                        user: user.ref
-                      }
-                    )
-                  ],
-                  [call(getDoc, ['organizations', orgId]), org],
-                  [call(addArrayItem, ['users', uid], 'organizations', org.ref)]
+                    call(callFunction, 'acceptInvite', {
+                      organizationId,
+                      inviteId
+                    })
+                  ]
                 ])
                 .put(actions.setAcceptInProgress())
+                .call(callFunction, 'acceptInvite', {
+                  organizationId,
+                  inviteId
+                })
                 .put(fetchOrganizations())
-                .put(actions.fetchInvite(orgId, inviteId))
+                .put(actions.fetchInvite(organizationId, inviteId))
                 .run()
             })
           })
