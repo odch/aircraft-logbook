@@ -146,7 +146,7 @@ class CreateCheckDialog extends React.Component {
         )}
         value={this.props.data[name]}
         onChange={onChange}
-        format="L"
+        format="DD.MM.YYYY"
         data-cy={`${name}-field`}
         margin="normal"
         fullWidth
