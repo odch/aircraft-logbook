@@ -1,4 +1,8 @@
-import { loadAerodromes, loadMembers } from './flightDialogUtils'
+import {
+  loadAerodromes,
+  loadMembers,
+  loadInstructors
+} from './flightDialogUtils'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -75,6 +79,41 @@ describe('routes', () => {
                 const callback = jest.fn()
                 loadMembers(state)('asdfjklöfas', callback)
                 expect(callback).toHaveBeenCalledWith([])
+              })
+            })
+
+            describe('loadInstructors', () => {
+              const state = {
+                firestore: {
+                  ordered: {
+                    organizationMembers: [
+                      {
+                        id: '2',
+                        lastname: 'Meier',
+                        firstname: 'Hans',
+                        nr: '33492',
+                        instructor: true
+                      },
+                      {
+                        id: '3',
+                        lastname: 'Meierhans',
+                        firstname: 'Heinz',
+                        nr: '33491'
+                      }
+                    ]
+                  }
+                }
+              }
+
+              it('should return instructors only', () => {
+                const callback = jest.fn()
+                loadInstructors(state)('mei', callback)
+                expect(callback).toHaveBeenCalledWith([
+                  {
+                    value: '2',
+                    label: 'Meier Hans'
+                  }
+                ])
               })
             })
 

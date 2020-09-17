@@ -1,5 +1,5 @@
 {
-  "login.email": "E-Mail",
+  "login.email": "E-mail",
   "login.password": "Password",
   "login.login": "Log in",
   "login.logout": "Log out",
@@ -7,17 +7,14 @@
   "login.registration": "No account yet? Register here!",
   "login.or": "or",
   "login.google": "Sign in with Google",
-
   "registration.firstname": "First name",
   "registration.lastname": "Last name",
-  "registration.email": "E-Mail",
+  "registration.email": "E-mail",
   "registration.password": "Password",
   "registration.register": "Register",
   "registration.failed": "Registration has failed.",
-
   "menu.account.organizations": "My Organizations",
   "menu.account.organizationsettings": "Organization settings",
-
   "organizations.create": "Create new organization",
   "organizations.create.dialog.title": "Create new organization",
   "organizations.create.dialog.text": "Please enter the name of your organization.",
@@ -30,9 +27,7 @@
   "organizations.delete.dialog.id": "Name",
   "organizations.delete.dialog.buttons.cancel": "Cancel",
   "organizations.delete.dialog.buttons.delete": "Delete organization",
-
   "aircraftdetail.settings": "Edit settings",
-
   "aircraftdetail.checks": "Next checks",
   "aircraftdetail.checks.date.text": "on {date}",
   "aircraftdetail.checks.date.remaining": "{diff} remaining",
@@ -40,7 +35,6 @@
   "aircraftdetail.checks.counter.text": "at {limit}",
   "aircraftdetail.checks.counter.remaining": "{diff} {counterName} remaining",
   "aircraftdetail.checks.counter.due": "{diff} {counterName} overdue",
-
   "aircraftdetail.techlog": "Open Techlog entries",
   "aircraftdetail.techlog.all": "Show all",
   "aircraftdetail.techlog.none": "No entries.",
@@ -48,7 +42,6 @@
   "aircraftdetail.techlog.action.none": "No updates.",
   "aircraftdetail.techlog.action.create": "Enter action",
   "aircraftdetail.techlog.action.signature": "Signature",
-
   "techlog.entry.status.for_information_only": "For information only",
   "techlog.entry.status.not_airworthy": "Not airworthy",
   "techlog.entry.status.not_flight_relevant": "Not flight relevant",
@@ -56,17 +49,14 @@
   "techlog.entry.status.crs": "CRS",
   "techlog.entry.status.crs_check": "CRS Check",
   "techlog.entry.status.annual_review": "Annual check",
-
   "aircraft.techlog": "Techlog",
   "aircraft.techlog.tooverview": "Back to overview",
-
   "aircraft.techlog.create.dialog.title": "Create Techlog entry",
   "aircraft.techlog.create.dialog.description": "Description",
   "aircraft.techlog.create.dialog.status": "Status",
   "aircraft.techlog.create.dialog.addattachment": "Add file",
   "aircraft.techlog.create.dialog.buttons.cancel": "Cancel",
   "aircraft.techlog.create.dialog.buttons.create": "Save",
-
   "aircraft.techlog.action.create.dialog.title": "Create update",
   "aircraft.techlog.action.create.dialog.description": "Description",
   "aircraft.techlog.action.create.dialog.status": "New status",
@@ -74,15 +64,12 @@
   "aircraft.techlog.action.create.dialog.addattachment": "Attach file",
   "aircraft.techlog.action.create.dialog.buttons.cancel": "Cancel",
   "aircraft.techlog.action.create.dialog.buttons.create": "Save",
-
   "aircraftdetail.flights": "Latest flights",
   "aircraftdetail.flights.all": "Show all",
   "aircraftdetail.noflights": "No flights created.",
   "aircraftdetail.createflight": "Create flight",
-
   "aircraft.flights": "Flights",
   "aircraft.flights.tooverview": "Back to overview",
-
   "flightlist.flight.heading": "From {departureAerodrome} to {destinationAerodrome} — {firstname} {lastname}",
   "flightlist.date": "Date",
   "flightlist.pilot": "Pilot",
@@ -110,7 +97,6 @@
   "flightlist.total.flighthours": "Flight hours total",
   "flightlist.total.enginehours": "Motor hours total",
   "flightlist.total.landings": "Landings total",
-
   "flight.create.dialog.title_create": "Create flight",
   "flight.create.dialog.title_update": "Edit flight",
   "flight.create.dialog.date": "Date",
@@ -147,7 +133,6 @@
   "flight.create.dialog.techlogentryattachment.add": "Append file",
   "flight.create.dialog.buttons.cancel": "Cancel",
   "flight.create.dialog.buttons.create": "Save",
-
   "flight.create.dialog.validation.date.invalid": "Please enter a valid date",
   "flight.create.dialog.validation.pilot.required": "Please select a pilot",
   "flight.create.dialog.validation.nature.required": "Please choose nature of flight",
@@ -182,7 +167,6 @@
   "flight.create.dialog.counters.landings.start": "Total number of landings before this flight",
   "flight.create.dialog.counters.flighthours.start": "Total number of flight hours before this flight",
   "flight.create.dialog.counters.enginehours.start": "Total number of engine hours before this flight",
-
   "flight.delete.dialog.title": "Delete flight",
   "flight.delete.dialog.text": "Are you sure you want to delete this flight?",
   "flight.delete.dialog.date": "Date",
@@ -193,7 +177,6 @@
   "flight.delete.dialog.blockontime": "Block on",
   "flight.delete.dialog.buttons.cancel": "Cancel",
   "flight.delete.dialog.buttons.delete": "Delete flight",
-
   "flight.nature.vp": "Charter VFR",
   "flight.nature.ip": "Charter IFR",
   "flight.nature.vs": "Schulung VFR",
@@ -203,43 +186,35 @@
   "flight.nature.tr": "Schnupperflug",
   "flight.nature.tec": "Technical Flight",
   "flight.nature.vc": "Commercial Flight VFR",
-
-  "organization.notfound": "The organization <strong>{organizationId}</strong> was not found or your account <strong>{userEmail}</strong> does not have permissions to access this organization. Please contact the administrator of your organization.",
-
+  "organization.notfound": "The organisation <strong>{organizationId}</strong> was not found or your account <strong>{userEmail}</strong> does not have permissions to access this organisation. Please contact the administrator of your organisation.",
   "organization.role.owner": "Owner",
   "organization.role.manager": "Manager",
   "organization.role.techlogmanager": "Techlog-Manager",
   "organization.role.user": "User",
-
   "organization.settings.createmember": "Add pilot",
-
   "organization.settings.member.edit": "Edit",
   "organization.settings.member.delete": "Delete",
-
   "organization.member.create.dialog.title": "Add pilot",
   "organization.member.create.dialog.firstname": "First name",
   "organization.member.create.dialog.lastname": "Last name",
   "organization.member.create.dialog.nr": "Number",
-  "organization.member.create.dialog.inviteEmail": "Invitation by E-Mail",
+  "organization.member.create.dialog.inviteEmail": "Invitation by e-mail",
   "organization.member.create.dialog.buttons.cancel": "Cancel",
   "organization.member.create.dialog.buttons.create": "Add Pilot",
-  "organization.member.create.dialog.invitation.text": "Please enter a valid E-Mail address in the following field to send an invitation (it can take a few minutes until the invitation is sent). You can also enter an E-Mail address later to send an invitiation.",
-
+  "organization.member.create.dialog.invitation.text": "Please enter a valid e-mail address in the following field to send an invitation (it can take a few minutes for the invitation to be sent). You can also enter an e-mail address later to send an invitiation.",
   "organization.member.edit.dialog.title": "Edit pilot",
   "organization.member.edit.dialog.firstname": "First name",
   "organization.member.edit.dialog.lastname": "Last name",
   "organization.member.edit.dialog.nr": "Number",
-  "organization.member.edit.dialog.inviteEmail": "Invite by E-Mail",
+  "organization.member.edit.dialog.inviteEmail": "Invite by e-mail",
   "organization.member.edit.dialog.buttons.cancel": "Cancel",
   "organization.member.edit.dialog.buttons.save": "Save changes",
   "organization.member.edit.dialog.invitation.text_invited": "The invite was sent on {inviteDate} at {inviteTime}. The pilot has not accepted the invitation yet.",
   "organization.member.edit.dialog.invitation.checkbox_reinvite": "Send invite again (it can take a few minutes until the invitation is sent again)",
-  "organization.member.edit.dialog.invitation.text_not_invited": "No invitation has been sent to this pilot. Please enter an E-Mail address in the following field and save the change to send an invite. (It can take a few minutes until the invitation is sent)",
-
+  "organization.member.edit.dialog.invitation.text_not_invited": "No invitation has been sent to this pilot. Please enter an e-mail address in the following field and save the change to send an invite (it can take a few minutes for the invitation to be sent).",
   "organization.settings.exportflights": "Export flights",
   "organization.settings.exportflights.startdate": "From date",
   "organization.settings.exportflights.enddate": "To date",
-
   "organization.member.delete.dialog.title": "Delete pilot",
   "organization.member.delete.dialog.text": "Are you sure you want to delete this pilot?",
   "organization.member.delete.dialog.firstname": "First name",
@@ -247,23 +222,20 @@
   "organization.member.delete.dialog.nr": "Number",
   "organization.member.delete.dialog.buttons.cancel": "Cancel",
   "organization.member.delete.dialog.buttons.delete": "Delete Pilot",
-
   "organization.aerodrome.create.dialog.title": "Create aerodrome",
   "organization.aerodrome.create.dialog.identification": "ICAO-Code",
   "organization.aerodrome.create.dialog.name": "Name",
   "organization.aerodrome.create.dialog.timezone": "Time zone",
   "organization.aerodrome.create.dialog.buttons.cancel": "Cancel",
   "organization.aerodrome.create.dialog.buttons.create": "Create aerodrome",
-
   "organization.invite.greeting": "Hello {firstname}!",
-  "organization.invite.text": "You have been invited to joun the organzation {organization}.",
+  "organization.invite.text": "You have been invited to join the organzation {organization}.",
   "organization.invite.login": "Please log in to continue.",
   "organization.invite.accept": "Join with account {account}",
   "organization.invite.change_account": "Join with a different account",
   "organization.invite.invalid": "This invitation is no longer valid.",
   "organization.invite.pending": "Not joined yet (invited on {inviteDate} at {inviteTime})",
   "organization.invite.notsent": "No invitation sent",
-
   "aircraft.settings.checks": "Checks",
   "aircraft.settings.checks.none": "No checks entered",
   "aircraft.settings.checks.create": "Add check",
@@ -274,24 +246,47 @@
   "aircraft.settings.check.create.dialog.counterlimit": "Limit (Counter)",
   "aircraft.settings.check.create.dialog.buttons.cancel": "Cancel",
   "aircraft.settings.check.create.dialog.buttons.create": "Add check",
-
   "aircraft.settings.check.delete": "Delete",
-
   "aircraft.settings.check.delete.dialog.title": "Delete check",
   "aircraft.settings.check.delete.dialog.text": "Are you sure you want to delete the check {check}?",
   "aircraft.settings.check.delete.dialog.buttons.cancel": "Cancel",
   "aircraft.settings.check.delete.dialog.buttons.delete": "Delete check",
-
   "aircraft.settings.fueltypes": "Types of fuel",
   "aircraft.settings.fueltypes.none": "No types of fuels have been added",
   "aircraft.settings.fueltypes.create": "Add type of fuel",
   "aircraft.settings.fueltype.create.dialog.title": "Choose type of fuel",
-  "aircraft.settings.fueltype.create.dialog.name": "Identifier (only lowercase and _)",
+  "aircraft.settings.fueltype.create.dialog.name": "Identifier (only lowercase, digits and _)",
   "aircraft.settings.fueltype.create.dialog.description": "Description",
   "aircraft.settings.fueltype.create.dialog.buttons.cancel": "Cancel",
   "aircraft.settings.fueltype.create.dialog.buttons.create": "Add type of fuel",
-
   "aircraft.counter.flighthours": "Flight hours",
   "aircraft.counter.enginehours": "Motor hours",
-  "aircraft.counter.landings": "Landings"
+  "aircraft.counter.landings": "Landings",
+  "aircraft.settings.advanced.enginehourscounterfractiondigits": "Number of decimal places for engine hour counter",
+  "aircraft.settings.advanced.enginehourscounterenabled": "Motor hours counter enabled",
+  "aircraft.settings.advanced.techlogenabled": "Techlog enabled",
+  "aircraft.settings.advanced": "Advanced settings",
+  "aircraft.settings.fueltype.delete.dialog.buttons.delete": "Delete type",
+  "aircraft.settings.fueltype.delete.dialog.buttons.cancel": "Cancel",
+  "aircraft.settings.fueltype.delete.dialog.text": "Are you sure you want to delete type of fuel {fuelType}?",
+  "aircraft.settings.fueltype.delete.dialog.title": "Delete type of fuel",
+  "aircraft.settings.fueltype.delete": "Delete",
+  "organization.member.edit.dialog.instructor": "Instructor",
+  "organization.member.edit.dialog.roles": "Roles",
+  "organization.member.create.dialog.instructor": "Instructor",
+  "organization.member.create.dialog.roles": "Roles",
+  "organization.settings.member.instructor": "Instructor",
+  "organization.settings.member.none": "No pilot found",
+  "organization.settings.member.search": "Search",
+  "aircrafts.create.dialog.buttons.create": "Create",
+  "aircrafts.create.dialog.buttons.cancel": "Cancel",
+  "aircrafts.create.dialog.registration": "Call sign",
+  "aircrafts.create.dialog.text": "Enter the call sign of your new aircraft.",
+  "aircrafts.create.dialog.title": "Create new aircraft",
+  "aircrafts.create": "Create new aircraft",
+  "aircrafts.delete.dialog.buttons.delete": "Delete aircraft",
+  "aircrafts.delete.dialog.buttons.cancel": "Cancel",
+  "aircrafts.delete.dialog.title": "Delete aircraft",
+  "aircrafts.delete": "Delete aircraft",
+  "aircrafts.create.dialog.duplicate": "There is already an aircraft with this registration."
 }

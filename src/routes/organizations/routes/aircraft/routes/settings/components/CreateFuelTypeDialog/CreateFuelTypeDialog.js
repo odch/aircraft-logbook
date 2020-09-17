@@ -24,7 +24,10 @@ class CreateFuelTypeDialog extends React.Component {
   }
 
   handleNameChange = e => {
-    this.updateData('name', e.target.value.toLowerCase())
+    this.updateData(
+      'name',
+      e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '')
+    )
   }
 
   updateData = (name, value) => {

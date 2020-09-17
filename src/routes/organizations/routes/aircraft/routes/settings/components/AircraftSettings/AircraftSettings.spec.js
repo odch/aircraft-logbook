@@ -2,7 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import renderIntl from '../../../../../../../../testutil/renderIntl'
+import renderIntl, {
+  renderIntlUpdate
+} from '../../../../../../../../testutil/renderIntl'
 import AircraftSettings from './AircraftSettings'
 
 const StartPage = () => <div>Start Page</div>
@@ -121,6 +123,12 @@ describe('routes', () => {
                       },
                       createFuelTypeDialog: {
                         open: false
+                      },
+                      deleteFuelTypeDialog: {
+                        open: false
+                      },
+                      advancedSettings: {
+                        submitting: false
                       }
                     }
                   })
@@ -129,6 +137,61 @@ describe('routes', () => {
                       <Router>
                         <AircraftSettings
                           organization={{ id: 'my_org', roles: ['manager'] }}
+                          aircraft={{
+                            id: 'o7flC7jw8jmkOfWo8oyA',
+                            registration: 'HBKFW'
+                          }}
+                          fetchAircrafts={() => {}}
+                          deleteAircraftDialog={{ open: false }}
+                        />
+                      </Router>
+                    </Provider>
+                  ).toJSON()
+                  expect(tree).toMatchSnapshot()
+                })
+
+                it('renders only certain fields for techlogmanager', () => {
+                  const store = configureStore()({
+                    firestore: {
+                      data: {
+                        organizationAircrafts: {
+                          o7flC7jw8jmkOfWo8oyA: {
+                            settings: {
+                              fuelTypes: [
+                                { name: 'avgas', description: 'AvGas' },
+                                { name: 'mogas', description: 'MoGas' }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    aircraftSettings: {
+                      createCheckDialog: {
+                        open: false
+                      },
+                      deleteCheckDialog: {
+                        open: false
+                      },
+                      createFuelTypeDialog: {
+                        open: false
+                      },
+                      deleteFuelTypeDialog: {
+                        open: false
+                      },
+                      advancedSettings: {
+                        submitting: false
+                      }
+                    }
+                  })
+                  const tree = renderIntl(
+                    <Provider store={store}>
+                      <Router>
+                        <AircraftSettings
+                          organization={{
+                            id: 'my_org',
+                            roles: ['techlogmanager']
+                          }}
                           aircraft={{
                             id: 'o7flC7jw8jmkOfWo8oyA',
                             registration: 'HBKFW'
@@ -182,7 +245,8 @@ describe('routes', () => {
 
                   expect(fetchAircrafts).not.toBeCalled()
 
-                  renderer.update(
+                  renderIntlUpdate(
+                    renderer,
                     <AircraftSettings
                       organization={{ id: 'my_org' }}
                       aircraft={undefined}

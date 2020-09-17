@@ -81,6 +81,7 @@ class EditMemberDialog extends React.Component {
             {this.renderTextField('lastname', false, true)}
             {this.renderTextField('nr', false, false)}
             {this.renderMultiSelect('roles', roles)}
+            {this.renderCheckbox('instructor')}
             {this.renderInviteEmailField()}
           </DialogContent>
           <DialogActions>
@@ -156,6 +157,24 @@ class EditMemberDialog extends React.Component {
           ))}
         </Select>
       </FormControl>
+    )
+  }
+
+  renderCheckbox(name) {
+    return (
+      <FormControlLabel
+        value={name}
+        control={
+          <Checkbox
+            color="primary"
+            checked={this.props.data[name] === true}
+            onChange={this.handleCheckboxChange(name)}
+          />
+        }
+        label={this.msg(`organization.member.edit.dialog.${name}`)}
+        labelPlacement="end"
+        disabled={this.props.submitting}
+      />
     )
   }
 

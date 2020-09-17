@@ -1,16 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
+import { injectIntl } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import isLoaded from '../../../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
-  aircraft as aircraftShape
+  aircraft as aircraftShape,
+  intl as intlShape
 } from '../../../../../../../../shapes'
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
+import DeleteButton from '../../../../../../../../components/DeleteButton'
 import Checks from '../../containers/ChecksContainer'
 import FuelTypes from '../../containers/FuelTypesContainer'
+import AdvancedSettings from '../../containers/AdvancedSettingsContainer'
+import DeleteAircraftDialog from '../DeleteAircraftDialog'
 
 const styles = theme => ({
   container: {
@@ -20,14 +26,21 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  divider: {
+    margin: theme.spacing(0.2) + 'em'
+  },
+  deleteButtonContainer: {
+    textAlign: 'center'
   }
 })
 
 class AircraftSettings extends React.Component {
-  isOrganizationOrTechlogManager = () =>
-    this.props.organization.roles.some(role =>
-      ['manager', 'techlogmanager'].includes(role)
-    )
+  isOrganizationManager = () =>
+    this.props.organization.roles.includes('manager')
+
+  isTechlogManager = () =>
+    this.props.organization.roles.includes('techlogmanager')
 
   componentDidMount() {
     const { organization, fetchAircrafts } = this.props
@@ -49,7 +62,16 @@ class AircraftSettings extends React.Component {
   }
 
   render() {
-    const { organization, aircraft, classes } = this.props
+    const {
+      organization,
+      aircraft,
+      deleteAircraftDialog,
+      classes,
+      deleteAircraft,
+      openDeleteAircraftDialog,
+      closeDeleteAircraftDialog,
+      intl
+    } = this.props
 
     if (organization === null) {
       return <Redirect to="/" />
@@ -63,7 +85,7 @@ class AircraftSettings extends React.Component {
       return <Redirect to={`/organizations/${organization.id}`} />
     }
 
-    if (!this.isOrganizationOrTechlogManager()) {
+    if (!this.isOrganizationManager() && !this.isTechlogManager()) {
       return (
         <Redirect
           to={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
@@ -76,8 +98,40 @@ class AircraftSettings extends React.Component {
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
         </Typography>
-        <Checks organizationId={organization.id} aircraftId={aircraft.id} />
-        <FuelTypes organizationId={organization.id} aircraftId={aircraft.id} />
+        {(this.isOrganizationManager() || this.isTechlogManager()) && (
+          <Checks organizationId={organization.id} aircraftId={aircraft.id} />
+        )}
+        {this.isOrganizationManager() && (
+          <>
+            <FuelTypes
+              organizationId={organization.id}
+              aircraftId={aircraft.id}
+            />
+            <AdvancedSettings
+              organizationId={organization.id}
+              aircraftId={aircraft.id}
+            />
+            <Divider className={classes.divider} />
+            <div className={classes.deleteButtonContainer}>
+              <DeleteButton
+                label={intl.formatMessage({
+                  id: 'aircrafts.delete'
+                })}
+                onClick={openDeleteAircraftDialog}
+                data-cy="aircraft-delete-button"
+              />
+            </div>
+            <DeleteAircraftDialog
+              organizationId={organization.id}
+              aircraftId={aircraft.id}
+              registration={aircraft.registration}
+              open={deleteAircraftDialog.open}
+              submitting={deleteAircraftDialog.submitting}
+              onConfirm={() => deleteAircraft(organization.id, aircraft.id)}
+              onClose={closeDeleteAircraftDialog}
+            />
+          </>
+        )}
       </div>
     )
   }
@@ -86,8 +140,16 @@ class AircraftSettings extends React.Component {
 AircraftSettings.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
+  deleteAircraftDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitting: PropTypes.bool
+  }).isRequired,
   classes: PropTypes.object.isRequired,
-  fetchAircrafts: PropTypes.func.isRequired
+  fetchAircrafts: PropTypes.func.isRequired,
+  openDeleteAircraftDialog: PropTypes.func.isRequired,
+  closeDeleteAircraftDialog: PropTypes.func.isRequired,
+  deleteAircraft: PropTypes.func.isRequired,
+  intl: intlShape
 }
 
-export default withStyles(styles)(AircraftSettings)
+export default withStyles(styles)(injectIntl(AircraftSettings))

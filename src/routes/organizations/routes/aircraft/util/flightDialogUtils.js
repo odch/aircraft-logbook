@@ -30,18 +30,23 @@ export const aircraftSettings = (state, aircraftId) => {
       fuelTypes: fuelTypeOptions,
       engineHoursCounterEnabled:
         aircraftSettings.engineHoursCounterEnabled === true,
+      engineHoursCounterFractionDigits:
+        aircraftSettings.engineHoursCounterFractionDigits,
       techlogEnabled: aircraftSettings.techlogEnabled === true
     }
   }
 }
 
-export const loadMembers = state => (input, callback) => {
+const filterMembers = (state, input, instructorsOnly) => {
   const members = state.firestore.ordered.organizationMembers
 
   input = input.toLowerCase()
 
-  const result = members
+  return members
     .filter(member => {
+      if (instructorsOnly === true && member.instructor !== true) {
+        return false
+      }
       if (member.firstname && member.firstname.toLowerCase().includes(input)) {
         return true
       }
@@ -51,8 +56,14 @@ export const loadMembers = state => (input, callback) => {
       return !!(member.nr && member.nr.toLowerCase().includes(input))
     })
     .map(getMemberOption)
+}
 
-  callback(result)
+export const loadMembers = state => (input, callback) => {
+  callback(filterMembers(state, input, false))
+}
+
+export const loadInstructors = state => (input, callback) => {
+  callback(filterMembers(state, input, true))
 }
 
 export const loadAerodromes = state => (input, callback) => {

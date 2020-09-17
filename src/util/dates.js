@@ -6,7 +6,7 @@ import moment from 'moment-timezone'
  * @returns the formatted date in the current MomentJS locale (without time)
  */
 export const formatDate = (timestamp, timezone = moment.tz.guess()) =>
-  moment(timestamp.toDate()).tz(timezone).format('L')
+  moment(timestamp.toDate()).tz(timezone).format('DD.MM.YYYY')
 
 /**
  * @param timestamp The Firestore timestamp to calculate the duration to

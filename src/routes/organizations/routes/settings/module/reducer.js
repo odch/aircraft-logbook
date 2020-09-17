@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: ''
     }
   },
@@ -28,6 +29,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: '',
       reinvite: false
     }
@@ -46,7 +48,8 @@ export const INITIAL_STATE = {
     }
   },
   members: {
-    page: 0
+    page: 0,
+    filter: ''
   }
 }
 
@@ -133,6 +136,7 @@ const openEditMemberDialog = (state, { payload: { member } }) => ({
       lastname: member.lastname,
       nr: member.nr,
       roles: member.roles || [],
+      instructor: member.instructor || false,
       inviteEmail: member.inviteEmail
     }
   }
@@ -168,7 +172,16 @@ const updateEditMemberDialogSubmitting = (state, submitting) => ({
 const setMembersPage = (state, action) => ({
   ...state,
   members: {
-    page: action.payload.page
+    page: action.payload.page,
+    filter: state.members.filter
+  }
+})
+
+const setMembersFilter = (state, action) => ({
+  ...state,
+  members: {
+    page: 0,
+    filter: action.payload.filter
   }
 })
 
@@ -216,6 +229,7 @@ const ACTION_HANDLERS = {
   [actions.UPDATE_MEMBER_SUCCESS]: closeEditMemberDialog,
   [actions.UPDATE_MEMBER_FAILURE]: unsetEditMemberDialogSubmitting,
   [actions.SET_MEMBERS_PAGE]: setMembersPage,
+  [actions.SET_MEMBERS_FILTER]: setMembersFilter,
   [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,
   [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData
 }

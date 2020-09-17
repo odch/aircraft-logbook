@@ -1,10 +1,11 @@
 import route from './route'
 import OrganizationPage from './components/OrganizationPage'
-import organizations, { sagas } from '../../module'
+import organizations, { sagas as organizationSagas } from '../../module'
 import {
   selectOrganizationOnHistoryChange,
   selectOrganizationOnLoad
 } from '../../util/selectOrganization'
+import organizationDetail, { sagas as organizationDetailSagas } from './module'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -14,9 +15,11 @@ describe('routes', () => {
           it('should export the right things', () => {
             expect(route).toEqual({
               container: OrganizationPage,
-              reducer: organizations,
-              reducerName: 'organizations',
-              sagas: [sagas],
+              reducers: {
+                organizations,
+                organizationDetail
+              },
+              sagas: [organizationSagas, organizationDetailSagas],
               onLoad: selectOrganizationOnLoad,
               historyListeners: {
                 selectOrganization: selectOrganizationOnHistoryChange

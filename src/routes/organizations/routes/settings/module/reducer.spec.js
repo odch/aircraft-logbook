@@ -11,6 +11,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: ''
     }
   },
@@ -27,6 +28,7 @@ export const INITIAL_STATE = {
       lastname: '',
       nr: '',
       roles: [],
+      instructor: false,
       inviteEmail: '',
       reinvite: false
     }
@@ -45,7 +47,8 @@ export const INITIAL_STATE = {
     }
   },
   members: {
-    page: 0
+    page: 0,
+    filter: ''
   }
 }
 
@@ -70,6 +73,7 @@ describe('routes', () => {
                       lastname: 'Meier',
                       nr: '34534',
                       roles: ['manager', 'techlogmanager'],
+                      instructor: true,
                       inviteEmail: ''
                     }
                   }
@@ -85,6 +89,7 @@ describe('routes', () => {
                   lastname: '',
                   nr: '',
                   roles: [],
+                  instructor: false,
                   inviteEmail: ''
                 }
               }
@@ -255,6 +260,7 @@ describe('routes', () => {
               lastname: 'Keller',
               nr: '34345',
               roles: ['manager', 'techlogmanager'],
+              instructor: true,
               inviteEmail: 'hans@keller.ch'
             }
 
@@ -269,6 +275,7 @@ describe('routes', () => {
                       lastname: '',
                       nr: '',
                       roles: [],
+                      instructor: false,
                       inviteEmail: ''
                     }
                   }
@@ -285,6 +292,7 @@ describe('routes', () => {
                   lastname: 'Keller',
                   nr: '34345',
                   roles: ['manager', 'techlogmanager'],
+                  instructor: true,
                   inviteEmail: 'hans@keller.ch'
                 }
               }
@@ -399,6 +407,25 @@ describe('routes', () => {
             ).toEqual({
               members: {
                 page: 2
+              }
+            })
+          })
+
+          it('handles SET_MEMBERS_FILTER action', () => {
+            expect(
+              reducer(
+                {
+                  members: {
+                    page: 3,
+                    filter: ''
+                  }
+                },
+                actions.setMembersFilter('hans')
+              )
+            ).toEqual({
+              members: {
+                page: 0,
+                filter: 'hans'
               }
             })
           })

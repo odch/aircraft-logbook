@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components DecimalField renders correctly 1`] = `
+exports[`components DecimalField renders correctly (2 fraction digits by default) 1`] = `
 "<div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"test-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled\\" data-shrink=\\"true\\">test field</label>
   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\".01\\" value=\\"4844.78\\"></div>
+</div>"
+`;
+
+exports[`components DecimalField renders correctly with 1 fraction digit 1`] = `
+"<div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"test-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled\\" data-shrink=\\"true\\">test field</label>
+  <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\"><input aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input\\" type=\\"number\\" step=\\"0.1\\" value=\\"4844.7\\"></div>
 </div>"
 `;
 

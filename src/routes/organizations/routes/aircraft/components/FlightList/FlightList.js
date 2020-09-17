@@ -109,7 +109,7 @@ class FlightList extends React.Component {
         </Button>
         <div className={classes.container}>
           {flights.length > 0 ? this.renderFlights() : this.renderNoFlights()}
-          {!hidePagination && (
+          {!hidePagination && flights.length > 0 && (
             <TablePagination
               component="div"
               count={pagination.rowsCount}

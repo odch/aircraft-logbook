@@ -25,6 +25,18 @@ export const INITIAL_STATE = {
       name: '',
       description: ''
     }
+  },
+  deleteFuelTypeDialog: {
+    open: false,
+    submitting: false,
+    fuelType: null
+  },
+  advancedSettings: {
+    submitting: {}
+  },
+  deleteAircraftDialog: {
+    open: false,
+    submitting: false
   }
 }
 
@@ -302,6 +314,146 @@ describe('routes', () => {
                   )
                 ).toEqual({
                   deleteCheckDialog: {
+                    submitting: true
+                  }
+                })
+              })
+
+              it('handles OPEN_DELETE_FUEL_TYPE_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        submitting: true,
+                        open: false,
+                        fuelType: {
+                          name: 'jet_a1',
+                          description: 'Jet A1'
+                        }
+                      }
+                    },
+                    actions.openDeleteFuelTypeDialog({
+                      name: 'diesel',
+                      description: 'Diesel'
+                    })
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
+                    ...INITIAL_STATE.deleteFuelTypeDialog,
+                    open: true,
+                    fuelType: {
+                      name: 'diesel',
+                      description: 'Diesel'
+                    }
+                  }
+                })
+              })
+
+              it('handles CLOSE_DELETE_FUEL_TYPE_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        open: true
+                      }
+                    },
+                    actions.closeDeleteFuelTypeDialog()
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
+                    open: false
+                  }
+                })
+              })
+
+              it('handles SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteFuelTypeDialog: {
+                        submitting: false
+                      }
+                    },
+                    actions.setDeleteFuelTypeDialogSubmitting()
+                  )
+                ).toEqual({
+                  deleteFuelTypeDialog: {
+                    submitting: true
+                  }
+                })
+              })
+
+              it('handles SET_SETTING_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      advancedSettings: {
+                        submitting: {
+                          techlogEnabled: false,
+                          engineHoursCounterEnabled: true
+                        }
+                      }
+                    },
+                    actions.setSettingSubmitting('techlogEnabled', true)
+                  )
+                ).toEqual({
+                  advancedSettings: {
+                    submitting: {
+                      techlogEnabled: true,
+                      engineHoursCounterEnabled: true
+                    }
+                  }
+                })
+              })
+
+              it('handles OPEN_DELETE_AIRCRAFT_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        submitting: true,
+                        open: false
+                      }
+                    },
+                    actions.openDeleteAircraftDialog()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
+                    ...INITIAL_STATE.deleteAircraftDialog,
+                    open: true
+                  }
+                })
+              })
+
+              it('handles CLOSE_DELETE_AIRCRAFT_DIALOG action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        open: true
+                      }
+                    },
+                    actions.closeDeleteAircraftDialog()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
+                    open: false
+                  }
+                })
+              })
+
+              it('handles SET_DELETE_AIRCRAFT_DIALOG_SUBMITTING action', () => {
+                expect(
+                  reducer(
+                    {
+                      deleteAircraftDialog: {
+                        submitting: false
+                      }
+                    },
+                    actions.setDeleteAircraftDialogSubmitting()
+                  )
+                ).toEqual({
+                  deleteAircraftDialog: {
                     submitting: true
                   }
                 })

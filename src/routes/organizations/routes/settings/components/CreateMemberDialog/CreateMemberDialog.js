@@ -16,8 +16,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Checkbox from '@material-ui/core/Checkbox'
 import ListItemText from '@material-ui/core/ListItemText'
 import { withStyles } from '@material-ui/core/styles'
-import { intl as intlShape } from '../../../../../../shapes'
 import DialogContentText from '@material-ui/core/DialogContentText'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { intl as intlShape } from '../../../../../../shapes'
 
 const styles = theme => ({
   loadingIndicator: {
@@ -31,6 +32,10 @@ const styles = theme => ({
 class CreateMemberDialog extends React.Component {
   handleChange = name => e => {
     this.updateData(name, e.target.value)
+  }
+
+  handleCheckboxChange = name => e => {
+    this.updateData(name, e.target.checked)
   }
 
   updateData = (name, value) => {
@@ -60,7 +65,6 @@ class CreateMemberDialog extends React.Component {
 
   render() {
     const { roles, submitting, classes, onClose } = this.props
-    console.log('props', this.props)
     return (
       <Dialog onClose={this.handleClose} data-cy="member-create-dialog" open>
         <DialogTitle>
@@ -72,6 +76,7 @@ class CreateMemberDialog extends React.Component {
             {this.renderTextField('lastname', false, true)}
             {this.renderTextField('nr', false, false)}
             {this.renderMultiSelect('roles', roles)}
+            {this.renderCheckbox('instructor')}
             <DialogContentText className={classes.inviteText}>
               {this.msg('organization.member.create.dialog.invitation.text')}
             </DialogContentText>
@@ -150,6 +155,24 @@ class CreateMemberDialog extends React.Component {
           ))}
         </Select>
       </FormControl>
+    )
+  }
+
+  renderCheckbox(name) {
+    return (
+      <FormControlLabel
+        value={name}
+        control={
+          <Checkbox
+            color="primary"
+            checked={this.props.data[name] === true}
+            onChange={this.handleCheckboxChange(name)}
+          />
+        }
+        label={this.msg(`organization.member.create.dialog.${name}`)}
+        labelPlacement="end"
+        disabled={this.props.submitting}
+      />
     )
   }
 }

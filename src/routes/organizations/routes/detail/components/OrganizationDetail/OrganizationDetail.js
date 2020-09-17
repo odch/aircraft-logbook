@@ -49,7 +49,9 @@ class OrganizationDetail extends React.Component {
       userEmail,
       organization,
       aircrafts,
-      classes
+      createAircraftDialogOpen,
+      classes,
+      openCreateAircraftDialog
     } = this.props
 
     if (!isLoaded(organization)) {
@@ -80,7 +82,12 @@ class OrganizationDetail extends React.Component {
         <Typography variant="h4" gutterBottom>
           {organizationId}
         </Typography>
-        <AircraftList organization={organization} aircrafts={aircrafts} />
+        <AircraftList
+          organization={organization}
+          aircrafts={aircrafts}
+          createAircraftDialogOpen={createAircraftDialogOpen}
+          openCreateAircraftDialog={openCreateAircraftDialog}
+        />
       </>
     )
   }
@@ -96,8 +103,10 @@ OrganizationDetail.propTypes = {
   userEmail: PropTypes.string.isRequired,
   organization: organizationShape,
   aircrafts: PropTypes.arrayOf(aircraftShape),
+  createAircraftDialogOpen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
-  fetchAircrafts: PropTypes.func.isRequired
+  fetchAircrafts: PropTypes.func.isRequired,
+  openCreateAircraftDialog: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(OrganizationDetail)

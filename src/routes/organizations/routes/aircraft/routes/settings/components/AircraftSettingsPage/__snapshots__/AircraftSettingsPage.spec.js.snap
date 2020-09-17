@@ -61,7 +61,7 @@ Array [
     </div>
   </header>,
   <div
-    className="AircraftSettings-container-99"
+    className="injectIntl(AircraftSettings)-container-99"
   >
     <h4
       className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -139,6 +139,176 @@ Array [
       >
         Keine Treibstofftypen erfasst
       </p>
+    </div>
+    <h5
+      className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+    >
+      Erweiterte Einstellungen
+    </h5>
+    <ul
+      className="MuiList-root MuiList-padding"
+    >
+      <li
+        className="MuiListItem-container"
+      >
+        <div
+          className="MuiListItem-root MuiListItem-secondaryAction"
+          disabled={false}
+        >
+          <div
+            className="MuiListItemText-root"
+          >
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Motorstunden-Zähler aktiviert
+            </span>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <span
+            className="MuiSwitch-root MuiSwitch-edgeEnd"
+          >
+            <span
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-154 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label"
+              >
+                <span
+                  className="MuiSwitch-thumb"
+                />
+                <input
+                  checked={false}
+                  className="PrivateSwitchBase-input-157 MuiSwitch-input"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </span>
+            </span>
+            <span
+              className="MuiSwitch-track"
+            />
+          </span>
+        </div>
+      </li>
+      <li
+        className="MuiListItem-container"
+      >
+        <div
+          className="MuiListItem-root MuiListItem-secondaryAction"
+          disabled={false}
+        >
+          <div
+            className="MuiListItemText-root"
+          >
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Techlog aktiviert
+            </span>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <span
+            className="MuiSwitch-root MuiSwitch-edgeEnd"
+          >
+            <span
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-154 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label"
+              >
+                <span
+                  className="MuiSwitch-thumb"
+                />
+                <input
+                  checked={false}
+                  className="PrivateSwitchBase-input-157 MuiSwitch-input"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </span>
+            </span>
+            <span
+              className="MuiSwitch-track"
+            />
+          </span>
+        </div>
+      </li>
+    </ul>
+    <hr
+      className="MuiDivider-root injectIntl(AircraftSettings)-divider-100"
+    />
+    <div
+      className="injectIntl(AircraftSettings)-deleteButtonContainer-101"
+    >
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+        data-cy="aircraft-delete-button"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+            />
+          </svg>
+          Flugzeug löschen
+        </span>
+      </button>
     </div>
   </div>,
 ]

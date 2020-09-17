@@ -43,6 +43,11 @@ describe('routes', () => {
                       }
                     ]
                   }
+                },
+                organizationDetail: {
+                  createAircraftDialog: {
+                    open: false
+                  }
                 }
               }
               const store = configureStore()(state)

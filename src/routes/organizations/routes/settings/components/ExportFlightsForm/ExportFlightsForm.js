@@ -67,7 +67,7 @@ class ExportFlightsForm extends React.Component {
       onChange={this.handleDateChange(name)}
       className={this.props.classes.datePicker}
       disabled={this.props.submitting}
-      format="L"
+      format="DD.MM.YYYY"
       margin="normal"
       autoOk
     />

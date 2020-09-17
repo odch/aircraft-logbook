@@ -91,7 +91,8 @@ describe('util', () => {
 
         const organization = getOrganization(state, 'my_org')
         expect(organization).toEqual({
-          id: 'my_org'
+          id: 'my_org',
+          roles: []
         })
       })
     })
@@ -152,7 +153,8 @@ describe('util', () => {
             landings: 0,
             flightHours: 0,
             techlogEntries: 0
-          }
+          },
+          settings: {}
         })
       })
 
@@ -189,7 +191,8 @@ describe('util', () => {
             landings: 3,
             flightHours: 120,
             techlogEntries: 0
-          }
+          },
+          settings: {}
         })
       })
 
@@ -229,7 +232,8 @@ describe('util', () => {
             landings: 3,
             flightHours: 120,
             techlogEntries: 32
-          }
+          },
+          settings: {}
         })
       })
     })

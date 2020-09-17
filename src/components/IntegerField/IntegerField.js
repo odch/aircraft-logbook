@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 
 class IntegerField extends React.Component {
-  state = {
-    focused: false
+  constructor(props) {
+    super(props)
+    this.numberInput = React.createRef()
   }
 
   handleChange = e => {
@@ -18,21 +19,17 @@ class IntegerField extends React.Component {
   }
 
   handleFocus = () => {
-    this.setState({
-      focused: true
+    this.numberInput.current.addEventListener('wheel', this.handleWheel, {
+      passive: false // important to register as active listener to be able to use `preventDefault` in handle wheel
     })
   }
 
   handleBlur = () => {
-    this.setState({
-      focused: false
-    })
+    this.numberInput.current.removeEventListener('wheel', this.handleWheel)
   }
 
   handleWheel = e => {
-    if (this.state.focused === true) {
-      e.preventDefault() // prevent number from being changed by scrolling
-    }
+    e.preventDefault() // prevent number from being changed by scrolling
   }
 
   render() {
@@ -44,7 +41,7 @@ class IntegerField extends React.Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
-        onWheel={this.handleWheel}
+        inputRef={this.numberInput}
         cy={cy}
         type="number"
         margin={margin}

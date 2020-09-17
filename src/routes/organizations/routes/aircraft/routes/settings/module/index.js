@@ -9,7 +9,14 @@ import {
   createFuelType,
   openDeleteCheckDialog,
   closeDeleteCheckDialog,
-  deleteCheck
+  deleteCheck,
+  openDeleteFuelTypeDialog,
+  closeDeleteFuelTypeDialog,
+  deleteFuelType,
+  updateSetting,
+  openDeleteAircraftDialog,
+  closeDeleteAircraftDialog,
+  deleteAircraft
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -25,7 +32,14 @@ export {
   createFuelType,
   openDeleteCheckDialog,
   closeDeleteCheckDialog,
-  deleteCheck
+  deleteCheck,
+  openDeleteFuelTypeDialog,
+  closeDeleteFuelTypeDialog,
+  deleteFuelType,
+  updateSetting,
+  openDeleteAircraftDialog,
+  closeDeleteAircraftDialog,
+  deleteAircraft
 }
 
 export { sagas }

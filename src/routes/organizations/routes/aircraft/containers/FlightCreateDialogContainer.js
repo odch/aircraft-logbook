@@ -24,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
     flightNatures: flightDialogUtils.flightNatures(intl),
     techlogEntryStatusOptions: flightDialogUtils.techlogEntryStatus(intl),
     loadMembers: flightDialogUtils.loadMembers(state),
+    loadInstructors: flightDialogUtils.loadInstructors(state),
     loadAerodromes: flightDialogUtils.loadAerodromes(state),
     aircraftSettings: flightDialogUtils.aircraftSettings(state, aircraftId),
     createAerodromeDialogOpen: state.aircraft.createAerodromeDialog.open,
