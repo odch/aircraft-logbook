@@ -188,13 +188,51 @@ describe('modules', () => {
 
           const currentUserDoc = {
             ref: {},
-            get: () => undefined
+            get: () => ({})
           }
 
           expect(generator.next(currentUserDoc).value).toEqual(
             put(actions.setMyOrganizations([]))
           )
 
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should keep undefined/loading state if orgs object not set on user', () => {
+          const generator = sagas.fetchOrganizations()
+
+          expect(generator.next().value).toEqual(
+            put(actions.setMyOrganizations(undefined))
+          )
+
+          expect(generator.next().value).toEqual(select(sagas.uidSelector))
+
+          expect(generator.next('current-user-id').value).toEqual(
+            call(getDoc, ['users', 'current-user-id'])
+          )
+
+          const currentUserDoc = {
+            ref: {},
+            get: () => undefined
+          }
+
+          expect(generator.next(currentUserDoc).done).toEqual(true)
+        })
+      })
+
+      describe('onListenerResponse', () => {
+        it('should fetch organizations again if currentUser updated', () => {
+          const generator = sagas.onListenerResponse({
+            meta: { storeAs: 'currentUser' }
+          })
+          expect(generator.next().value).toEqual(call(sagas.fetchOrganizations))
+          expect(generator.next().done).toEqual(true)
+        })
+
+        it('should do nothing if not currentUser update', () => {
+          const generator = sagas.onListenerResponse({
+            meta: {}
+          })
           expect(generator.next().done).toEqual(true)
         })
       })
@@ -541,6 +579,10 @@ describe('modules', () => {
               takeEvery(
                 reduxFirestoreConstants.actionTypes.GET_SUCCESS,
                 sagas.onGetSuccess
+              ),
+              takeEvery(
+                reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+                sagas.onListenerResponse
               ),
               takeEvery(actions.LOGOUT, sagas.logout),
               takeEvery(actions.WATCH_AERODROMES, sagas.watchAerodromes),

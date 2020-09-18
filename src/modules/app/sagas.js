@@ -67,14 +67,15 @@ export function* fetchOrganizations() {
   }
   const userDoc = yield call(getDoc, ['users', uid])
   const orgs = userDoc.get('orgs')
-  if (orgs && Object.keys(orgs).length > 0) {
-    organizations = yield all(
-      Object.keys(orgs).map(orgKey => call(getWithRoles, orgs[orgKey]))
-    )
-    organizations = organizations.filter(org => org != null)
+  if (orgs) {
+    if (Object.keys(orgs).length > 0) {
+      organizations = yield all(
+        Object.keys(orgs).map(orgKey => call(getWithRoles, orgs[orgKey]))
+      )
+      organizations = organizations.filter(org => org != null)
+    }
+    yield put(actions.setMyOrganizations(organizations))
   }
-
-  yield put(actions.setMyOrganizations(organizations))
 }
 
 export const collectReferences = (data, referenceItems) => {
@@ -148,6 +149,12 @@ export function* onGetSuccess(action) {
   }
 }
 
+export function* onListenerResponse(action) {
+  if (action.meta.storeAs === 'currentUser') {
+    yield call(fetchOrganizations)
+  }
+}
+
 export function* logout() {
   const firebase = yield call(getFirebase)
   yield call(firebase.logout)
@@ -168,6 +175,10 @@ export default function* sagas() {
     takeEvery(reduxFirebaseConstants.actionTypes.LOGIN, onLogin),
     takeEvery(reduxFirebaseConstants.actionTypes.LOGOUT, unwatchCurrentUser),
     takeEvery(reduxFirestoreConstants.actionTypes.GET_SUCCESS, onGetSuccess),
+    takeEvery(
+      reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+      onListenerResponse
+    ),
     takeEvery(actions.LOGOUT, logout),
     takeEvery(actions.WATCH_AERODROMES, watchAerodromes),
     takeEvery(actions.FETCH_ORGANIZATIONS, fetchOrganizations)
