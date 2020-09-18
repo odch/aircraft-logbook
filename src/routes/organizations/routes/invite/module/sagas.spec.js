@@ -1,10 +1,5 @@
-import { all, takeEvery, call, select } from 'redux-saga/effects'
+import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
-import {
-  addArrayItem,
-  getDoc,
-  updateDoc
-} from '../../../../../util/firestoreUtils'
 import { callFunction } from '../../../../../util/firebase'
 import * as actions from './actions'
 import * as sagas from './sagas'
