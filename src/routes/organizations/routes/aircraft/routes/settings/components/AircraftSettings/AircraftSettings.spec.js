@@ -112,6 +112,9 @@ describe('routes', () => {
                             }
                           }
                         }
+                      },
+                      ordered: {
+                        'checks-o7flC7jw8jmkOfWo8oyA': []
                       }
                     },
                     aircraftSettings: {
@@ -164,6 +167,9 @@ describe('routes', () => {
                             }
                           }
                         }
+                      },
+                      ordered: {
+                        'checks-o7flC7jw8jmkOfWo8oyA': []
                       }
                     },
                     aircraftSettings: {

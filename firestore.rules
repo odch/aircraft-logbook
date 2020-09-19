@@ -83,6 +83,10 @@ service cloud.firestore {
             allow read: if isOrgMember(database, organization);
           }
         }
+
+        match /checks/{check} {
+          allow read: if isOrgMember(database, organization);
+        }
       }
 
       match /aerodromes/{aerodrome} {

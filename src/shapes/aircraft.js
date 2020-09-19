@@ -29,6 +29,5 @@ export default PropTypes.shape({
     engineHoursCounterEnabled: PropTypes.bool,
     techlogEnabled: PropTypes.bool
   }),
-  checks: PropTypes.arrayOf(check),
   counters
 })

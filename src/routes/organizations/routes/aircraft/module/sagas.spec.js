@@ -1074,7 +1074,8 @@ describe('routes', () => {
                   takeEvery(
                     actions.CREATE_TECHLOG_ENTRY_ACTION,
                     sagas.createTechlogEntryAction
-                  )
+                  ),
+                  takeEvery(actions.FETCH_CHECKS, sagas.fetchChecks)
                 ])
               )
             })

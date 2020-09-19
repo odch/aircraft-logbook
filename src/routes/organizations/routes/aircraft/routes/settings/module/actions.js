@@ -129,12 +129,12 @@ export const closeDeleteCheckDialog = () => ({
   type: CLOSE_DELETE_CHECK_DIALOG
 })
 
-export const deleteCheck = (organizationId, aircraftId, check) => ({
+export const deleteCheck = (organizationId, aircraftId, checkId) => ({
   type: DELETE_CHECK,
   payload: {
     organizationId,
     aircraftId,
-    check
+    checkId
   }
 })
 

@@ -39,6 +39,9 @@ describe('routes', () => {
                             registration: 'HBKOF'
                           }
                         }
+                      },
+                      ordered: {
+                        'checks-o7flC7jw8jmkOfWo8oyA': []
                       }
                     },
                     aircraftSettings: {

@@ -253,7 +253,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
         >
           <span
             aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-121 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-122 MuiSwitch-switchBase MuiSwitch-colorSecondary"
             onBlur={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
@@ -275,7 +275,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
               />
               <input
                 checked={false}
-                className="PrivateSwitchBase-input-124 MuiSwitch-input"
+                className="PrivateSwitchBase-input-125 MuiSwitch-input"
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -312,7 +312,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
         >
           <span
             aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-121 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-122 MuiSwitch-switchBase MuiSwitch-colorSecondary"
             onBlur={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
@@ -334,7 +334,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
               />
               <input
                 checked={false}
-                className="PrivateSwitchBase-input-124 MuiSwitch-input"
+                className="PrivateSwitchBase-input-125 MuiSwitch-input"
                 onChange={[Function]}
                 type="checkbox"
               />

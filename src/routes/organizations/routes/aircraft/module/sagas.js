@@ -883,6 +883,32 @@ export function* createTechlogEntryAction({
   }
 }
 
+export function* fetchChecks({ payload: { organizationId, aircraftId } }) {
+  const firestore = yield call(getFirestore)
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'checks'
+            }
+          ]
+        }
+      ],
+      where: [['deleted', '==', false]],
+      orderBy: 'description',
+      storeAs: `checks-${aircraftId}`
+    },
+    {}
+  )
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.INIT_FLIGHTS_LIST, initFlightsList),
@@ -896,6 +922,7 @@ export default function* sagas() {
     takeEvery(actions.INIT_TECHLOG, initTechlog),
     takeEvery(actions.CHANGE_TECHLOG_PAGE, changeTechlogPage),
     takeEvery(actions.CREATE_TECHLOG_ENTRY, createTechlogEntry),
-    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction)
+    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction),
+    takeEvery(actions.FETCH_CHECKS, fetchChecks)
   ])
 }
