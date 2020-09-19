@@ -3,7 +3,7 @@ import { callFunction, getFirebase, getFirestore } from '../../../util/firebase'
 import { fetchOrganizations } from '../../../modules/app'
 import * as actions from './actions'
 import * as sagas from './sagas'
-import { getDoc, removeArrayItem } from '../../../util/firestoreUtils'
+import { updateDoc } from '../../../util/firestoreUtils'
 
 describe('modules', () => {
   describe('organizations', () => {
@@ -154,41 +154,8 @@ describe('modules', () => {
 
           const generator = sagas.deleteOrganization(action)
 
-          expect(generator.next().value).toEqual(call(getFirestore))
-
-          const firestore = {
-            delete: () => {}
-          }
-
-          expect(generator.next(firestore).value).toEqual(
-            call(getDoc, ['organizations', 'my_org'])
-          )
-
-          const org = {
-            ref: {}
-          }
-
-          expect(generator.next(org).value).toEqual(call(sagas.getCurrentUser))
-
-          const currentUser = {
-            id: 'current-user-id'
-          }
-
-          expect(generator.next(currentUser).value).toEqual(
-            call(
-              firestore.delete,
-              { collection: 'organizations', doc: 'my_org' },
-              {}
-            )
-          )
-
           expect(generator.next().value).toEqual(
-            call(
-              removeArrayItem,
-              ['users', 'current-user-id'],
-              'organizations',
-              org.ref
-            )
+            call(updateDoc, ['organizations', 'my_org'], { deleted: true })
           )
 
           expect(generator.next().value).toEqual(put(fetchOrganizations()))
@@ -205,13 +172,8 @@ describe('modules', () => {
 
           const generator = sagas.deleteOrganization(action)
 
-          expect(generator.next().value).toEqual(call(getFirestore))
-
-          const firestore = {
-            delete: () => {}
-          }
-          expect(generator.next(firestore).value).toEqual(
-            call(getDoc, ['organizations', 'my_org'])
+          expect(generator.next().value).toEqual(
+            call(updateDoc, ['organizations', 'my_org'], { deleted: true })
           )
 
           // eslint-disable-next-line no-console

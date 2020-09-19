@@ -18,6 +18,14 @@ const updateUserOrg = async (userRef, orgRef) => {
     return
   }
 
+  const orgDoc = await orgRef.get()
+  if (orgDoc.exists !== true || orgDoc.get('deleted')) {
+    await userRef.update({
+      [`orgs.${orgRef.id}`]: admin.firestore.FieldValue.delete()
+    })
+    return
+  }
+
   const members = await orgRef
     .collection('members')
     .where('deleted', '==', false)
@@ -52,10 +60,18 @@ const updateUserOrgs = async userRef => {
   await Promise.all(orgs.docs.map(org => updateUserOrg(userRef, org.ref)))
 }
 
+const updateOrgUsers = async orgRef => {
+  const users = await db
+    .collection('users')
+    .where(`orgs.${orgRef.id}.ref`, '==', orgRef)
+    .get()
+  await Promise.all(users.docs.map(user => updateUserOrg(user.ref, orgRef)))
+}
+
 const markedAsDeleted = change =>
-  change.before.get('deleted') === false &&
-  change.after.get('deleted') === true &&
-  !!change.before.get('user')
+  change.before.get('deleted') === false && change.after.get('deleted') === true
+
+const hasUser = change => !!change.before.get('user')
 
 const changedRoles = change => {
   const rolesBefore = change.before.get('roles') || []
@@ -70,7 +86,7 @@ const eqSet = (set1, set2) => {
 }
 
 const updateUserOrgsOnMemberUpdate = async change => {
-  if (markedAsDeleted(change) || changedRoles(change)) {
+  if (hasUser(change) && (markedAsDeleted(change) || changedRoles(change))) {
     const orgRef = change.before.ref.parent.parent
     const userRefBefore = change.before.get('user')
     await updateUserOrg(userRefBefore, orgRef)
@@ -86,6 +102,16 @@ const updateUserOrgsOnMemberDelete = async memberDoc => {
       await updateUserOrg(data.user, orgRef)
     }
   }
+}
+
+const updateUserOrgsOnOrgUpdate = async change => {
+  if (markedAsDeleted(change)) {
+    await updateOrgUsers(change.before.ref)
+  }
+}
+
+const updateUserOrgsOnOrgDelete = async orgDoc => {
+  await updateOrgUsers(orgDoc.ref)
 }
 
 const updateUserOrgsOnLogin = async change => {
@@ -108,3 +134,11 @@ module.exports.updateUserOrgsOnMemberDelete = functions.firestore
 module.exports.updateUserOrgsOnLogin = functions.firestore
   .document('users/{userID}')
   .onUpdate(change => updateUserOrgsOnLogin(change))
+
+module.exports.updateUserOrgsOnOrgUpdate = functions.firestore
+  .document('organizations/{organizationID}')
+  .onUpdate(change => updateUserOrgsOnOrgUpdate(change))
+
+module.exports.updateUserOrgsOnOrgDelete = functions.firestore
+  .document('organizations/{organizationID}')
+  .onDelete(orgDoc => updateUserOrgsOnOrgDelete(orgDoc))
