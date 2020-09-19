@@ -24,6 +24,7 @@ describe('modules', () => {
             {
               createDialog: {
                 open: false,
+                sumitted: true,
                 data: {
                   name: 'foo'
                 }
@@ -34,6 +35,7 @@ describe('modules', () => {
         ).toEqual({
           createDialog: {
             open: true,
+            submitted: false,
             data: {
               name: ''
             }
