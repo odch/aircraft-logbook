@@ -56,9 +56,6 @@ export function* getWithRoles(org) {
 }
 
 export function* fetchOrganizations() {
-  // set to loading state
-  yield put(actions.setMyOrganizations(undefined))
-
   let organizations = []
 
   const uid = yield select(uidSelector)
@@ -75,6 +72,9 @@ export function* fetchOrganizations() {
       organizations = organizations.filter(org => org != null)
     }
     yield put(actions.setMyOrganizations(organizations))
+  } else {
+    // set to loading state
+    yield put(actions.setMyOrganizations(undefined))
   }
 }
 

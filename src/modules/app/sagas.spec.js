@@ -168,17 +168,12 @@ describe('modules', () => {
               [select(sagas.uidSelector), 'current-user-id'],
               [call(getDoc, ['users', 'current-user-id']), currentUserDoc]
             ])
-            .put(actions.setMyOrganizations(undefined))
             .put(actions.setMyOrganizations(orgsWithRoles))
             .run()
         })
 
         it('should set empty array if user has no organizations', () => {
           const generator = sagas.fetchOrganizations()
-
-          expect(generator.next().value).toEqual(
-            put(actions.setMyOrganizations(undefined))
-          )
 
           expect(generator.next().value).toEqual(select(sagas.uidSelector))
 
@@ -201,10 +196,6 @@ describe('modules', () => {
         it('should keep undefined/loading state if orgs object not set on user', () => {
           const generator = sagas.fetchOrganizations()
 
-          expect(generator.next().value).toEqual(
-            put(actions.setMyOrganizations(undefined))
-          )
-
           expect(generator.next().value).toEqual(select(sagas.uidSelector))
 
           expect(generator.next('current-user-id').value).toEqual(
@@ -216,7 +207,11 @@ describe('modules', () => {
             get: () => undefined
           }
 
-          expect(generator.next(currentUserDoc).done).toEqual(true)
+          expect(generator.next(currentUserDoc).value).toEqual(
+            put(actions.setMyOrganizations(undefined))
+          )
+
+          expect(generator.next().done).toEqual(true)
         })
       })
 
