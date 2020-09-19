@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
-  aircraft as aircraftShape
+  aircraft as aircraftShape,
+  check as checkShape
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import FlightList from '../../containers/FlightListContainer'
@@ -41,24 +42,31 @@ class AircraftDetail extends React.Component {
   componentDidMount() {
     const {
       organization,
+      aircraft,
       fetchAircrafts,
       fetchMembers,
-      fetchAerodromes
+      fetchAerodromes,
+      fetchChecks
     } = this.props
 
     if (organization) {
       fetchAircrafts(organization.id)
       fetchMembers(organization.id)
       fetchAerodromes(organization.id)
+      if (aircraft) {
+        fetchChecks(organization.id, aircraft.id)
+      }
     }
   }
 
   componentDidUpdate(prevProps) {
     const {
+      aircraft,
       organization,
       fetchAircrafts,
       fetchMembers,
-      fetchAerodromes
+      fetchAerodromes,
+      fetchChecks
     } = this.props
 
     if (
@@ -69,10 +77,17 @@ class AircraftDetail extends React.Component {
       fetchMembers(organization.id)
       fetchAerodromes(organization.id)
     }
+    if (
+      organization &&
+      aircraft &&
+      (!prevProps.aircraft || prevProps.aircraft.id !== aircraft.id)
+    ) {
+      fetchChecks(organization.id, aircraft.id)
+    }
   }
 
   render() {
-    const { organization, aircraft, classes } = this.props
+    const { organization, aircraft, checks, classes } = this.props
 
     if (organization === null) {
       return <Redirect to="/" />
@@ -84,6 +99,10 @@ class AircraftDetail extends React.Component {
 
     if (aircraft === null) {
       return <Redirect to={`/organizations/${organization.id}`} />
+    }
+
+    if (!isLoaded(checks)) {
+      return <LoadingIcon />
     }
 
     return (
@@ -100,7 +119,7 @@ class AircraftDetail extends React.Component {
             </Button>
           )}
         </Typography>
-        {aircraft.checks && aircraft.checks.length > 0 && (
+        {checks && checks.length > 0 && (
           <>
             <Typography
               variant="h5"
@@ -109,7 +128,7 @@ class AircraftDetail extends React.Component {
             >
               <FormattedMessage id="aircraftdetail.checks" />
             </Typography>
-            <Checks checks={aircraft.checks} counters={aircraft.counters} />
+            <Checks checks={checks} counters={aircraft.counters} />
           </>
         )}
         {aircraft.settings.techlogEnabled === true && (
@@ -161,10 +180,12 @@ class AircraftDetail extends React.Component {
 AircraftDetail.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
+  checks: PropTypes.arrayOf(checkShape),
   classes: PropTypes.object.isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
-  fetchAerodromes: PropTypes.func.isRequired
+  fetchAerodromes: PropTypes.func.isRequired,
+  fetchChecks: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(AircraftDetail)

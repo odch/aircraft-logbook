@@ -116,3 +116,6 @@ const techlogWithActions = (state, stateId) => {
   }
   return undefined
 }
+
+export const getAircraftChecks = (state, aircraftId) =>
+  state.firestore.ordered[`checks-${aircraftId}`]

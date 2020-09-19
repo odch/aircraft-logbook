@@ -148,9 +148,11 @@ describe('routes', () => {
                           techlogEnabled: true
                         }
                       }}
+                      checks={[]}
                       fetchAircrafts={() => {}}
                       fetchMembers={() => {}}
                       fetchAerodromes={() => {}}
+                      fetchChecks={() => {}}
                     />
                   </Router>
                 </Provider>

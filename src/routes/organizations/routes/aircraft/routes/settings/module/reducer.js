@@ -93,11 +93,11 @@ const updateCreateCheckDialogData = (state, { payload }) => {
   }
 }
 
-const setCreateCheckDialogSubmitting = state => ({
+const setCreateCheckDialogSubmitting = submitting => state => ({
   ...state,
   createCheckDialog: {
     ...state.createCheckDialog,
-    submitting: true
+    submitting
   }
 })
 
@@ -223,7 +223,10 @@ const ACTION_HANDLERS = {
   [actions.CLOSE_CREATE_CHECK_DIALOG]: closeCreateCheckDialog,
   [actions.CREATE_CHECK_SUCCESS]: closeCreateCheckDialog,
   [actions.UPDATE_CREATE_CHECK_DIALOG_DATA]: updateCreateCheckDialogData,
-  [actions.SET_CREATE_CHECK_DIALOG_SUBMITTING]: setCreateCheckDialogSubmitting,
+  [actions.SET_CREATE_CHECK_DIALOG_SUBMITTING]: setCreateCheckDialogSubmitting(
+    true
+  ),
+  [actions.CREATE_CHECK_FAILURE]: setCreateCheckDialogSubmitting(false),
   [actions.OPEN_CREATE_FUEL_TYPE_DIALOG]: openCreateFuelTypeDialog,
   [actions.CLOSE_CREATE_FUEL_TYPE_DIALOG]: closeCreateFuelTypeDialog,
   [actions.CREATE_FUEL_TYPE_SUCCESS]: closeCreateFuelTypeDialog,

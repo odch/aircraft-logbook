@@ -72,6 +72,8 @@ export const CREATE_TECHLOG_ENTRY_ACTION_SUCCESS =
 export const CREATE_TECHLOG_ENTRY_ACTION_FAILURE =
   'aircraft/CREATE_TECHLOG_ENTRY_ACTION_FAILURE'
 
+export const FETCH_CHECKS = 'aircraft/FETCH_CHECKS'
+
 export const initFlightsList = (organizationId, aircraftId, rowsPerPage) => ({
   type: INIT_FLIGHTS_LIST,
   payload: {
@@ -359,4 +361,12 @@ export const createTechlogEntryActionSuccess = () => ({
 
 export const createTechlogEntryActionFailure = () => ({
   type: CREATE_TECHLOG_ENTRY_ACTION_FAILURE
+})
+
+export const fetchChecks = (organizationId, aircraftId) => ({
+  type: FETCH_CHECKS,
+  payload: {
+    organizationId,
+    aircraftId
+  }
 })

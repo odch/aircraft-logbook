@@ -25,7 +25,8 @@ import {
   openCreateTechlogEntryActionDialog,
   updateCreateTechlogEntryActionDialogData,
   closeCreateTechlogEntryActionDialog,
-  createTechlogEntryAction
+  createTechlogEntryAction,
+  fetchChecks
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -57,7 +58,8 @@ export {
   openCreateTechlogEntryActionDialog,
   updateCreateTechlogEntryActionDialogData,
   closeCreateTechlogEntryActionDialog,
-  createTechlogEntryAction
+  createTechlogEntryAction,
+  fetchChecks
 }
 
 export { sagas }
