@@ -656,6 +656,60 @@ describe('routes', () => {
                 undefined
               )
             })
+
+            it('should return an error if troublesObservations is missing', () => {
+              return testFn(
+                {},
+                aircraftSettings1,
+                'troublesObservations',
+                'required'
+              )
+            })
+
+            it('should return no error if troublesObservations is set', () => {
+              return testFn(
+                {
+                  troublesObservations: 'nil'
+                },
+                aircraftSettings1,
+                'troublesObservations',
+                undefined
+              )
+            })
+
+            it('should return an error if not nil and techlogEntryDescription is missing', () => {
+              return testFn(
+                {
+                  troublesObservations: 'troubles'
+                },
+                aircraftSettings1,
+                'techlogEntryDescription',
+                'required'
+              )
+            })
+
+            it('should return no error if nil and techlogEntryDescription not set', () => {
+              return testFn(
+                {
+                  troublesObservations: 'nil'
+                },
+                aircraftSettings1,
+                'techlogEntryDescription',
+                undefined
+              )
+            })
+
+            it('should return no error if not nil and techlogEntryDescription is set', () => {
+              return testFn(
+                {
+                  troublesObservations: 'troubles',
+                  techlogEntryDescription: 'my description'
+                },
+                aircraftSettings1,
+                'techlogEntryDescription',
+                undefined
+              )
+            })
           })
 
           describe('validateAsync', () => {
