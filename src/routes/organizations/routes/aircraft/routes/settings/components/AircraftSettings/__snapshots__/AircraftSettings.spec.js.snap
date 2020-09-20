@@ -26,6 +26,29 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
     className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
   >
     HBKFW
+    <a
+      aria-disabled={false}
+      className="MuiButtonBase-root MuiButton-root injectIntl(AircraftSettings)-closeSettingsButton-4 MuiButton-text MuiButton-textPrimary"
+      href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Einstellungen schliessen
+      </span>
+    </a>
   </h4>
   <div>
     <h5
@@ -253,7 +276,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
         >
           <span
             aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-122 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-123 MuiSwitch-switchBase MuiSwitch-colorSecondary"
             onBlur={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
@@ -275,7 +298,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
               />
               <input
                 checked={false}
-                className="PrivateSwitchBase-input-125 MuiSwitch-input"
+                className="PrivateSwitchBase-input-126 MuiSwitch-input"
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -312,7 +335,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
         >
           <span
             aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-122 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-123 MuiSwitch-switchBase MuiSwitch-colorSecondary"
             onBlur={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
@@ -334,7 +357,7 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
               />
               <input
                 checked={false}
-                className="PrivateSwitchBase-input-125 MuiSwitch-input"
+                className="PrivateSwitchBase-input-126 MuiSwitch-input"
                 onChange={[Function]}
                 type="checkbox"
               />
@@ -394,10 +417,10 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
 
 exports[`routes organizations routes aircraft routes settings components AircraftSettings renders loading icon if aircraft not loaded 1`] = `
 <div
-  className="LoadingIcon-container-4"
+  className="LoadingIcon-container-5"
 >
   <div
-    className="MuiCircularProgress-root LoadingIcon-icon-5 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    className="MuiCircularProgress-root LoadingIcon-icon-6 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -426,10 +449,10 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
 
 exports[`routes organizations routes aircraft routes settings components AircraftSettings renders loading icon if organization not loaded 1`] = `
 <div
-  className="LoadingIcon-container-4"
+  className="LoadingIcon-container-5"
 >
   <div
-    className="MuiCircularProgress-root LoadingIcon-icon-5 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    className="MuiCircularProgress-root LoadingIcon-icon-6 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
     role="progressbar"
     style={
       Object {
@@ -464,6 +487,32 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
     className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
   >
     HBKFW
+    <a
+      aria-disabled={false}
+      className="MuiButtonBase-root MuiButton-root injectIntl(AircraftSettings)-closeSettingsButton-4 MuiButton-text MuiButton-textPrimary"
+      href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Einstellungen schliessen
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </a>
   </h4>
   <div>
     <h5

@@ -67,6 +67,29 @@ Array [
       className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
     >
       HBKFW
+      <a
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiButton-root injectIntl(AircraftSettings)-closeSettingsButton-102 MuiButton-text MuiButton-textPrimary"
+        href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Einstellungen schliessen
+        </span>
+      </a>
     </h4>
     <div>
       <h5
@@ -173,7 +196,7 @@ Array [
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-155 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-156 MuiSwitch-switchBase MuiSwitch-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -195,7 +218,7 @@ Array [
                 />
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-158 MuiSwitch-input"
+                  className="PrivateSwitchBase-input-159 MuiSwitch-input"
                   onChange={[Function]}
                   type="checkbox"
                 />
@@ -232,7 +255,7 @@ Array [
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-155 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-156 MuiSwitch-switchBase MuiSwitch-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -254,7 +277,7 @@ Array [
                 />
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-158 MuiSwitch-input"
+                  className="PrivateSwitchBase-input-159 MuiSwitch-input"
                   onChange={[Function]}
                   type="checkbox"
                 />
