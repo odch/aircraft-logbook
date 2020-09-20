@@ -195,9 +195,11 @@ const FlightDetails = ({ aircraft, flight }) => {
                   intl,
                   true
                 )}
-                <Box mb={1}>
-                  <EntryStatus id={flight.techlogEntryStatus} small />
-                </Box>
+                {flight.techlogEntryStatus && (
+                  <Box mb={1}>
+                    <EntryStatus id={flight.techlogEntryStatus} small />
+                  </Box>
+                )}
               </>
             )}
           </Grid>

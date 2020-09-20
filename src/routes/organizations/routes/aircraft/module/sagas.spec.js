@@ -223,7 +223,8 @@ describe('routes', () => {
               )
 
               const aircraftSettings = {
-                engineHoursCounterEnabled: true
+                engineHoursCounterEnabled: true,
+                techlogEnabled: true
               }
 
               expect(generator.next(aircraftSettings).value).toEqual(
@@ -446,6 +447,232 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
+            })
+
+            it('should save a new flight with troubles with techlog disabled', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                pilot: { value: 'pilot-id' },
+                instructor: { value: 'instructor-id' },
+                nature: { value: 'vp' },
+                departureAerodrome: { value: 'dep-ad-id' },
+                destinationAerodrome: { value: 'dest-ad-id' },
+                date: '2018-12-13',
+                blockOffTime: '2018-12-15 10:00',
+                takeOffTime: '2018-12-15 10:05',
+                landingTime: '2018-12-15 10:35',
+                blockOnTime: '2018-12-15 10:40',
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  flightHours: { start: 58658 },
+                  flights: { start: 464 },
+                  landings: { start: 3846 }
+                },
+                landings: 3,
+                fuelUplift: 5789,
+                fuelType: { value: 'avgas_homebase' },
+                oilUplift: 245,
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  '
+              }
+
+              const action = actions.createFlight(
+                organizationId,
+                aircraftId,
+                data
+              )
+
+              const currentMember = {
+                id: 'member-id'
+              }
+
+              const owner = { ref: 'owner-ref' }
+
+              const aircraftSettings = {
+                engineHoursCounterEnabled: false,
+                techlogEnabled: false
+              }
+
+              const departureAerodrome = {
+                ref: 'dep-ad-ref',
+                id: 'dep-ad-id',
+                get: getFromMap({
+                  identification: 'LSZT',
+                  name: 'Lommis',
+                  timezone: 'Europe/Zurich'
+                })
+              }
+
+              const destinationAerodrome = {
+                ref: 'dest-ad-ref',
+                id: 'dest-ad-id',
+                get: getFromMap({
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
+                  timezone: 'Europe/Zurich'
+                })
+              }
+
+              const dataWithMergedDateAndTime = {
+                ...data,
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z')
+              }
+
+              const pilot = {
+                exists: true,
+                ref: 'pilot-ref',
+                id: 'pilot-id',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999'
+                })
+              }
+              const instructor = {
+                exists: true,
+                ref: 'instructor-ref',
+                id: 'instructor-id',
+                get: getFromMap({
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer'
+                })
+              }
+
+              const newFlightDoc = {
+                ref: {},
+                id: 'new-flight-id',
+                deleted: true
+              }
+
+              const dataToStore = {
+                deleted: false,
+                owner: 'owner-ref',
+                pilot: {
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999',
+                  member: 'pilot-ref',
+                  id: 'pilot-id'
+                },
+                instructor: {
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer',
+                  nr: null,
+                  member: 'instructor-ref',
+                  id: 'instructor-id'
+                },
+                nature: 'vp',
+                departureAerodrome: {
+                  aerodrome: 'dep-ad-ref',
+                  id: 'dep-ad-id',
+                  identification: 'LSZT',
+                  name: 'Lommis',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: {
+                  aerodrome: 'dest-ad-ref',
+                  id: 'dest-ad-id',
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
+                  timezone: 'Europe/Zurich'
+                },
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z'),
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  flightHours: counter(58658, 58708),
+                  flights: counter(464, 465),
+                  landings: counter(3846, 3849)
+                },
+                landings: 3,
+                fuelUplift: 57.89,
+                fuelUnit: 'litre',
+                fuelType: 'avgas_homebase',
+                oilUplift: 2.45,
+                oilUnit: 'litre',
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
+              }
+
+              return expectSaga(sagas.createFlight, action)
+                .provide([
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ],
+                  [
+                    call(
+                      sagas.getAerodrome,
+                      organizationId,
+                      data.departureAerodrome.value
+                    ),
+                    departureAerodrome
+                  ],
+                  [
+                    call(
+                      sagas.getAerodrome,
+                      organizationId,
+                      data.destinationAerodrome.value
+                    ),
+                    destinationAerodrome
+                  ],
+                  [
+                    call(
+                      validateAsync,
+                      dataWithMergedDateAndTime,
+                      organizationId,
+                      aircraftId
+                    ),
+                    {}
+                  ],
+                  [call(sagas.getCurrentMember), currentMember],
+                  [
+                    call(sagas.getMember, organizationId, currentMember.id),
+                    owner
+                  ],
+                  [
+                    call(sagas.getMember, organizationId, data.pilot.value),
+                    pilot
+                  ],
+                  [
+                    call(
+                      sagas.getMember,
+                      organizationId,
+                      data.instructor.value
+                    ),
+                    instructor
+                  ],
+                  [
+                    call(sagas.addNewFlightDoc, organizationId, aircraftId),
+                    newFlightDoc
+                  ],
+                  [
+                    call(
+                      runTransaction,
+                      sagas.setFlightData,
+                      null,
+                      newFlightDoc,
+                      dataToStore
+                    )
+                  ]
+                ])
+                .put(actions.setCreateFlightDialogSubmitting())
+                .put(actions.changeFlightsPage(0))
+                .put(actions.createFlightSuccess())
+                .run()
             })
 
             it('should set the validation errors to state if invalid', () => {

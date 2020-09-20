@@ -319,11 +319,13 @@ export function* createFlight({
       dataToStore.techlogEntryDescription = data.techlogEntryDescription
         ? data.techlogEntryDescription.trim()
         : null
-      dataToStore.techlogEntryStatus = data.techlogEntryStatus
-        ? typeof data.techlogEntryStatus === 'string'
-          ? data.techlogEntryStatus
-          : data.techlogEntryStatus.value
-        : null
+      if (aircraftSettings.techlogEnabled === true) {
+        dataToStore.techlogEntryStatus = data.techlogEntryStatus
+          ? typeof data.techlogEntryStatus === 'string'
+            ? data.techlogEntryStatus
+            : data.techlogEntryStatus.value
+          : null
+      }
     }
 
     const oldFlightDoc = data.id
@@ -345,7 +347,11 @@ export function* createFlight({
       dataToStore
     )
 
-    if (data.troublesObservations === 'troubles' && !data.id) {
+    if (
+      data.troublesObservations === 'troubles' &&
+      !data.id &&
+      aircraftSettings.techlogEnabled === true
+    ) {
       const entry = {
         description: data.techlogEntryDescription.trim(),
         initialStatus: data.techlogEntryStatus.value,
