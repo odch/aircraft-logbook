@@ -236,6 +236,7 @@
   "organization.invite.invalid": "This invitation is no longer valid.",
   "organization.invite.pending": "Not joined yet (invited on {inviteDate} at {inviteTime})",
   "organization.invite.notsent": "No invitation sent",
+  "aircraft.settings.close": "Close settings",
   "aircraft.settings.checks": "Checks",
   "aircraft.settings.checks.none": "No checks entered",
   "aircraft.settings.checks.create": "Add check",
