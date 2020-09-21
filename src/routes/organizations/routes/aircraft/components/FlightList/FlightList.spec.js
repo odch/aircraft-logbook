@@ -68,7 +68,7 @@ describe('routes', () => {
 
               const tree = renderIntl(
                 <FlightList
-                  organization={{ id: 'my_org' }}
+                  organization={{ id: 'my_org', roles: ['manager'] }}
                   aircraft={{ id: 'my_aircraft' }}
                   flights={flights}
                   flightDeleteDialog={{ open: false }}

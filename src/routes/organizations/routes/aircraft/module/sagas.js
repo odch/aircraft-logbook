@@ -20,11 +20,14 @@ import { getCounters } from './util/counters'
 import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
 import { isClosed } from '../../../../../util/techlogStatus'
 
+export const flightPageName = (aircraftId, page, showDeleted) =>
+  `${showDeleted ? 'flights-all' : 'flights'}-${aircraftId}-${page}`
+
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
-export const flightsSelector = (aircraftId, page) => state =>
-  state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const flightsSelector = (aircraftId, page, showDeleted) => state =>
+  state.firestore.ordered[flightPageName(aircraftId, page, showDeleted)]
 export const techlogPageSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`techlog-${aircraftId}-${page}`]
 export const openTechlogEntriesSelector = aircraftId => state =>
@@ -34,11 +37,18 @@ export const aircraftTechlogViewSelector = state => state.aircraft.techlog
 export const aircraftSettingsSelector = (state, aircraftId) =>
   state.firestore.data.organizationAircrafts[aircraftId].settings || {}
 
-export function* getStartFlightDocument(organizationId, aircraftId, page) {
+export function* getStartFlightDocument(
+  organizationId,
+  aircraftId,
+  page,
+  showDeleted
+) {
   if (page === 0) {
     return null
   }
-  const previousPage = yield select(flightsSelector(aircraftId, page - 1))
+  const previousPage = yield select(
+    flightsSelector(aircraftId, page - 1, showDeleted)
+  )
   if (previousPage && previousPage.length > 0) {
     const lastFlight = previousPage[previousPage.length - 1]
     return yield call(getFlight, organizationId, aircraftId, lastFlight.id)
@@ -47,9 +57,16 @@ export function* getStartFlightDocument(organizationId, aircraftId, page) {
 }
 
 export function* initFlightsList({
-  payload: { organizationId, aircraftId, rowsPerPage }
+  payload: { organizationId, aircraftId, rowsPerPage, showDeleted }
 }) {
-  yield put(actions.setFlightsParams(organizationId, aircraftId, rowsPerPage))
+  yield put(
+    actions.setFlightsParams(
+      organizationId,
+      aircraftId,
+      rowsPerPage,
+      showDeleted
+    )
+  )
   yield call(fetchFlights)
 }
 
@@ -59,15 +76,29 @@ export function* changeFlightsPage({ payload: { page } }) {
 }
 
 export function* fetchFlights() {
-  const { organizationId, aircraftId, page, rowsPerPage } = yield select(
-    aircraftFlightsViewSelector
-  )
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showDeleted
+  } = yield select(aircraftFlightsViewSelector)
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
     aircraftId,
-    page
+    page,
+    showDeleted
   )
+
+  const where = showDeleted ? [] : ['deleted', '==', false]
+  const orderBy = showDeleted
+    ? [
+        ['blockOffTime', 'desc'],
+        ['version', 'desc']
+      ]
+    : ['blockOffTime', 'desc']
+
   const firestore = yield call(getFirestore)
   yield call(
     firestore.get,
@@ -85,11 +116,11 @@ export function* fetchFlights() {
           ]
         }
       ],
-      where: ['deleted', '==', false],
-      orderBy: ['blockOffTime', 'desc'],
+      where,
+      orderBy,
       startAfter: startFlightDocument,
       limit: rowsPerPage,
-      storeAs: `flights-${aircraftId}-${page}`,
+      storeAs: flightPageName(aircraftId, page, showDeleted),
       populate: [
         'departureAerodrome',
         'destinationAerodrome',
@@ -291,6 +322,7 @@ export function* createFlight({
 
     const dataToStore = {
       deleted: false,
+      version: 1,
       owner: owner.ref,
       nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
       pilot: memberObject(pilot),
@@ -408,6 +440,7 @@ export const setFlightData = (
       replacedWith: newFlightDoc.id
     })
     dataToStore.replaces = oldFlightDoc.id
+    dataToStore.version = oldFlightDoc.get('version') + 1
   }
   tx.update(newFlightDoc.ref, dataToStore)
 }

@@ -152,7 +152,8 @@ describe('util', () => {
             flights: 0,
             landings: 0,
             flightHours: 0,
-            techlogEntries: 0
+            techlogEntries: 0,
+            flightsTotal: 0
           },
           settings: {}
         })
@@ -190,13 +191,14 @@ describe('util', () => {
             flights: 1,
             landings: 3,
             flightHours: 120,
-            techlogEntries: 0
+            techlogEntries: 0,
+            flightsTotal: 0
           },
           settings: {}
         })
       })
 
-      it('should return techlog entries count from aircraft counters object', () => {
+      it('should return techlog entries and total flights count from aircraft counters object', () => {
         const state = {
           firestore: {
             data: {
@@ -204,7 +206,8 @@ describe('util', () => {
                 o7flC7jw8jmkOfWo8oyA: {
                   registration: 'HBKLA',
                   counters: {
-                    techlogEntries: 32
+                    techlogEntries: 32,
+                    flightsTotal: 98
                   }
                 }
               }
@@ -231,7 +234,8 @@ describe('util', () => {
             flights: 1,
             landings: 3,
             flightHours: 120,
-            techlogEntries: 32
+            techlogEntries: 32,
+            flightsTotal: 98
           },
           settings: {}
         })

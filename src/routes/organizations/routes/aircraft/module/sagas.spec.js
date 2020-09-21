@@ -65,7 +65,8 @@ describe('routes', () => {
                 organizationId: 'my_org',
                 aircraftId: 'o7flC7jw8jmkOfWo8oyA',
                 page: 0,
-                rowsPerPage: 10
+                rowsPerPage: 10,
+                showDeleted: false
               }
 
               expect(generator.next(aircraftFlightsView).value).toEqual(
@@ -73,7 +74,8 @@ describe('routes', () => {
                   sagas.getStartFlightDocument,
                   'my_org',
                   'o7flC7jw8jmkOfWo8oyA',
-                  0
+                  0,
+                  false
                 )
               )
 
@@ -335,6 +337,7 @@ describe('routes', () => {
 
               const dataToStore = {
                 deleted: false,
+                version: 1,
                 owner: 'owner-ref',
                 pilot: {
                   firstname: 'Max',
@@ -554,6 +557,7 @@ describe('routes', () => {
 
               const dataToStore = {
                 deleted: false,
+                version: 1,
                 owner: 'owner-ref',
                 pilot: {
                   firstname: 'Max',
@@ -727,15 +731,20 @@ describe('routes', () => {
           })
 
           describe('setFlightData', () => {
-            const oldFlightDoc = {
-              id: 'old-flight-id',
-              ref: { id: 'old-flight-id' },
+            const oldFlightData = {
               deleted: false,
+              version: 2,
               pilot: {
                 firstname: 'Kurt',
                 lastname: 'Meier'
               },
               vp: 'nature'
+            }
+            const oldFlightDoc = {
+              id: 'old-flight-id',
+              ref: { id: 'old-flight-id' },
+              data: () => oldFlightData,
+              get: field => oldFlightData[field]
             }
             const newFlightDoc = {
               id: 'new-flight-id',
@@ -800,6 +809,7 @@ describe('routes', () => {
                   {
                     replaces: 'old-flight-id',
                     deleted: false,
+                    version: 3,
                     pilot: {
                       firstname: 'Max',
                       lastname: 'Superpilot'

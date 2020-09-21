@@ -8,7 +8,6 @@ import {
 import {
   initFlightsList,
   changeFlightsPage,
-  fetchFlights,
   openCreateFlightDialog,
   initCreateFlightDialog,
   openEditFlightDialog,
@@ -20,15 +19,18 @@ import {
 const mapStateToProps = (state, ownProps) => {
   const { organization, aircraft } = ownProps
 
+  const showDeleted = state.aircraft.flights.showDeleted
+
   const flights = getAircraftFlights(
     state,
     aircraft.id,
-    state.aircraft.flights.page
+    state.aircraft.flights.page,
+    showDeleted
   )
 
   const pagination = aircraft
     ? {
-        rowsCount: getAircraftFlightsCount(state, aircraft.id),
+        rowsCount: getAircraftFlightsCount(state, aircraft.id, showDeleted),
         page: state.aircraft.flights.page,
         rowsPerPage: state.aircraft.flights.rowsPerPage
       }
@@ -40,13 +42,13 @@ const mapStateToProps = (state, ownProps) => {
     flights,
     pagination,
     createFlightDialogOpen: state.aircraft.createFlightDialog.open,
-    flightDeleteDialog: state.aircraft.deleteFlightDialog
+    flightDeleteDialog: state.aircraft.deleteFlightDialog,
+    showDeleted
   }
 }
 
 const mapActionCreators = {
   initFlightsList,
-  fetchFlights,
   changeFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,

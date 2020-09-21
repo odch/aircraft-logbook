@@ -36,8 +36,13 @@ export const getAircraft = (state, aircraftId) => {
         aircraft.counters && aircraft.counters.techlogEntries
           ? aircraft.counters.techlogEntries
           : 0
+      const flightsTotalCount =
+        aircraft.counters && aircraft.counters.flightsTotal
+          ? aircraft.counters.flightsTotal
+          : 0
       aircraft.counters = getAircraftCounters(state, aircraftId)
       aircraft.counters.techlogEntries = techlogEntriesCount
+      aircraft.counters.flightsTotal = flightsTotalCount
 
       if (!aircraft.settings) {
         aircraft.settings = {}
@@ -50,8 +55,11 @@ export const getAircraft = (state, aircraftId) => {
   return undefined // still loading
 }
 
-export const getAircraftFlights = (state, aircraftId, page) => {
-  const flights = state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const getAircraftFlights = (state, aircraftId, page, showDeleted) => {
+  const flights =
+    state.firestore.ordered[
+      `${showDeleted ? 'flights-all' : 'flights'}-${aircraftId}-${page}`
+    ]
   if (flights) {
     if (flights.length > 0) {
       // just to check if populated
@@ -65,8 +73,10 @@ export const getAircraftFlights = (state, aircraftId, page) => {
   return undefined
 }
 
-export const getAircraftFlightsCount = (state, aircraftId) =>
-  getAircraftCounters(state, aircraftId).flights
+export const getAircraftFlightsCount = (state, aircraftId, withDeleted) =>
+  withDeleted
+    ? getAircraft(state, aircraftId).counters.flightsTotal
+    : getAircraftCounters(state, aircraftId).flights
 
 const getAircraftCounters = (state, aircraftId) => {
   const latestFlight = getLatestFlight(state, aircraftId)
