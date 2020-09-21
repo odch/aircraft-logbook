@@ -14,6 +14,7 @@ import {
   formatTime,
   getTimeDiff
 } from '../../../../../../util/dates'
+import Timestamp from './Timestamp'
 
 const FlightDetails = ({ aircraft, flight }) => {
   const intl = useIntl()
@@ -230,6 +231,24 @@ const FlightDetails = ({ aircraft, flight }) => {
           {renderField('total.landings', flight.counters.landings.end, intl)}
         </Grid>
       </Grid>
+      {flight.createTimestamp && (
+        <Grid item xs={12} container>
+          <Grid item xs={12}>
+            <Timestamp
+              operation="created"
+              timestamp={flight.createTimestamp}
+              member={flight.owner}
+            />
+            {flight.deleteTimestamp && (
+              <Timestamp
+                operation={flight.replacedWith ? 'replaced' : 'deleted'}
+                timestamp={flight.deleteTimestamp}
+                member={flight.deletedBy}
+              />
+            )}
+          </Grid>
+        </Grid>
+      )}
     </div>
   )
 }

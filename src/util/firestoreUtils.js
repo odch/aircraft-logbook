@@ -44,3 +44,8 @@ export function* runTransaction(updateFunction, ...args) {
   const updateFn = yield call(updateFunction, ...args)
   return yield call(firestore.runTransaction, updateFn)
 }
+
+export function* serverTimestamp() {
+  const firestore = yield call(getFirestore)
+  return firestore.FieldValue.serverTimestamp()
+}

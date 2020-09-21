@@ -5,7 +5,8 @@ import { callFunction, getFirestore } from '../../../../../util/firebase'
 import {
   addDoc,
   runTransaction,
-  updateDoc
+  updateDoc,
+  serverTimestamp
 } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -252,7 +253,16 @@ describe('routes', () => {
               const currentMember = {
                 id: 'member-id'
               }
-              const owner = { ref: 'owner-ref' }
+              const owner = {
+                exists: true,
+                ref: 'owner-ref',
+                id: 'owner-id',
+                get: getFromMap({
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534'
+                })
+              }
               const pilot = {
                 exists: true,
                 ref: 'pilot-ref',
@@ -297,6 +307,7 @@ describe('routes', () => {
                 landingTime: new Date('2018-12-13T09:35:00.000Z'),
                 blockOnTime: new Date('2018-12-13T09:40:00.000Z')
               }
+              const timestampFieldValue = {}
 
               expect(generator.next(departureAerodrome).value).toEqual(
                 call(
@@ -326,6 +337,9 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
+                call(serverTimestamp)
+              )
+              expect(generator.next(timestampFieldValue).value).toEqual(
                 call(sagas.addNewFlightDoc, organizationId, aircraftId)
               )
 
@@ -338,7 +352,14 @@ describe('routes', () => {
               const dataToStore = {
                 deleted: false,
                 version: 1,
-                owner: 'owner-ref',
+                owner: {
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534',
+                  member: 'owner-ref',
+                  id: 'owner-id'
+                },
+                createTimestamp: {},
                 pilot: {
                   firstname: 'Max',
                   lastname: 'Superpilot',
@@ -400,7 +421,9 @@ describe('routes', () => {
                   sagas.setFlightData,
                   null,
                   newFlightDoc,
-                  dataToStore
+                  dataToStore,
+                  dataToStore.owner,
+                  {}
                 )
               )
 
@@ -494,7 +517,16 @@ describe('routes', () => {
                 id: 'member-id'
               }
 
-              const owner = { ref: 'owner-ref' }
+              const owner = {
+                exists: true,
+                ref: 'owner-ref',
+                id: 'owner-id',
+                get: getFromMap({
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534'
+                })
+              }
 
               const aircraftSettings = {
                 engineHoursCounterEnabled: false,
@@ -529,6 +561,8 @@ describe('routes', () => {
                 blockOnTime: new Date('2018-12-13T09:40:00.000Z')
               }
 
+              const timestampFieldValue = {}
+
               const pilot = {
                 exists: true,
                 ref: 'pilot-ref',
@@ -558,7 +592,14 @@ describe('routes', () => {
               const dataToStore = {
                 deleted: false,
                 version: 1,
-                owner: 'owner-ref',
+                owner: {
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534',
+                  member: 'owner-ref',
+                  id: 'owner-id'
+                },
+                createTimestamp: timestampFieldValue,
                 pilot: {
                   firstname: 'Max',
                   lastname: 'Superpilot',
@@ -659,6 +700,7 @@ describe('routes', () => {
                     ),
                     instructor
                   ],
+                  [call(serverTimestamp), timestampFieldValue],
                   [
                     call(sagas.addNewFlightDoc, organizationId, aircraftId),
                     newFlightDoc
@@ -669,7 +711,9 @@ describe('routes', () => {
                       sagas.setFlightData,
                       null,
                       newFlightDoc,
-                      dataToStore
+                      dataToStore,
+                      dataToStore.owner,
+                      timestampFieldValue
                     )
                   ]
                 ])
@@ -758,6 +802,11 @@ describe('routes', () => {
               },
               vp: 'nature'
             }
+            const currentMember = {
+              firstname: 'Stefan',
+              lastname: 'Gubler'
+            }
+            const timestampFieldValue = {}
 
             it('should set the new flight data', () => {
               const fn = sagas.setFlightData(null, newFlightDoc, dataToStore)
@@ -787,7 +836,9 @@ describe('routes', () => {
               const fn = sagas.setFlightData(
                 oldFlightDoc,
                 newFlightDoc,
-                dataToStore
+                dataToStore,
+                currentMember,
+                timestampFieldValue
               )
 
               const tx = {
@@ -801,7 +852,9 @@ describe('routes', () => {
                   { id: 'old-flight-id' },
                   {
                     replacedWith: 'new-flight-id',
-                    deleted: true
+                    deleted: true,
+                    deletedBy: currentMember,
+                    deleteTimestamp: timestampFieldValue
                   }
                 ],
                 [
@@ -966,6 +1019,37 @@ describe('routes', () => {
               const generator = sagas.deleteFlight(action)
 
               expect(generator.next().value).toEqual(
+                call(sagas.getCurrentMember)
+              )
+
+              const currentMember = {
+                id: 'memberid',
+                lastname: 'Müller',
+                firstname: 'Max'
+              }
+
+              expect(generator.next(currentMember).value).toEqual(
+                call(sagas.getMember, 'my_org', 'memberid')
+              )
+
+              const memberDoc = {
+                exists: true,
+                ref: 'member-ref',
+                id: 'member-id',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Müller',
+                  nr: '9999'
+                })
+              }
+
+              expect(generator.next(memberDoc).value).toEqual(
+                call(serverTimestamp)
+              )
+
+              const timestampFieldValue = {}
+
+              expect(generator.next(timestampFieldValue).value).toEqual(
                 call(
                   updateDoc,
                   [
@@ -977,7 +1061,15 @@ describe('routes', () => {
                     flightId
                   ],
                   {
-                    deleted: true
+                    deleted: true,
+                    deleteTimestamp: timestampFieldValue,
+                    deletedBy: {
+                      firstname: 'Max',
+                      id: 'member-id',
+                      lastname: 'Müller',
+                      member: 'member-ref',
+                      nr: '9999'
+                    }
                   }
                 )
               )
