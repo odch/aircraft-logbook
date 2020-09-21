@@ -12,7 +12,8 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-  runTransaction
+  runTransaction,
+  serverTimestamp
 } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
@@ -320,10 +321,13 @@ export function* createFlight({
     const oilUplift =
       typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
 
+    const timestampFieldValue = yield call(serverTimestamp)
+
     const dataToStore = {
       deleted: false,
       version: 1,
-      owner: owner.ref,
+      owner: memberObject(owner),
+      createTimestamp: timestampFieldValue,
       nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
       pilot: memberObject(pilot),
       instructor: memberObject(instructor),
@@ -376,7 +380,9 @@ export function* createFlight({
       setFlightData,
       oldFlightDoc,
       newFlightDoc,
-      dataToStore
+      dataToStore,
+      memberObject(owner),
+      timestampFieldValue
     )
 
     if (
@@ -432,12 +438,16 @@ export function* addNewFlightDoc(organizationId, aircraftId) {
 export const setFlightData = (
   oldFlightDoc,
   newFlightDoc,
-  dataToStore
+  dataToStore,
+  currentMember,
+  timestampFieldValue
 ) => async tx => {
   if (oldFlightDoc) {
     tx.update(oldFlightDoc.ref, {
       deleted: true,
-      replacedWith: newFlightDoc.id
+      replacedWith: newFlightDoc.id,
+      deletedBy: currentMember,
+      deleteTimestamp: timestampFieldValue
     })
     dataToStore.replaces = oldFlightDoc.id
     dataToStore.version = oldFlightDoc.get('version') + 1
@@ -613,6 +623,8 @@ export function* openAndInitEditFlightDialog({
 export function* deleteFlight({
   payload: { organizationId, aircraftId, flightId }
 }) {
+  const currentMember = yield call(getCurrentMember)
+  const memberDoc = yield call(getMember, organizationId, currentMember.id)
   yield call(
     updateDoc,
     [
@@ -624,7 +636,9 @@ export function* deleteFlight({
       flightId
     ],
     {
-      deleted: true
+      deleted: true,
+      deletedBy: memberObject(memberDoc),
+      deleteTimestamp: yield call(serverTimestamp)
     }
   )
   yield put(actions.fetchFlights())

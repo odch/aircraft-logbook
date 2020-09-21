@@ -73,7 +73,8 @@ service cloud.firestore {
           // actual flight values later with an update operation
           allow update: if isOrgMember(database, organization) && resource.data.keys().hasOnly(["deleted"]);
 
-          allow update: if isOrgMember(database, organization) && affectsOnly(["deleted", "replacedWith"]);
+          allow update: if isOrgMember(database, organization)
+            && affectsOnly(["deleted", "replacedWith", "deleteTimestamp", "deletedBy"]);
         }
 
         match /techlog/{entry} {
