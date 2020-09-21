@@ -165,6 +165,7 @@ class AircraftDetail extends React.Component {
           aircraft={aircraft}
           rowsPerPage={5}
           hidePagination
+          hideDeletedSwitch
         />
         <Button
           href={`/organizations/${organization.id}/aircrafts/${aircraft.id}/flights`}

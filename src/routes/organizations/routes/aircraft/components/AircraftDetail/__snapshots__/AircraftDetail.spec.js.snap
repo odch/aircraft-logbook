@@ -260,23 +260,27 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         <div
           className="MuiExpansionPanelSummary-content"
         >
-          <p
-            className="MuiTypography-root FlightList-flightHeading-144 MuiTypography-body1"
+          <div
+            className="FlightList-flightHeading-144"
           >
-            Von 
-            <span
-              className="FlightList-bold-146"
+            <p
+              className="MuiTypography-root MuiTypography-body1"
             >
-              LSZT
-            </span>
-             nach 
-            <span
-              className="FlightList-bold-146"
-            >
-              LSZT
-            </span>
-             — Max Muster
-          </p>
+              Von 
+              <span
+                className="FlightList-bold-146"
+              >
+                LSZT
+              </span>
+               nach 
+              <span
+                className="FlightList-bold-146"
+              >
+                LSZT
+              </span>
+               — Max Muster
+            </p>
+          </div>
           <p
             className="MuiTypography-root FlightList-flightSecondaryHeading-145 MuiTypography-body1"
           >

@@ -29,7 +29,8 @@ export const INITIAL_STATE = {
     organizationId: null,
     aircraftId: null,
     page: 0,
-    rowsPerPage: 10
+    rowsPerPage: 10,
+    showDeleted: false
   },
   techlog: {
     organizationId: null,
@@ -74,7 +75,8 @@ const setFlightsParams = (state, { payload }) => ({
     organizationId: payload.organizationId,
     aircraftId: payload.aircraftId,
     page: 0,
-    rowsPerPage: payload.rowsPerPage
+    rowsPerPage: payload.rowsPerPage,
+    showDeleted: payload.showDeleted
   }
 })
 

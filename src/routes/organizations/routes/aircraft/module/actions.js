@@ -74,12 +74,18 @@ export const CREATE_TECHLOG_ENTRY_ACTION_FAILURE =
 
 export const FETCH_CHECKS = 'aircraft/FETCH_CHECKS'
 
-export const initFlightsList = (organizationId, aircraftId, rowsPerPage) => ({
+export const initFlightsList = (
+  organizationId,
+  aircraftId,
+  rowsPerPage,
+  showDeleted
+) => ({
   type: INIT_FLIGHTS_LIST,
   payload: {
     organizationId,
     aircraftId,
-    rowsPerPage
+    rowsPerPage,
+    showDeleted
   }
 })
 
@@ -101,12 +107,18 @@ export const setFlightsPage = page => ({
   }
 })
 
-export const setFlightsParams = (organizationId, aircraftId, rowsPerPage) => ({
+export const setFlightsParams = (
+  organizationId,
+  aircraftId,
+  rowsPerPage,
+  showDeleted
+) => ({
   type: SET_FLIGHTS_PARAMS,
   payload: {
     organizationId,
     aircraftId,
-    rowsPerPage
+    rowsPerPage,
+    showDeleted
   }
 })
 

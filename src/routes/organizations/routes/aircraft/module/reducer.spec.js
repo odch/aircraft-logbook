@@ -26,7 +26,8 @@ const INITIAL_STATE = {
     organizationId: null,
     aircraftId: null,
     page: 0,
-    rowsPerPage: 10
+    rowsPerPage: 10,
+    showDeleted: false
   },
   techlog: {
     organizationId: null,
@@ -93,17 +94,19 @@ describe('routes', () => {
                     organizationId: null,
                     aircraftId: null,
                     page: 12,
-                    rowsPerPage: 10
+                    rowsPerPage: 10,
+                    showDeleted: false
                   }
                 },
-                actions.setFlightsParams('my_org', 'my_aircraft', 5)
+                actions.setFlightsParams('my_org', 'my_aircraft', 5, true)
               )
             ).toEqual({
               flights: {
                 organizationId: 'my_org',
                 aircraftId: 'my_aircraft',
                 page: 0,
-                rowsPerPage: 5
+                rowsPerPage: 5,
+                showDeleted: true
               }
             })
           })
