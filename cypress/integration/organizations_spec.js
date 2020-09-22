@@ -15,9 +15,7 @@ context('Organizations', () => {
   })
 
   it('create and delete an organization', () => {
-    const randomOrgId = Math.random()
-      .toString(36)
-      .substring(7)
+    const randomOrgId = Math.random().toString(36).substring(7)
     const orgName = 'my-test-org-' + randomOrgId
 
     cy.visit('/organizations')
@@ -31,7 +29,7 @@ context('Organizations', () => {
       '[data-cy=organization-create-dialog] [data-cy=create-button]'
     ).click()
 
-    cy.get(`[data-cy=organization-${orgName}]`).click()
+    cy.get(`[data-cy=organization-${orgName}]`, { timeout: 30000 }).click()
 
     cy.get('[data-cy=user-button]').click()
     cy.get('[data-cy=menu-item-selected-organization-settings]').click()
