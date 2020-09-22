@@ -134,10 +134,10 @@ const openEditMemberDialog = (state, { payload: { member } }) => ({
     data: {
       firstname: member.firstname,
       lastname: member.lastname,
-      nr: member.nr,
+      nr: member.nr || '',
       roles: member.roles || [],
       instructor: member.instructor || false,
-      inviteEmail: member.inviteEmail
+      inviteEmail: member.inviteEmail || ''
     }
   }
 })

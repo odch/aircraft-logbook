@@ -224,8 +224,7 @@ class FlightCreateDialog extends React.Component {
       aircraftSettings: {
         fuelTypes,
         engineHoursCounterEnabled,
-        engineHoursCounterFractionDigits,
-        techlogEnabled
+        engineHoursCounterFractionDigits
       }
     } = this.props
 
@@ -291,7 +290,7 @@ class FlightCreateDialog extends React.Component {
             {this.renderDecimalField('oilUplift')}
             {this.renderMultilineTextField('remarks')}
             {this.renderCheckbox('preflightCheck')}
-            {techlogEnabled && this.renderObservationsSection()}
+            {this.renderObservationsSection()}
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color="primary" disabled={submitting}>
@@ -562,7 +561,13 @@ class FlightCreateDialog extends React.Component {
   }
 
   renderObservationsSection() {
-    const { techlogEntryStatusOptions, data, submitting, classes } = this.props
+    const {
+      techlogEntryStatusOptions,
+      data,
+      submitting,
+      aircraftSettings: { techlogEnabled },
+      classes
+    } = this.props
     const value = data.troublesObservations || ''
     return this.renderInFormControl(
       'troublesObservations',
@@ -591,25 +596,30 @@ class FlightCreateDialog extends React.Component {
           </RadioGroup>
           {value === 'troubles' && (
             <>
-              {this.renderSelect(
-                'techlogEntryStatus',
-                techlogEntryStatusOptions
-              )}
-              {this.renderMultilineTextField('techlogEntryDescription', 5)}
-              <Attachments
-                attachments={data.techlogEntryAttachments}
-                disabled={submitting}
-                onRemoveClick={this.removeAttachment}
-                className={classes.techlogEntryAttachments}
-              />
-              <FileButton
-                disabled={submitting}
-                label={this.msg(
-                  'flight.create.dialog.techlogentryattachment.add'
+              {techlogEnabled &&
+                this.renderSelect(
+                  'techlogEntryStatus',
+                  techlogEntryStatusOptions
                 )}
-                onSelect={this.handleFileSelect}
-                className={classes.addTechlogEntryAttachmentButton}
-              />
+              {this.renderMultilineTextField('techlogEntryDescription', 5)}
+              {techlogEnabled && (
+                <>
+                  <Attachments
+                    attachments={data.techlogEntryAttachments}
+                    disabled={submitting}
+                    onRemoveClick={this.removeAttachment}
+                    className={classes.techlogEntryAttachments}
+                  />
+                  <FileButton
+                    disabled={submitting}
+                    label={this.msg(
+                      'flight.create.dialog.techlogentryattachment.add'
+                    )}
+                    onSelect={this.handleFileSelect}
+                    className={classes.addTechlogEntryAttachmentButton}
+                  />
+                </>
+              )}
             </>
           )}
         </>

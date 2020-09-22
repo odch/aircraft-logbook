@@ -1,5 +1,6 @@
 import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
+import { callFunction } from '../../../../../../../util/firebase'
 import {
   addArrayItem,
   removeArrayItem,
@@ -8,6 +9,7 @@ import {
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchAircrafts } from '../../../../../module'
+import { fetchChecks } from '../../../module'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -18,28 +20,40 @@ describe('routes', () => {
             describe('sagas', () => {
               describe('createCheck', () => {
                 it('should add a check to the aircraft', () => {
-                  const orgId = 'my_org'
+                  const organizationId = 'my_org'
                   const aircraftId = 'my_aircraft'
-                  const check = {
+                  const inputCheck = {
                     description: 'Next Foobar Check',
                     dateLimit: new Date(2020, 6, 30)
                   }
+                  const check = {
+                    description: 'Next Foobar Check',
+                    dateLimit: new Date(2020, 6, 30).getTime()
+                  }
 
-                  const action = actions.createCheck(orgId, aircraftId, check)
+                  const action = actions.createCheck(
+                    organizationId,
+                    aircraftId,
+                    inputCheck
+                  )
 
                   return expectSaga(sagas.createCheck, action)
                     .provide([
                       [
-                        call(
-                          addArrayItem,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          'checks',
+                        call(callFunction, 'addCheck', {
+                          organizationId,
+                          aircraftId,
                           check
-                        )
+                        })
                       ]
                     ])
                     .put(actions.setCreateCheckDialogSubmitting())
-                    .put(fetchAircrafts(orgId))
+                    .call(callFunction, 'addCheck', {
+                      organizationId,
+                      aircraftId,
+                      check
+                    })
+                    .put(fetchChecks(organizationId, aircraftId))
                     .put(actions.createCheckSuccess())
                     .run()
                 })
@@ -47,28 +61,33 @@ describe('routes', () => {
 
               describe('deleteCheck', () => {
                 it('should remove a check of the aircraft', () => {
-                  const orgId = 'my_org'
+                  const organizationId = 'my_org'
                   const aircraftId = 'my_aircraft'
-                  const check = {
-                    description: 'Next Foobar Check',
-                    dateLimit: new Date(2020, 6, 30)
-                  }
+                  const checkId = 'my_check'
 
-                  const action = actions.deleteCheck(orgId, aircraftId, check)
+                  const action = actions.deleteCheck(
+                    organizationId,
+                    aircraftId,
+                    checkId
+                  )
 
                   return expectSaga(sagas.deleteCheck, action)
                     .provide([
                       [
-                        call(
-                          removeArrayItem,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          'checks',
-                          check
-                        )
+                        call(callFunction, 'deleteCheck', {
+                          organizationId,
+                          aircraftId,
+                          checkId
+                        })
                       ]
                     ])
                     .put(actions.setDeleteCheckDialogSubmitting())
-                    .put(fetchAircrafts(orgId))
+                    .call(callFunction, 'deleteCheck', {
+                      organizationId,
+                      aircraftId,
+                      checkId
+                    })
+                    .put(fetchChecks(organizationId, aircraftId))
                     .put(actions.closeDeleteCheckDialog())
                     .run()
                 })

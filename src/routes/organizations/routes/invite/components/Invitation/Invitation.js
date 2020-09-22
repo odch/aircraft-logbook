@@ -136,7 +136,6 @@ Invitation.propTypes = {
   inviteId: PropTypes.string.isRequired,
   invite: PropTypes.shape({
     firstname: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
     accepted: PropTypes.bool.isRequired
   }),
   acceptInProgress: PropTypes.bool.isRequired,

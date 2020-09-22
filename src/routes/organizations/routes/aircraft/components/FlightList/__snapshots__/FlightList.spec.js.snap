@@ -26,6 +26,51 @@ Array [
       Flug erfassen
     </span>
   </button>,
+  <label
+    className="MuiFormControlLabel-root FlightList-showDeletedSwitch-7 MuiFormControlLabel-labelPlacementStart"
+  >
+    <span
+      className="MuiSwitch-root"
+    >
+      <span
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-47 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={null}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <span
+            className="MuiSwitch-thumb"
+          />
+          <input
+            className="PrivateSwitchBase-input-50 MuiSwitch-input"
+            onChange={[Function]}
+            type="checkbox"
+          />
+        </span>
+      </span>
+      <span
+        className="MuiSwitch-track"
+      />
+    </span>
+    <span
+      className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+    >
+      Archivierte einblenden
+    </span>
+  </label>,
   <div
     className="FlightList-container-2"
   >
@@ -55,23 +100,27 @@ Array [
         <div
           className="MuiExpansionPanelSummary-content"
         >
-          <p
-            className="MuiTypography-root FlightList-flightHeading-3 MuiTypography-body1"
+          <div
+            className="FlightList-flightHeading-3"
           >
-            Von 
-            <span
-              className="FlightList-bold-5"
+            <p
+              className="MuiTypography-root MuiTypography-body1"
             >
-              LSZT
-            </span>
-             nach 
-            <span
-              className="FlightList-bold-5"
-            >
-              LSZT
-            </span>
-             — Max Muster
-          </p>
+              Von 
+              <span
+                className="FlightList-bold-5"
+              >
+                LSZT
+              </span>
+               nach 
+              <span
+                className="FlightList-bold-5"
+              >
+                LSZT
+              </span>
+               — Max Muster
+            </p>
+          </div>
           <p
             className="MuiTypography-root FlightList-flightSecondaryHeading-4 MuiTypography-body1"
           >
@@ -165,23 +214,27 @@ Array [
         <div
           className="MuiExpansionPanelSummary-content"
         >
-          <p
-            className="MuiTypography-root FlightList-flightHeading-3 MuiTypography-body1"
+          <div
+            className="FlightList-flightHeading-3"
           >
-            Von 
-            <span
-              className="FlightList-bold-5"
+            <p
+              className="MuiTypography-root MuiTypography-body1"
             >
-              LSZT
-            </span>
-             nach 
-            <span
-              className="FlightList-bold-5"
-            >
-              LSZT
-            </span>
-             — Hans Meier
-          </p>
+              Von 
+              <span
+                className="FlightList-bold-5"
+              >
+                LSZT
+              </span>
+               nach 
+              <span
+                className="FlightList-bold-5"
+              >
+                LSZT
+              </span>
+               — Hans Meier
+            </p>
+          </div>
           <p
             className="MuiTypography-root FlightList-flightSecondaryHeading-4 MuiTypography-body1"
           >

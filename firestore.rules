@@ -1,10 +1,99 @@
+rules_version = '2';
+
+function isAuthed() {
+  return request.auth != null
+}
+
+function isOwnUser(user) {
+  return isAuthed() && request.auth.uid == user;
+}
+
+function isOrgMember(database, organization) {
+  return isAuthed() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization] != null
+}
+
+function isOrgManager(database, organization) {
+  return isAuthed() && 'manager' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization].roles
+}
+
+function affectsOnly(fields) {
+  return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
+}
+
+function affectsNot(fields) {
+  return request.resource.data.diff(resource.data).affectedKeys().hasAny(fields) == false;
+}
+
+function hasOnly(fields) {
+  return request.resource.data.keys().toSet().hasOnly(fields)
+}
+
+function hasNot(fields) {
+  return request.resource.data.keys().toSet().hasAny(fields) == false
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write: if request.auth.uid != null;
+      allow read, write: if false;
     }
-    match /organizations/{organization}/members/{member} {
-      allow read;
+
+    match /users/{user} {
+      allow read: if isOwnUser(user);
+      allow create: if isOwnUser(user) && hasNot(["orgs"]);
+      allow update: if isOwnUser(user) && affectsNot(["orgs"]);
+    }
+
+    match /aerodromes/{aerodrome} {
+      allow read: if isAuthed();
+    }
+
+    match /organizations/{organization} {
+      allow read: if isOrgMember(database, organization);
+      allow update: if isOrgManager(database, organization);
+
+      match /members/{member} {
+        allow read: if isOrgMember(database, organization);
+        allow create: if isOrgManager(database, organization)
+          && hasOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp"]);
+        allow update: if isOrgManager(database, organization)
+          && affectsOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp"]);
+      }
+
+      match /aircrafts/{aircraft} {
+        allow read: if isOrgMember(database, organization);
+        allow create: if isOrgManager(database, organization);
+        allow update: if isOrgManager(database, organization) && affectsOnly(["deleted", "settings", "checks"]);
+
+        match /flights/{flight} {
+          allow read: if isOrgMember(database, organization);
+          allow create: if isOrgMember(database, organization);
+
+          // when creating flights we first create an empty flight doc with deleted only and set the
+          // actual flight values later with an update operation
+          allow update: if isOrgMember(database, organization) && resource.data.keys().hasOnly(["deleted"]);
+
+          allow update: if isOrgMember(database, organization)
+            && affectsOnly(["deleted", "replacedWith", "deleteTimestamp", "deletedBy"]);
+        }
+
+        match /techlog/{entry} {
+          allow read: if isOrgMember(database, organization);
+
+          match /actions/{action} {
+            allow read: if isOrgMember(database, organization);
+          }
+        }
+
+        match /checks/{check} {
+          allow read: if isOrgMember(database, organization);
+        }
+      }
+
+      match /aerodromes/{aerodrome} {
+        allow read: if isOrgMember(database, organization);
+        allow create: if isOrgMember(database, organization);
+      }
     }
   }
 }

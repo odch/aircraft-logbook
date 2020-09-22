@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import { injectIntl } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
@@ -32,6 +33,9 @@ const styles = theme => ({
   },
   deleteButtonContainer: {
     textAlign: 'center'
+  },
+  closeSettingsButton: {
+    float: 'right'
   }
 })
 
@@ -97,6 +101,13 @@ class AircraftSettings extends React.Component {
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
+          <Button
+            href={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
+            color="primary"
+            className={classes.closeSettingsButton}
+          >
+            <FormattedMessage id="aircraft.settings.close" />
+          </Button>
         </Typography>
         {(this.isOrganizationManager() || this.isTechlogManager()) && (
           <Checks organizationId={organization.id} aircraftId={aircraft.id} />

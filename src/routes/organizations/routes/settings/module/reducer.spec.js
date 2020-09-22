@@ -299,6 +299,47 @@ describe('routes', () => {
             })
           })
 
+          it('handles OPEN_EDIT_MEMBER_DIALOG action with minimal data', () => {
+            const member = {
+              firstname: 'Max',
+              lastname: 'Keller'
+            }
+
+            expect(
+              reducer(
+                {
+                  editMemberDialog: {
+                    open: false,
+                    submitting: true,
+                    data: {
+                      firstname: 'Hans',
+                      lastname: 'Meier',
+                      nr: '242',
+                      roles: ['user'],
+                      instructor: true,
+                      inviteEmail: 'hans.meier@test.com'
+                    }
+                  }
+                },
+                actions.openEditMemberDialog(member)
+              )
+            ).toEqual({
+              editMemberDialog: {
+                open: true,
+                submitting: false,
+                member,
+                data: {
+                  firstname: 'Max',
+                  lastname: 'Keller',
+                  nr: '',
+                  roles: [],
+                  instructor: false,
+                  inviteEmail: ''
+                }
+              }
+            })
+          })
+
           it('handles CLOSE_EDIT_MEMBER_DIALOG action', () => {
             expect(
               reducer(

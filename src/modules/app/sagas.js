@@ -40,42 +40,22 @@ export function* unwatchCurrentUser() {
   })
 }
 
-export function* getWithRoles(organizationDoc, userRef) {
-  const allRoles = []
-
-  const orgData = organizationDoc.data()
-
-  if (orgData.owner.id === userRef.id) {
-    allRoles.push('manager')
-  }
-
-  const firestore = yield call(getFirestore)
-  const members = yield call(firestore.get, {
-    collection: 'organizations',
-    doc: organizationDoc.id,
-    subcollections: [{ collection: 'members' }],
-    where: ['user', '==', userRef],
-    storeAs: 'org-user-member'
-  })
-
-  // maybe the current user is linked to multiple members
-  // -> get roles from all returned results
-  members.docs.forEach(member => {
-    const memberRoles = member.get('roles')
-    if (memberRoles && memberRoles.length > 0) {
-      allRoles.push.apply(allRoles, memberRoles)
+export function* getWithRoles(org) {
+  const organizationDoc = yield call(org.ref.get.bind(org.ref))
+  if (organizationDoc.exists === true) {
+    const data = organizationDoc.data()
+    if (data.deleted !== true) {
+      return {
+        ...data,
+        id: organizationDoc.id,
+        roles: org.roles
+      }
     }
-  })
-
-  orgData.roles = allRoles
-
-  return orgData
+  }
+  return null
 }
 
 export function* fetchOrganizations() {
-  // set to loading state
-  yield put(actions.setMyOrganizations(undefined))
-
   let organizations = []
 
   const uid = yield select(uidSelector)
@@ -83,19 +63,19 @@ export function* fetchOrganizations() {
     throw 'UID not available'
   }
   const userDoc = yield call(getDoc, ['users', uid])
-  const organizationRefs = userDoc.get('organizations')
-  if (organizationRefs && organizationRefs.length > 0) {
-    const organizationDocs = yield all(
-      organizationRefs.map(ref => call(ref.get.bind(ref)))
-    )
-    organizations = yield all(
-      organizationDocs
-        .filter(doc => doc.exists === true)
-        .map(doc => call(getWithRoles, doc, userDoc.ref))
-    )
+  const orgs = userDoc.get('orgs')
+  if (orgs) {
+    if (Object.keys(orgs).length > 0) {
+      organizations = yield all(
+        Object.keys(orgs).map(orgKey => call(getWithRoles, orgs[orgKey]))
+      )
+      organizations = organizations.filter(org => org != null)
+    }
+    yield put(actions.setMyOrganizations(organizations))
+  } else {
+    // set to loading state
+    yield put(actions.setMyOrganizations(undefined))
   }
-
-  yield put(actions.setMyOrganizations(organizations))
 }
 
 export const collectReferences = (data, referenceItems) => {
@@ -169,6 +149,12 @@ export function* onGetSuccess(action) {
   }
 }
 
+export function* onListenerResponse(action) {
+  if (action.meta.storeAs === 'currentUser') {
+    yield call(fetchOrganizations)
+  }
+}
+
 export function* logout() {
   const firebase = yield call(getFirebase)
   yield call(firebase.logout)
@@ -189,6 +175,10 @@ export default function* sagas() {
     takeEvery(reduxFirebaseConstants.actionTypes.LOGIN, onLogin),
     takeEvery(reduxFirebaseConstants.actionTypes.LOGOUT, unwatchCurrentUser),
     takeEvery(reduxFirestoreConstants.actionTypes.GET_SUCCESS, onGetSuccess),
+    takeEvery(
+      reduxFirestoreConstants.actionTypes.LISTENER_RESPONSE,
+      onListenerResponse
+    ),
     takeEvery(actions.LOGOUT, logout),
     takeEvery(actions.WATCH_AERODROMES, watchAerodromes),
     takeEvery(actions.FETCH_ORGANIZATIONS, fetchOrganizations)

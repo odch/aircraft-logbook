@@ -12,7 +12,8 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-  runTransaction
+  runTransaction,
+  serverTimestamp
 } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
@@ -20,11 +21,14 @@ import { getCounters } from './util/counters'
 import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
 import { isClosed } from '../../../../../util/techlogStatus'
 
+export const flightPageName = (aircraftId, page, showDeleted) =>
+  `${showDeleted ? 'flights-all' : 'flights'}-${aircraftId}-${page}`
+
 export const uidSelector = state => state.firebase.auth.uid
 export const organizationMembersSelector = state =>
   state.firestore.ordered.organizationMembers
-export const flightsSelector = (aircraftId, page) => state =>
-  state.firestore.ordered[`flights-${aircraftId}-${page}`]
+export const flightsSelector = (aircraftId, page, showDeleted) => state =>
+  state.firestore.ordered[flightPageName(aircraftId, page, showDeleted)]
 export const techlogPageSelector = (aircraftId, page) => state =>
   state.firestore.ordered[`techlog-${aircraftId}-${page}`]
 export const openTechlogEntriesSelector = aircraftId => state =>
@@ -34,11 +38,18 @@ export const aircraftTechlogViewSelector = state => state.aircraft.techlog
 export const aircraftSettingsSelector = (state, aircraftId) =>
   state.firestore.data.organizationAircrafts[aircraftId].settings || {}
 
-export function* getStartFlightDocument(organizationId, aircraftId, page) {
+export function* getStartFlightDocument(
+  organizationId,
+  aircraftId,
+  page,
+  showDeleted
+) {
   if (page === 0) {
     return null
   }
-  const previousPage = yield select(flightsSelector(aircraftId, page - 1))
+  const previousPage = yield select(
+    flightsSelector(aircraftId, page - 1, showDeleted)
+  )
   if (previousPage && previousPage.length > 0) {
     const lastFlight = previousPage[previousPage.length - 1]
     return yield call(getFlight, organizationId, aircraftId, lastFlight.id)
@@ -47,9 +58,16 @@ export function* getStartFlightDocument(organizationId, aircraftId, page) {
 }
 
 export function* initFlightsList({
-  payload: { organizationId, aircraftId, rowsPerPage }
+  payload: { organizationId, aircraftId, rowsPerPage, showDeleted }
 }) {
-  yield put(actions.setFlightsParams(organizationId, aircraftId, rowsPerPage))
+  yield put(
+    actions.setFlightsParams(
+      organizationId,
+      aircraftId,
+      rowsPerPage,
+      showDeleted
+    )
+  )
   yield call(fetchFlights)
 }
 
@@ -59,15 +77,29 @@ export function* changeFlightsPage({ payload: { page } }) {
 }
 
 export function* fetchFlights() {
-  const { organizationId, aircraftId, page, rowsPerPage } = yield select(
-    aircraftFlightsViewSelector
-  )
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showDeleted
+  } = yield select(aircraftFlightsViewSelector)
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
     aircraftId,
-    page
+    page,
+    showDeleted
   )
+
+  const where = showDeleted ? [] : ['deleted', '==', false]
+  const orderBy = showDeleted
+    ? [
+        ['blockOffTime', 'desc'],
+        ['version', 'desc']
+      ]
+    : ['blockOffTime', 'desc']
+
   const firestore = yield call(getFirestore)
   yield call(
     firestore.get,
@@ -85,11 +117,11 @@ export function* fetchFlights() {
           ]
         }
       ],
-      where: ['deleted', '==', false],
-      orderBy: ['blockOffTime', 'desc'],
+      where,
+      orderBy,
       startAfter: startFlightDocument,
       limit: rowsPerPage,
-      storeAs: `flights-${aircraftId}-${page}`,
+      storeAs: flightPageName(aircraftId, page, showDeleted),
       populate: [
         'departureAerodrome',
         'destinationAerodrome',
@@ -289,9 +321,13 @@ export function* createFlight({
     const oilUplift =
       typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
 
+    const timestampFieldValue = yield call(serverTimestamp)
+
     const dataToStore = {
       deleted: false,
-      owner: owner.ref,
+      version: 1,
+      owner: memberObject(owner),
+      createTimestamp: timestampFieldValue,
       nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
       pilot: memberObject(pilot),
       instructor: memberObject(instructor),
@@ -319,11 +355,13 @@ export function* createFlight({
       dataToStore.techlogEntryDescription = data.techlogEntryDescription
         ? data.techlogEntryDescription.trim()
         : null
-      dataToStore.techlogEntryStatus = data.techlogEntryStatus
-        ? typeof data.techlogEntryStatus === 'string'
-          ? data.techlogEntryStatus
-          : data.techlogEntryStatus.value
-        : null
+      if (aircraftSettings.techlogEnabled === true) {
+        dataToStore.techlogEntryStatus = data.techlogEntryStatus
+          ? typeof data.techlogEntryStatus === 'string'
+            ? data.techlogEntryStatus
+            : data.techlogEntryStatus.value
+          : null
+      }
     }
 
     const oldFlightDoc = data.id
@@ -342,10 +380,16 @@ export function* createFlight({
       setFlightData,
       oldFlightDoc,
       newFlightDoc,
-      dataToStore
+      dataToStore,
+      memberObject(owner),
+      timestampFieldValue
     )
 
-    if (data.troublesObservations === 'troubles' && !data.id) {
+    if (
+      data.troublesObservations === 'troubles' &&
+      !data.id &&
+      aircraftSettings.techlogEnabled === true
+    ) {
       const entry = {
         description: data.techlogEntryDescription.trim(),
         initialStatus: data.techlogEntryStatus.value,
@@ -394,14 +438,19 @@ export function* addNewFlightDoc(organizationId, aircraftId) {
 export const setFlightData = (
   oldFlightDoc,
   newFlightDoc,
-  dataToStore
+  dataToStore,
+  currentMember,
+  timestampFieldValue
 ) => async tx => {
   if (oldFlightDoc) {
     tx.update(oldFlightDoc.ref, {
       deleted: true,
-      replacedWith: newFlightDoc.id
+      replacedWith: newFlightDoc.id,
+      deletedBy: currentMember,
+      deleteTimestamp: timestampFieldValue
     })
     dataToStore.replaces = oldFlightDoc.id
+    dataToStore.version = oldFlightDoc.get('version') + 1
   }
   tx.update(newFlightDoc.ref, dataToStore)
 }
@@ -574,6 +623,8 @@ export function* openAndInitEditFlightDialog({
 export function* deleteFlight({
   payload: { organizationId, aircraftId, flightId }
 }) {
+  const currentMember = yield call(getCurrentMember)
+  const memberDoc = yield call(getMember, organizationId, currentMember.id)
   yield call(
     updateDoc,
     [
@@ -585,7 +636,9 @@ export function* deleteFlight({
       flightId
     ],
     {
-      deleted: true
+      deleted: true,
+      deletedBy: memberObject(memberDoc),
+      deleteTimestamp: yield call(serverTimestamp)
     }
   )
   yield put(actions.fetchFlights())
@@ -883,6 +936,32 @@ export function* createTechlogEntryAction({
   }
 }
 
+export function* fetchChecks({ payload: { organizationId, aircraftId } }) {
+  const firestore = yield call(getFirestore)
+  yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'checks'
+            }
+          ]
+        }
+      ],
+      where: [['deleted', '==', false]],
+      orderBy: 'description',
+      storeAs: `checks-${aircraftId}`
+    },
+    {}
+  )
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.INIT_FLIGHTS_LIST, initFlightsList),
@@ -896,6 +975,7 @@ export default function* sagas() {
     takeEvery(actions.INIT_TECHLOG, initTechlog),
     takeEvery(actions.CHANGE_TECHLOG_PAGE, changeTechlogPage),
     takeEvery(actions.CREATE_TECHLOG_ENTRY, createTechlogEntry),
-    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction)
+    takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction),
+    takeEvery(actions.FETCH_CHECKS, fetchChecks)
   ])
 }

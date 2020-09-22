@@ -14,9 +14,8 @@ export const INITIAL_STATE = {
 const openCreateOrganizationDialog = state => ({
   ...state,
   createDialog: {
-    ...state.createDialog,
-    open: true,
-    data: INITIAL_STATE.createDialog.data
+    ...INITIAL_STATE.createDialog,
+    open: true
   }
 })
 

@@ -154,6 +154,25 @@ describe('routes', () => {
                 })
               })
 
+              it('handles CREATE_CHECK_FAILURE action', () => {
+                expect(
+                  reducer(
+                    {
+                      createCheckDialog: {
+                        open: true,
+                        submitting: true
+                      }
+                    },
+                    actions.createCheckFailure()
+                  )
+                ).toEqual({
+                  createCheckDialog: {
+                    open: true,
+                    submitting: false
+                  }
+                })
+              })
+
               it('handles OPEN_CREATE_FUEL_TYPE_DIALOG action', () => {
                 expect(
                   reducer(

@@ -1,13 +1,9 @@
 import { takeEvery, all, call, put, select } from 'redux-saga/effects'
-import { getFirebase, getFirestore } from '../../../util/firebase'
+import { callFunction, getFirebase, getFirestore } from '../../../util/firebase'
 import * as actions from './actions'
 import { fetchOrganizations } from '../../../modules/app'
 import { error } from '../../../util/log'
-import {
-  getDoc,
-  addArrayItem,
-  removeArrayItem
-} from '../../../util/firestoreUtils'
+import { updateDoc } from '../../../util/firestoreUtils'
 
 export const uidSelector = state => state.firebase.auth.uid
 
@@ -30,21 +26,7 @@ export function* getCurrentUser() {
 export function* createOrganization({ payload: { data } }) {
   try {
     yield put(actions.setCreateOrganizationDialogSubmitted())
-    const firestore = yield call(getFirestore)
-    const user = yield call(getCurrentUser)
-    yield call(
-      firestore.set,
-      {
-        collection: 'organizations',
-        doc: data.name
-      },
-      {
-        id: data.name,
-        owner: user.ref
-      }
-    )
-    const newOrg = yield call(getDoc, ['organizations', data.name])
-    yield call(addArrayItem, ['users', user.id], 'organizations', newOrg.ref)
+    yield call(callFunction, 'addOrganization', data)
     yield put(fetchOrganizations())
     yield put(actions.createOrganizationSuccess())
   } catch (e) {
@@ -60,13 +42,7 @@ export function* selectOrganization({ payload: { id } }) {
 
 export function* deleteOrganization({ payload: { id } }) {
   try {
-    const firestore = yield call(getFirestore)
-    const org = yield call(getDoc, ['organizations', id])
-    const user = yield call(getCurrentUser)
-
-    yield call(firestore.delete, { collection: 'organizations', doc: id }, {})
-    yield call(removeArrayItem, ['users', user.id], 'organizations', org.ref)
-
+    yield call(updateDoc, ['organizations', id], { deleted: true })
     yield put(fetchOrganizations())
     yield put(actions.deleteOrganizationSuccess())
   } catch (e) {

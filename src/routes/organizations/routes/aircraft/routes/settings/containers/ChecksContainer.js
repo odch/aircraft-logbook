@@ -1,8 +1,8 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import _get from 'lodash.get'
 import Checks from '../components/Checks'
-import { getAircraft } from '../../../../../../../util/getFromState'
+import { getAircraftChecks } from '../../../../../../../util/getFromState'
+import { fetchChecks } from '../../../module'
 import {
   openCreateCheckDialog,
   openDeleteCheckDialog,
@@ -12,20 +12,17 @@ import {
 
 const mapStateToProps = (state, ownProps) => {
   const { organizationId, aircraftId } = ownProps
-
-  const aircraft = getAircraft(state, aircraftId)
-  const checks = _get(aircraft, 'checks', [])
-
   return {
     organizationId,
     aircraftId,
-    checks,
+    checks: getAircraftChecks(state, aircraftId),
     createCheckDialogOpen: state.aircraftSettings.createCheckDialog.open,
     deleteCheckDialog: state.aircraftSettings.deleteCheckDialog
   }
 }
 
 const mapActionCreators = {
+  fetchChecks,
   openCreateCheckDialog,
   openDeleteCheckDialog,
   closeDeleteCheckDialog,

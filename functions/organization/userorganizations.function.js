@@ -1,3 +1,8 @@
+/*
+ * Array field `organizations` of user doc is deprecated and has been replaced with `orgs` map that can
+ * be used in Firestore security rules.
+ */
+
 /* eslint-disable no-empty */
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')

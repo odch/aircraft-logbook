@@ -1,35 +1,35 @@
 import { takeEvery, all, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { fetchAircrafts } from '../../../../../module'
+import { fetchChecks } from '../../../module'
 import { error } from '../../../../../../../util/log'
 import {
   addArrayItem,
   removeArrayItem,
   updateDoc
 } from '../../../../../../../util/firestoreUtils'
+import { callFunction } from '../../../../../../../util/firebase'
 
 export function* createCheck({
   payload: { organizationId, aircraftId, data }
 }) {
   try {
     yield put(actions.setCreateCheckDialogSubmitting())
-
-    const dataToPut = {
+    const check = {
       ...data
     }
-
-    if (dataToPut.counterReference) {
-      dataToPut.counterReference = dataToPut.counterReference.value
+    if (check.dateLimit) {
+      check.dateLimit = check.dateLimit.getTime()
     }
-
-    yield call(
-      addArrayItem,
-      ['organizations', organizationId, 'aircrafts', aircraftId],
-      'checks',
-      dataToPut
-    )
-
-    yield put(fetchAircrafts(organizationId))
+    if (check.counterReference) {
+      check.counterReference = check.counterReference.value
+    }
+    yield call(callFunction, 'addCheck', {
+      organizationId,
+      aircraftId,
+      check
+    })
+    yield put(fetchChecks(organizationId, aircraftId))
     yield put(actions.createCheckSuccess())
   } catch (e) {
     error(`Failed to add check ${data.description}`, e)
@@ -38,18 +38,15 @@ export function* createCheck({
 }
 
 export function* deleteCheck({
-  payload: { organizationId, aircraftId, check }
+  payload: { organizationId, aircraftId, checkId }
 }) {
   yield put(actions.setDeleteCheckDialogSubmitting())
-
-  yield call(
-    removeArrayItem,
-    ['organizations', organizationId, 'aircrafts', aircraftId],
-    'checks',
-    check
-  )
-
-  yield put(fetchAircrafts(organizationId))
+  yield call(callFunction, 'deleteCheck', {
+    organizationId,
+    aircraftId,
+    checkId
+  })
+  yield put(fetchChecks(organizationId, aircraftId))
   yield put(actions.closeDeleteCheckDialog())
 }
 

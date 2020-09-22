@@ -5,7 +5,8 @@ import { callFunction, getFirestore } from '../../../../../util/firebase'
 import {
   addDoc,
   runTransaction,
-  updateDoc
+  updateDoc,
+  serverTimestamp
 } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -65,7 +66,8 @@ describe('routes', () => {
                 organizationId: 'my_org',
                 aircraftId: 'o7flC7jw8jmkOfWo8oyA',
                 page: 0,
-                rowsPerPage: 10
+                rowsPerPage: 10,
+                showDeleted: false
               }
 
               expect(generator.next(aircraftFlightsView).value).toEqual(
@@ -73,7 +75,8 @@ describe('routes', () => {
                   sagas.getStartFlightDocument,
                   'my_org',
                   'o7flC7jw8jmkOfWo8oyA',
-                  0
+                  0,
+                  false
                 )
               )
 
@@ -223,7 +226,8 @@ describe('routes', () => {
               )
 
               const aircraftSettings = {
-                engineHoursCounterEnabled: true
+                engineHoursCounterEnabled: true,
+                techlogEnabled: true
               }
 
               expect(generator.next(aircraftSettings).value).toEqual(
@@ -249,7 +253,16 @@ describe('routes', () => {
               const currentMember = {
                 id: 'member-id'
               }
-              const owner = { ref: 'owner-ref' }
+              const owner = {
+                exists: true,
+                ref: 'owner-ref',
+                id: 'owner-id',
+                get: getFromMap({
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534'
+                })
+              }
               const pilot = {
                 exists: true,
                 ref: 'pilot-ref',
@@ -294,6 +307,7 @@ describe('routes', () => {
                 landingTime: new Date('2018-12-13T09:35:00.000Z'),
                 blockOnTime: new Date('2018-12-13T09:40:00.000Z')
               }
+              const timestampFieldValue = {}
 
               expect(generator.next(departureAerodrome).value).toEqual(
                 call(
@@ -323,6 +337,9 @@ describe('routes', () => {
                 call(sagas.getMember, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
+                call(serverTimestamp)
+              )
+              expect(generator.next(timestampFieldValue).value).toEqual(
                 call(sagas.addNewFlightDoc, organizationId, aircraftId)
               )
 
@@ -334,7 +351,15 @@ describe('routes', () => {
 
               const dataToStore = {
                 deleted: false,
-                owner: 'owner-ref',
+                version: 1,
+                owner: {
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534',
+                  member: 'owner-ref',
+                  id: 'owner-id'
+                },
+                createTimestamp: {},
                 pilot: {
                   firstname: 'Max',
                   lastname: 'Superpilot',
@@ -396,7 +421,9 @@ describe('routes', () => {
                   sagas.setFlightData,
                   null,
                   newFlightDoc,
-                  dataToStore
+                  dataToStore,
+                  dataToStore.owner,
+                  {}
                 )
               )
 
@@ -446,6 +473,254 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
+            })
+
+            it('should save a new flight with troubles with techlog disabled', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                pilot: { value: 'pilot-id' },
+                instructor: { value: 'instructor-id' },
+                nature: { value: 'vp' },
+                departureAerodrome: { value: 'dep-ad-id' },
+                destinationAerodrome: { value: 'dest-ad-id' },
+                date: '2018-12-13',
+                blockOffTime: '2018-12-15 10:00',
+                takeOffTime: '2018-12-15 10:05',
+                landingTime: '2018-12-15 10:35',
+                blockOnTime: '2018-12-15 10:40',
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  flightHours: { start: 58658 },
+                  flights: { start: 464 },
+                  landings: { start: 3846 }
+                },
+                landings: 3,
+                fuelUplift: 5789,
+                fuelType: { value: 'avgas_homebase' },
+                oilUplift: 245,
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  '
+              }
+
+              const action = actions.createFlight(
+                organizationId,
+                aircraftId,
+                data
+              )
+
+              const currentMember = {
+                id: 'member-id'
+              }
+
+              const owner = {
+                exists: true,
+                ref: 'owner-ref',
+                id: 'owner-id',
+                get: getFromMap({
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534'
+                })
+              }
+
+              const aircraftSettings = {
+                engineHoursCounterEnabled: false,
+                techlogEnabled: false
+              }
+
+              const departureAerodrome = {
+                ref: 'dep-ad-ref',
+                id: 'dep-ad-id',
+                get: getFromMap({
+                  identification: 'LSZT',
+                  name: 'Lommis',
+                  timezone: 'Europe/Zurich'
+                })
+              }
+
+              const destinationAerodrome = {
+                ref: 'dest-ad-ref',
+                id: 'dest-ad-id',
+                get: getFromMap({
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
+                  timezone: 'Europe/Zurich'
+                })
+              }
+
+              const dataWithMergedDateAndTime = {
+                ...data,
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z')
+              }
+
+              const timestampFieldValue = {}
+
+              const pilot = {
+                exists: true,
+                ref: 'pilot-ref',
+                id: 'pilot-id',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999'
+                })
+              }
+              const instructor = {
+                exists: true,
+                ref: 'instructor-ref',
+                id: 'instructor-id',
+                get: getFromMap({
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer'
+                })
+              }
+
+              const newFlightDoc = {
+                ref: {},
+                id: 'new-flight-id',
+                deleted: true
+              }
+
+              const dataToStore = {
+                deleted: false,
+                version: 1,
+                owner: {
+                  firstname: 'Stefan',
+                  lastname: 'Müller',
+                  nr: '8534',
+                  member: 'owner-ref',
+                  id: 'owner-id'
+                },
+                createTimestamp: timestampFieldValue,
+                pilot: {
+                  firstname: 'Max',
+                  lastname: 'Superpilot',
+                  nr: '9999',
+                  member: 'pilot-ref',
+                  id: 'pilot-id'
+                },
+                instructor: {
+                  firstname: 'Hans',
+                  lastname: 'Superfluglehrer',
+                  nr: null,
+                  member: 'instructor-ref',
+                  id: 'instructor-id'
+                },
+                nature: 'vp',
+                departureAerodrome: {
+                  aerodrome: 'dep-ad-ref',
+                  id: 'dep-ad-id',
+                  identification: 'LSZT',
+                  name: 'Lommis',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: {
+                  aerodrome: 'dest-ad-ref',
+                  id: 'dest-ad-id',
+                  identification: 'LSPV',
+                  name: 'Wangen-Lachen',
+                  timezone: 'Europe/Zurich'
+                },
+                blockOffTime: new Date('2018-12-13T09:00:00.000Z'),
+                takeOffTime: new Date('2018-12-13T09:05:00.000Z'),
+                landingTime: new Date('2018-12-13T09:35:00.000Z'),
+                blockOnTime: new Date('2018-12-13T09:40:00.000Z'),
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  flightHours: counter(58658, 58708),
+                  flights: counter(464, 465),
+                  landings: counter(3846, 3849)
+                },
+                landings: 3,
+                fuelUplift: 57.89,
+                fuelUnit: 'litre',
+                fuelType: 'avgas_homebase',
+                oilUplift: 2.45,
+                oilUnit: 'litre',
+                remarks: 'bemerkung zeile 1\nzeile2',
+                personsOnBoard: 1,
+                preflightCheck: true,
+                troublesObservations: 'troubles',
+                techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
+              }
+
+              return expectSaga(sagas.createFlight, action)
+                .provide([
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ],
+                  [
+                    call(
+                      sagas.getAerodrome,
+                      organizationId,
+                      data.departureAerodrome.value
+                    ),
+                    departureAerodrome
+                  ],
+                  [
+                    call(
+                      sagas.getAerodrome,
+                      organizationId,
+                      data.destinationAerodrome.value
+                    ),
+                    destinationAerodrome
+                  ],
+                  [
+                    call(
+                      validateAsync,
+                      dataWithMergedDateAndTime,
+                      organizationId,
+                      aircraftId
+                    ),
+                    {}
+                  ],
+                  [call(sagas.getCurrentMember), currentMember],
+                  [
+                    call(sagas.getMember, organizationId, currentMember.id),
+                    owner
+                  ],
+                  [
+                    call(sagas.getMember, organizationId, data.pilot.value),
+                    pilot
+                  ],
+                  [
+                    call(
+                      sagas.getMember,
+                      organizationId,
+                      data.instructor.value
+                    ),
+                    instructor
+                  ],
+                  [call(serverTimestamp), timestampFieldValue],
+                  [
+                    call(sagas.addNewFlightDoc, organizationId, aircraftId),
+                    newFlightDoc
+                  ],
+                  [
+                    call(
+                      runTransaction,
+                      sagas.setFlightData,
+                      null,
+                      newFlightDoc,
+                      dataToStore,
+                      dataToStore.owner,
+                      timestampFieldValue
+                    )
+                  ]
+                ])
+                .put(actions.setCreateFlightDialogSubmitting())
+                .put(actions.changeFlightsPage(0))
+                .put(actions.createFlightSuccess())
+                .run()
             })
 
             it('should set the validation errors to state if invalid', () => {
@@ -500,15 +775,20 @@ describe('routes', () => {
           })
 
           describe('setFlightData', () => {
-            const oldFlightDoc = {
-              id: 'old-flight-id',
-              ref: { id: 'old-flight-id' },
+            const oldFlightData = {
               deleted: false,
+              version: 2,
               pilot: {
                 firstname: 'Kurt',
                 lastname: 'Meier'
               },
               vp: 'nature'
+            }
+            const oldFlightDoc = {
+              id: 'old-flight-id',
+              ref: { id: 'old-flight-id' },
+              data: () => oldFlightData,
+              get: field => oldFlightData[field]
             }
             const newFlightDoc = {
               id: 'new-flight-id',
@@ -522,6 +802,11 @@ describe('routes', () => {
               },
               vp: 'nature'
             }
+            const currentMember = {
+              firstname: 'Stefan',
+              lastname: 'Gubler'
+            }
+            const timestampFieldValue = {}
 
             it('should set the new flight data', () => {
               const fn = sagas.setFlightData(null, newFlightDoc, dataToStore)
@@ -551,7 +836,9 @@ describe('routes', () => {
               const fn = sagas.setFlightData(
                 oldFlightDoc,
                 newFlightDoc,
-                dataToStore
+                dataToStore,
+                currentMember,
+                timestampFieldValue
               )
 
               const tx = {
@@ -565,7 +852,9 @@ describe('routes', () => {
                   { id: 'old-flight-id' },
                   {
                     replacedWith: 'new-flight-id',
-                    deleted: true
+                    deleted: true,
+                    deletedBy: currentMember,
+                    deleteTimestamp: timestampFieldValue
                   }
                 ],
                 [
@@ -573,6 +862,7 @@ describe('routes', () => {
                   {
                     replaces: 'old-flight-id',
                     deleted: false,
+                    version: 3,
                     pilot: {
                       firstname: 'Max',
                       lastname: 'Superpilot'
@@ -729,6 +1019,37 @@ describe('routes', () => {
               const generator = sagas.deleteFlight(action)
 
               expect(generator.next().value).toEqual(
+                call(sagas.getCurrentMember)
+              )
+
+              const currentMember = {
+                id: 'memberid',
+                lastname: 'Müller',
+                firstname: 'Max'
+              }
+
+              expect(generator.next(currentMember).value).toEqual(
+                call(sagas.getMember, 'my_org', 'memberid')
+              )
+
+              const memberDoc = {
+                exists: true,
+                ref: 'member-ref',
+                id: 'member-id',
+                get: getFromMap({
+                  firstname: 'Max',
+                  lastname: 'Müller',
+                  nr: '9999'
+                })
+              }
+
+              expect(generator.next(memberDoc).value).toEqual(
+                call(serverTimestamp)
+              )
+
+              const timestampFieldValue = {}
+
+              expect(generator.next(timestampFieldValue).value).toEqual(
                 call(
                   updateDoc,
                   [
@@ -740,7 +1061,15 @@ describe('routes', () => {
                     flightId
                   ],
                   {
-                    deleted: true
+                    deleted: true,
+                    deleteTimestamp: timestampFieldValue,
+                    deletedBy: {
+                      firstname: 'Max',
+                      id: 'member-id',
+                      lastname: 'Müller',
+                      member: 'member-ref',
+                      nr: '9999'
+                    }
                   }
                 )
               )
@@ -1074,7 +1403,8 @@ describe('routes', () => {
                   takeEvery(
                     actions.CREATE_TECHLOG_ENTRY_ACTION,
                     sagas.createTechlogEntryAction
-                  )
+                  ),
+                  takeEvery(actions.FETCH_CHECKS, sagas.fetchChecks)
                 ])
               )
             })
