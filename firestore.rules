@@ -1,7 +1,7 @@
 rules_version = '2';
 
 function isAuthed() {
-  return request.auth != null
+  return request.auth != null;
 }
 
 function isOwnUser(user) {
@@ -9,11 +9,11 @@ function isOwnUser(user) {
 }
 
 function isOrgMember(database, organization) {
-  return isAuthed() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization] != null
+  return isAuthed() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization] != null;
 }
 
 function isOrgManager(database, organization) {
-  return isAuthed() && 'manager' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization].roles
+  return isAuthed() && 'manager' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization].roles;
 }
 
 function affectsOnly(fields) {
@@ -25,11 +25,11 @@ function affectsNot(fields) {
 }
 
 function hasOnly(fields) {
-  return request.resource.data.keys().toSet().hasOnly(fields)
+  return request.resource.data.keys().toSet().hasOnly(fields);
 }
 
 function hasNot(fields) {
-  return request.resource.data.keys().toSet().hasAny(fields) == false
+  return request.resource.data.keys().toSet().hasAny(fields) == false;
 }
 
 service cloud.firestore {
@@ -63,7 +63,7 @@ service cloud.firestore {
       match /aircrafts/{aircraft} {
         allow read: if isOrgMember(database, organization);
         allow create: if isOrgManager(database, organization);
-        allow update: if isOrgManager(database, organization) && affectsOnly(["deleted", "settings", "checks"]);
+        allow update: if isOrgManager(database, organization) && affectsOnly(["deleted", "settings"]);
 
         match /flights/{flight} {
           allow read: if isOrgMember(database, organization);
