@@ -8,8 +8,9 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import AccountMenu from '../../containers/AccountMenuContainer'
+import logo from './logo.svg'
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
@@ -23,8 +24,19 @@ const styles = {
   homeLink: {
     textDecoration: 'none',
     color: 'white'
+  },
+  logo: {
+    marginTop: '0.7em',
+    height: '40px'
+  },
+  container: {
+    [theme.breakpoints.up(1000 + theme.spacing(3 * 2))]: {
+      width: 1000,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
   }
-}
+})
 
 class Header extends React.Component {
   state = {
@@ -46,10 +58,10 @@ class Header extends React.Component {
 
     return (
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.container}>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             <Link to="/" className={classes.homeLink}>
-              Vuela
+              <img src={logo} className={classes.logo} />
             </Link>
           </Typography>
           {!auth.isEmpty && (
