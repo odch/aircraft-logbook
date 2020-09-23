@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import 'moment/locale/de'
 
 import { initFirebase } from './util/firebase'
@@ -64,18 +65,28 @@ sagaMiddleware.run(autoRestartSaga(sagas))
 
 const routes = require('./routes/index').default(store)
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#138cd3'
+    }
+  }
+})
+
 render(
   <Provider store={store}>
-    <App>
-      <Router>
-        <Switch>
-          {routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))}
-          <Redirect to="/" />
-        </Switch>
-      </Router>
-    </App>
+    <MuiThemeProvider theme={theme}>
+      <App>
+        <Router>
+          <Switch>
+            {routes.map((route, i) => (
+              <RouteWithSubRoutes key={i} {...route} />
+            ))}
+            <Redirect to="/" />
+          </Switch>
+        </Router>
+      </App>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 )
