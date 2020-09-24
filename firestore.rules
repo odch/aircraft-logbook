@@ -55,9 +55,9 @@ service cloud.firestore {
       match /members/{member} {
         allow read: if isOrgMember(database, organization);
         allow create: if isOrgManager(database, organization)
-          && hasOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp"]);
+          && hasOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp", "createdBy", "createTimestamp", "updatedBy", "updateTimestamp"]);
         allow update: if isOrgManager(database, organization)
-          && affectsOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp"]);
+          && affectsOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp", "updatedBy", "updateTimestamp", "deletedBy", "deleteTimestamp"]);
       }
 
       match /aircrafts/{aircraft} {

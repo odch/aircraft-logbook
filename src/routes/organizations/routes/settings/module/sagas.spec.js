@@ -1,11 +1,16 @@
 import { all, takeEvery, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { throwError } from 'redux-saga-test-plan/providers'
-import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  addDoc,
+  updateDoc,
+  serverTimestamp
+} from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchMembers } from '../../../module'
 import { getFirestore } from '../../../../../util/firebase'
+import { getCurrentMemberObject } from '../../../util/members'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -17,22 +22,39 @@ describe('routes', () => {
               const orgId = 'my_org'
               const memberData = {
                 firstname: 'Max',
-                lastname: 'Muster',
-                deleted: false
+                lastname: 'Muster'
+              }
+
+              const currentMemberObject = {
+                firstname: 'Admin'
+              }
+
+              const timestampFieldValue = {}
+
+              const dataToStore = {
+                ...memberData,
+                deleted: false,
+                createdBy: currentMemberObject,
+                updatedBy: currentMemberObject,
+                createTimestamp: timestampFieldValue,
+                updateTimestamp: timestampFieldValue
               }
 
               const action = actions.createMember(orgId, memberData)
 
               return expectSaga(sagas.createMember, action)
                 .provide([
+                  [call(getCurrentMemberObject, orgId), currentMemberObject],
+                  [call(serverTimestamp), timestampFieldValue],
                   [
                     call(
                       addDoc,
                       ['organizations', orgId, 'members'],
-                      memberData
+                      dataToStore
                     )
                   ]
                 ])
+                .call(addDoc, ['organizations', orgId, 'members'], dataToStore)
                 .put(actions.setCreateMemberDialogSubmitting())
                 .put(fetchMembers(orgId))
                 .put(actions.createMemberSuccess())
@@ -47,18 +69,41 @@ describe('routes', () => {
 
               const action = actions.deleteMember(orgId, memberId)
 
+              const currentMemberObject = {
+                firstname: 'Admin'
+              }
+
+              const timestampFieldValue = {}
+
               return expectSaga(sagas.deleteMember, action)
                 .provide([
+                  [call(getCurrentMemberObject, orgId), currentMemberObject],
+                  [call(serverTimestamp), timestampFieldValue],
                   [
                     call(
                       updateDoc,
                       ['organizations', orgId, 'members', memberId],
                       {
-                        deleted: true
+                        deleted: true,
+                        updatedBy: currentMemberObject,
+                        deletedBy: currentMemberObject,
+                        updateTimestamp: timestampFieldValue,
+                        deleteTimestamp: timestampFieldValue
                       }
                     )
                   ]
                 ])
+                .call(
+                  updateDoc,
+                  ['organizations', orgId, 'members', memberId],
+                  {
+                    deleted: true,
+                    updatedBy: currentMemberObject,
+                    deletedBy: currentMemberObject,
+                    updateTimestamp: timestampFieldValue,
+                    deleteTimestamp: timestampFieldValue
+                  }
+                )
                 .put(fetchMembers(orgId))
                 .put(actions.closeDeleteMemberDialog())
                 .run()
@@ -74,6 +119,12 @@ describe('routes', () => {
                 nr: '43492'
               }
 
+              const currentMemberObject = {
+                firstname: 'Admin'
+              }
+
+              const timestampFieldValue = {}
+
               const firestore = {
                 update: () => {}
               }
@@ -81,11 +132,20 @@ describe('routes', () => {
               const action = actions.updateMember(orgId, memberId, data)
 
               return expectSaga(sagas.updateMember, action)
-                .provide([[call(getFirestore), firestore]])
+                .provide([
+                  [call(getFirestore), firestore],
+                  [call(getCurrentMemberObject, orgId), currentMemberObject],
+                  [call(serverTimestamp), timestampFieldValue]
+                ])
                 .call(
                   updateDoc,
                   ['organizations', orgId, 'members', memberId],
-                  data
+                  {
+                    firstname: 'Max',
+                    nr: '43492',
+                    updatedBy: currentMemberObject,
+                    updateTimestamp: timestampFieldValue
+                  }
                 )
                 .put(actions.setEditMemberDialogSubmitting())
                 .put(fetchMembers(orgId))
@@ -101,6 +161,12 @@ describe('routes', () => {
                 reinvite: true
               }
 
+              const currentMemberObject = {
+                firstname: 'Admin'
+              }
+
+              const timestampFieldValue = {}
+
               const firestore = {
                 FieldValue: {
                   delete: () => ({ DELETE_FIELD_VALUE: true })
@@ -111,13 +177,19 @@ describe('routes', () => {
               const action = actions.updateMember(orgId, memberId, data)
 
               return expectSaga(sagas.updateMember, action)
-                .provide([[call(getFirestore), firestore]])
+                .provide([
+                  [call(getFirestore), firestore],
+                  [call(getCurrentMemberObject, orgId), currentMemberObject],
+                  [call(serverTimestamp), timestampFieldValue]
+                ])
                 .call(
                   updateDoc,
                   ['organizations', orgId, 'members', memberId],
                   {
                     firstname: 'Max',
-                    inviteTimestamp: { DELETE_FIELD_VALUE: true }
+                    inviteTimestamp: { DELETE_FIELD_VALUE: true },
+                    updatedBy: currentMemberObject,
+                    updateTimestamp: timestampFieldValue
                   }
                 )
                 .put(actions.setEditMemberDialogSubmitting())
