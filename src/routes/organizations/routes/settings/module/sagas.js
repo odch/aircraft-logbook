@@ -2,9 +2,14 @@ import { takeEvery, all, call, put, select } from 'redux-saga/effects'
 import * as actions from './actions'
 import { fetchMembers } from '../../../module'
 import { error } from '../../../../../util/log'
-import { addDoc, updateDoc } from '../../../../../util/firestoreUtils'
+import {
+  addDoc,
+  updateDoc,
+  serverTimestamp
+} from '../../../../../util/firestoreUtils'
 import { getFirestore } from '../../../../../util/firebase'
 import download from '../../../../../util/download'
+import { getCurrentMemberObject } from '../../../util/members'
 
 export const tokenSelector = state =>
   state.firebase.auth.stsTokenManager.accessToken
@@ -12,9 +17,15 @@ export const tokenSelector = state =>
 export function* createMember({ payload: { organizationId, data } }) {
   try {
     yield put(actions.setCreateMemberDialogSubmitting())
+    const currentMember = yield call(getCurrentMemberObject, organizationId)
+    const timestampFieldValue = yield call(serverTimestamp)
     const dataToStore = {
       ...data,
-      deleted: false
+      deleted: false,
+      createdBy: currentMember,
+      updatedBy: currentMember,
+      createTimestamp: timestampFieldValue,
+      updateTimestamp: timestampFieldValue
     }
     yield call(
       addDoc,
@@ -30,11 +41,17 @@ export function* createMember({ payload: { organizationId, data } }) {
 }
 
 export function* deleteMember({ payload: { organizationId, memberId } }) {
+  const currentMember = yield call(getCurrentMemberObject, organizationId)
+  const timestampFieldValue = yield call(serverTimestamp)
   yield call(
     updateDoc,
     ['organizations', organizationId, 'members', memberId],
     {
-      deleted: true
+      deleted: true,
+      updatedBy: currentMember,
+      deletedBy: currentMember,
+      updateTimestamp: timestampFieldValue,
+      deleteTimestamp: timestampFieldValue
     }
   )
   yield put(fetchMembers(organizationId))
@@ -45,8 +62,13 @@ export function* updateMember({ payload: { organizationId, memberId, data } }) {
   try {
     yield put(actions.setEditMemberDialogSubmitting())
 
+    const currentMember = yield call(getCurrentMemberObject, organizationId)
+    const timestampFieldValue = yield call(serverTimestamp)
+
     const dataToStore = {
-      ...data
+      ...data,
+      updatedBy: currentMember,
+      updateTimestamp: timestampFieldValue
     }
 
     if (dataToStore.reinvite === true) {
