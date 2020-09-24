@@ -14,6 +14,11 @@ import getLastFlight from './util/getLastFlight'
 import { validateSync, validateAsync } from './util/validateFlight'
 import { fetchAerodromes } from '../../../module'
 import { fetchAircrafts } from '../../../module/actions'
+import {
+  getCurrentMember,
+  getCurrentMemberObject,
+  getMemberObject
+} from '../../../util/members'
 
 const counter = (start, end) => ({ start, end })
 
@@ -250,37 +255,26 @@ describe('routes', () => {
                 )
               )
 
-              const currentMember = {
-                id: 'member-id'
-              }
               const owner = {
-                exists: true,
-                ref: 'owner-ref',
-                id: 'owner-id',
-                get: getFromMap({
-                  firstname: 'Stefan',
-                  lastname: 'Müller',
-                  nr: '8534'
-                })
+                firstname: 'Stefan',
+                lastname: 'Müller',
+                nr: '8534',
+                member: 'owner-ref',
+                id: 'owner-id'
               }
               const pilot = {
-                exists: true,
-                ref: 'pilot-ref',
-                id: 'pilot-id',
-                get: getFromMap({
-                  firstname: 'Max',
-                  lastname: 'Superpilot',
-                  nr: '9999'
-                })
+                firstname: 'Max',
+                lastname: 'Superpilot',
+                nr: '9999',
+                member: 'pilot-ref',
+                id: 'pilot-id'
               }
               const instructor = {
-                exists: true,
-                ref: 'instructor-ref',
-                id: 'instructor-id',
-                get: getFromMap({
-                  firstname: 'Hans',
-                  lastname: 'Superfluglehrer'
-                })
+                firstname: 'Hans',
+                lastname: 'Superfluglehrer',
+                nr: null,
+                member: 'instructor-ref',
+                id: 'instructor-id'
               }
               const departureAerodrome = {
                 ref: 'dep-ad-ref',
@@ -325,16 +319,13 @@ describe('routes', () => {
                 )
               )
               expect(generator.next(validationErrors).value).toEqual(
-                call(sagas.getCurrentMember)
-              )
-              expect(generator.next(currentMember).value).toEqual(
-                call(sagas.getMember, organizationId, currentMember.id)
+                call(getCurrentMemberObject, organizationId)
               )
               expect(generator.next(owner).value).toEqual(
-                call(sagas.getMember, organizationId, data.pilot.value)
+                call(getMemberObject, organizationId, data.pilot.value)
               )
               expect(generator.next(pilot).value).toEqual(
-                call(sagas.getMember, organizationId, data.instructor.value)
+                call(getMemberObject, organizationId, data.instructor.value)
               )
               expect(generator.next(instructor).value).toEqual(
                 call(serverTimestamp)
@@ -352,28 +343,10 @@ describe('routes', () => {
               const dataToStore = {
                 deleted: false,
                 version: 1,
-                owner: {
-                  firstname: 'Stefan',
-                  lastname: 'Müller',
-                  nr: '8534',
-                  member: 'owner-ref',
-                  id: 'owner-id'
-                },
+                owner,
                 createTimestamp: {},
-                pilot: {
-                  firstname: 'Max',
-                  lastname: 'Superpilot',
-                  nr: '9999',
-                  member: 'pilot-ref',
-                  id: 'pilot-id'
-                },
-                instructor: {
-                  firstname: 'Hans',
-                  lastname: 'Superfluglehrer',
-                  nr: null,
-                  member: 'instructor-ref',
-                  id: 'instructor-id'
-                },
+                pilot,
+                instructor,
                 nature: 'vp',
                 departureAerodrome: {
                   aerodrome: 'dep-ad-ref',
@@ -513,19 +486,12 @@ describe('routes', () => {
                 data
               )
 
-              const currentMember = {
-                id: 'member-id'
-              }
-
               const owner = {
-                exists: true,
-                ref: 'owner-ref',
-                id: 'owner-id',
-                get: getFromMap({
-                  firstname: 'Stefan',
-                  lastname: 'Müller',
-                  nr: '8534'
-                })
+                firstname: 'Stefan',
+                lastname: 'Müller',
+                nr: '8534',
+                member: 'owner-ref',
+                id: 'owner-id'
               }
 
               const aircraftSettings = {
@@ -564,23 +530,18 @@ describe('routes', () => {
               const timestampFieldValue = {}
 
               const pilot = {
-                exists: true,
-                ref: 'pilot-ref',
-                id: 'pilot-id',
-                get: getFromMap({
-                  firstname: 'Max',
-                  lastname: 'Superpilot',
-                  nr: '9999'
-                })
+                firstname: 'Max',
+                lastname: 'Superpilot',
+                nr: '9999',
+                member: 'pilot-ref',
+                id: 'pilot-id'
               }
               const instructor = {
-                exists: true,
-                ref: 'instructor-ref',
-                id: 'instructor-id',
-                get: getFromMap({
-                  firstname: 'Hans',
-                  lastname: 'Superfluglehrer'
-                })
+                firstname: 'Hans',
+                lastname: 'Superfluglehrer',
+                nr: null,
+                member: 'instructor-ref',
+                id: 'instructor-id'
               }
 
               const newFlightDoc = {
@@ -592,28 +553,10 @@ describe('routes', () => {
               const dataToStore = {
                 deleted: false,
                 version: 1,
-                owner: {
-                  firstname: 'Stefan',
-                  lastname: 'Müller',
-                  nr: '8534',
-                  member: 'owner-ref',
-                  id: 'owner-id'
-                },
+                owner,
                 createTimestamp: timestampFieldValue,
-                pilot: {
-                  firstname: 'Max',
-                  lastname: 'Superpilot',
-                  nr: '9999',
-                  member: 'pilot-ref',
-                  id: 'pilot-id'
-                },
-                instructor: {
-                  firstname: 'Hans',
-                  lastname: 'Superfluglehrer',
-                  nr: null,
-                  member: 'instructor-ref',
-                  id: 'instructor-id'
-                },
+                pilot,
+                instructor,
                 nature: 'vp',
                 departureAerodrome: {
                   aerodrome: 'dep-ad-ref',
@@ -683,18 +626,14 @@ describe('routes', () => {
                     ),
                     {}
                   ],
-                  [call(sagas.getCurrentMember), currentMember],
+                  [call(getCurrentMemberObject, organizationId), owner],
                   [
-                    call(sagas.getMember, organizationId, currentMember.id),
-                    owner
-                  ],
-                  [
-                    call(sagas.getMember, organizationId, data.pilot.value),
+                    call(getMemberObject, organizationId, data.pilot.value),
                     pilot
                   ],
                   [
                     call(
-                      sagas.getMember,
+                      getMemberObject,
                       organizationId,
                       data.instructor.value
                     ),
@@ -936,7 +875,7 @@ describe('routes', () => {
 
               return expectSaga(sagas.initCreateFlightDialog, action)
                 .provide([
-                  [call(sagas.getCurrentMember), currentMember],
+                  [call(getCurrentMember), currentMember],
                   [call(getLastFlight, orgId, aircraftId), lastFlight],
                   [
                     call(sagas.getDestinationAerodrome, lastFlight),
@@ -985,7 +924,7 @@ describe('routes', () => {
 
               return expectSaga(sagas.initCreateFlightDialog, action)
                 .provide([
-                  [call(sagas.getCurrentMember), currentMember],
+                  [call(getCurrentMember), currentMember],
                   [call(getLastFlight, orgId, aircraftId), lastFlight],
                   [
                     call(sagas.getDestinationAerodrome, lastFlight),
@@ -1019,31 +958,18 @@ describe('routes', () => {
               const generator = sagas.deleteFlight(action)
 
               expect(generator.next().value).toEqual(
-                call(sagas.getCurrentMember)
+                call(getCurrentMemberObject, 'my_org')
               )
 
               const currentMember = {
-                id: 'memberid',
+                id: 'member-id',
+                member: 'member-ref',
                 lastname: 'Müller',
-                firstname: 'Max'
+                firstname: 'Max',
+                nr: '9999'
               }
 
               expect(generator.next(currentMember).value).toEqual(
-                call(sagas.getMember, 'my_org', 'memberid')
-              )
-
-              const memberDoc = {
-                exists: true,
-                ref: 'member-ref',
-                id: 'member-id',
-                get: getFromMap({
-                  firstname: 'Max',
-                  lastname: 'Müller',
-                  nr: '9999'
-                })
-              }
-
-              expect(generator.next(memberDoc).value).toEqual(
                 call(serverTimestamp)
               )
 
@@ -1082,38 +1008,6 @@ describe('routes', () => {
               )
 
               expect(generator.next().done).toEqual(true)
-            })
-          })
-
-          describe('getCurrentMember', () => {
-            it('should return the current member', () => {
-              const member1 = {
-                firstname: 'Max',
-                lastname: 'Muster',
-                user: undefined
-              }
-              const member2 = {
-                firstname: 'Hans',
-                lastname: 'Meier',
-                user: {
-                  id: 'o7flC7jw8j'
-                }
-              }
-              return expectSaga(sagas.getCurrentMember)
-                .withState({
-                  firebase: {
-                    auth: {
-                      uid: 'o7flC7jw8j'
-                    }
-                  },
-                  firestore: {
-                    ordered: {
-                      organizationMembers: [member1, member2]
-                    }
-                  }
-                })
-                .returns(member2)
-                .run()
             })
           })
 
