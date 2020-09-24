@@ -20,13 +20,15 @@ import { validateSync, validateAsync } from './util/validateFlight'
 import { getCounters } from './util/counters'
 import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
 import { isClosed } from '../../../../../util/techlogStatus'
+import {
+  getCurrentMember,
+  getCurrentMemberObject,
+  getMemberObject
+} from '../../../util/members'
 
 export const flightPageName = (aircraftId, page, showDeleted) =>
   `${showDeleted ? 'flights-all' : 'flights'}-${aircraftId}-${page}`
 
-export const uidSelector = state => state.firebase.auth.uid
-export const organizationMembersSelector = state =>
-  state.firestore.ordered.organizationMembers
 export const flightsSelector = (aircraftId, page, showDeleted) => state =>
   state.firestore.ordered[flightPageName(aircraftId, page, showDeleted)]
 export const techlogPageSelector = (aircraftId, page) => state =>
@@ -133,16 +135,6 @@ export function* fetchFlights() {
   )
 }
 
-export function* getCurrentMember() {
-  const userId = yield select(uidSelector)
-  const organizationMembers = yield select(organizationMembersSelector)
-  const member = organizationMembers.find(m => m.user && m.user.id === userId)
-  if (!member) {
-    throw `Member not found for uid ${userId}`
-  }
-  return member
-}
-
 export function* getAerodrome(organizationId, aerodromeId) {
   let aerodrome = yield call(getDoc, ['aerodromes', aerodromeId])
   if (aerodrome.exists !== true) {
@@ -157,15 +149,6 @@ export function* getAerodrome(organizationId, aerodromeId) {
     throw new Error(`Aeorodrome not found for id ${aerodromeId}`)
   }
   return aerodrome
-}
-
-export function* getMember(organizationId, memberId) {
-  return yield call(getDoc, [
-    'organizations',
-    organizationId,
-    'members',
-    memberId
-  ])
 }
 
 export function* getFlight(organizationId, aircraftId, flightId) {
@@ -222,17 +205,6 @@ export const aerodromeObject = aeodromeDocument => ({
   aerodrome: aeodromeDocument.ref,
   id: aeodromeDocument.id
 })
-
-export const memberObject = memberDocument =>
-  memberDocument && memberDocument.exists
-    ? {
-        firstname: memberDocument.get('firstname') || null,
-        lastname: memberDocument.get('lastname') || null,
-        nr: memberDocument.get('nr') || null,
-        member: memberDocument.ref,
-        id: memberDocument.id
-      }
-    : null
 
 export function* createFlight({
   payload: { organizationId, aircraftId, data }
@@ -302,13 +274,11 @@ export function* createFlight({
       return
     }
 
-    const currentMember = yield call(getCurrentMember)
-
-    const owner = yield call(getMember, organizationId, currentMember.id)
-    const pilot = yield call(getMember, organizationId, data.pilot.value)
+    const owner = yield call(getCurrentMemberObject, organizationId)
+    const pilot = yield call(getMemberObject, organizationId, data.pilot.value)
     const instructor =
       data.instructor && data.instructor.value
-        ? yield call(getMember, organizationId, data.instructor.value)
+        ? yield call(getMemberObject, organizationId, data.instructor.value)
         : null
 
     const fuelUplift =
@@ -326,11 +296,11 @@ export function* createFlight({
     const dataToStore = {
       deleted: false,
       version: 1,
-      owner: memberObject(owner),
+      owner,
       createTimestamp: timestampFieldValue,
       nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
-      pilot: memberObject(pilot),
-      instructor: memberObject(instructor),
+      pilot,
+      instructor,
       departureAerodrome: aerodromeObject(departureAerodrome),
       destinationAerodrome: aerodromeObject(destinationAerodrome),
       blockOffTime: data.blockOffTime,
@@ -381,7 +351,7 @@ export function* createFlight({
       oldFlightDoc,
       newFlightDoc,
       dataToStore,
-      memberObject(owner),
+      owner,
       timestampFieldValue
     )
 
@@ -623,8 +593,6 @@ export function* openAndInitEditFlightDialog({
 export function* deleteFlight({
   payload: { organizationId, aircraftId, flightId }
 }) {
-  const currentMember = yield call(getCurrentMember)
-  const memberDoc = yield call(getMember, organizationId, currentMember.id)
   yield call(
     updateDoc,
     [
@@ -637,7 +605,7 @@ export function* deleteFlight({
     ],
     {
       deleted: true,
-      deletedBy: memberObject(memberDoc),
+      deletedBy: yield call(getCurrentMemberObject, organizationId),
       deleteTimestamp: yield call(serverTimestamp)
     }
   )
