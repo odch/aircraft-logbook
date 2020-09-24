@@ -673,12 +673,12 @@ remarks"
         </div>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-209"
+        className="MuiBox-root MuiBox-root-210"
       >
         <span
-          className="MuiTypography-root EntryStatus-status-169 EntryStatus-error-170 EntryStatus-small-172 MuiTypography-body1"
+          className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Nicht flugtauglich
+          Defect (not airworthy)
         </span>
       </div>
     </div>
@@ -1490,9 +1490,9 @@ remarks"
         className="MuiBox-root MuiBox-root-168"
       >
         <span
-          className="MuiTypography-root EntryStatus-status-169 EntryStatus-error-170 EntryStatus-small-172 MuiTypography-body1"
+          className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Nicht flugtauglich
+          Defect (not airworthy)
         </span>
       </div>
     </div>
@@ -2301,12 +2301,12 @@ remarks"
         </div>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-210"
+        className="MuiBox-root MuiBox-root-211"
       >
         <span
-          className="MuiTypography-root EntryStatus-status-169 EntryStatus-error-170 EntryStatus-small-172 MuiTypography-body1"
+          className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Nicht flugtauglich
+          Defect (not airworthy)
         </span>
       </div>
     </div>

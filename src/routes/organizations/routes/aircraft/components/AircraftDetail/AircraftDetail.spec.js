@@ -119,7 +119,7 @@ describe('routes', () => {
                           firstname: 'Hans',
                           lastname: 'Meier'
                         },
-                        currentStatus: 'not_airworthy',
+                        currentStatus: 'defect_aog',
                         timestamp: {
                           toDate: () => Date.parse('2020-06-25 10:54 GMT+0100')
                         }

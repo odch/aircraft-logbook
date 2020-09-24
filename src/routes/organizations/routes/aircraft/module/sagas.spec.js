@@ -198,7 +198,7 @@ describe('routes', () => {
                 personsOnBoard: 1,
                 preflightCheck: true,
                 troublesObservations: 'troubles',
-                techlogEntryStatus: { value: 'not_airworthy' },
+                techlogEntryStatus: { value: 'defect_aog' },
                 techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
                 techlogEntryAttachments: [
                   {
@@ -384,7 +384,7 @@ describe('routes', () => {
                 personsOnBoard: 1,
                 preflightCheck: true,
                 troublesObservations: 'troubles',
-                techlogEntryStatus: 'not_airworthy',
+                techlogEntryStatus: 'defect_aog',
                 techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
               }
 
@@ -419,8 +419,8 @@ describe('routes', () => {
 
               const expectedEntry = {
                 description: 'Schraube am Bugfahrwerkt locker',
-                initialStatus: 'not_airworthy',
-                currentStatus: 'not_airworthy',
+                initialStatus: 'defect_aog',
+                currentStatus: 'defect_aog',
                 closed: false,
                 flight: 'new-flight-id',
                 attachments
@@ -1098,7 +1098,7 @@ describe('routes', () => {
           describe('createTechlogEntry', () => {
             it('should create a techlog entry', () => {
               const data = {
-                status: { value: 'not_airworthy' },
+                status: { value: 'defect_aog' },
                 description: 'Schraube am Bugfahrwerk locker',
                 attachments: [
                   {
@@ -1115,8 +1115,8 @@ describe('routes', () => {
               }
               const expectedDataToStore = {
                 description: 'Schraube am Bugfahrwerk locker',
-                initialStatus: 'not_airworthy',
-                currentStatus: 'not_airworthy',
+                initialStatus: 'defect_aog',
+                currentStatus: 'defect_aog',
                 closed: false,
                 flight: null,
                 attachments: [
@@ -1180,7 +1180,7 @@ describe('routes', () => {
           describe('createTechlogEntryAction', () => {
             it('should create a techlog entry action', () => {
               const data = {
-                status: { value: 'not_airworthy' },
+                status: { value: 'defect_aog' },
                 description: 'Schraube bestellt',
                 signature: 'XYZ-123',
                 attachments: [
@@ -1198,7 +1198,7 @@ describe('routes', () => {
               }
               const expectedDataToStore = {
                 description: 'Schraube bestellt',
-                status: 'not_airworthy',
+                status: 'defect_aog',
                 signature: 'XYZ-123',
                 attachments: [
                   {

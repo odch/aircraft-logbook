@@ -72,7 +72,7 @@ describe('routes', () => {
                 oilUplift: 0.7,
                 preflightCheck: true,
                 troublesObservations: 'troubles',
-                techlogEntryStatus: 'not_airworthy',
+                techlogEntryStatus: 'defect_aog',
                 techlogEntryDescription: 'loose screw left main wheel'
               }
 

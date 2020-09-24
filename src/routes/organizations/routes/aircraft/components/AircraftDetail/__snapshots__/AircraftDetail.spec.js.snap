@@ -105,9 +105,9 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
               <br />
             </p>
             <span
-              className="MuiTypography-root EntryStatus-status-115 EntryStatus-error-116 MuiTypography-body1"
+              className="MuiTypography-root EntryStatus-status-115 EntryStatus-severe-116 MuiTypography-body1"
             >
-              Nicht flugtauglich
+              Defect (not airworthy)
             </span>
           </div>
           <p
@@ -232,7 +232,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-143"
+    className="FlightList-container-144"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -261,20 +261,20 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightList-flightHeading-144"
+            className="FlightList-flightHeading-145"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightList-bold-146"
+                className="FlightList-bold-147"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightList-bold-146"
+                className="FlightList-bold-147"
               >
                 LSZT
               </span>
@@ -282,7 +282,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-145 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-146 MuiTypography-body1"
           >
             20.11.2018
             ,
