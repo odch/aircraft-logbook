@@ -114,12 +114,13 @@ describe('routes', () => {
                     ],
                     'techlog-o7flC7jw8jmkOfWo8oyA-open': [
                       {
+                        number: '1',
                         description: 'Schraube am Bugfahrwerk locker',
                         author: {
                           firstname: 'Hans',
                           lastname: 'Meier'
                         },
-                        currentStatus: 'not_airworthy',
+                        currentStatus: 'defect_aog',
                         timestamp: {
                           toDate: () => Date.parse('2020-06-25 10:54 GMT+0100')
                         }

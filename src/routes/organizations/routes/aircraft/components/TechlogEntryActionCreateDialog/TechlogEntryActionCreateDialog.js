@@ -99,7 +99,13 @@ class TechlogEntryActionCreateDialog extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { statusOptions, submitting, classes, onClose } = this.props
+    const {
+      statusOptions,
+      submitting,
+      aircraftSettings: { techlogSignatureEnabled },
+      classes,
+      onClose
+    } = this.props
     return (
       <Dialog
         onClose={this.handleClose}
@@ -115,7 +121,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
           <DialogContent className={classes.root}>
             {this.renderMultilineTextField('description', true)}
             {this.renderSelect('status', statusOptions, true)}
-            {this.renderCheckbox('signature')}
+            {techlogSignatureEnabled && this.renderCheckbox('signature')}
             <Attachments
               attachments={this.props.data.attachments}
               disabled={submitting}
@@ -235,6 +241,9 @@ TechlogEntryActionCreateDialog.propTypes = {
     ).isRequired
   }).isRequired,
   submitting: PropTypes.bool,
+  aircraftSettings: PropTypes.shape({
+    techlogSignatureEnabled: PropTypes.bool
+  }).isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

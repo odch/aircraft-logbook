@@ -7,17 +7,17 @@ exports[`routes organizations routes settings components DeleteMemberDialog rend
   <div class=\\"MuiDialog-container MuiDialog-scrollPaper\\" style=\\"opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\" role=\\"document\\" tabindex=\\"-1\\">
     <div class=\\"MuiPaper-root MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-rounded\\" role=\\"dialog\\">
       <div class=\\"MuiDialogTitle-root\\">
-        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Pilot löschen</h2>
+        <h2 class=\\"MuiTypography-root MuiTypography-h6\\">Benutzer löschen</h2>
       </div>
       <div class=\\"MuiDialogContent-root\\">
-        <p class=\\"MuiTypography-root MuiDialogContentText-root MuiTypography-body1 MuiTypography-colorTextSecondary\\">Bist du sicher, dass du diesen Pilot löschen möchtest?</p>
+        <p class=\\"MuiTypography-root MuiDialogContentText-root MuiTypography-body1 MuiTypography-colorTextSecondary\\">Bist du sicher, dass du diesen Benutzer löschen möchtest?</p>
         <div class=\\"injectIntl(DeleteMemberDialog)-attributesWrapper-1\\">
           <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Vorname:&nbsp;Max</p>
           <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Nachname:&nbsp;Muster</p>
-          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Mitgliedernummer:&nbsp;23563</p>
+          <p class=\\"MuiTypography-root MuiDialogContentText-root injectIntl(DeleteMemberDialog)-attribute-2 MuiTypography-body1 MuiTypography-colorTextSecondary\\">Nummer:&nbsp;23563</p>
         </div>
       </div>
-      <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary\\" tabindex=\\"0\\" type=\\"button\\" data-cy=\\"member-delete-button\\"><span class=\\"MuiButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\\"></path></svg>Pilot löschen</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
+      <div class=\\"MuiDialogActions-root MuiDialogActions-spacing\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\"><span class=\\"MuiButton-label\\">Abbrechen</span><span class=\\"MuiTouchRipple-root\\"></span></button><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary\\" tabindex=\\"0\\" type=\\"button\\" data-cy=\\"member-delete-button\\"><span class=\\"MuiButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\\"></path></svg>Benutzer löschen</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
     </div>
   </div>
   <div tabindex=\\"0\\" data-test=\\"sentinelEnd\\"></div>

@@ -5,7 +5,7 @@ exports[`routes organizations routes aircraft components AircraftPage renders co
   className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary"
 >
   <div
-    className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+    className="MuiToolbar-root MuiToolbar-regular Header-container-6 MuiToolbar-gutters"
   >
     <h6
       className="MuiTypography-root Header-grow-2 MuiTypography-h6 MuiTypography-colorInherit"
@@ -15,7 +15,10 @@ exports[`routes organizations routes aircraft components AircraftPage renders co
         href="/"
         onClick={[Function]}
       >
-        Vuela
+        <img
+          className="Header-logo-5"
+          src="test-file-stub"
+        />
       </a>
     </h6>
     <div>

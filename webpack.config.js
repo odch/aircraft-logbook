@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const projects = require('./projects')
 
 const projectName = process.env.npm_config_project || 'dev'
@@ -36,7 +37,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       __CONF__: projects.packinize(conf)
-    })
+    }),
+    new CopyWebpackPlugin([{ from: 'static' }])
   ],
   devServer: {
     historyApiFallback: true,

@@ -96,6 +96,15 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
+            className="Techlog-entryNumber-71"
+          >
+            <p
+              className="MuiTypography-root Techlog-entryNumberText-72 MuiTypography-body1"
+            >
+              #1
+            </p>
+          </div>
+          <div
             className="Techlog-entryHeading-70"
           >
             <p
@@ -105,13 +114,13 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
               <br />
             </p>
             <span
-              className="MuiTypography-root EntryStatus-status-115 EntryStatus-error-116 MuiTypography-body1"
+              className="MuiTypography-root EntryStatus-status-117 EntryStatus-severe-118 MuiTypography-body1"
             >
-              Nicht flugtauglich
+              Defect (not airworthy)
             </span>
           </div>
           <p
-            className="MuiTypography-root Techlog-entrySecondaryHeading-71 MuiTypography-body1"
+            className="MuiTypography-root Techlog-entrySecondaryHeading-73 MuiTypography-body1"
           >
             Hans
              
@@ -232,7 +241,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-143"
+    className="FlightList-container-146"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -261,20 +270,20 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightList-flightHeading-144"
+            className="FlightList-flightHeading-147"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightList-bold-146"
+                className="FlightList-bold-149"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightList-bold-146"
+                className="FlightList-bold-149"
               >
                 LSZT
               </span>
@@ -282,7 +291,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-145 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-148 MuiTypography-body1"
           >
             20.11.2018
             ,

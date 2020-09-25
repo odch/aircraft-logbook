@@ -15,9 +15,12 @@ const styles = theme => ({
     display: 'inline-block',
     verticalAlign: 'top'
   },
-  error: {
+  severe: {
     backgroundColor: theme.palette.error.dark,
     color: '#fff'
+  },
+  warning: {
+    backgroundColor: '#e5be73'
   },
   closed: {
     backgroundColor: '#81c784'
@@ -32,7 +35,9 @@ const EntryStatus = ({ id, small, classes }) => (
     component="span"
     className={classNames(
       classes.status,
-      id === 'not_airworthy' && classes.error,
+      id === 'defect_aog' && classes.severe,
+      ['defect_unknown', 'defect_with_limitations'].includes(id) &&
+        classes.warning,
       isClosed(id) && classes.closed,
       small && classes.small
     )}
