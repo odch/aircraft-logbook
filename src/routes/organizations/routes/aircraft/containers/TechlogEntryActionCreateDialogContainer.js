@@ -8,6 +8,7 @@ import {
   createTechlogEntryAction
 } from '../module'
 import { getTechlogStatus } from '../../../../../util/techlogStatus'
+import { aircraftSettings } from '../util/flightDialogUtils'
 
 const statusOption = (intl, statusId) => ({
   value: statusId,
@@ -18,7 +19,7 @@ const techlogEntryStatus = intl =>
   getTechlogStatus(true).map(status => statusOption(intl, status.id))
 
 const mapStateToProps = (state, ownProps) => {
-  const { intl } = ownProps
+  const { aircraftId, intl } = ownProps
 
   const {
     techlogEntryId,
@@ -34,7 +35,8 @@ const mapStateToProps = (state, ownProps) => {
     statusOptions: techlogEntryStatus(intl),
     techlogEntryId,
     data,
-    submitting
+    submitting,
+    aircraftSettings: aircraftSettings(state, aircraftId)
   }
 }
 
