@@ -48,32 +48,41 @@ const addTechlogEntry = functions.https.onCall(async (data, context) => {
     id: member.id
   }
 
-  const batch = db.batch()
+  await db.runTransaction(async t => {
+    const aircraftRef = db
+      .collection('organizations')
+      .doc(organizationId)
+      .collection('aircrafts')
+      .doc(aircraftId)
+    const newEntryRef = aircraftRef.collection('techlog').doc()
 
-  const aircraftRef = db
-    .collection('organizations')
-    .doc(organizationId)
-    .collection('aircrafts')
-    .doc(aircraftId)
+    const aircraftDoc = await t.get(aircraftRef)
 
-  const newEntryRef = aircraftRef.collection('techlog').doc()
+    if (aircraftDoc.exists !== true) {
+      throw new Error(
+        `Aircraft ${aircraftId} in organization ${organizationId} does not exist`
+      )
+    }
 
-  entry.attachments = await addAttachments(
-    bucket,
-    organizationId,
-    aircraftId,
-    newEntryRef.id,
-    null,
-    entry.attachments
-  )
+    const techlogEntriesCount = aircraftDoc.get('counters.techlogEntries') || 0
+    const newCount = techlogEntriesCount + 1
 
-  batch.set(newEntryRef, entry)
+    entry.number = newCount
+    entry.attachments = await addAttachments(
+      bucket,
+      organizationId,
+      aircraftId,
+      newEntryRef.id,
+      null,
+      entry.attachments
+    )
 
-  batch.update(aircraftRef, {
-    'counters.techlogEntries': admin.firestore.FieldValue.increment(1)
+    await t.set(newEntryRef, entry)
+
+    await t.update(aircraftRef, {
+      'counters.techlogEntries': newCount
+    })
   })
-
-  await batch.commit()
 })
 
 exports.addTechlogEntry = addTechlogEntry

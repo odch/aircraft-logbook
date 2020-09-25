@@ -114,6 +114,7 @@ describe('routes', () => {
                     ],
                     'techlog-o7flC7jw8jmkOfWo8oyA-open': [
                       {
+                        number: '1',
                         description: 'Schraube am Bugfahrwerk locker',
                         author: {
                           firstname: 'Hans',

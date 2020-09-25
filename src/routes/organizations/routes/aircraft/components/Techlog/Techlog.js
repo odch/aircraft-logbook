@@ -40,6 +40,14 @@ const styles = theme => ({
     display: 'block',
     flex: 1
   },
+  entryNumber: {
+    marginRight: '1em',
+    paddingRight: '1em',
+    borderRight: `1px solid ${theme.palette.divider}`
+  },
+  entryNumberText: {
+    fontWeight: 'bold'
+  },
   entrySecondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
@@ -163,6 +171,7 @@ class Techlog extends React.Component {
     const { organization, aircraft, authToken, classes } = this.props
     const {
       id,
+      number,
       description,
       currentStatus,
       timestamp,
@@ -178,6 +187,11 @@ class Techlog extends React.Component {
             : null
         }
       >
+        <div className={classes.entryNumber}>
+          <Typography
+            className={classes.entryNumberText}
+          >{`#${number}`}</Typography>
+        </div>
         <div className={classes.entryHeading}>
           <Typography paragraph className={classes.description}>
             {description.split('\n').map((line, idx) => (
