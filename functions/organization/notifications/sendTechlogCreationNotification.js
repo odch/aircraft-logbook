@@ -2,13 +2,14 @@ const nl2br = require('../../utils/nl2br')
 const utils = require('./utils')
 
 const statusLabels = {
-  for_information_only: 'Nur zur Information',
-  not_airworthy: 'Nicht flugtauglich',
-  not_flight_relevant: 'Nicht flugrelevant',
-  closed: 'Geschlossen',
+  for_information_only: 'For information only',
+  defect_aog: 'Defect (not airworthy)',
+  defect_unknown: 'Defect (implications unknown)',
+  defect_not_flight_relevant: 'Defect (not flight relevant)',
+  defect_with_limitations: 'Defect (airworthy with limitations)',
+  closed: 'Closed',
   crs: 'CRS',
-  crs_check: 'CRS Check',
-  annual_review: 'Jahreskontrolle'
+  arc: 'ARC'
 }
 
 const sendTechlogCreationNotification = async techlogEntryDoc => {
