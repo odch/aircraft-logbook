@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
+import IntlPolyfill from 'react-intl-polyfill'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
@@ -74,20 +75,22 @@ const theme = createMuiTheme({
 })
 
 render(
-  <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <App>
-        <Router>
-          <Switch>
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-            <Redirect to="/" />
-          </Switch>
-        </Router>
-      </App>
-    </MuiThemeProvider>
-  </Provider>,
+  <IntlPolyfill locales={['en', 'de']}>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <App>
+          <Router>
+            <Switch>
+              {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+              ))}
+              <Redirect to="/" />
+            </Switch>
+          </Router>
+        </App>
+      </MuiThemeProvider>
+    </Provider>
+  </IntlPolyfill>,
   document.getElementById('app')
 )
 
