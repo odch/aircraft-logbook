@@ -7,11 +7,11 @@
  * 3. Set the variables `organizationName` and `databaseURL`
  * 4. Run the script: `node organizationMembersImport`
  *
- * Form of the file members.csv:
+ * Form of the file members.csv (nr, lastname, firstname, invite email, instructor):
  *
- * 11069,Keller,Stefan
- * 11291,Mustermann,Erwin
- * 11752,Musterfrau,Gundula
+ * 11069,Keller,Stefan,stefankeller@test.com,true
+ * 11291,Mustermann,Erwin,,false
+ * 11752,Musterfrau,Gundula,,true
  * ...
  */
 
@@ -34,29 +34,39 @@ const firestore = admin.firestore()
 
 fs.createReadStream('./members.csv')
   .pipe(csv.parse())
-  .on('data', function(data) {
+  .on('data', async function (data) {
     const member = {
       nr: data[0],
       lastname: data[1],
       firstname: data[2],
-      deleted: false
+      inviteEmail: data[3],
+      instructor: data[4] === 'true'
     }
-    addMember(member)
+    await addOrUpdateMember(member)
   })
-  .on('end', function() {
+  .on('end', function () {
     console.log('done')
   })
 
-async function addMember(member) {
+async function addOrUpdateMember(member) {
   const existingMember = await getByFieldValue(
     `organizations/${organizationName}/members`,
     'nr',
     member.nr
   )
   if (!existingMember) {
+    const data = {
+      ...member,
+      deleted: false
+    }
     return firestore
       .collection(`organizations/${organizationName}/members`)
-      .add(member)
+      .add(data)
+  } else if (!existingMember.get('user')) {
+    return existingMember.ref.update({
+      inviteEmail: member.inviteEmail,
+      instructor: member.instructor
+    })
   }
 }
 
