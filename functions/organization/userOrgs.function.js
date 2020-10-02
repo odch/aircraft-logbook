@@ -9,33 +9,33 @@ try {
 
 const db = admin.firestore()
 
-const updateUserOrg = async (userRef, orgRef) => {
-  if (!userRef) {
-    return
-  }
-  const userDoc = await userRef.get()
+/**
+ * @returns {Promise<boolean>} promise that resolves to true if the user is a member of the org
+ */
+const updateUserOrg = async (userDoc, orgRef) => {
   if (userDoc.exists !== true) {
-    return
+    throw new Error(`User doc ${userDoc.ref.id} does not exist`)
   }
 
   const orgDoc = await orgRef.get()
   if (orgDoc.exists !== true || orgDoc.get('deleted')) {
-    await userRef.update({
+    await userDoc.ref.update({
       [`orgs.${orgRef.id}`]: admin.firestore.FieldValue.delete()
     })
-    return
+    return false
   }
 
   const members = await orgRef
     .collection('members')
     .where('deleted', '==', false)
-    .where('user', '==', userRef)
+    .where('user', '==', userDoc.ref)
     .get()
 
   if (members.empty === true) {
-    await userRef.update({
+    await userDoc.ref.update({
       [`orgs.${orgRef.id}`]: admin.firestore.FieldValue.delete()
     })
+    return false
   } else {
     const roleSet = members.docs.reduce((set, member) => {
       const memberRoles = member.get('roles') || []
@@ -43,21 +43,30 @@ const updateUserOrg = async (userRef, orgRef) => {
       return set
     }, new Set())
     const roleArray = Array.from(roleSet)
-    await userRef.update({
+    await userDoc.ref.update({
       [`orgs.${orgRef.id}`]: {
         ref: orgRef,
         roles: roleArray
       }
     })
+    return true
   }
 }
 
-const updateUserOrgs = async userRef => {
+const updateUserOrgs = async userDoc => {
   const orgs = await db
     .collection('organizations')
     .where('deleted', '==', false)
     .get()
-  await Promise.all(orgs.docs.map(org => updateUserOrg(userRef, org.ref)))
+  const results = await Promise.all(
+    orgs.docs.map(org => updateUserOrg(userDoc, org.ref))
+  )
+  const hasOrgs = results.some(result => result === true)
+  if (!hasOrgs) {
+    await userDoc.ref.update({
+      orgs: {}
+    })
+  }
 }
 
 const updateOrgUsers = async orgRef => {
@@ -65,7 +74,7 @@ const updateOrgUsers = async orgRef => {
     .collection('users')
     .where(`orgs.${orgRef.id}.ref`, '==', orgRef)
     .get()
-  await Promise.all(users.docs.map(user => updateUserOrg(user.ref, orgRef)))
+  await Promise.all(users.docs.map(userDoc => updateUserOrg(userDoc, orgRef)))
 }
 
 const markedAsDeleted = change =>
@@ -89,17 +98,20 @@ const updateUserOrgsOnMemberUpdate = async change => {
   if (hasUser(change) && (markedAsDeleted(change) || changedRoles(change))) {
     const orgRef = change.before.ref.parent.parent
     const userRefBefore = change.before.get('user')
-    await updateUserOrg(userRefBefore, orgRef)
+    const userDoc = await userRefBefore.get()
+    if (userDoc.exists === true) {
+      await updateUserOrg(userDoc, orgRef)
+    }
   }
 }
 
 const updateUserOrgsOnMemberDelete = async memberDoc => {
   const data = memberDoc.data()
   if (data.user) {
-    const user = await data.user.get()
-    if (user.exists === true) {
+    const userDoc = await data.user.get()
+    if (userDoc.exists === true) {
       const orgRef = memberDoc.ref.parent.parent
-      await updateUserOrg(data.user, orgRef)
+      await updateUserOrg(userDoc, orgRef)
     }
   }
 }
@@ -115,11 +127,13 @@ const updateUserOrgsOnOrgDelete = async orgDoc => {
 }
 
 const updateUserOrgsOnLogin = async change => {
-  const lastLoginBefore = change.before.get('lastLogin')
-  const lastLoginAfter = change.after.get('lastLogin')
-  const orgsAfter = change.after.get('orgs')
-  if (!lastLoginAfter.isEqual(lastLoginBefore) && !orgsAfter) {
-    await updateUserOrgs(change.after.ref)
+  if (change.after.exists === true) {
+    const lastLoginBefore = change.before.get('lastLogin')
+    const lastLoginAfter = change.after.get('lastLogin')
+    const orgsAfter = change.after.get('orgs')
+    if (!lastLoginAfter.isEqual(lastLoginBefore) && !orgsAfter) {
+      await updateUserOrgs(change.after)
+    }
   }
 }
 
@@ -133,7 +147,7 @@ module.exports.updateUserOrgsOnMemberDelete = functions.firestore
 
 module.exports.updateUserOrgsOnLogin = functions.firestore
   .document('users/{userID}')
-  .onUpdate(change => updateUserOrgsOnLogin(change))
+  .onWrite(change => updateUserOrgsOnLogin(change))
 
 module.exports.updateUserOrgsOnOrgUpdate = functions.firestore
   .document('organizations/{organizationID}')
