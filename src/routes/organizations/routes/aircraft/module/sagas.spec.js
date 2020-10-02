@@ -944,6 +944,171 @@ describe('routes', () => {
             })
           })
 
+          describe('openAndInitEditFlightDialog', () => {
+            const orgId = 'my_org'
+            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+            const flightId = 'xGSRg42wA'
+
+            const action = actions.openEditFlightDialog(
+              orgId,
+              aircraftId,
+              flightId
+            )
+
+            const flight = {
+              id: flightId,
+              data: () => ({
+                nature: 'vs',
+                pilot: {
+                  id: 'pilotid',
+                  lastname: 'Müller',
+                  firstname: 'Max'
+                },
+                instructor: {
+                  id: 'instructorid',
+                  lastname: 'Keller',
+                  firstname: 'Heinz'
+                },
+                blockOffTime: {
+                  toDate: () => new Date('2018-12-13T09:00:00.000Z')
+                },
+                takeOffTime: {
+                  toDate: () => new Date('2018-12-13T09:05:00.000Z')
+                },
+                landingTime: {
+                  toDate: () => new Date('2018-12-13T09:35:00.000Z')
+                },
+                blockOnTime: {
+                  toDate: () => new Date('2018-12-13T09:40:00.000Z')
+                },
+                departureAerodrome: {
+                  id: 'depaerodromeid',
+                  name: 'Wangen-Lachen',
+                  identification: 'LSPV',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: {
+                  id: 'destaerodromeid',
+                  name: 'Lommis',
+                  identification: 'LSZT',
+                  timezone: 'Europe/Zurich'
+                },
+                landings: 1,
+                personsOnBoard: 2,
+                fuelUplift: 45.5,
+                fuelType: 'jet_a1_homebase',
+                oilUplift: 0.5,
+                counters: {},
+                preflightCheck: true,
+                remarks: 'my test remark',
+                troublesObservations: 'troubles',
+                techlogEntryDescription: 'Loose screw',
+                techlogEntryStatus: 'defect_aog'
+              })
+            }
+
+            const aircraftSettings = {
+              engineHoursCounterEnabled: true,
+              fuelTypes: [
+                {
+                  name: 'jet_a1_homebase',
+                  description: 'Jet A1 (Homebase)'
+                }
+              ]
+            }
+            const expectedFlightValues = {
+              id: flightId,
+              date: '2018-12-13',
+              pilot: {
+                value: 'pilotid',
+                label: 'Müller Max'
+              },
+              instructor: {
+                value: 'instructorid',
+                label: 'Keller Heinz'
+              },
+              nature: 'vs',
+              departureAerodrome: {
+                value: 'depaerodromeid',
+                label: 'LSPV (Wangen-Lachen)',
+                timezone: 'Europe/Zurich'
+              },
+              destinationAerodrome: {
+                value: 'destaerodromeid',
+                label: 'LSZT (Lommis)',
+                timezone: 'Europe/Zurich'
+              },
+              blockOffTime: '2018-12-13 10:00',
+              takeOffTime: '2018-12-13 10:05',
+              landingTime: '2018-12-13 10:35',
+              blockOnTime: '2018-12-13 10:40',
+              landings: 1,
+              personsOnBoard: 2,
+              fuelUplift: 4550,
+              fuelType: {
+                value: 'jet_a1_homebase',
+                label: 'Jet A1 (Homebase)'
+              },
+              oilUplift: 50,
+              remarks: 'my test remark',
+              counters: {},
+              preflightCheck: true,
+              troublesObservations: 'troubles',
+              techlogEntryDescription: 'Loose screw',
+              techlogEntryStatus: 'defect_aog'
+            }
+
+            it('should open the flight edit dialog with the flight values', () => {
+              return expectSaga(sagas.openAndInitEditFlightDialog, action)
+                .provide([
+                  [call(sagas.getFlight, orgId, aircraftId, flightId), flight],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(actions.openCreateFlightDialog())
+                .put(
+                  actions.setInitialCreateFlightDialogData(
+                    expectedFlightValues,
+                    [
+                      'date',
+                      'pilot',
+                      'instructor',
+                      'nature',
+                      'departureAerodrome',
+                      'destinationAerodrome',
+                      'counters.flightTimeCounter.start',
+                      'counters.flightTimeCounter.end',
+                      'counters.engineTimeCounter.start',
+                      'counters.engineTimeCounter.end',
+                      'blockOffTime',
+                      'takeOffTime',
+                      'landingTime',
+                      'blockOnTime',
+                      'landings',
+                      'personsOnBoard',
+                      'fuelUplift',
+                      'fuelType',
+                      'oilUplift',
+                      'remarks'
+                    ],
+                    [
+                      'pilot',
+                      'instructor',
+                      'nature',
+                      'personsOnBoard',
+                      'fuelUplift',
+                      'fuelType',
+                      'oilUplift',
+                      'remarks'
+                    ]
+                  )
+                )
+                .run()
+            })
+          })
+
           describe('deleteFlight', () => {
             it('should delete a flight', () => {
               const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
