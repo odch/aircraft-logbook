@@ -12,6 +12,18 @@ try {
 const db = admin.firestore()
 const bucket = admin.storage().bucket()
 
+const hasRole = (member, role) => member.get('roles').includes(role)
+
+const isTechlogManager = member => hasRole(member, 'techlogmanager')
+
+const isOrganizationManager = member => hasRole(member, 'manager')
+
+const hasActionCreatePermission = (member, currentStatus, newStatus) =>
+  isTechlogManager(member) ||
+  (isOrganizationManager(member) &&
+    currentStatus === 'for_information_only' &&
+    ['for_information_only', 'closed'].includes(newStatus))
+
 const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
   const {
     organizationId,
@@ -20,12 +32,7 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
     techlogEntryClosed,
     action
   } = data
-
   const member = await getMemberByUid(db, organizationId, context.auth.uid)
-
-  if (!member.get('roles').includes('techlogmanager')) {
-    throw new Error('User ' + context.auth.uid + 'is not a techlog manager')
-  }
 
   action.timestamp = new Date()
   action.deleted = false
@@ -56,35 +63,47 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
     }
   }
 
-  const batch = db.batch()
+  await db.runTransaction(async t => {
+    const techlogEntryRef = db
+      .collection('organizations')
+      .doc(organizationId)
+      .collection('aircrafts')
+      .doc(aircraftId)
+      .collection('techlog')
+      .doc(techlogEntryId)
 
-  const techlogEntryRef = db
-    .collection('organizations')
-    .doc(organizationId)
-    .collection('aircrafts')
-    .doc(aircraftId)
-    .collection('techlog')
-    .doc(techlogEntryId)
+    const techlogEntryDoc = await t.get(techlogEntryRef)
 
-  const newActionRef = techlogEntryRef.collection('actions').doc()
+    if (
+      !hasActionCreatePermission(
+        member,
+        techlogEntryDoc.get('currentStatus'),
+        action.status
+      )
+    ) {
+      throw new Error(
+        `User ${context.auth.uid} not permitted to add action to entry ${techlogEntryId} in org ${organizationId}`
+      )
+    }
 
-  action.attachments = await addAttachments(
-    bucket,
-    organizationId,
-    aircraftId,
-    techlogEntryId,
-    newActionRef.id,
-    action.attachments
-  )
+    const newActionRef = techlogEntryRef.collection('actions').doc()
 
-  batch.set(newActionRef, action)
+    action.attachments = await addAttachments(
+      bucket,
+      organizationId,
+      aircraftId,
+      techlogEntryId,
+      newActionRef.id,
+      action.attachments
+    )
 
-  batch.update(techlogEntryRef, {
-    currentStatus: action.status,
-    closed: techlogEntryClosed
+    await t.set(newActionRef, action)
+
+    await t.update(techlogEntryRef, {
+      currentStatus: action.status,
+      closed: techlogEntryClosed
+    })
   })
-
-  await batch.commit()
 })
 
 exports.addTechlogEntryAction = addTechlogEntryAction

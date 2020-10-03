@@ -86,8 +86,16 @@ class Techlog extends React.Component {
 
   msg = id => this.props.intl.formatMessage({ id })
 
-  isTechlogManager = () =>
-    this.props.organization.roles.includes('techlogmanager')
+  hasRole = role => this.props.organization.roles.includes(role)
+
+  isTechlogManager = () => this.hasRole('techlogmanager')
+
+  isOrganizationManager = () => this.hasRole('manager')
+
+  hasActionCreatePermission = entry =>
+    this.isTechlogManager() ||
+    (this.isOrganizationManager() &&
+      entry.currentStatus === 'for_information_only')
 
   render() {
     const {
@@ -138,7 +146,7 @@ class Techlog extends React.Component {
           )}
           {createTechlogEntryActionDialogOpen && (
             <TechlogEntryActionCreateDialog
-              organizationId={organization.id}
+              organization={organization}
               aircraftId={aircraft.id}
             />
           )}
@@ -230,7 +238,7 @@ class Techlog extends React.Component {
             authToken={authToken}
           />
         </ExpansionPanelDetails>
-        {this.isTechlogManager() && (
+        {this.hasActionCreatePermission(entry) && (
           <React.Fragment>
             <Divider />
             <ExpansionPanelActions>
