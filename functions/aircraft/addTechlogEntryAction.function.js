@@ -34,15 +34,17 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
   } = data
   const member = await getMemberByUid(db, organizationId, context.auth.uid)
 
-  action.timestamp = new Date()
-  action.deleted = false
-  action.author = {
+  const author = {
     firstname: member.get('firstname'),
     lastname: member.get('lastname'),
     nr: member.get('nr') || null,
     member: member.ref,
     id: member.id
   }
+
+  action.timestamp = new Date()
+  action.deleted = false
+  action.author = author
 
   if (action.signature) {
     delete action.signature
@@ -99,10 +101,20 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
 
     await t.set(newActionRef, action)
 
-    await t.update(techlogEntryRef, {
+    const techlogEntryData = {
       currentStatus: action.status,
       closed: techlogEntryClosed
-    })
+    }
+
+    if (techlogEntryClosed) {
+      techlogEntryData.closedTimestamp = admin.firestore.FieldValue.serverTimestamp()
+      techlogEntryData.closedBy = author
+    } else {
+      techlogEntryData.closedTimestamp = admin.firestore.FieldValue.delete()
+      techlogEntryData.closedBy = admin.firestore.FieldValue.delete()
+    }
+
+    await t.update(techlogEntryRef, techlogEntryData)
   })
 })
 

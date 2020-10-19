@@ -4,10 +4,11 @@ import AircraftDetail from '../components/AircraftDetail'
 import {
   getOrganization,
   getAircraft,
-  getAircraftChecks
+  getAircraftChecks,
+  getLatestCrs
 } from '../../../../../util/getFromState'
 import { fetchAircrafts, fetchMembers, fetchAerodromes } from '../../../module'
-import { fetchChecks } from '../module'
+import { fetchChecks, fetchLatestCrs } from '../module'
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -19,11 +20,14 @@ const mapStateToProps = (state, ownProps) => {
   const organization = getOrganization(state, organizationId)
   const aircraft = getAircraft(state, aircraftId)
   const checks = getAircraftChecks(state, aircraftId)
+  const latestCrs = getLatestCrs(state, aircraftId)
 
   return {
     organization,
     aircraft,
-    checks
+    checks,
+    latestCrs,
+    authToken: state.firebase.auth.stsTokenManager.accessToken
   }
 }
 
@@ -31,7 +35,8 @@ const mapActionCreators = {
   fetchAircrafts,
   fetchMembers,
   fetchAerodromes,
-  fetchChecks
+  fetchChecks,
+  fetchLatestCrs
 }
 
 export default compose(connect(mapStateToProps, mapActionCreators))(

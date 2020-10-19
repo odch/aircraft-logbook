@@ -20,7 +20,13 @@ describe('routes', () => {
               jest.resetAllMocks()
 
               const state = {
-                firebase: {},
+                firebase: {
+                  auth: {
+                    stsTokenManager: {
+                      accessToken: 'my-access-token'
+                    }
+                  }
+                },
                 main: {
                   app: {
                     organizations: [{ id: 'my_org' }]
@@ -112,7 +118,13 @@ describe('routes', () => {
             })
 
             it('should map state to props', () => {
-              const expectedPropKeys = ['organization', 'aircraft']
+              const expectedPropKeys = [
+                'organization',
+                'aircraft',
+                'checks',
+                'latestCrs',
+                'authToken'
+              ]
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
@@ -123,7 +135,9 @@ describe('routes', () => {
               const expectedPropKeys = [
                 'fetchAircrafts',
                 'fetchMembers',
-                'fetchAerodromes'
+                'fetchAerodromes',
+                'fetchChecks',
+                'fetchLatestCrs'
               ]
 
               expect(Object.keys(component.props)).toEqual(

@@ -150,10 +150,23 @@ describe('routes', () => {
                         }
                       }}
                       checks={[]}
+                      latestCrs={{
+                        number: '0',
+                        description: 'My CRS',
+                        author: {
+                          firstname: 'Gerd',
+                          lastname: 'Keller'
+                        },
+                        currentStatus: 'crs',
+                        timestamp: {
+                          toDate: () => Date.parse('2020-06-20 11:14 GMT+0100')
+                        }
+                      }}
                       fetchAircrafts={() => {}}
                       fetchMembers={() => {}}
                       fetchAerodromes={() => {}}
                       fetchChecks={() => {}}
+                      fetchLatestCrs={() => {}}
                     />
                   </Router>
                 </Provider>

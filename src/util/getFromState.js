@@ -127,5 +127,20 @@ const techlogWithActions = (state, stateId) => {
   return undefined
 }
 
+export const getLatestCrs = (state, aircraftId) => {
+  const arr = state.firestore.ordered[`latest-crs-${aircraftId}`]
+  if (arr) {
+    if (arr.length === 1) {
+      const entry = arr[0]
+      return {
+        ...entry,
+        actions: state.firestore.ordered[`techlog-entry-actions-${entry.id}`]
+      }
+    }
+    return null
+  }
+  return undefined
+}
+
 export const getAircraftChecks = (state, aircraftId) =>
   state.firestore.ordered[`checks-${aircraftId}`]
