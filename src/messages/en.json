@@ -35,6 +35,8 @@
   "aircraftdetail.checks.counter.text": "at {limit}",
   "aircraftdetail.checks.counter.remaining": "{diff} {counterName} remaining",
   "aircraftdetail.checks.counter.due": "{diff} {counterName} overdue",
+  "aircraftdetail.latestcrs": "Latest CRS",
+  "aircraftdetail.latestcrs.none": "No CRS found.",
   "aircraftdetail.techlog": "Open Techlog entries",
   "aircraftdetail.techlog.all": "Show all",
   "aircraftdetail.techlog.none": "No entries.",

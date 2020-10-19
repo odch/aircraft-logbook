@@ -9,12 +9,14 @@ import isLoaded from '../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
   aircraft as aircraftShape,
-  check as checkShape
+  check as checkShape,
+  techlogEntry as techlogEntryShape
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import FlightList from '../../containers/FlightListContainer'
 import Techlog from '../../containers/TechlogContainer'
 import Checks from '../Checks'
+import LatestCrs from '../LatestCrs'
 
 const styles = theme => ({
   container: {
@@ -46,7 +48,8 @@ class AircraftDetail extends React.Component {
       fetchAircrafts,
       fetchMembers,
       fetchAerodromes,
-      fetchChecks
+      fetchChecks,
+      fetchLatestCrs
     } = this.props
 
     if (organization) {
@@ -55,6 +58,7 @@ class AircraftDetail extends React.Component {
       fetchAerodromes(organization.id)
       if (aircraft) {
         fetchChecks(organization.id, aircraft.id)
+        fetchLatestCrs(organization.id, aircraft.id)
       }
     }
   }
@@ -66,7 +70,8 @@ class AircraftDetail extends React.Component {
       fetchAircrafts,
       fetchMembers,
       fetchAerodromes,
-      fetchChecks
+      fetchChecks,
+      fetchLatestCrs
     } = this.props
 
     if (
@@ -83,11 +88,19 @@ class AircraftDetail extends React.Component {
       (!prevProps.aircraft || prevProps.aircraft.id !== aircraft.id)
     ) {
       fetchChecks(organization.id, aircraft.id)
+      fetchLatestCrs(organization.id, aircraft.id)
     }
   }
 
   render() {
-    const { organization, aircraft, checks, classes } = this.props
+    const {
+      organization,
+      aircraft,
+      checks,
+      latestCrs,
+      authToken,
+      classes
+    } = this.props
 
     if (organization === null) {
       return <Redirect to="/" />
@@ -101,7 +114,7 @@ class AircraftDetail extends React.Component {
       return <Redirect to={`/organizations/${organization.id}`} />
     }
 
-    if (!isLoaded(checks)) {
+    if (!isLoaded(checks) || !isLoaded(latestCrs)) {
       return <LoadingIcon />
     }
 
@@ -133,6 +146,19 @@ class AircraftDetail extends React.Component {
         )}
         {aircraft.settings.techlogEnabled === true && (
           <>
+            <Typography
+              variant="h5"
+              gutterBottom
+              className={classes.sectionHeading}
+            >
+              <FormattedMessage id="aircraftdetail.latestcrs" />
+            </Typography>
+            <LatestCrs
+              organization={organization}
+              aircraftId={aircraft.id}
+              crs={latestCrs}
+              authToken={authToken}
+            />
             <Typography
               variant="h5"
               gutterBottom
@@ -182,11 +208,14 @@ AircraftDetail.propTypes = {
   organization: organizationShape,
   aircraft: aircraftShape,
   checks: PropTypes.arrayOf(checkShape),
+  latestCrs: techlogEntryShape,
+  authToken: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   fetchAircrafts: PropTypes.func.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   fetchAerodromes: PropTypes.func.isRequired,
-  fetchChecks: PropTypes.func.isRequired
+  fetchChecks: PropTypes.func.isRequired,
+  fetchLatestCrs: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(AircraftDetail)

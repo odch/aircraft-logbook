@@ -820,6 +820,46 @@ const getTechlogActionsQuery = (
     {}
   )
 
+export function* fetchLatestCrs({ payload: { organizationId, aircraftId } }) {
+  const firestore = yield call(getFirestore)
+  const latestCrsSnapshot = yield call(
+    firestore.get,
+    {
+      collection: 'organizations',
+      doc: organizationId,
+      subcollections: [
+        {
+          collection: 'aircrafts',
+          doc: aircraftId,
+          subcollections: [
+            {
+              collection: 'techlog'
+            }
+          ]
+        }
+      ],
+      where: [
+        ['deleted', '==', false],
+        ['closed', '==', true],
+        ['currentStatus', '==', 'crs']
+      ],
+      orderBy: ['closedTimestamp', 'desc'],
+      limit: 1,
+      storeAs: `latest-crs-${aircraftId}`
+    },
+    {}
+  )
+  if (latestCrsSnapshot.size === 1) {
+    const techlogEntryId = latestCrsSnapshot.docs[0].ref.id
+    yield getTechlogActionsQuery(
+      firestore,
+      organizationId,
+      aircraftId,
+      techlogEntryId
+    )
+  }
+}
+
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -868,6 +908,7 @@ export function* createTechlogEntry({
     })
     yield put(fetchAircrafts(organizationId))
     yield call(fetchTechlog)
+    yield put(actions.fetchLatestCrs(organizationId, aircraftId))
     yield put(actions.createTechlogEntrySuccess())
   } catch (e) {
     error('Failed to create techlog entry', e)
@@ -897,6 +938,7 @@ export function* createTechlogEntryAction({
     })
     yield put(fetchAircrafts(organizationId))
     yield call(fetchTechlog)
+    yield put(actions.fetchLatestCrs(organizationId, aircraftId))
     yield put(actions.createTechlogEntryActionSuccess())
   } catch (e) {
     error('Failed to create techlog entry action', e)
@@ -944,6 +986,7 @@ export default function* sagas() {
     takeEvery(actions.CHANGE_TECHLOG_PAGE, changeTechlogPage),
     takeEvery(actions.CREATE_TECHLOG_ENTRY, createTechlogEntry),
     takeEvery(actions.CREATE_TECHLOG_ENTRY_ACTION, createTechlogEntryAction),
+    takeEvery(actions.FETCH_LATEST_CRS, fetchLatestCrs),
     takeEvery(actions.FETCH_CHECKS, fetchChecks)
   ])
 }
