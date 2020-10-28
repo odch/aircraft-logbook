@@ -63,8 +63,8 @@ export const isBefore = (
   comparisonTimezone
 ) =>
   moment
-    .tz(dateTime, timezone)
-    .isBefore(moment.tz(comparisonDateTime, comparisonTimezone))
+    .tz(toDate(dateTime), timezone)
+    .isBefore(moment.tz(toDate(comparisonDateTime), comparisonTimezone))
 
 /**
  * @param dateTime Date time string in a format MomentJS understands
@@ -101,3 +101,13 @@ export const getTimeDiffInHundredthsOfHour = (start, end) => {
 }
 
 const millis2Hours = millis => millis / (1000 * 60 * 60)
+
+const toDate = timestamp => {
+  if (!timestamp) {
+    return timestamp
+  }
+  if (typeof timestamp.toDate === 'function') {
+    return timestamp.toDate()
+  }
+  return timestamp
+}
