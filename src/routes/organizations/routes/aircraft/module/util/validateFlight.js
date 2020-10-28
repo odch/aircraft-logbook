@@ -33,6 +33,11 @@ export function* validateSync(
 
   if (!data.date || !DATE_PATTERN.test(data.date)) {
     errors['date'] = 'invalid'
+  } else if (
+    aircraftSettings.lockDate &&
+    isBefore(data.date, undefined, aircraftSettings.lockDate, undefined)
+  ) {
+    errors['date'] = 'not_before_lock_date'
   }
   if (!data.pilot) {
     errors['pilot'] = 'required'

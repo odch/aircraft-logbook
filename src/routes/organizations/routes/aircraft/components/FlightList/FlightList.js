@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl } from 'react-intl'
+import _get from 'lodash.get'
 import withStyles from '@material-ui/core/styles/withStyles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -25,7 +26,7 @@ import {
   organization as organizationShape,
   intl as intlShape
 } from '../../../../../../shapes'
-import { formatDate, formatTime } from '../../../../../../util/dates'
+import { formatDate, formatTime, isBefore } from '../../../../../../util/dates'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import FlightDetails from './FlightDetails'
@@ -72,6 +73,13 @@ class FlightList extends React.Component {
 
   isOrganizationManager = () =>
     this.props.organization.roles.includes('manager')
+
+  isLocked = flight => {
+    const lockDate = _get(this.props.aircraft, 'settings.lockDate')
+    return (
+      lockDate && isBefore(flight.blockOffTime, undefined, lockDate, undefined)
+    )
+  }
 
   componentDidMount() {
     const {
@@ -264,6 +272,7 @@ class FlightList extends React.Component {
       openEditFlightDialog,
       openDeleteFlightDialog
     } = this.props
+    const isLocked = this.isLocked(flight)
     return (
       <>
         <ExpansionPanelDetails key={`details-${flight.id}`}>
@@ -273,25 +282,41 @@ class FlightList extends React.Component {
           <>
             <Divider key={`divider-${flight.id}`} />
             <ExpansionPanelActions key={`actions-${flight.id}`}>
-              <IconButton
-                onClick={() =>
-                  openEditFlightDialog(organization.id, aircraft.id, flight.id)
-                }
-              >
-                <EditIcon />
-              </IconButton>
               <Tooltip
                 title={this.msg(
-                  isNewestFlight
-                    ? 'flightlist.delete'
-                    : 'flightlist.delete.not_newest'
+                  isLocked ? 'flightlist.edit.locked' : 'flightlist.edit'
                 )}
               >
-                {/*  span required to render tooltip for disabled button */}
+                {/* span required to render tooltip for button */}
+                <span>
+                  <IconButton
+                    onClick={() =>
+                      openEditFlightDialog(
+                        organization.id,
+                        aircraft.id,
+                        flight.id
+                      )
+                    }
+                    disabled={isLocked}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+              <Tooltip
+                title={this.msg(
+                  !isNewestFlight
+                    ? 'flightlist.delete.not_newest'
+                    : isLocked
+                    ? 'flightlist.delete.locked'
+                    : 'flightlist.delete'
+                )}
+              >
+                {/* span required to render tooltip for button */}
                 <span>
                   <IconButton
                     onClick={() => openDeleteFlightDialog(flight)}
-                    disabled={!isNewestFlight}
+                    disabled={isLocked || !isNewestFlight}
                   >
                     <DeleteIcon />
                   </IconButton>

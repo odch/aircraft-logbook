@@ -15,7 +15,10 @@ describe('routes', () => {
               engineHoursCounterEnabled: true
             }
             const aircraftSettings2 = {
-              engineHoursCounterEnabled: false
+              engineHoursCounterEnabled: false,
+              lockDate: {
+                toDate: () => new Date(2019, 0, 6, 24, 0, 0)
+              }
             }
 
             const testFn = async (
@@ -51,6 +54,33 @@ describe('routes', () => {
               return testFn(
                 { date: '2019-01-05' },
                 aircraftSettings1,
+                'date',
+                undefined
+              )
+            })
+
+            it('should return an error if date is before lock date', () => {
+              return testFn(
+                { date: '2019-01-05' },
+                aircraftSettings2,
+                'date',
+                'not_before_lock_date'
+              )
+            })
+
+            it('should return an error if date is same as lock date', () => {
+              return testFn(
+                { date: '2019-01-06' },
+                aircraftSettings2,
+                'date',
+                'not_before_lock_date'
+              )
+            })
+
+            it('should return no error if date is after lock date', () => {
+              return testFn(
+                { date: '2019-01-07' },
+                aircraftSettings2,
                 'date',
                 undefined
               )
