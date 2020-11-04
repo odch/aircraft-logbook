@@ -1,13 +1,21 @@
-import { takeEvery, all, call, put, select } from 'redux-saga/effects'
+import {
+  takeEvery,
+  takeLatest,
+  all,
+  call,
+  put,
+  select
+} from 'redux-saga/effects'
 import * as actions from './actions'
-import { fetchMembers } from '../../../module'
+import { fetchMembers, fetchAircrafts } from '../../../module'
+import { fetchOrganizations } from '../../../../../modules/app'
 import { error } from '../../../../../util/log'
 import {
   addDoc,
   updateDoc,
   serverTimestamp
 } from '../../../../../util/firestoreUtils'
-import { getFirestore } from '../../../../../util/firebase'
+import { callFunction, getFirestore } from '../../../../../util/firebase'
 import download from '../../../../../util/download'
 import { getCurrentMemberObject } from '../../../util/members'
 
@@ -116,11 +124,26 @@ export async function generateExport(
   await download(url, token, fileName)
 }
 
+export function* updateLockDate({ payload: { organizationId, date } }) {
+  try {
+    yield call(callFunction, 'updateLockDate', {
+      organizationId,
+      date
+    })
+    yield put(fetchOrganizations())
+    yield put(fetchAircrafts(organizationId))
+    yield put(actions.updateLockDateSuccess())
+  } catch (e) {
+    yield put(actions.updateLockDateFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_MEMBER, createMember),
     takeEvery(actions.DELETE_MEMBER, deleteMember),
     takeEvery(actions.UPDATE_MEMBER, updateMember),
-    takeEvery(actions.EXPORT_FLIGHTS, exportFlights)
+    takeEvery(actions.EXPORT_FLIGHTS, exportFlights),
+    takeLatest(actions.UPDATE_LOCK_DATE, updateLockDate)
   ])
 }

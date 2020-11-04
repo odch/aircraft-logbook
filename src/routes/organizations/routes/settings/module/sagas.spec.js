@@ -1,4 +1,4 @@
-import { all, takeEvery, call, select } from 'redux-saga/effects'
+import { all, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { throwError } from 'redux-saga-test-plan/providers'
 import {
@@ -8,8 +8,9 @@ import {
 } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
-import { fetchMembers } from '../../../module'
-import { getFirestore } from '../../../../../util/firebase'
+import { fetchOrganizations } from '../../../../../modules/app'
+import { fetchMembers, fetchAircrafts } from '../../../module'
+import { callFunction, getFirestore } from '../../../../../util/firebase'
 import { getCurrentMemberObject } from '../../../util/members'
 
 describe('routes', () => {
@@ -254,6 +255,33 @@ describe('routes', () => {
             })
           })
 
+          describe('updateLockDate', () => {
+            it('should update the lock date', () => {
+              const organizationId = 'my_org'
+              const date = '2020-11-04'
+
+              const action = actions.updateLockDate(organizationId, date)
+
+              return expectSaga(sagas.updateLockDate, action)
+                .provide([
+                  [
+                    call(callFunction, 'updateLockDate', {
+                      organizationId,
+                      date
+                    })
+                  ]
+                ])
+                .call(callFunction, 'updateLockDate', {
+                  organizationId,
+                  date
+                })
+                .put(fetchOrganizations())
+                .put(fetchAircrafts(organizationId))
+                .put(actions.updateLockDateSuccess())
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
@@ -263,7 +291,8 @@ describe('routes', () => {
                   takeEvery(actions.CREATE_MEMBER, sagas.createMember),
                   takeEvery(actions.DELETE_MEMBER, sagas.deleteMember),
                   takeEvery(actions.UPDATE_MEMBER, sagas.updateMember),
-                  takeEvery(actions.EXPORT_FLIGHTS, sagas.exportFlights)
+                  takeEvery(actions.EXPORT_FLIGHTS, sagas.exportFlights),
+                  takeLatest(actions.UPDATE_LOCK_DATE, sagas.updateLockDate)
                 ])
               )
             })

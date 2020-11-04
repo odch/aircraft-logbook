@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { withStyles } from '@material-ui/core/styles'
 import { intl as intlShape } from '../../../../../../shapes'
@@ -34,27 +35,32 @@ class ExportFlightsForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          {this.renderDatePicker('startDate')}
-          {this.renderDatePicker('endDate')}
-        </div>
-        <div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={this.handleFlightsExportClick}
-            disabled={
-              !this.props.data.startDate ||
-              !this.props.data.endDate ||
-              this.props.submitting
-            }
-          >
-            <FormattedMessage id="organization.settings.exportflights" />
-          </Button>
-        </div>
-      </form>
+      <>
+        <Typography variant="h5" gutterBottom>
+          <FormattedMessage id="organization.settings.exportflights" />
+        </Typography>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            {this.renderDatePicker('startDate')}
+            {this.renderDatePicker('endDate')}
+          </div>
+          <div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={this.handleFlightsExportClick}
+              disabled={
+                !this.props.data.startDate ||
+                !this.props.data.endDate ||
+                this.props.submitting
+              }
+            >
+              <FormattedMessage id="organization.settings.exportflights" />
+            </Button>
+          </div>
+        </form>
+      </>
     )
   }
 

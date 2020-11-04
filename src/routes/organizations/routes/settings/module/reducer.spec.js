@@ -46,6 +46,9 @@ export const INITIAL_STATE = {
         .format('YYYY-MM-DD')
     }
   },
+  lockDateForm: {
+    submitting: false
+  },
   members: {
     page: 0,
     filter: ''
@@ -521,6 +524,47 @@ describe('routes', () => {
                 }
               }
             })
+          })
+
+          const testLockDateFormSubmitting = (before, action, after) => {
+            expect(
+              reducer(
+                {
+                  lockDateForm: {
+                    submitting: before
+                  }
+                },
+                action
+              )
+            ).toEqual({
+              lockDateForm: {
+                submitting: after
+              }
+            })
+          }
+
+          it('handles UPDATE_LOCK_DATE action', () => {
+            testLockDateFormSubmitting(
+              false,
+              actions.updateLockDate('my_org', '2019-07-01'),
+              true
+            )
+          })
+
+          it('handles UPDATE_LOCK_DATE_SUCCESS action', () => {
+            testLockDateFormSubmitting(
+              true,
+              actions.updateLockDateSuccess(),
+              false
+            )
+          })
+
+          it('handles UPDATE_LOCK_DATE_FAILURE action', () => {
+            testLockDateFormSubmitting(
+              true,
+              actions.updateLockDateFailure(),
+              false
+            )
           })
         })
       })
