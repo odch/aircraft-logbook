@@ -246,6 +246,8 @@
   "organization.member.edit.dialog.invitation.text_invited": "Die Einladung wurde am {inviteDate} um {inviteTime} versendet. Der Benutzer hat die Einladung noch nicht angenommen.",
   "organization.member.edit.dialog.invitation.checkbox_reinvite": "Einladung erneut senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung erneut versendet wird)",
   "organization.member.edit.dialog.invitation.text_not_invited": "Es wurde noch keine Einladung an diesen Benutzer gesendet. Trage eine E-Mail-Adresse im folgenden Feld ein und speichere die Änderung, um eine Einladung zu senden (nach dem Speichern kann es einige Minuten dauern, bis die Einladung versendet wird).",
+  "organization.settings.lockdate": "Sperrdatum",
+  "organization.settings.lockdate.description": "Ist ein Sperrdatum eingetragen, können nur Flüge erstellt, bearbeitet oder gelöscht werden, deren Datum nach dem Sperrdatum liegt.",
   "organization.settings.exportflights": "Flüge exportieren",
   "organization.settings.exportflights.startdate": "Startdatum",
   "organization.settings.exportflights.enddate": "Enddatum",

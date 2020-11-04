@@ -17,7 +17,8 @@ export const getOrganization = (state, organizationId) => {
       return {
         ...organization,
         id: organizationId,
-        roles: organization.roles || []
+        roles: organization.roles || [],
+        lockDate: organization.lockDate || null
       }
     }
     return null // not found

@@ -47,6 +47,9 @@ export const INITIAL_STATE = {
         .format('YYYY-MM-DD')
     }
   },
+  lockDateForm: {
+    submitting: false
+  },
   members: {
     page: 0,
     filter: ''
@@ -212,6 +215,14 @@ const updateExportFlightsFormData = (state, action) => {
   }
 }
 
+const setUpdateLockFormSubmitting = submitting => state => ({
+  ...state,
+  lockDateForm: {
+    ...state.lockDateForm,
+    submitting
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
@@ -231,7 +242,10 @@ const ACTION_HANDLERS = {
   [actions.SET_MEMBERS_PAGE]: setMembersPage,
   [actions.SET_MEMBERS_FILTER]: setMembersFilter,
   [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,
-  [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData
+  [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData,
+  [actions.UPDATE_LOCK_DATE]: setUpdateLockFormSubmitting(true),
+  [actions.UPDATE_LOCK_DATE_SUCCESS]: setUpdateLockFormSubmitting(false),
+  [actions.UPDATE_LOCK_DATE_FAILURE]: setUpdateLockFormSubmitting(false)
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
