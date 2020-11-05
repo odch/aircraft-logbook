@@ -68,7 +68,9 @@ describe('routes', () => {
                       {
                         id: 'my_org',
                         roles: ['manager'],
-                        lockDate: { toDate: () => new Date('2020-11-04') }
+                        lockDate: {
+                          toDate: () => new Date(2020, 10, 5, 0, 0, 0)
+                        }
                       }
                     ]
                   }

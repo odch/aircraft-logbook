@@ -197,10 +197,7 @@ class FlightCreateDialog extends React.Component {
     if (!lockDate) {
       return undefined
     }
-
-    const minDate = new Date(lockDate)
-    minDate.setDate(lockDate.getDate() + 1)
-    return minDate
+    return lockDate
   }
 
   natureOption = id => ({
