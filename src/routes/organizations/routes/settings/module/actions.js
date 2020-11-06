@@ -31,6 +31,11 @@ export const UPDATE_MEMBER_FAILURE =
 export const DELETE_MEMBER = 'organizationSettings/DELETE_MEMBER'
 export const SET_MEMBERS_PAGE = 'organizationSettings/SET_MEMBERS_PAGE'
 export const SET_MEMBERS_FILTER = 'organizationSettings/SET_MEMBERS_FILTER'
+export const UPDATE_LOCK_DATE = 'organizationSettings/UPDATE_LOCK_DATE'
+export const UPDATE_LOCK_DATE_SUCCESS =
+  'organizationSettings/UPDATE_LOCK_DATE_SUCCESS'
+export const UPDATE_LOCK_DATE_FAILURE =
+  'organizationSettings/UPDATE_LOCK_DATE_FAILURE'
 export const EXPORT_FLIGHTS = 'organizationSettings/EXPORT_FLIGHTS'
 export const SET_EXPORT_FLIGHTS_FORM_SUBMITTING =
   'organizationSettings/SET_EXPORT_FLIGHTS_FORM_SUBMITTING'
@@ -142,6 +147,22 @@ export const setMembersFilter = filter => ({
   payload: {
     filter
   }
+})
+
+export const updateLockDate = (organizationId, date) => ({
+  type: UPDATE_LOCK_DATE,
+  payload: {
+    organizationId,
+    date
+  }
+})
+
+export const updateLockDateSuccess = () => ({
+  type: UPDATE_LOCK_DATE_SUCCESS
+})
+
+export const updateLockDateFailure = () => ({
+  type: UPDATE_LOCK_DATE_FAILURE
 })
 
 export const exportFlights = (organizationId, startDate, endDate) => ({

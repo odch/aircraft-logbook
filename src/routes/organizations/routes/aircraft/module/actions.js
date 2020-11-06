@@ -72,6 +72,8 @@ export const CREATE_TECHLOG_ENTRY_ACTION_SUCCESS =
 export const CREATE_TECHLOG_ENTRY_ACTION_FAILURE =
   'aircraft/CREATE_TECHLOG_ENTRY_ACTION_FAILURE'
 
+export const FETCH_LATEST_CRS = 'aircraft/FETCH_LATEST_CRS'
+
 export const FETCH_CHECKS = 'aircraft/FETCH_CHECKS'
 
 export const initFlightsList = (
@@ -373,6 +375,14 @@ export const createTechlogEntryActionSuccess = () => ({
 
 export const createTechlogEntryActionFailure = () => ({
   type: CREATE_TECHLOG_ENTRY_ACTION_FAILURE
+})
+
+export const fetchLatestCrs = (organizationId, aircraftId) => ({
+  type: FETCH_LATEST_CRS,
+  payload: {
+    organizationId,
+    aircraftId
+  }
 })
 
 export const fetchChecks = (organizationId, aircraftId) => ({

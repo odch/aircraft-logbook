@@ -17,7 +17,8 @@ export const getOrganization = (state, organizationId) => {
       return {
         ...organization,
         id: organizationId,
-        roles: organization.roles || []
+        roles: organization.roles || [],
+        lockDate: organization.lockDate || null
       }
     }
     return null // not found
@@ -123,6 +124,21 @@ const techlogWithActions = (state, stateId) => {
       ...entry,
       actions: state.firestore.ordered[`techlog-entry-actions-${entry.id}`]
     }))
+  }
+  return undefined
+}
+
+export const getLatestCrs = (state, aircraftId) => {
+  const arr = state.firestore.ordered[`latest-crs-${aircraftId}`]
+  if (arr) {
+    if (arr.length === 1) {
+      const entry = arr[0]
+      return {
+        ...entry,
+        actions: state.firestore.ordered[`techlog-entry-actions-${entry.id}`]
+      }
+    }
+    return null
   }
   return undefined
 }

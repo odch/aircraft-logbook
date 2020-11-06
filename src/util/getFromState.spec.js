@@ -92,7 +92,8 @@ describe('util', () => {
         const organization = getOrganization(state, 'my_org')
         expect(organization).toEqual({
           id: 'my_org',
-          roles: []
+          roles: [],
+          lockDate: null
         })
       })
     })

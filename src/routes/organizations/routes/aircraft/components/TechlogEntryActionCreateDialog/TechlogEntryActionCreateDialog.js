@@ -11,7 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
-import { intl as intlShape } from '../../../../../../shapes'
+import {
+  intl as intlShape,
+  organization as organizationShape
+} from '../../../../../../shapes'
 import Select from '../../../../../../components/Select'
 import Attachments from '../Attachments'
 import FileButton from '../FileButton'
@@ -83,7 +86,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
   handleSubmit = e => {
     const {
       onSubmit,
-      organizationId,
+      organization,
       aircraftId,
       techlogEntryId,
       data,
@@ -92,7 +95,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
 
     e.preventDefault()
     if (submitting !== true && onSubmit) {
-      onSubmit(organizationId, aircraftId, techlogEntryId, data)
+      onSubmit(organization.id, aircraftId, techlogEntryId, data)
     }
   }
 
@@ -218,7 +221,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
 }
 
 TechlogEntryActionCreateDialog.propTypes = {
-  organizationId: PropTypes.string.isRequired,
+  organization: organizationShape.isRequired,
   aircraftId: PropTypes.string.isRequired,
   techlogEntryId: PropTypes.string.isRequired,
   statusOptions: PropTypes.arrayOf(

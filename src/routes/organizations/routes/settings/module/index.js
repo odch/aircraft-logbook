@@ -13,7 +13,8 @@ import {
   closeEditMemberDialog,
   updateMember,
   setMembersPage,
-  setMembersFilter
+  setMembersFilter,
+  updateLockDate
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -33,7 +34,8 @@ export {
   closeEditMemberDialog,
   updateMember,
   setMembersPage,
-  setMembersFilter
+  setMembersFilter,
+  updateLockDate
 }
 
 export { sagas }

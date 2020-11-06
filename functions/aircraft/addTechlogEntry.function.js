@@ -38,14 +38,20 @@ const addTechlogEntry = functions.https.onCall(async (data, context) => {
     )
   }
 
-  entry.timestamp = new Date()
-  entry.deleted = false
-  entry.author = {
+  const author = {
     firstname: member.get('firstname'),
     lastname: member.get('lastname'),
     nr: member.get('nr') || null,
     member: member.ref,
     id: member.id
+  }
+
+  entry.timestamp = new Date()
+  entry.deleted = false
+  entry.author = author
+  if (entry.closed === true) {
+    entry.closedTimestamp = admin.firestore.FieldValue.serverTimestamp()
+    entry.closedBy = author
   }
 
   await db.runTransaction(async t => {

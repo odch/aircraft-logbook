@@ -1337,6 +1337,7 @@ describe('routes', () => {
                 })
                 .put(fetchAircrafts('my_org'))
                 .call(sagas.fetchTechlog)
+                .put(actions.fetchLatestCrs('my_org', 'o7flC7jw8jmkOfWo8oyA'))
                 .put(actions.createTechlogEntrySuccess())
                 .run()
             })
@@ -1422,7 +1423,88 @@ describe('routes', () => {
                 })
                 .put(fetchAircrafts('my_org'))
                 .call(sagas.fetchTechlog)
+                .put(actions.fetchLatestCrs('my_org', 'o7flC7jw8jmkOfWo8oyA'))
                 .put(actions.createTechlogEntryActionSuccess())
+                .run()
+            })
+          })
+
+          describe('fetchLatestCrs', () => {
+            it('should fetch the latest CRS', () => {
+              const orgId = 'my_org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+              const techlogEntryId = 'crs-techlog-entry-id'
+
+              const action = actions.fetchLatestCrs(orgId, aircraftId)
+
+              const firestore = {
+                get: () => {}
+              }
+              const snapshot = {
+                size: 1,
+                docs: [
+                  {
+                    ref: { id: techlogEntryId }
+                  }
+                ]
+              }
+
+              const expectedCrsQuery = {
+                collection: 'organizations',
+                doc: orgId,
+                subcollections: [
+                  {
+                    collection: 'aircrafts',
+                    doc: aircraftId,
+                    subcollections: [
+                      {
+                        collection: 'techlog'
+                      }
+                    ]
+                  }
+                ],
+                where: [
+                  ['deleted', '==', false],
+                  ['closed', '==', true],
+                  ['currentStatus', '==', 'crs']
+                ],
+                orderBy: ['closedTimestamp', 'desc'],
+                limit: 1,
+                storeAs: `latest-crs-${aircraftId}`
+              }
+
+              const expectedActionsQuery = {
+                collection: 'organizations',
+                doc: orgId,
+                subcollections: [
+                  {
+                    collection: 'aircrafts',
+                    doc: aircraftId,
+                    subcollections: [
+                      {
+                        collection: 'techlog',
+                        doc: techlogEntryId,
+                        subcollections: [
+                          {
+                            collection: 'actions'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                orderBy: 'timestamp',
+                storeAs: `techlog-entry-actions-${techlogEntryId}`
+              }
+
+              return expectSaga(sagas.fetchLatestCrs, action)
+                .provide([
+                  [call(getFirestore), firestore],
+                  [call(firestore.get, expectedCrsQuery, {}), snapshot],
+                  [call(firestore.get, expectedActionsQuery, {})]
+                ])
+                .call(firestore.get, expectedCrsQuery, {})
+                .call(firestore.get, expectedActionsQuery, {})
                 .run()
             })
           })
@@ -1463,6 +1545,7 @@ describe('routes', () => {
                     actions.CREATE_TECHLOG_ENTRY_ACTION,
                     sagas.createTechlogEntryAction
                   ),
+                  takeEvery(actions.FETCH_LATEST_CRS, sagas.fetchLatestCrs),
                   takeEvery(actions.FETCH_CHECKS, sagas.fetchChecks)
                 ])
               )

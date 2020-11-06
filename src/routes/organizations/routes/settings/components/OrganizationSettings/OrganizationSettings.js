@@ -17,6 +17,7 @@ import DeleteButton from '../../../../../../components/DeleteButton'
 import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
+import LockDateForm from '../../containers/LockDateFormContainer'
 import ExportFlightsForm from '../../containers/ExportFlightsFormContainer'
 
 const styles = theme => ({
@@ -97,6 +98,7 @@ class OrganizationSettings extends React.Component {
           <FormattedMessage id="organization.settings.createmember" />
         </Button>
         <MemberList organizationId={organization.id} />
+        <LockDateForm organizationId={organization.id} />
         <ExportFlightsForm organizationId={organization.id} />
         {featureToggles.isFeatureEnabled('organizationsManagement') && (
           <React.Fragment>

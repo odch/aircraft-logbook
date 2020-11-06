@@ -193,6 +193,13 @@ class FlightCreateDialog extends React.Component {
     })
   }
 
+  getMinDate = lockDate => {
+    if (!lockDate) {
+      return undefined
+    }
+    return lockDate
+  }
+
   natureOption = id => ({
     value: id,
     label: this.msg(`flight.nature.${id}`)
@@ -224,7 +231,8 @@ class FlightCreateDialog extends React.Component {
       aircraftSettings: {
         fuelTypes,
         engineHoursCounterEnabled,
-        engineHoursCounterFractionDigits
+        engineHoursCounterFractionDigits,
+        lockDate
       }
     } = this.props
 
@@ -238,7 +246,7 @@ class FlightCreateDialog extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <DialogContent>
             {this.renderRequiredInitialValueFields()}
-            {this.renderDatePicker('date')}
+            {this.renderDatePicker('date', this.getMinDate(lockDate))}
             {this.renderMemberSelect('pilot', loadMembers)}
             {this.renderMemberSelect('instructor', loadInstructors)}
             {this.renderSelect('nature', flightNatures, value =>
@@ -446,7 +454,7 @@ class FlightCreateDialog extends React.Component {
     ))
   }
 
-  renderDatePicker(name) {
+  renderDatePicker(name, minDate) {
     return this.renderInFormControl(name, (hasError, isDisabled) => (
       <KeyboardDatePicker
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -461,6 +469,7 @@ class FlightCreateDialog extends React.Component {
         invalidDateMessage={this.msg('flight.create.dialog.dateinvalid')}
         error={hasError}
         disabled={isDisabled}
+        minDate={minDate}
       />
     ))
   }
@@ -745,7 +754,8 @@ FlightCreateDialog.propTypes = {
     ).isRequired,
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
-    techlogEnabled: PropTypes.bool.isRequired
+    techlogEnabled: PropTypes.bool.isRequired,
+    lockDate: PropTypes.object
   }).isRequired,
   createAerodromeDialogOpen: PropTypes.bool.isRequired,
   visibleFields: PropTypes.arrayOf(PropTypes.string),

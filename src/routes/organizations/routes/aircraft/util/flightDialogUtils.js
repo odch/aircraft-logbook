@@ -33,7 +33,11 @@ export const aircraftSettings = (state, aircraftId) => {
       engineHoursCounterFractionDigits:
         aircraftSettings.engineHoursCounterFractionDigits,
       techlogEnabled: aircraftSettings.techlogEnabled === true,
-      techlogSignatureEnabled: aircraftSettings.techlogSignatureEnabled === true
+      techlogSignatureEnabled:
+        aircraftSettings.techlogSignatureEnabled === true,
+      lockDate: aircraftSettings.lockDate
+        ? aircraftSettings.lockDate.toDate()
+        : null
     }
   }
 }

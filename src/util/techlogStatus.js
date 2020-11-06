@@ -14,6 +14,13 @@ export const getTechlogStatus = isTechlogManager =>
     ? STATUS.slice(0)
     : STATUS.filter(status => status.requiresManager === false)
 
+export const getTechlogActionStatus = isTechlogManager =>
+  isTechlogManager
+    ? getTechlogStatus(true)
+    : STATUS.filter(status =>
+        ['for_information_only', 'closed'].includes(status.id)
+      )
+
 export const getOpenTechlogStatus = () =>
   STATUS.filter(
     status => status.closed === false && status.requiresManager === false

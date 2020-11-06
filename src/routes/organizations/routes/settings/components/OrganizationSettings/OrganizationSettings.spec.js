@@ -64,7 +64,15 @@ describe('routes', () => {
               const store = configureStore()({
                 main: {
                   app: {
-                    organizations: [{ id: 'my_org', roles: ['manager'] }]
+                    organizations: [
+                      {
+                        id: 'my_org',
+                        roles: ['manager'],
+                        lockDate: {
+                          toDate: () => new Date(2020, 10, 5, 0, 0, 0)
+                        }
+                      }
+                    ]
                   }
                 },
                 firestore: {
@@ -98,6 +106,9 @@ describe('routes', () => {
                       startDate: '2019-08-01',
                       endDate: '2019-08-31'
                     }
+                  },
+                  lockDateForm: {
+                    submitting: false
                   }
                 }
               })
