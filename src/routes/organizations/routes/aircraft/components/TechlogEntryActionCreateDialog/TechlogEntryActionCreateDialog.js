@@ -11,7 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
-import { intl as intlShape } from '../../../../../../shapes'
+import {
+  intl as intlShape,
+  organization as organizationShape
+} from '../../../../../../shapes'
 import Select from '../../../../../../components/Select'
 import Attachments from '../Attachments'
 import FileButton from '../FileButton'
@@ -83,7 +86,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
   handleSubmit = e => {
     const {
       onSubmit,
-      organizationId,
+      organization,
       aircraftId,
       techlogEntryId,
       data,
@@ -92,14 +95,20 @@ class TechlogEntryActionCreateDialog extends React.Component {
 
     e.preventDefault()
     if (submitting !== true && onSubmit) {
-      onSubmit(organizationId, aircraftId, techlogEntryId, data)
+      onSubmit(organization.id, aircraftId, techlogEntryId, data)
     }
   }
 
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { statusOptions, submitting, classes, onClose } = this.props
+    const {
+      statusOptions,
+      submitting,
+      aircraftSettings: { techlogSignatureEnabled },
+      classes,
+      onClose
+    } = this.props
     return (
       <Dialog
         onClose={this.handleClose}
@@ -115,7 +124,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
           <DialogContent className={classes.root}>
             {this.renderMultilineTextField('description', true)}
             {this.renderSelect('status', statusOptions, true)}
-            {this.renderCheckbox('signature')}
+            {techlogSignatureEnabled && this.renderCheckbox('signature')}
             <Attachments
               attachments={this.props.data.attachments}
               disabled={submitting}
@@ -212,7 +221,7 @@ class TechlogEntryActionCreateDialog extends React.Component {
 }
 
 TechlogEntryActionCreateDialog.propTypes = {
-  organizationId: PropTypes.string.isRequired,
+  organization: organizationShape.isRequired,
   aircraftId: PropTypes.string.isRequired,
   techlogEntryId: PropTypes.string.isRequired,
   statusOptions: PropTypes.arrayOf(
@@ -235,6 +244,9 @@ TechlogEntryActionCreateDialog.propTypes = {
     ).isRequired
   }).isRequired,
   submitting: PropTypes.bool,
+  aircraftSettings: PropTypes.shape({
+    techlogSignatureEnabled: PropTypes.bool
+  }).isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

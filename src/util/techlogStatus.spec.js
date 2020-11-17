@@ -5,20 +5,60 @@ describe('util', () => {
     describe('getTechlogStatus', () => {
       it('should return all status if techlog manager', () => {
         expect(techlogStatus.getTechlogStatus(true)).toEqual([
-          { id: 'for_information_only', closed: false, requiresManager: true },
-          { id: 'not_airworthy', closed: false, requiresManager: false },
-          { id: 'not_flight_relevant', closed: false, requiresManager: false },
+          { id: 'for_information_only', closed: false, requiresManager: false },
+          { id: 'defect_aog', closed: false, requiresManager: false },
+          { id: 'defect_unknown', closed: false, requiresManager: false },
+          {
+            id: 'defect_with_limitations',
+            closed: false,
+            requiresManager: true
+          },
+          {
+            id: 'defect_not_flight_relevant',
+            closed: false,
+            requiresManager: true
+          },
           { id: 'closed', closed: true, requiresManager: true },
           { id: 'crs', closed: true, requiresManager: true },
-          { id: 'crs_check', closed: true, requiresManager: true },
-          { id: 'annual_review', closed: true, requiresManager: true }
+          { id: 'arc', closed: true, requiresManager: true }
         ])
       })
 
-      it('should return only unclosed if not techlog manager', () => {
+      it('should return only certain status if not techlog manager', () => {
         expect(techlogStatus.getTechlogStatus(false)).toEqual([
-          { id: 'not_airworthy', closed: false, requiresManager: false },
-          { id: 'not_flight_relevant', closed: false, requiresManager: false }
+          { id: 'for_information_only', closed: false, requiresManager: false },
+          { id: 'defect_aog', closed: false, requiresManager: false },
+          { id: 'defect_unknown', closed: false, requiresManager: false }
+        ])
+      })
+    })
+
+    describe('getTechlogActionStatus', () => {
+      it('should return all status if techlog manager', () => {
+        expect(techlogStatus.getTechlogActionStatus(true)).toEqual([
+          { id: 'for_information_only', closed: false, requiresManager: false },
+          { id: 'defect_aog', closed: false, requiresManager: false },
+          { id: 'defect_unknown', closed: false, requiresManager: false },
+          {
+            id: 'defect_with_limitations',
+            closed: false,
+            requiresManager: true
+          },
+          {
+            id: 'defect_not_flight_relevant',
+            closed: false,
+            requiresManager: true
+          },
+          { id: 'closed', closed: true, requiresManager: true },
+          { id: 'crs', closed: true, requiresManager: true },
+          { id: 'arc', closed: true, requiresManager: true }
+        ])
+      })
+
+      it('should return for_information_only and closed if not techlog manager', () => {
+        expect(techlogStatus.getTechlogActionStatus(false)).toEqual([
+          { id: 'for_information_only', closed: false, requiresManager: false },
+          { id: 'closed', closed: true, requiresManager: true }
         ])
       })
     })
@@ -29,7 +69,7 @@ describe('util', () => {
       })
 
       it('should return false if it is not a closed status', () => {
-        expect(techlogStatus.isClosed('not_airworthy')).toEqual(false)
+        expect(techlogStatus.isClosed('defect_aog')).toEqual(false)
       })
 
       it('should throw an error if the status is unknown', () => {

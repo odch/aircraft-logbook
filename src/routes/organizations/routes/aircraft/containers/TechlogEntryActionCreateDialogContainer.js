@@ -7,18 +7,24 @@ import {
   closeCreateTechlogEntryActionDialog,
   createTechlogEntryAction
 } from '../module'
-import { getTechlogStatus } from '../../../../../util/techlogStatus'
+import { getTechlogActionStatus } from '../../../../../util/techlogStatus'
+import { aircraftSettings } from '../util/flightDialogUtils'
 
 const statusOption = (intl, statusId) => ({
   value: statusId,
   label: intl.formatMessage({ id: `techlog.entry.status.${statusId}` })
 })
 
-const techlogEntryStatus = intl =>
-  getTechlogStatus(true).map(status => statusOption(intl, status.id))
+const isTechlogManager = organization =>
+  organization.roles.includes('techlogmanager')
+
+const techlogEntryStatus = (organization, intl) =>
+  getTechlogActionStatus(isTechlogManager(organization)).map(status =>
+    statusOption(intl, status.id)
+  )
 
 const mapStateToProps = (state, ownProps) => {
-  const { intl } = ownProps
+  const { organization, aircraftId, intl } = ownProps
 
   const {
     techlogEntryId,
@@ -31,10 +37,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
-    statusOptions: techlogEntryStatus(intl),
+    statusOptions: techlogEntryStatus(organization, intl),
     techlogEntryId,
     data,
-    submitting
+    submitting,
+    aircraftSettings: aircraftSettings(state, aircraftId)
   }
 }
 

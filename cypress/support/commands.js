@@ -11,7 +11,7 @@ Cypress.Commands.add('logout', () =>
 )
 
 Cypress.Commands.add('deleteTestUser', () =>
-  cy.window().then(win => {
+  cy.window().then({ timeout: 10000 }, win => {
     const deleteTestUser = win.firebase
       .functions()
       .httpsCallable('deleteTestUser')

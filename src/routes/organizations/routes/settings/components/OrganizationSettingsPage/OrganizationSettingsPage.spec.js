@@ -57,6 +57,9 @@ describe('routes', () => {
                       endDate: '2019-08-31'
                     }
                   },
+                  lockDateForm: {
+                    submitting: false
+                  },
                   members: {
                     page: 0
                   }

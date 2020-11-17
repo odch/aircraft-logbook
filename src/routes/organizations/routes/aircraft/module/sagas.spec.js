@@ -198,7 +198,7 @@ describe('routes', () => {
                 personsOnBoard: 1,
                 preflightCheck: true,
                 troublesObservations: 'troubles',
-                techlogEntryStatus: { value: 'not_airworthy' },
+                techlogEntryStatus: { value: 'defect_aog' },
                 techlogEntryDescription: ' Schraube am Bugfahrwerkt locker\n  ',
                 techlogEntryAttachments: [
                   {
@@ -384,7 +384,7 @@ describe('routes', () => {
                 personsOnBoard: 1,
                 preflightCheck: true,
                 troublesObservations: 'troubles',
-                techlogEntryStatus: 'not_airworthy',
+                techlogEntryStatus: 'defect_aog',
                 techlogEntryDescription: 'Schraube am Bugfahrwerkt locker'
               }
 
@@ -419,8 +419,8 @@ describe('routes', () => {
 
               const expectedEntry = {
                 description: 'Schraube am Bugfahrwerkt locker',
-                initialStatus: 'not_airworthy',
-                currentStatus: 'not_airworthy',
+                initialStatus: 'defect_aog',
+                currentStatus: 'defect_aog',
                 closed: false,
                 flight: 'new-flight-id',
                 attachments
@@ -944,6 +944,171 @@ describe('routes', () => {
             })
           })
 
+          describe('openAndInitEditFlightDialog', () => {
+            const orgId = 'my_org'
+            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+            const flightId = 'xGSRg42wA'
+
+            const action = actions.openEditFlightDialog(
+              orgId,
+              aircraftId,
+              flightId
+            )
+
+            const flight = {
+              id: flightId,
+              data: () => ({
+                nature: 'vs',
+                pilot: {
+                  id: 'pilotid',
+                  lastname: 'Müller',
+                  firstname: 'Max'
+                },
+                instructor: {
+                  id: 'instructorid',
+                  lastname: 'Keller',
+                  firstname: 'Heinz'
+                },
+                blockOffTime: {
+                  toDate: () => new Date('2018-12-13T09:00:00.000Z')
+                },
+                takeOffTime: {
+                  toDate: () => new Date('2018-12-13T09:05:00.000Z')
+                },
+                landingTime: {
+                  toDate: () => new Date('2018-12-13T09:35:00.000Z')
+                },
+                blockOnTime: {
+                  toDate: () => new Date('2018-12-13T09:40:00.000Z')
+                },
+                departureAerodrome: {
+                  id: 'depaerodromeid',
+                  name: 'Wangen-Lachen',
+                  identification: 'LSPV',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: {
+                  id: 'destaerodromeid',
+                  name: 'Lommis',
+                  identification: 'LSZT',
+                  timezone: 'Europe/Zurich'
+                },
+                landings: 1,
+                personsOnBoard: 2,
+                fuelUplift: 45.5,
+                fuelType: 'jet_a1_homebase',
+                oilUplift: 0.5,
+                counters: {},
+                preflightCheck: true,
+                remarks: 'my test remark',
+                troublesObservations: 'troubles',
+                techlogEntryDescription: 'Loose screw',
+                techlogEntryStatus: 'defect_aog'
+              })
+            }
+
+            const aircraftSettings = {
+              engineHoursCounterEnabled: true,
+              fuelTypes: [
+                {
+                  name: 'jet_a1_homebase',
+                  description: 'Jet A1 (Homebase)'
+                }
+              ]
+            }
+            const expectedFlightValues = {
+              id: flightId,
+              date: '2018-12-13',
+              pilot: {
+                value: 'pilotid',
+                label: 'Müller Max'
+              },
+              instructor: {
+                value: 'instructorid',
+                label: 'Keller Heinz'
+              },
+              nature: 'vs',
+              departureAerodrome: {
+                value: 'depaerodromeid',
+                label: 'LSPV (Wangen-Lachen)',
+                timezone: 'Europe/Zurich'
+              },
+              destinationAerodrome: {
+                value: 'destaerodromeid',
+                label: 'LSZT (Lommis)',
+                timezone: 'Europe/Zurich'
+              },
+              blockOffTime: '2018-12-13 10:00',
+              takeOffTime: '2018-12-13 10:05',
+              landingTime: '2018-12-13 10:35',
+              blockOnTime: '2018-12-13 10:40',
+              landings: 1,
+              personsOnBoard: 2,
+              fuelUplift: 4550,
+              fuelType: {
+                value: 'jet_a1_homebase',
+                label: 'Jet A1 (Homebase)'
+              },
+              oilUplift: 50,
+              remarks: 'my test remark',
+              counters: {},
+              preflightCheck: true,
+              troublesObservations: 'troubles',
+              techlogEntryDescription: 'Loose screw',
+              techlogEntryStatus: 'defect_aog'
+            }
+
+            it('should open the flight edit dialog with the flight values', () => {
+              return expectSaga(sagas.openAndInitEditFlightDialog, action)
+                .provide([
+                  [call(sagas.getFlight, orgId, aircraftId, flightId), flight],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(actions.openCreateFlightDialog())
+                .put(
+                  actions.setInitialCreateFlightDialogData(
+                    expectedFlightValues,
+                    [
+                      'date',
+                      'pilot',
+                      'instructor',
+                      'nature',
+                      'departureAerodrome',
+                      'destinationAerodrome',
+                      'counters.flightTimeCounter.start',
+                      'counters.flightTimeCounter.end',
+                      'counters.engineTimeCounter.start',
+                      'counters.engineTimeCounter.end',
+                      'blockOffTime',
+                      'takeOffTime',
+                      'landingTime',
+                      'blockOnTime',
+                      'landings',
+                      'personsOnBoard',
+                      'fuelUplift',
+                      'fuelType',
+                      'oilUplift',
+                      'remarks'
+                    ],
+                    [
+                      'pilot',
+                      'instructor',
+                      'nature',
+                      'personsOnBoard',
+                      'fuelUplift',
+                      'fuelType',
+                      'oilUplift',
+                      'remarks'
+                    ]
+                  )
+                )
+                .run()
+            })
+          })
+
           describe('deleteFlight', () => {
             it('should delete a flight', () => {
               const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
@@ -1098,7 +1263,7 @@ describe('routes', () => {
           describe('createTechlogEntry', () => {
             it('should create a techlog entry', () => {
               const data = {
-                status: { value: 'not_airworthy' },
+                status: { value: 'defect_aog' },
                 description: 'Schraube am Bugfahrwerk locker',
                 attachments: [
                   {
@@ -1115,8 +1280,8 @@ describe('routes', () => {
               }
               const expectedDataToStore = {
                 description: 'Schraube am Bugfahrwerk locker',
-                initialStatus: 'not_airworthy',
-                currentStatus: 'not_airworthy',
+                initialStatus: 'defect_aog',
+                currentStatus: 'defect_aog',
                 closed: false,
                 flight: null,
                 attachments: [
@@ -1172,6 +1337,7 @@ describe('routes', () => {
                 })
                 .put(fetchAircrafts('my_org'))
                 .call(sagas.fetchTechlog)
+                .put(actions.fetchLatestCrs('my_org', 'o7flC7jw8jmkOfWo8oyA'))
                 .put(actions.createTechlogEntrySuccess())
                 .run()
             })
@@ -1180,7 +1346,7 @@ describe('routes', () => {
           describe('createTechlogEntryAction', () => {
             it('should create a techlog entry action', () => {
               const data = {
-                status: { value: 'not_airworthy' },
+                status: { value: 'defect_aog' },
                 description: 'Schraube bestellt',
                 signature: 'XYZ-123',
                 attachments: [
@@ -1198,7 +1364,7 @@ describe('routes', () => {
               }
               const expectedDataToStore = {
                 description: 'Schraube bestellt',
-                status: 'not_airworthy',
+                status: 'defect_aog',
                 signature: 'XYZ-123',
                 attachments: [
                   {
@@ -1257,7 +1423,88 @@ describe('routes', () => {
                 })
                 .put(fetchAircrafts('my_org'))
                 .call(sagas.fetchTechlog)
+                .put(actions.fetchLatestCrs('my_org', 'o7flC7jw8jmkOfWo8oyA'))
                 .put(actions.createTechlogEntryActionSuccess())
+                .run()
+            })
+          })
+
+          describe('fetchLatestCrs', () => {
+            it('should fetch the latest CRS', () => {
+              const orgId = 'my_org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+              const techlogEntryId = 'crs-techlog-entry-id'
+
+              const action = actions.fetchLatestCrs(orgId, aircraftId)
+
+              const firestore = {
+                get: () => {}
+              }
+              const snapshot = {
+                size: 1,
+                docs: [
+                  {
+                    ref: { id: techlogEntryId }
+                  }
+                ]
+              }
+
+              const expectedCrsQuery = {
+                collection: 'organizations',
+                doc: orgId,
+                subcollections: [
+                  {
+                    collection: 'aircrafts',
+                    doc: aircraftId,
+                    subcollections: [
+                      {
+                        collection: 'techlog'
+                      }
+                    ]
+                  }
+                ],
+                where: [
+                  ['deleted', '==', false],
+                  ['closed', '==', true],
+                  ['currentStatus', '==', 'crs']
+                ],
+                orderBy: ['closedTimestamp', 'desc'],
+                limit: 1,
+                storeAs: `latest-crs-${aircraftId}`
+              }
+
+              const expectedActionsQuery = {
+                collection: 'organizations',
+                doc: orgId,
+                subcollections: [
+                  {
+                    collection: 'aircrafts',
+                    doc: aircraftId,
+                    subcollections: [
+                      {
+                        collection: 'techlog',
+                        doc: techlogEntryId,
+                        subcollections: [
+                          {
+                            collection: 'actions'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                orderBy: 'timestamp',
+                storeAs: `techlog-entry-actions-${techlogEntryId}`
+              }
+
+              return expectSaga(sagas.fetchLatestCrs, action)
+                .provide([
+                  [call(getFirestore), firestore],
+                  [call(firestore.get, expectedCrsQuery, {}), snapshot],
+                  [call(firestore.get, expectedActionsQuery, {})]
+                ])
+                .call(firestore.get, expectedCrsQuery, {})
+                .call(firestore.get, expectedActionsQuery, {})
                 .run()
             })
           })
@@ -1298,6 +1545,7 @@ describe('routes', () => {
                     actions.CREATE_TECHLOG_ENTRY_ACTION,
                     sagas.createTechlogEntryAction
                   ),
+                  takeEvery(actions.FETCH_LATEST_CRS, sagas.fetchLatestCrs),
                   takeEvery(actions.FETCH_CHECKS, sagas.fetchChecks)
                 ])
               )

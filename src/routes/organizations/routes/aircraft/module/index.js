@@ -26,6 +26,7 @@ import {
   updateCreateTechlogEntryActionDialogData,
   closeCreateTechlogEntryActionDialog,
   createTechlogEntryAction,
+  fetchLatestCrs,
   fetchChecks
 } from './actions'
 import reducer from './reducer'
@@ -59,6 +60,7 @@ export {
   updateCreateTechlogEntryActionDialogData,
   closeCreateTechlogEntryActionDialog,
   createTechlogEntryAction,
+  fetchLatestCrs,
   fetchChecks
 }
 

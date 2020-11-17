@@ -114,12 +114,13 @@ describe('routes', () => {
                     ],
                     'techlog-o7flC7jw8jmkOfWo8oyA-open': [
                       {
+                        number: '1',
                         description: 'Schraube am Bugfahrwerk locker',
                         author: {
                           firstname: 'Hans',
                           lastname: 'Meier'
                         },
-                        currentStatus: 'not_airworthy',
+                        currentStatus: 'defect_aog',
                         timestamp: {
                           toDate: () => Date.parse('2020-06-25 10:54 GMT+0100')
                         }
@@ -149,10 +150,23 @@ describe('routes', () => {
                         }
                       }}
                       checks={[]}
+                      latestCrs={{
+                        number: '0',
+                        description: 'My CRS',
+                        author: {
+                          firstname: 'Gerd',
+                          lastname: 'Keller'
+                        },
+                        currentStatus: 'crs',
+                        timestamp: {
+                          toDate: () => Date.parse('2020-06-20 11:14 GMT+0100')
+                        }
+                      }}
                       fetchAircrafts={() => {}}
                       fetchMembers={() => {}}
                       fetchAerodromes={() => {}}
                       fetchChecks={() => {}}
+                      fetchLatestCrs={() => {}}
                     />
                   </Router>
                 </Provider>

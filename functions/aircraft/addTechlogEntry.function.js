@@ -9,6 +9,12 @@ try {
   // eslint-disable-next-line no-empty
 } catch (e) {}
 
+const ALLOWED_USER_STATUS = [
+  'for_information_only',
+  'defect_aog',
+  'defect_unknown'
+]
+
 const db = admin.firestore()
 const bucket = admin.storage().bucket()
 
@@ -17,9 +23,22 @@ const addTechlogEntry = functions.https.onCall(async (data, context) => {
 
   const member = await getMemberByUid(db, organizationId, context.auth.uid)
 
-  entry.timestamp = new Date()
-  entry.deleted = false
-  entry.author = {
+  if (entry.initialStatus !== entry.currentStatus) {
+    throw new Error(
+      `initialStatus '${entry.initialStatus}' is not equal to currentStatus '${entry.currentStatus}'`
+    )
+  }
+
+  if (
+    !member.get('roles').includes('techlogmanager') &&
+    !ALLOWED_USER_STATUS.includes(entry.initialStatus)
+  ) {
+    throw new Error(
+      `Status '${entry.initialStatus}' can only be set by techlogmanager`
+    )
+  }
+
+  const author = {
     firstname: member.get('firstname'),
     lastname: member.get('lastname'),
     nr: member.get('nr') || null,
@@ -27,32 +46,49 @@ const addTechlogEntry = functions.https.onCall(async (data, context) => {
     id: member.id
   }
 
-  const batch = db.batch()
+  entry.timestamp = new Date()
+  entry.deleted = false
+  entry.author = author
+  if (entry.closed === true) {
+    entry.closedTimestamp = admin.firestore.FieldValue.serverTimestamp()
+    entry.closedBy = author
+  }
 
-  const aircraftRef = db
-    .collection('organizations')
-    .doc(organizationId)
-    .collection('aircrafts')
-    .doc(aircraftId)
+  await db.runTransaction(async t => {
+    const aircraftRef = db
+      .collection('organizations')
+      .doc(organizationId)
+      .collection('aircrafts')
+      .doc(aircraftId)
+    const newEntryRef = aircraftRef.collection('techlog').doc()
 
-  const newEntryRef = aircraftRef.collection('techlog').doc()
+    const aircraftDoc = await t.get(aircraftRef)
 
-  entry.attachments = await addAttachments(
-    bucket,
-    organizationId,
-    aircraftId,
-    newEntryRef.id,
-    null,
-    entry.attachments
-  )
+    if (aircraftDoc.exists !== true) {
+      throw new Error(
+        `Aircraft ${aircraftId} in organization ${organizationId} does not exist`
+      )
+    }
 
-  batch.set(newEntryRef, entry)
+    const techlogEntriesCount = aircraftDoc.get('counters.techlogEntries') || 0
+    const newCount = techlogEntriesCount + 1
 
-  batch.update(aircraftRef, {
-    'counters.techlogEntries': admin.firestore.FieldValue.increment(1)
+    entry.number = newCount
+    entry.attachments = await addAttachments(
+      bucket,
+      organizationId,
+      aircraftId,
+      newEntryRef.id,
+      null,
+      entry.attachments
+    )
+
+    await t.set(newEntryRef, entry)
+
+    await t.update(aircraftRef, {
+      'counters.techlogEntries': newCount
+    })
   })
-
-  await batch.commit()
 })
 
 exports.addTechlogEntry = addTechlogEntry

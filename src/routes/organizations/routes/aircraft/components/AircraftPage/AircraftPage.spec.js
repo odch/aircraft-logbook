@@ -16,7 +16,10 @@ describe('routes', () => {
                 firebase: {
                   auth: {
                     isEmpty: false,
-                    email: 'test@opendigital.ch'
+                    email: 'test@opendigital.ch',
+                    stsTokenManager: {
+                      accessToken: 'my-access-token'
+                    }
                   },
                   profile: {}
                 },

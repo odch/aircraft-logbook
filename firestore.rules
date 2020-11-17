@@ -32,6 +32,13 @@ function hasNot(fields) {
   return request.resource.data.keys().toSet().hasAny(fields) == false;
 }
 
+function isAfterLockDate(database, organization, aircraft, res) {
+  let aircraftDoc = get(/databases/$(database)/documents/organizations/$(organization)/aircrafts/$(aircraft));
+  return aircraftDoc.data.settings == null
+    || aircraftDoc.data.settings.lockDate == null
+    || aircraftDoc.data.settings.lockDate.toMillis() < res.data.blockOffTime.toMillis();
+}
+
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
@@ -67,14 +74,17 @@ service cloud.firestore {
 
         match /flights/{flight} {
           allow read: if isOrgMember(database, organization);
-          allow create: if isOrgMember(database, organization);
 
           // when creating flights we first create an empty flight doc with deleted only and set the
           // actual flight values later with an update operation
-          allow update: if isOrgMember(database, organization) && resource.data.keys().hasOnly(["deleted"]);
+          allow create: if isOrgMember(database, organization) && hasOnly(["deleted"]);
+          allow update: if isOrgMember(database, organization)
+            && resource.data.keys().hasOnly(["deleted"])
+            && isAfterLockDate(database, organization, aircraft, request.resource);
 
           allow update: if isOrgMember(database, organization)
-            && affectsOnly(["deleted", "replacedWith", "deleteTimestamp", "deletedBy"]);
+            && affectsOnly(["deleted", "replacedWith", "deleteTimestamp", "deletedBy"])
+            && isAfterLockDate(database, organization, aircraft, resource);
         }
 
         match /techlog/{entry} {
