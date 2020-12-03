@@ -1,6 +1,6 @@
-import { getTimeDiffInHundredthsOfHour } from '../../../../../../util/dates'
+const moment = require('moment-timezone')
 
-export const getCounters = data => {
+const getCounters = data => {
   validate(data)
 
   const c = data.counters
@@ -36,12 +36,12 @@ export const getCounters = data => {
   return counters
 }
 
-export const addTimeDiff = (value, diffStart, diffEnd) => {
+const addTimeDiff = (value, diffStart, diffEnd) => {
   const diff = getTimeDiffInHundredthsOfHour(diffStart, diffEnd)
   return value + diff
 }
 
-export const validate = data => {
+const validate = data => {
   const counters = data.counters
   if (!counters) {
     throw 'Counters property missing'
@@ -80,3 +80,29 @@ function interval(start, end) {
     end
   }
 }
+
+/**
+ * Calculates the difference between two dates and returns hundredths of an hour.
+ *
+ * e.g. getTimeDiffInHundredthsOfHour('2018-11-20 10:00', '2018-11-20 11:00')
+ *      -> returns 100
+ *
+ * @param start Date time string in a format MomentJS understands
+ *              (e.g. YYYY-MM-DD HH:mm)
+ * @param end Date time string in a format MomentJS understands
+ *            (e.g. YYYY-MM-DD HH:mm)
+ * @returns {Number} new difference between to timestamps in hundredths of an hour
+ */
+const getTimeDiffInHundredthsOfHour = (start, end) => {
+  const startMoment = moment(start)
+  const endMoment = moment(end)
+  const diff = endMoment.diff(startMoment)
+
+  const hundredthsOfAnHour = millis2Hours(diff) * 100
+  return Math.round(hundredthsOfAnHour)
+}
+
+const millis2Hours = millis => millis / (1000 * 60 * 60)
+
+module.exports = getCounters
+module.exports.getTimeDiffInHundredthsOfHour = getTimeDiffInHundredthsOfHour
