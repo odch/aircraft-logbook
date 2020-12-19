@@ -10,7 +10,7 @@ class IntegerField extends React.Component {
 
   handleChange = e => {
     const value = e.target.value
-    if (/^\d*$/.test(value)) {
+    if (/^-?\d*$/.test(value)) {
       const intValue = value ? parseInt(value) : undefined
       if (this.props.onChange) {
         this.props.onChange(intValue)
@@ -37,7 +37,7 @@ class IntegerField extends React.Component {
     return (
       <TextField
         label={label}
-        value={value || ''}
+        value={typeof value === 'number' ? value : ''}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
