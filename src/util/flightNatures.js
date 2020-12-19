@@ -4,7 +4,7 @@ const NATURES = [
   'vs', // instruction vfr
   'is', // instruction ifr
   'tec', // technical flight
-  'xr', // Rundflug
+  'xr' // Rundflug
 ]
 
 export const getFlightNatures = () => NATURES.slice(0)
