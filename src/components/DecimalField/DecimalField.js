@@ -7,10 +7,8 @@ const formatDecimalNumber = (value, fractionDigits = 2) =>
 
 class DecimalField extends React.Component {
   state = {
-    stringValue:
-      typeof this.props.value === 'number'
-        ? formatDecimalNumber(this.props.value / 100, this.props.fractionDigits)
-        : ''
+    focused: false,
+    inputValue: ''
   }
 
   constructor(props) {
@@ -18,9 +16,14 @@ class DecimalField extends React.Component {
     this.numberInput = React.createRef()
   }
 
+  getStringValue = () =>
+    typeof this.props.value === 'number'
+      ? formatDecimalNumber(this.props.value / 100, this.props.fractionDigits)
+      : ''
+
   handleChange = e => {
     this.setState({
-      stringValue: e.target.value
+      inputValue: e.target.value
     })
   }
 
@@ -28,29 +31,34 @@ class DecimalField extends React.Component {
     this.numberInput.current.addEventListener('wheel', this.handleWheel, {
       passive: false // important to register as active listener to be able to use `preventDefault` in handle wheel
     })
+    this.setState({
+      focused: true,
+      inputValue: this.getStringValue()
+    })
   }
 
   handleBlur = () => {
+    this.numberInput.current.removeEventListener('wheel', this.handleWheel)
+    this.setState({
+      focused: false
+    })
+    this.fireChange()
+  }
+
+  fireChange = () => {
     const { onChange, fractionDigits } = this.props
 
-    this.numberInput.current.removeEventListener('wheel', this.handleWheel)
+    const floatValue = parseFloat(this.state.inputValue)
 
-    const floatValue = parseFloat(this.state.stringValue)
     if (!isNaN(floatValue)) {
       const roundingFactor = fractionDigits === 1 ? 10 : 100
       const roundedNumber =
         Math.round(floatValue * roundingFactor) / roundingFactor
-      const stringValue = formatDecimalNumber(roundedNumber, fractionDigits)
-
-      this.setState({
-        stringValue
-      })
-
       if (onChange) {
         const hundredths = Math.round(roundedNumber * 100)
         onChange(hundredths)
       }
-    } else if (this.state.stringValue === '' && onChange) {
+    } else {
       onChange(null)
     }
   }
@@ -69,11 +77,14 @@ class DecimalField extends React.Component {
       disabled,
       fractionDigits
     } = this.props
-    const { stringValue } = this.state
     return (
       <TextField
         label={label}
-        value={stringValue}
+        value={
+          this.state.focused === true
+            ? this.state.inputValue
+            : this.getStringValue()
+        }
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
