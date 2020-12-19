@@ -19,6 +19,7 @@ import Button from '@material-ui/core/Button'
 import Switch from '@material-ui/core/Switch'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FlightCreateDialog from '../../containers/FlightCreateDialogContainer'
+import CorrectionFlightCreateDialog from '../../containers/CorrectionFlightCreateDialogContainer'
 import FlightDeleteDialog from '../FlightDeleteDialog'
 import {
   aircraft as aircraftShape,
@@ -30,6 +31,7 @@ import { formatDate, formatTime, isBefore } from '../../../../../../util/dates'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import FlightDetails from './FlightDetails'
+import CorrectionFlightDetails from './CorrectionFlightDetails'
 import DeletionStatus from './DeletionStatus'
 import Version from './Version'
 
@@ -37,6 +39,9 @@ const styles = theme => ({
   loadingIconContainer: {
     position: 'relative',
     minHeight: '100px'
+  },
+  createCorrectionButton: {
+    marginLeft: '1em'
   },
   container: {
     marginTop: '1em'
@@ -71,8 +76,11 @@ class FlightList extends React.Component {
     expanded: null
   }
 
-  isOrganizationManager = () =>
-    this.props.organization.roles.includes('manager')
+  hasRole = role => this.props.organization.roles.includes(role)
+
+  isOrganizationManager = () => this.hasRole('manager')
+
+  isTechlogManager = () => this.hasRole('techlogmanager')
 
   isLocked = flight => {
     const lockDate = _get(this.props.aircraft, 'settings.lockDate')
@@ -98,6 +106,11 @@ class FlightList extends React.Component {
     this.props.initCreateFlightDialog(organization.id, aircraft.id)
   }
 
+  handleCreateCorrectionClick = () => {
+    const { organization, aircraft } = this.props
+    this.props.openCreateCorrectionFlightDialog(organization.id, aircraft.id)
+  }
+
   handleShowDeletedChange = e => {
     const { organization, aircraft, initFlightsList, rowsPerPage } = this.props
     initFlightsList(organization.id, aircraft.id, rowsPerPage, e.target.checked)
@@ -117,6 +130,7 @@ class FlightList extends React.Component {
       aircraft,
       flights,
       createFlightDialogOpen,
+      createCorrectionFlightDialogOpen,
       flightDeleteDialog,
       rowsPerPage,
       pagination,
@@ -146,6 +160,16 @@ class FlightList extends React.Component {
         >
           <FormattedMessage id="aircraftdetail.createflight" />
         </Button>
+        {this.isTechlogManager() && flights.length > 0 && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleCreateCorrectionClick}
+            className={classes.createCorrectionButton}
+          >
+            <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+          </Button>
+        )}
         {hideDeletedSwitch !== true && this.isOrganizationManager() && (
           <FormControlLabel
             control={
@@ -173,6 +197,12 @@ class FlightList extends React.Component {
           )}
           {createFlightDialogOpen && (
             <FlightCreateDialog
+              organizationId={organization.id}
+              aircraftId={aircraft.id}
+            />
+          )}
+          {createCorrectionFlightDialogOpen && (
+            <CorrectionFlightCreateDialog
               organizationId={organization.id}
               aircraftId={aircraft.id}
             />
@@ -228,23 +258,33 @@ class FlightList extends React.Component {
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <div className={classes.flightHeading}>
           <Typography>
-            <FormattedMessage
-              id="flightlist.flight.heading"
-              values={{
-                departureAerodrome: (
-                  <span className={classes.bold}>
-                    {flight.departureAerodrome.identification}
-                  </span>
-                ),
-                destinationAerodrome: (
-                  <span className={classes.bold}>
-                    {flight.destinationAerodrome.identification}
-                  </span>
-                ),
-                firstname: flight.pilot.firstname,
-                lastname: flight.pilot.lastname
-              }}
-            />
+            {flight.correction === true ? (
+              <FormattedMessage
+                id="flightlist.correctionflight.heading"
+                values={{
+                  firstname: flight.pilot.firstname,
+                  lastname: flight.pilot.lastname
+                }}
+              />
+            ) : (
+              <FormattedMessage
+                id="flightlist.flight.heading"
+                values={{
+                  departureAerodrome: (
+                    <span className={classes.bold}>
+                      {flight.departureAerodrome.identification}
+                    </span>
+                  ),
+                  destinationAerodrome: (
+                    <span className={classes.bold}>
+                      {flight.destinationAerodrome.identification}
+                    </span>
+                  ),
+                  firstname: flight.pilot.firstname,
+                  lastname: flight.pilot.lastname
+                }}
+              />
+            )}
           </Typography>
           {flight.deleted === true && (
             <DeletionStatus
@@ -256,11 +296,36 @@ class FlightList extends React.Component {
             <Version flight={flight} />
           )}
         </div>
-        <Typography className={classes.flightSecondaryHeading}>
-          {formatDate(flight.blockOffTime, flight.departureAerodrome.timezone)},{' '}
-          {formatTime(flight.blockOffTime, flight.departureAerodrome.timezone)}-
-          {formatTime(flight.blockOnTime, flight.destinationAerodrome.timezone)}
-        </Typography>
+        {flight.correction === true ? (
+          <Typography className={classes.flightSecondaryHeading}>
+            {formatDate(
+              flight.blockOffTime,
+              flight.departureAerodrome.timezone
+            )}
+            ,{' '}
+            {formatTime(
+              flight.blockOffTime,
+              flight.departureAerodrome.timezone
+            )}
+          </Typography>
+        ) : (
+          <Typography className={classes.flightSecondaryHeading}>
+            {formatDate(
+              flight.blockOffTime,
+              flight.departureAerodrome.timezone
+            )}
+            ,{' '}
+            {formatTime(
+              flight.blockOffTime,
+              flight.departureAerodrome.timezone
+            )}
+            -
+            {formatTime(
+              flight.blockOnTime,
+              flight.destinationAerodrome.timezone
+            )}
+          </Typography>
+        )}
       </ExpansionPanelSummary>
     )
   }
@@ -276,33 +341,39 @@ class FlightList extends React.Component {
     return (
       <>
         <ExpansionPanelDetails key={`details-${flight.id}`}>
-          <FlightDetails aircraft={aircraft} flight={flight} />
+          {flight.correction === true ? (
+            <CorrectionFlightDetails aircraft={aircraft} flight={flight} />
+          ) : (
+            <FlightDetails aircraft={aircraft} flight={flight} />
+          )}
         </ExpansionPanelDetails>
         {flight.deleted === false && (
           <>
             <Divider key={`divider-${flight.id}`} />
             <ExpansionPanelActions key={`actions-${flight.id}`}>
-              <Tooltip
-                title={this.msg(
-                  isLocked ? 'flightlist.edit.locked' : 'flightlist.edit'
-                )}
-              >
-                {/* span required to render tooltip for button */}
-                <span>
-                  <IconButton
-                    onClick={() =>
-                      openEditFlightDialog(
-                        organization.id,
-                        aircraft.id,
-                        flight.id
-                      )
-                    }
-                    disabled={isLocked}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </span>
-              </Tooltip>
+              {flight.correction !== true && (
+                <Tooltip
+                  title={this.msg(
+                    isLocked ? 'flightlist.edit.locked' : 'flightlist.edit'
+                  )}
+                >
+                  {/* span required to render tooltip for button */}
+                  <span>
+                    <IconButton
+                      onClick={() =>
+                        openEditFlightDialog(
+                          organization.id,
+                          aircraft.id,
+                          flight.id
+                        )
+                      }
+                      disabled={isLocked}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </span>
+                </Tooltip>
+              )}
               <Tooltip
                 title={this.msg(
                   !isNewestFlight
@@ -347,6 +418,7 @@ FlightList.propTypes = {
   aircraft: aircraftShape.isRequired,
   flights: PropTypes.arrayOf(flightShape),
   createFlightDialogOpen: PropTypes.bool.isRequired,
+  createCorrectionFlightDialogOpen: PropTypes.bool.isRequired,
   flightDeleteDialog: PropTypes.shape({
     open: PropTypes.bool,
     submitted: PropTypes.bool,
@@ -365,6 +437,7 @@ FlightList.propTypes = {
   initFlightsList: PropTypes.func.isRequired,
   openCreateFlightDialog: PropTypes.func.isRequired,
   initCreateFlightDialog: PropTypes.func.isRequired,
+  openCreateCorrectionFlightDialog: PropTypes.func.isRequired,
   openEditFlightDialog: PropTypes.func.isRequired,
   openDeleteFlightDialog: PropTypes.func.isRequired,
   closeDeleteFlightDialog: PropTypes.func.isRequired,

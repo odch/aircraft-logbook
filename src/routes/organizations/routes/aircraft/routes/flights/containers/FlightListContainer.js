@@ -13,7 +13,8 @@ import {
   openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
-  deleteFlight
+  deleteFlight,
+  openCreateCorrectionFlightDialog
 } from '../../../module'
 
 const mapStateToProps = (state, ownProps) => {
@@ -42,6 +43,8 @@ const mapStateToProps = (state, ownProps) => {
     flights,
     pagination,
     createFlightDialogOpen: state.aircraft.createFlightDialog.open,
+    createCorrectionFlightDialogOpen:
+      state.aircraft.createCorrectionFlightDialog.open,
     flightDeleteDialog: state.aircraft.deleteFlightDialog,
     showDeleted
   }
@@ -52,6 +55,7 @@ const mapActionCreators = {
   changeFlightsPage,
   openCreateFlightDialog,
   initCreateFlightDialog,
+  openCreateCorrectionFlightDialog,
   openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,

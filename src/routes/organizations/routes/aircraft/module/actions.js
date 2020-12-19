@@ -19,6 +19,26 @@ export const INIT_CREATE_FLIGHT_DIALOG = 'aircraft/INIT_CREATE_FLIGHT_DIALOG'
 export const SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA =
   'aircraft/SET_INITIAL_CREATE_FLIGHT_DIALOG_DATA'
 
+export const OPEN_CREATE_CORRECTION_FLIGHT_DIALOG =
+  'aircraft/OPEN_CREATE_CORRECTION_FLIGHT_DIALOG'
+export const CLOSE_CREATE_CORRECTION_FLIGHT_DIALOG =
+  'aircraft/CLOSE_CREATE_CORRECTION_FLIGHT_DIALOG'
+export const SET_INITIAL_CREATE_CORRECTION_FLIGHT_DIALOG_DATA =
+  'aircraft/SET_INITIAL_CREATE_CORRECTION_FLIGHT_DIALOG_DATA'
+export const UPDATE_CREATE_CORRECTION_FLIGHT_DIALOG_DATA =
+  'aircraft/UPDATE_CREATE_CORRECTION_FLIGHT_DIALOG_DATA'
+export const CREATE_CORRECTION_FLIGHT = 'aircraft/CREATE_CORRECTION_FLIGHT'
+export const SET_CREATE_CORRECTION_FLIGHT_DIALOG_SUBMITTING =
+  'aircraft/SET_CREATE_CORRECTION_FLIGHT_DIALOG_SUBMITTING'
+export const SET_CORRECTION_FLIGHT_CORRECTIONS =
+  'aircraft/SET_CORRECTION_FLIGHT_CORRECTIONS'
+export const SET_CORRECTION_FLIGHT_VALIDATION_ERRORS =
+  'aircraft/SET_CORRECTION_FLIGHT_VALIDATION_ERRORS'
+export const CREATE_CORRECTION_FLIGHT_SUCCESS =
+  'aircraft/CREATE_CORRECTION_FLIGHT_SUCCESS'
+export const CREATE_CORRECTION_FLIGHT_FAILURE =
+  'aircraft/CREATE_CORRECTION_FLIGHT_FAILURE'
+
 export const OPEN_EDIT_FLIGHT_DIALOG = 'aircraft/OPEN_EDIT_FLIGHT_DIALOG'
 
 export const OPEN_DELETE_FLIGHT_DIALOG = 'aircraft/OPEN_DELETE_FLIGHT_DIALOG'
@@ -195,6 +215,76 @@ export const initCreateFlightDialog = (organizationId, aircraftId) => ({
     organizationId,
     aircraftId
   }
+})
+
+export const openCreateCorrectionFlightDialog = (
+  organizationId,
+  aircraftId
+) => ({
+  type: OPEN_CREATE_CORRECTION_FLIGHT_DIALOG,
+  payload: {
+    organizationId,
+    aircraftId
+  }
+})
+
+export const closeCreateCorrectionFlightDialog = () => ({
+  type: CLOSE_CREATE_CORRECTION_FLIGHT_DIALOG
+})
+
+export const setInitialCreateCorrectionFlightDialogData = data => ({
+  type: SET_INITIAL_CREATE_CORRECTION_FLIGHT_DIALOG_DATA,
+  payload: {
+    data
+  }
+})
+
+export const updateCreateCorrectionFlightDialogData = data => ({
+  type: UPDATE_CREATE_CORRECTION_FLIGHT_DIALOG_DATA,
+  payload: {
+    data
+  }
+})
+
+export const createCorrectionFlight = (
+  organizationId,
+  aircraftId,
+  data,
+  confirmed
+) => ({
+  type: CREATE_CORRECTION_FLIGHT,
+  payload: {
+    organizationId,
+    aircraftId,
+    data,
+    confirmed
+  }
+})
+
+export const setCreateCorrectionFlightDialogSubmitting = () => ({
+  type: SET_CREATE_CORRECTION_FLIGHT_DIALOG_SUBMITTING
+})
+
+export const setCorrectionFlightCorrections = corrections => ({
+  type: SET_CORRECTION_FLIGHT_CORRECTIONS,
+  payload: {
+    corrections
+  }
+})
+
+export const setCorrectionFlightValidationErrors = validationErrors => ({
+  type: SET_CORRECTION_FLIGHT_VALIDATION_ERRORS,
+  payload: {
+    validationErrors
+  }
+})
+
+export const createCorrectionFlightSuccess = () => ({
+  type: CREATE_CORRECTION_FLIGHT_SUCCESS
+})
+
+export const createCorrectionFlightFailure = () => ({
+  type: CREATE_CORRECTION_FLIGHT_FAILURE
 })
 
 export const openDeleteFlightDialog = flight => ({
