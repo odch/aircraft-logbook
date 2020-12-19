@@ -363,7 +363,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="FlightList-container-146"
+    className="FlightList-container-147"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -392,20 +392,20 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightList-flightHeading-147"
+            className="FlightList-flightHeading-148"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightList-bold-149"
+                className="FlightList-bold-150"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightList-bold-149"
+                className="FlightList-bold-150"
               >
                 LSZT
               </span>
@@ -413,7 +413,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-148 MuiTypography-body1"
+            className="MuiTypography-root FlightList-flightSecondaryHeading-149 MuiTypography-body1"
           >
             20.11.2018
             ,

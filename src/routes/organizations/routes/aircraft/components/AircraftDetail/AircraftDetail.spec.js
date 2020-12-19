@@ -64,6 +64,9 @@ describe('routes', () => {
                   createFlightDialog: {
                     open: false
                   },
+                  createCorrectionFlightDialog: {
+                    open: false
+                  },
                   deleteFlightDialog: {
                     open: false
                   },

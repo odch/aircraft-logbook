@@ -489,6 +489,272 @@ describe('routes', () => {
             })
           })
 
+          describe('initCreateCorrectionFlightDialog', () => {
+            const orgId = 'my_org'
+            const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+            const action = actions.openCreateCorrectionFlightDialog(
+              orgId,
+              aircraftId
+            )
+
+            const today = moment().format('YYYY-MM-DD')
+
+            const currentMember = {
+              id: 'memberid',
+              lastname: 'Müller',
+              firstname: 'Max'
+            }
+            const lastFlight = {
+              counters: {
+                flights: counter(122, 123),
+                flightHours: counter(10145, 10250),
+                engineHours: counter(10378, 10502),
+                landings: counter(2356, 2357),
+                flightTimeCounter: counter(9145, 9250),
+                engineTimeCounter: counter(9378, 9502)
+              }
+            }
+            const destinationAerodrome = {
+              id: 'aerodromeid',
+              name: 'Lommis',
+              identification: 'LSZT',
+              timezone: 'Europe/Zurich'
+            }
+
+            it('should set the default values for the new correction flight', () => {
+              const aircraftSettings = {
+                engineHoursCounterEnabled: true
+              }
+
+              const expectedDefaultValues = {
+                date: today,
+                time: null,
+                pilot: {
+                  value: 'memberid',
+                  label: 'Müller Max'
+                },
+                aerodrome: {
+                  value: 'aerodromeid',
+                  label: 'LSZT (Lommis)',
+                  timezone: 'Europe/Zurich'
+                },
+                counters: {
+                  flights: { start: 123 },
+                  flightHours: { start: 10250 },
+                  engineHours: { start: 10502 },
+                  landings: { start: 2357 },
+                  flightTimeCounter: { start: 9250 },
+                  engineTimeCounter: { start: 9502 }
+                }
+              }
+
+              return expectSaga(sagas.initCreateCorrectionFlightDialog, action)
+                .provide([
+                  [call(getCurrentMember), currentMember],
+                  [call(getLastFlight, orgId, aircraftId), lastFlight],
+                  [
+                    call(sagas.getDestinationAerodrome, lastFlight),
+                    destinationAerodrome
+                  ],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(
+                  actions.setInitialCreateCorrectionFlightDialogData(
+                    expectedDefaultValues
+                  )
+                )
+                .run()
+            })
+
+            it('should not set engine hours start counter if not enabled', () => {
+              const aircraftSettings = {
+                engineHoursCounterEnabled: false
+              }
+
+              const expectedDefaultValues = {
+                date: today,
+                time: null,
+                pilot: {
+                  value: 'memberid',
+                  label: 'Müller Max'
+                },
+                aerodrome: {
+                  value: 'aerodromeid',
+                  label: 'LSZT (Lommis)',
+                  timezone: 'Europe/Zurich'
+                },
+                counters: {
+                  flights: { start: 123 },
+                  flightHours: { start: 10250 },
+                  landings: { start: 2357 },
+                  flightTimeCounter: { start: 9250 }
+                }
+              }
+
+              return expectSaga(sagas.initCreateCorrectionFlightDialog, action)
+                .provide([
+                  [call(getCurrentMember), currentMember],
+                  [call(getLastFlight, orgId, aircraftId), lastFlight],
+                  [
+                    call(sagas.getDestinationAerodrome, lastFlight),
+                    destinationAerodrome
+                  ],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(
+                  actions.setInitialCreateCorrectionFlightDialogData(
+                    expectedDefaultValues
+                  )
+                )
+                .run()
+            })
+          })
+
+          describe('createCorrectionFlight', () => {
+            it('should save a new correction flight', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                date: '2018-12-13',
+                time: '2018-12-15 10:05',
+                pilot: { value: 'pilot-id' },
+                aerodrome: { value: 'dep-ad-id' },
+                newAerodrome: { value: 'new-ad-id' },
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  engineTimeCounter: counter(50145, 50612),
+                  flightHours: { start: 58658 },
+                  engineHours: { start: 65865 },
+                  flights: { start: 464 },
+                  landings: { start: 3846 }
+                },
+                remarks: 'bemerkung zeile 1\nzeile2'
+              }
+
+              const action = actions.createCorrectionFlight(
+                organizationId,
+                aircraftId,
+                data,
+                true
+              )
+
+              return expectSaga(sagas.createCorrectionFlight, action)
+                .provide([
+                  [
+                    call(callFunction, 'saveCorrectionFlight', {
+                      organizationId,
+                      aircraftId,
+                      data
+                    }),
+                    {}
+                  ]
+                ])
+                .put(actions.setCreateCorrectionFlightDialogSubmitting())
+                .put(actions.changeFlightsPage(0))
+                .put(actions.createCorrectionFlightSuccess())
+                .run()
+            })
+
+            it('should set corrections for confirmation if not confirmed', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                date: '2018-12-13',
+                time: '2018-12-15 10:05',
+                pilot: { value: 'pilot-id' },
+                aerodrome: { value: 'current-ad-id', label: 'Current AD' },
+                newAerodrome: { value: 'new-ad-id', label: 'New AD' },
+                counters: {
+                  flightTimeCounter: counter(45780, 45830),
+                  engineTimeCounter: counter(50145, 50612),
+                  flightHours: { start: 58658 },
+                  engineHours: { start: 65865 },
+                  flights: { start: 464 },
+                  landings: { start: 3846 }
+                }
+              }
+
+              const action = actions.createCorrectionFlight(
+                organizationId,
+                aircraftId,
+                data,
+                false
+              )
+
+              const corrections = {
+                aerodrome: {
+                  start: 'Current AD',
+                  end: 'New AD'
+                },
+                flightTimeCounter: {
+                  start: 45780,
+                  end: 45830
+                },
+                engineTimeCounter: {
+                  start: 50145,
+                  end: 50612
+                }
+              }
+
+              return expectSaga(sagas.createCorrectionFlight, action)
+                .provide([])
+                .put(actions.setCorrectionFlightCorrections(corrections))
+                .run()
+            })
+
+            it('should set the validation errors to state if invalid', () => {
+              const organizationId = 'my-org'
+              const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
+
+              const data = {
+                // invalid and missing data
+                counters: {}
+              }
+
+              const action = actions.createCorrectionFlight(
+                organizationId,
+                aircraftId,
+                data,
+                true
+              )
+
+              const validationErrors = {
+                pilot: 'required',
+                date: 'invalid'
+              }
+
+              return expectSaga(sagas.createCorrectionFlight, action)
+                .provide([
+                  [
+                    call(callFunction, 'saveCorrectionFlight', {
+                      organizationId,
+                      aircraftId,
+                      data
+                    }),
+                    {
+                      data: {
+                        validationErrors
+                      }
+                    }
+                  ]
+                ])
+                .put(actions.setCreateCorrectionFlightDialogSubmitting())
+                .put(
+                  actions.setCorrectionFlightValidationErrors(validationErrors)
+                )
+                .run()
+            })
+          })
+
           describe('openAndInitEditFlightDialog', () => {
             const orgId = 'my_org'
             const aircraftId = 'o7flC7jw8jmkOfWo8oyA'
@@ -1070,6 +1336,14 @@ describe('routes', () => {
                   takeEvery(
                     actions.INIT_CREATE_FLIGHT_DIALOG,
                     sagas.initCreateFlightDialog
+                  ),
+                  takeEvery(
+                    actions.OPEN_CREATE_CORRECTION_FLIGHT_DIALOG,
+                    sagas.initCreateCorrectionFlightDialog
+                  ),
+                  takeEvery(
+                    actions.CREATE_CORRECTION_FLIGHT,
+                    sagas.createCorrectionFlight
                   ),
                   takeEvery(
                     actions.OPEN_EDIT_FLIGHT_DIALOG,

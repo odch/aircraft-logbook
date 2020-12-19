@@ -13,6 +13,15 @@ export const INITIAL_STATE = {
       initialized: false
     }
   },
+  createCorrectionFlightDialog: {
+    open: false,
+    submitting: false,
+    validationErrors: {},
+    corrections: null,
+    data: {
+      initialized: false
+    }
+  },
   deleteFlightDialog: {
     open: false
   },
@@ -198,6 +207,101 @@ const closeCreateFlightDialog = state => ({
   createFlightDialog: {
     ...state.createFlightDialog,
     open: false
+  }
+})
+
+const openCreateCorrectionFlightDialog = state => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...INITIAL_STATE.createCorrectionFlightDialog,
+    open: true
+  }
+})
+
+const closeCreateCorrectionFlightDialog = state => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...state.createCorrectionFlightDialog,
+    open: false
+  }
+})
+
+const setInitialCreateCorrectionFlightDialogData = (state, action) => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...state.createCorrectionFlightDialog,
+    data: {
+      ...action.payload.data,
+      initialized: true
+    }
+  }
+})
+
+const updateCreateCorrectionFlightDialogData = (state, action) => {
+  const newData = {
+    ...state.createCorrectionFlightDialog.data,
+    counters: {
+      ...state.createCorrectionFlightDialog.data.counters
+    }
+  }
+  const newValidationErrors = {
+    ...state.createCorrectionFlightDialog.validationErrors
+  }
+
+  Object.keys(action.payload.data).forEach(key => {
+    const value = action.payload.data[key]
+    _set(newData, key, value)
+
+    delete newValidationErrors[key]
+  })
+
+  Object.keys(newData.counters).forEach(key => {
+    if (typeof newData.counters[key].diff === 'number') {
+      newData.counters[key].end =
+        newData.counters[key].start + newData.counters[key].diff
+    } else {
+      newData.counters[key].end = null
+    }
+  })
+
+  return {
+    ...state,
+    createCorrectionFlightDialog: {
+      ...state.createCorrectionFlightDialog,
+      data: newData,
+      validationErrors: newValidationErrors
+    }
+  }
+}
+
+const setCreateCorrectionFlightDialogSubmitting = state =>
+  updateCreateCorrectionFlightDialogSubmitting(state, true)
+
+const unsetCreateCorrectionFlightDialogSubmitting = state =>
+  updateCreateCorrectionFlightDialogSubmitting(state, false)
+
+const updateCreateCorrectionFlightDialogSubmitting = (state, submitting) => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...state.createCorrectionFlightDialog,
+    submitting: submitting
+  }
+})
+
+const setCorrectionFlightCorrections = (state, action) => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...state.createCorrectionFlightDialog,
+    corrections: action.payload.corrections
+  }
+})
+
+const setCorrectionFlightValidationErrors = (state, action) => ({
+  ...state,
+  createCorrectionFlightDialog: {
+    ...state.createCorrectionFlightDialog,
+    submitting: false,
+    validationErrors: action.payload.validationErrors
   }
 })
 
@@ -407,6 +511,15 @@ const ACTION_HANDLERS = {
   [actions.SET_FLIGHT_VALIDATION_ERRORS]: setFlightValidationErrors,
   [actions.CREATE_FLIGHT_SUCCESS]: closeCreateFlightDialog,
   [actions.CREATE_FLIGHT_FAILURE]: unsetCreateFlightDialogSubmitting,
+  [actions.OPEN_CREATE_CORRECTION_FLIGHT_DIALOG]: openCreateCorrectionFlightDialog,
+  [actions.CLOSE_CREATE_CORRECTION_FLIGHT_DIALOG]: closeCreateCorrectionFlightDialog,
+  [actions.SET_INITIAL_CREATE_CORRECTION_FLIGHT_DIALOG_DATA]: setInitialCreateCorrectionFlightDialogData,
+  [actions.UPDATE_CREATE_CORRECTION_FLIGHT_DIALOG_DATA]: updateCreateCorrectionFlightDialogData,
+  [actions.SET_CREATE_CORRECTION_FLIGHT_DIALOG_SUBMITTING]: setCreateCorrectionFlightDialogSubmitting,
+  [actions.SET_CORRECTION_FLIGHT_CORRECTIONS]: setCorrectionFlightCorrections,
+  [actions.SET_CORRECTION_FLIGHT_VALIDATION_ERRORS]: setCorrectionFlightValidationErrors,
+  [actions.CREATE_CORRECTION_FLIGHT_SUCCESS]: closeCreateCorrectionFlightDialog,
+  [actions.CREATE_CORRECTION_FLIGHT_FAILURE]: unsetCreateCorrectionFlightDialogSubmitting,
   [actions.OPEN_DELETE_FLIGHT_DIALOG]: openDeleteFlightDialog,
   [actions.CLOSE_DELETE_FLIGHT_DIALOG]: closeDeleteFlightDialog,
   [actions.DELETE_FLIGHT]: setDeleteFlightDialogSubmitted,

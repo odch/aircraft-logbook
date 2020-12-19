@@ -10,6 +10,7 @@ import {
   fetchFlights,
   openCreateFlightDialog,
   initCreateFlightDialog,
+  openCreateCorrectionFlightDialog,
   openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,
@@ -35,6 +36,8 @@ const mapStateToProps = (state, ownProps) => {
     flights,
     pagination,
     createFlightDialogOpen: state.aircraft.createFlightDialog.open,
+    createCorrectionFlightDialogOpen:
+      state.aircraft.createCorrectionFlightDialog.open,
     flightDeleteDialog: state.aircraft.deleteFlightDialog
   }
 }
@@ -44,6 +47,7 @@ const mapActionCreators = {
   fetchFlights,
   openCreateFlightDialog,
   initCreateFlightDialog,
+  openCreateCorrectionFlightDialog,
   openEditFlightDialog,
   openDeleteFlightDialog,
   closeDeleteFlightDialog,

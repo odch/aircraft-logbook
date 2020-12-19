@@ -286,6 +286,112 @@ export function toFuelTypeOption(aircraftSettings, fuelTypeName) {
   return getFuelTypeOption(typeObj)
 }
 
+export function* initCreateCorrectionFlightDialog({
+  payload: { organizationId, aircraftId }
+}) {
+  const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
+  const currentMember = yield call(getCurrentMember)
+  const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+
+  const counterNames = [
+    'flights',
+    'landings',
+    'flightHours',
+    'flightTimeCounter'
+  ]
+
+  if (aircraftSettings.engineHoursCounterEnabled === true) {
+    counterNames.push('engineTimeCounter')
+    counterNames.push('engineHours')
+  }
+
+  const counters = initCounters(counterNames)
+
+  let departureAerodrome
+
+  if (lastFlight) {
+    departureAerodrome = yield call(getDestinationAerodrome, lastFlight)
+    setStartCounters(counters, lastFlight.counters || {}, counterNames)
+  }
+
+  const data = {
+    date: moment().format('YYYY-MM-DD'),
+    time: null,
+    pilot: getMemberOption(currentMember),
+    aerodrome: departureAerodrome
+      ? getAerodromeOption(departureAerodrome)
+      : null,
+    counters
+  }
+
+  yield put(actions.setInitialCreateCorrectionFlightDialogData(data))
+}
+
+export const getCorrections = data => {
+  const corrections = {}
+
+  if (
+    data.aerodrome &&
+    data.newAerodrome &&
+    data.aerodrome.value !== data.newAerodrome.value
+  ) {
+    corrections.aerodrome = {
+      start: data.aerodrome.label,
+      end: data.newAerodrome.label
+    }
+  }
+
+  for (const [counterName, counter] of Object.entries(data.counters)) {
+    if (typeof counter.end === 'number' && counter.start !== counter.end) {
+      corrections[counterName] = {
+        start: counter.start,
+        end: counter.end
+      }
+    }
+  }
+
+  return corrections
+}
+
+export function* createCorrectionFlight({
+  payload: { organizationId, aircraftId, data, confirmed }
+}) {
+  try {
+    if (confirmed !== true) {
+      const corrections = getCorrections(data)
+      yield put(actions.setCorrectionFlightCorrections(corrections))
+      return
+    }
+
+    yield put(actions.setCreateCorrectionFlightDialogSubmitting())
+
+    const result = yield call(callFunction, 'saveCorrectionFlight', {
+      organizationId,
+      aircraftId,
+      data
+    })
+
+    if (
+      result.data &&
+      result.data.validationErrors &&
+      Object.getOwnPropertyNames(result.data.validationErrors).length > 0
+    ) {
+      yield put(
+        actions.setCorrectionFlightValidationErrors(
+          result.data.validationErrors
+        )
+      )
+      return
+    }
+
+    yield put(actions.changeFlightsPage(0))
+    yield put(actions.createCorrectionFlightSuccess())
+  } catch (e) {
+    error(`Failed to create correction flight`, e)
+    yield put(actions.createCorrectionFlightFailure())
+  }
+}
+
 export function* openAndInitEditFlightDialog({
   payload: { organizationId, aircraftId, flightId }
 }) {
@@ -769,6 +875,11 @@ export default function* sagas() {
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    takeEvery(
+      actions.OPEN_CREATE_CORRECTION_FLIGHT_DIALOG,
+      initCreateCorrectionFlightDialog
+    ),
+    takeEvery(actions.CREATE_CORRECTION_FLIGHT, createCorrectionFlight),
     takeEvery(actions.OPEN_EDIT_FLIGHT_DIALOG, openAndInitEditFlightDialog),
     takeEvery(actions.DELETE_FLIGHT, deleteFlight),
     takeEvery(actions.CREATE_AERODROME, createAerodrome),

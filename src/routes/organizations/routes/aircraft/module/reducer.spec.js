@@ -10,6 +10,15 @@ const INITIAL_STATE = {
     },
     initialData: {}
   },
+  createCorrectionFlightDialog: {
+    open: false,
+    submitting: false,
+    validationErrors: {},
+    corrections: null,
+    data: {
+      initialized: false
+    }
+  },
   deleteFlightDialog: {
     open: false
   },
@@ -355,6 +364,229 @@ describe('routes', () => {
                 validationErrors: {
                   takeOffTime: 'invalid',
                   landings: 'required'
+                }
+              }
+            })
+          })
+
+          it('handles OPEN_CREATE_CORRECTION_FLIGHT_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    submitting: true,
+                    open: false,
+                    data: {
+                      date: '2018-12-15',
+                      time: '2018-12-15 10:15'
+                    }
+                  }
+                },
+                actions.openCreateCorrectionFlightDialog()
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                submitting: false,
+                open: true,
+                data: INITIAL_STATE.createCorrectionFlightDialog.data,
+                corrections: null,
+                validationErrors: {}
+              }
+            })
+          })
+
+          it('handles CLOSE_CREATE_CORRECTION_FLIGHT_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    open: true
+                  }
+                },
+                actions.closeCreateCorrectionFlightDialog()
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles SET_INITIAL_CREATE_CORRECTION_FLIGHT_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    data: {
+                      initialized: false,
+                      date: null,
+                      counters: {
+                        flightTimeCounter: {
+                          start: null,
+                          end: null
+                        }
+                      }
+                    }
+                  }
+                },
+                actions.setInitialCreateCorrectionFlightDialogData({
+                  date: '2018-12-15',
+                  counters: {
+                    flightTimeCounter: {
+                      start: 348967
+                    }
+                  }
+                })
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                data: {
+                  initialized: true,
+                  date: '2018-12-15',
+                  counters: {
+                    flightTimeCounter: {
+                      start: 348967
+                    }
+                  }
+                }
+              }
+            })
+          })
+
+          it('handles UPDATE_CREATE_CORRECTION_FLIGHT_DIALOG_DATA action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    data: {
+                      date: '2018-12-15',
+                      time: '2018-12-15 10:15',
+                      counters: {
+                        flightTimeCounter: {
+                          start: 348967,
+                          end: null
+                        }
+                      }
+                    },
+                    validationErrors: {
+                      time: 'invalid',
+                      remarks: 'required'
+                    }
+                  }
+                },
+                actions.updateCreateCorrectionFlightDialogData({
+                  'counters.flightTimeCounter.start': 348970,
+                  time: '2018-12-15 10:30'
+                })
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                data: {
+                  date: '2018-12-15',
+                  time: '2018-12-15 10:30',
+                  counters: {
+                    flightTimeCounter: {
+                      start: 348970,
+                      end: null
+                    }
+                  }
+                },
+                validationErrors: {
+                  remarks: 'required'
+                }
+              }
+            })
+          })
+
+          it('handles SET_CREATE_CORRECTION_FLIGHT_DIALOG_SUBMITTING action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    submitting: false
+                  }
+                },
+                actions.setCreateCorrectionFlightDialogSubmitting({})
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                submitting: true
+              }
+            })
+          })
+
+          it('handles CREATE_CORRECTION_FLIGHT_FAILURE action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    submitting: true
+                  }
+                },
+                actions.createCorrectionFlightFailure({})
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                submitting: false
+              }
+            })
+          })
+
+          it('handles SET_CORRECTION_FLIGHT_VALIDATION_ERRORS action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    submitting: true,
+                    validationErrors: {
+                      time: 'invalid'
+                    }
+                  }
+                },
+                actions.setCorrectionFlightValidationErrors({
+                  remarks: 'required'
+                })
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                submitting: false,
+                validationErrors: {
+                  remarks: 'required'
+                }
+              }
+            })
+          })
+
+          it('handles SET_CORRECTION_FLIGHT_CORRECTIONS action', () => {
+            expect(
+              reducer(
+                {
+                  createCorrectionFlightDialog: {
+                    corrections: null
+                  }
+                },
+                actions.setCorrectionFlightCorrections({
+                  aerodrome: {
+                    start: 'Current AD',
+                    end: 'Current AD'
+                  },
+                  flightTimeCounter: {
+                    start: 57573,
+                    end: 57512
+                  }
+                })
+              )
+            ).toEqual({
+              createCorrectionFlightDialog: {
+                corrections: {
+                  aerodrome: {
+                    start: 'Current AD',
+                    end: 'Current AD'
+                  },
+                  flightTimeCounter: {
+                    start: 57573,
+                    end: 57512
+                  }
                 }
               }
             })
