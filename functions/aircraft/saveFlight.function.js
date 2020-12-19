@@ -1,9 +1,11 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const getMemberByUid = require('../utils/getMemberByUid')
+const requireRole = require('../utils/requireRole')
 const addTechlogEntry = require('./addTechlogEntry')
 const validateFlight = require('./validateFlight')
 const getCounters = require('./counters')
+const getCorrectionCounters = require('./counters').getCorrectionCounters
 const mergeDateAndTime = require('./mergeDateAndTime')
 
 // Prevent firebase from initializing twice
@@ -308,4 +310,88 @@ const saveFlight = functions.https.onCall(
   }
 )
 
+const saveCorrectionFlight = functions.https.onCall(
+  async ({ organizationId, aircraftId, data }, context) => {
+    const member = await getMemberByUid(db, organizationId, context.auth.uid)
+    requireRole(member, ['techlogmanager'])
+
+    const aircraftSettings = await getAircraftSettings(
+      organizationId,
+      aircraftId
+    )
+
+    let validationErrors = await validateFlight.validateCorrectionSync(
+      data,
+      aircraftSettings
+    )
+    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
+      return {
+        validationErrors
+      }
+    }
+
+    const aerodrome = await getAerodrome(organizationId, data.aerodrome.value)
+    const newAerodrome = data.newAerodrome
+      ? await getAerodrome(organizationId, data.newAerodrome.value)
+      : null
+
+    data = {
+      ...data,
+      time: mergeDateAndTime(
+        data.date,
+        data.time,
+        (newAerodrome || aerodrome).get('timezone')
+      )
+    }
+
+    validationErrors = await validateFlight.validateCorrectionAsync(
+      data,
+      organizationId,
+      aircraftId,
+      db
+    )
+    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
+      return {
+        validationErrors
+      }
+    }
+
+    const owner = {
+      firstname: member.get('firstname'),
+      lastname: member.get('lastname'),
+      nr: member.get('nr') || null,
+      member: member.ref,
+      id: member.id
+    }
+
+    const pilot = await getMemberObject(organizationId, data.pilot.value, true)
+
+    const flight = {
+      deleted: false,
+      correction: true,
+      version: 1,
+      createTimestamp: new Date(),
+      owner,
+      pilot,
+      departureAerodrome: aerodromeObject(aerodrome),
+      destinationAerodrome: aerodromeObject(newAerodrome || aerodrome),
+      blockOffTime: data.time,
+      takeOffTime: data.time,
+      landingTime: data.time,
+      blockOnTime: data.time,
+      remarks: data.remarks,
+      counters: getCorrectionCounters(data.counters)
+    }
+
+    db.collection('organizations')
+      .doc(organizationId)
+      .collection('aircrafts')
+      .doc(aircraftId)
+      .collection('flights')
+      .doc()
+      .set(flight)
+  }
+)
+
 exports.saveFlight = saveFlight
+exports.saveCorrectionFlight = saveCorrectionFlight

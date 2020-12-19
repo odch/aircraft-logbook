@@ -36,6 +36,36 @@ const getCounters = data => {
   return counters
 }
 
+const getCorrectionInterval = (counters, name) => {
+  return counters[name]
+    ? interval(
+        counters[name].start,
+        typeof counters[name].end === 'number'
+          ? counters[name].end
+          : counters[name].start
+      )
+    : null
+}
+
+const getCorrectionCounters = counters => {
+  const flights = interval(counters.flights.start, counters.flights.start + 1)
+
+  const landings = getCorrectionInterval(counters, 'landings')
+  const flightHours = getCorrectionInterval(counters, 'flightHours')
+  const flightTimeCounter = getCorrectionInterval(counters, 'flightTimeCounter')
+  const engineHours = getCorrectionInterval(counters, 'engineHours')
+  const engineTimeCounter = getCorrectionInterval(counters, 'engineTimeCounter')
+
+  return {
+    flights,
+    landings,
+    flightHours,
+    flightTimeCounter,
+    engineHours,
+    engineTimeCounter
+  }
+}
+
 const addTimeDiff = (value, diffStart, diffEnd) => {
   const diff = getTimeDiffInHundredthsOfHour(diffStart, diffEnd)
   return value + diff
@@ -106,3 +136,4 @@ const millis2Hours = millis => millis / (1000 * 60 * 60)
 
 module.exports = getCounters
 module.exports.getTimeDiffInHundredthsOfHour = getTimeDiffInHundredthsOfHour
+module.exports.getCorrectionCounters = getCorrectionCounters

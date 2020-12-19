@@ -204,11 +204,6 @@ const validateAsync = async (data, organizationId, aircraftId, db) => {
         lastFlight.blockOnTime.toDate(),
         lastFlight.destinationAerodrome.timezone
       )
-    if (lastFlight) {
-      console.log('block off time', data.blockOffTime)
-      console.log('last block on', lastFlight.blockOnTime.toDate())
-      console.log('is before', isBeforeLastFlight)
-    }
     if (isBeforeLastFlight) {
       errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
     }
@@ -217,5 +212,60 @@ const validateAsync = async (data, organizationId, aircraftId, db) => {
   return errors
 }
 
+const validateCorrectionSync = (data, aircraftSettings) => {
+  const errors = {}
+
+  if (!data.date || !DATE_PATTERN.test(data.date)) {
+    errors['date'] = 'invalid'
+  } else if (
+    aircraftSettings.lockDate &&
+    isBefore(
+      data.date,
+      undefined,
+      aircraftSettings.lockDate.toDate(),
+      undefined
+    )
+  ) {
+    errors['date'] = 'not_before_lock_date'
+  }
+  if (!data.time || !DATE_TIME_PATTERN.test(data.time)) {
+    errors['time'] = 'invalid'
+  }
+  if (!data.pilot) {
+    errors['pilot'] = 'required'
+  }
+  if (typeof data.remarks !== 'string' || data.remarks.trim().length === 0) {
+    errors['remarks'] = 'required'
+  }
+
+  return errors
+}
+
+const validateCorrectionAsync = async (
+  data,
+  organizationId,
+  aircraftId,
+  db
+) => {
+  const errors = {}
+
+  const lastFlight = await getLastFlight(organizationId, aircraftId, db)
+  const isBeforeLastFlight =
+    lastFlight &&
+    isBefore(
+      data.time,
+      (data.newAerodrome || data.aerodrome).timezone,
+      lastFlight.blockOnTime.toDate(),
+      lastFlight.destinationAerodrome.timezone
+    )
+  if (isBeforeLastFlight) {
+    errors['time'] = 'not_before_block_on_time_last_flight'
+  }
+
+  return errors
+}
+
 module.exports.validateSync = validateSync
 module.exports.validateAsync = validateAsync
+module.exports.validateCorrectionSync = validateCorrectionSync
+module.exports.validateCorrectionAsync = validateCorrectionAsync
