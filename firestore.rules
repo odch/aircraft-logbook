@@ -75,15 +75,8 @@ service cloud.firestore {
         match /flights/{flight} {
           allow read: if isOrgMember(database, organization);
 
-          // when creating flights we first create an empty flight doc with deleted only and set the
-          // actual flight values later with an update operation
-          allow create: if isOrgMember(database, organization) && hasOnly(["deleted"]);
           allow update: if isOrgMember(database, organization)
-            && resource.data.keys().hasOnly(["deleted"])
-            && isAfterLockDate(database, organization, aircraft, request.resource);
-
-          allow update: if isOrgMember(database, organization)
-            && affectsOnly(["deleted", "replacedWith", "deleteTimestamp", "deletedBy"])
+            && affectsOnly(["deleted", "deleteTimestamp", "deletedBy"])
             && isAfterLockDate(database, organization, aircraft, resource);
         }
 

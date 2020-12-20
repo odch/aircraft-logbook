@@ -1,20 +1,21 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
 import Box from '@material-ui/core/Box'
 import InputLabel from '@material-ui/core/InputLabel'
 import CheckIcon from '@material-ui/icons/Check'
 import CancelIcon from '@material-ui/icons/Cancel'
 import { EntryStatus } from '../Techlog'
 import { aircraft, flight } from '../../../../../../shapes'
+import { formatDate, getTimeDiff } from '../../../../../../util/dates'
 import {
-  formatDate,
-  formatTime,
-  getTimeDiff
-} from '../../../../../../util/dates'
-import Timestamp from './Timestamp'
+  renderField,
+  getMemberName,
+  getAerodromeName,
+  formatTimeWithUtc,
+  formatDecimalNumber
+} from '../../util/formatUtils'
+import FlightFooter from './FlightFooter'
 
 const FlightDetails = ({ aircraft, flight }) => {
   const intl = useIntl()
@@ -206,72 +207,10 @@ const FlightDetails = ({ aircraft, flight }) => {
           </Grid>
         </Grid>
       )}
-      <Divider />
-      <Grid item xs={12} container>
-        <Grid item xs={6} sm={4}>
-          {renderField(
-            'total.flighthours',
-            formatDecimalNumber(flight.counters.flightHours.end),
-            intl
-          )}
-        </Grid>
-        {flight.counters.engineHours && (
-          <Grid item xs={6} sm={4}>
-            {renderField(
-              'total.enginehours',
-              formatDecimalNumber(
-                flight.counters.engineHours.end,
-                aircraft.settings.engineHoursCounterFractionDigits
-              ),
-              intl
-            )}
-          </Grid>
-        )}
-        <Grid item xs={6} sm={4}>
-          {renderField('total.landings', flight.counters.landings.end, intl)}
-        </Grid>
-      </Grid>
-      {flight.createTimestamp && (
-        <Grid item xs={12} container>
-          <Grid item xs={12}>
-            <Timestamp
-              operation="created"
-              timestamp={flight.createTimestamp}
-              member={flight.owner}
-            />
-            {flight.deleteTimestamp && (
-              <Timestamp
-                operation={flight.replacedWith ? 'replaced' : 'deleted'}
-                timestamp={flight.deleteTimestamp}
-                member={flight.deletedBy}
-              />
-            )}
-          </Grid>
-        </Grid>
-      )}
+      <FlightFooter flight={flight} aircraft={aircraft} />
     </div>
   )
 }
-
-const renderField = (label, value, intl, multiline = false) => (
-  <TextField
-    label={intl.formatMessage({ id: `flightlist.${label}` })}
-    value={value}
-    margin="normal"
-    InputProps={{
-      readOnly: true,
-      disableUnderline: true
-    }}
-    fullWidth
-    multiline={multiline}
-  />
-)
-
-const getMemberName = member =>
-  member ? `${member.firstname} ${member.lastname}` : '-'
-
-const getAerodromeName = aerodrome =>
-  `${aerodrome.identification} (${aerodrome.name})`
 
 const getFlightNature = (nature, intl) =>
   intl.formatMessage({ id: `flight.nature.${nature}` })
@@ -300,17 +239,6 @@ const getDecimalRange = (range, fractionDigits) => {
 
   return `${diffFormatted} (${startFormatted} - ${endFormatted})`
 }
-
-const formatDecimalNumber = (value, fractionDigits = 2) =>
-  roundDecimalNumber(value / 100, fractionDigits).toFixed(fractionDigits)
-
-const roundDecimalNumber = (value, fractionDigits = 2) => {
-  const roundingFactor = fractionDigits === 1 ? 10 : 100
-  return Number(Math.round(value * roundingFactor) / roundingFactor)
-}
-
-const formatTimeWithUtc = (timestamp, timezone) =>
-  `${formatTime(timestamp, timezone)} (${formatTime(timestamp, 'UTC')} UTC)`
 
 FlightDetails.propTypes = {
   aircraft,

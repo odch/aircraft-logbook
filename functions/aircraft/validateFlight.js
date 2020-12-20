@@ -1,41 +1,43 @@
-import _get from 'lodash.get'
-import { call } from 'redux-saga/effects'
-import moment from 'moment-timezone'
-import getLastFlight from './getLastFlight'
-import { isBefore } from '../../../../../../util/dates'
+const _get = require('lodash.get')
+const moment = require('moment-timezone')
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 const DATE_TIME_PATTERN = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/
 
 const isNullOrUndefined = value => value === null || value === undefined
 
-/**
- * error message keys are automatically prefixed with
- * "flight.create.dialog.validation.{fieldName}." and transformed to lower case.
- *
- * e.g.: if { date: 'invalid' } is returned, the used message key will be
- * 'flight.create.dialog.validation.date.invalid'.
- *
- * @param data
- * @param organizationId
- * @param aircraftId
- * @param aircraftSettings
- * @return a map containing the error message for the mapped fields
- */
-// eslint-disable-next-line require-yield
-export function* validateSync(
-  data,
-  organizationId,
-  aircraftId,
-  aircraftSettings
-) {
+const isBefore = (dateTime, timezone, comparisonDateTime, comparisonTimezone) =>
+  moment
+    .tz(dateTime, timezone)
+    .isBefore(moment.tz(comparisonDateTime, comparisonTimezone))
+
+const getLastFlight = async (organizationId, aircraftId, db) => {
+  const lastFlight = await db
+    .collection('organizations')
+    .doc(organizationId)
+    .collection('aircrafts')
+    .doc(aircraftId)
+    .collection('flights')
+    .where('deleted', '==', false)
+    .orderBy('blockOffTime', 'desc')
+    .limit(1)
+    .get()
+  return !lastFlight.empty ? lastFlight.docs[0].data() : null
+}
+
+const validateSync = (data, aircraftSettings) => {
   const errors = {}
 
   if (!data.date || !DATE_PATTERN.test(data.date)) {
     errors['date'] = 'invalid'
   } else if (
     aircraftSettings.lockDate &&
-    isBefore(data.date, undefined, aircraftSettings.lockDate, undefined)
+    isBefore(
+      data.date,
+      undefined,
+      aircraftSettings.lockDate.toDate(),
+      undefined
+    )
   ) {
     errors['date'] = 'not_before_lock_date'
   }
@@ -187,20 +189,83 @@ export function* validateSync(
   return errors
 }
 
-export function* validateAsync(data, organizationId, aircraftId) {
+const validateAsync = async (data, organizationId, aircraftId, db) => {
   const errors = {}
 
   // date and time and so on currently not editable when updating flights
   // -> no need to validate in this case
   if (!data.id) {
-    const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
-    if (
+    const lastFlight = await getLastFlight(organizationId, aircraftId, db)
+    const isBeforeLastFlight =
       lastFlight &&
-      moment(data.blockOffTime).isBefore(lastFlight.blockOnTime.toDate())
-    ) {
+      isBefore(
+        data.blockOffTime,
+        data.departureAerodrome.timezone,
+        lastFlight.blockOnTime.toDate(),
+        lastFlight.destinationAerodrome.timezone
+      )
+    if (isBeforeLastFlight) {
       errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
     }
   }
 
   return errors
 }
+
+const validateCorrectionSync = (data, aircraftSettings) => {
+  const errors = {}
+
+  if (!data.date || !DATE_PATTERN.test(data.date)) {
+    errors['date'] = 'invalid'
+  } else if (
+    aircraftSettings.lockDate &&
+    isBefore(
+      data.date,
+      undefined,
+      aircraftSettings.lockDate.toDate(),
+      undefined
+    )
+  ) {
+    errors['date'] = 'not_before_lock_date'
+  }
+  if (!data.time || !DATE_TIME_PATTERN.test(data.time)) {
+    errors['time'] = 'invalid'
+  }
+  if (!data.pilot) {
+    errors['pilot'] = 'required'
+  }
+  if (typeof data.remarks !== 'string' || data.remarks.trim().length === 0) {
+    errors['remarks'] = 'required'
+  }
+
+  return errors
+}
+
+const validateCorrectionAsync = async (
+  data,
+  organizationId,
+  aircraftId,
+  db
+) => {
+  const errors = {}
+
+  const lastFlight = await getLastFlight(organizationId, aircraftId, db)
+  const isBeforeLastFlight =
+    lastFlight &&
+    isBefore(
+      data.time,
+      (data.newAerodrome || data.aerodrome).timezone,
+      lastFlight.blockOnTime.toDate(),
+      lastFlight.destinationAerodrome.timezone
+    )
+  if (isBeforeLastFlight) {
+    errors['time'] = 'not_before_block_on_time_last_flight'
+  }
+
+  return errors
+}
+
+module.exports.validateSync = validateSync
+module.exports.validateAsync = validateAsync
+module.exports.validateCorrectionSync = validateCorrectionSync
+module.exports.validateCorrectionAsync = validateCorrectionAsync

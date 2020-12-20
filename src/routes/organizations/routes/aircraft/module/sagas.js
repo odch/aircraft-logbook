@@ -12,19 +12,12 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-  runTransaction,
   serverTimestamp
 } from '../../../../../util/firestoreUtils'
 import getLastFlight from './util/getLastFlight'
-import { validateSync, validateAsync } from './util/validateFlight'
-import { getCounters } from './util/counters'
 import { fetchAerodromes, fetchAircrafts } from '../../../module/actions'
 import { isClosed } from '../../../../../util/techlogStatus'
-import {
-  getCurrentMember,
-  getCurrentMemberObject,
-  getMemberObject
-} from '../../../util/members'
+import { getCurrentMember, getCurrentMemberObject } from '../../../util/members'
 
 export const flightPageName = (aircraftId, page, showDeleted) =>
   `${showDeleted ? 'flights-all' : 'flights'}-${aircraftId}-${page}`
@@ -135,22 +128,6 @@ export function* fetchFlights() {
   )
 }
 
-export function* getAerodrome(organizationId, aerodromeId) {
-  let aerodrome = yield call(getDoc, ['aerodromes', aerodromeId])
-  if (aerodrome.exists !== true) {
-    aerodrome = yield call(getDoc, [
-      'organizations',
-      organizationId,
-      'aerodromes',
-      aerodromeId
-    ])
-  }
-  if (aerodrome.exists !== true) {
-    throw new Error(`Aeorodrome not found for id ${aerodromeId}`)
-  }
-  return aerodrome
-}
-
 export function* getFlight(organizationId, aircraftId, flightId) {
   return yield call(getDoc, [
     'organizations',
@@ -186,25 +163,11 @@ export async function getDestinationAerodrome(flight) {
   return null
 }
 
-export const mergeDateAndTime = (date, time, timezone) => {
-  const dateTimeFormat = 'YYYY-MM-DD HH:mm'
-  const timeString = moment.tz(time, dateTimeFormat, timezone).format('HH:mm')
-  return moment.tz(date + ' ' + timeString, dateTimeFormat, timezone).toDate()
-}
-
 export const extractDate = (timestamp, timezone) =>
   moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD')
 
 export const getTimeForPicker = (timestamp, timezone) =>
   moment(timestamp.toDate()).tz(timezone).format('YYYY-MM-DD HH:mm')
-
-export const aerodromeObject = aeodromeDocument => ({
-  name: aeodromeDocument.get('name') || null,
-  identification: aeodromeDocument.get('identification') || null,
-  timezone: aeodromeDocument.get('timezone') || null,
-  aerodrome: aeodromeDocument.ref,
-  id: aeodromeDocument.id
-})
 
 export function* createFlight({
   payload: { organizationId, aircraftId, data }
@@ -212,170 +175,34 @@ export function* createFlight({
   try {
     yield put(actions.setCreateFlightDialogSubmitting())
 
-    const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
-
-    let validationErrors = yield call(
-      validateSync,
-      data,
-      organizationId,
-      aircraftId,
-      aircraftSettings
-    )
-    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
-      yield put(actions.setFlightValidationErrors(validationErrors))
-      return
-    }
-
-    const departureAerodrome = yield call(
-      getAerodrome,
-      organizationId,
-      data.departureAerodrome.value
-    )
-    const destinationAerodrome = yield call(
-      getAerodrome,
-      organizationId,
-      data.destinationAerodrome.value
-    )
-
-    const counters = getCounters(data)
-
-    data = {
+    const dataToSave = {
       ...data,
-      blockOffTime: mergeDateAndTime(
-        data.date,
-        data.blockOffTime,
-        departureAerodrome.get('timezone')
-      ),
-      takeOffTime: mergeDateAndTime(
-        data.date,
-        data.takeOffTime,
-        departureAerodrome.get('timezone')
-      ),
-      landingTime: mergeDateAndTime(
-        data.date,
-        data.landingTime,
-        destinationAerodrome.get('timezone')
-      ),
-      blockOnTime: mergeDateAndTime(
-        data.date,
-        data.blockOnTime,
-        destinationAerodrome.get('timezone')
+      techlogEntryAttachments: yield call(
+        getAttachments,
+        data.techlogEntryAttachments || []
       )
     }
 
-    validationErrors = yield call(
-      validateAsync,
-      data,
+    const result = yield call(callFunction, 'saveFlight', {
       organizationId,
-      aircraftId
-    )
-    if (Object.getOwnPropertyNames(validationErrors).length > 0) {
-      yield put(actions.setFlightValidationErrors(validationErrors))
+      aircraftId,
+      data: dataToSave,
+      techlogEntryClosed:
+        data.techlogEntryStatus && data.techlogEntryStatus.value
+          ? isClosed(data.techlogEntryStatus.value)
+          : null
+    })
+
+    if (
+      result.data &&
+      result.data.validationErrors &&
+      Object.getOwnPropertyNames(result.data.validationErrors).length > 0
+    ) {
+      yield put(actions.setFlightValidationErrors(result.data.validationErrors))
       return
     }
 
-    const owner = yield call(getCurrentMemberObject, organizationId)
-    const pilot = yield call(getMemberObject, organizationId, data.pilot.value)
-    const instructor =
-      data.instructor && data.instructor.value
-        ? yield call(getMemberObject, organizationId, data.instructor.value)
-        : null
-
-    const fuelUplift =
-      typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
-    const fuelType =
-      typeof fuelUplift === 'number' && fuelUplift > 0
-        ? data.fuelType.value
-        : null
-
-    const oilUplift =
-      typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
-
-    const timestampFieldValue = yield call(serverTimestamp)
-
-    const dataToStore = {
-      deleted: false,
-      version: 1,
-      owner,
-      createTimestamp: timestampFieldValue,
-      nature: typeof data.nature === 'string' ? data.nature : data.nature.value,
-      pilot,
-      instructor,
-      departureAerodrome: aerodromeObject(departureAerodrome),
-      destinationAerodrome: aerodromeObject(destinationAerodrome),
-      blockOffTime: data.blockOffTime,
-      takeOffTime: data.takeOffTime,
-      landingTime: data.landingTime,
-      blockOnTime: data.blockOnTime,
-      counters,
-      landings: data.landings,
-      personsOnBoard: data.personsOnBoard,
-      fuelUplift,
-      fuelType,
-      fuelUnit: 'litre',
-      oilUplift,
-      oilUnit: 'litre',
-      remarks: data.remarks || null,
-      preflightCheck:
-        typeof data.preflightCheck === 'boolean' ? data.preflightCheck : null
-    }
-
-    if (data.troublesObservations) {
-      dataToStore.troublesObservations = data.troublesObservations
-      dataToStore.techlogEntryDescription = data.techlogEntryDescription
-        ? data.techlogEntryDescription.trim()
-        : null
-      if (aircraftSettings.techlogEnabled === true) {
-        dataToStore.techlogEntryStatus = data.techlogEntryStatus
-          ? typeof data.techlogEntryStatus === 'string'
-            ? data.techlogEntryStatus
-            : data.techlogEntryStatus.value
-          : null
-      }
-    }
-
-    const oldFlightDoc = data.id
-      ? yield call(getDoc, [
-          'organizations',
-          organizationId,
-          'aircrafts',
-          aircraftId,
-          'flights',
-          data.id
-        ])
-      : null
-    const newFlightDoc = yield call(addNewFlightDoc, organizationId, aircraftId)
-    yield call(
-      runTransaction,
-      setFlightData,
-      oldFlightDoc,
-      newFlightDoc,
-      dataToStore,
-      owner,
-      timestampFieldValue
-    )
-
-    if (
-      data.troublesObservations === 'troubles' &&
-      !data.id &&
-      aircraftSettings.techlogEnabled === true
-    ) {
-      const entry = {
-        description: data.techlogEntryDescription.trim(),
-        initialStatus: data.techlogEntryStatus.value,
-        currentStatus: data.techlogEntryStatus.value,
-        closed: isClosed(data.techlogEntryStatus.value),
-        flight: newFlightDoc.id,
-        attachments: yield call(
-          getAttachments,
-          data.techlogEntryAttachments || []
-        )
-      }
-      yield call(callFunction, 'addTechlogEntry', {
-        organizationId,
-        aircraftId,
-        entry
-      })
+    if (result.data && result.data.techlogEntryAdded) {
       yield put(fetchAircrafts(organizationId))
       yield call(fetchTechlog)
     }
@@ -386,43 +213,6 @@ export function* createFlight({
     error(`Failed to create flight`, e)
     yield put(actions.createFlightFailure())
   }
-}
-
-export function* addNewFlightDoc(organizationId, aircraftId) {
-  const newDoc = yield call(
-    addDoc,
-    ['organizations', organizationId, 'aircrafts', aircraftId, 'flights'],
-    { deleted: true }
-  )
-  // fetch again with ref
-  return yield call(getDoc, [
-    'organizations',
-    organizationId,
-    'aircrafts',
-    aircraftId,
-    'flights',
-    newDoc.id
-  ])
-}
-
-export const setFlightData = (
-  oldFlightDoc,
-  newFlightDoc,
-  dataToStore,
-  currentMember,
-  timestampFieldValue
-) => async tx => {
-  if (oldFlightDoc) {
-    tx.update(oldFlightDoc.ref, {
-      deleted: true,
-      replacedWith: newFlightDoc.id,
-      deletedBy: currentMember,
-      deleteTimestamp: timestampFieldValue
-    })
-    dataToStore.replaces = oldFlightDoc.id
-    dataToStore.version = oldFlightDoc.get('version') + 1
-  }
-  tx.update(newFlightDoc.ref, dataToStore)
 }
 
 export function* initCreateFlightDialog({
@@ -494,6 +284,112 @@ export function toFuelTypeOption(aircraftSettings, fuelTypeName) {
     type => type.name === fuelTypeName
   ) || { name: fuelTypeName }
   return getFuelTypeOption(typeObj)
+}
+
+export function* initCreateCorrectionFlightDialog({
+  payload: { organizationId, aircraftId }
+}) {
+  const aircraftSettings = yield select(aircraftSettingsSelector, aircraftId)
+  const currentMember = yield call(getCurrentMember)
+  const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
+
+  const counterNames = [
+    'flights',
+    'landings',
+    'flightHours',
+    'flightTimeCounter'
+  ]
+
+  if (aircraftSettings.engineHoursCounterEnabled === true) {
+    counterNames.push('engineTimeCounter')
+    counterNames.push('engineHours')
+  }
+
+  const counters = initCounters(counterNames)
+
+  let departureAerodrome
+
+  if (lastFlight) {
+    departureAerodrome = yield call(getDestinationAerodrome, lastFlight)
+    setStartCounters(counters, lastFlight.counters || {}, counterNames)
+  }
+
+  const data = {
+    date: moment().format('YYYY-MM-DD'),
+    time: null,
+    pilot: getMemberOption(currentMember),
+    aerodrome: departureAerodrome
+      ? getAerodromeOption(departureAerodrome)
+      : null,
+    counters
+  }
+
+  yield put(actions.setInitialCreateCorrectionFlightDialogData(data))
+}
+
+export const getCorrections = data => {
+  const corrections = {}
+
+  if (
+    data.aerodrome &&
+    data.newAerodrome &&
+    data.aerodrome.value !== data.newAerodrome.value
+  ) {
+    corrections.aerodrome = {
+      start: data.aerodrome.label,
+      end: data.newAerodrome.label
+    }
+  }
+
+  for (const [counterName, counter] of Object.entries(data.counters)) {
+    if (typeof counter.end === 'number' && counter.start !== counter.end) {
+      corrections[counterName] = {
+        start: counter.start,
+        end: counter.end
+      }
+    }
+  }
+
+  return corrections
+}
+
+export function* createCorrectionFlight({
+  payload: { organizationId, aircraftId, data, confirmed }
+}) {
+  try {
+    if (confirmed !== true) {
+      const corrections = getCorrections(data)
+      yield put(actions.setCorrectionFlightCorrections(corrections))
+      return
+    }
+
+    yield put(actions.setCreateCorrectionFlightDialogSubmitting())
+
+    const result = yield call(callFunction, 'saveCorrectionFlight', {
+      organizationId,
+      aircraftId,
+      data
+    })
+
+    if (
+      result.data &&
+      result.data.validationErrors &&
+      Object.getOwnPropertyNames(result.data.validationErrors).length > 0
+    ) {
+      yield put(
+        actions.setCorrectionFlightValidationErrors(
+          result.data.validationErrors
+        )
+      )
+      return
+    }
+
+    yield put(actions.changeFlightsPage(0))
+    yield put(actions.createCorrectionFlightSuccess())
+  } catch (e) {
+    error(`Failed to create correction flight`, e)
+    yield put(actions.createCorrectionFlightFailure())
+  }
 }
 
 export function* openAndInitEditFlightDialog({
@@ -860,7 +756,7 @@ export function* fetchLatestCrs({ payload: { organizationId, aircraftId } }) {
   }
 }
 
-const getBase64 = file =>
+export const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -979,6 +875,11 @@ export default function* sagas() {
     takeEvery(actions.FETCH_FLIGHTS, fetchFlights),
     takeEvery(actions.CREATE_FLIGHT, createFlight),
     takeEvery(actions.INIT_CREATE_FLIGHT_DIALOG, initCreateFlightDialog),
+    takeEvery(
+      actions.OPEN_CREATE_CORRECTION_FLIGHT_DIALOG,
+      initCreateCorrectionFlightDialog
+    ),
+    takeEvery(actions.CREATE_CORRECTION_FLIGHT, createCorrectionFlight),
     takeEvery(actions.OPEN_EDIT_FLIGHT_DIALOG, openAndInitEditFlightDialog),
     takeEvery(actions.DELETE_FLIGHT, deleteFlight),
     takeEvery(actions.CREATE_AERODROME, createAerodrome),
