@@ -153,12 +153,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if destinationAerodrome is missing', () => {
-        return testFn({}, aircraftSettings1, 'destinationAerodrome', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'destinationAerodrome',
+          'required'
+        )
       })
 
       it('should return no error if destinationAerodrome is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             destinationAerodrome: {}
           },
           aircraftSettings1,
@@ -168,12 +176,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if blockOffTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'blockOffTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'blockOffTime',
+          'invalid'
+        )
       })
 
       it('should return an error if blockOffTime is invalid', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             blockOffTime: 'foobar'
           },
           aircraftSettings1,
@@ -184,7 +200,10 @@ describe('aircraft', () => {
 
       it('should return no error if blockOffTime is valid', () => {
         return testFn(
-          { blockOffTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOffTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'blockOffTime',
           undefined
@@ -192,12 +211,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if takeOffTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'takeOffTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'takeOffTime',
+          'invalid'
+        )
       })
 
       it('should return an error if takeOffTime is invalid', () => {
         return testFn(
-          { takeOffTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            takeOffTime: 'foobar'
+          },
           aircraftSettings1,
           'takeOffTime',
           'invalid'
@@ -206,7 +235,10 @@ describe('aircraft', () => {
 
       it('should return no error if takeOffTime is valid', () => {
         return testFn(
-          { takeOffTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            takeOffTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'takeOffTime',
           undefined
@@ -214,12 +246,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if landingTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'landingTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'landingTime',
+          'invalid'
+        )
       })
 
       it('should return an error if landingTime is invalid', () => {
         return testFn(
-          { landingTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landingTime: 'foobar'
+          },
           aircraftSettings1,
           'landingTime',
           'invalid'
@@ -228,7 +270,10 @@ describe('aircraft', () => {
 
       it('should return no error if landingTime is valid', () => {
         return testFn(
-          { landingTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landingTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'landingTime',
           undefined
@@ -236,12 +281,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if blockOnTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'blockOnTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'blockOnTime',
+          'invalid'
+        )
       })
 
       it('should return an error if blockOnTime is invalid', () => {
         return testFn(
-          { blockOnTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOnTime: 'foobar'
+          },
           aircraftSettings1,
           'blockOnTime',
           'invalid'
@@ -250,7 +305,10 @@ describe('aircraft', () => {
 
       it('should return no error if blockOnTime is valid', () => {
         return testFn(
-          { blockOnTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOnTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'blockOnTime',
           undefined
@@ -260,6 +318,7 @@ describe('aircraft', () => {
       it('should return an error if takeOffTime is before blockOffTime', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             blockOffTime: '2019-05-01 09:00',
             takeOffTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -278,6 +337,7 @@ describe('aircraft', () => {
       it('should return an error if landingTime is before takeOffTime', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             takeOffTime: '2019-05-01 09:00',
             landingTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -296,6 +356,7 @@ describe('aircraft', () => {
       it('should return an error if blockOnTime is before landingTime (same timezone)', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             landingTime: '2019-05-01 09:00',
             blockOnTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -314,6 +375,7 @@ describe('aircraft', () => {
       it('should return an error if blockOnTime is before landingTime (different timezone)', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             landingTime: '2019-05-01 09:00',
             blockOnTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -370,7 +432,9 @@ describe('aircraft', () => {
 
       it('should return an error if flight time end counter is missing', () => {
         return testFn(
-          {},
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
           aircraftSettings1,
           'counters.flightTimeCounter.end',
           'required'
@@ -380,6 +444,7 @@ describe('aircraft', () => {
       it('should return an error if flight time end counter is null', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 end: null
@@ -395,6 +460,7 @@ describe('aircraft', () => {
       it('should return no error if flight time end counter is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 end: 10000
@@ -410,6 +476,7 @@ describe('aircraft', () => {
       it('should return an error if flight time end counter is before start counter', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 start: 10000,
@@ -464,7 +531,9 @@ describe('aircraft', () => {
 
       it('should return an error if engine time end counter is missing', () => {
         return testFn(
-          {},
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
           aircraftSettings1,
           'counters.engineTimeCounter.end',
           'required'
@@ -474,6 +543,7 @@ describe('aircraft', () => {
       it('should return an error if engine time end counter is null', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 end: null
@@ -489,6 +559,7 @@ describe('aircraft', () => {
       it('should return no error if engine time end counter is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 end: 10000
@@ -504,6 +575,7 @@ describe('aircraft', () => {
       it('should return an error if engine time end counter is before start counter', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 start: 10000,
@@ -527,12 +599,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if landings is missing', () => {
-        return testFn({}, aircraftSettings1, 'landings', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'landings',
+          'required'
+        )
       })
 
       it('should return an error if landings is invalid', () => {
         return testFn(
-          { landings: -1 },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landings: -1
+          },
           aircraftSettings1,
           'landings',
           'required'
@@ -540,7 +622,15 @@ describe('aircraft', () => {
       })
 
       it('should return no error if landings is valid', () => {
-        return testFn({ landings: 1 }, aircraftSettings1, 'landings', undefined)
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landings: 1
+          },
+          aircraftSettings1,
+          'landings',
+          undefined
+        )
       })
 
       it('should return an error if personsOnBoard is missing', () => {
@@ -696,12 +786,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if troublesObservations is missing', () => {
-        return testFn({}, aircraftSettings1, 'troublesObservations', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'troublesObservations',
+          'required'
+        )
       })
 
       it('should return no error if troublesObservations is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'nil'
           },
           aircraftSettings1,
@@ -713,6 +811,7 @@ describe('aircraft', () => {
       it('should return an error if not nil and techlogEntryDescription is missing', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'troubles'
           },
           aircraftSettings1,
@@ -724,6 +823,7 @@ describe('aircraft', () => {
       it('should return no error if nil and techlogEntryDescription not set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'nil'
           },
           aircraftSettings1,
@@ -735,6 +835,7 @@ describe('aircraft', () => {
       it('should return no error if not nil and techlogEntryDescription is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'troubles',
             techlogEntryDescription: 'my description'
           },

@@ -50,73 +50,6 @@ const validateSync = (data, aircraftSettings) => {
   if (!data.departureAerodrome) {
     errors['departureAerodrome'] = 'required'
   }
-  if (!data.destinationAerodrome) {
-    errors['destinationAerodrome'] = 'required'
-  }
-  if (!data.blockOffTime || !DATE_TIME_PATTERN.test(data.blockOffTime)) {
-    errors['blockOffTime'] = 'invalid'
-  }
-  if (!data.takeOffTime || !DATE_TIME_PATTERN.test(data.takeOffTime)) {
-    errors['takeOffTime'] = 'invalid'
-  }
-  if (!data.landingTime || !DATE_TIME_PATTERN.test(data.landingTime)) {
-    errors['landingTime'] = 'invalid'
-  }
-  if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
-    errors['blockOnTime'] = 'invalid'
-  }
-  if (
-    !errors['blockOffTime'] &&
-    !errors['takeOffTime'] &&
-    data.departureAerodrome
-  ) {
-    if (
-      isBefore(
-        data.takeOffTime,
-        data.departureAerodrome.timezone,
-        data.blockOffTime,
-        data.departureAerodrome.timezone
-      )
-    ) {
-      errors['takeOffTime'] = 'not_before_block_off_time'
-    }
-  }
-  if (
-    !errors['takeOffTime'] &&
-    !errors['landingTime'] &&
-    data.departureAerodrome &&
-    data.destinationAerodrome
-  ) {
-    if (
-      isBefore(
-        data.landingTime,
-        data.destinationAerodrome.timezone,
-        data.takeOffTime,
-        data.departureAerodrome.timezone
-      )
-    ) {
-      errors['landingTime'] = 'not_before_take_off_time'
-    }
-  }
-  if (
-    !errors['landingTime'] &&
-    !errors['blockOnTime'] &&
-    data.destinationAerodrome
-  ) {
-    if (
-      isBefore(
-        data.blockOnTime,
-        data.destinationAerodrome.timezone,
-        data.landingTime,
-        data.destinationAerodrome.timezone
-      )
-    ) {
-      errors['blockOnTime'] = 'not_before_landing_time'
-    }
-  }
-  if (typeof data.landings !== 'number' || data.landings < 1) {
-    errors['landings'] = 'required'
-  }
   if (typeof data.personsOnBoard !== 'number' || data.personsOnBoard < 1) {
     errors['personsOnBoard'] = 'required'
   }
@@ -131,58 +64,145 @@ const validateSync = (data, aircraftSettings) => {
   ) {
     errors['oilUplift'] = 'invalid'
   }
-
-  const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
-  const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
-
-  if (typeof flightTimeStart !== 'number') {
-    errors['counters.flightTimeCounter.start'] = 'required'
-  }
-  if (typeof flightTimeEnd !== 'number') {
-    errors['counters.flightTimeCounter.end'] = 'required'
-  }
-  if (
-    !isNullOrUndefined(flightTimeStart) &&
-    !isNullOrUndefined(flightTimeEnd)
-  ) {
-    if (flightTimeEnd < flightTimeStart) {
-      errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
-    }
-  }
-
-  if (aircraftSettings.engineHoursCounterEnabled === true) {
-    const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
-    const engineTimeEnd = _get(data, 'counters.engineTimeCounter.end')
-
-    if (typeof engineTimeStart !== 'number') {
-      errors['counters.engineTimeCounter.start'] = 'required'
-    }
-    if (typeof engineTimeEnd !== 'number') {
-      errors['counters.engineTimeCounter.end'] = 'required'
-    }
-    if (
-      !isNullOrUndefined(engineTimeStart) &&
-      !isNullOrUndefined(engineTimeEnd)
-    ) {
-      if (engineTimeEnd < engineTimeStart) {
-        errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
-      }
-    }
-  }
-
   if (data.preflightCheck !== true) {
     errors['preflightCheck'] = 'required'
   }
 
-  if (!data.troublesObservations) {
-    errors['troublesObservations'] = 'required'
+  const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
+  if (typeof flightTimeStart !== 'number') {
+    errors['counters.flightTimeCounter.start'] = 'required'
   }
-  if (data.troublesObservations === 'troubles') {
-    if (aircraftSettings.techlogEnabled === true && !data.techlogEntryStatus) {
-      errors['techlogEntryStatus'] = 'required'
+
+  const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
+  if (aircraftSettings.engineHoursCounterEnabled === true) {
+    if (typeof engineTimeStart !== 'number') {
+      errors['counters.engineTimeCounter.start'] = 'required'
     }
-    if (!data.techlogEntryDescription || !data.techlogEntryDescription.trim()) {
-      errors['techlogEntryDescription'] = 'required'
+  }
+
+  // don't validate the following fields when draft flight is created (-> when data.id is not set)
+  if (data.id) {
+    if (!data.destinationAerodrome) {
+      errors['destinationAerodrome'] = 'required'
+    }
+
+    if (!data.blockOffTime || !DATE_TIME_PATTERN.test(data.blockOffTime)) {
+      errors['blockOffTime'] = 'invalid'
+    }
+
+    if (!data.takeOffTime || !DATE_TIME_PATTERN.test(data.takeOffTime)) {
+      errors['takeOffTime'] = 'invalid'
+    }
+
+    if (!data.landingTime || !DATE_TIME_PATTERN.test(data.landingTime)) {
+      errors['landingTime'] = 'invalid'
+    }
+
+    if (!data.blockOnTime || !DATE_TIME_PATTERN.test(data.blockOnTime)) {
+      errors['blockOnTime'] = 'invalid'
+    }
+
+    if (
+      !errors['blockOffTime'] &&
+      !errors['takeOffTime'] &&
+      data.departureAerodrome
+    ) {
+      if (
+        isBefore(
+          data.takeOffTime,
+          data.departureAerodrome.timezone,
+          data.blockOffTime,
+          data.departureAerodrome.timezone
+        )
+      ) {
+        errors['takeOffTime'] = 'not_before_block_off_time'
+      }
+    }
+
+    if (
+      !errors['takeOffTime'] &&
+      !errors['landingTime'] &&
+      data.departureAerodrome &&
+      data.destinationAerodrome
+    ) {
+      if (
+        isBefore(
+          data.landingTime,
+          data.destinationAerodrome.timezone,
+          data.takeOffTime,
+          data.departureAerodrome.timezone
+        )
+      ) {
+        errors['landingTime'] = 'not_before_take_off_time'
+      }
+    }
+
+    if (
+      !errors['landingTime'] &&
+      !errors['blockOnTime'] &&
+      data.destinationAerodrome
+    ) {
+      if (
+        isBefore(
+          data.blockOnTime,
+          data.destinationAerodrome.timezone,
+          data.landingTime,
+          data.destinationAerodrome.timezone
+        )
+      ) {
+        errors['blockOnTime'] = 'not_before_landing_time'
+      }
+    }
+
+    if (typeof data.landings !== 'number' || data.landings < 1) {
+      errors['landings'] = 'required'
+    }
+
+    if (!data.troublesObservations) {
+      errors['troublesObservations'] = 'required'
+    }
+
+    if (data.troublesObservations === 'troubles') {
+      if (
+        aircraftSettings.techlogEnabled === true &&
+        !data.techlogEntryStatus
+      ) {
+        errors['techlogEntryStatus'] = 'required'
+      }
+      if (
+        !data.techlogEntryDescription ||
+        !data.techlogEntryDescription.trim()
+      ) {
+        errors['techlogEntryDescription'] = 'required'
+      }
+    }
+
+    const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
+    if (typeof flightTimeEnd !== 'number') {
+      errors['counters.flightTimeCounter.end'] = 'required'
+    }
+    if (
+      !isNullOrUndefined(flightTimeStart) &&
+      !isNullOrUndefined(flightTimeEnd)
+    ) {
+      if (flightTimeEnd < flightTimeStart) {
+        errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
+      }
+    }
+
+    if (aircraftSettings.engineHoursCounterEnabled === true) {
+      const engineTimeEnd = _get(data, 'counters.engineTimeCounter.end')
+      if (typeof engineTimeEnd !== 'number') {
+        errors['counters.engineTimeCounter.end'] = 'required'
+      }
+      if (
+        !isNullOrUndefined(engineTimeStart) &&
+        !isNullOrUndefined(engineTimeEnd)
+      ) {
+        if (engineTimeEnd < engineTimeStart) {
+          errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
+        }
+      }
     }
   }
 

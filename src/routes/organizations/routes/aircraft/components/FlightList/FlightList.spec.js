@@ -11,7 +11,27 @@ describe('routes', () => {
             it('renders correctly', () => {
               const flights = [
                 {
+                  id: 'sStfyLd2XArT7oUZPF3a',
+                  version: 0,
+                  departureAerodrome: {
+                    identification: 'LSZT',
+                    timezone: 'Europe/Zurich'
+                  },
+                  destinationAerodrome: null,
+                  blockOffTime: {
+                    toDate: () => Date.parse('2018-11-20 23:59 GMT+0100')
+                  },
+                  blockOnTime: null,
+                  takeOffTime: null,
+                  landingTime: null,
+                  pilot: {
+                    firstname: 'Max',
+                    lastname: 'Muster'
+                  }
+                },
+                {
                   id: 'sStfyLd2XArT7oUZPFDn',
+                  version: 1,
                   departureAerodrome: {
                     identification: 'LSZT',
                     timezone: 'Europe/Zurich'
@@ -39,6 +59,7 @@ describe('routes', () => {
                 },
                 {
                   id: 'sStfyLd2XArT7oUZPFDa',
+                  version: 1,
                   departureAerodrome: {
                     identification: 'LSZT',
                     timezone: 'Europe/Zurich'

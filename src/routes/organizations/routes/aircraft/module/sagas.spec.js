@@ -365,6 +365,7 @@ describe('routes', () => {
             const action = actions.initCreateFlightDialog(orgId, aircraftId)
 
             const today = moment().format('YYYY-MM-DD')
+            const endOfToday = moment().endOf('day').format('YYYY-MM-DD HH:mm')
 
             const currentMember = {
               id: 'memberid',
@@ -387,6 +388,35 @@ describe('routes', () => {
               identification: 'LSZT',
               timezone: 'Europe/Zurich'
             }
+
+            const expectedVisibleFields = engineCounterEnabled => [
+              'date',
+              'pilot',
+              'instructor',
+              'nature',
+              'departureAerodrome',
+              'counters.flightTimeCounter.start',
+              ...(engineCounterEnabled
+                ? ['counters.engineTimeCounter.start']
+                : []),
+              'personsOnBoard',
+              'fuelUplift',
+              'fuelType',
+              'oilUplift',
+              'preflightCheck'
+            ]
+
+            const expectedEditableFields = [
+              'date',
+              'pilot',
+              'instructor',
+              'nature',
+              'personsOnBoard',
+              'fuelUplift',
+              'fuelType',
+              'oilUplift',
+              'preflightCheck'
+            ]
 
             it('should set the default values for the new flight', () => {
               const aircraftSettings = {
@@ -412,7 +442,7 @@ describe('routes', () => {
                   flightTimeCounter: { start: 9250 },
                   engineTimeCounter: { start: 9502 }
                 },
-                blockOffTime: null,
+                blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
                 blockOnTime: null
@@ -433,7 +463,9 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues
+                    expectedDefaultValues,
+                    expectedVisibleFields(true),
+                    expectedEditableFields
                   )
                 )
                 .run()
@@ -461,7 +493,7 @@ describe('routes', () => {
                   landings: { start: 2357 },
                   flightTimeCounter: { start: 9250 }
                 },
-                blockOffTime: null,
+                blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
                 blockOnTime: null
@@ -482,7 +514,9 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues
+                    expectedDefaultValues,
+                    expectedVisibleFields(false),
+                    expectedEditableFields
                   )
                 )
                 .run()
@@ -766,56 +800,60 @@ describe('routes', () => {
               flightId
             )
 
+            const flightData = {
+              version: 1,
+              nature: 'vs',
+              pilot: {
+                id: 'pilotid',
+                lastname: 'Müller',
+                firstname: 'Max'
+              },
+              instructor: {
+                id: 'instructorid',
+                lastname: 'Keller',
+                firstname: 'Heinz'
+              },
+              blockOffTime: {
+                toDate: () => new Date('2018-12-13T09:00:00.000Z')
+              },
+              takeOffTime: {
+                toDate: () => new Date('2018-12-13T09:05:00.000Z')
+              },
+              landingTime: {
+                toDate: () => new Date('2018-12-13T09:35:00.000Z')
+              },
+              blockOnTime: {
+                toDate: () => new Date('2018-12-13T09:40:00.000Z')
+              },
+              departureAerodrome: {
+                id: 'depaerodromeid',
+                name: 'Wangen-Lachen',
+                identification: 'LSPV',
+                timezone: 'Europe/Zurich'
+              },
+              destinationAerodrome: {
+                id: 'destaerodromeid',
+                name: 'Lommis',
+                identification: 'LSZT',
+                timezone: 'Europe/Zurich'
+              },
+              landings: 1,
+              personsOnBoard: 2,
+              fuelUplift: 45.5,
+              fuelType: 'jet_a1_homebase',
+              oilUplift: 0.5,
+              counters: {},
+              preflightCheck: true,
+              remarks: 'my test remark',
+              troublesObservations: 'troubles',
+              techlogEntryDescription: 'Loose screw',
+              techlogEntryStatus: 'defect_aog'
+            }
+
             const flight = {
               id: flightId,
-              data: () => ({
-                nature: 'vs',
-                pilot: {
-                  id: 'pilotid',
-                  lastname: 'Müller',
-                  firstname: 'Max'
-                },
-                instructor: {
-                  id: 'instructorid',
-                  lastname: 'Keller',
-                  firstname: 'Heinz'
-                },
-                blockOffTime: {
-                  toDate: () => new Date('2018-12-13T09:00:00.000Z')
-                },
-                takeOffTime: {
-                  toDate: () => new Date('2018-12-13T09:05:00.000Z')
-                },
-                landingTime: {
-                  toDate: () => new Date('2018-12-13T09:35:00.000Z')
-                },
-                blockOnTime: {
-                  toDate: () => new Date('2018-12-13T09:40:00.000Z')
-                },
-                departureAerodrome: {
-                  id: 'depaerodromeid',
-                  name: 'Wangen-Lachen',
-                  identification: 'LSPV',
-                  timezone: 'Europe/Zurich'
-                },
-                destinationAerodrome: {
-                  id: 'destaerodromeid',
-                  name: 'Lommis',
-                  identification: 'LSZT',
-                  timezone: 'Europe/Zurich'
-                },
-                landings: 1,
-                personsOnBoard: 2,
-                fuelUplift: 45.5,
-                fuelType: 'jet_a1_homebase',
-                oilUplift: 0.5,
-                counters: {},
-                preflightCheck: true,
-                remarks: 'my test remark',
-                troublesObservations: 'troubles',
-                techlogEntryDescription: 'Loose screw',
-                techlogEntryStatus: 'defect_aog'
-              })
+              get: name => flightData[name],
+              data: () => flightData
             }
 
             const aircraftSettings = {
@@ -829,6 +867,7 @@ describe('routes', () => {
             }
             const expectedFlightValues = {
               id: flightId,
+              version: 1,
               date: '2018-12-13',
               pilot: {
                 value: 'pilotid',
