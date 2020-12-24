@@ -166,16 +166,18 @@ class FlightList extends React.Component {
             }
           />
         </Button>
-        {this.isTechlogManager() && !this.newestFlightIsPreflight() && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleCreateCorrectionClick}
-            className={classes.createCorrectionButton}
-          >
-            <FormattedMessage id="aircraftdetail.createcorrectionflight" />
-          </Button>
-        )}
+        {this.isTechlogManager() &&
+          flights.length > 0 &&
+          !this.newestFlightIsPreflight() && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleCreateCorrectionClick}
+              className={classes.createCorrectionButton}
+            >
+              <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+            </Button>
+          )}
         {hideDeletedSwitch !== true && this.isOrganizationManager() && (
           <FormControlLabel
             control={
