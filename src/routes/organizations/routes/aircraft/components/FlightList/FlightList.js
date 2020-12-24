@@ -88,13 +88,13 @@ class FlightList extends React.Component {
     const {
       organization,
       aircraft,
-      flights,
+      newestFlight,
       openCreateFlightDialog,
       initCreateFlightDialog,
       openEditFlightDialog
     } = this.props
     if (this.newestFlightIsPreflight()) {
-      openEditFlightDialog(organization.id, aircraft.id, flights[0].id)
+      openEditFlightDialog(organization.id, aircraft.id, newestFlight.id)
     } else {
       openCreateFlightDialog()
       initCreateFlightDialog(organization.id, aircraft.id)
@@ -120,8 +120,8 @@ class FlightList extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   newestFlightIsPreflight = () => {
-    const flights = this.props.flights
-    return flights.length > 0 && flights[0].version === 0
+    const newestFlight = this.props.newestFlight
+    return newestFlight && newestFlight.version === 0
   }
 
   render() {
@@ -166,18 +166,16 @@ class FlightList extends React.Component {
             }
           />
         </Button>
-        {this.isTechlogManager() &&
-          flights.length > 0 &&
-          flights[0].version > 0 && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.handleCreateCorrectionClick}
-              className={classes.createCorrectionButton}
-            >
-              <FormattedMessage id="aircraftdetail.createcorrectionflight" />
-            </Button>
-          )}
+        {this.isTechlogManager() && !this.newestFlightIsPreflight() && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleCreateCorrectionClick}
+            className={classes.createCorrectionButton}
+          >
+            <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+          </Button>
+        )}
         {hideDeletedSwitch !== true && this.isOrganizationManager() && (
           <FormControlLabel
             control={
@@ -359,6 +357,7 @@ FlightList.propTypes = {
   organization: organizationShape.isRequired,
   aircraft: aircraftShape.isRequired,
   flights: PropTypes.arrayOf(flightShape),
+  newestFlight: flightShape,
   createFlightDialogOpen: PropTypes.bool.isRequired,
   createCorrectionFlightDialogOpen: PropTypes.bool.isRequired,
   flightDeleteDialog: PropTypes.shape({

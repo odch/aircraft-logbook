@@ -92,6 +92,7 @@ describe('routes', () => {
                   organization={{ id: 'my_org', roles: ['manager'] }}
                   aircraft={{ id: 'my_aircraft' }}
                   flights={flights}
+                  newestFlight={flights[0]}
                   flightDeleteDialog={{ open: false }}
                   pagination={{
                     rowsCount: 25,

@@ -49,25 +49,17 @@ describe('routes', () => {
             })
           })
 
-          describe('fetchFlights', () => {
-            it('should load the flights of an aircraft', () => {
-              const fetchFlightsAction = actions.fetchFlights()
-
-              const generator = sagas.fetchFlights(fetchFlightsAction)
-
-              expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
+          describe('queryFlights', () => {
+            it('should query the flights of an aircraft', () => {
+              const generator = sagas.queryFlights(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10,
+                false
               )
 
-              const aircraftFlightsView = {
-                organizationId: 'my_org',
-                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
-                page: 0,
-                rowsPerPage: 10,
-                showDeleted: false
-              }
-
-              expect(generator.next(aircraftFlightsView).value).toEqual(
+              expect(generator.next().value).toEqual(
                 call(
                   sagas.getStartFlightDocument,
                   'my_org',
@@ -113,6 +105,145 @@ describe('routes', () => {
                   },
                   {}
                 )
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+
+            it('should query the flights of an aircraft including the deleted ones', () => {
+              const generator = sagas.queryFlights(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10,
+                true
+              )
+
+              expect(generator.next().value).toEqual(
+                call(
+                  sagas.getStartFlightDocument,
+                  'my_org',
+                  'o7flC7jw8jmkOfWo8oyA',
+                  0,
+                  true
+                )
+              )
+
+              expect(generator.next(null).value).toEqual(call(getFirestore))
+
+              const firestore = {
+                get: () => {}
+              }
+              expect(generator.next(firestore).value).toEqual(
+                call(
+                  firestore.get,
+                  {
+                    collection: 'organizations',
+                    doc: 'my_org',
+                    subcollections: [
+                      {
+                        collection: 'aircrafts',
+                        doc: 'o7flC7jw8jmkOfWo8oyA',
+                        subcollections: [
+                          {
+                            collection: 'flights'
+                          }
+                        ]
+                      }
+                    ],
+                    where: [],
+                    orderBy: [
+                      ['blockOffTime', 'desc'],
+                      ['version', 'desc']
+                    ],
+                    startAfter: null,
+                    limit: 10,
+                    storeAs: 'flights-all-o7flC7jw8jmkOfWo8oyA-0',
+                    populate: [
+                      'departureAerodrome',
+                      'destinationAerodrome',
+                      'pilot',
+                      'instructor'
+                    ]
+                  },
+                  {}
+                )
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+          })
+
+          describe('fetchFlights', () => {
+            it('should load the flights of an aircraft', () => {
+              const fetchFlightsAction = actions.fetchFlights()
+
+              const generator = sagas.fetchFlights(fetchFlightsAction)
+
+              expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10,
+                showDeleted: false
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                all([
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    false
+                  )
+                ])
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+
+            it('should load the flights of an aircraft including the deleted ones', () => {
+              const fetchFlightsAction = actions.fetchFlights()
+
+              const generator = sagas.fetchFlights(fetchFlightsAction)
+
+              expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10,
+                showDeleted: true
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                all([
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    false
+                  ),
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    true
+                  )
+                ])
               )
 
               expect(generator.next().done).toEqual(true)

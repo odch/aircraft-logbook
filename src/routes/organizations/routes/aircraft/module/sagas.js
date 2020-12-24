@@ -71,14 +71,13 @@ export function* changeFlightsPage({ payload: { page } }) {
   yield call(fetchFlights)
 }
 
-export function* fetchFlights() {
-  const {
-    organizationId,
-    aircraftId,
-    page,
-    rowsPerPage,
-    showDeleted
-  } = yield select(aircraftFlightsViewSelector)
+export function* queryFlights(
+  organizationId,
+  aircraftId,
+  page,
+  rowsPerPage,
+  showDeleted
+) {
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
@@ -126,6 +125,25 @@ export function* fetchFlights() {
     },
     {}
   )
+}
+
+export function* fetchFlights() {
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showDeleted
+  } = yield select(aircraftFlightsViewSelector)
+  const effects = [
+    call(queryFlights, organizationId, aircraftId, page, rowsPerPage, false)
+  ]
+  if (showDeleted) {
+    effects.push(
+      call(queryFlights, organizationId, aircraftId, page, rowsPerPage, true)
+    )
+  }
+  yield all(effects)
 }
 
 export function* getFlight(organizationId, aircraftId, flightId) {
