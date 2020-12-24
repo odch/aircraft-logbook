@@ -29,6 +29,8 @@ const mapStateToProps = (state, ownProps) => {
     showDeleted
   )
 
+  const newestFlights = getAircraftFlights(state, aircraft.id, 0)
+
   const pagination = aircraft
     ? {
         rowsCount: getAircraftFlightsCount(state, aircraft.id, showDeleted),
@@ -41,6 +43,8 @@ const mapStateToProps = (state, ownProps) => {
     organization,
     aircraft,
     flights,
+    newestFlight:
+      newestFlights && newestFlights.length > 0 ? newestFlights[0] : null,
     pagination,
     createFlightDialogOpen: state.aircraft.createFlightDialog.open,
     createCorrectionFlightDialogOpen:
