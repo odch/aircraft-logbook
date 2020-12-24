@@ -240,7 +240,9 @@ class FlightCreateDialog extends React.Component {
       <>
         <DialogTitle>
           <FormattedMessage
-            id={`flight.create.dialog.title${data.id ? '_update' : '_create'}`}
+            id={`flight.create.dialog.title${
+              data.version === 0 ? '_complete' : data.id ? '_update' : '_create'
+            }`}
           />
         </DialogTitle>
         <form onSubmit={this.handleSubmit}>

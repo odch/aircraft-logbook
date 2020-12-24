@@ -359,7 +359,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     <span
       className="MuiButton-label"
     >
-      Flug erfassen
+      Preflight-Eintrag erfassen
     </span>
   </button>
   <div
@@ -392,20 +392,20 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightList-flightHeading-148"
+            className="FlightSummary-flightHeading-150"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightList-bold-150"
+                className="FlightSummary-bold-152"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightList-bold-150"
+                className="FlightSummary-bold-152"
               >
                 LSZT
               </span>
@@ -413,7 +413,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-149 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-151 MuiTypography-body1"
           >
             20.11.2018
             ,

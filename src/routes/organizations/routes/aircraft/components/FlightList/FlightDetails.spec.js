@@ -27,6 +27,7 @@ describe('routes', () => {
 
               const flight = {
                 id: 'sStfyLd2XArT7oUZPFDn',
+                version: 1,
                 departureAerodrome: {
                   name: 'Lommis',
                   identification: 'LSZT',
@@ -76,6 +77,48 @@ describe('routes', () => {
                 techlogEntryDescription: 'loose screw left main wheel'
               }
 
+              const preflightRecord = {
+                id: 'sStfyLd2XArT7oUZPFDn',
+                version: 0,
+                departureAerodrome: {
+                  name: 'Lommis',
+                  identification: 'LSZT',
+                  timezone: 'Europe/Zurich'
+                },
+                destinationAerodrome: 0,
+                blockOffTime: {
+                  toDate: () => Date.parse('2018-11-20 23:59 GMT+0100')
+                },
+                blockOnTime: null,
+                takeOffTime: null,
+                landingTime: null,
+                pilot: {
+                  firstname: 'Max',
+                  lastname: 'Muster'
+                },
+                instructor: {
+                  firstname: 'Hans',
+                  lastname: 'Keller'
+                },
+                counters: {
+                  flightHours: counter(10156, null),
+                  engineHours: counter(10489, null),
+                  landings: counter(234, null),
+                  engineTimeCounter: counter(9431, null)
+                },
+                nature: 'vp',
+                landings: null,
+                personsOnBoard: 3,
+                remarks: 'my\ntest\nremarks',
+                fuelUplift: 58.68,
+                fuelType: 'mogas_homebase',
+                oilUplift: 0.7,
+                preflightCheck: true,
+                troublesObservations: null,
+                techlogEntryStatus: null,
+                techlogEntryDescription: null
+              }
+
               const renderToJson = component =>
                 renderIntl(component, {
                   createNodeMock: element => {
@@ -118,6 +161,13 @@ describe('routes', () => {
                 }
                 const tree = renderToJson(
                   <FlightDetails aircraft={testAircraft} flight={flight} />
+                )
+                expect(tree).toMatchSnapshot()
+              })
+
+              it('renders correctly for preflight record', () => {
+                const tree = renderToJson(
+                  <FlightDetails aircraft={aircraft} flight={preflightRecord} />
                 )
                 expect(tree).toMatchSnapshot()
               })

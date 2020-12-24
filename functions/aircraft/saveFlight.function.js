@@ -112,10 +112,6 @@ const saveFlight = functions.https.onCall(
       organizationId,
       data.departureAerodrome.value
     )
-    const destinationAerodrome = await getAerodrome(
-      organizationId,
-      data.destinationAerodrome.value
-    )
 
     const counters = getCounters(data)
 
@@ -125,21 +121,6 @@ const saveFlight = functions.https.onCall(
         data.date,
         data.blockOffTime,
         departureAerodrome.get('timezone')
-      ),
-      takeOffTime: mergeDateAndTime(
-        data.date,
-        data.takeOffTime,
-        departureAerodrome.get('timezone')
-      ),
-      landingTime: mergeDateAndTime(
-        data.date,
-        data.landingTime,
-        destinationAerodrome.get('timezone')
-      ),
-      blockOnTime: mergeDateAndTime(
-        data.date,
-        data.blockOnTime,
-        destinationAerodrome.get('timezone')
       )
     }
 
@@ -152,6 +133,34 @@ const saveFlight = functions.https.onCall(
     if (Object.getOwnPropertyNames(validationErrors).length > 0) {
       return {
         validationErrors
+      }
+    }
+
+    let destinationAerodrome
+
+    if (data.id) {
+      destinationAerodrome = await getAerodrome(
+        organizationId,
+        data.destinationAerodrome.value
+      )
+
+      data = {
+        ...data,
+        takeOffTime: mergeDateAndTime(
+          data.date,
+          data.takeOffTime,
+          departureAerodrome.get('timezone')
+        ),
+        landingTime: mergeDateAndTime(
+          data.date,
+          data.landingTime,
+          destinationAerodrome.get('timezone')
+        ),
+        blockOnTime: mergeDateAndTime(
+          data.date,
+          data.blockOnTime,
+          destinationAerodrome.get('timezone')
+        )
       }
     }
 
@@ -184,12 +193,14 @@ const saveFlight = functions.https.onCall(
       pilot,
       instructor,
       departureAerodrome: aerodromeObject(departureAerodrome),
-      destinationAerodrome: aerodromeObject(destinationAerodrome),
+      destinationAerodrome: destinationAerodrome
+        ? aerodromeObject(destinationAerodrome)
+        : null,
       blockOffTime: data.blockOffTime,
       takeOffTime: data.takeOffTime,
       landingTime: data.landingTime,
       blockOnTime: data.blockOnTime,
-      landings: data.landings,
+      landings: typeof data.landings === 'number' ? data.landings : null,
       personsOnBoard: data.personsOnBoard,
       fuelUplift,
       fuelType,
@@ -218,7 +229,7 @@ const saveFlight = functions.https.onCall(
 
     const techlogEntry =
       data.troublesObservations === 'troubles' &&
-      !data.id &&
+      (!data.id || data.version === 0) &&
       aircraftSettings.techlogEnabled === true
         ? {
             description: data.techlogEntryDescription.trim(),
@@ -231,7 +242,7 @@ const saveFlight = functions.https.onCall(
 
     flight.deleted = false
     flight.owner = owner
-    flight.version = 1
+    flight.version = data.id ? 1 : 0
     flight.createTimestamp = new Date()
 
     await db.runTransaction(async transaction => {
@@ -252,6 +263,7 @@ const saveFlight = functions.https.onCall(
       const lockDate = aircraftDoc.get('settings.lockDate')
       if (
         lockDate &&
+        flight.blockOffTime &&
         flight.blockOffTime.getTime() <= lockDate.toDate().getTime()
       ) {
         throw new Error(
@@ -290,15 +302,23 @@ const saveFlight = functions.https.onCall(
           )
         }
 
-        transaction.update(oldFlightDoc.ref, {
+        const oldFlightVersion = oldFlightDoc.get('version')
+
+        const oldFlightUpdateData = {
           deleted: true,
           replacedWith: newFlightRef.id,
           deletedBy: owner,
           deleteTimestamp: new Date()
-        })
+        }
+
+        if (oldFlightVersion === 0) {
+          oldFlightUpdateData.blockOffTime = flight.blockOffTime // ensure correct order if archived flights are shown
+        }
+
+        transaction.update(oldFlightDoc.ref, oldFlightUpdateData)
 
         flight.replaces = oldFlightRef.id
-        flight.version = oldFlightDoc.get('version') + 1
+        flight.version = oldFlightVersion + 1
       }
 
       await transaction.set(newFlightRef, flight)

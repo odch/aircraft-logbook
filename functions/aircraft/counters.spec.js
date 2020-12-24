@@ -7,6 +7,7 @@ describe('aircraft', () => {
     describe('getCounters', () => {
       it('should set end counters from data', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           landings: 1,
           blockOffTime: '2019-03-01 10:00',
           blockOnTime: '2019-03-01 11:00',
@@ -88,6 +89,7 @@ describe('aircraft', () => {
 
       it('should throw error if property landings is missing', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           counters: {
             flights: {
               start: 12
@@ -107,6 +109,7 @@ describe('aircraft', () => {
 
       it('should throw error if property blockOffTime is missing', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           landings: 1,
           counters: {
             flights: {
@@ -127,6 +130,7 @@ describe('aircraft', () => {
 
       it('should throw error if property blockOnTime is missing', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           landings: 1,
           blockOffTime: '2019-03-01 10:00',
           counters: {
@@ -148,6 +152,7 @@ describe('aircraft', () => {
 
       it('should throw error if property takeOffTime is missing', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           landings: 1,
           blockOffTime: '2019-03-01 10:00',
           blockOnTime: '2019-03-01 11:00',
@@ -170,6 +175,7 @@ describe('aircraft', () => {
 
       it('should throw error if property landingTime is missing', () => {
         const data = {
+          id: 'sStfyLd2XArT7oUZPFDn',
           landings: 1,
           blockOffTime: '2019-03-01 10:00',
           blockOnTime: '2019-03-01 11:00',
