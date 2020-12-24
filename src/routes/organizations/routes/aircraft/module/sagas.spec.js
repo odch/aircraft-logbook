@@ -534,7 +534,11 @@ describe('routes', () => {
               'fuelUplift',
               'fuelType',
               'oilUplift',
-              'preflightCheck'
+              'preflightCheck',
+              'counters.flights.start',
+              'counters.landings.start',
+              'counters.flightHours.start',
+              'counters.engineHours.start'
             ]
 
             const expectedEditableFields = [
@@ -546,7 +550,14 @@ describe('routes', () => {
               'fuelUplift',
               'fuelType',
               'oilUplift',
-              'preflightCheck'
+              'preflightCheck',
+              'departureAerodrome',
+              'counters.flightTimeCounter.start',
+              'counters.engineTimeCounter.start',
+              'counters.flights.start',
+              'counters.landings.start',
+              'counters.flightHours.start',
+              'counters.engineHours.start'
             ]
 
             it('should set the default values for the new flight', () => {

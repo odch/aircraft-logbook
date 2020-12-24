@@ -295,7 +295,13 @@ export function* initCreateFlightDialog({
         'fuelUplift',
         'fuelType',
         'oilUplift',
-        'preflightCheck'
+        'preflightCheck',
+
+        // required initial values
+        'counters.flights.start',
+        'counters.landings.start',
+        'counters.flightHours.start',
+        'counters.engineHours.start'
       ],
       [
         'date',
@@ -306,7 +312,16 @@ export function* initCreateFlightDialog({
         'fuelUplift',
         'fuelType',
         'oilUplift',
-        'preflightCheck'
+        'preflightCheck',
+
+        // required initial values
+        'departureAerodrome',
+        'counters.flightTimeCounter.start',
+        'counters.engineTimeCounter.start',
+        'counters.flights.start',
+        'counters.landings.start',
+        'counters.flightHours.start',
+        'counters.engineHours.start'
       ]
     )
   )
