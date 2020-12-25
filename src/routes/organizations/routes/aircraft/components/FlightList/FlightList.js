@@ -60,6 +60,9 @@ const styles = theme => ({
   },
   showDeletedSwitch: {
     float: 'right'
+  },
+  flightSummaryContent: {
+    flexWrap: 'wrap'
   }
 })
 
@@ -273,7 +276,12 @@ class FlightList extends React.Component {
 
   renderSummary(flight) {
     return (
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        classes={{
+          content: this.props.classes.flightSummaryContent
+        }}
+      >
         <FlightSummary flight={flight} showDeleted={this.props.showDeleted} />
       </ExpansionPanelSummary>
     )
