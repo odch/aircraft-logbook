@@ -393,23 +393,23 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content"
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-151"
         >
           <div
-            className="FlightSummary-flightHeading-151"
+            className="FlightSummary-flightHeading-152"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-153"
+                className="FlightSummary-bold-154"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightSummary-bold-153"
+                className="FlightSummary-bold-154"
               >
                 LSZT
               </span>
@@ -417,7 +417,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-152 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-153 MuiTypography-body1"
           >
             20.11.2018
             ,

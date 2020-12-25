@@ -12,8 +12,11 @@ import FlightTag from './FlightTag'
 const styles = theme => ({
   flightHeading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '50%',
-    flexShrink: 0
+    flexBasis: '100%',
+    flexShrink: 0,
+    [theme.breakpoints.up(700 + theme.spacing(3 * 2))]: {
+      flexBasis: '50%'
+    }
   },
   flightSecondaryHeading: {
     fontSize: theme.typography.pxToRem(15),

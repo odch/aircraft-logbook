@@ -37,7 +37,7 @@ Array [
       >
         <span
           aria-disabled={false}
-          className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-45 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+          className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiSwitch-switchBase MuiSwitch-colorSecondary"
           onBlur={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
@@ -58,7 +58,7 @@ Array [
               className="MuiSwitch-thumb"
             />
             <input
-              className="PrivateSwitchBase-input-48 MuiSwitch-input"
+              className="PrivateSwitchBase-input-49 MuiSwitch-input"
               onChange={[Function]}
               type="checkbox"
             />
@@ -102,30 +102,30 @@ Array [
         tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content"
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-7"
         >
           <div
-            className="FlightSummary-flightHeading-125"
+            className="FlightSummary-flightHeading-126"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-127"
+                className="FlightSummary-bold-128"
               >
                 LSZT
               </span>
                — Max Muster
             </p>
             <span
-              className="MuiTypography-root FlightTag-tag-129 MuiTypography-body1"
+              className="MuiTypography-root FlightTag-tag-130 MuiTypography-body1"
             >
               Preflight
             </span>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-127 MuiTypography-body1"
           >
             20.11.2018
           </p>
@@ -210,23 +210,23 @@ Array [
         tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content"
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-7"
         >
           <div
-            className="FlightSummary-flightHeading-125"
+            className="FlightSummary-flightHeading-126"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-127"
+                className="FlightSummary-bold-128"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightSummary-bold-127"
+                className="FlightSummary-bold-128"
               >
                 LSZT
               </span>
@@ -234,7 +234,7 @@ Array [
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-127 MuiTypography-body1"
           >
             20.11.2018
             ,
@@ -324,23 +324,23 @@ Array [
         tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content"
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-7"
         >
           <div
-            className="FlightSummary-flightHeading-125"
+            className="FlightSummary-flightHeading-126"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-127"
+                className="FlightSummary-bold-128"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightSummary-bold-127"
+                className="FlightSummary-bold-128"
               >
                 LSZT
               </span>
@@ -348,7 +348,7 @@ Array [
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-127 MuiTypography-body1"
           >
             21.11.2018
             ,
