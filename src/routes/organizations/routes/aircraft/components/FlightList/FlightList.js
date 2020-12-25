@@ -39,8 +39,16 @@ const styles = theme => ({
     position: 'relative',
     minHeight: '100px'
   },
-  createCorrectionButton: {
-    marginLeft: '1em'
+  buttonsContainer: {
+    '&::after': {
+      content: '""',
+      clear: 'both',
+      display: 'table'
+    }
+  },
+  button: {
+    marginBottom: '0.5em',
+    marginRight: '1em'
   },
   container: {
     marginTop: '1em'
@@ -153,44 +161,47 @@ class FlightList extends React.Component {
 
     return (
       <React.Fragment>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleCreateClick}
-        >
-          <FormattedMessage
-            id={
-              this.newestFlightIsPreflight()
-                ? 'aircraftdetail.completeflight'
-                : 'aircraftdetail.createflight'
-            }
-          />
-        </Button>
-        {this.isTechlogManager() &&
-          flights.length > 0 &&
-          !this.newestFlightIsPreflight() && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.handleCreateCorrectionClick}
-              className={classes.createCorrectionButton}
-            >
-              <FormattedMessage id="aircraftdetail.createcorrectionflight" />
-            </Button>
+        <div className={classes.buttonsContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleCreateClick}
+            className={classes.button}
+          >
+            <FormattedMessage
+              id={
+                this.newestFlightIsPreflight()
+                  ? 'aircraftdetail.completeflight'
+                  : 'aircraftdetail.createflight'
+              }
+            />
+          </Button>
+          {this.isTechlogManager() &&
+            flights.length > 0 &&
+            !this.newestFlightIsPreflight() && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateCorrectionClick}
+                className={classes.button}
+              >
+                <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+              </Button>
+            )}
+          {hideDeletedSwitch !== true && this.isOrganizationManager() && (
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={this.handleShowDeletedChange}
+                  checked={showDeleted}
+                />
+              }
+              labelPlacement="start"
+              label={this.msg('flightlist.showdeleted')}
+              className={classes.showDeletedSwitch}
+            />
           )}
-        {hideDeletedSwitch !== true && this.isOrganizationManager() && (
-          <FormControlLabel
-            control={
-              <Switch
-                onChange={this.handleShowDeletedChange}
-                checked={showDeleted}
-              />
-            }
-            labelPlacement="start"
-            label={this.msg('flightlist.showdeleted')}
-            className={classes.showDeletedSwitch}
-          />
-        )}
+        </div>
         <div className={classes.container}>
           {flights.length > 0 ? this.renderFlights() : this.renderNoFlights()}
           {!hidePagination && flights.length > 0 && (

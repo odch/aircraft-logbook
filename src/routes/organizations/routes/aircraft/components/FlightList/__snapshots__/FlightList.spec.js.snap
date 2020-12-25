@@ -2,77 +2,81 @@
 
 exports[`routes organizations routes aircraft components FlightList renders correctly 1`] = `
 Array [
-  <button
-    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
-    disabled={false}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onDragLeave={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onMouseDown={[Function]}
-    onMouseLeave={[Function]}
-    onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
-    onTouchStart={[Function]}
-    tabIndex={0}
-    type="button"
+  <div
+    className="FlightList-buttonsContainer-2"
   >
-    <span
-      className="MuiButton-label"
-    >
-      Flug abschliessen
-    </span>
-  </button>,
-  <label
-    className="MuiFormControlLabel-root FlightList-showDeletedSwitch-5 MuiFormControlLabel-labelPlacementStart"
-  >
-    <span
-      className="MuiSwitch-root"
+    <button
+      className="MuiButtonBase-root MuiButton-root FlightList-button-3 MuiButton-contained MuiButton-containedPrimary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
     >
       <span
-        aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-44 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-        onBlur={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={null}
+        className="MuiButton-label"
+      >
+        Flug abschliessen
+      </span>
+    </button>
+    <label
+      className="MuiFormControlLabel-root FlightList-showDeletedSwitch-6 MuiFormControlLabel-labelPlacementStart"
+    >
+      <span
+        className="MuiSwitch-root"
       >
         <span
-          className="MuiIconButton-label"
+          aria-disabled={false}
+          className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-45 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={null}
         >
           <span
-            className="MuiSwitch-thumb"
-          />
-          <input
-            className="PrivateSwitchBase-input-47 MuiSwitch-input"
-            onChange={[Function]}
-            type="checkbox"
-          />
+            className="MuiIconButton-label"
+          >
+            <span
+              className="MuiSwitch-thumb"
+            />
+            <input
+              className="PrivateSwitchBase-input-48 MuiSwitch-input"
+              onChange={[Function]}
+              type="checkbox"
+            />
+          </span>
         </span>
+        <span
+          className="MuiSwitch-track"
+        />
       </span>
       <span
-        className="MuiSwitch-track"
-      />
-    </span>
-    <span
-      className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-    >
-      Archivierte einblenden
-    </span>
-  </label>,
+        className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+      >
+        Archivierte einblenden
+      </span>
+    </label>
+  </div>,
   <div
-    className="FlightList-container-3"
+    className="FlightList-container-4"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -101,27 +105,27 @@ Array [
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightSummary-flightHeading-124"
+            className="FlightSummary-flightHeading-125"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-126"
+                className="FlightSummary-bold-127"
               >
                 LSZT
               </span>
                — Max Muster
             </p>
             <span
-              className="MuiTypography-root FlightTag-tag-128 MuiTypography-body1"
+              className="MuiTypography-root FlightTag-tag-129 MuiTypography-body1"
             >
               Preflight
             </span>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-125 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
           >
             20.11.2018
           </p>
@@ -209,20 +213,20 @@ Array [
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightSummary-flightHeading-124"
+            className="FlightSummary-flightHeading-125"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-126"
+                className="FlightSummary-bold-127"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightSummary-bold-126"
+                className="FlightSummary-bold-127"
               >
                 LSZT
               </span>
@@ -230,7 +234,7 @@ Array [
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-125 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
           >
             20.11.2018
             ,
@@ -323,20 +327,20 @@ Array [
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="FlightSummary-flightHeading-124"
+            className="FlightSummary-flightHeading-125"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightSummary-bold-126"
+                className="FlightSummary-bold-127"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightSummary-bold-126"
+                className="FlightSummary-bold-127"
               >
                 LSZT
               </span>
@@ -344,7 +348,7 @@ Array [
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightSummary-flightSecondaryHeading-125 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-126 MuiTypography-body1"
           >
             21.11.2018
             ,
