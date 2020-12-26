@@ -344,6 +344,8 @@
   "aircraft.settings.fueltype.delete.dialog.buttons.delete": "Typ löschen",
   "aircraft.settings.advanced": "Erweiterte Einstellungen",
   "aircraft.settings.advanced.techlogenabled": "Techlog aktiviert",
+  "aircraft.settings.advanced.flighttimecounterenabled": "Flugstunden-Zähler aktiviert",
+  "aircraft.settings.advanced.flighttimecounterfractiondigits": "Anzahl Nachkommastellen bei Flugstunden-Zähler",
   "aircraft.settings.advanced.enginehourscounterenabled": "Motorstunden-Zähler aktiviert",
   "aircraft.settings.advanced.enginehourscounterfractiondigits": "Anzahl Nachkommastellen bei Motorstunden-Zähler",
   "aircraft.counter.flighthours": "Flugstunden",
