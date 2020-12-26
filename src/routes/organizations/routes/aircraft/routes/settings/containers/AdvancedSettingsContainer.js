@@ -10,6 +10,16 @@ const mapStateToProps = (state, ownProps) => {
 
   const aircraft = getAircraft(state, aircraftId)
   const techlogEnabled = _get(aircraft, 'settings.techlogEnabled', false)
+  const flightTimeCounterEnabled = _get(
+    aircraft,
+    'settings.flightTimeCounterEnabled',
+    false
+  )
+  const flightTimeCounterFractionDigits = _get(
+    aircraft,
+    'settings.flightTimeCounterFractionDigits',
+    2
+  )
   const engineHoursCounterEnabled = _get(
     aircraft,
     'settings.engineHoursCounterEnabled',
@@ -26,6 +36,8 @@ const mapStateToProps = (state, ownProps) => {
     aircraftId,
     settings: {
       techlogEnabled,
+      flightTimeCounterEnabled,
+      flightTimeCounterFractionDigits,
       engineHoursCounterEnabled,
       engineHoursCounterFractionDigits
     },

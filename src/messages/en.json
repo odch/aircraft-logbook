@@ -320,6 +320,8 @@
   "aircraft.counter.flighthours": "Flight hours",
   "aircraft.counter.enginehours": "Motor hours",
   "aircraft.counter.landings": "Landings",
+  "aircraft.settings.advanced.flighttimecounterenabled": "Flight hours counter enabled",
+  "aircraft.settings.advanced.flighttimecounterfractiondigits": "Number of decimal places for flight hours counter",
   "aircraft.settings.advanced.enginehourscounterfractiondigits": "Number of decimal places for engine hour counter",
   "aircraft.settings.advanced.enginehourscounterenabled": "Motor hours counter enabled",
   "aircraft.settings.advanced.techlogenabled": "Techlog enabled",

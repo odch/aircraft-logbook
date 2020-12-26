@@ -14,11 +14,15 @@ const AdvancedSettings = ({
   aircraftId,
   settings: {
     techlogEnabled,
+    flightTimeCounterEnabled,
+    flightTimeCounterFractionDigits,
     engineHoursCounterEnabled,
     engineHoursCounterFractionDigits
   },
   submitting: {
     techlogEnabled: techlogEnabledSubmitting,
+    flightTimeCounterEnabled: flightTimeCounterEnabledSubmitting,
+    flightTimeCounterFractionDigits: flightTimeCounterFractionDigitsSubmitting,
     engineHoursCounterEnabled: engineHoursCounterEnabledSubmitting,
     engineHoursCounterFractionDigits: engineHoursCounterFractionDigitsSubmitting
   },
@@ -30,6 +34,37 @@ const AdvancedSettings = ({
       <FormattedMessage id="aircraft.settings.advanced" />
     </Typography>
     <List>
+      <SettingSwitch
+        label={msg(intl, 'aircraft.settings.advanced.flighttimecounterenabled')}
+        checked={flightTimeCounterEnabled}
+        submitting={flightTimeCounterEnabledSubmitting}
+        onChange={updateSetting.bind(
+          null,
+          organizationId,
+          aircraftId,
+          'flightTimeCounterEnabled'
+        )}
+      />
+      {flightTimeCounterEnabled && (
+        <SettingSelect
+          label={msg(
+            intl,
+            'aircraft.settings.advanced.flighttimecounterfractiondigits'
+          )}
+          value={flightTimeCounterFractionDigits}
+          options={[
+            { value: 1, label: '1' },
+            { value: 2, label: '2' }
+          ]}
+          submitting={flightTimeCounterFractionDigitsSubmitting}
+          onChange={updateSetting.bind(
+            null,
+            organizationId,
+            aircraftId,
+            'flightTimeCounterFractionDigits'
+          )}
+        />
+      )}
       <SettingSwitch
         label={msg(
           intl,
@@ -84,11 +119,15 @@ AdvancedSettings.propTypes = {
   aircraftId: PropTypes.string.isRequired,
   settings: PropTypes.shape({
     techlogEnabled: PropTypes.bool.isRequired,
+    flightTimeCounterEnabled: PropTypes.bool.isRequired,
+    flightTimeCounterFractionDigits: PropTypes.oneOf([1, 2]).isRequired,
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]).isRequired
   }),
   submitting: PropTypes.shape({
     techlogEnabled: PropTypes.bool,
+    flightTimeCounterEnabled: PropTypes.bool,
+    flightTimeCounterFractionDigits: PropTypes.bool,
     engineHoursCounterEnabled: PropTypes.bool,
     engineHoursCounterFractionDigits: PropTypes.bool
   }).isRequired,
