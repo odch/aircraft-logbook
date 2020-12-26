@@ -174,7 +174,11 @@ class CorrectionFlightCreateDialog extends React.Component {
             </DialogContentText>
             {this.renderAerodromeCorrectionSet()}
             {this.renderDecimalCorrectionSet('counters.flightHours')}
-            {this.renderDecimalCorrectionSet('counters.flightTimeCounter')}
+            {aircraftSettings.flightTimeCounterEnabled &&
+              this.renderDecimalCorrectionSet(
+                'counters.flightTimeCounter',
+                aircraftSettings.flightTimeCounterFractionDigits
+              )}
             {this.renderIntegerCorrectionSet('counters.landings')}
             {aircraftSettings.engineHoursCounterEnabled &&
               this.renderDecimalCorrectionSet(
@@ -488,6 +492,8 @@ CorrectionFlightCreateDialog.propTypes = {
   loadMembers: PropTypes.func.isRequired,
   loadAerodromes: PropTypes.func.isRequired,
   aircraftSettings: PropTypes.shape({
+    flightTimeCounterEnabled: PropTypes.bool.isRequired,
+    flightTimeCounterFractionDigits: PropTypes.oneOf([1, 2]),
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
     lockDate: PropTypes.object

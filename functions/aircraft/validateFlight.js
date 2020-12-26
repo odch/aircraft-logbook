@@ -69,8 +69,10 @@ const validateSync = (data, aircraftSettings) => {
   }
 
   const flightTimeStart = _get(data, 'counters.flightTimeCounter.start')
-  if (typeof flightTimeStart !== 'number') {
-    errors['counters.flightTimeCounter.start'] = 'required'
+  if (aircraftSettings.flightTimeCounterEnabled === true) {
+    if (typeof flightTimeStart !== 'number') {
+      errors['counters.flightTimeCounter.start'] = 'required'
+    }
   }
 
   const engineTimeStart = _get(data, 'counters.engineTimeCounter.start')
@@ -177,16 +179,18 @@ const validateSync = (data, aircraftSettings) => {
       }
     }
 
-    const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
-    if (typeof flightTimeEnd !== 'number') {
-      errors['counters.flightTimeCounter.end'] = 'required'
-    }
-    if (
-      !isNullOrUndefined(flightTimeStart) &&
-      !isNullOrUndefined(flightTimeEnd)
-    ) {
-      if (flightTimeEnd < flightTimeStart) {
-        errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
+    if (aircraftSettings.flightTimeCounterEnabled === true) {
+      const flightTimeEnd = _get(data, 'counters.flightTimeCounter.end')
+      if (typeof flightTimeEnd !== 'number') {
+        errors['counters.flightTimeCounter.end'] = 'required'
+      }
+      if (
+        !isNullOrUndefined(flightTimeStart) &&
+        !isNullOrUndefined(flightTimeEnd)
+      ) {
+        if (flightTimeEnd < flightTimeStart) {
+          errors['counters.flightTimeCounter.end'] = 'not_before_start_counter'
+        }
       }
     }
 

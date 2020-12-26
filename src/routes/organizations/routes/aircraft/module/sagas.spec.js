@@ -520,13 +520,18 @@ describe('routes', () => {
               timezone: 'Europe/Zurich'
             }
 
-            const expectedVisibleFields = engineCounterEnabled => [
+            const expectedVisibleFields = (
+              flightTimeCounterEnabled,
+              engineCounterEnabled
+            ) => [
               'date',
               'pilot',
               'instructor',
               'nature',
               'departureAerodrome',
-              'counters.flightTimeCounter.start',
+              ...(flightTimeCounterEnabled
+                ? ['counters.flightTimeCounter.start']
+                : []),
               ...(engineCounterEnabled
                 ? ['counters.engineTimeCounter.start']
                 : []),
@@ -562,6 +567,7 @@ describe('routes', () => {
 
             it('should set the default values for the new flight', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: true,
                 engineHoursCounterEnabled: true
               }
 
@@ -606,15 +612,16 @@ describe('routes', () => {
                 .put(
                   actions.setInitialCreateFlightDialogData(
                     expectedDefaultValues,
-                    expectedVisibleFields(true),
+                    expectedVisibleFields(true, true),
                     expectedEditableFields
                   )
                 )
                 .run()
             })
 
-            it('should not set engine hours start counter if not enabled', () => {
+            it('should not set flight time and engine hours start counters if not enabled', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: false,
                 engineHoursCounterEnabled: false
               }
 
@@ -632,8 +639,7 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  landings: { start: 2357 },
-                  flightTimeCounter: { start: 9250 }
+                  landings: { start: 2357 }
                 },
                 blockOffTime: endOfToday,
                 takeOffTime: null,
@@ -657,7 +663,7 @@ describe('routes', () => {
                 .put(
                   actions.setInitialCreateFlightDialogData(
                     expectedDefaultValues,
-                    expectedVisibleFields(false),
+                    expectedVisibleFields(false, false),
                     expectedEditableFields
                   )
                 )
@@ -700,6 +706,7 @@ describe('routes', () => {
 
             it('should set the default values for the new correction flight', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: true,
                 engineHoursCounterEnabled: true
               }
 
@@ -746,8 +753,9 @@ describe('routes', () => {
                 .run()
             })
 
-            it('should not set engine hours start counter if not enabled', () => {
+            it('should not set flight time and engine hours start counters if not enabled', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: false,
                 engineHoursCounterEnabled: false
               }
 
@@ -766,8 +774,7 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  landings: { start: 2357 },
-                  flightTimeCounter: { start: 9250 }
+                  landings: { start: 2357 }
                 }
               }
 
@@ -999,6 +1006,7 @@ describe('routes', () => {
             }
 
             const aircraftSettings = {
+              flightTimeCounterEnabled: true,
               engineHoursCounterEnabled: true,
               fuelTypes: [
                 {
