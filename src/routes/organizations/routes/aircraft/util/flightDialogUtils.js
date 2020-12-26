@@ -28,6 +28,10 @@ export const aircraftSettings = (state, aircraftId) => {
     )
     return {
       fuelTypes: fuelTypeOptions,
+      flightTimeCounterEnabled:
+        aircraftSettings.flightTimeCounterEnabled === true,
+      flightTimeCounterFractionDigits:
+        aircraftSettings.flightTimeCounterFractionDigits,
       engineHoursCounterEnabled:
         aircraftSettings.engineHoursCounterEnabled === true,
       engineHoursCounterFractionDigits:

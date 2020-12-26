@@ -51,9 +51,11 @@ describe('aircraft', () => {
       const orgId = 'my_org'
       const aircraftId = 'my_aircraft'
       const aircraftSettings1 = {
+        flightTimeCounterEnabled: true,
         engineHoursCounterEnabled: true
       }
       const aircraftSettings2 = {
+        flightTimeCounterEnabled: false,
         engineHoursCounterEnabled: false,
         lockDate: {
           toDate: () => new Date(2019, 0, 6, 24, 0, 0)
@@ -586,6 +588,15 @@ describe('aircraft', () => {
           aircraftSettings1,
           'counters.engineTimeCounter.end',
           'not_before_start_counter'
+        )
+      })
+
+      it('should return no error if flight time counter is missing or invalid but not enabled in settings', () => {
+        return testFn(
+          {},
+          aircraftSettings2,
+          'counters.flightTimeCounter.start',
+          undefined
         )
       })
 
