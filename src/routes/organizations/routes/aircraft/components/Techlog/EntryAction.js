@@ -10,7 +10,9 @@ import Attachments from './Attachments'
 
 const styles = theme => ({
   actionContainer: {
-    display: 'flex',
+    [theme.breakpoints.up(700 + theme.spacing(3 * 2))]: {
+      display: 'flex'
+    },
     marginBottom: '1em'
   },
   actionDescriptionContainer: {
@@ -75,7 +77,7 @@ const Action = ({
         />
       </div>
       <Typography paragraph className={classes.metaInfo}>
-        {author.firstname} {author.lastname}, {formatDate(timestamp)}{' '}
+        {author.firstname} {author.lastname}, {formatDate(timestamp)}&nbsp;
         {formatTime(timestamp)}
       </Typography>
     </div>
