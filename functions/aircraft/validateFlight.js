@@ -11,8 +11,8 @@ const isBefore = (dateTime, timezone, comparisonDateTime, comparisonTimezone) =>
     .tz(dateTime, timezone)
     .isBefore(moment.tz(comparisonDateTime, comparisonTimezone))
 
-const getLastFlight = async (organizationId, aircraftId, db) => {
-  const lastFlight = await db
+const getLastFlights = async (organizationId, aircraftId, db) => {
+  const lastFlights = await db
     .collection('organizations')
     .doc(organizationId)
     .collection('aircrafts')
@@ -20,9 +20,9 @@ const getLastFlight = async (organizationId, aircraftId, db) => {
     .collection('flights')
     .where('deleted', '==', false)
     .orderBy('blockOffTime', 'desc')
-    .limit(1)
+    .limit(2)
     .get()
-  return !lastFlight.empty ? lastFlight.docs[0].data() : null
+  return lastFlights.docs
 }
 
 const validateSync = (data, aircraftSettings) => {
@@ -213,23 +213,55 @@ const validateSync = (data, aircraftSettings) => {
   return errors
 }
 
+const isPreflight = flight => flight.get('version') === 0
+
+const getLastCompleteFlight = lastFlights => {
+  if (!isPreflight(lastFlights[0])) {
+    return lastFlights[0]
+  }
+  if (lastFlights.length > 1) {
+    if (!isPreflight(lastFlights[1])) {
+      return lastFlights[1]
+    }
+    throw new Error('Illegal state: 2 preflight entries')
+  }
+  return null
+}
+
+const isNewPreflight = data => !data.id
+
+const isFlightCompletion = (data, lastFlight) =>
+  !isNewPreflight(data) && isPreflight(lastFlight) && data.id === lastFlight.id
+
 const validateAsync = async (data, organizationId, aircraftId, db) => {
   const errors = {}
 
+  const lastFlights = await getLastFlights(organizationId, aircraftId, db)
+
+  if (lastFlights.length === 0) {
+    return errors
+  }
+
+  const lastCompleteFlight = getLastCompleteFlight(lastFlights)
+
+  if (isNewPreflight(data) && isPreflight(lastFlights[0])) {
+    throw new Error('Not allowed to create 2 subsequent preflight entries')
+  }
+
   // date and time and so on currently not editable when updating flights
   // -> no need to validate in this case
-  if (!data.id) {
-    const lastFlight = await getLastFlight(organizationId, aircraftId, db)
+  if (isNewPreflight(data) || isFlightCompletion(data, lastFlights[0])) {
     const isBeforeLastFlight =
-      lastFlight &&
+      lastCompleteFlight &&
       isBefore(
         data.blockOffTime,
         data.departureAerodrome.timezone,
-        lastFlight.blockOnTime.toDate(),
-        lastFlight.destinationAerodrome.timezone
+        lastCompleteFlight.get('blockOnTime').toDate(),
+        lastCompleteFlight.get('destinationAerodrome').timezone
       )
     if (isBeforeLastFlight) {
-      errors['blockOffTime'] = 'not_before_block_on_time_last_flight'
+      const field = isNewPreflight(data) ? 'date' : 'blockOffTime'
+      errors[field] = 'not_before_block_on_time_last_flight'
     }
   }
 
@@ -273,15 +305,21 @@ const validateCorrectionAsync = async (
 ) => {
   const errors = {}
 
-  const lastFlight = await getLastFlight(organizationId, aircraftId, db)
-  const isBeforeLastFlight =
-    lastFlight &&
-    isBefore(
-      data.time,
-      (data.newAerodrome || data.aerodrome).timezone,
-      lastFlight.blockOnTime.toDate(),
-      lastFlight.destinationAerodrome.timezone
-    )
+  const lastFlights = await getLastFlights(organizationId, aircraftId, db)
+
+  if (lastFlights.length === 0) {
+    throw new Error('Not allowed to create correction flight as first record')
+  }
+  if (isPreflight(lastFlights[1])) {
+    throw new Error('Not allowed to create correction flight after preflight')
+  }
+
+  const isBeforeLastFlight = isBefore(
+    data.time,
+    (data.newAerodrome || data.aerodrome).timezone,
+    lastFlights[1].get('blockOnTime').toDate(),
+    lastFlights[1].get('destinationAerodrome').timezone
+  )
   if (isBeforeLastFlight) {
     errors['time'] = 'not_before_block_on_time_last_flight'
   }

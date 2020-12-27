@@ -173,6 +173,7 @@
   "flight.create.dialog.buttons.create": "Speichern",
   "flight.create.dialog.validation.date.invalid": "Bitte gültiges Datum eingeben",
   "flight.create.dialog.validation.date.not_before_lock_date": "Bitte Datum nach dem Sperrdatum eingeben",
+  "flight.create.dialog.validation.date.not_before_block_on_time_last_flight": "Darf nicht vor Datum des letzten Flugs liegen",
   "flight.create.dialog.validation.pilot.required": "Bitte Pilot auswählen",
   "flight.create.dialog.validation.nature.required": "Bitte Typ auswählen",
   "flight.create.dialog.validation.departureaerodrome.required": "Bitte Startflugplatz auswählen",

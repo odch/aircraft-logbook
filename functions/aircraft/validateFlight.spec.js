@@ -862,14 +862,11 @@ describe('aircraft', () => {
     const orgId = 'my_org'
     const aircraftId = 'my_aircraft'
 
-    const testFn = async (data, name, expectedError, lastFlight) => {
-      const docs = lastFlight
-        ? [
-            {
-              data: () => lastFlight
-            }
-          ]
-        : []
+    const testFn = async (data, name, expectedError, lastFlights) => {
+      const docs = lastFlights.map(f => ({
+        id: f.id,
+        get: field => f.data[field]
+      }))
       const db = {
         collection: () =>
           new Collection('organizations', null, 'organizations', {
@@ -889,13 +886,27 @@ describe('aircraft', () => {
     }
 
     it('should return an error if block off time is before block on time of last flight', () => {
-      const lastFlight = {
-        blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
-        destinationAerodrome: {
-          timezone: 'UTC'
+      const lastFlights = [
+        {
+          id: 'new-flight-id',
+          data: {
+            version: 0
+          }
+        },
+        {
+          id: 'last-flight-id',
+          data: {
+            version: 1,
+            blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
+            destinationAerodrome: {
+              timezone: 'UTC'
+            }
+          }
         }
-      }
+      ]
+
       const data = {
+        id: 'new-flight-id',
         blockOffTime: '2019-05-01 08:59',
         departureAerodrome: {
           timezone: 'UTC'
@@ -906,29 +917,43 @@ describe('aircraft', () => {
         data,
         'blockOffTime',
         'not_before_block_on_time_last_flight',
-        lastFlight
+        lastFlights
       )
     })
 
     it('should return no error if block off time is not before block on time of last flight', () => {
-      const lastFlight = {
-        blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
-        destinationAerodrome: {
-          timezone: 'UTC'
+      const lastFlights = [
+        {
+          id: 'new-flight-id',
+          data: {
+            version: 0
+          }
+        },
+        {
+          id: 'last-flight-id',
+          data: {
+            version: 1,
+            blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
+            destinationAerodrome: {
+              timezone: 'UTC'
+            }
+          }
         }
-      }
+      ]
+
       const data = {
+        id: 'new-flight-id',
         blockOffTime: '2019-05-01 09:00',
         departureAerodrome: {
           timezone: 'UTC'
         }
       }
 
-      return testFn(data, 'blockOffTime', undefined, lastFlight)
+      return testFn(data, 'blockOffTime', undefined, lastFlights)
     })
 
     it('should return no error if no last flight', () => {
-      const lastFlight = null
+      const lastFlights = []
       const data = {
         blockOffTime: '2019-05-01 08:59',
         departureAerodrome: {
@@ -936,7 +961,7 @@ describe('aircraft', () => {
         }
       }
 
-      return testFn(data, 'blockOffTime', undefined, lastFlight)
+      return testFn(data, 'blockOffTime', undefined, lastFlights)
     })
   })
 })
