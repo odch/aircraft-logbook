@@ -160,6 +160,7 @@
   "flight.create.dialog.buttons.create": "Save",
   "flight.create.dialog.validation.date.invalid": "Please enter a valid date",
   "flight.create.dialog.validation.date.not_before_lock_date": "Please enter a date after the lock date",
+  "flight.create.dialog.validation.date.not_before_block_on_time_last_flight": "Can not be before date of the previous flight",
   "flight.create.dialog.validation.pilot.required": "Please select a pilot",
   "flight.create.dialog.validation.nature.required": "Please choose nature of flight",
   "flight.create.dialog.validation.departureaerodrome.required": "Please enter departure aerodrome",
