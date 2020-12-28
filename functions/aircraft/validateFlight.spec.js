@@ -964,4 +964,141 @@ describe('aircraft', () => {
       return testFn(data, 'blockOffTime', undefined, lastFlights)
     })
   })
+
+  describe('validateCorrectionAsync', () => {
+    const orgId = 'my_org'
+    const aircraftId = 'my_aircraft'
+
+    const testFn = async (
+      data,
+      lastFlight,
+      name,
+      expectedError,
+      expectedException
+    ) => {
+      const docs = lastFlight
+        ? [
+            {
+              id: lastFlight.id,
+              get: field => lastFlight.data[field]
+            }
+          ]
+        : []
+      const db = {
+        collection: () =>
+          new Collection('organizations', null, 'organizations', {
+            'organizations.my_org.aircrafts.my_aircraft.flights': {
+              empty: docs.length === 0,
+              docs
+            }
+          })
+      }
+
+      if (expectedException) {
+        await expect(() =>
+          validateFlight.validateCorrectionAsync(data, orgId, aircraftId, db)
+        ).rejects.toThrow(expectedException)
+      } else {
+        const errors = await validateFlight.validateCorrectionAsync(
+          data,
+          orgId,
+          aircraftId,
+          db
+        )
+        expect(errors[name]).toEqual(expectedError)
+      }
+    }
+
+    it('should return an error if time is before block on time of last flight', () => {
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 1,
+          blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
+          destinationAerodrome: {
+            timezone: 'UTC'
+          }
+        }
+      }
+
+      const data = {
+        id: 'new-flight-id',
+        time: '2019-05-01 08:59',
+        aerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(
+        data,
+        lastFlight,
+        'time',
+        'not_before_block_on_time_last_flight'
+      )
+    })
+
+    it('should return no error if time is not before block on time of last flight', () => {
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 1,
+          blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
+          destinationAerodrome: {
+            timezone: 'UTC'
+          }
+        }
+      }
+
+      const data = {
+        id: 'new-flight-id',
+        time: '2019-05-01 09:00',
+        aerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(data, lastFlight, 'time', undefined)
+    })
+
+    it('should throw error if no last flight', () => {
+      const data = {
+        blockOffTime: '2019-05-01 08:59',
+        departureAerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(
+        data,
+        null,
+        null,
+        null,
+        'Not allowed to create correction flight as first record'
+      )
+    })
+
+    it('should throw error if last flight is preflight', () => {
+      const data = {
+        blockOffTime: '2019-05-01 08:59',
+        departureAerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 0
+        }
+      }
+
+      return testFn(
+        data,
+        lastFlight,
+        null,
+        null,
+        'Not allowed to create correction flight after preflight'
+      )
+    })
+  })
 })
