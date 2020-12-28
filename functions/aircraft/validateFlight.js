@@ -310,15 +310,18 @@ const validateCorrectionAsync = async (
   if (lastFlights.length === 0) {
     throw new Error('Not allowed to create correction flight as first record')
   }
-  if (isPreflight(lastFlights[1])) {
+
+  const lastFlight = lastFlights[0]
+
+  if (isPreflight(lastFlight)) {
     throw new Error('Not allowed to create correction flight after preflight')
   }
 
   const isBeforeLastFlight = isBefore(
     data.time,
     (data.newAerodrome || data.aerodrome).timezone,
-    lastFlights[1].get('blockOnTime').toDate(),
-    lastFlights[1].get('destinationAerodrome').timezone
+    lastFlight.get('blockOnTime').toDate(),
+    lastFlight.get('destinationAerodrome').timezone
   )
   if (isBeforeLastFlight) {
     errors['time'] = 'not_before_block_on_time_last_flight'
