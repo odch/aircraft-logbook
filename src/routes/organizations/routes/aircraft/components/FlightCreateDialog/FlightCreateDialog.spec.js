@@ -15,6 +15,7 @@ const AIRCRAFT_SETTINGS = {
       label: 'AvGas'
     }
   ],
+  flightTimeCounterEnabled: true,
   engineHoursCounterEnabled: true,
   techlogEnabled: true
 }

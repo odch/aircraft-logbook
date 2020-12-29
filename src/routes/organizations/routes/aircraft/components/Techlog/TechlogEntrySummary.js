@@ -8,10 +8,20 @@ import Attachments from './Attachments'
 import EntryStatus from './EntryStatus'
 
 const styles = theme => ({
+  headingContainer: {
+    display: 'flex',
+    flex: 1,
+    flexWrap: 'wrap'
+  },
   entryHeading: {
     fontSize: theme.typography.pxToRem(15),
     display: 'block',
-    flex: 1
+    flex: 1,
+    flexBasis: '50%',
+    [theme.breakpoints.down(700 + theme.spacing(3 * 2))]: {
+      flexBasis: '100%',
+      marginBottom: '1em'
+    }
   },
   entryNumber: {
     marginRight: '1em',
@@ -49,27 +59,30 @@ const TechlogEntrySummary = ({
         className={classes.entryNumberText}
       >{`#${number}`}</Typography>
     </div>
-    <div className={classes.entryHeading}>
-      <Typography paragraph className={classes.description}>
-        {description.split('\n').map((line, idx) => (
-          <React.Fragment key={idx}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
+    <div className={classes.headingContainer}>
+      <div className={classes.entryHeading}>
+        <Typography paragraph className={classes.description}>
+          {description.split('\n').map((line, idx) => (
+            <React.Fragment key={idx}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
+        </Typography>
+        <Attachments
+          organizationId={organizationId}
+          aircraftId={aircraftId}
+          techlogEntryId={id}
+          authToken={authToken}
+          attachments={attachments}
+        />
+        <EntryStatus id={currentStatus} />
+      </div>
+      <Typography className={classes.entrySecondaryHeading}>
+        {firstname} {lastname}, {formatDate(timestamp)}&nbsp;
+        {formatTime(timestamp)}
       </Typography>
-      <Attachments
-        organizationId={organizationId}
-        aircraftId={aircraftId}
-        techlogEntryId={id}
-        authToken={authToken}
-        attachments={attachments}
-      />
-      <EntryStatus id={currentStatus} />
     </div>
-    <Typography className={classes.entrySecondaryHeading}>
-      {firstname} {lastname}, {formatDate(timestamp)} {formatTime(timestamp)}
-    </Typography>
   </>
 )
 

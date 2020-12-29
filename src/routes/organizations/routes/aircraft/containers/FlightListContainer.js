@@ -34,6 +34,7 @@ const mapStateToProps = (state, ownProps) => {
     organization,
     aircraft,
     flights,
+    newestFlight: flights && flights.length > 0 ? flights[0] : null,
     pagination,
     createFlightDialogOpen: state.aircraft.createFlightDialog.open,
     createCorrectionFlightDialogOpen:

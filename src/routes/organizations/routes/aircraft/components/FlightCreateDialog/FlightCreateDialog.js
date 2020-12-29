@@ -230,6 +230,8 @@ class FlightCreateDialog extends React.Component {
       loadAerodromes,
       aircraftSettings: {
         fuelTypes,
+        flightTimeCounterEnabled,
+        flightTimeCounterFractionDigits,
         engineHoursCounterEnabled,
         engineHoursCounterFractionDigits,
         lockDate
@@ -240,7 +242,9 @@ class FlightCreateDialog extends React.Component {
       <>
         <DialogTitle>
           <FormattedMessage
-            id={`flight.create.dialog.title${data.id ? '_update' : '_create'}`}
+            id={`flight.create.dialog.title${
+              data.version === 0 ? '_complete' : data.id ? '_update' : '_create'
+            }`}
           />
         </DialogTitle>
         <form onSubmit={this.handleSubmit}>
@@ -258,14 +262,20 @@ class FlightCreateDialog extends React.Component {
               this.hasInitialValue('departureAerodrome')
             )}
             {this.renderAerodromeSelect('destinationAerodrome', loadAerodromes)}
-            {this.renderInTwoColumns(
-              'counters.flighttimecounter',
-              this.renderDecimalField(
-                'counters.flightTimeCounter.start',
-                this.hasInitialValue('counters.flightTimeCounter.start')
-              ),
-              this.renderDecimalField('counters.flightTimeCounter.end')
-            )}
+            {flightTimeCounterEnabled &&
+              this.renderInTwoColumns(
+                'counters.flighttimecounter',
+                this.renderDecimalField(
+                  'counters.flightTimeCounter.start',
+                  this.hasInitialValue('counters.flightTimeCounter.start'),
+                  flightTimeCounterFractionDigits
+                ),
+                this.renderDecimalField(
+                  'counters.flightTimeCounter.end',
+                  false,
+                  flightTimeCounterFractionDigits
+                )
+              )}
             {engineHoursCounterEnabled &&
               this.renderInTwoColumns(
                 'counters.enginetimecounter',
@@ -282,7 +292,7 @@ class FlightCreateDialog extends React.Component {
               )}
             {this.renderTimePicker('blockOffTime')}
             {this.renderTimePicker('takeOffTime')}
-            {this.renderTimePicker('landingTime', true)}
+            {this.renderTimePicker('landingTime', flightTimeCounterEnabled)}
             {this.renderTimePicker('blockOnTime')}
             {this.renderIntegerField(
               'landings',
@@ -752,6 +762,8 @@ FlightCreateDialog.propTypes = {
         label: PropTypes.string.isRequired
       })
     ).isRequired,
+    flightTimeCounterEnabled: PropTypes.bool.isRequired,
+    flightTimeCounterFractionDigits: PropTypes.oneOf([1, 2]),
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
     techlogEnabled: PropTypes.bool.isRequired,

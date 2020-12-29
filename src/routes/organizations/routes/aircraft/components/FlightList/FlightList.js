@@ -27,36 +27,31 @@ import {
   organization as organizationShape,
   intl as intlShape
 } from '../../../../../../shapes'
-import { formatDate, formatTime, isBefore } from '../../../../../../util/dates'
+import { isBefore } from '../../../../../../util/dates'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
+import FlightSummary from './FlightSummary'
 import FlightDetails from './FlightDetails'
 import CorrectionFlightDetails from './CorrectionFlightDetails'
-import DeletionStatus from './DeletionStatus'
-import Version from './Version'
 
 const styles = theme => ({
   loadingIconContainer: {
     position: 'relative',
     minHeight: '100px'
   },
-  createCorrectionButton: {
-    marginLeft: '1em'
+  buttonsContainer: {
+    '&::after': {
+      content: '""',
+      clear: 'both',
+      display: 'table'
+    }
+  },
+  button: {
+    marginBottom: '0.5em',
+    marginRight: '1em'
   },
   container: {
     marginTop: '1em'
-  },
-  flightHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '50%',
-    flexShrink: 0
-  },
-  flightSecondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary
-  },
-  bold: {
-    fontWeight: 'bold'
   },
   deleted: {
     opacity: 0.7,
@@ -66,8 +61,8 @@ const styles = theme => ({
   showDeletedSwitch: {
     float: 'right'
   },
-  deletionStatus: {
-    marginRight: '0.5em'
+  flightSummaryContent: {
+    flexWrap: 'wrap'
   }
 })
 
@@ -101,9 +96,20 @@ class FlightList extends React.Component {
   }
 
   handleCreateClick = () => {
-    const { organization, aircraft } = this.props
-    this.props.openCreateFlightDialog()
-    this.props.initCreateFlightDialog(organization.id, aircraft.id)
+    const {
+      organization,
+      aircraft,
+      newestFlight,
+      openCreateFlightDialog,
+      initCreateFlightDialog,
+      openEditFlightDialog
+    } = this.props
+    if (this.newestFlightIsPreflight()) {
+      openEditFlightDialog(organization.id, aircraft.id, newestFlight.id)
+    } else {
+      openCreateFlightDialog()
+      initCreateFlightDialog(organization.id, aircraft.id)
+    }
   }
 
   handleCreateCorrectionClick = () => {
@@ -123,6 +129,11 @@ class FlightList extends React.Component {
   }
 
   msg = id => this.props.intl.formatMessage({ id })
+
+  newestFlightIsPreflight = () => {
+    const newestFlight = this.props.newestFlight
+    return newestFlight && newestFlight.version === 0
+  }
 
   render() {
     const {
@@ -153,36 +164,47 @@ class FlightList extends React.Component {
 
     return (
       <React.Fragment>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleCreateClick}
-        >
-          <FormattedMessage id="aircraftdetail.createflight" />
-        </Button>
-        {this.isTechlogManager() && flights.length > 0 && (
+        <div className={classes.buttonsContainer}>
           <Button
             variant="contained"
             color="primary"
-            onClick={this.handleCreateCorrectionClick}
-            className={classes.createCorrectionButton}
+            onClick={this.handleCreateClick}
+            className={classes.button}
           >
-            <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+            <FormattedMessage
+              id={
+                this.newestFlightIsPreflight()
+                  ? 'aircraftdetail.completeflight'
+                  : 'aircraftdetail.createflight'
+              }
+            />
           </Button>
-        )}
-        {hideDeletedSwitch !== true && this.isOrganizationManager() && (
-          <FormControlLabel
-            control={
-              <Switch
-                onChange={this.handleShowDeletedChange}
-                checked={showDeleted}
-              />
-            }
-            labelPlacement="start"
-            label={this.msg('flightlist.showdeleted')}
-            className={classes.showDeletedSwitch}
-          />
-        )}
+          {this.isTechlogManager() &&
+            flights.length > 0 &&
+            !this.newestFlightIsPreflight() && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateCorrectionClick}
+                className={classes.button}
+              >
+                <FormattedMessage id="aircraftdetail.createcorrectionflight" />
+              </Button>
+            )}
+          {hideDeletedSwitch !== true && this.isOrganizationManager() && (
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={this.handleShowDeletedChange}
+                  checked={showDeleted}
+                />
+              }
+              labelPlacement="start"
+              label={this.msg('flightlist.showdeleted')}
+              className={classes.showDeletedSwitch}
+            />
+          )}
+        </div>
         <div className={classes.container}>
           {flights.length > 0 ? this.renderFlights() : this.renderNoFlights()}
           {!hidePagination && flights.length > 0 && (
@@ -253,79 +275,14 @@ class FlightList extends React.Component {
   }
 
   renderSummary(flight) {
-    const { showDeleted, classes } = this.props
     return (
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <div className={classes.flightHeading}>
-          <Typography>
-            {flight.correction === true ? (
-              <FormattedMessage
-                id="flightlist.correctionflight.heading"
-                values={{
-                  firstname: flight.pilot.firstname,
-                  lastname: flight.pilot.lastname
-                }}
-              />
-            ) : (
-              <FormattedMessage
-                id="flightlist.flight.heading"
-                values={{
-                  departureAerodrome: (
-                    <span className={classes.bold}>
-                      {flight.departureAerodrome.identification}
-                    </span>
-                  ),
-                  destinationAerodrome: (
-                    <span className={classes.bold}>
-                      {flight.destinationAerodrome.identification}
-                    </span>
-                  ),
-                  firstname: flight.pilot.firstname,
-                  lastname: flight.pilot.lastname
-                }}
-              />
-            )}
-          </Typography>
-          {flight.deleted === true && (
-            <DeletionStatus
-              flight={flight}
-              className={classes.deletionStatus}
-            />
-          )}
-          {showDeleted && (flight.replacedWith || flight.version > 1) && (
-            <Version flight={flight} />
-          )}
-        </div>
-        {flight.correction === true ? (
-          <Typography className={classes.flightSecondaryHeading}>
-            {formatDate(
-              flight.blockOffTime,
-              flight.departureAerodrome.timezone
-            )}
-            ,{' '}
-            {formatTime(
-              flight.blockOffTime,
-              flight.departureAerodrome.timezone
-            )}
-          </Typography>
-        ) : (
-          <Typography className={classes.flightSecondaryHeading}>
-            {formatDate(
-              flight.blockOffTime,
-              flight.departureAerodrome.timezone
-            )}
-            ,{' '}
-            {formatTime(
-              flight.blockOffTime,
-              flight.departureAerodrome.timezone
-            )}
-            -
-            {formatTime(
-              flight.blockOnTime,
-              flight.destinationAerodrome.timezone
-            )}
-          </Typography>
-        )}
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        classes={{
+          content: this.props.classes.flightSummaryContent
+        }}
+      >
+        <FlightSummary flight={flight} showDeleted={this.props.showDeleted} />
       </ExpansionPanelSummary>
     )
   }
@@ -354,7 +311,11 @@ class FlightList extends React.Component {
               {flight.correction !== true && (
                 <Tooltip
                   title={this.msg(
-                    isLocked ? 'flightlist.edit.locked' : 'flightlist.edit'
+                    isLocked
+                      ? 'flightlist.edit.locked'
+                      : flight.version === 0
+                      ? 'flightlist.edit.preflight'
+                      : 'flightlist.edit'
                   )}
                 >
                   {/* span required to render tooltip for button */}
@@ -417,6 +378,7 @@ FlightList.propTypes = {
   organization: organizationShape.isRequired,
   aircraft: aircraftShape.isRequired,
   flights: PropTypes.arrayOf(flightShape),
+  newestFlight: flightShape,
   createFlightDialogOpen: PropTypes.bool.isRequired,
   createCorrectionFlightDialogOpen: PropTypes.bool.isRequired,
   flightDeleteDialog: PropTypes.shape({

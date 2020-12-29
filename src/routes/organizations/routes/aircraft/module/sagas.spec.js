@@ -49,25 +49,17 @@ describe('routes', () => {
             })
           })
 
-          describe('fetchFlights', () => {
-            it('should load the flights of an aircraft', () => {
-              const fetchFlightsAction = actions.fetchFlights()
-
-              const generator = sagas.fetchFlights(fetchFlightsAction)
-
-              expect(generator.next().value).toEqual(
-                select(sagas.aircraftFlightsViewSelector)
+          describe('queryFlights', () => {
+            it('should query the flights of an aircraft', () => {
+              const generator = sagas.queryFlights(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10,
+                false
               )
 
-              const aircraftFlightsView = {
-                organizationId: 'my_org',
-                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
-                page: 0,
-                rowsPerPage: 10,
-                showDeleted: false
-              }
-
-              expect(generator.next(aircraftFlightsView).value).toEqual(
+              expect(generator.next().value).toEqual(
                 call(
                   sagas.getStartFlightDocument,
                   'my_org',
@@ -113,6 +105,145 @@ describe('routes', () => {
                   },
                   {}
                 )
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+
+            it('should query the flights of an aircraft including the deleted ones', () => {
+              const generator = sagas.queryFlights(
+                'my_org',
+                'o7flC7jw8jmkOfWo8oyA',
+                0,
+                10,
+                true
+              )
+
+              expect(generator.next().value).toEqual(
+                call(
+                  sagas.getStartFlightDocument,
+                  'my_org',
+                  'o7flC7jw8jmkOfWo8oyA',
+                  0,
+                  true
+                )
+              )
+
+              expect(generator.next(null).value).toEqual(call(getFirestore))
+
+              const firestore = {
+                get: () => {}
+              }
+              expect(generator.next(firestore).value).toEqual(
+                call(
+                  firestore.get,
+                  {
+                    collection: 'organizations',
+                    doc: 'my_org',
+                    subcollections: [
+                      {
+                        collection: 'aircrafts',
+                        doc: 'o7flC7jw8jmkOfWo8oyA',
+                        subcollections: [
+                          {
+                            collection: 'flights'
+                          }
+                        ]
+                      }
+                    ],
+                    where: [],
+                    orderBy: [
+                      ['blockOffTime', 'desc'],
+                      ['version', 'desc']
+                    ],
+                    startAfter: null,
+                    limit: 10,
+                    storeAs: 'flights-all-o7flC7jw8jmkOfWo8oyA-0',
+                    populate: [
+                      'departureAerodrome',
+                      'destinationAerodrome',
+                      'pilot',
+                      'instructor'
+                    ]
+                  },
+                  {}
+                )
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+          })
+
+          describe('fetchFlights', () => {
+            it('should load the flights of an aircraft', () => {
+              const fetchFlightsAction = actions.fetchFlights()
+
+              const generator = sagas.fetchFlights(fetchFlightsAction)
+
+              expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10,
+                showDeleted: false
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                all([
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    false
+                  )
+                ])
+              )
+
+              expect(generator.next().done).toEqual(true)
+            })
+
+            it('should load the flights of an aircraft including the deleted ones', () => {
+              const fetchFlightsAction = actions.fetchFlights()
+
+              const generator = sagas.fetchFlights(fetchFlightsAction)
+
+              expect(generator.next().value).toEqual(
+                select(sagas.aircraftFlightsViewSelector)
+              )
+
+              const aircraftFlightsView = {
+                organizationId: 'my_org',
+                aircraftId: 'o7flC7jw8jmkOfWo8oyA',
+                page: 0,
+                rowsPerPage: 10,
+                showDeleted: true
+              }
+
+              expect(generator.next(aircraftFlightsView).value).toEqual(
+                all([
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    false
+                  ),
+                  call(
+                    sagas.queryFlights,
+                    'my_org',
+                    'o7flC7jw8jmkOfWo8oyA',
+                    0,
+                    10,
+                    true
+                  )
+                ])
               )
 
               expect(generator.next().done).toEqual(true)
@@ -365,6 +496,7 @@ describe('routes', () => {
             const action = actions.initCreateFlightDialog(orgId, aircraftId)
 
             const today = moment().format('YYYY-MM-DD')
+            const endOfToday = moment().endOf('day').format('YYYY-MM-DD HH:mm')
 
             const currentMember = {
               id: 'memberid',
@@ -388,8 +520,54 @@ describe('routes', () => {
               timezone: 'Europe/Zurich'
             }
 
+            const expectedVisibleFields = (
+              flightTimeCounterEnabled,
+              engineCounterEnabled
+            ) => [
+              'date',
+              'pilot',
+              'instructor',
+              'nature',
+              'departureAerodrome',
+              ...(flightTimeCounterEnabled
+                ? ['counters.flightTimeCounter.start']
+                : []),
+              ...(engineCounterEnabled
+                ? ['counters.engineTimeCounter.start']
+                : []),
+              'personsOnBoard',
+              'fuelUplift',
+              'fuelType',
+              'oilUplift',
+              'preflightCheck',
+              'counters.flights.start',
+              'counters.landings.start',
+              'counters.flightHours.start',
+              'counters.engineHours.start'
+            ]
+
+            const expectedEditableFields = [
+              'date',
+              'pilot',
+              'instructor',
+              'nature',
+              'personsOnBoard',
+              'fuelUplift',
+              'fuelType',
+              'oilUplift',
+              'preflightCheck',
+              'departureAerodrome',
+              'counters.flightTimeCounter.start',
+              'counters.engineTimeCounter.start',
+              'counters.flights.start',
+              'counters.landings.start',
+              'counters.flightHours.start',
+              'counters.engineHours.start'
+            ]
+
             it('should set the default values for the new flight', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: true,
                 engineHoursCounterEnabled: true
               }
 
@@ -412,7 +590,7 @@ describe('routes', () => {
                   flightTimeCounter: { start: 9250 },
                   engineTimeCounter: { start: 9502 }
                 },
-                blockOffTime: null,
+                blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
                 blockOnTime: null
@@ -433,14 +611,17 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues
+                    expectedDefaultValues,
+                    expectedVisibleFields(true, true),
+                    expectedEditableFields
                   )
                 )
                 .run()
             })
 
-            it('should not set engine hours start counter if not enabled', () => {
+            it('should not set flight time and engine hours start counters if not enabled', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: false,
                 engineHoursCounterEnabled: false
               }
 
@@ -458,10 +639,9 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  landings: { start: 2357 },
-                  flightTimeCounter: { start: 9250 }
+                  landings: { start: 2357 }
                 },
-                blockOffTime: null,
+                blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
                 blockOnTime: null
@@ -482,7 +662,9 @@ describe('routes', () => {
                 ])
                 .put(
                   actions.setInitialCreateFlightDialogData(
-                    expectedDefaultValues
+                    expectedDefaultValues,
+                    expectedVisibleFields(false, false),
+                    expectedEditableFields
                   )
                 )
                 .run()
@@ -524,6 +706,7 @@ describe('routes', () => {
 
             it('should set the default values for the new correction flight', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: true,
                 engineHoursCounterEnabled: true
               }
 
@@ -570,8 +753,9 @@ describe('routes', () => {
                 .run()
             })
 
-            it('should not set engine hours start counter if not enabled', () => {
+            it('should not set flight time and engine hours start counters if not enabled', () => {
               const aircraftSettings = {
+                flightTimeCounterEnabled: false,
                 engineHoursCounterEnabled: false
               }
 
@@ -590,8 +774,7 @@ describe('routes', () => {
                 counters: {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
-                  landings: { start: 2357 },
-                  flightTimeCounter: { start: 9250 }
+                  landings: { start: 2357 }
                 }
               }
 
@@ -766,59 +949,64 @@ describe('routes', () => {
               flightId
             )
 
+            const flightData = {
+              version: 1,
+              nature: 'vs',
+              pilot: {
+                id: 'pilotid',
+                lastname: 'Müller',
+                firstname: 'Max'
+              },
+              instructor: {
+                id: 'instructorid',
+                lastname: 'Keller',
+                firstname: 'Heinz'
+              },
+              blockOffTime: {
+                toDate: () => new Date('2018-12-13T09:00:00.000Z')
+              },
+              takeOffTime: {
+                toDate: () => new Date('2018-12-13T09:05:00.000Z')
+              },
+              landingTime: {
+                toDate: () => new Date('2018-12-13T09:35:00.000Z')
+              },
+              blockOnTime: {
+                toDate: () => new Date('2018-12-13T09:40:00.000Z')
+              },
+              departureAerodrome: {
+                id: 'depaerodromeid',
+                name: 'Wangen-Lachen',
+                identification: 'LSPV',
+                timezone: 'Europe/Zurich'
+              },
+              destinationAerodrome: {
+                id: 'destaerodromeid',
+                name: 'Lommis',
+                identification: 'LSZT',
+                timezone: 'Europe/Zurich'
+              },
+              landings: 1,
+              personsOnBoard: 2,
+              fuelUplift: 45.5,
+              fuelType: 'jet_a1_homebase',
+              oilUplift: 0.5,
+              counters: {},
+              preflightCheck: true,
+              remarks: 'my test remark',
+              troublesObservations: 'troubles',
+              techlogEntryDescription: 'Loose screw',
+              techlogEntryStatus: 'defect_aog'
+            }
+
             const flight = {
               id: flightId,
-              data: () => ({
-                nature: 'vs',
-                pilot: {
-                  id: 'pilotid',
-                  lastname: 'Müller',
-                  firstname: 'Max'
-                },
-                instructor: {
-                  id: 'instructorid',
-                  lastname: 'Keller',
-                  firstname: 'Heinz'
-                },
-                blockOffTime: {
-                  toDate: () => new Date('2018-12-13T09:00:00.000Z')
-                },
-                takeOffTime: {
-                  toDate: () => new Date('2018-12-13T09:05:00.000Z')
-                },
-                landingTime: {
-                  toDate: () => new Date('2018-12-13T09:35:00.000Z')
-                },
-                blockOnTime: {
-                  toDate: () => new Date('2018-12-13T09:40:00.000Z')
-                },
-                departureAerodrome: {
-                  id: 'depaerodromeid',
-                  name: 'Wangen-Lachen',
-                  identification: 'LSPV',
-                  timezone: 'Europe/Zurich'
-                },
-                destinationAerodrome: {
-                  id: 'destaerodromeid',
-                  name: 'Lommis',
-                  identification: 'LSZT',
-                  timezone: 'Europe/Zurich'
-                },
-                landings: 1,
-                personsOnBoard: 2,
-                fuelUplift: 45.5,
-                fuelType: 'jet_a1_homebase',
-                oilUplift: 0.5,
-                counters: {},
-                preflightCheck: true,
-                remarks: 'my test remark',
-                troublesObservations: 'troubles',
-                techlogEntryDescription: 'Loose screw',
-                techlogEntryStatus: 'defect_aog'
-              })
+              get: name => flightData[name],
+              data: () => flightData
             }
 
             const aircraftSettings = {
+              flightTimeCounterEnabled: true,
               engineHoursCounterEnabled: true,
               fuelTypes: [
                 {
@@ -829,6 +1017,7 @@ describe('routes', () => {
             }
             const expectedFlightValues = {
               id: flightId,
+              version: 1,
               date: '2018-12-13',
               pilot: {
                 value: 'pilotid',

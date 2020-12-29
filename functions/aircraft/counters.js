@@ -5,21 +5,31 @@ const getCounters = data => {
 
   const c = data.counters
 
+  const flights = interval(c.flights.start, c.flights.start + 1)
+
   const flightTimeCounter = c.flightTimeCounter
   const engineTimeCounter = c.engineTimeCounter
 
-  const flights = interval(c.flights.start, c.flights.start + 1)
-  const landings = interval(c.landings.start, c.landings.start + data.landings)
+  const landings = interval(
+    c.landings.start,
+    data.id ? c.landings.start + data.landings : null
+  )
   const flightHours = interval(
     c.flightHours.start,
-    flightTimeCounter
-      ? c.flightHours.start + (flightTimeCounter.end - flightTimeCounter.start)
-      : addTimeDiff(c.flightHours.start, data.takeOffTime, data.landingTime)
+    data.id
+      ? flightTimeCounter
+        ? c.flightHours.start +
+          (flightTimeCounter.end - flightTimeCounter.start)
+        : addTimeDiff(c.flightHours.start, data.takeOffTime, data.landingTime)
+      : null
   )
   const engineHours = engineTimeCounter
     ? interval(
         c.engineHours.start,
-        c.engineHours.start + (engineTimeCounter.end - engineTimeCounter.start)
+        data.id
+          ? c.engineHours.start +
+              (engineTimeCounter.end - engineTimeCounter.start)
+          : null
       )
     : null
 
@@ -87,20 +97,22 @@ const validate = data => {
     throw 'Property `counters.flightHours.start` missing or not a number'
   }
 
-  if (typeof data.landings !== 'number') {
-    throw 'Property `landings` missing or not a number'
-  }
-  if (typeof data.blockOffTime !== 'string') {
-    throw 'Property `blockOffTime` missing or not a string'
-  }
-  if (typeof data.blockOnTime !== 'string') {
-    throw 'Property `blockOnTime` missing or not a string'
-  }
-  if (typeof data.takeOffTime !== 'string') {
-    throw 'Property `takeOffTime` missing or not a string'
-  }
-  if (typeof data.landingTime !== 'string') {
-    throw 'Property `landingTime` missing or not a string'
+  if (data.id) {
+    if (typeof data.landings !== 'number') {
+      throw 'Property `landings` missing or not a number'
+    }
+    if (typeof data.blockOffTime !== 'string') {
+      throw 'Property `blockOffTime` missing or not a string'
+    }
+    if (typeof data.blockOnTime !== 'string') {
+      throw 'Property `blockOnTime` missing or not a string'
+    }
+    if (typeof data.takeOffTime !== 'string') {
+      throw 'Property `takeOffTime` missing or not a string'
+    }
+    if (typeof data.landingTime !== 'string') {
+      throw 'Property `landingTime` missing or not a string'
+    }
   }
 }
 

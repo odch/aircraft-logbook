@@ -76,27 +76,31 @@ class FlightDeleteDialog extends React.Component {
               value={flight.departureAerodrome.name}
               className={classes.attribute}
             />
-            <FlightAttribute
-              label="destinationaerodrome"
-              value={flight.destinationAerodrome.name}
-              className={classes.attribute}
-            />
-            <FlightAttribute
-              label="blockofftime"
-              value={formatTime(
-                flight.blockOffTime,
-                flight.departureAerodrome.timezone
-              )}
-              className={classes.attribute}
-            />
-            <FlightAttribute
-              label="blockontime"
-              value={formatTime(
-                flight.blockOnTime,
-                flight.destinationAerodrome.timezone
-              )}
-              className={classes.attribute}
-            />
+            {flight.version > 0 && (
+              <>
+                <FlightAttribute
+                  label="destinationaerodrome"
+                  value={flight.destinationAerodrome.name}
+                  className={classes.attribute}
+                />
+                <FlightAttribute
+                  label="blockofftime"
+                  value={formatTime(
+                    flight.blockOffTime,
+                    flight.departureAerodrome.timezone
+                  )}
+                  className={classes.attribute}
+                />
+                <FlightAttribute
+                  label="blockontime"
+                  value={formatTime(
+                    flight.blockOnTime,
+                    flight.destinationAerodrome.timezone
+                  )}
+                  className={classes.attribute}
+                />
+              </>
+            )}
           </div>
         </DialogContent>
         <DialogActions>

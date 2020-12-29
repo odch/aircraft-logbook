@@ -51,9 +51,11 @@ describe('aircraft', () => {
       const orgId = 'my_org'
       const aircraftId = 'my_aircraft'
       const aircraftSettings1 = {
+        flightTimeCounterEnabled: true,
         engineHoursCounterEnabled: true
       }
       const aircraftSettings2 = {
+        flightTimeCounterEnabled: false,
         engineHoursCounterEnabled: false,
         lockDate: {
           toDate: () => new Date(2019, 0, 6, 24, 0, 0)
@@ -153,12 +155,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if destinationAerodrome is missing', () => {
-        return testFn({}, aircraftSettings1, 'destinationAerodrome', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'destinationAerodrome',
+          'required'
+        )
       })
 
       it('should return no error if destinationAerodrome is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             destinationAerodrome: {}
           },
           aircraftSettings1,
@@ -168,12 +178,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if blockOffTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'blockOffTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'blockOffTime',
+          'invalid'
+        )
       })
 
       it('should return an error if blockOffTime is invalid', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             blockOffTime: 'foobar'
           },
           aircraftSettings1,
@@ -184,7 +202,10 @@ describe('aircraft', () => {
 
       it('should return no error if blockOffTime is valid', () => {
         return testFn(
-          { blockOffTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOffTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'blockOffTime',
           undefined
@@ -192,12 +213,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if takeOffTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'takeOffTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'takeOffTime',
+          'invalid'
+        )
       })
 
       it('should return an error if takeOffTime is invalid', () => {
         return testFn(
-          { takeOffTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            takeOffTime: 'foobar'
+          },
           aircraftSettings1,
           'takeOffTime',
           'invalid'
@@ -206,7 +237,10 @@ describe('aircraft', () => {
 
       it('should return no error if takeOffTime is valid', () => {
         return testFn(
-          { takeOffTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            takeOffTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'takeOffTime',
           undefined
@@ -214,12 +248,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if landingTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'landingTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'landingTime',
+          'invalid'
+        )
       })
 
       it('should return an error if landingTime is invalid', () => {
         return testFn(
-          { landingTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landingTime: 'foobar'
+          },
           aircraftSettings1,
           'landingTime',
           'invalid'
@@ -228,7 +272,10 @@ describe('aircraft', () => {
 
       it('should return no error if landingTime is valid', () => {
         return testFn(
-          { landingTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landingTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'landingTime',
           undefined
@@ -236,12 +283,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if blockOnTime is missing', () => {
-        return testFn({}, aircraftSettings1, 'blockOnTime', 'invalid')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'blockOnTime',
+          'invalid'
+        )
       })
 
       it('should return an error if blockOnTime is invalid', () => {
         return testFn(
-          { blockOnTime: 'foobar' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOnTime: 'foobar'
+          },
           aircraftSettings1,
           'blockOnTime',
           'invalid'
@@ -250,7 +307,10 @@ describe('aircraft', () => {
 
       it('should return no error if blockOnTime is valid', () => {
         return testFn(
-          { blockOnTime: '2019-05-01 09:00' },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            blockOnTime: '2019-05-01 09:00'
+          },
           aircraftSettings1,
           'blockOnTime',
           undefined
@@ -260,6 +320,7 @@ describe('aircraft', () => {
       it('should return an error if takeOffTime is before blockOffTime', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             blockOffTime: '2019-05-01 09:00',
             takeOffTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -278,6 +339,7 @@ describe('aircraft', () => {
       it('should return an error if landingTime is before takeOffTime', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             takeOffTime: '2019-05-01 09:00',
             landingTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -296,6 +358,7 @@ describe('aircraft', () => {
       it('should return an error if blockOnTime is before landingTime (same timezone)', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             landingTime: '2019-05-01 09:00',
             blockOnTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -314,6 +377,7 @@ describe('aircraft', () => {
       it('should return an error if blockOnTime is before landingTime (different timezone)', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             landingTime: '2019-05-01 09:00',
             blockOnTime: '2019-05-01 08:59',
             departureAerodrome: {
@@ -370,7 +434,9 @@ describe('aircraft', () => {
 
       it('should return an error if flight time end counter is missing', () => {
         return testFn(
-          {},
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
           aircraftSettings1,
           'counters.flightTimeCounter.end',
           'required'
@@ -380,6 +446,7 @@ describe('aircraft', () => {
       it('should return an error if flight time end counter is null', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 end: null
@@ -395,6 +462,7 @@ describe('aircraft', () => {
       it('should return no error if flight time end counter is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 end: 10000
@@ -410,6 +478,7 @@ describe('aircraft', () => {
       it('should return an error if flight time end counter is before start counter', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               flightTimeCounter: {
                 start: 10000,
@@ -464,7 +533,9 @@ describe('aircraft', () => {
 
       it('should return an error if engine time end counter is missing', () => {
         return testFn(
-          {},
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
           aircraftSettings1,
           'counters.engineTimeCounter.end',
           'required'
@@ -474,6 +545,7 @@ describe('aircraft', () => {
       it('should return an error if engine time end counter is null', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 end: null
@@ -489,6 +561,7 @@ describe('aircraft', () => {
       it('should return no error if engine time end counter is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 end: 10000
@@ -504,6 +577,7 @@ describe('aircraft', () => {
       it('should return an error if engine time end counter is before start counter', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             counters: {
               engineTimeCounter: {
                 start: 10000,
@@ -517,6 +591,15 @@ describe('aircraft', () => {
         )
       })
 
+      it('should return no error if flight time counter is missing or invalid but not enabled in settings', () => {
+        return testFn(
+          {},
+          aircraftSettings2,
+          'counters.flightTimeCounter.start',
+          undefined
+        )
+      })
+
       it('should return no error if engine time counter is missing or invalid but not enabled in settings', () => {
         return testFn(
           {},
@@ -527,12 +610,22 @@ describe('aircraft', () => {
       })
 
       it('should return an error if landings is missing', () => {
-        return testFn({}, aircraftSettings1, 'landings', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'landings',
+          'required'
+        )
       })
 
       it('should return an error if landings is invalid', () => {
         return testFn(
-          { landings: -1 },
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landings: -1
+          },
           aircraftSettings1,
           'landings',
           'required'
@@ -540,7 +633,15 @@ describe('aircraft', () => {
       })
 
       it('should return no error if landings is valid', () => {
-        return testFn({ landings: 1 }, aircraftSettings1, 'landings', undefined)
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            landings: 1
+          },
+          aircraftSettings1,
+          'landings',
+          undefined
+        )
       })
 
       it('should return an error if personsOnBoard is missing', () => {
@@ -696,12 +797,20 @@ describe('aircraft', () => {
       })
 
       it('should return an error if troublesObservations is missing', () => {
-        return testFn({}, aircraftSettings1, 'troublesObservations', 'required')
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'troublesObservations',
+          'required'
+        )
       })
 
       it('should return no error if troublesObservations is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'nil'
           },
           aircraftSettings1,
@@ -713,6 +822,7 @@ describe('aircraft', () => {
       it('should return an error if not nil and techlogEntryDescription is missing', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'troubles'
           },
           aircraftSettings1,
@@ -724,6 +834,7 @@ describe('aircraft', () => {
       it('should return no error if nil and techlogEntryDescription not set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'nil'
           },
           aircraftSettings1,
@@ -735,6 +846,7 @@ describe('aircraft', () => {
       it('should return no error if not nil and techlogEntryDescription is set', () => {
         return testFn(
           {
+            id: 'sStfyLd2XArT7oUZPFDn',
             troublesObservations: 'troubles',
             techlogEntryDescription: 'my description'
           },
@@ -750,14 +862,11 @@ describe('aircraft', () => {
     const orgId = 'my_org'
     const aircraftId = 'my_aircraft'
 
-    const testFn = async (data, name, expectedError, lastFlight) => {
-      const docs = lastFlight
-        ? [
-            {
-              data: () => lastFlight
-            }
-          ]
-        : []
+    const testFn = async (data, name, expectedError, lastFlights) => {
+      const docs = lastFlights.map(f => ({
+        id: f.id,
+        get: field => f.data[field]
+      }))
       const db = {
         collection: () =>
           new Collection('organizations', null, 'organizations', {
@@ -777,13 +886,27 @@ describe('aircraft', () => {
     }
 
     it('should return an error if block off time is before block on time of last flight', () => {
-      const lastFlight = {
-        blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
-        destinationAerodrome: {
-          timezone: 'UTC'
+      const lastFlights = [
+        {
+          id: 'new-flight-id',
+          data: {
+            version: 0
+          }
+        },
+        {
+          id: 'last-flight-id',
+          data: {
+            version: 1,
+            blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
+            destinationAerodrome: {
+              timezone: 'UTC'
+            }
+          }
         }
-      }
+      ]
+
       const data = {
+        id: 'new-flight-id',
         blockOffTime: '2019-05-01 08:59',
         departureAerodrome: {
           timezone: 'UTC'
@@ -794,29 +917,43 @@ describe('aircraft', () => {
         data,
         'blockOffTime',
         'not_before_block_on_time_last_flight',
-        lastFlight
+        lastFlights
       )
     })
 
     it('should return no error if block off time is not before block on time of last flight', () => {
-      const lastFlight = {
-        blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
-        destinationAerodrome: {
-          timezone: 'UTC'
+      const lastFlights = [
+        {
+          id: 'new-flight-id',
+          data: {
+            version: 0
+          }
+        },
+        {
+          id: 'last-flight-id',
+          data: {
+            version: 1,
+            blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
+            destinationAerodrome: {
+              timezone: 'UTC'
+            }
+          }
         }
-      }
+      ]
+
       const data = {
+        id: 'new-flight-id',
         blockOffTime: '2019-05-01 09:00',
         departureAerodrome: {
           timezone: 'UTC'
         }
       }
 
-      return testFn(data, 'blockOffTime', undefined, lastFlight)
+      return testFn(data, 'blockOffTime', undefined, lastFlights)
     })
 
     it('should return no error if no last flight', () => {
-      const lastFlight = null
+      const lastFlights = []
       const data = {
         blockOffTime: '2019-05-01 08:59',
         departureAerodrome: {
@@ -824,7 +961,144 @@ describe('aircraft', () => {
         }
       }
 
-      return testFn(data, 'blockOffTime', undefined, lastFlight)
+      return testFn(data, 'blockOffTime', undefined, lastFlights)
+    })
+  })
+
+  describe('validateCorrectionAsync', () => {
+    const orgId = 'my_org'
+    const aircraftId = 'my_aircraft'
+
+    const testFn = async (
+      data,
+      lastFlight,
+      name,
+      expectedError,
+      expectedException
+    ) => {
+      const docs = lastFlight
+        ? [
+            {
+              id: lastFlight.id,
+              get: field => lastFlight.data[field]
+            }
+          ]
+        : []
+      const db = {
+        collection: () =>
+          new Collection('organizations', null, 'organizations', {
+            'organizations.my_org.aircrafts.my_aircraft.flights': {
+              empty: docs.length === 0,
+              docs
+            }
+          })
+      }
+
+      if (expectedException) {
+        await expect(() =>
+          validateFlight.validateCorrectionAsync(data, orgId, aircraftId, db)
+        ).rejects.toThrow(expectedException)
+      } else {
+        const errors = await validateFlight.validateCorrectionAsync(
+          data,
+          orgId,
+          aircraftId,
+          db
+        )
+        expect(errors[name]).toEqual(expectedError)
+      }
+    }
+
+    it('should return an error if time is before block on time of last flight', () => {
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 1,
+          blockOnTime: { toDate: () => new Date('2019-05-01 09:00') },
+          destinationAerodrome: {
+            timezone: 'UTC'
+          }
+        }
+      }
+
+      const data = {
+        id: 'new-flight-id',
+        time: '2019-05-01 08:59',
+        aerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(
+        data,
+        lastFlight,
+        'time',
+        'not_before_block_on_time_last_flight'
+      )
+    })
+
+    it('should return no error if time is not before block on time of last flight', () => {
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 1,
+          blockOnTime: { toDate: () => new Date(2019, 4, 1, 9, 0) },
+          destinationAerodrome: {
+            timezone: 'UTC'
+          }
+        }
+      }
+
+      const data = {
+        id: 'new-flight-id',
+        time: '2019-05-01 09:00',
+        aerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(data, lastFlight, 'time', undefined)
+    })
+
+    it('should throw error if no last flight', () => {
+      const data = {
+        blockOffTime: '2019-05-01 08:59',
+        departureAerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      return testFn(
+        data,
+        null,
+        null,
+        null,
+        'Not allowed to create correction flight as first record'
+      )
+    })
+
+    it('should throw error if last flight is preflight', () => {
+      const data = {
+        blockOffTime: '2019-05-01 08:59',
+        departureAerodrome: {
+          timezone: 'UTC'
+        }
+      }
+
+      const lastFlight = {
+        id: 'last-flight-id',
+        data: {
+          version: 0
+        }
+      }
+
+      return testFn(
+        data,
+        lastFlight,
+        null,
+        null,
+        'Not allowed to create correction flight after preflight'
+      )
     })
   })
 })

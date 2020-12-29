@@ -69,40 +69,44 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         className="MuiExpansionPanelSummary-content"
       >
         <div
-          className="TechlogEntrySummary-entryNumber-107"
+          className="TechlogEntrySummary-entryNumber-108"
         >
           <p
-            className="MuiTypography-root TechlogEntrySummary-entryNumberText-108 MuiTypography-body1"
+            className="MuiTypography-root TechlogEntrySummary-entryNumberText-109 MuiTypography-body1"
           >
             #0
           </p>
         </div>
         <div
-          className="TechlogEntrySummary-entryHeading-106"
+          className="TechlogEntrySummary-headingContainer-106"
         >
+          <div
+            className="TechlogEntrySummary-entryHeading-107"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+            >
+              My CRS
+              <br />
+            </p>
+            <span
+              className="MuiTypography-root EntryStatus-status-116 EntryStatus-closed-119 MuiTypography-body1"
+            >
+              CRS
+            </span>
+          </div>
           <p
-            className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+            className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-110 MuiTypography-body1"
           >
-            My CRS
-            <br />
+            Gerd
+             
+            Keller
+            , 
+            20.06.2020
+             
+            10:14
           </p>
-          <span
-            className="MuiTypography-root EntryStatus-status-115 EntryStatus-closed-118 MuiTypography-body1"
-          >
-            CRS
-          </span>
         </div>
-        <p
-          className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-109 MuiTypography-body1"
-        >
-          Gerd
-           
-          Keller
-          , 
-          20.06.2020
-           
-          10:14
-        </p>
       </div>
       <div
         aria-disabled={false}
@@ -190,7 +194,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
     </span>
   </button>
   <div
-    className="Techlog-container-144"
+    className="Techlog-container-145"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -218,40 +222,44 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
           className="MuiExpansionPanelSummary-content"
         >
           <div
-            className="TechlogEntrySummary-entryNumber-107"
+            className="TechlogEntrySummary-entryNumber-108"
           >
             <p
-              className="MuiTypography-root TechlogEntrySummary-entryNumberText-108 MuiTypography-body1"
+              className="MuiTypography-root TechlogEntrySummary-entryNumberText-109 MuiTypography-body1"
             >
               #1
             </p>
           </div>
           <div
-            className="TechlogEntrySummary-entryHeading-106"
+            className="TechlogEntrySummary-headingContainer-106"
           >
+            <div
+              className="TechlogEntrySummary-entryHeading-107"
+            >
+              <p
+                className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+              >
+                Schraube am Bugfahrwerk locker
+                <br />
+              </p>
+              <span
+                className="MuiTypography-root EntryStatus-status-116 EntryStatus-severe-117 MuiTypography-body1"
+              >
+                Defect (not airworthy)
+              </span>
+            </div>
             <p
-              className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+              className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-110 MuiTypography-body1"
             >
-              Schraube am Bugfahrwerk locker
-              <br />
+              Hans
+               
+              Meier
+              , 
+              25.06.2020
+               
+              09:54
             </p>
-            <span
-              className="MuiTypography-root EntryStatus-status-115 EntryStatus-severe-116 MuiTypography-body1"
-            >
-              Defect (not airworthy)
-            </span>
           </div>
-          <p
-            className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-109 MuiTypography-body1"
-          >
-            Hans
-             
-            Meier
-            , 
-            25.06.2020
-             
-            09:54
-          </p>
         </div>
         <div
           aria-disabled={false}
@@ -338,32 +346,36 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   >
     Neueste Flüge
   </h5>
-  <button
-    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
-    disabled={false}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onDragLeave={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onMouseDown={[Function]}
-    onMouseLeave={[Function]}
-    onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
-    onTouchStart={[Function]}
-    tabIndex={0}
-    type="button"
-  >
-    <span
-      className="MuiButton-label"
-    >
-      Flug erfassen
-    </span>
-  </button>
   <div
-    className="FlightList-container-147"
+    className="FlightList-buttonsContainer-147"
+  >
+    <button
+      className="MuiButtonBase-root MuiButton-root FlightList-button-148 MuiButton-contained MuiButton-containedPrimary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Preflight-Eintrag erfassen
+      </span>
+    </button>
+  </div>
+  <div
+    className="FlightList-container-149"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
@@ -389,23 +401,23 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
         tabIndex={0}
       >
         <div
-          className="MuiExpansionPanelSummary-content"
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-152"
         >
           <div
-            className="FlightList-flightHeading-148"
+            className="FlightSummary-flightHeading-153"
           >
             <p
               className="MuiTypography-root MuiTypography-body1"
             >
               Von 
               <span
-                className="FlightList-bold-150"
+                className="FlightSummary-bold-155"
               >
                 LSZT
               </span>
                nach 
               <span
-                className="FlightList-bold-150"
+                className="FlightSummary-bold-155"
               >
                 LSZT
               </span>
@@ -413,7 +425,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
             </p>
           </div>
           <p
-            className="MuiTypography-root FlightList-flightSecondaryHeading-149 MuiTypography-body1"
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-154 MuiTypography-body1"
           >
             20.11.2018
             ,

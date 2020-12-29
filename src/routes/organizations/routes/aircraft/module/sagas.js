@@ -71,14 +71,13 @@ export function* changeFlightsPage({ payload: { page } }) {
   yield call(fetchFlights)
 }
 
-export function* fetchFlights() {
-  const {
-    organizationId,
-    aircraftId,
-    page,
-    rowsPerPage,
-    showDeleted
-  } = yield select(aircraftFlightsViewSelector)
+export function* queryFlights(
+  organizationId,
+  aircraftId,
+  page,
+  rowsPerPage,
+  showDeleted
+) {
   const startFlightDocument = yield call(
     getStartFlightDocument,
     organizationId,
@@ -126,6 +125,25 @@ export function* fetchFlights() {
     },
     {}
   )
+}
+
+export function* fetchFlights() {
+  const {
+    organizationId,
+    aircraftId,
+    page,
+    rowsPerPage,
+    showDeleted
+  } = yield select(aircraftFlightsViewSelector)
+  const effects = [
+    call(queryFlights, organizationId, aircraftId, page, rowsPerPage, false)
+  ]
+  if (showDeleted) {
+    effects.push(
+      call(queryFlights, organizationId, aircraftId, page, rowsPerPage, true)
+    )
+  }
+  yield all(effects)
 }
 
 export function* getFlight(organizationId, aircraftId, flightId) {
@@ -222,12 +240,11 @@ export function* initCreateFlightDialog({
   const currentMember = yield call(getCurrentMember)
   const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
 
-  const counterNames = [
-    'flights',
-    'landings',
-    'flightHours',
-    'flightTimeCounter'
-  ]
+  const counterNames = ['flights', 'landings', 'flightHours']
+
+  if (aircraftSettings.flightTimeCounterEnabled === true) {
+    counterNames.push('flightTimeCounter')
+  }
 
   if (aircraftSettings.engineHoursCounterEnabled === true) {
     counterNames.push('engineTimeCounter')
@@ -254,13 +271,61 @@ export function* initCreateFlightDialog({
       ? getAerodromeOption(departureAerodrome)
       : null,
     counters,
-    blockOffTime: null,
+    blockOffTime: moment().endOf('day').format('YYYY-MM-DD HH:mm'),
     takeOffTime: null,
     landingTime: null,
     blockOnTime: null
   }
 
-  yield put(actions.setInitialCreateFlightDialogData(data))
+  yield put(
+    actions.setInitialCreateFlightDialogData(
+      data,
+      [
+        'date',
+        'pilot',
+        'instructor',
+        'nature',
+        'departureAerodrome',
+        ...(aircraftSettings.flightTimeCounterEnabled === true
+          ? ['counters.flightTimeCounter.start']
+          : []),
+        ...(aircraftSettings.engineHoursCounterEnabled === true
+          ? ['counters.engineTimeCounter.start']
+          : []),
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'preflightCheck',
+
+        // required initial values
+        'counters.flights.start',
+        'counters.landings.start',
+        'counters.flightHours.start',
+        'counters.engineHours.start'
+      ],
+      [
+        'date',
+        'pilot',
+        'instructor',
+        'nature',
+        'personsOnBoard',
+        'fuelUplift',
+        'fuelType',
+        'oilUplift',
+        'preflightCheck',
+
+        // required initial values
+        'departureAerodrome',
+        'counters.flightTimeCounter.start',
+        'counters.engineTimeCounter.start',
+        'counters.flights.start',
+        'counters.landings.start',
+        'counters.flightHours.start',
+        'counters.engineHours.start'
+      ]
+    )
+  )
 }
 
 export function initCounters(names) {
@@ -293,12 +358,11 @@ export function* initCreateCorrectionFlightDialog({
   const currentMember = yield call(getCurrentMember)
   const lastFlight = yield call(getLastFlight, organizationId, aircraftId)
 
-  const counterNames = [
-    'flights',
-    'landings',
-    'flightHours',
-    'flightTimeCounter'
-  ]
+  const counterNames = ['flights', 'landings', 'flightHours']
+
+  if (aircraftSettings.flightTimeCounterEnabled === true) {
+    counterNames.push('flightTimeCounter')
+  }
 
   if (aircraftSettings.engineHoursCounterEnabled === true) {
     counterNames.push('engineTimeCounter')
@@ -392,6 +456,107 @@ export function* createCorrectionFlight({
   }
 }
 
+const getEditFormFields = (flight, aircraftSettings) =>
+  flight.get('version') === 0
+    ? {
+        visibleFields: [
+          'date',
+          'pilot',
+          'instructor',
+          'nature',
+          'departureAerodrome',
+          'destinationAerodrome',
+          ...(aircraftSettings.flightTimeCounterEnabled === true
+            ? [
+                'counters.flightTimeCounter.start',
+                'counters.flightTimeCounter.end'
+              ]
+            : []),
+          ...(aircraftSettings.engineHoursCounterEnabled === true
+            ? [
+                'counters.engineTimeCounter.start',
+                'counters.engineTimeCounter.end'
+              ]
+            : []),
+          'blockOffTime',
+          'takeOffTime',
+          'landingTime',
+          'blockOnTime',
+          'landings',
+          'personsOnBoard',
+          'fuelUplift',
+          'fuelType',
+          'oilUplift',
+          'remarks',
+          'troublesObservations',
+          'techlogEntryStatus',
+          'techlogEntryDescription'
+        ],
+        editableFields: [
+          'pilot',
+          'instructor',
+          'nature',
+          'destinationAerodrome',
+          'counters.flightTimeCounter.end',
+          'counters.engineTimeCounter.end',
+          'blockOffTime',
+          'takeOffTime',
+          'landingTime',
+          'blockOnTime',
+          'landings',
+          'personsOnBoard',
+          'fuelUplift',
+          'fuelType',
+          'oilUplift',
+          'remarks',
+          'troublesObservations',
+          'techlogEntryStatus',
+          'techlogEntryDescription'
+        ]
+      }
+    : {
+        visibleFields: [
+          'date',
+          'pilot',
+          'instructor',
+          'nature',
+          'departureAerodrome',
+          'destinationAerodrome',
+          ...(aircraftSettings.flightTimeCounterEnabled === true
+            ? [
+                'counters.flightTimeCounter.start',
+                'counters.flightTimeCounter.end'
+              ]
+            : []),
+          ...(aircraftSettings.engineHoursCounterEnabled === true
+            ? [
+                'counters.engineTimeCounter.start',
+                'counters.engineTimeCounter.end'
+              ]
+            : []),
+          'blockOffTime',
+          'takeOffTime',
+          'landingTime',
+          'blockOnTime',
+          'landings',
+          'personsOnBoard',
+          'fuelUplift',
+          'fuelType',
+          'oilUplift',
+          'remarks'
+        ],
+        editableFields: [
+          'pilot',
+          'instructor',
+          'nature',
+          'personsOnBoard',
+          'fuelUplift',
+          'fuelType',
+          'oilUplift',
+          'remarks'
+        ]
+      }
+
 export function* openAndInitEditFlightDialog({
   payload: { organizationId, aircraftId, flightId }
 }) {
@@ -418,19 +583,32 @@ export function* openAndInitEditFlightDialog({
     preflightCheck,
     troublesObservations,
     techlogEntryDescription,
-    techlogEntryStatus
+    techlogEntryStatus,
+    version
   }) => ({
     id: flight.id,
+    version,
     date: extractDate(blockOffTime, departureAerodrome.timezone),
     pilot: getMemberOption(pilot),
     instructor: instructor ? getMemberOption(instructor) : null,
     nature,
     departureAerodrome: getAerodromeOption(departureAerodrome),
-    destinationAerodrome: getAerodromeOption(destinationAerodrome),
-    blockOffTime: getTimeForPicker(blockOffTime, departureAerodrome.timezone),
-    takeOffTime: getTimeForPicker(takeOffTime, departureAerodrome.timezone),
-    landingTime: getTimeForPicker(landingTime, destinationAerodrome.timezone),
-    blockOnTime: getTimeForPicker(blockOnTime, destinationAerodrome.timezone),
+    destinationAerodrome: destinationAerodrome
+      ? getAerodromeOption(destinationAerodrome)
+      : null,
+    blockOffTime:
+      version === 0
+        ? null
+        : getTimeForPicker(blockOffTime, departureAerodrome.timezone),
+    takeOffTime: takeOffTime
+      ? getTimeForPicker(takeOffTime, departureAerodrome.timezone)
+      : null,
+    landingTime: landingTime
+      ? getTimeForPicker(landingTime, destinationAerodrome.timezone)
+      : null,
+    blockOnTime: blockOnTime
+      ? getTimeForPicker(blockOnTime, destinationAerodrome.timezone)
+      : null,
     landings,
     personsOnBoard,
     fuelUplift: typeof fuelUplift === 'number' ? fuelUplift * 100 : null,
@@ -443,45 +621,15 @@ export function* openAndInitEditFlightDialog({
     techlogEntryDescription,
     techlogEntryStatus
   }))(flight.data())
+  const { visibleFields, editableFields } = getEditFormFields(
+    flight,
+    aircraftSettings
+  )
   yield put(
     actions.setInitialCreateFlightDialogData(
       data,
-      [
-        'date',
-        'pilot',
-        'instructor',
-        'nature',
-        'departureAerodrome',
-        'destinationAerodrome',
-        'counters.flightTimeCounter.start',
-        'counters.flightTimeCounter.end',
-        ...(aircraftSettings.engineHoursCounterEnabled === true
-          ? [
-              'counters.engineTimeCounter.start',
-              'counters.engineTimeCounter.end'
-            ]
-          : []),
-        'blockOffTime',
-        'takeOffTime',
-        'landingTime',
-        'blockOnTime',
-        'landings',
-        'personsOnBoard',
-        'fuelUplift',
-        'fuelType',
-        'oilUplift',
-        'remarks'
-      ],
-      [
-        'pilot',
-        'instructor',
-        'nature',
-        'personsOnBoard',
-        'fuelUplift',
-        'fuelType',
-        'oilUplift',
-        'remarks'
-      ]
+      visibleFields,
+      editableFields
     )
   )
 }

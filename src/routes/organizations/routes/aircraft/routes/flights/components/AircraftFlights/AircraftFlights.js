@@ -21,6 +21,9 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  toOverviewButton: {
+    float: 'right'
   }
 })
 
@@ -77,13 +80,14 @@ class AircraftFlights extends React.Component {
       <div className={classes.container}>
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
+          <Button
+            href={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
+            color="primary"
+            className={classes.toOverviewButton}
+          >
+            <FormattedMessage id="aircraft.flights.tooverview" />
+          </Button>
         </Typography>
-        <Button
-          href={`/organizations/${organization.id}/aircrafts/${aircraft.id}`}
-          color="primary"
-        >
-          <FormattedMessage id="aircraft.flights.tooverview" />
-        </Button>
         <Typography variant="h5" gutterBottom>
           <FormattedMessage id="aircraft.flights" />
         </Typography>
