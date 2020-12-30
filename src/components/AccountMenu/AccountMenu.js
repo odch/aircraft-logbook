@@ -60,6 +60,9 @@ class AccountMenu extends React.Component {
         >
           <FormattedMessage id="menu.account.organizations" />
         </MenuItem>
+        <MenuItem data-cy="menu-item-profile" component={Link} to="/profile">
+          <FormattedMessage id="menu.account.profile" />
+        </MenuItem>
         <MenuItem data-cy="menu-item-logout" onClick={this.props.logout}>
           <FormattedMessage id="login.logout" />
         </MenuItem>
