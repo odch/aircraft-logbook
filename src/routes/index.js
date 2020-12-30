@@ -7,6 +7,7 @@ import aircraft from './organizations/routes/aircraft'
 import aircraftFlights from './organizations/routes/aircraft/routes/flights'
 import aircraftTechlog from './organizations/routes/aircraft/routes/techlog'
 import aircraftSettings from './organizations/routes/aircraft/routes/settings'
+import profile from './profile'
 import login from './login'
 import registration from './registration'
 
@@ -63,6 +64,12 @@ export const createRoutes = store => [
     path: '/organizations/:organizationId/aircrafts/:aircraftId/settings',
     exact: true,
     render: aircraftSettings(store),
+    protected: true
+  },
+  {
+    path: '/profile',
+    exact: true,
+    render: profile(store),
     protected: true
   },
   {
