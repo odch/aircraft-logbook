@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders correctly with value 1`] = `
+exports[`components SettingSelect renders correctly with value 1`] = `
 <li
   className="MuiListItem-container"
 >
@@ -57,7 +57,7 @@ exports[`routes organizations routes aircraft routes settings components Advance
 </li>
 `;
 
-exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders correctly without value 1`] = `
+exports[`components SettingSelect renders correctly without value 1`] = `
 <li
   className="MuiListItem-container"
 >
@@ -119,7 +119,7 @@ exports[`routes organizations routes aircraft routes settings components Advance
 </li>
 `;
 
-exports[`routes organizations routes aircraft routes settings components AdvancedSettings SettingSelect renders readonly with loading indicator when submitting 1`] = `
+exports[`components SettingSelect renders readonly with loading indicator when submitting 1`] = `
 <li
   className="MuiListItem-container"
 >

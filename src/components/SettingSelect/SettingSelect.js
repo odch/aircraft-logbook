@@ -47,7 +47,7 @@ const SettingSelect = ({
 
 SettingSelect.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number,
+  value: PropTypes.any,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.any.isRequired,
