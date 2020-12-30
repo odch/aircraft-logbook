@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import SettingSwitch from './SettingSwitch'
-import SettingSelect from './SettingSelect'
+import SettingSelect from '../../../../../../../../components/SettingSelect'
 import { intl as intlShape } from '../../../../../../../../shapes'
 
 const msg = (intl, id) => intl.formatMessage({ id })
