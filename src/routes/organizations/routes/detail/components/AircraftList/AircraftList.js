@@ -71,7 +71,10 @@ class AircraftList extends React.Component {
         )}
         {aircrafts.map(aircraft => (
           <Grid item key={aircraft.id} sm={4} xs={12}>
-            <Card className={classes.card}>
+            <Card
+              className={classes.card}
+              data-cy={`aircraft-card-${aircraft.id}`}
+            >
               <CardActionArea
                 className={classes.actionArea}
                 component={Link}

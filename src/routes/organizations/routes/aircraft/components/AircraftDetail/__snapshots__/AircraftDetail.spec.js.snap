@@ -351,6 +351,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   >
     <button
       className="MuiButtonBase-root MuiButton-root FlightList-button-148 MuiButton-contained MuiButton-containedPrimary"
+      data-cy="flight-create-button"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -376,9 +377,11 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
   </div>
   <div
     className="FlightList-container-149"
+    data-cy="flights-container"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-cy="flight-panel"
       data-id="sStfyLd2XArT7oUZPFDn"
     >
       <div

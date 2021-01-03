@@ -7,6 +7,7 @@ Array [
   >
     <button
       className="MuiButtonBase-root MuiButton-root FlightList-button-3 MuiButton-contained MuiButton-containedPrimary"
+      data-cy="flight-create-button"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -77,9 +78,11 @@ Array [
   </div>,
   <div
     className="FlightList-container-4"
+    data-cy="flights-container"
   >
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-cy="preflight-panel"
       data-id="sStfyLd2XArT7oUZPF3a"
     >
       <div
@@ -188,6 +191,7 @@ Array [
     </div>
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-cy="flight-panel"
       data-id="sStfyLd2XArT7oUZPFDn"
     >
       <div
@@ -302,6 +306,7 @@ Array [
     </div>
     <div
       className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-cy="flight-panel"
       data-id="sStfyLd2XArT7oUZPFDa"
     >
       <div
