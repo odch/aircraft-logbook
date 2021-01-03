@@ -105,6 +105,7 @@ function Option(props) {
         whiteSpace: 'normal'
       }}
       {...newInnerProps}
+      data-cy={`option-${props.data.value}`}
     >
       {props.children}
     </MenuItem>
@@ -225,7 +226,8 @@ class IntegrationReactSelect extends React.Component {
       disabled,
       clearable,
       onCreateOption,
-      onCreateOptionText
+      onCreateOptionText,
+      cy
     } = this.props
 
     const selectStyles = {
@@ -281,6 +283,7 @@ class IntegrationReactSelect extends React.Component {
               required,
               error,
               disabled,
+              'data-cy': cy,
               InputLabelProps: {
                 shrink: true
               }
@@ -317,7 +320,8 @@ IntegrationReactSelect.propTypes = {
   creatable: PropTypes.bool,
   clearable: PropTypes.bool,
   onCreateOption: PropTypes.func,
-  onCreateOptionText: PropTypes.string
+  onCreateOptionText: PropTypes.string,
+  cy: PropTypes.string
 }
 
 export default withStyles(styles)(IntegrationReactSelect)

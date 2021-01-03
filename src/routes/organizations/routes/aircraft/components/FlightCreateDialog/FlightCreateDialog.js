@@ -423,7 +423,7 @@ class FlightCreateDialog extends React.Component {
         value={valueModifier(this.getValue(name))}
         onChange={this.handleSelectChange(name)}
         options={options}
-        data-cy={`${name}-field`}
+        cy={`${name}-field`}
         margin="normal"
         error={hasError}
         disabled={isDisabled}
@@ -453,7 +453,7 @@ class FlightCreateDialog extends React.Component {
         value={this.getValue(name)}
         onChange={this.handleSelectChange(name)}
         loadOptions={loadAerodromes}
-        data-cy={`${name}-field`}
+        cy={`${name}-field`}
         margin="normal"
         error={hasError}
         disabled={disabled || isDisabled}
@@ -569,6 +569,7 @@ class FlightCreateDialog extends React.Component {
             color="primary"
             checked={this.getValue(name, false)}
             onChange={this.handleCheckboxChange(name)}
+            data-cy={`${name}-field`}
           />
         }
         label={this.msg(`flight.create.dialog.${name.toLowerCase()}`)}
@@ -602,7 +603,7 @@ class FlightCreateDialog extends React.Component {
           >
             <FormControlLabel
               value="nil"
-              control={<Radio disabled={isDisabled} />}
+              control={<Radio disabled={isDisabled} data-cy="nil-radio" />}
               label={this.msg('flight.create.dialog.troublesobservations.nil')}
             />
             <FormControlLabel

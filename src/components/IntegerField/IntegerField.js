@@ -42,7 +42,7 @@ class IntegerField extends React.Component {
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         inputRef={this.numberInput}
-        cy={cy}
+        data-cy={cy}
         type="number"
         margin={margin}
         fullWidth={fullWidth}
