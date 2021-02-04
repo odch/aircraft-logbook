@@ -50,7 +50,7 @@
   "aircraftdetail.techlog.action.signature": "Signature",
   "techlog.entry.status.for_information_only": "For information only",
   "techlog.entry.status.defect_aog": "Defect (aircraft on ground - AOG)",
-  "techlog.entry.status.defect_unknown": "Defect (implications unknown)",
+  "techlog.entry.status.defect_unknown": "Open (implications unknown)",
   "techlog.entry.status.defect_not_flight_relevant": "Defect (not flight relevant)",
   "techlog.entry.status.defect_with_limitations": "Defect (airworthy with limitations)",
   "techlog.entry.status.closed": "Closed",
