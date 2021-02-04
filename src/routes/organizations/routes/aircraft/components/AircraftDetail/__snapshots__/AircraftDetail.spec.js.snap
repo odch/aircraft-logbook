@@ -245,7 +245,7 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
               <span
                 className="MuiTypography-root EntryStatus-status-116 EntryStatus-severe-117 MuiTypography-body1"
               >
-                Defect (not airworthy)
+                Defect (aircraft on ground - AOG)
               </span>
             </div>
             <p
