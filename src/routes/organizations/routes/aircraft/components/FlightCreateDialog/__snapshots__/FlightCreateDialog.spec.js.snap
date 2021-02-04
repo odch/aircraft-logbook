@@ -89,7 +89,7 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
-                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
+                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Flugart</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
                     <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
                       <div class=\\"IntegrationReactSelect-valueContainer-171\\">
@@ -390,7 +390,7 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-14jk2my-container\\">
-                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Typ</label>
+                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink Mui-disabled Mui-disabled\\" data-shrink=\\"true\\">Flugart</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
                     <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170 Mui-disabled Mui-disabled\\" disabled=\\"\\" type=\\"text\\">
                       <div class=\\"IntegrationReactSelect-valueContainer-171\\">
@@ -691,7 +691,7 @@ exports[`routes organizations routes aircraft components FlightCreateDialog rend
           <div class=\\"MuiFormControl-root MuiFormControl-fullWidth\\">
             <div class=\\"IntegrationReactSelect-root-169\\">
               <div class=\\" css-2b097c-container\\">
-                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Typ</label>
+                <div class=\\"MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth\\" data-cy=\\"nature-field\\"><label class=\\"MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink\\" data-shrink=\\"true\\">Flugart</label>
                   <div class=\\"MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl\\">
                     <div aria-invalid=\\"false\\" class=\\"MuiInputBase-input MuiInput-input IntegrationReactSelect-input-170\\" type=\\"text\\">
                       <div class=\\"IntegrationReactSelect-valueContainer-171\\">
