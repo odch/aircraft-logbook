@@ -678,7 +678,7 @@ remarks"
         <span
           className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Defect (not airworthy)
+          Defect (aircraft on ground - AOG)
         </span>
       </div>
     </div>
@@ -1492,7 +1492,7 @@ remarks"
         <span
           className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Defect (not airworthy)
+          Defect (aircraft on ground - AOG)
         </span>
       </div>
     </div>
@@ -2666,7 +2666,7 @@ remarks"
         <span
           className="MuiTypography-root EntryStatus-status-169 EntryStatus-severe-170 EntryStatus-small-173 MuiTypography-body1"
         >
-          Defect (not airworthy)
+          Defect (aircraft on ground - AOG)
         </span>
       </div>
     </div>

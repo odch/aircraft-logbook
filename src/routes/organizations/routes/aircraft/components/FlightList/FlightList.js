@@ -170,6 +170,7 @@ class FlightList extends React.Component {
             color="primary"
             onClick={this.handleCreateClick}
             className={classes.button}
+            data-cy="flight-create-button"
           >
             <FormattedMessage
               id={
@@ -205,7 +206,7 @@ class FlightList extends React.Component {
             />
           )}
         </div>
-        <div className={classes.container}>
+        <div className={classes.container} data-cy="flights-container">
           {flights.length > 0 ? this.renderFlights() : this.renderNoFlights()}
           {!hidePagination && flights.length > 0 && (
             <TablePagination
@@ -267,6 +268,7 @@ class FlightList extends React.Component {
         onChange={this.handleExpansionPanelChange(flight.id)}
         data-id={flight.id}
         className={flight.deleted === true ? this.props.classes.deleted : null}
+        data-cy={flight.version === 0 ? 'preflight-panel' : 'flight-panel'}
       >
         {this.renderSummary(flight)}
         {expanded === flight.id && this.renderDetails(flight, isNewestFlight)}
@@ -349,6 +351,7 @@ class FlightList extends React.Component {
                   <IconButton
                     onClick={() => openDeleteFlightDialog(flight)}
                     disabled={isLocked || !isNewestFlight}
+                    data-cy="flight-delete-button"
                   >
                     <DeleteIcon />
                   </IconButton>
