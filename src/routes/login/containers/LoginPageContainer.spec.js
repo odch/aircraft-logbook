@@ -18,6 +18,9 @@ describe('containers', () => {
       const store = configureStore()({
         firebase: {
           auth: {}
+        },
+        login: {
+          tokenLogin: {}
         }
       })
 
@@ -35,7 +38,7 @@ describe('containers', () => {
     })
 
     it('should map state to props', () => {
-      const expectedPropKeys = ['auth']
+      const expectedPropKeys = ['auth', 'tokenLogin']
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)
@@ -43,7 +46,7 @@ describe('containers', () => {
     })
 
     it('should map dispatch to props', () => {
-      const expectedPropKeys = []
+      const expectedPropKeys = ['loginWithToken']
 
       expect(Object.keys(component.props)).toEqual(
         expect.arrayContaining(expectedPropKeys)

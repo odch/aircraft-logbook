@@ -5,9 +5,11 @@ import { getOrganization } from '../../../util/getFromState'
 const getSelectedOrganization = state => {
   const currentUser = state.firestore.data.currentUser
 
-  // not yet loaded
   if (!currentUser) {
-    return undefined
+    if (state.firebase.auth.uid === 'readonly') {
+      return null
+    }
+    return undefined // not yet loaded
   }
 
   return currentUser.selectedOrganization

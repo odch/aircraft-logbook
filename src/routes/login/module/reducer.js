@@ -8,6 +8,10 @@ export const INITIAL_STATE = {
   submitted: false,
   googleLogin: {
     failed: false
+  },
+  tokenLogin: {
+    failed: false,
+    submitted: false
   }
 }
 
@@ -51,13 +55,31 @@ const loginGoogleFailure = state => {
   })
 }
 
+const setTokenLoginSubmitted = state => ({
+  ...state,
+  tokenLogin: {
+    submitted: true,
+    failed: false
+  }
+})
+
+const tokenLoginFailure = state => ({
+  ...state,
+  tokenLogin: {
+    submitted: false,
+    failed: true
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.SET_USERNAME]: setUsername,
   [actions.SET_PASSWORD]: setPassword,
   [actions.LOGIN_SUCCESS]: loginSuccess,
   [actions.LOGIN_FAILURE]: loginFailure,
   [actions.SET_SUBMITTED]: setSubmitted,
-  [actions.LOGIN_GOOGLE_FAILURE]: loginGoogleFailure
+  [actions.LOGIN_GOOGLE_FAILURE]: loginGoogleFailure,
+  [actions.LOGIN_WITH_TOKEN]: setTokenLoginSubmitted,
+  [actions.TOKEN_LOGIN_FAILURE]: tokenLoginFailure
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

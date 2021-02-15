@@ -7,10 +7,51 @@ import configureStore from 'redux-mock-store'
 import LoginPage from './LoginPage'
 
 const StartPage = () => <div>start page</div>
+const OrgDetailPage = () => <div>org detail page</div>
 
 describe('components', () => {
   describe('LoginPage', () => {
-    it('redirects to start page if authenticated', () => {
+    it('redirects to from state if authenticated', () => {
+      const router = {
+        location: {
+          state: {
+            from: {
+              pathname: '/organizations/foobar'
+            }
+          }
+        }
+      }
+      const auth = {
+        isEmpty: false
+      }
+      const store = configureStore()({
+        firebase: {
+          auth
+        }
+      })
+      const tree = renderer
+        .create(
+          <Provider store={store}>
+            <Router>
+              <Switch>
+                <Route
+                  exact
+                  path="/organizations/foobar"
+                  component={OrgDetailPage}
+                />
+                <LoginPage auth={auth} router={router} />
+              </Switch>
+            </Router>
+          </Provider>
+        )
+        .toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+
+    it('redirects to start page as default if authenticated', () => {
+      const router = {
+        location: {}
+      }
       const auth = {
         isEmpty: false
       }
@@ -25,7 +66,7 @@ describe('components', () => {
             <Router>
               <Switch>
                 <Route exact path="/" component={StartPage} />
-                <LoginPage auth={auth} />
+                <LoginPage auth={auth} router={router} />
               </Switch>
             </Router>
           </Provider>
@@ -38,6 +79,10 @@ describe('components', () => {
       const auth = {
         isEmpty: true
       }
+      const tokenLogin = {
+        submitted: false,
+        failed: false
+      }
       const store = configureStore()({
         firebase: {
           auth
@@ -49,14 +94,18 @@ describe('components', () => {
           submitted: false,
           googleLogin: {
             failed: false
-          }
+          },
+          tokenLogin
         }
       })
+      const router = {
+        location: {}
+      }
       const tree = renderIntl(
         <Provider store={store}>
           <Router>
             <Switch>
-              <LoginPage auth={auth} />
+              <LoginPage auth={auth} tokenLogin={tokenLogin} router={router} />
               <Route exact path="/" component={StartPage} />
             </Switch>
           </Router>

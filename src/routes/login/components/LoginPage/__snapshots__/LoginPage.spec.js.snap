@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components LoginPage redirects to start page if authenticated 1`] = `
+exports[`components LoginPage redirects to from state if authenticated 1`] = `
+<div>
+  org detail page
+</div>
+`;
+
+exports[`components LoginPage redirects to start page as default if authenticated 1`] = `
 <div>
   start page
 </div>
@@ -8,13 +14,13 @@ exports[`components LoginPage redirects to start page if authenticated 1`] = `
 
 exports[`components LoginPage renders login form if not authenticated 1`] = `
 <main
-  className="LoginPage-layout-1"
+  className="LoginPage-layout-7"
 >
   <div
-    className="LoginPage-google-3"
+    className="LoginPage-google-9"
   >
     <button
-      className="MuiButtonBase-root MuiButton-root GoogleLogin-button-5 MuiButton-contained MuiButton-sizeLarge MuiButton-fullWidth"
+      className="MuiButtonBase-root MuiButton-root GoogleLogin-button-11 MuiButton-contained MuiButton-sizeLarge MuiButton-fullWidth"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -36,7 +42,7 @@ exports[`components LoginPage renders login form if not authenticated 1`] = `
       >
         <img
           alt="Google Logo"
-          className="GoogleLogin-logo-6"
+          className="GoogleLogin-logo-12"
           src="test-file-stub"
         />
         Mit Google anmelden
@@ -153,7 +159,7 @@ exports[`components LoginPage renders login form if not authenticated 1`] = `
   </form>
   <a
     aria-disabled={false}
-    className="MuiButtonBase-root MuiButton-root LoginPage-registrationButton-2 MuiButton-text MuiButton-textPrimary MuiButton-fullWidth"
+    className="MuiButtonBase-root MuiButton-root LoginPage-registrationButton-8 MuiButton-text MuiButton-textPrimary MuiButton-fullWidth"
     data-cy="registration"
     href="/register"
     onBlur={[Function]}

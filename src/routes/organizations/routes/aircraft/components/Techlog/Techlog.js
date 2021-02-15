@@ -32,6 +32,8 @@ class Techlog extends React.Component {
     expanded: null
   }
 
+  hasWritePermissions = () => this.props.organization.readonly !== true
+
   componentDidMount() {
     const { organization, aircraft, initTechlog, showOnlyOpen } = this.props
     initTechlog(organization.id, aircraft.id, showOnlyOpen)
@@ -71,13 +73,15 @@ class Techlog extends React.Component {
 
     return (
       <React.Fragment>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleCreateClick}
-        >
-          <FormattedMessage id="aircraftdetail.techlog.create" />
-        </Button>
+        {this.hasWritePermissions() && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleCreateClick}
+          >
+            <FormattedMessage id="aircraftdetail.techlog.create" />
+          </Button>
+        )}
         <div className={classes.container}>
           {techlog.length > 0 ? this.renderEntries() : this.renderNoEntries()}
           {techlog.length > 0 && pagination && (

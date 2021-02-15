@@ -1,10 +1,14 @@
 import { connect } from 'react-redux'
 import LoginPage from '../components/LoginPage'
+import { loginWithToken } from '../module'
 
 const mapStateToProps = (state /*, ownProps*/) => ({
-  auth: state.firebase.auth
+  auth: state.firebase.auth,
+  tokenLogin: state.login.tokenLogin
 })
 
-const mapDispatchToProps = (/*dispatch, ownProps*/) => ({})
+const mapActionCreators = {
+  loginWithToken
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default connect(mapStateToProps, mapActionCreators)(LoginPage)

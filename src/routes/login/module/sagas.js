@@ -1,6 +1,6 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
 import MobileDetect from 'mobile-detect'
-import { getFirebase } from '../../../util/firebase'
+import { getFirebase, callFunction } from '../../../util/firebase'
 import * as actions from './actions'
 import { error } from '../../../util/log'
 
@@ -41,9 +41,35 @@ export function* loginGoogle() {
   }
 }
 
+export function* loginWithToken(action) {
+  try {
+    const firebaseToken = yield call(callFunction, 'getReadonlyToken', {
+      token: action.payload.token
+    })
+    if (firebaseToken && firebaseToken.data) {
+      const firebase = yield call(getFirebase)
+      const auth = firebase.auth()
+      auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      yield call(
+        {
+          context: auth,
+          fn: auth.signInWithCustomToken
+        },
+        firebaseToken.data
+      )
+    } else {
+      yield put(actions.tokenLoginFailure())
+    }
+  } catch (e) {
+    error('Login with token failed', e)
+    yield put(actions.tokenLoginFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeLatest(actions.LOGIN, login),
-    takeLatest(actions.LOGIN_GOOGLE, loginGoogle)
+    takeLatest(actions.LOGIN_GOOGLE, loginGoogle),
+    takeLatest(actions.LOGIN_WITH_TOKEN, loginWithToken)
   ])
 }

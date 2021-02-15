@@ -25,6 +25,31 @@ exports[`components Header does not render user button if not logged in 1`] = `
 </header>
 `;
 
+exports[`components Header does not render user button if readonly user 1`] = `
+<header
+  className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary"
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-regular Header-container-6 MuiToolbar-gutters"
+  >
+    <h6
+      className="MuiTypography-root Header-grow-2 MuiTypography-h6 MuiTypography-colorInherit"
+    >
+      <a
+        className="Header-homeLink-4"
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          className="Header-logo-5"
+          src="test-file-stub"
+        />
+      </a>
+    </h6>
+  </div>
+</header>
+`;
+
 exports[`components Header renders user button if logged in 1`] = `
 <header
   className="MuiPaper-root MuiPaper-elevation4 MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary"
