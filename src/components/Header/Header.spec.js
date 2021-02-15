@@ -39,5 +39,18 @@ describe('components', () => {
       ).toJSON()
       expect(tree).toMatchSnapshot()
     })
+
+    it('does not render user button if readonly user', () => {
+      const auth = {
+        isEmpty: false,
+        uid: 'readonly'
+      }
+      const tree = renderIntl(
+        <Router>
+          <Header auth={auth} logout={() => {}} />
+        </Router>
+      ).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
   })
 })

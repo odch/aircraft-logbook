@@ -7,6 +7,7 @@
   "login.registration": "Noch kein Konto? Hier registrieren!",
   "login.or": "oder",
   "login.google": "Mit Google anmelden",
+  "login.tokeninvalid": "Link ungültig",
   "registration.firstname": "Vorname",
   "registration.lastname": "Nachname",
   "registration.email": "E-Mail",

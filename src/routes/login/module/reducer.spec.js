@@ -8,6 +8,10 @@ const INITIAL_STATE = {
   submitted: false,
   googleLogin: {
     failed: false
+  },
+  tokenLogin: {
+    failed: false,
+    submitted: false
   }
 }
 
@@ -65,6 +69,48 @@ describe('modules', () => {
           username: 'foo',
           googleLogin: {
             failed: true
+          }
+        })
+      })
+
+      it('handles LOGIN_WITH_TOKEN action', () => {
+        expect(
+          reducer(
+            {
+              username: 'foo',
+              tokenLogin: {
+                failed: false,
+                submitted: false
+              }
+            },
+            actions.loginWithToken()
+          )
+        ).toEqual({
+          username: 'foo',
+          tokenLogin: {
+            failed: false,
+            submitted: true
+          }
+        })
+      })
+
+      it('handles TOKEN_LOGIN_FAILURE action', () => {
+        expect(
+          reducer(
+            {
+              username: 'foo',
+              tokenLogin: {
+                failed: false,
+                submitted: true
+              }
+            },
+            actions.tokenLoginFailure()
+          )
+        ).toEqual({
+          username: 'foo',
+          tokenLogin: {
+            failed: true,
+            submitted: false
           }
         })
       })

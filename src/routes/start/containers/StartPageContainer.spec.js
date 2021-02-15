@@ -39,6 +39,11 @@ describe('routes', () => {
               app: {
                 organizations: [{ id: 'my_org' }]
               }
+            },
+            firebase: {
+              auth: {
+                uid: 'sasf502'
+              }
             }
           })
 
@@ -71,6 +76,9 @@ describe('routes', () => {
               data: {
                 // no `currentUser` here
               }
+            },
+            firebase: {
+              auth: {}
             }
           })
 
