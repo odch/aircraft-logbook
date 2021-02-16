@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { withStyles } from '@material-ui/core/styles'
@@ -35,7 +36,7 @@ class ExportFlightsForm extends React.Component {
 
   render() {
     return (
-      <>
+      <Box my={4}>
         <Typography variant="h5" gutterBottom>
           <FormattedMessage id="organization.settings.exportflights" />
         </Typography>
@@ -60,7 +61,7 @@ class ExportFlightsForm extends React.Component {
             </Button>
           </div>
         </form>
-      </>
+      </Box>
     )
   }
 
