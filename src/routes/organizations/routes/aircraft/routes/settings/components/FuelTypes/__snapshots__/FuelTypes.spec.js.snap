@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`routes organizations routes aircraft routes settings components FuelTypes renders fuel types 1`] = `
-<div>
+<div
+  className="MuiBox-root MuiBox-root-2"
+>
   <h5
     className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
   >
@@ -161,7 +163,9 @@ exports[`routes organizations routes aircraft routes settings components FuelTyp
 `;
 
 exports[`routes organizations routes aircraft routes settings components FuelTypes renders no types message 1`] = `
-<div>
+<div
+  className="MuiBox-root MuiBox-root-93"
+>
   <h5
     className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
   >
