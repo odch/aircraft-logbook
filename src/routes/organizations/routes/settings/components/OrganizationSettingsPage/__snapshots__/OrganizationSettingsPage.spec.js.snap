@@ -67,6 +67,11 @@ exports[`routes organizations routes settings components OrganizationSettingsPag
       <div><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary\\" tabindex=\\"0\\" type=\\"submit\\"><span class=\\"MuiButton-label\\">Flüge exportieren</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
     </form>
   </div>
+  <div class=\\"MuiBox-root MuiBox-root-248\\">
+    <h5 class=\\"MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom\\">Anonymer Lesezugriff</h5>
+    <p class=\\"MuiTypography-root MuiTypography-body1\\">Ist der anonyme Lesezugriff aktiv, können die erfassten Daten der Flugzeuge über einen speziellen Link eingesehen werden (siehe Link in Einstellungen des Flugzeugs).</p>
+    <div class=\\"MuiBox-root MuiBox-root-249\\"><label class=\\"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementStart\\"><span class=\\"MuiSwitch-root MuiSwitch-edgeEnd\\"><span class=\\"MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-268 MuiSwitch-switchBase MuiSwitch-colorSecondary\\" aria-disabled=\\"false\\"><span class=\\"MuiIconButton-label\\"><span class=\\"MuiSwitch-thumb\\"></span><input class=\\"PrivateSwitchBase-input-271 MuiSwitch-input\\" type=\\"checkbox\\" value=\\"\\"></span><span class=\\"MuiTouchRipple-root\\"></span></span><span class=\\"MuiSwitch-track\\"></span></span><span class=\\"MuiTypography-root MuiFormControlLabel-label MuiTypography-body1\\">Anonymer Lesezugriff</span></label></div>
+  </div>
   <hr class=\\"MuiDivider-root injectIntl(OrganizationSettings)-divider-102\\">
   <div class=\\"injectIntl(OrganizationSettings)-deleteButtonContainer-103\\"><button class=\\"MuiButtonBase-root MuiButton-root MuiButton-text\\" tabindex=\\"0\\" type=\\"button\\" data-cy=\\"organization-delete-button\\"><span class=\\"MuiButton-label\\"><svg class=\\"MuiSvgIcon-root\\" focusable=\\"false\\" viewBox=\\"0 0 24 24\\" aria-hidden=\\"true\\" role=\\"presentation\\"><path d=\\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\\"></path></svg>Organisation löschen</span><span class=\\"MuiTouchRipple-root\\"></span></button></div>
 </div>"

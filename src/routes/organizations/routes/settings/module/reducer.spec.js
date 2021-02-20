@@ -49,6 +49,9 @@ export const INITIAL_STATE = {
   lockDateForm: {
     submitting: false
   },
+  readonlyAccessSwitch: {
+    submitting: false
+  },
   members: {
     page: 0,
     filter: ''
@@ -563,6 +566,51 @@ describe('routes', () => {
             testLockDateFormSubmitting(
               true,
               actions.updateLockDateFailure(),
+              false
+            )
+          })
+
+          const testReadonlyAccessSwitchSubmitting = (
+            before,
+            action,
+            after
+          ) => {
+            expect(
+              reducer(
+                {
+                  readonlyAccessSwitch: {
+                    submitting: before
+                  }
+                },
+                action
+              )
+            ).toEqual({
+              readonlyAccessSwitch: {
+                submitting: after
+              }
+            })
+          }
+
+          it('handles SET_READONLY_ACCESS_ENABLED action', () => {
+            testReadonlyAccessSwitchSubmitting(
+              false,
+              actions.setReadonlyAccessEnabled('my_org', true),
+              true
+            )
+          })
+
+          it('handles SET_READONLY_ACCESS_ENABLED_SUCCESS action', () => {
+            testReadonlyAccessSwitchSubmitting(
+              true,
+              actions.setReadonlyAccessEnabledSuccess(),
+              false
+            )
+          })
+
+          it('handles SET_READONLY_ACCESS_ENABLED_FAILURE action', () => {
+            testReadonlyAccessSwitchSubmitting(
+              true,
+              actions.setReadonlyAccessEnabledFailure(),
               false
             )
           })

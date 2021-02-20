@@ -41,6 +41,12 @@ export const SET_EXPORT_FLIGHTS_FORM_SUBMITTING =
   'organizationSettings/SET_EXPORT_FLIGHTS_FORM_SUBMITTING'
 export const UPDATE_EXPORT_FLIGHTS_FORM_DATA =
   'organizationSettings/UPDATE_EXPORT_FLIGHTS_FORM_DATA'
+export const SET_READONLY_ACCESS_ENABLED =
+  'organizationSettings/SET_READONLY_ACCESS_ENABLED'
+export const SET_READONLY_ACCESS_ENABLED_SUCCESS =
+  'organizationSettings/SET_READONLY_ACCESS_ENABLED_SUCCESS'
+export const SET_READONLY_ACCESS_ENABLED_FAILURE =
+  'organizationSettings/SET_READONLY_ACCESS_ENABLED_FAILURE'
 
 export const openCreateMemberDialog = () => ({
   type: OPEN_CREATE_MEMBER_DIALOG
@@ -186,4 +192,20 @@ export const updateExportFlightsFormData = data => ({
   payload: {
     data
   }
+})
+
+export const setReadonlyAccessEnabled = (organizationId, enabled) => ({
+  type: SET_READONLY_ACCESS_ENABLED,
+  payload: {
+    organizationId,
+    enabled
+  }
+})
+
+export const setReadonlyAccessEnabledSuccess = () => ({
+  type: SET_READONLY_ACCESS_ENABLED_SUCCESS
+})
+
+export const setReadonlyAccessEnabledFailure = () => ({
+  type: SET_READONLY_ACCESS_ENABLED_FAILURE
 })
