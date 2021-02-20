@@ -356,6 +356,10 @@
   "aircraft.settings.advanced.flighttimecounterfractiondigits": "Anzahl Nachkommastellen bei Flugstunden-Zähler",
   "aircraft.settings.advanced.enginehourscounterenabled": "Motorstunden-Zähler aktiviert",
   "aircraft.settings.advanced.enginehourscounterfractiondigits": "Anzahl Nachkommastellen bei Motorstunden-Zähler",
+  "aircraft.settings.readonlyaccess": "Anonymer Lesezugriff",
+  "aircraft.settings.readonlyaccess.description": "Der anonyme Lesezugriff ist für diese Organisation aktiviert. Teile den folgenden Link, um bestimmten Personen anonymen Lesezugriff auf dieses Flugzeug zu gewähren.",
+  "aircraft.settings.readonlyaccess.copytoclipboard": "In Zwischenablage kopieren",
+  "aircraft.settings.readonlyaccess.copied": "Link kopiert",
   "aircraft.counter.flighthours": "Flugstunden",
   "aircraft.counter.enginehours": "Motorstunden",
   "aircraft.counter.landings": "Landungen"
