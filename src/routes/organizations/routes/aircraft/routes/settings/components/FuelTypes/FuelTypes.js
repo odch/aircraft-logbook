@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 import { fuelType as fuelTypeShape } from '../../../../../../../../shapes/aircraft'
 import CreateFuelTypeDialog from '../../containers/CreateFuelTypeDialogContainer'
 import FuelType from './FuelType'
@@ -27,7 +28,7 @@ class FuelTypes extends React.Component {
     } = this.props
 
     return (
-      <div>
+      <Box my={4}>
         <Typography variant="h5" gutterBottom>
           <FormattedMessage id="aircraft.settings.fueltypes" />
         </Typography>
@@ -73,7 +74,7 @@ class FuelTypes extends React.Component {
             onClose={closeDeleteFuelTypeDialog}
           />
         )}
-      </div>
+      </Box>
     )
   }
 }
