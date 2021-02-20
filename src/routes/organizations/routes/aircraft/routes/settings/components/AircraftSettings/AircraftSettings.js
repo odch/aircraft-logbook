@@ -18,6 +18,7 @@ import Checks from '../../containers/ChecksContainer'
 import FuelTypes from '../../containers/FuelTypesContainer'
 import AdvancedSettings from '../../containers/AdvancedSettingsContainer'
 import DeleteAircraftDialog from '../DeleteAircraftDialog'
+import ReadonlyAccessLink from '../ReadonlyAccessLink'
 
 const styles = theme => ({
   container: {
@@ -122,6 +123,7 @@ class AircraftSettings extends React.Component {
               organizationId={organization.id}
               aircraftId={aircraft.id}
             />
+            <ReadonlyAccessLink organization={organization} />
             <Divider className={classes.divider} />
             <div className={classes.deleteButtonContainer}>
               <DeleteButton
