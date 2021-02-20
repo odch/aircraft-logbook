@@ -19,6 +19,7 @@ import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
 import LockDateForm from '../../containers/LockDateFormContainer'
 import ExportFlightsForm from '../../containers/ExportFlightsFormContainer'
+import ReadonlyAccessSwitch from '../../containers/ReadonlyAccessSwitchContainer'
 
 const styles = theme => ({
   container: {
@@ -100,6 +101,7 @@ class OrganizationSettings extends React.Component {
         <MemberList organizationId={organization.id} />
         <LockDateForm organizationId={organization.id} />
         <ExportFlightsForm organizationId={organization.id} />
+        <ReadonlyAccessSwitch organization={organization} />
         {featureToggles.isFeatureEnabled('organizationsManagement') && (
           <React.Fragment>
             <Divider className={classes.divider} />

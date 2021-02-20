@@ -60,6 +60,9 @@ describe('routes', () => {
                   lockDateForm: {
                     submitting: false
                   },
+                  readonlyAccessSwitch: {
+                    submitting: false
+                  },
                   members: {
                     page: 0
                   }

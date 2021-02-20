@@ -298,6 +298,8 @@
   "organization.settings.exportflights": "Flüge exportieren",
   "organization.settings.exportflights.startdate": "Startdatum",
   "organization.settings.exportflights.enddate": "Enddatum",
+  "organization.settings.readonlyaccess": "Anonymer Lesezugriff",
+  "organization.settings.readonlyaccess.description": "Ist der anonyme Lesezugriff aktiv, können die erfassten Daten der Flugzeuge über einen speziellen Link eingesehen werden (siehe Link in Einstellungen des Flugzeugs).",
   "organization.member.delete.dialog.title": "Benutzer löschen",
   "organization.member.delete.dialog.text": "Bist du sicher, dass du diesen Benutzer löschen möchtest?",
   "organization.member.delete.dialog.firstname": "Vorname",

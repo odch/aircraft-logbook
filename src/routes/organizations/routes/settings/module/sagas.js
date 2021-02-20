@@ -138,12 +138,32 @@ export function* updateLockDate({ payload: { organizationId, date } }) {
   }
 }
 
+export function* setReadonlyAccessEnabled({
+  payload: { organizationId, enabled }
+}) {
+  try {
+    yield call(callFunction, 'setReadonlyAccessEnabled', {
+      organizationId,
+      enabled
+    })
+    yield put(fetchOrganizations())
+    yield put(actions.setReadonlyAccessEnabledSuccess())
+  } catch (e) {
+    error(
+      `Failed to set readonly access enabled/disabled (org: ${organizationId})`,
+      e
+    )
+    yield put(actions.setReadonlyAccessEnabledFailure())
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_MEMBER, createMember),
     takeEvery(actions.DELETE_MEMBER, deleteMember),
     takeEvery(actions.UPDATE_MEMBER, updateMember),
     takeEvery(actions.EXPORT_FLIGHTS, exportFlights),
-    takeLatest(actions.UPDATE_LOCK_DATE, updateLockDate)
+    takeLatest(actions.UPDATE_LOCK_DATE, updateLockDate),
+    takeLatest(actions.SET_READONLY_ACCESS_ENABLED, setReadonlyAccessEnabled)
   ])
 }
