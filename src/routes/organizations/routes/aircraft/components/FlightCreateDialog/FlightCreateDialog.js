@@ -234,6 +234,8 @@ class FlightCreateDialog extends React.Component {
         flightTimeCounterFractionDigits,
         engineHoursCounterEnabled,
         engineHoursCounterFractionDigits,
+        engineTachHoursCounterEnabled,
+        engineTachHoursCounterFractionDigits,
         lockDate
       }
     } = this.props
@@ -290,6 +292,20 @@ class FlightCreateDialog extends React.Component {
                   engineHoursCounterFractionDigits
                 )
               )}
+            {engineTachHoursCounterEnabled &&
+              this.renderInTwoColumns(
+                'counters.enginetachcounter',
+                this.renderDecimalField(
+                  'counters.engineTachCounter.start',
+                  this.hasInitialValue('counters.engineTachCounter.start'),
+                  engineTachHoursCounterFractionDigits
+                ),
+                this.renderDecimalField(
+                  'counters.engineTachCounter.end',
+                  false,
+                  engineTachHoursCounterFractionDigits
+                )
+              )}
             {this.renderTimePicker('blockOffTime')}
             {this.renderTimePicker('takeOffTime')}
             {this.renderTimePicker('landingTime', flightTimeCounterEnabled)}
@@ -333,7 +349,9 @@ class FlightCreateDialog extends React.Component {
       initialData,
       aircraftSettings: {
         engineHoursCounterEnabled,
-        engineHoursCounterFractionDigits
+        engineHoursCounterFractionDigits,
+        engineTachHoursCounterEnabled,
+        engineTachHoursCounterFractionDigits
       },
       classes
     } = this.props
@@ -345,6 +363,9 @@ class FlightCreateDialog extends React.Component {
     ]
     if (engineHoursCounterEnabled) {
       requiredFields.push('counters.engineHours.start')
+    }
+    if (engineTachHoursCounterEnabled) {
+      requiredFields.push('counters.engineTachHours.start')
     }
 
     const requiredInitialValues = getMissingFields(initialData, requiredFields)
@@ -369,6 +390,12 @@ class FlightCreateDialog extends React.Component {
             'counters.engineHours.start',
             false,
             engineHoursCounterFractionDigits
+          )}
+        {requiredInitialValues.includes('counters.engineTachHours.start') &&
+          this.renderDecimalField(
+            'counters.engineTachHours.start',
+            false,
+            engineTachHoursCounterFractionDigits
           )}
       </div>
     )
@@ -767,6 +794,8 @@ FlightCreateDialog.propTypes = {
     flightTimeCounterFractionDigits: PropTypes.oneOf([1, 2]),
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
+    engineTachHoursCounterEnabled: PropTypes.bool.isRequired,
+    engineTachHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
     techlogEnabled: PropTypes.bool.isRequired,
     lockDate: PropTypes.object
   }).isRequired,

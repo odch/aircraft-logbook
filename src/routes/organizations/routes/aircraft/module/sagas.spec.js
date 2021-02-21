@@ -508,9 +508,11 @@ describe('routes', () => {
                 flights: counter(122, 123),
                 flightHours: counter(10145, 10250),
                 engineHours: counter(10378, 10502),
+                engineTachHours: counter(12682, 12823),
                 landings: counter(2356, 2357),
                 flightTimeCounter: counter(9145, 9250),
-                engineTimeCounter: counter(9378, 9502)
+                engineTimeCounter: counter(9378, 9502),
+                engineTachCounter: counter(10096, 10304)
               }
             }
             const destinationAerodrome = {
@@ -522,7 +524,8 @@ describe('routes', () => {
 
             const expectedVisibleFields = (
               flightTimeCounterEnabled,
-              engineCounterEnabled
+              engineCounterEnabled,
+              engineTachHoursCounterEnabled
             ) => [
               'date',
               'pilot',
@@ -535,6 +538,9 @@ describe('routes', () => {
               ...(engineCounterEnabled
                 ? ['counters.engineTimeCounter.start']
                 : []),
+              ...(engineTachHoursCounterEnabled
+                ? ['counters.engineTachCounter.start']
+                : []),
               'personsOnBoard',
               'fuelUplift',
               'fuelType',
@@ -543,7 +549,8 @@ describe('routes', () => {
               'counters.flights.start',
               'counters.landings.start',
               'counters.flightHours.start',
-              'counters.engineHours.start'
+              'counters.engineHours.start',
+              'counters.engineTachHours.start'
             ]
 
             const expectedEditableFields = [
@@ -559,16 +566,19 @@ describe('routes', () => {
               'departureAerodrome',
               'counters.flightTimeCounter.start',
               'counters.engineTimeCounter.start',
+              'counters.engineTachCounter.start',
               'counters.flights.start',
               'counters.landings.start',
               'counters.flightHours.start',
-              'counters.engineHours.start'
+              'counters.engineHours.start',
+              'counters.engineTachHours.start'
             ]
 
             it('should set the default values for the new flight', () => {
               const aircraftSettings = {
                 flightTimeCounterEnabled: true,
-                engineHoursCounterEnabled: true
+                engineHoursCounterEnabled: true,
+                engineTachHoursCounterEnabled: true
               }
 
               const expectedDefaultValues = {
@@ -586,9 +596,11 @@ describe('routes', () => {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
                   engineHours: { start: 10502 },
+                  engineTachHours: { start: 12823 },
                   landings: { start: 2357 },
                   flightTimeCounter: { start: 9250 },
-                  engineTimeCounter: { start: 9502 }
+                  engineTimeCounter: { start: 9502 },
+                  engineTachCounter: { start: 10304 }
                 },
                 blockOffTime: endOfToday,
                 takeOffTime: null,
@@ -612,7 +624,7 @@ describe('routes', () => {
                 .put(
                   actions.setInitialCreateFlightDialogData(
                     expectedDefaultValues,
-                    expectedVisibleFields(true, true),
+                    expectedVisibleFields(true, true, true),
                     expectedEditableFields
                   )
                 )
@@ -622,7 +634,8 @@ describe('routes', () => {
             it('should not set flight time and engine hours start counters if not enabled', () => {
               const aircraftSettings = {
                 flightTimeCounterEnabled: false,
-                engineHoursCounterEnabled: false
+                engineHoursCounterEnabled: false,
+                engineTachHoursCounterEnabled: false
               }
 
               const expectedDefaultValues = {
@@ -663,7 +676,7 @@ describe('routes', () => {
                 .put(
                   actions.setInitialCreateFlightDialogData(
                     expectedDefaultValues,
-                    expectedVisibleFields(false, false),
+                    expectedVisibleFields(false, false, false),
                     expectedEditableFields
                   )
                 )

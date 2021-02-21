@@ -251,6 +251,11 @@ export function* initCreateFlightDialog({
     counterNames.push('engineHours')
   }
 
+  if (aircraftSettings.engineTachHoursCounterEnabled === true) {
+    counterNames.push('engineTachCounter')
+    counterNames.push('engineTachHours')
+  }
+
   const counters = initCounters(counterNames)
 
   let departureAerodrome
@@ -292,6 +297,9 @@ export function* initCreateFlightDialog({
         ...(aircraftSettings.engineHoursCounterEnabled === true
           ? ['counters.engineTimeCounter.start']
           : []),
+        ...(aircraftSettings.engineTachHoursCounterEnabled === true
+          ? ['counters.engineTachCounter.start']
+          : []),
         'personsOnBoard',
         'fuelUplift',
         'fuelType',
@@ -302,7 +310,8 @@ export function* initCreateFlightDialog({
         'counters.flights.start',
         'counters.landings.start',
         'counters.flightHours.start',
-        'counters.engineHours.start'
+        'counters.engineHours.start',
+        'counters.engineTachHours.start'
       ],
       [
         'date',
@@ -319,10 +328,12 @@ export function* initCreateFlightDialog({
         'departureAerodrome',
         'counters.flightTimeCounter.start',
         'counters.engineTimeCounter.start',
+        'counters.engineTachCounter.start',
         'counters.flights.start',
         'counters.landings.start',
         'counters.flightHours.start',
-        'counters.engineHours.start'
+        'counters.engineHours.start',
+        'counters.engineTachHours.start'
       ]
     )
   )
@@ -478,6 +489,12 @@ const getEditFormFields = (flight, aircraftSettings) =>
                 'counters.engineTimeCounter.end'
               ]
             : []),
+          ...(aircraftSettings.engineTachHoursCounterEnabled === true
+            ? [
+                'counters.engineTachCounter.start',
+                'counters.engineTachCounter.end'
+              ]
+            : []),
           'blockOffTime',
           'takeOffTime',
           'landingTime',
@@ -499,6 +516,7 @@ const getEditFormFields = (flight, aircraftSettings) =>
           'destinationAerodrome',
           'counters.flightTimeCounter.end',
           'counters.engineTimeCounter.end',
+          'counters.engineTachCounter.end',
           'blockOffTime',
           'takeOffTime',
           'landingTime',
@@ -532,6 +550,12 @@ const getEditFormFields = (flight, aircraftSettings) =>
             ? [
                 'counters.engineTimeCounter.start',
                 'counters.engineTimeCounter.end'
+              ]
+            : []),
+          ...(aircraftSettings.engineTachHoursCounterEnabled === true
+            ? [
+                'counters.engineTachCounter.start',
+                'counters.engineTachCounter.end'
               ]
             : []),
           'blockOffTime',

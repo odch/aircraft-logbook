@@ -9,6 +9,7 @@ const getCounters = data => {
 
   const flightTimeCounter = c.flightTimeCounter
   const engineTimeCounter = c.engineTimeCounter
+  const engineTachCounter = c.engineTachCounter
 
   const landings = interval(
     c.landings.start,
@@ -32,6 +33,15 @@ const getCounters = data => {
           : null
       )
     : null
+  const engineTachHours = engineTachCounter
+    ? interval(
+        c.engineTachHours.start,
+        data.id
+          ? c.engineTachHours.start +
+              (engineTachCounter.end - engineTachCounter.start)
+          : null
+      )
+    : null
 
   const counters = {
     flights,
@@ -40,8 +50,10 @@ const getCounters = data => {
   }
 
   if (engineHours) counters.engineHours = engineHours
+  if (engineTachHours) counters.engineTachHours = engineTachHours
   if (flightTimeCounter) counters.flightTimeCounter = flightTimeCounter
   if (engineTimeCounter) counters.engineTimeCounter = engineTimeCounter
+  if (engineTachCounter) counters.engineTachCounter = engineTachCounter
 
   return counters
 }
