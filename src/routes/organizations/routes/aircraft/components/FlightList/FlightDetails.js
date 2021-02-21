@@ -189,6 +189,19 @@ const FlightDetails = ({ aircraft, flight }) => {
                   )}
               </Grid>
             )}
+            {flight.counters.engineTachCounter && (
+              <Grid item xs={6} sm={4}>
+                {aircraft.settings.engineTachHoursCounterEnabled &&
+                  renderField(
+                    'enginetachhours',
+                    getDecimalRange(
+                      flight.counters.engineTachCounter,
+                      aircraft.settings.engineTachHoursCounterFractionDigits
+                    ),
+                    intl
+                  )}
+              </Grid>
+            )}
           </Grid>
         )}
       </Grid>
