@@ -52,11 +52,13 @@ describe('aircraft', () => {
       const aircraftId = 'my_aircraft'
       const aircraftSettings1 = {
         flightTimeCounterEnabled: true,
-        engineHoursCounterEnabled: true
+        engineHoursCounterEnabled: true,
+        engineTachHoursCounterEnabled: true
       }
       const aircraftSettings2 = {
         flightTimeCounterEnabled: false,
         engineHoursCounterEnabled: false,
+        engineTachHoursCounterEnabled: false,
         lockDate: {
           toDate: () => new Date(2019, 0, 6, 24, 0, 0)
         }
@@ -587,6 +589,105 @@ describe('aircraft', () => {
           },
           aircraftSettings1,
           'counters.engineTimeCounter.end',
+          'not_before_start_counter'
+        )
+      })
+
+      it('should return an error if engine tach start counter is missing', () => {
+        return testFn(
+          {},
+          aircraftSettings1,
+          'counters.engineTachCounter.start',
+          'required'
+        )
+      })
+
+      it('should return an error if engine tach start counter is null', () => {
+        return testFn(
+          {
+            counters: {
+              engineTachCounter: {
+                start: null
+              }
+            }
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.start',
+          'required'
+        )
+      })
+
+      it('should return no error if engine tach start counter is set', () => {
+        return testFn(
+          {
+            counters: {
+              engineTachCounter: {
+                start: 10000
+              }
+            }
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.start',
+          undefined
+        )
+      })
+
+      it('should return an error if engine tach end counter is missing', () => {
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn'
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.end',
+          'required'
+        )
+      })
+
+      it('should return an error if engine tach end counter is null', () => {
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            counters: {
+              engineTachCounter: {
+                end: null
+              }
+            }
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.end',
+          'required'
+        )
+      })
+
+      it('should return no error if engine tach end counter is set', () => {
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            counters: {
+              engineTachCounter: {
+                end: 10000
+              }
+            }
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.end',
+          undefined
+        )
+      })
+
+      it('should return an error if engine tach end counter is before start counter', () => {
+        return testFn(
+          {
+            id: 'sStfyLd2XArT7oUZPFDn',
+            counters: {
+              engineTachCounter: {
+                start: 10000,
+                end: 9999
+              }
+            }
+          },
+          aircraftSettings1,
+          'counters.engineTachCounter.end',
           'not_before_start_counter'
         )
       })
