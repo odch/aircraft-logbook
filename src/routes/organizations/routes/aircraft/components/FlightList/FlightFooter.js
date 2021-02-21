@@ -44,6 +44,18 @@ const FlightFooter = ({ flight, aircraft, intl, classes }) => (
             )}
           </Grid>
         )}
+        {flight.counters.engineTachHours && (
+          <Grid item xs={6} sm={4}>
+            {renderField(
+              'total.enginetachhours',
+              formatDecimalNumber(
+                flight.counters.engineTachHours.end,
+                aircraft.settings.engineTachHoursCounterFractionDigits
+              ),
+              intl
+            )}
+          </Grid>
+        )}
         <Grid item xs={6} sm={4}>
           {renderField('total.landings', flight.counters.landings.end, intl)}
         </Grid>
