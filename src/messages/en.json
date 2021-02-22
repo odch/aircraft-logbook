@@ -99,7 +99,7 @@
   "flightlist.takeofftime": "Take off",
   "flightlist.landingtime": "Landing",
   "flightlist.blockontime": "Block on",
-  "flightlist.flighthours_counter": "Flight hours counter",
+  "flightlist.flighthours_counter": "Flight hours (by flight time counter)",
   "flightlist.flighthours_time": "Flight hours (by takeoff and landing time)",
   "flightlist.flighthours": "Flight hours",
   "flightlist.enginehours": "Motor hours",
@@ -368,7 +368,7 @@
   "flight.create.dialog.validation.counters.enginetachcounter.start.required": "Please enter Tach Timer start value",
   "flight.create.dialog.validation.counters.enginetachcounter.end.required": "Please enter Tach Timer end value",
   "flight.create.dialog.counters.enginetachcounter.end": "Tach Timer end",
-  "flight.create.dialog.counters.enginetachcounter.start": "Tach Timer start",
+  "flight.create.dialog.counters.enginetachcounter.start": "Counter at start",
   "flight.create.dialog.counters.enginetachcounter": "Tach Timer",
   "flightlist.total.enginetachhours": "Total Tach Time",
   "flightlist.enginetachhours": "Tach Timer"
