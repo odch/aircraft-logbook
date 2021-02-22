@@ -367,7 +367,7 @@
   "flight.create.dialog.validation.counters.enginetachcounter.end.not_before_start_counter": "End value can not be lower than start value",
   "flight.create.dialog.validation.counters.enginetachcounter.start.required": "Please enter tach timer start value",
   "flight.create.dialog.validation.counters.enginetachcounter.end.required": "Please enter tach timer end value",
-  "flight.create.dialog.counters.enginetachcounter.end": "Tach Timer end",
+  "flight.create.dialog.counters.enginetachcounter.end": "Counter at end",
   "flight.create.dialog.counters.enginetachcounter.start": "Counter at start",
   "flight.create.dialog.counters.enginetachcounter": "Tach Timer",
   "flightlist.total.enginetachhours": "Total Tach Time",
