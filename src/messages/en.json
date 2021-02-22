@@ -356,5 +356,20 @@
   "aircrafts.delete": "Delete aircraft",
   "aircrafts.create.dialog.duplicate": "There is already an aircraft with this registration.",
   "aircrafts.delete.dialog.registration": "Call sign",
-  "aircrafts.delete.dialog.text": "Please enter the call sign of the aircraft you want to delete:"
+  "aircrafts.delete.dialog.text": "Please enter the call sign of the aircraft you want to delete:",
+  "aircraft.settings.readonlyaccess.copied": "Link copied",
+  "aircraft.settings.readonlyaccess.copytoclipboard": "Copy to clipboard",
+  "aircraft.settings.readonlyaccess.description": "Anonymous read access is enabled for this organization. Share the link below to give specific people anonymous read access to this aircraft.",
+  "aircraft.settings.readonlyaccess": "Anonymous read access",
+  "organization.settings.readonlyaccess.description": "If anonymous read access is active, the recorded aircraft data can be viewed via a special link (see link in aircraft settings).",
+  "organization.settings.readonlyaccess": "Anonymous read access",
+  "flight.create.dialog.counters.enginetachhours.start": "Total Tach hours before this flight",
+  "flight.create.dialog.validation.counters.enginetachcounter.end.not_before_start_counter": "Tach time end value  can't be lower than start value",
+  "flight.create.dialog.validation.counters.enginetachcounter.start.required": "Please enter Tach timer start time",
+  "flight.create.dialog.validation.counters.enginetachcounter.end.required": "Please enter Tach timer end time",
+  "flight.create.dialog.counters.enginetachcounter.end": "End value",
+  "flight.create.dialog.counters.enginetachcounter.start": "Starting value",
+  "flight.create.dialog.counters.enginetachcounter": "Tach Time",
+  "flightlist.total.enginetachhours": "Total Tach Time",
+  "flightlist.enginetachhours": "Tach Time"
 }
