@@ -364,12 +364,12 @@
   "organization.settings.readonlyaccess.description": "If anonymous read access is active, the recorded aircraft data can be viewed via a special link (see link in aircraft settings).",
   "organization.settings.readonlyaccess": "Anonymous read access",
   "flight.create.dialog.counters.enginetachhours.start": "Total Tach hours before this flight",
-  "flight.create.dialog.validation.counters.enginetachcounter.end.not_before_start_counter": "Tach time end value  can't be lower than start value",
-  "flight.create.dialog.validation.counters.enginetachcounter.start.required": "Please enter Tach timer start time",
-  "flight.create.dialog.validation.counters.enginetachcounter.end.required": "Please enter Tach timer end time",
-  "flight.create.dialog.counters.enginetachcounter.end": "End value",
-  "flight.create.dialog.counters.enginetachcounter.start": "Starting value",
-  "flight.create.dialog.counters.enginetachcounter": "Tach Time",
+  "flight.create.dialog.validation.counters.enginetachcounter.end.not_before_start_counter": "Tach timer end value  can't be lower than start value",
+  "flight.create.dialog.validation.counters.enginetachcounter.start.required": "Please enter Tach timer start value",
+  "flight.create.dialog.validation.counters.enginetachcounter.end.required": "Please enter Tach timer end value",
+  "flight.create.dialog.counters.enginetachcounter.end": "Tach timer end",
+  "flight.create.dialog.counters.enginetachcounter.start": "Tach timer start",
+  "flight.create.dialog.counters.enginetachcounter": "Tach Timer",
   "flightlist.total.enginetachhours": "Total Tach Time",
-  "flightlist.enginetachhours": "Tach Time"
+  "flightlist.enginetachhours": "Tach Timer"
 }
