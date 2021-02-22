@@ -16,6 +16,10 @@ function isOrgManager(database, organization) {
   return isAuthed() && 'manager' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.orgs[organization].roles;
 }
 
+function isReadonlyOrgUser(organization) {
+  return isAuthed() && request.auth.uid == 'readonly' && request.auth.token.organization == organization
+}
+
 function affectsOnly(fields) {
   return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
 }
@@ -56,11 +60,11 @@ service cloud.firestore {
     }
 
     match /organizations/{organization} {
-      allow read: if isOrgMember(database, organization);
+      allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
       allow update: if isOrgManager(database, organization);
 
       match /members/{member} {
-        allow read: if isOrgMember(database, organization);
+        allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
         allow create: if isOrgManager(database, organization)
           && hasOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp", "createdBy", "createTimestamp", "updatedBy", "updateTimestamp"]);
         allow update: if isOrgManager(database, organization)
@@ -68,12 +72,12 @@ service cloud.firestore {
       }
 
       match /aircrafts/{aircraft} {
-        allow read: if isOrgMember(database, organization);
+        allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
         allow create: if isOrgManager(database, organization);
         allow update: if isOrgManager(database, organization) && affectsOnly(["deleted", "settings"]);
 
         match /flights/{flight} {
-          allow read: if isOrgMember(database, organization);
+          allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
 
           allow update: if isOrgMember(database, organization)
             && affectsOnly(["deleted", "deleteTimestamp", "deletedBy"])
@@ -81,20 +85,20 @@ service cloud.firestore {
         }
 
         match /techlog/{entry} {
-          allow read: if isOrgMember(database, organization);
+          allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
 
           match /actions/{action} {
-            allow read: if isOrgMember(database, organization);
+            allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
           }
         }
 
         match /checks/{check} {
-          allow read: if isOrgMember(database, organization);
+          allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
         }
       }
 
       match /aerodromes/{aerodrome} {
-        allow read: if isOrgMember(database, organization);
+        allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
         allow create: if isOrgMember(database, organization);
       }
     }

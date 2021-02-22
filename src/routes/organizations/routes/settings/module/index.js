@@ -14,7 +14,8 @@ import {
   updateMember,
   setMembersPage,
   setMembersFilter,
-  updateLockDate
+  updateLockDate,
+  setReadonlyAccessEnabled
 } from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
@@ -35,7 +36,8 @@ export {
   updateMember,
   setMembersPage,
   setMembersFilter,
-  updateLockDate
+  updateLockDate,
+  setReadonlyAccessEnabled
 }
 
 export { sagas }

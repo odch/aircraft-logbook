@@ -58,6 +58,30 @@ describe('modules', () => {
 
           expect(generator.next().done).toEqual(true)
         })
+
+        it('should set the readonly organization if readonly user', () => {
+          const firebase = {
+            updateProfile: () => {},
+            auth: () => ({
+              currentUser: {
+                getIdTokenResult: () => ({
+                  claims: {
+                    organization: 'mfgt'
+                  }
+                })
+              }
+            })
+          }
+
+          return expectSaga(sagas.onLogin)
+            .provide([
+              [call(getFirebase), firebase],
+              [call(getFirestore), {}],
+              [select(sagas.uidSelector), 'readonly']
+            ])
+            .put(actions.setMyOrganizations([{ id: 'mfgt', readonly: true }]))
+            .run()
+        })
       })
 
       describe('unwatchCurrentUser', () => {

@@ -282,6 +282,35 @@ describe('routes', () => {
             })
           })
 
+          describe('setReadonlyAccessEnabled', () => {
+            it('should set readonly access enabled/disabled', () => {
+              const organizationId = 'my_org'
+              const enabled = true
+
+              const action = actions.setReadonlyAccessEnabled(
+                organizationId,
+                enabled
+              )
+
+              return expectSaga(sagas.setReadonlyAccessEnabled, action)
+                .provide([
+                  [
+                    call(callFunction, 'setReadonlyAccessEnabled', {
+                      organizationId,
+                      enabled
+                    })
+                  ]
+                ])
+                .call(callFunction, 'setReadonlyAccessEnabled', {
+                  organizationId,
+                  enabled
+                })
+                .put(fetchOrganizations())
+                .put(actions.setReadonlyAccessEnabledSuccess())
+                .run()
+            })
+          })
+
           describe('default', () => {
             it('should fork all sagas', () => {
               const generator = sagas.default()
@@ -292,7 +321,11 @@ describe('routes', () => {
                   takeEvery(actions.DELETE_MEMBER, sagas.deleteMember),
                   takeEvery(actions.UPDATE_MEMBER, sagas.updateMember),
                   takeEvery(actions.EXPORT_FLIGHTS, sagas.exportFlights),
-                  takeLatest(actions.UPDATE_LOCK_DATE, sagas.updateLockDate)
+                  takeLatest(actions.UPDATE_LOCK_DATE, sagas.updateLockDate),
+                  takeLatest(
+                    actions.SET_READONLY_ACCESS_ENABLED,
+                    sagas.setReadonlyAccessEnabled
+                  )
                 ])
               )
             })

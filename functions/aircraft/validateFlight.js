@@ -82,6 +82,13 @@ const validateSync = (data, aircraftSettings) => {
     }
   }
 
+  const engineTachStart = _get(data, 'counters.engineTachCounter.start')
+  if (aircraftSettings.engineTachHoursCounterEnabled === true) {
+    if (typeof engineTachStart !== 'number') {
+      errors['counters.engineTachCounter.start'] = 'required'
+    }
+  }
+
   // don't validate the following fields when draft flight is created (-> when data.id is not set)
   if (data.id) {
     if (!data.destinationAerodrome) {
@@ -205,6 +212,21 @@ const validateSync = (data, aircraftSettings) => {
       ) {
         if (engineTimeEnd < engineTimeStart) {
           errors['counters.engineTimeCounter.end'] = 'not_before_start_counter'
+        }
+      }
+    }
+
+    if (aircraftSettings.engineTachHoursCounterEnabled === true) {
+      const engineTachEnd = _get(data, 'counters.engineTachCounter.end')
+      if (typeof engineTachEnd !== 'number') {
+        errors['counters.engineTachCounter.end'] = 'required'
+      }
+      if (
+        !isNullOrUndefined(engineTachStart) &&
+        !isNullOrUndefined(engineTachEnd)
+      ) {
+        if (engineTachEnd < engineTachStart) {
+          errors['counters.engineTachCounter.end'] = 'not_before_start_counter'
         }
       }
     }

@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 import isLoaded from '../../../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
 import { check as checkShape } from '../../../../../../../../shapes/aircraft'
@@ -62,7 +63,7 @@ class Checks extends React.Component {
     }
 
     return (
-      <div>
+      <Box my={4}>
         <Typography variant="h5" gutterBottom>
           <FormattedMessage id="aircraft.settings.checks" />
         </Typography>
@@ -100,7 +101,7 @@ class Checks extends React.Component {
             onClose={closeDeleteCheckDialog}
           />
         )}
-      </div>
+      </Box>
     )
   }
 

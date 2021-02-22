@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 import SettingSwitch from './SettingSwitch'
 import SettingSelect from '../../../../../../../../components/SettingSelect'
 import { intl as intlShape } from '../../../../../../../../shapes'
@@ -29,7 +30,7 @@ const AdvancedSettings = ({
   intl,
   updateSetting
 }) => (
-  <>
+  <Box my={4}>
     <Typography variant="h5" gutterBottom>
       <FormattedMessage id="aircraft.settings.advanced" />
     </Typography>
@@ -111,7 +112,7 @@ const AdvancedSettings = ({
         )}
       />
     </List>
-  </>
+  </Box>
 )
 
 AdvancedSettings.propTypes = {

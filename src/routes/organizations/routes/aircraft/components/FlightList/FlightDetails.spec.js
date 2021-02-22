@@ -21,7 +21,8 @@ describe('routes', () => {
                       description: 'MoGas (Homebase)'
                     }
                   ],
-                  engineHoursCounterEnabled: true
+                  engineHoursCounterEnabled: true,
+                  engineTachHoursCounterEnabled: true
                 }
               }
 
@@ -61,8 +62,10 @@ describe('routes', () => {
                 counters: {
                   flightHours: counter(10156, 10243),
                   engineHours: counter(10489, 10604),
+                  engineTachHours: counter(11665, 11945),
                   landings: counter(234, 235),
-                  engineTimeCounter: counter(9431, 9546)
+                  engineTimeCounter: counter(9431, 9546),
+                  engineTachCounter: counter(11352, 11632)
                 },
                 nature: 'vp',
                 landings: 1,
@@ -103,8 +106,10 @@ describe('routes', () => {
                 counters: {
                   flightHours: counter(10156, null),
                   engineHours: counter(10489, null),
+                  engineTachHours: counter(11665, null),
                   landings: counter(234, null),
-                  engineTimeCounter: counter(9431, null)
+                  engineTimeCounter: counter(9431, null),
+                  engineTachCounter: counter(11352, null)
                 },
                 nature: 'vp',
                 landings: null,
@@ -151,12 +156,40 @@ describe('routes', () => {
                 expect(tree).toMatchSnapshot()
               })
 
+              it('does not render engine tach hours if counter not enabled', () => {
+                const testAircraft = {
+                  ...aircraft,
+                  settings: {
+                    ...aircraft.settings,
+                    engineTachHoursCounterEnabled: false
+                  }
+                }
+                const tree = renderToJson(
+                  <FlightDetails aircraft={testAircraft} flight={flight} />
+                )
+                expect(tree).toMatchSnapshot()
+              })
+
               it('renders engine hours with one digit if setting set to 1', () => {
                 const testAircraft = {
                   ...aircraft,
                   settings: {
                     ...aircraft.settings,
                     engineHoursCounterFractionDigits: 1
+                  }
+                }
+                const tree = renderToJson(
+                  <FlightDetails aircraft={testAircraft} flight={flight} />
+                )
+                expect(tree).toMatchSnapshot()
+              })
+
+              it('renders engine tach hours with one digit if setting set to 1', () => {
+                const testAircraft = {
+                  ...aircraft,
+                  settings: {
+                    ...aircraft.settings,
+                    engineTachHoursCounterFractionDigits: 1
                   }
                 }
                 const tree = renderToJson(

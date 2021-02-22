@@ -22,13 +22,22 @@ export function* onLogin() {
   if (!uid) {
     throw 'UID not available'
   }
-  yield call(firestore.setListener, {
-    collection: 'users',
-    doc: uid,
-    storeAs: 'currentUser'
-  })
-
-  yield put(actions.fetchOrganizations())
+  if (uid === 'readonly') {
+    const user = firebase.auth().currentUser
+    const idTokenResult = yield call({
+      context: user,
+      fn: user.getIdTokenResult
+    })
+    const org = idTokenResult.claims.organization
+    yield put(actions.setMyOrganizations([{ id: org, readonly: true }]))
+  } else {
+    yield call(firestore.setListener, {
+      collection: 'users',
+      doc: uid,
+      storeAs: 'currentUser'
+    })
+    yield put(actions.fetchOrganizations())
+  }
 }
 
 export function* unwatchCurrentUser() {

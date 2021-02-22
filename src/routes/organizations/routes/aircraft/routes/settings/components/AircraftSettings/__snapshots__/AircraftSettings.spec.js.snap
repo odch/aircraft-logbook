@@ -50,7 +50,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       </span>
     </a>
   </h4>
-  <div>
+  <div
+    className="MuiBox-root MuiBox-root-71"
+  >
     <h5
       className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
     >
@@ -86,7 +88,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       Keine Checks erfasst
     </p>
   </div>
-  <div>
+  <div
+    className="MuiBox-root MuiBox-root-72"
+  >
     <h5
       className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
     >
@@ -243,192 +247,196 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       </li>
     </ul>
   </div>
-  <h5
-    className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+  <div
+    className="MuiBox-root MuiBox-root-113"
   >
-    Erweiterte Einstellungen
-  </h5>
-  <ul
-    className="MuiList-root MuiList-padding"
-  >
-    <li
-      className="MuiListItem-container"
+    <h5
+      className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
     >
-      <div
-        className="MuiListItem-root MuiListItem-secondaryAction"
-        disabled={false}
+      Erweiterte Einstellungen
+    </h5>
+    <ul
+      className="MuiList-root MuiList-padding"
+    >
+      <li
+        className="MuiListItem-container"
       >
         <div
-          className="MuiListItemText-root"
+          className="MuiListItem-root MuiListItem-secondaryAction"
+          disabled={false}
         >
-          <span
-            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
-          >
-            Flugstunden-Zähler aktiviert
-          </span>
-        </div>
-      </div>
-      <div
-        className="MuiListItemSecondaryAction-root"
-      >
-        <span
-          className="MuiSwitch-root MuiSwitch-edgeEnd"
-        >
-          <span
-            aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-123 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-            onBlur={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={null}
+          <div
+            className="MuiListItemText-root"
           >
             <span
-              className="MuiIconButton-label"
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Flugstunden-Zähler aktiviert
+            </span>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <span
+            className="MuiSwitch-root MuiSwitch-edgeEnd"
+          >
+            <span
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
             >
               <span
-                className="MuiSwitch-thumb"
-              />
-              <input
-                checked={false}
-                className="PrivateSwitchBase-input-126 MuiSwitch-input"
-                onChange={[Function]}
-                type="checkbox"
-              />
+                className="MuiIconButton-label"
+              >
+                <span
+                  className="MuiSwitch-thumb"
+                />
+                <input
+                  checked={false}
+                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </span>
             </span>
+            <span
+              className="MuiSwitch-track"
+            />
           </span>
-          <span
-            className="MuiSwitch-track"
-          />
-        </span>
-      </div>
-    </li>
-    <li
-      className="MuiListItem-container"
-    >
-      <div
-        className="MuiListItem-root MuiListItem-secondaryAction"
-        disabled={false}
+        </div>
+      </li>
+      <li
+        className="MuiListItem-container"
       >
         <div
-          className="MuiListItemText-root"
+          className="MuiListItem-root MuiListItem-secondaryAction"
+          disabled={false}
         >
-          <span
-            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
-          >
-            Motorstunden-Zähler aktiviert
-          </span>
-        </div>
-      </div>
-      <div
-        className="MuiListItemSecondaryAction-root"
-      >
-        <span
-          className="MuiSwitch-root MuiSwitch-edgeEnd"
-        >
-          <span
-            aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-123 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-            onBlur={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={null}
+          <div
+            className="MuiListItemText-root"
           >
             <span
-              className="MuiIconButton-label"
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Motorstunden-Zähler aktiviert
+            </span>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <span
+            className="MuiSwitch-root MuiSwitch-edgeEnd"
+          >
+            <span
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
             >
               <span
-                className="MuiSwitch-thumb"
-              />
-              <input
-                checked={false}
-                className="PrivateSwitchBase-input-126 MuiSwitch-input"
-                onChange={[Function]}
-                type="checkbox"
-              />
+                className="MuiIconButton-label"
+              >
+                <span
+                  className="MuiSwitch-thumb"
+                />
+                <input
+                  checked={false}
+                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </span>
             </span>
+            <span
+              className="MuiSwitch-track"
+            />
           </span>
-          <span
-            className="MuiSwitch-track"
-          />
-        </span>
-      </div>
-    </li>
-    <li
-      className="MuiListItem-container"
-    >
-      <div
-        className="MuiListItem-root MuiListItem-secondaryAction"
-        disabled={false}
+        </div>
+      </li>
+      <li
+        className="MuiListItem-container"
       >
         <div
-          className="MuiListItemText-root"
+          className="MuiListItem-root MuiListItem-secondaryAction"
+          disabled={false}
         >
-          <span
-            className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
-          >
-            Techlog aktiviert
-          </span>
-        </div>
-      </div>
-      <div
-        className="MuiListItemSecondaryAction-root"
-      >
-        <span
-          className="MuiSwitch-root MuiSwitch-edgeEnd"
-        >
-          <span
-            aria-disabled={false}
-            className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-123 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-            onBlur={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={null}
+          <div
+            className="MuiListItemText-root"
           >
             <span
-              className="MuiIconButton-label"
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            >
+              Techlog aktiviert
+            </span>
+          </div>
+        </div>
+        <div
+          className="MuiListItemSecondaryAction-root"
+        >
+          <span
+            className="MuiSwitch-root MuiSwitch-edgeEnd"
+          >
+            <span
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
             >
               <span
-                className="MuiSwitch-thumb"
-              />
-              <input
-                checked={false}
-                className="PrivateSwitchBase-input-126 MuiSwitch-input"
-                onChange={[Function]}
-                type="checkbox"
-              />
+                className="MuiIconButton-label"
+              >
+                <span
+                  className="MuiSwitch-thumb"
+                />
+                <input
+                  checked={false}
+                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </span>
             </span>
+            <span
+              className="MuiSwitch-track"
+            />
           </span>
-          <span
-            className="MuiSwitch-track"
-          />
-        </span>
-      </div>
-    </li>
-  </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
   <hr
     className="MuiDivider-root injectIntl(AircraftSettings)-divider-2"
   />
@@ -573,7 +581,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       />
     </a>
   </h4>
-  <div>
+  <div
+    className="MuiBox-root MuiBox-root-152"
+  >
     <h5
       className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
     >

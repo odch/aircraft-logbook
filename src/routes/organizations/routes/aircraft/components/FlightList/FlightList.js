@@ -84,6 +84,8 @@ class FlightList extends React.Component {
     )
   }
 
+  hasWritePermissions = () => this.props.organization.readonly !== true
+
   componentDidMount() {
     const {
       organization,
@@ -165,21 +167,23 @@ class FlightList extends React.Component {
     return (
       <React.Fragment>
         <div className={classes.buttonsContainer}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleCreateClick}
-            className={classes.button}
-            data-cy="flight-create-button"
-          >
-            <FormattedMessage
-              id={
-                this.newestFlightIsPreflight()
-                  ? 'aircraftdetail.completeflight'
-                  : 'aircraftdetail.createflight'
-              }
-            />
-          </Button>
+          {this.hasWritePermissions() && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleCreateClick}
+              className={classes.button}
+              data-cy="flight-create-button"
+            >
+              <FormattedMessage
+                id={
+                  this.newestFlightIsPreflight()
+                    ? 'aircraftdetail.completeflight'
+                    : 'aircraftdetail.createflight'
+                }
+              />
+            </Button>
+          )}
           {this.isTechlogManager() &&
             flights.length > 0 &&
             !this.newestFlightIsPreflight() && (
@@ -306,7 +310,7 @@ class FlightList extends React.Component {
             <FlightDetails aircraft={aircraft} flight={flight} />
           )}
         </ExpansionPanelDetails>
-        {flight.deleted === false && (
+        {organization.readonly !== true && flight.deleted === false && (
           <>
             <Divider key={`divider-${flight.id}`} />
             <ExpansionPanelActions key={`actions-${flight.id}`}>

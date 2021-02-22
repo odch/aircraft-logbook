@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import getAuthQueryToken from '../../util/getAuthQueryToken'
 
 const ProtectedRoute = ({ render, protect, authed, ...rest }) => (
   <Route
@@ -12,7 +13,13 @@ const ProtectedRoute = ({ render, protect, authed, ...rest }) => (
       }
       return (
         <Redirect
-          to={{ pathname: '/login', state: { from: props.location } }}
+          to={{
+            pathname: '/login',
+            state: {
+              from: props.location,
+              queryToken: getAuthQueryToken(props.location)
+            }
+          }}
         />
       )
     }}

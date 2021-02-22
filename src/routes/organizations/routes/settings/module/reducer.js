@@ -50,6 +50,9 @@ export const INITIAL_STATE = {
   lockDateForm: {
     submitting: false
   },
+  readonlyAccessSwitch: {
+    submitting: false
+  },
   members: {
     page: 0,
     filter: ''
@@ -223,6 +226,14 @@ const setUpdateLockFormSubmitting = submitting => state => ({
   }
 })
 
+const setReadonlyAccessSwitchSubmitting = submitting => state => ({
+  ...state,
+  readonlyAccessSwitch: {
+    ...state.readonlyAccessSwitch,
+    submitting
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
@@ -245,7 +256,16 @@ const ACTION_HANDLERS = {
   [actions.UPDATE_EXPORT_FLIGHTS_FORM_DATA]: updateExportFlightsFormData,
   [actions.UPDATE_LOCK_DATE]: setUpdateLockFormSubmitting(true),
   [actions.UPDATE_LOCK_DATE_SUCCESS]: setUpdateLockFormSubmitting(false),
-  [actions.UPDATE_LOCK_DATE_FAILURE]: setUpdateLockFormSubmitting(false)
+  [actions.UPDATE_LOCK_DATE_FAILURE]: setUpdateLockFormSubmitting(false),
+  [actions.SET_READONLY_ACCESS_ENABLED]: setReadonlyAccessSwitchSubmitting(
+    true
+  ),
+  [actions.SET_READONLY_ACCESS_ENABLED_SUCCESS]: setReadonlyAccessSwitchSubmitting(
+    false
+  ),
+  [actions.SET_READONLY_ACCESS_ENABLED_FAILURE]: setReadonlyAccessSwitchSubmitting(
+    false
+  )
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

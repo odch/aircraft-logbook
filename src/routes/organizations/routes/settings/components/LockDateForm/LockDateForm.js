@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment-timezone'
 import { FormattedMessage, injectIntl } from 'react-intl'
+import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { intl as intlShape } from '../../../../../../shapes'
@@ -40,7 +41,7 @@ class LockDateForm extends React.Component {
 
   render() {
     return (
-      <>
+      <Box my={4}>
         <Typography variant="h5" gutterBottom>
           <FormattedMessage id="organization.settings.lockdate" />
         </Typography>
@@ -57,7 +58,7 @@ class LockDateForm extends React.Component {
           autoOk
           clearable
         />
-      </>
+      </Box>
     )
   }
 }

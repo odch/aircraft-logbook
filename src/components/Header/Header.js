@@ -64,7 +64,7 @@ class Header extends React.Component {
               <img src={logo} className={classes.logo} />
             </Link>
           </Typography>
-          {!auth.isEmpty && (
+          {!auth.isEmpty && auth.uid !== 'readonly' && (
             <div>
               <IconButton
                 data-cy="user-button"
@@ -91,6 +91,7 @@ class Header extends React.Component {
 Header.propTypes = {
   auth: PropTypes.shape({
     isEmpty: PropTypes.bool.isRequired,
+    uid: PropTypes.string.isRequired,
     email: PropTypes.string
   }).isRequired,
   classes: PropTypes.object.isRequired
