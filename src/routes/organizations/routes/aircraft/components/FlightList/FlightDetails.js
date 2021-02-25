@@ -23,7 +23,7 @@ const FlightDetails = ({ aircraft, flight }) => {
     <div>
       <Grid container>
         <Grid item xs={12} container>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             {renderField(
               'date',
               formatDate(
@@ -33,15 +33,15 @@ const FlightDetails = ({ aircraft, flight }) => {
               intl
             )}
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6} md={4}>
             {renderField('pilot', getMemberName(flight.pilot), intl)}
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6} md={4}>
             {renderField('instructor', getMemberName(flight.instructor), intl)}
           </Grid>
         </Grid>
         <Grid item xs={12} container>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             {renderField(
               'departureaerodrome',
               getAerodromeName(flight.departureAerodrome),
@@ -50,7 +50,7 @@ const FlightDetails = ({ aircraft, flight }) => {
           </Grid>
           {flight.version > 0 && (
             <>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={6} md={4}>
                 {renderField(
                   'blockofftime',
                   formatTimeWithUtc(
@@ -60,7 +60,7 @@ const FlightDetails = ({ aircraft, flight }) => {
                   intl
                 )}
               </Grid>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={6} md={4}>
                 {renderField(
                   'takeofftime',
                   formatTimeWithUtc(
@@ -76,14 +76,14 @@ const FlightDetails = ({ aircraft, flight }) => {
         {flight.version > 0 && (
           <>
             <Grid item xs={12} container>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} md={4}>
                 {renderField(
                   'destinationaerodrome',
                   getAerodromeName(flight.destinationAerodrome),
                   intl
                 )}
               </Grid>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={6} md={4}>
                 {renderField(
                   'blockontime',
                   formatTimeWithUtc(
@@ -93,7 +93,7 @@ const FlightDetails = ({ aircraft, flight }) => {
                   intl
                 )}
               </Grid>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={6} md={4}>
                 {renderField(
                   'landingtime',
                   formatTimeWithUtc(
@@ -107,10 +107,10 @@ const FlightDetails = ({ aircraft, flight }) => {
           </>
         )}
         <Grid item xs={12} container>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             {renderField('nature', getFlightNature(flight.nature, intl), intl)}
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             {renderField(
               'fueluplift',
               getFuel(
@@ -121,22 +121,22 @@ const FlightDetails = ({ aircraft, flight }) => {
               intl
             )}
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4}>
               {renderField('oiluplift', getOil(flight.oilUplift), intl)}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} container>
           {flight.version > 0 && (
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} md={4}>
               {renderField('landings', flight.landings, intl)}
             </Grid>
           )}
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             {renderField('personsonboard', flight.personsOnBoard || '-', intl)}
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} md={8}>
             {flight.remarks &&
               renderField('remarks', flight.remarks || '-', intl, true)}
           </Grid>
@@ -144,14 +144,14 @@ const FlightDetails = ({ aircraft, flight }) => {
         {flight.version > 0 && (
           <>
             <Grid item xs={12} container>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={12} md={4}>
                 {renderField(
                   'flighthours_time',
                   getTimeDiff(flight.takeOffTime, flight.landingTime),
                   intl
                 )}
               </Grid>
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={12} md={4}>
                 {renderField(
                   'blockhours',
                   getTimeDiff(flight.blockOffTime, flight.blockOnTime),
@@ -164,7 +164,7 @@ const FlightDetails = ({ aircraft, flight }) => {
         {flight.version > 0 && flight.counters && (
           <Grid item xs={12} container>
             {flight.counters.flightTimeCounter && (
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={12} md={4}>
                 {aircraft.settings.flightTimeCounterEnabled &&
                   renderField(
                     'flighthours_counter',
@@ -177,7 +177,7 @@ const FlightDetails = ({ aircraft, flight }) => {
               </Grid>
             )}
             {flight.counters.engineTimeCounter && (
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={12} md={4}>
                 {aircraft.settings.engineHoursCounterEnabled &&
                   renderField(
                     'enginehours',
@@ -190,7 +190,7 @@ const FlightDetails = ({ aircraft, flight }) => {
               </Grid>
             )}
             {flight.counters.engineTachCounter && (
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={12} md={4}>
                 {aircraft.settings.engineTachHoursCounterEnabled &&
                   renderField(
                     'enginetachhours',
@@ -207,7 +207,7 @@ const FlightDetails = ({ aircraft, flight }) => {
       </Grid>
       {typeof flight.preflightCheck === 'boolean' && (
         <Grid item xs={12} container>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} md={8}>
             <InputLabel shrink>
               {intl.formatMessage({ id: 'flightlist.preflightcheck' })}
             </InputLabel>
@@ -217,7 +217,7 @@ const FlightDetails = ({ aircraft, flight }) => {
       )}
       {flight.troublesObservations && (
         <Grid item xs={12} container>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} md={8}>
             {flight.troublesObservations === 'nil' ? (
               renderField('troublesobservations', 'NIL', intl)
             ) : (
