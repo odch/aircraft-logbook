@@ -7,6 +7,11 @@ const ALLOWED_USER_STATUS = [
   'defect_unknown'
 ]
 
+const hasRole = (member, role) => {
+  const roles = member.get('roles')
+  return roles && roles.includes(role)
+}
+
 const addTechlogEntry = async (
   organizationId,
   aircraftId,
@@ -23,7 +28,7 @@ const addTechlogEntry = async (
   }
 
   if (
-    !member.get('roles').includes('techlogmanager') &&
+    !hasRole(member, 'techlogmanager') &&
     !ALLOWED_USER_STATUS.includes(entry.initialStatus)
   ) {
     throw new Error(
