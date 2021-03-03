@@ -126,7 +126,7 @@
   "flightlist.flight.timestamp.created": "created by {member} at {timestamp}",
   "flightlist.flight.timestamp.deleted": "deleted by {member} at {timestamp}",
   "flightlist.flight.timestamp.replaced": "replaced by {member} at {timestamp}",
-  "flight.create.dialog.title_create": "Create flight",
+  "flight.create.dialog.title_create": "Create preflight entry",
   "flight.create.dialog.title_update": "Edit flight",
   "flight.create.dialog.title_complete": "Complete flight",
   "flight.create.dialog.date": "Date",

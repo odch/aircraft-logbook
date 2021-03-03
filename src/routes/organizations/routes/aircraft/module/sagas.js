@@ -233,6 +233,17 @@ export function* createFlight({
   }
 }
 
+const getFlightDefaults = aircraftSettings => ({
+  ...aircraftSettings.flightDefaults,
+  fuelType:
+    aircraftSettings.flightDefaults && aircraftSettings.flightDefaults.fuelType
+      ? toFuelTypeOption(
+          aircraftSettings,
+          aircraftSettings.flightDefaults.fuelType
+        )
+      : null
+})
+
 export function* initCreateFlightDialog({
   payload: { organizationId, aircraftId }
 }) {
@@ -270,6 +281,7 @@ export function* initCreateFlightDialog({
   }
 
   const data = {
+    ...getFlightDefaults(aircraftSettings),
     date: moment().format('YYYY-MM-DD'),
     pilot: getMemberOption(currentMember),
     departureAerodrome: departureAerodrome
