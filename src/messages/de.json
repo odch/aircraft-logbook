@@ -141,7 +141,7 @@
   "flightlist.flight.timestamp.created": "erfasst von {member} am {timestamp}",
   "flightlist.flight.timestamp.deleted": "gelöscht von {member} am {timestamp}",
   "flightlist.flight.timestamp.replaced": "ersetzt von {member} am {timestamp}",
-  "flight.create.dialog.title_create": "Flug erfassen",
+  "flight.create.dialog.title_create": "Preflight-Eintrag erfassen",
   "flight.create.dialog.title_update": "Flug bearbeiten",
   "flight.create.dialog.title_complete": "Flug abschliessen",
   "flight.create.dialog.date": "Datum",
