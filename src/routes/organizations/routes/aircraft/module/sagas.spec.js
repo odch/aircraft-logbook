@@ -605,7 +605,8 @@ describe('routes', () => {
                 blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
-                blockOnTime: null
+                blockOnTime: null,
+                fuelType: null
               }
 
               return expectSaga(sagas.initCreateFlightDialog, action)
@@ -657,7 +658,81 @@ describe('routes', () => {
                 blockOffTime: endOfToday,
                 takeOffTime: null,
                 landingTime: null,
-                blockOnTime: null
+                blockOnTime: null,
+                fuelType: null
+              }
+
+              return expectSaga(sagas.initCreateFlightDialog, action)
+                .provide([
+                  [call(getCurrentMember), currentMember],
+                  [call(getLastFlight, orgId, aircraftId), lastFlight],
+                  [
+                    call(sagas.getDestinationAerodrome, lastFlight),
+                    destinationAerodrome
+                  ],
+                  [
+                    select(sagas.aircraftSettingsSelector, aircraftId),
+                    aircraftSettings
+                  ]
+                ])
+                .put(
+                  actions.setInitialCreateFlightDialogData(
+                    expectedDefaultValues,
+                    expectedVisibleFields(false, false, false),
+                    expectedEditableFields
+                  )
+                )
+                .run()
+            })
+
+            it('should set default values from aircraft settings', () => {
+              const aircraftSettings = {
+                flightTimeCounterEnabled: false,
+                engineHoursCounterEnabled: false,
+                engineTachHoursCounterEnabled: false,
+                flightDefaults: {
+                  nature: 'vp',
+                  personsOnBoard: 1,
+                  fuelUplift: 0,
+                  fuelType: 'jet_a1',
+                  oilUplift: 0
+                },
+                fuelTypes: [
+                  {
+                    name: 'jet_a1',
+                    description: 'Jet A1'
+                  }
+                ]
+              }
+
+              const expectedDefaultValues = {
+                date: today,
+                pilot: {
+                  value: 'memberid',
+                  label: 'Müller Max'
+                },
+                departureAerodrome: {
+                  value: 'aerodromeid',
+                  label: 'LSZT (Lommis)',
+                  timezone: 'Europe/Zurich'
+                },
+                counters: {
+                  flights: { start: 123 },
+                  flightHours: { start: 10250 },
+                  landings: { start: 2357 }
+                },
+                blockOffTime: endOfToday,
+                takeOffTime: null,
+                landingTime: null,
+                blockOnTime: null,
+                nature: 'vp',
+                personsOnBoard: 1,
+                fuelUplift: 0,
+                fuelType: {
+                  value: 'jet_a1',
+                  label: 'Jet A1'
+                },
+                oilUplift: 0
               }
 
               return expectSaga(sagas.initCreateFlightDialog, action)
