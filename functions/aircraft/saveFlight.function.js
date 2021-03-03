@@ -180,10 +180,7 @@ const saveFlight = functions.https.onCall(
 
     const fuelUplift =
       typeof data.fuelUplift === 'number' ? data.fuelUplift / 100 : null
-    const fuelType =
-      typeof fuelUplift === 'number' && fuelUplift > 0
-        ? data.fuelType.value
-        : null
+    const fuelType = data.fuelType ? data.fuelType.value : null
 
     const oilUplift =
       typeof data.oilUplift === 'number' ? data.oilUplift / 100 : null
