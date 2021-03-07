@@ -57,6 +57,20 @@ const CorrectionsConfirmationDialog = ({
             label: 'enginetimecounter',
             type: 'decimal',
             fractionDigits: aircraftSettings.engineHoursCounterFractionDigits
+          },
+          {
+            name: 'engineTachHours',
+            label: 'enginetachhours',
+            type: 'decimal',
+            fractionDigits:
+              aircraftSettings.engineTachHoursCounterFractionDigits
+          },
+          {
+            name: 'engineTachCounter',
+            label: 'enginetachcounter',
+            type: 'decimal',
+            fractionDigits:
+              aircraftSettings.engineTachHoursCounterFractionDigits
           }
         ],
         intl
@@ -82,7 +96,8 @@ CorrectionsConfirmationDialog.propTypes = {
     })
   ).isRequired,
   aircraftSettings: PropTypes.shape({
-    engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2])
+    engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
+    engineTachHoursCounterFractionDigits: PropTypes.oneOf([1, 2])
   }).isRequired,
   intl: intlShape.isRequired,
   onClose: PropTypes.func,
