@@ -190,6 +190,16 @@ class CorrectionFlightCreateDialog extends React.Component {
                 'counters.engineTimeCounter',
                 aircraftSettings.engineHoursCounterFractionDigits
               )}
+            {aircraftSettings.engineTachHoursCounterEnabled &&
+              this.renderDecimalCorrectionSet(
+                'counters.engineTachHours',
+                aircraftSettings.engineTachHoursCounterFractionDigits
+              )}
+            {aircraftSettings.engineTachHoursCounterEnabled &&
+              this.renderDecimalCorrectionSet(
+                'counters.engineTachCounter',
+                aircraftSettings.engineTachHoursCounterFractionDigits
+              )}
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color="primary" disabled={submitting}>
@@ -496,6 +506,8 @@ CorrectionFlightCreateDialog.propTypes = {
     flightTimeCounterFractionDigits: PropTypes.oneOf([1, 2]),
     engineHoursCounterEnabled: PropTypes.bool.isRequired,
     engineHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
+    engineTachHoursCounterEnabled: PropTypes.bool.isRequired,
+    engineTachHoursCounterFractionDigits: PropTypes.oneOf([1, 2]),
     lockDate: PropTypes.object
   }).isRequired,
   onClose: PropTypes.func,

@@ -39,6 +39,20 @@ class AircraftList extends React.Component {
   isOrganizationManager = () =>
     this.props.organization.roles.includes('manager')
 
+  isBelowAircraftsLimit = () => {
+    const organization = this.props.organization
+    const aircrafts = this.props.aircrafts
+    return (
+      !organization.limits ||
+      !organization.limits.aircrafts ||
+      !aircrafts ||
+      aircrafts.length < organization.limits.aircrafts
+    )
+  }
+
+  canCreateAircraft = () =>
+    this.isOrganizationManager() && this.isBelowAircraftsLimit()
+
   handleCreateClick = () => {
     this.props.openCreateAircraftDialog()
   }
@@ -52,7 +66,7 @@ class AircraftList extends React.Component {
     } = this.props
     return (
       <Grid container spacing={3} data-cy="aircraft-list">
-        {this.isOrganizationManager() && (
+        {this.canCreateAircraft() && (
           <Grid item key="new" sm={4} xs={12}>
             <Card className={classes.card} data-cy="aircraft-create-button">
               <CardActionArea
@@ -96,7 +110,7 @@ class AircraftList extends React.Component {
 }
 
 AircraftList.propTypes = {
-  organization: organizationShape,
+  organization: organizationShape.isRequired,
   aircrafts: PropTypes.arrayOf(aircraftShape),
   createAircraftDialogOpen: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,

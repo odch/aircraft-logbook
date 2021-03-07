@@ -77,6 +77,8 @@ const getCorrectionCounters = counters => {
   const flightTimeCounter = getCorrectionInterval(counters, 'flightTimeCounter')
   const engineHours = getCorrectionInterval(counters, 'engineHours')
   const engineTimeCounter = getCorrectionInterval(counters, 'engineTimeCounter')
+  const engineTachHours = getCorrectionInterval(counters, 'engineTachHours')
+  const engineTachCounter = getCorrectionInterval(counters, 'engineTachCounter')
 
   return {
     flights,
@@ -84,7 +86,9 @@ const getCorrectionCounters = counters => {
     flightHours,
     flightTimeCounter,
     engineHours,
-    engineTimeCounter
+    engineTimeCounter,
+    engineTachHours,
+    engineTachCounter
   }
 }
 

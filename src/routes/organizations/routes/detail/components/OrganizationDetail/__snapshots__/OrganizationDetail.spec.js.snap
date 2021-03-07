@@ -67,6 +67,28 @@ exports[`routes organizations routes detail components OrganizationDetail render
 </div>"
 `;
 
+exports[`routes organizations routes detail components OrganizationDetail renders without create button if aircrafts limit is reached 1`] = `
+"<div class=\\"OrganizationDetail-container-1\\">
+  <h4 class=\\"MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom\\"></h4>
+  <div class=\\"MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3\\" data-cy=\\"aircraft-list\\">
+    <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+      <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root AircraftList-card-47 MuiPaper-rounded\\" data-cy=\\"aircraft-card-o7flC7jw8jmkOfWo8oyA\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root AircraftList-actionArea-49\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA\\">
+          <div class=\\"MuiCardContent-root AircraftList-cardContent-48\\">
+            <h6 class=\\"MuiTypography-root MuiTypography-h6\\">HBKFW</h6>
+          </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+        </a></div>
+    </div>
+    <div class=\\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4\\">
+      <div class=\\"MuiPaper-root MuiPaper-elevation1 MuiCard-root AircraftList-card-47 MuiPaper-rounded\\" data-cy=\\"aircraft-card-BKi7HYAIoe1i75H3LMk1\\"><a class=\\"MuiButtonBase-root MuiCardActionArea-root AircraftList-actionArea-49\\" tabindex=\\"0\\" role=\\"button\\" href=\\"/organizations/my_org/aircrafts/BKi7HYAIoe1i75H3LMk1\\">
+          <div class=\\"MuiCardContent-root AircraftList-cardContent-48\\">
+            <h6 class=\\"MuiTypography-root MuiTypography-h6\\">HBKOF</h6>
+          </div><span class=\\"MuiCardActionArea-focusHighlight\\"></span><span class=\\"MuiTouchRipple-root\\"></span>
+        </a></div>
+    </div>
+  </div>
+</div>"
+`;
+
 exports[`routes organizations routes detail components OrganizationDetail shows message if organization was not found or user is not granted 1`] = `
 "<div class=\\"OrganizationDetail-container-1\\">
   <div class=\\"OrganizationDetail-notFoundMessage-2\\">Die Organisation <strong>my_org</strong> wurde nicht gefunden oder dein Konto <strong>test@opendigital.ch</strong> ist nicht berechtigt, auf die Organisation zuzugreifen. Bitte wende dich an den Administrator der Organisation.</div>
