@@ -392,6 +392,11 @@ export function* initCreateCorrectionFlightDialog({
     counterNames.push('engineHours')
   }
 
+  if (aircraftSettings.engineTachHoursCounterEnabled === true) {
+    counterNames.push('engineTachCounter')
+    counterNames.push('engineTachHours')
+  }
+
   const counters = initCounters(counterNames)
 
   let departureAerodrome

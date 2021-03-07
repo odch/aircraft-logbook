@@ -211,6 +211,8 @@
   "correctionflight.create.dialog.counters.flighthours": "Flight hours",
   "correctionflight.create.dialog.counters.enginetimecounter": "Motor hours counter",
   "correctionflight.create.dialog.counters.enginehours": "Motor hours",
+  "correctionflight.create.dialog.counters.enginetachcounter": "Tach time counter",
+  "correctionflight.create.dialog.counters.enginetachhours": "Tach time",
   "correctionflight.create.dialog.counters.landings": "Landings",
   "correctionflight.create.dialog.aerodrome": "Aerodrome",
   "correctionflight.create.dialog.buttons.create": "Save",
@@ -371,5 +373,6 @@
   "flight.create.dialog.counters.enginetachcounter.start": "Counter at start",
   "flight.create.dialog.counters.enginetachcounter": "Tach Timer",
   "flightlist.total.enginetachhours": "Total Tach Time",
-  "flightlist.enginetachhours": "Tach Timer"
+  "flightlist.enginetachhours": "Tach Timer",
+  "flightlist.enginetachcounter": "Tach time counter"
 }

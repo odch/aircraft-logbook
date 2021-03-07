@@ -780,9 +780,11 @@ describe('routes', () => {
                 flights: counter(122, 123),
                 flightHours: counter(10145, 10250),
                 engineHours: counter(10378, 10502),
+                engineTachHours: counter(11521, 11729),
                 landings: counter(2356, 2357),
                 flightTimeCounter: counter(9145, 9250),
-                engineTimeCounter: counter(9378, 9502)
+                engineTimeCounter: counter(9378, 9502),
+                engineTachCounter: counter(10521, 10729)
               }
             }
             const destinationAerodrome = {
@@ -795,7 +797,8 @@ describe('routes', () => {
             it('should set the default values for the new correction flight', () => {
               const aircraftSettings = {
                 flightTimeCounterEnabled: true,
-                engineHoursCounterEnabled: true
+                engineHoursCounterEnabled: true,
+                engineTachHoursCounterEnabled: true
               }
 
               const expectedDefaultValues = {
@@ -814,9 +817,11 @@ describe('routes', () => {
                   flights: { start: 123 },
                   flightHours: { start: 10250 },
                   engineHours: { start: 10502 },
+                  engineTachHours: { start: 11729 },
                   landings: { start: 2357 },
                   flightTimeCounter: { start: 9250 },
-                  engineTimeCounter: { start: 9502 }
+                  engineTimeCounter: { start: 9502 },
+                  engineTachCounter: { start: 10729 }
                 }
               }
 
@@ -841,10 +846,11 @@ describe('routes', () => {
                 .run()
             })
 
-            it('should not set flight time and engine hours start counters if not enabled', () => {
+            it('should not set start counters if not enabled', () => {
               const aircraftSettings = {
                 flightTimeCounterEnabled: false,
-                engineHoursCounterEnabled: false
+                engineHoursCounterEnabled: false,
+                engineTachHoursCounterEnabled: false
               }
 
               const expectedDefaultValues = {
@@ -947,6 +953,7 @@ describe('routes', () => {
                 counters: {
                   flightTimeCounter: counter(45780, 45830),
                   engineTimeCounter: counter(50145, 50612),
+                  engineTachCounter: counter(52565, 52961),
                   flightHours: { start: 58658 },
                   engineHours: { start: 65865 },
                   flights: { start: 464 },
@@ -973,6 +980,10 @@ describe('routes', () => {
                 engineTimeCounter: {
                   start: 50145,
                   end: 50612
+                },
+                engineTachCounter: {
+                  start: 52565,
+                  end: 52961
                 }
               }
 

@@ -96,6 +96,20 @@ const CorrectionFlightDetails = ({ aircraft, flight }) => {
               label: 'enginetimecounter',
               type: 'decimal',
               fractionDigits: aircraft.settings.engineHoursCounterFractionDigits
+            },
+            {
+              name: 'engineTachHours',
+              label: 'enginetachhours',
+              type: 'decimal',
+              fractionDigits:
+                aircraft.settings.engineTachHoursCounterFractionDigits
+            },
+            {
+              name: 'engineTachCounter',
+              label: 'enginetachcounter',
+              type: 'decimal',
+              fractionDigits:
+                aircraft.settings.engineTachHoursCounterFractionDigits
             }
           ],
           intl
