@@ -6,5 +6,8 @@ export default PropTypes.shape({
   lockDate: PropTypes.object,
   readonlyAccessEnabled: PropTypes.bool,
   readonlyAccessToken: PropTypes.string,
-  readonly: PropTypes.bool // (for ramp check view) will be removed once all regular users have at least the 'pilot' role
+  readonly: PropTypes.bool, // (for ramp check view) will be removed once all regular users have at least the 'pilot' role
+  limits: PropTypes.shape({
+    aircrafts: PropTypes.number
+  })
 })
