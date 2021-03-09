@@ -60,9 +60,7 @@ const ACTION_HANDLERS = {
   [actions.UPDATE_CREATE_AIRCRAFT_DIALOG_DATA]: updateCreateAircraftDialogData,
   [actions.CREATE_AIRCRAFT_SUCCESS]: closeCreateAircraftDialog,
   [actions.CREATE_AIRCRAFT_FAILURE]: setCreateAircraftDialogSubmitted(false),
-  [actions.SET_CREATE_AIRCRAFT_DIALOG_SUBMITTED]: setCreateAircraftDialogSubmitted(
-    true
-  ),
+  [actions.CREATE_AIRCRAFT]: setCreateAircraftDialogSubmitted(true),
   [actions.SET_CREATE_AIRCRAFT_DUPLICATE]: setCreateAircraftDuplicate
 }
 

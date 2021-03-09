@@ -1,46 +1,24 @@
 import { takeEvery, all, call, put } from 'redux-saga/effects'
 import { error } from '../../../../../util/log'
-import { getFirestore } from '../../../../../util/firebase'
-import { addDoc } from '../../../../../util/firestoreUtils'
+import { callFunction } from '../../../../../util/firebase'
 import { fetchAircrafts } from '../../../module'
 import * as actions from './actions'
 
-export function* aircraftExists(organizationId, registration) {
-  const firestore = yield call(getFirestore)
-  const existingAircraft = yield call(firestore.get, {
-    collection: 'organizations',
-    doc: organizationId,
-    subcollections: [{ collection: 'aircrafts' }],
-    where: [
-      ['deleted', '==', false],
-      ['registration', '==', registration]
-    ],
-    limit: 1,
-    storeAs: 'existingAircraft'
-  })
-  return existingAircraft.size === 1
+const ERROR_ACTIONS = {
+  DUPLICATE: actions.setCreateAircraftDuplicate
 }
 
 export function* createAircraft({ payload: { organizationId, data } }) {
   try {
-    yield put(actions.setCreateAircraftDialogSubmitted())
-    const dataToStore = {
-      ...data,
-      deleted: false
-    }
-    const alreadyExists = yield call(
-      aircraftExists,
+    const result = yield call(callFunction, 'addAircraft', {
       organizationId,
-      data.registration
-    )
-    if (alreadyExists) {
-      yield put(actions.setCreateAircraftDuplicate())
+      aircraft: data
+    })
+    if (result && result.data && result.data.error) {
+      const action =
+        ERROR_ACTIONS[result.data.error] || actions.createAircraftFailure
+      yield put(action())
     } else {
-      yield call(
-        addDoc,
-        ['organizations', organizationId, 'aircrafts'],
-        dataToStore
-      )
       yield put(fetchAircrafts(organizationId))
       yield put(actions.createAircraftSuccess())
     }
