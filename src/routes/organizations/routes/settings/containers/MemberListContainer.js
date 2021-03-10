@@ -55,6 +55,23 @@ export const filterMembers = (members, filter) => {
     : members
 }
 
+export const isMembersLimitReached = (state, organization) => {
+  const members = state.firestore.ordered.organizationMembers
+  if (!members) {
+    return false
+  }
+
+  const limits = organization.limits || {}
+  if (typeof limits.members !== 'number') {
+    return false
+  }
+
+  const joinedAndInvitedMembersCount = members.filter(
+    member => member.user || member.inviteTimestamp
+  ).length
+  return joinedAndInvitedMembersCount >= limits.members
+}
+
 const mapStateToProps = (state, ownProps) => {
   let members = undefined
   let pagination = undefined
@@ -103,7 +120,8 @@ const mapStateToProps = (state, ownProps) => {
     createMemberDialogOpen: state.organizationSettings.createMemberDialog.open,
     deleteMemberDialog: state.organizationSettings.deleteMemberDialog,
     editMemberDialog: state.organizationSettings.editMemberDialog,
-    memberRoles: roles(ownProps.intl)
+    memberRoles: roles(ownProps.intl),
+    limitReached: isMembersLimitReached(state, ownProps.organization)
   }
 }
 

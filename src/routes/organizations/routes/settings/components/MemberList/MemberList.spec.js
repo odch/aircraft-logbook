@@ -13,7 +13,7 @@ describe('routes', () => {
 
               renderIntl(
                 <MemberList
-                  organizationId="my_org"
+                  organization={{ id: 'my_org' }}
                   members={undefined}
                   fetchMembers={fetchMembers}
                   openDeleteMemberDialog={() => {}}
@@ -29,7 +29,7 @@ describe('routes', () => {
             it('renders loading icon if members not loaded', () => {
               const tree = renderIntl(
                 <MemberList
-                  organizationId="my_org"
+                  organization={{ id: 'my_org' }}
                   members={undefined}
                   fetchMembers={() => {}}
                   openDeleteMemberDialog={() => {}}
@@ -44,7 +44,7 @@ describe('routes', () => {
             it('renders members if loaded', () => {
               const tree = renderIntl(
                 <MemberList
-                  organizationId="my_org"
+                  organization={{ id: 'my_org' }}
                   members={[
                     {
                       id: 'member1',

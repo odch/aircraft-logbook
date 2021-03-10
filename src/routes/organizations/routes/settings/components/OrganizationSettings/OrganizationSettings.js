@@ -80,7 +80,7 @@ class OrganizationSettings extends React.Component {
         <Typography variant="h4" data-cy="organization-title" gutterBottom>
           {organization.id}
         </Typography>
-        <MemberList organizationId={organization.id} />
+        <MemberList organization={organization} />
         <LockDateForm organizationId={organization.id} />
         <ExportFlightsForm organizationId={organization.id} />
         <ReadonlyAccessSwitch organization={organization} />

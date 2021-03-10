@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import {
   member as memberShape,
-  intl as intlShape
+  intl as intlShape,
+  organization as organizationShape
 } from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
@@ -29,8 +30,8 @@ const styles = {
 
 class MemberList extends React.Component {
   componentDidMount() {
-    const { organizationId, fetchMembers } = this.props
-    fetchMembers(organizationId)
+    const { organization, fetchMembers } = this.props
+    fetchMembers(organization.id)
   }
 
   handleCreateMemberClick = () => {
@@ -45,12 +46,13 @@ class MemberList extends React.Component {
 
   render() {
     const {
-      organizationId,
+      organization,
       members,
       pagination,
       deleteMemberDialog,
       editMemberDialog,
       memberRoles,
+      limitReached,
       createMemberDialogOpen,
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
@@ -120,26 +122,30 @@ class MemberList extends React.Component {
           </Typography>
         )}
         {createMemberDialogOpen && (
-          <CreateMemberDialog organizationId={organizationId} />
+          <CreateMemberDialog
+            organizationId={organization.id}
+            limitReached={limitReached}
+          />
         )}
         {deleteMemberDialog && deleteMemberDialog.open && (
           <DeleteMemberDialog
-            organizationId={organizationId}
+            organizationId={organization.id}
             member={deleteMemberDialog.member}
             submitting={deleteMemberDialog.submitting}
             onConfirm={() =>
-              deleteMember(organizationId, deleteMemberDialog.member.id)
+              deleteMember(organization.id, deleteMemberDialog.member.id)
             }
             onClose={closeDeleteMemberDialog}
           />
         )}
         {editMemberDialog && editMemberDialog.open && (
           <EditMemberDialog
-            organizationId={organizationId}
+            organizationId={organization.id}
             member={editMemberDialog.member}
             data={editMemberDialog.data}
             roles={memberRoles}
             submitting={editMemberDialog.submitting}
+            limitReached={limitReached}
             reinviteInProgress={editMemberDialog.reinviteInProgress}
             onSubmit={updateMember}
             onClose={closeEditMemberDialog}
@@ -152,7 +158,7 @@ class MemberList extends React.Component {
 }
 
 MemberList.propTypes = {
-  organizationId: PropTypes.string.isRequired,
+  organization: organizationShape.isRequired,
   members: PropTypes.arrayOf(memberShape),
   pagination: PropTypes.shape({
     rowsCount: PropTypes.number.isRequired,
@@ -185,6 +191,7 @@ MemberList.propTypes = {
       label: PropTypes.string.isRequired
     })
   ).isRequired,
+  limitReached: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   fetchMembers: PropTypes.func.isRequired,
   openCreateMemberDialog: PropTypes.func.isRequired,
