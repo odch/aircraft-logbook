@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchMembers } from '../../../module'
 import { getMemberRoles } from '../../../../../util/memberRoles'
 import {
+  openCreateMemberDialog,
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
@@ -99,6 +100,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     members,
     pagination,
+    createMemberDialogOpen: state.organizationSettings.createMemberDialog.open,
     deleteMemberDialog: state.organizationSettings.deleteMemberDialog,
     editMemberDialog: state.organizationSettings.editMemberDialog,
     memberRoles: roles(ownProps.intl)
@@ -107,6 +109,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapActionCreators = {
   fetchMembers,
+  openCreateMemberDialog,
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
