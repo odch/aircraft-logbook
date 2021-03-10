@@ -22,7 +22,6 @@ describe('routes', () => {
                 <OrganizationSettings
                   organization={undefined}
                   deleteOrganization={() => {}}
-                  openCreateMemberDialog={() => {}}
                 />
               ).toJSON()
               expect(tree).toMatchSnapshot()
@@ -36,7 +35,6 @@ describe('routes', () => {
                     <OrganizationSettings
                       organization={null}
                       deleteOrganization={() => {}}
-                      openCreateMemberDialog={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -52,7 +50,6 @@ describe('routes', () => {
                     <OrganizationSettings
                       organization={{ id: 'my_org', roles: ['user'] }}
                       deleteOrganization={() => {}}
-                      openCreateMemberDialog={() => {}}
                     />
                   </Switch>
                 </Router>
@@ -97,6 +94,9 @@ describe('routes', () => {
                   members: {
                     page: 0
                   },
+                  createMemberDialog: {
+                    open: false
+                  },
                   deleteMemberDialog: {
                     open: false
                   },
@@ -123,7 +123,6 @@ describe('routes', () => {
                       <OrganizationSettings
                         organization={{ id: 'my_org', roles: ['manager'] }}
                         deleteOrganization={() => {}}
-                        openCreateMemberDialog={() => {}}
                       />
                     </Router>
                   </Provider>

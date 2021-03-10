@@ -8,15 +8,17 @@ import TextField from '@material-ui/core/TextField'
 import SearchIcon from '@material-ui/icons/Search'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import {
   member as memberShape,
   intl as intlShape
 } from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
-import Member from './Member'
+import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import DeleteMemberDialog from '../DeleteMemberDialog'
 import EditMemberDialog from '../EditMemberDialog'
+import Member from './Member'
 
 const styles = {
   loadingIconContainer: {
@@ -29,6 +31,10 @@ class MemberList extends React.Component {
   componentDidMount() {
     const { organizationId, fetchMembers } = this.props
     fetchMembers(organizationId)
+  }
+
+  handleCreateMemberClick = () => {
+    this.props.openCreateMemberDialog()
   }
 
   handleFilterChange = e => {
@@ -45,6 +51,7 @@ class MemberList extends React.Component {
       deleteMemberDialog,
       editMemberDialog,
       memberRoles,
+      createMemberDialogOpen,
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
       deleteMember,
@@ -66,6 +73,13 @@ class MemberList extends React.Component {
 
     return (
       <>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleCreateMemberClick}
+        >
+          <FormattedMessage id="organization.settings.createmember" />
+        </Button>
         <TextField
           placeholder={this.msg('organization.settings.member.search')}
           onChange={this.handleFilterChange}
@@ -105,6 +119,9 @@ class MemberList extends React.Component {
             <FormattedMessage id="organization.settings.member.none" />
           </Typography>
         )}
+        {createMemberDialogOpen && (
+          <CreateMemberDialog organizationId={organizationId} />
+        )}
         {deleteMemberDialog && deleteMemberDialog.open && (
           <DeleteMemberDialog
             organizationId={organizationId}
@@ -142,6 +159,7 @@ MemberList.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired
   }),
+  createMemberDialogOpen: PropTypes.bool,
   deleteMemberDialog: PropTypes.shape({
     open: PropTypes.bool,
     submitting: PropTypes.bool,
@@ -169,6 +187,7 @@ MemberList.propTypes = {
   ).isRequired,
   classes: PropTypes.object.isRequired,
   fetchMembers: PropTypes.func.isRequired,
+  openCreateMemberDialog: PropTypes.func.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
   closeDeleteMemberDialog: PropTypes.func.isRequired,
   deleteMember: PropTypes.func.isRequired,
