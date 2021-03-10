@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import ScheduleIcon from '@material-ui/icons/Schedule'
 import Tooltip from '@material-ui/core/Tooltip'
 import { withStyles } from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
@@ -17,7 +19,10 @@ import {
 import { formatDate, formatTime } from '../../../../../../util/dates'
 
 const styles = {
-  pending: {
+  pendingIcon: {
+    minWidth: 30
+  },
+  notJoined: {
     fontStyle: 'italic',
     color: '#AAAAAA'
   }
@@ -65,6 +70,9 @@ class Member extends React.Component {
   msg = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   getPendingInvitationTooltip = member => {
+    if (member.user) {
+      return this.msg('organization.invite.joined')
+    }
     if (member.inviteTimestamp) {
       return this.msg('organization.invite.pending', {
         inviteDate: formatDate(member.inviteTimestamp),
@@ -77,7 +85,9 @@ class Member extends React.Component {
   render() {
     const { member, classes } = this.props
 
-    const invitePending = !member.user
+    const invited = !!member.inviteTimestamp
+    const invitePending = !member.user && invited
+    const joined = !!member.user
 
     const itemText = (
       <ListItemText
@@ -91,19 +101,20 @@ class Member extends React.Component {
         <ListItem
           key={member.id}
           disableGutters
-          className={invitePending ? classes.pending : undefined}
+          className={!joined ? classes.notJoined : undefined}
           divider
         >
-          {invitePending ? (
-            <Tooltip
-              title={this.getPendingInvitationTooltip(member)}
-              placement="bottom-start"
-            >
-              {itemText}
-            </Tooltip>
-          ) : (
-            itemText
+          {invitePending && (
+            <ListItemIcon className={classes.pendingIcon}>
+              <ScheduleIcon />
+            </ListItemIcon>
           )}
+          <Tooltip
+            title={this.getPendingInvitationTooltip(member)}
+            placement="bottom-start"
+          >
+            {itemText}
+          </Tooltip>
           <ListItemSecondaryAction>
             <IconButton onClick={this.handleMenuOpen}>
               <MoreVertIcon />

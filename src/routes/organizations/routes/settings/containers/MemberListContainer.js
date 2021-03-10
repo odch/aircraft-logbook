@@ -74,13 +74,21 @@ const mapStateToProps = (state, ownProps) => {
     const joinedMembersFirst = Array.prototype.slice
       .call(filteredMembers)
       .sort((m1, m2) => {
+        if (m1.user && m2.user) {
+          return 0
+        }
         if (!m1.user && m2.user) {
           return 1
         }
         if (!m2.user && m1.user) {
           return -1
         }
-        return 0
+        if (!m1.inviteTimestamp && m2.inviteTimestamp) {
+          return 1
+        }
+        if (!m2.inviteTimestamp && m1.inviteTimestamp) {
+          return -1
+        }
       })
 
     const startIndex = pagination.page * MEMBERS_PER_PAGE

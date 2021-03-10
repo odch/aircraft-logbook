@@ -333,6 +333,7 @@
   "organization.invite.invalid": "Die angeforderte Einladung wurde nicht gefunden oder ist nicht mehr gültig.",
   "organization.invite.pending": "Noch nicht beigetreten (eingeladen am {inviteDate} um {inviteTime})",
   "organization.invite.notsent": "Keine Einladung gesendet",
+  "organization.invite.joined": "Beigetreten",
   "aircraft.settings.close": "Einstellungen schliessen",
   "aircraft.settings.checks": "Checks",
   "aircraft.settings.checks.none": "Keine Checks erfasst",
