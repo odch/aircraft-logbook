@@ -18,6 +18,7 @@ import Select from '@material-ui/core/Select'
 import Input from '@material-ui/core/Input'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import {
   member as memberShape,
   intl as intlShape
@@ -109,7 +110,7 @@ class EditMemberDialog extends React.Component {
     )
   }
 
-  renderTextField(name, autoFocus, required, type = 'text') {
+  renderTextField(name, autoFocus, required, type = 'text', disabled) {
     return (
       <TextField
         label={this.msg(`organization.member.edit.dialog.${name}`)}
@@ -119,7 +120,7 @@ class EditMemberDialog extends React.Component {
         value={this.props.data[name]}
         onChange={this.handleChange(name)}
         data-cy={`${name}-field`}
-        disabled={this.props.submitting}
+        disabled={disabled || this.props.submitting}
         autoFocus={autoFocus}
       />
     )
@@ -179,7 +180,7 @@ class EditMemberDialog extends React.Component {
   }
 
   renderInviteEmailField() {
-    const { member, classes, submitting } = this.props
+    const { member, limitReached, classes, submitting } = this.props
 
     if (member.user) {
       return null
@@ -224,7 +225,20 @@ class EditMemberDialog extends React.Component {
               'organization.member.edit.dialog.invitation.text_not_invited'
             )}
           </DialogContentText>
-          {this.renderTextField('inviteEmail', false, false, 'email')}
+          <FormControl fullWidth error={limitReached}>
+            {this.renderTextField(
+              'inviteEmail',
+              false,
+              false,
+              'email',
+              limitReached
+            )}
+            {limitReached && (
+              <FormHelperText>
+                <FormattedMessage id="organization.member.edit.dialog.invitation.limitreached" />
+              </FormHelperText>
+            )}
+          </FormControl>
         </React.Fragment>
       )
     }
@@ -249,6 +263,7 @@ EditMemberDialog.propTypes = {
     })
   ).isRequired,
   submitting: PropTypes.bool,
+  limitReached: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   onSubmit: PropTypes.func,
   onClose: PropTypes.func,
