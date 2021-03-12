@@ -18,6 +18,7 @@ export const roles = intl =>
 const mapStateToProps = (state, ownProps) => ({
   organizationId: ownProps.organizationId,
   data: state.organizationSettings.createMemberDialog.data,
+  errors: state.organizationSettings.createMemberDialog.errors,
   roles: roles(ownProps.intl),
   submitting: state.organizationSettings.createMemberDialog.submitting
 })

@@ -65,7 +65,14 @@ class CreateMemberDialog extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { roles, submitting, limitReached, classes, onClose } = this.props
+    const {
+      roles,
+      submitting,
+      limitReached,
+      errors,
+      classes,
+      onClose
+    } = this.props
     return (
       <Dialog onClose={this.handleClose} data-cy="member-create-dialog" open>
         <DialogTitle>
@@ -81,7 +88,10 @@ class CreateMemberDialog extends React.Component {
             <DialogContentText className={classes.inviteText}>
               {this.msg('organization.member.create.dialog.invitation.text')}
             </DialogContentText>
-            <FormControl fullWidth error={limitReached}>
+            <FormControl
+              fullWidth
+              error={limitReached || errors['LIMIT_REACHED']}
+            >
               {this.renderTextField(
                 'inviteEmail',
                 false,
@@ -89,7 +99,7 @@ class CreateMemberDialog extends React.Component {
                 'email',
                 limitReached
               )}
-              {limitReached && (
+              {(limitReached || errors['LIMIT_REACHED']) && (
                 <FormHelperText>
                   <FormattedMessage id="organization.member.create.dialog.invitation.limitreached" />
                 </FormHelperText>
@@ -199,6 +209,7 @@ CreateMemberDialog.propTypes = {
     nr: PropTypes.string,
     inviteEmail: PropTypes.string
   }).isRequired,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
   roles: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
