@@ -13,7 +13,8 @@ export const INITIAL_STATE = {
       roles: [],
       instructor: false,
       inviteEmail: ''
-    }
+    },
+    errors: {}
   },
   deleteMemberDialog: {
     open: false,
@@ -97,7 +98,8 @@ describe('routes', () => {
                   roles: [],
                   instructor: false,
                   inviteEmail: ''
-                }
+                },
+                errors: {}
               }
             })
           })
@@ -151,7 +153,7 @@ describe('routes', () => {
             })
           })
 
-          it('handles SET_CREATE_MEMBER_DIALOG_SUBMITTING action', () => {
+          it('handles CREATE_MEMBER action', () => {
             expect(
               reducer(
                 {
@@ -159,7 +161,7 @@ describe('routes', () => {
                     submitting: false
                   }
                 },
-                actions.setCreateMemberDialogSubmitting()
+                actions.createMember()
               )
             ).toEqual({
               createMemberDialog: {
@@ -193,11 +195,16 @@ describe('routes', () => {
                     submitting: true
                   }
                 },
-                actions.createMemberFailure()
+                actions.createMemberFailure({
+                  LIMIT_REACHED: true
+                })
               )
             ).toEqual({
               createMemberDialog: {
-                submitting: false
+                submitting: false,
+                errors: {
+                  LIMIT_REACHED: true
+                }
               }
             })
           })

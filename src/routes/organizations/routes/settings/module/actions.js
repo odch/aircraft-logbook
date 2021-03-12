@@ -5,8 +5,6 @@ export const CLOSE_CREATE_MEMBER_DIALOG =
 export const UPDATE_CREATE_MEMBER_DIALOG_DATA =
   'organizationSettings/UPDATE_CREATE_MEMBER_DIALOG_DATA'
 export const CREATE_MEMBER = 'organizationSettings/CREATE_MEMBER'
-export const SET_CREATE_MEMBER_DIALOG_SUBMITTING =
-  'organizationSettings/SET_CREATE_MEMBER_DIALOG_SUBMITTING'
 export const CREATE_MEMBER_SUCCESS =
   'organizationSettings/CREATE_MEMBER_SUCCESS'
 export const CREATE_MEMBER_FAILURE =
@@ -71,16 +69,15 @@ export const createMember = (organizationId, data) => ({
   }
 })
 
-export const setCreateMemberDialogSubmitting = () => ({
-  type: SET_CREATE_MEMBER_DIALOG_SUBMITTING
-})
-
 export const createMemberSuccess = () => ({
   type: CREATE_MEMBER_SUCCESS
 })
 
-export const createMemberFailure = () => ({
-  type: CREATE_MEMBER_FAILURE
+export const createMemberFailure = errors => ({
+  type: CREATE_MEMBER_FAILURE,
+  payload: {
+    errors
+  }
 })
 
 export const openDeleteMemberDialog = member => ({

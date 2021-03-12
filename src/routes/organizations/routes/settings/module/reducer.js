@@ -7,6 +7,7 @@ export const INITIAL_STATE = {
   createMemberDialog: {
     open: false,
     submitting: false,
+    errors: {},
     data: {
       firstname: '',
       lastname: '',
@@ -88,8 +89,14 @@ const updateCreateMemberDialogData = (state, action) => ({
 const setCreateMemberDialogSubmitting = state =>
   updateCreateMemberDialogSubmitting(state, true)
 
-const unsetCreateMemberDialogSubmitting = state =>
-  updateCreateMemberDialogSubmitting(state, false)
+const createMemberFailure = (state, action) => ({
+  ...state,
+  createMemberDialog: {
+    ...state.createMemberDialog,
+    submitting: false,
+    errors: action.payload.errors || {}
+  }
+})
 
 const updateCreateMemberDialogSubmitting = (state, submitting) => ({
   ...state,
@@ -238,9 +245,9 @@ const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
   [actions.UPDATE_CREATE_MEMBER_DIALOG_DATA]: updateCreateMemberDialogData,
-  [actions.SET_CREATE_MEMBER_DIALOG_SUBMITTING]: setCreateMemberDialogSubmitting,
+  [actions.CREATE_MEMBER]: setCreateMemberDialogSubmitting,
   [actions.CREATE_MEMBER_SUCCESS]: closeCreateMemberDialog,
-  [actions.CREATE_MEMBER_FAILURE]: unsetCreateMemberDialogSubmitting,
+  [actions.CREATE_MEMBER_FAILURE]: createMemberFailure,
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,

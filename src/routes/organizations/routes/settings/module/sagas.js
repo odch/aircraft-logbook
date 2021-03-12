@@ -10,11 +10,7 @@ import * as actions from './actions'
 import { fetchMembers, fetchAircrafts } from '../../../module'
 import { fetchOrganizations } from '../../../../../modules/app'
 import { error } from '../../../../../util/log'
-import {
-  addDoc,
-  updateDoc,
-  serverTimestamp
-} from '../../../../../util/firestoreUtils'
+import { updateDoc, serverTimestamp } from '../../../../../util/firestoreUtils'
 import { callFunction, getFirestore } from '../../../../../util/firebase'
 import download from '../../../../../util/download'
 import { getCurrentMemberObject } from '../../../util/members'
@@ -24,24 +20,20 @@ export const tokenSelector = state =>
 
 export function* createMember({ payload: { organizationId, data } }) {
   try {
-    yield put(actions.setCreateMemberDialogSubmitting())
-    const currentMember = yield call(getCurrentMemberObject, organizationId)
-    const timestampFieldValue = yield call(serverTimestamp)
-    const dataToStore = {
-      ...data,
-      deleted: false,
-      createdBy: currentMember,
-      updatedBy: currentMember,
-      createTimestamp: timestampFieldValue,
-      updateTimestamp: timestampFieldValue
+    const result = yield call(callFunction, 'addMember', {
+      organizationId,
+      member: data
+    })
+    if (result && result.data && result.data.error) {
+      yield put(
+        actions.createMemberFailure({
+          [result.data.error]: true
+        })
+      )
+    } else {
+      yield put(fetchMembers(organizationId))
+      yield put(actions.createMemberSuccess())
     }
-    yield call(
-      addDoc,
-      ['organizations', organizationId, 'members'],
-      dataToStore
-    )
-    yield put(fetchMembers(organizationId))
-    yield put(actions.createMemberSuccess())
   } catch (e) {
     error(`Failed to add member ${data.firstname} ${data.lastname}`, e)
     yield put(actions.createMemberFailure())

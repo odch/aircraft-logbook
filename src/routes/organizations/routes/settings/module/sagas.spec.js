@@ -1,11 +1,7 @@
 import { all, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { throwError } from 'redux-saga-test-plan/providers'
-import {
-  addDoc,
-  updateDoc,
-  serverTimestamp
-} from '../../../../../util/firestoreUtils'
+import { updateDoc, serverTimestamp } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchOrganizations } from '../../../../../modules/app'
@@ -26,39 +22,58 @@ describe('routes', () => {
                 lastname: 'Muster'
               }
 
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
+              const action = actions.createMember(orgId, memberData)
 
-              const timestampFieldValue = {}
+              return expectSaga(sagas.createMember, action)
+                .provide([
+                  [
+                    call(callFunction, 'addMember', {
+                      organizationId: orgId,
+                      member: memberData
+                    })
+                  ]
+                ])
+                .call(callFunction, 'addMember', {
+                  organizationId: orgId,
+                  member: memberData
+                })
+                .put(fetchMembers(orgId))
+                .put(actions.createMemberSuccess())
+                .run()
+            })
 
-              const dataToStore = {
-                ...memberData,
-                deleted: false,
-                createdBy: currentMemberObject,
-                updatedBy: currentMemberObject,
-                createTimestamp: timestampFieldValue,
-                updateTimestamp: timestampFieldValue
+            it('should put errors if fails', () => {
+              const orgId = 'my_org'
+              const memberData = {
+                firstname: 'Max',
+                lastname: 'Muster'
               }
 
               const action = actions.createMember(orgId, memberData)
 
               return expectSaga(sagas.createMember, action)
                 .provide([
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue],
                   [
-                    call(
-                      addDoc,
-                      ['organizations', orgId, 'members'],
-                      dataToStore
-                    )
+                    call(callFunction, 'addMember', {
+                      organizationId: orgId,
+                      member: memberData
+                    }),
+                    {
+                      data: {
+                        error: 'LIMIT_REACHED'
+                      }
+                    }
                   ]
                 ])
-                .call(addDoc, ['organizations', orgId, 'members'], dataToStore)
-                .put(actions.setCreateMemberDialogSubmitting())
-                .put(fetchMembers(orgId))
-                .put(actions.createMemberSuccess())
+                .call(callFunction, 'addMember', {
+                  organizationId: orgId,
+                  member: memberData
+                })
+                .put(
+                  actions.createMemberFailure({
+                    LIMIT_REACHED: true
+                  })
+                )
                 .run()
             })
           })
