@@ -24,6 +24,7 @@ describe('routes', () => {
                     nr: '24354',
                     roles: ['manager', 'techlogmanager']
                   }}
+                  errors={{}}
                   roles={ROLES}
                   updateData={() => {}}
                 />,
@@ -44,6 +45,7 @@ describe('routes', () => {
                     roles: ['manager', 'techlogmanager'],
                     inviteEmail: 'max@muster.ch'
                   }}
+                  errors={{}}
                   roles={ROLES}
                   updateData={() => {}}
                 />,

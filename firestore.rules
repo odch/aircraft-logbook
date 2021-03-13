@@ -66,7 +66,7 @@ service cloud.firestore {
       match /members/{member} {
         allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
         allow update: if isOrgManager(database, organization)
-          && affectsOnly(["deleted", "firstname", "lastname", "nr", "instructor", "roles", "inviteEmail", "inviteTimestamp", "updatedBy", "updateTimestamp", "deletedBy", "deleteTimestamp"]);
+          && affectsOnly(["deleted", "updatedBy", "updateTimestamp", "deletedBy", "deleteTimestamp"]);
       }
 
       match /aircrafts/{aircraft} {

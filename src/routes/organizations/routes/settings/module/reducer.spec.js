@@ -23,6 +23,7 @@ export const INITIAL_STATE = {
   editMemberDialog: {
     open: false,
     submitting: false,
+    errors: {},
     member: undefined,
     data: {
       firstname: '',
@@ -307,7 +308,8 @@ describe('routes', () => {
                   roles: ['manager', 'techlogmanager'],
                   instructor: true,
                   inviteEmail: 'hans@keller.ch'
-                }
+                },
+                errors: {}
               }
             })
           })
@@ -348,7 +350,8 @@ describe('routes', () => {
                   roles: [],
                   instructor: false,
                   inviteEmail: ''
-                }
+                },
+                errors: {}
               }
             })
           })
@@ -399,7 +402,7 @@ describe('routes', () => {
             })
           })
 
-          it('handles SET_EDIT_MEMBER_DIALOG_SUBMITTING action', () => {
+          it('handles UPDATE_MEMBER action', () => {
             expect(
               reducer(
                 {
@@ -407,7 +410,7 @@ describe('routes', () => {
                     submitting: false
                   }
                 },
-                actions.setEditMemberDialogSubmitting()
+                actions.updateMember()
               )
             ).toEqual({
               editMemberDialog: {
@@ -439,11 +442,16 @@ describe('routes', () => {
                     submitting: true
                   }
                 },
-                actions.updateMemberFailure()
+                actions.updateMemberFailure({
+                  LIMIT_REACHED: true
+                })
               )
             ).toEqual({
               editMemberDialog: {
-                submitting: false
+                submitting: false,
+                errors: {
+                  LIMIT_REACHED: true
+                }
               }
             })
           })

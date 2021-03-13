@@ -180,7 +180,7 @@ class EditMemberDialog extends React.Component {
   }
 
   renderInviteEmailField() {
-    const { member, limitReached, classes, submitting } = this.props
+    const { member, limitReached, errors, classes, submitting } = this.props
 
     if (member.user) {
       return null
@@ -225,7 +225,10 @@ class EditMemberDialog extends React.Component {
               'organization.member.edit.dialog.invitation.text_not_invited'
             )}
           </DialogContentText>
-          <FormControl fullWidth error={limitReached}>
+          <FormControl
+            fullWidth
+            error={limitReached || errors['LIMIT_REACHED']}
+          >
             {this.renderTextField(
               'inviteEmail',
               false,
@@ -233,7 +236,7 @@ class EditMemberDialog extends React.Component {
               'email',
               limitReached
             )}
-            {limitReached && (
+            {(limitReached || errors['LIMIT_REACHED']) && (
               <FormHelperText>
                 <FormattedMessage id="organization.member.edit.dialog.invitation.limitreached" />
               </FormHelperText>
@@ -256,6 +259,7 @@ EditMemberDialog.propTypes = {
     inviteEmail: PropTypes.string,
     reinvite: PropTypes.bool
   }).isRequired,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
   roles: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,

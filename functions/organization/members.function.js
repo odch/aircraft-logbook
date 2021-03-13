@@ -23,6 +23,12 @@ const memberObject = memberDocument =>
       }
     : null
 
+const getCurrentMemberObject = async (organizationId, uid) => {
+  const currentMember = await getMemberByUid(db, organizationId, uid)
+  requireRole(currentMember, ['manager'])
+  return memberObject(currentMember)
+}
+
 const validateMember = member => {
   if (!member) {
     throw new Error('Member data is missing')
@@ -55,14 +61,10 @@ const isMembersLimitReached = async (db, organizationId) => {
 const addMember = functions.https.onCall(async (data, context) => {
   const { organizationId, member } = data
 
-  const currentMember = await getMemberByUid(
-    db,
+  const currentMemberObject = await getCurrentMemberObject(
     organizationId,
     context.auth.uid
   )
-  requireRole(currentMember, ['manager'])
-
-  const currentMemberObject = memberObject(currentMember)
 
   validateMember(member)
 
@@ -92,4 +94,51 @@ const addMember = functions.https.onCall(async (data, context) => {
     .set(dataToStore)
 })
 
+const updateMember = functions.https.onCall(async (data, context) => {
+  const { organizationId, memberId, member } = data
+
+  const currentMemberObject = await getCurrentMemberObject(
+    organizationId,
+    context.auth.uid
+  )
+
+  validateMember(member)
+
+  const memberDoc = await db
+    .collection('organizations')
+    .doc(organizationId)
+    .collection('members')
+    .doc(memberId)
+    .get()
+
+  if (memberDoc.exists !== true || memberDoc.get('deleted')) {
+    throw new Error(
+      `Cannot update member that does not exist or is marked as deleted (org id: ${organizationId}, member id: ${memberId})`
+    )
+  }
+
+  if (!memberDoc.get('inviteEmail') && member.inviteEmail) {
+    const limitReached = await isMembersLimitReached(db, organizationId)
+    if (limitReached) {
+      return {
+        error: 'LIMIT_REACHED'
+      }
+    }
+  }
+
+  const dataToStore = {
+    ...member,
+    updatedBy: currentMemberObject,
+    updateTimestamp: admin.firestore.FieldValue.serverTimestamp()
+  }
+
+  if (dataToStore.reinvite === true) {
+    dataToStore.inviteTimestamp = admin.firestore.FieldValue.delete()
+    delete dataToStore.reinvite
+  }
+
+  await memberDoc.ref.update(dataToStore)
+})
+
 exports.addMember = addMember
+exports.updateMember = updateMember
