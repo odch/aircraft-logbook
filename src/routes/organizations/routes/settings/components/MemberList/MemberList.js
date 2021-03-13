@@ -143,6 +143,7 @@ class MemberList extends React.Component {
             organizationId={organization.id}
             member={editMemberDialog.member}
             data={editMemberDialog.data}
+            errors={editMemberDialog.errors}
             roles={memberRoles}
             submitting={editMemberDialog.submitting}
             limitReached={limitReached}
@@ -183,7 +184,8 @@ MemberList.propTypes = {
       roles: PropTypes.arrayOf(PropTypes.string),
       inviteEmail: PropTypes.string,
       reinvite: false
-    }).isRequired
+    }).isRequired,
+    errors: PropTypes.objectOf(PropTypes.bool).isRequired
   }),
   memberRoles: PropTypes.arrayOf(
     PropTypes.shape({

@@ -24,6 +24,7 @@ export const INITIAL_STATE = {
   editMemberDialog: {
     open: false,
     submitting: false,
+    errors: {},
     member: undefined,
     data: {
       firstname: '',
@@ -171,8 +172,14 @@ const closeEditMemberDialog = state => ({
 const setEditMemberDialogSubmitting = state =>
   updateEditMemberDialogSubmitting(state, true)
 
-const unsetEditMemberDialogSubmitting = state =>
-  updateEditMemberDialogSubmitting(state, false)
+const updateMemberFailure = (state, action) => ({
+  ...state,
+  editMemberDialog: {
+    ...state.editMemberDialog,
+    submitting: false,
+    errors: action.payload.errors || {}
+  }
+})
 
 const updateEditMemberDialogSubmitting = (state, submitting) => ({
   ...state,
@@ -254,9 +261,9 @@ const ACTION_HANDLERS = {
   [actions.OPEN_EDIT_MEMBER_DIALOG]: openEditMemberDialog,
   [actions.CLOSE_EDIT_MEMBER_DIALOG]: closeEditMemberDialog,
   [actions.UPDATE_EDIT_MEMBER_DIALOG_DATA]: updateEditMemberDialogData,
-  [actions.SET_EDIT_MEMBER_DIALOG_SUBMITTING]: setEditMemberDialogSubmitting,
+  [actions.UPDATE_MEMBER]: setEditMemberDialogSubmitting,
   [actions.UPDATE_MEMBER_SUCCESS]: closeEditMemberDialog,
-  [actions.UPDATE_MEMBER_FAILURE]: unsetEditMemberDialogSubmitting,
+  [actions.UPDATE_MEMBER_FAILURE]: updateMemberFailure,
   [actions.SET_MEMBERS_PAGE]: setMembersPage,
   [actions.SET_MEMBERS_FILTER]: setMembersFilter,
   [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,

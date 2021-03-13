@@ -20,8 +20,6 @@ export const CLOSE_EDIT_MEMBER_DIALOG =
 export const UPDATE_EDIT_MEMBER_DIALOG_DATA =
   'organizationSettings/UPDATE_EDIT_MEMBER_DIALOG_DATA'
 export const UPDATE_MEMBER = 'organizationSettings/UPDATE_MEMBER'
-export const SET_EDIT_MEMBER_DIALOG_SUBMITTING =
-  'organizationSettings/SET_EDIT_MEMBER_DIALOG_SUBMITTING'
 export const UPDATE_MEMBER_SUCCESS =
   'organizationSettings/UPDATE_MEMBER_SUCCESS'
 export const UPDATE_MEMBER_FAILURE =
@@ -126,16 +124,15 @@ export const updateMember = (organizationId, memberId, data) => ({
   }
 })
 
-export const setEditMemberDialogSubmitting = () => ({
-  type: SET_EDIT_MEMBER_DIALOG_SUBMITTING
-})
-
 export const updateMemberSuccess = () => ({
   type: UPDATE_MEMBER_SUCCESS
 })
 
-export const updateMemberFailure = () => ({
-  type: UPDATE_MEMBER_FAILURE
+export const updateMemberFailure = errors => ({
+  type: UPDATE_MEMBER_FAILURE,
+  payload: {
+    errors
+  }
 })
 
 export const setMembersPage = page => ({
