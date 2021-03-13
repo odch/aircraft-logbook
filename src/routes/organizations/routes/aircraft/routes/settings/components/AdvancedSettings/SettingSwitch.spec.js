@@ -44,6 +44,19 @@ describe('routes', () => {
                     ).toJSON()
                     expect(tree).toMatchSnapshot()
                   })
+
+                  it('renders readonly with tooltip', () => {
+                    const tree = renderIntl(
+                      <SettingSwitch
+                        label="My test switch"
+                        checked={true}
+                        disabled
+                        tooltip="Upgrade to premium to enable this feature"
+                        onChange={() => {}}
+                      />
+                    ).toJSON()
+                    expect(tree).toMatchSnapshot()
+                  })
                 })
               })
             })

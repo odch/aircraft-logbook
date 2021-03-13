@@ -9,6 +9,7 @@ export default PropTypes.shape({
   readonly: PropTypes.bool, // (for ramp check view) will be removed once all regular users have at least the 'pilot' role
   limits: PropTypes.shape({
     aircrafts: PropTypes.number,
-    members: PropTypes.number
+    members: PropTypes.number,
+    techlogDisabled: PropTypes.bool
   })
 })

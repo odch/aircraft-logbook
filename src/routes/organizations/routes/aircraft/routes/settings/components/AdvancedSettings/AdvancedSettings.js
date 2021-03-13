@@ -6,12 +6,18 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import SettingSwitch from './SettingSwitch'
 import SettingSelect from '../../../../../../../../components/SettingSelect'
-import { intl as intlShape } from '../../../../../../../../shapes'
+import {
+  intl as intlShape,
+  organization as organizationShape
+} from '../../../../../../../../shapes'
 
 const msg = (intl, id) => intl.formatMessage({ id })
 
+const isTechlogFeatureDisabled = organization =>
+  organization.limits && organization.limits.techlogDisabled
+
 const AdvancedSettings = ({
-  organizationId,
+  organization,
   aircraftId,
   settings: {
     techlogEnabled,
@@ -41,7 +47,7 @@ const AdvancedSettings = ({
         submitting={flightTimeCounterEnabledSubmitting}
         onChange={updateSetting.bind(
           null,
-          organizationId,
+          organization.id,
           aircraftId,
           'flightTimeCounterEnabled'
         )}
@@ -60,7 +66,7 @@ const AdvancedSettings = ({
           submitting={flightTimeCounterFractionDigitsSubmitting}
           onChange={updateSetting.bind(
             null,
-            organizationId,
+            organization.id,
             aircraftId,
             'flightTimeCounterFractionDigits'
           )}
@@ -75,7 +81,7 @@ const AdvancedSettings = ({
         submitting={engineHoursCounterEnabledSubmitting}
         onChange={updateSetting.bind(
           null,
-          organizationId,
+          organization.id,
           aircraftId,
           'engineHoursCounterEnabled'
         )}
@@ -94,7 +100,7 @@ const AdvancedSettings = ({
           submitting={engineHoursCounterFractionDigitsSubmitting}
           onChange={updateSetting.bind(
             null,
-            organizationId,
+            organization.id,
             aircraftId,
             'engineHoursCounterFractionDigits'
           )}
@@ -106,17 +112,26 @@ const AdvancedSettings = ({
         submitting={techlogEnabledSubmitting}
         onChange={updateSetting.bind(
           null,
-          organizationId,
+          organization.id,
           aircraftId,
           'techlogEnabled'
         )}
+        disabled={isTechlogFeatureDisabled(organization)}
+        tooltip={
+          isTechlogFeatureDisabled(organization)
+            ? msg(
+                intl,
+                'aircraft.settings.advanced.techlogenabled.disabledtooltip'
+              )
+            : null
+        }
       />
     </List>
   </Box>
 )
 
 AdvancedSettings.propTypes = {
-  organizationId: PropTypes.string.isRequired,
+  organization: organizationShape.isRequired,
   aircraftId: PropTypes.string.isRequired,
   settings: PropTypes.shape({
     techlogEnabled: PropTypes.bool.isRequired,
