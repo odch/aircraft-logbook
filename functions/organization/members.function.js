@@ -140,5 +140,30 @@ const updateMember = functions.https.onCall(async (data, context) => {
   await memberDoc.ref.update(dataToStore)
 })
 
+const deleteMember = functions.https.onCall(async (data, context) => {
+  const { organizationId, memberId } = data
+
+  const currentMemberObject = await getCurrentMemberObject(
+    organizationId,
+    context.auth.uid
+  )
+
+  const dataToStore = {
+    deleted: true,
+    updatedBy: currentMemberObject,
+    deletedBy: currentMemberObject,
+    updateTimestamp: admin.firestore.FieldValue.serverTimestamp(),
+    deleteTimestamp: admin.firestore.FieldValue.serverTimestamp()
+  }
+
+  await db
+    .collection('organizations')
+    .doc(organizationId)
+    .collection('members')
+    .doc(memberId)
+    .update(dataToStore)
+})
+
 exports.addMember = addMember
 exports.updateMember = updateMember
+exports.deleteMember = deleteMember
