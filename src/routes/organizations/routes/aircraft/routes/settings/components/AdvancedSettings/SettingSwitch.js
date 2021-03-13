@@ -6,6 +6,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Switch from '@material-ui/core/Switch'
 import ListItem from '@material-ui/core/ListItem'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const styles = {
   loadingIndicator: {
@@ -15,19 +16,36 @@ const styles = {
   }
 }
 
-const SettingSwitch = ({ label, checked, submitting, onChange, classes }) => (
+const SettingSwitch = ({
+  label,
+  checked,
+  submitting,
+  disabled,
+  tooltip,
+  onChange,
+  classes
+}) => (
   <ListItem disableGutters>
     <ListItemText primary={label} />
     <ListItemSecondaryAction>
       {submitting && (
         <CircularProgress size={16} className={classes.loadingIndicator} />
       )}
-      <Switch
-        edge="end"
-        onChange={e => onChange(e.target.checked)}
-        checked={checked}
-        disabled={submitting}
-      />
+      <Tooltip
+        title={tooltip || ''}
+        disableFocusListener={!tooltip}
+        disableHoverListener={!tooltip}
+        disableTouchListener={!tooltip}
+      >
+        <span>
+          <Switch
+            edge="end"
+            onChange={e => onChange(e.target.checked)}
+            checked={checked}
+            disabled={disabled || submitting}
+          />
+        </span>
+      </Tooltip>
     </ListItemSecondaryAction>
   </ListItem>
 )
@@ -36,6 +54,8 @@ SettingSwitch.propTypes = {
   label: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   submitting: PropTypes.bool,
+  disabled: PropTypes.bool,
+  tooltip: PropTypes.string,
   classes: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired
 }

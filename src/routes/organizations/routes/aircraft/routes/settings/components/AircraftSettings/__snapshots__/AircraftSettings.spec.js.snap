@@ -48,6 +48,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       >
         Einstellungen schliessen
       </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
     </a>
   </h4>
   <div
@@ -81,6 +84,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       >
         Check hinzufügen
       </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
     </button>
     <p
       className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
@@ -119,6 +125,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       >
         Treibstofftyp hinzufügen
       </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
     </button>
     <ul
       className="MuiList-root MuiList-dense MuiList-padding"
@@ -181,6 +190,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
                 />
               </svg>
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
       </li>
@@ -242,6 +254,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
                 />
               </svg>
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
       </li>
@@ -279,41 +294,50 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
           className="MuiListItemSecondaryAction-root"
         >
           <span
-            className="MuiSwitch-root MuiSwitch-edgeEnd"
+            aria-describedby={null}
+            className=""
+            title={null}
           >
             <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
+              className="MuiSwitch-root MuiSwitch-edgeEnd"
             >
               <span
-                className="MuiIconButton-label"
+                aria-disabled={false}
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-135 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
               >
                 <span
-                  className="MuiSwitch-thumb"
-                />
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
-                  onChange={[Function]}
-                  type="checkbox"
+                  className="MuiIconButton-label"
+                >
+                  <span
+                    className="MuiSwitch-thumb"
+                  />
+                  <input
+                    checked={false}
+                    className="PrivateSwitchBase-input-138 MuiSwitch-input"
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </span>
+                <span
+                  className="MuiTouchRipple-root"
                 />
               </span>
+              <span
+                className="MuiSwitch-track"
+              />
             </span>
-            <span
-              className="MuiSwitch-track"
-            />
           </span>
         </div>
       </li>
@@ -338,41 +362,50 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
           className="MuiListItemSecondaryAction-root"
         >
           <span
-            className="MuiSwitch-root MuiSwitch-edgeEnd"
+            aria-describedby={null}
+            className=""
+            title={null}
           >
             <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
+              className="MuiSwitch-root MuiSwitch-edgeEnd"
             >
               <span
-                className="MuiIconButton-label"
+                aria-disabled={false}
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-135 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
               >
                 <span
-                  className="MuiSwitch-thumb"
-                />
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
-                  onChange={[Function]}
-                  type="checkbox"
+                  className="MuiIconButton-label"
+                >
+                  <span
+                    className="MuiSwitch-thumb"
+                  />
+                  <input
+                    checked={false}
+                    className="PrivateSwitchBase-input-138 MuiSwitch-input"
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </span>
+                <span
+                  className="MuiTouchRipple-root"
                 />
               </span>
+              <span
+                className="MuiSwitch-track"
+              />
             </span>
-            <span
-              className="MuiSwitch-track"
-            />
           </span>
         </div>
       </li>
@@ -397,41 +430,50 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
           className="MuiListItemSecondaryAction-root"
         >
           <span
-            className="MuiSwitch-root MuiSwitch-edgeEnd"
+            aria-describedby={null}
+            className=""
+            title={null}
           >
             <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-127 MuiSwitch-switchBase MuiSwitch-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
+              className="MuiSwitch-root MuiSwitch-edgeEnd"
             >
               <span
-                className="MuiIconButton-label"
+                aria-disabled={false}
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-135 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
               >
                 <span
-                  className="MuiSwitch-thumb"
-                />
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-130 MuiSwitch-input"
-                  onChange={[Function]}
-                  type="checkbox"
+                  className="MuiIconButton-label"
+                >
+                  <span
+                    className="MuiSwitch-thumb"
+                  />
+                  <input
+                    checked={false}
+                    className="PrivateSwitchBase-input-138 MuiSwitch-input"
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </span>
+                <span
+                  className="MuiTouchRipple-root"
                 />
               </span>
+              <span
+                className="MuiSwitch-track"
+              />
             </span>
-            <span
-              className="MuiSwitch-track"
-            />
           </span>
         </div>
       </li>
@@ -477,6 +519,9 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
         </svg>
         Flugzeug löschen
       </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
     </button>
   </div>
 </div>
@@ -576,13 +621,10 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       >
         Einstellungen schliessen
       </span>
-      <span
-        className="MuiTouchRipple-root"
-      />
     </a>
   </h4>
   <div
-    className="MuiBox-root MuiBox-root-152"
+    className="MuiBox-root MuiBox-root-170"
   >
     <h5
       className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
@@ -612,9 +654,6 @@ exports[`routes organizations routes aircraft routes settings components Aircraf
       >
         Check hinzufügen
       </span>
-      <span
-        className="MuiTouchRipple-root"
-      />
     </button>
     <p
       className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"

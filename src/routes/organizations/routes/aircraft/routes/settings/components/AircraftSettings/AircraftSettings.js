@@ -120,7 +120,7 @@ class AircraftSettings extends React.Component {
               aircraftId={aircraft.id}
             />
             <AdvancedSettings
-              organizationId={organization.id}
+              organization={organization}
               aircraftId={aircraft.id}
             />
             <ReadonlyAccessLink organization={organization} />
