@@ -1,13 +1,11 @@
 import { all, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { throwError } from 'redux-saga-test-plan/providers'
-import { updateDoc, serverTimestamp } from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchOrganizations } from '../../../../../modules/app'
 import { fetchMembers, fetchAircrafts } from '../../../module'
 import { callFunction } from '../../../../../util/firebase'
-import { getCurrentMemberObject } from '../../../util/members'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -79,47 +77,25 @@ describe('routes', () => {
           })
 
           describe('deleteMember', () => {
-            it('should set the deleted flag on the member', () => {
+            it('should call deleteMember cloud function', () => {
               const orgId = 'my_org'
               const memberId = 'my_member'
 
               const action = actions.deleteMember(orgId, memberId)
 
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
-
-              const timestampFieldValue = {}
-
               return expectSaga(sagas.deleteMember, action)
                 .provide([
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue],
                   [
-                    call(
-                      updateDoc,
-                      ['organizations', orgId, 'members', memberId],
-                      {
-                        deleted: true,
-                        updatedBy: currentMemberObject,
-                        deletedBy: currentMemberObject,
-                        updateTimestamp: timestampFieldValue,
-                        deleteTimestamp: timestampFieldValue
-                      }
-                    )
+                    call(callFunction, 'deleteMember', {
+                      organizationId: orgId,
+                      memberId
+                    })
                   ]
                 ])
-                .call(
-                  updateDoc,
-                  ['organizations', orgId, 'members', memberId],
-                  {
-                    deleted: true,
-                    updatedBy: currentMemberObject,
-                    deletedBy: currentMemberObject,
-                    updateTimestamp: timestampFieldValue,
-                    deleteTimestamp: timestampFieldValue
-                  }
-                )
+                .call(callFunction, 'deleteMember', {
+                  organizationId: orgId,
+                  memberId
+                })
                 .put(fetchMembers(orgId))
                 .put(actions.closeDeleteMemberDialog())
                 .run()

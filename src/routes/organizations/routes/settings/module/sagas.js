@@ -10,10 +10,8 @@ import * as actions from './actions'
 import { fetchMembers, fetchAircrafts } from '../../../module'
 import { fetchOrganizations } from '../../../../../modules/app'
 import { error } from '../../../../../util/log'
-import { updateDoc, serverTimestamp } from '../../../../../util/firestoreUtils'
 import { callFunction } from '../../../../../util/firebase'
 import download from '../../../../../util/download'
-import { getCurrentMemberObject } from '../../../util/members'
 
 export const tokenSelector = state =>
   state.firebase.auth.stsTokenManager.accessToken
@@ -41,19 +39,10 @@ export function* createMember({ payload: { organizationId, data } }) {
 }
 
 export function* deleteMember({ payload: { organizationId, memberId } }) {
-  const currentMember = yield call(getCurrentMemberObject, organizationId)
-  const timestampFieldValue = yield call(serverTimestamp)
-  yield call(
-    updateDoc,
-    ['organizations', organizationId, 'members', memberId],
-    {
-      deleted: true,
-      updatedBy: currentMember,
-      deletedBy: currentMember,
-      updateTimestamp: timestampFieldValue,
-      deleteTimestamp: timestampFieldValue
-    }
-  )
+  yield call(callFunction, 'deleteMember', {
+    organizationId,
+    memberId
+  })
   yield put(fetchMembers(organizationId))
   yield put(actions.closeDeleteMemberDialog())
 }
