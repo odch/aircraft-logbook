@@ -131,6 +131,16 @@ describe('util', () => {
 
       it('should return found aircraft with default counters', () => {
         const state = {
+          firebase: {
+            profile: {
+              selectedOrganization: 'org_id'
+            }
+          },
+          main: {
+            app: {
+              organizations: [{ id: 'org_id' }]
+            }
+          },
           firestore: {
             data: {
               organizationAircrafts: {
@@ -156,12 +166,33 @@ describe('util', () => {
             techlogEntries: 0,
             flightsTotal: 0
           },
-          settings: {}
+          settings: {
+            engineHoursCounterEnabled: false,
+            engineHoursCounterFractionDigits: undefined,
+            engineTachHoursCounterEnabled: false,
+            engineTachHoursCounterFractionDigits: undefined,
+            flightTimeCounterEnabled: false,
+            flightTimeCounterFractionDigits: undefined,
+            fuelTypes: [],
+            lockDate: null,
+            techlogEnabled: false,
+            techlogSignatureEnabled: false
+          }
         })
       })
 
       it('should return found aircraft with counters from latest flight', () => {
         const state = {
+          firebase: {
+            profile: {
+              selectedOrganization: 'org_id'
+            }
+          },
+          main: {
+            app: {
+              organizations: [{ id: 'org_id' }]
+            }
+          },
           firestore: {
             data: {
               organizationAircrafts: {
@@ -195,12 +226,33 @@ describe('util', () => {
             techlogEntries: 0,
             flightsTotal: 0
           },
-          settings: {}
+          settings: {
+            engineHoursCounterEnabled: false,
+            engineHoursCounterFractionDigits: undefined,
+            engineTachHoursCounterEnabled: false,
+            engineTachHoursCounterFractionDigits: undefined,
+            flightTimeCounterEnabled: false,
+            flightTimeCounterFractionDigits: undefined,
+            fuelTypes: [],
+            lockDate: null,
+            techlogEnabled: false,
+            techlogSignatureEnabled: false
+          }
         })
       })
 
       it('should return techlog entries and total flights count from aircraft counters object', () => {
         const state = {
+          firebase: {
+            profile: {
+              selectedOrganization: 'org_id'
+            }
+          },
+          main: {
+            app: {
+              organizations: [{ id: 'org_id' }]
+            }
+          },
           firestore: {
             data: {
               organizationAircrafts: {
@@ -238,7 +290,18 @@ describe('util', () => {
             techlogEntries: 32,
             flightsTotal: 98
           },
-          settings: {}
+          settings: {
+            engineHoursCounterEnabled: false,
+            engineHoursCounterFractionDigits: undefined,
+            engineTachHoursCounterEnabled: false,
+            engineTachHoursCounterFractionDigits: undefined,
+            flightTimeCounterEnabled: false,
+            flightTimeCounterFractionDigits: undefined,
+            fuelTypes: [],
+            lockDate: null,
+            techlogEnabled: false,
+            techlogSignatureEnabled: false
+          }
         })
       })
     })

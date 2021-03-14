@@ -26,6 +26,33 @@ export const getOrganization = (state, organizationId) => {
   return undefined // still loading
 }
 
+const aircraftSettings = (aircraftSettings = {}, organization = {}) => {
+  const limits = organization.limits || {}
+
+  return {
+    fuelTypes: aircraftSettings.fuelTypes || [],
+    flightTimeCounterEnabled:
+      aircraftSettings.flightTimeCounterEnabled === true,
+    flightTimeCounterFractionDigits:
+      aircraftSettings.flightTimeCounterFractionDigits,
+    engineHoursCounterEnabled:
+      aircraftSettings.engineHoursCounterEnabled === true,
+    engineHoursCounterFractionDigits:
+      aircraftSettings.engineHoursCounterFractionDigits,
+    engineTachHoursCounterEnabled:
+      aircraftSettings.engineTachHoursCounterEnabled === true,
+    engineTachHoursCounterFractionDigits:
+      aircraftSettings.engineTachHoursCounterFractionDigits,
+    techlogEnabled:
+      aircraftSettings.techlogEnabled === true &&
+      limits.techlogDisabled !== true,
+    techlogSignatureEnabled: aircraftSettings.techlogSignatureEnabled === true,
+    lockDate: aircraftSettings.lockDate
+      ? aircraftSettings.lockDate.toDate()
+      : null
+  }
+}
+
 export const getAircraft = (state, aircraftId) => {
   const organizationAircrafts = state.firestore.data.organizationAircrafts
   if (organizationAircrafts) {
@@ -45,9 +72,11 @@ export const getAircraft = (state, aircraftId) => {
       aircraft.counters.techlogEntries = techlogEntriesCount
       aircraft.counters.flightsTotal = flightsTotalCount
 
-      if (!aircraft.settings) {
-        aircraft.settings = {}
-      }
+      const organization = getOrganization(
+        state,
+        state.firebase.profile.selectedOrganization
+      )
+      aircraft.settings = aircraftSettings(aircraft.settings, organization)
 
       return aircraft
     }

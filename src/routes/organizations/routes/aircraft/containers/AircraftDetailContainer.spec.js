@@ -25,6 +25,9 @@ describe('routes', () => {
                     stsTokenManager: {
                       accessToken: 'my-access-token'
                     }
+                  },
+                  profile: {
+                    selectedOrganization: 'my_org'
                   }
                 },
                 main: {
