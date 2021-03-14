@@ -174,19 +174,21 @@ describe('routes', () => {
                   return expectSaga(sagas.updateSetting, action)
                     .provide([
                       [
-                        call(
-                          updateDoc,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          { 'settings.techlogEnabled': true }
-                        )
+                        call(callFunction, 'updateAircraftSetting', {
+                          organizationId: orgId,
+                          aircraftId,
+                          name: 'techlogEnabled',
+                          value: true
+                        })
                       ]
                     ])
                     .put(actions.setSettingSubmitting('techlogEnabled', true))
-                    .call(
-                      updateDoc,
-                      ['organizations', orgId, 'aircrafts', aircraftId],
-                      { 'settings.techlogEnabled': true }
-                    )
+                    .call(callFunction, 'updateAircraftSetting', {
+                      organizationId: orgId,
+                      aircraftId,
+                      name: 'techlogEnabled',
+                      value: true
+                    })
                     .put(fetchAircrafts(orgId))
                     .put(actions.setSettingSubmitting('techlogEnabled', false))
                     .run()

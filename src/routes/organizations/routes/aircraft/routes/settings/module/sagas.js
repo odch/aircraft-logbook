@@ -90,11 +90,12 @@ export function* updateSetting({
 }) {
   yield put(actions.setSettingSubmitting(name, true))
 
-  yield call(
-    updateDoc,
-    ['organizations', organizationId, 'aircrafts', aircraftId],
-    { [`settings.${name}`]: value }
-  )
+  yield call(callFunction, 'updateAircraftSetting', {
+    organizationId,
+    aircraftId,
+    name,
+    value
+  })
 
   yield put(fetchAircrafts(organizationId))
   yield put(actions.setSettingSubmitting(name, false))
