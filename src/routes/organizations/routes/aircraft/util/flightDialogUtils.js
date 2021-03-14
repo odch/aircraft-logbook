@@ -21,32 +21,12 @@ export const techlogEntryStatus = intl =>
 
 export const aircraftSettings = (state, aircraftId) => {
   const aircraftSettings = getAircraft(state, aircraftId).settings
-  if (aircraftSettings) {
-    const fuelTypes = aircraftSettings.fuelTypes || []
-    const fuelTypeOptions = fuelTypes.map(fuelType =>
-      getFuelTypeOption(fuelType)
-    )
-    return {
-      fuelTypes: fuelTypeOptions,
-      flightTimeCounterEnabled:
-        aircraftSettings.flightTimeCounterEnabled === true,
-      flightTimeCounterFractionDigits:
-        aircraftSettings.flightTimeCounterFractionDigits,
-      engineHoursCounterEnabled:
-        aircraftSettings.engineHoursCounterEnabled === true,
-      engineHoursCounterFractionDigits:
-        aircraftSettings.engineHoursCounterFractionDigits,
-      engineTachHoursCounterEnabled:
-        aircraftSettings.engineTachHoursCounterEnabled === true,
-      engineTachHoursCounterFractionDigits:
-        aircraftSettings.engineTachHoursCounterFractionDigits,
-      techlogEnabled: aircraftSettings.techlogEnabled === true,
-      techlogSignatureEnabled:
-        aircraftSettings.techlogSignatureEnabled === true,
-      lockDate: aircraftSettings.lockDate
-        ? aircraftSettings.lockDate.toDate()
-        : null
-    }
+  const fuelTypeOptions = aircraftSettings.fuelTypes.map(fuelType =>
+    getFuelTypeOption(fuelType)
+  )
+  return {
+    ...aircraftSettings,
+    fuelTypes: fuelTypeOptions
   }
 }
 
