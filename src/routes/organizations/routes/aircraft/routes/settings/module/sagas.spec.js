@@ -1,11 +1,7 @@
 import { all, takeEvery, call } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { callFunction } from '../../../../../../../util/firebase'
-import {
-  addArrayItem,
-  removeArrayItem,
-  updateDoc
-} from '../../../../../../../util/firestoreUtils'
+import { updateDoc } from '../../../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchAircrafts } from '../../../../../module'
@@ -95,7 +91,7 @@ describe('routes', () => {
 
               describe('createFuelType', () => {
                 it('should add a fuel type to the aircraft', () => {
-                  const orgId = 'my_org'
+                  const organizationId = 'my_org'
                   const aircraftId = 'my_aircraft'
                   const fuelType = {
                     name: 'jet_a1',
@@ -103,7 +99,7 @@ describe('routes', () => {
                   }
 
                   const action = actions.createFuelType(
-                    orgId,
+                    organizationId,
                     aircraftId,
                     fuelType
                   )
@@ -111,16 +107,19 @@ describe('routes', () => {
                   return expectSaga(sagas.createFuelType, action)
                     .provide([
                       [
-                        call(
-                          addArrayItem,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          'settings.fuelTypes',
+                        call(callFunction, 'addFuelType', {
+                          organizationId,
+                          aircraftId,
                           fuelType
-                        )
+                        })
                       ]
                     ])
-                    .put(actions.setCreateFuelTypeDialogSubmitting())
-                    .put(fetchAircrafts(orgId))
+                    .call(callFunction, 'addFuelType', {
+                      organizationId,
+                      aircraftId,
+                      fuelType
+                    })
+                    .put(fetchAircrafts(organizationId))
                     .put(actions.createFuelTypeSuccess())
                     .run()
                 })
@@ -128,7 +127,7 @@ describe('routes', () => {
 
               describe('deleteFuelType', () => {
                 it('should remove a fuel type of the aircraft', () => {
-                  const orgId = 'my_org'
+                  const organizationId = 'my_org'
                   const aircraftId = 'my_aircraft'
                   const fuelType = {
                     name: 'jet_a1',
@@ -136,7 +135,7 @@ describe('routes', () => {
                   }
 
                   const action = actions.deleteFuelType(
-                    orgId,
+                    organizationId,
                     aircraftId,
                     fuelType
                   )
@@ -144,16 +143,19 @@ describe('routes', () => {
                   return expectSaga(sagas.deleteFuelType, action)
                     .provide([
                       [
-                        call(
-                          removeArrayItem,
-                          ['organizations', orgId, 'aircrafts', aircraftId],
-                          'settings.fuelTypes',
+                        call(callFunction, 'deleteFuelType', {
+                          organizationId,
+                          aircraftId,
                           fuelType
-                        )
+                        })
                       ]
                     ])
-                    .put(actions.setDeleteFuelTypeDialogSubmitting())
-                    .put(fetchAircrafts(orgId))
+                    .call(callFunction, 'deleteFuelType', {
+                      organizationId,
+                      aircraftId,
+                      fuelType
+                    })
+                    .put(fetchAircrafts(organizationId))
                     .put(actions.closeDeleteFuelTypeDialog())
                     .run()
                 })

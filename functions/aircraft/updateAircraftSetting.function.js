@@ -3,6 +3,7 @@ const admin = require('firebase-admin')
 const getMemberByUid = require('../utils/getMemberByUid')
 const requireRole = require('../utils/requireRole')
 const getOrganizationLimits = require('../utils/getOrganizationLimits')
+const getAircraft = require('../utils/getAircraft')
 
 // Prevent firebase from initializing twice
 try {
@@ -41,22 +42,7 @@ const updateAircraftSetting = functions.https.onCall(async (data, context) => {
   await ensureManager(organizationId, context)
   await validate(organizationId, name, value)
 
-  const aircraft = await db
-    .collection('organizations')
-    .doc(organizationId)
-    .collection('aircrafts')
-    .doc(aircraftId)
-    .get()
-
-  if (
-    !aircraft ||
-    aircraft.exists !== true ||
-    aircraft.get('deleted') === true
-  ) {
-    throw new Error(
-      `Cannot update setting of aircraft that does not exist (org id: ${organizationId}, aircraft id: ${aircraftId})`
-    )
-  }
+  const aircraft = await getAircraft(db, organizationId, aircraftId)
 
   await aircraft.ref.update({
     [`settings.${name}`]: value

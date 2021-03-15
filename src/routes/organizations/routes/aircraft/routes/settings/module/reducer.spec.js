@@ -238,7 +238,7 @@ describe('routes', () => {
                 })
               })
 
-              it('handles SET_CREATE_FUEL_TYPE_DIALOG_SUBMITTING action', () => {
+              it('handles CREATE_FUEL_TYPE action', () => {
                 expect(
                   reducer(
                     {
@@ -246,7 +246,7 @@ describe('routes', () => {
                         submitting: false
                       }
                     },
-                    actions.setCreateFuelTypeDialogSubmitting({})
+                    actions.createFuelType()
                   )
                 ).toEqual({
                   createFuelTypeDialog: {
@@ -385,7 +385,7 @@ describe('routes', () => {
                 })
               })
 
-              it('handles SET_DELETE_FUEL_TYPE_DIALOG_SUBMITTING action', () => {
+              it('handles DELETE_FUEL_TYPE action', () => {
                 expect(
                   reducer(
                     {
@@ -393,7 +393,7 @@ describe('routes', () => {
                         submitting: false
                       }
                     },
-                    actions.setDeleteFuelTypeDialogSubmitting()
+                    actions.deleteFuelType()
                   )
                 ).toEqual({
                   deleteFuelTypeDialog: {
