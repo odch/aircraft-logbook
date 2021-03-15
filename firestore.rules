@@ -69,7 +69,7 @@ service cloud.firestore {
 
       match /aircrafts/{aircraft} {
         allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);
-        allow update: if isOrgManager(database, organization) && affectsOnly(["deleted", "settings"]);
+        allow update: if isOrgManager(database, organization) && affectsOnly(["deleted"]);
 
         match /flights/{flight} {
           allow read: if isOrgMember(database, organization) || isReadonlyOrgUser(organization);

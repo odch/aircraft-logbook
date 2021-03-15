@@ -3,11 +3,7 @@ import * as actions from './actions'
 import { fetchAircrafts } from '../../../../../module'
 import { fetchChecks } from '../../../module'
 import { error } from '../../../../../../../util/log'
-import {
-  addArrayItem,
-  removeArrayItem,
-  updateDoc
-} from '../../../../../../../util/firestoreUtils'
+import { updateDoc } from '../../../../../../../util/firestoreUtils'
 import { callFunction } from '../../../../../../../util/firebase'
 
 export function* createCheck({
@@ -54,13 +50,11 @@ export function* createFuelType({
   payload: { organizationId, aircraftId, data }
 }) {
   try {
-    yield put(actions.setCreateFuelTypeDialogSubmitting())
-    yield call(
-      addArrayItem,
-      ['organizations', organizationId, 'aircrafts', aircraftId],
-      'settings.fuelTypes',
-      data
-    )
+    yield call(callFunction, 'addFuelType', {
+      organizationId,
+      aircraftId,
+      fuelType: data
+    })
     yield put(fetchAircrafts(organizationId))
     yield put(actions.createFuelTypeSuccess())
   } catch (e) {
@@ -72,14 +66,11 @@ export function* createFuelType({
 export function* deleteFuelType({
   payload: { organizationId, aircraftId, fuelType }
 }) {
-  yield put(actions.setDeleteFuelTypeDialogSubmitting())
-
-  yield call(
-    removeArrayItem,
-    ['organizations', organizationId, 'aircrafts', aircraftId],
-    'settings.fuelTypes',
+  yield call(callFunction, 'deleteFuelType', {
+    organizationId,
+    aircraftId,
     fuelType
-  )
+  })
 
   yield put(fetchAircrafts(organizationId))
   yield put(actions.closeDeleteFuelTypeDialog())
