@@ -17,6 +17,7 @@ import FlightList from '../../containers/FlightListContainer'
 import Techlog from '../../containers/TechlogContainer'
 import Checks from '../Checks'
 import LatestCrs from '../LatestCrs'
+import ExpiredNotification from '../../../../components/ExpiredNotification'
 
 const styles = theme => ({
   container: {
@@ -120,6 +121,7 @@ class AircraftDetail extends React.Component {
 
     return (
       <div className={classes.container}>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
           {this.isOrganizationOrTechlogManager() && (

@@ -1,3 +1,5 @@
+import { isBefore } from './dates'
+
 export const getUserEmail = state => {
   const auth = state.firebase.auth
   if (auth.isLoaded !== true) {
@@ -9,6 +11,13 @@ export const getUserEmail = state => {
   return auth.email
 }
 
+const isExpired = organization => {
+  const expiration = organization.limits ? organization.limits.expiration : null
+  return expiration
+    ? isBefore(expiration, undefined, new Date(), undefined)
+    : false
+}
+
 export const getOrganization = (state, organizationId) => {
   const organizations = state.main.app.organizations
   if (organizations) {
@@ -18,7 +27,8 @@ export const getOrganization = (state, organizationId) => {
         ...organization,
         id: organizationId,
         roles: organization.roles || [],
-        lockDate: organization.lockDate || null
+        lockDate: organization.lockDate || null,
+        expired: isExpired(organization)
       }
     }
     return null // not found

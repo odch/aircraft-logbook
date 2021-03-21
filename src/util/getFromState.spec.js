@@ -93,7 +93,72 @@ describe('util', () => {
         expect(organization).toEqual({
           id: 'my_org',
           roles: [],
-          lockDate: null
+          lockDate: null,
+          expired: false
+        })
+      })
+
+      it('should return found organization with expired set to true', () => {
+        const yesterday = new Date()
+        yesterday.setDate(yesterday.getDate() - 1)
+
+        const state = {
+          main: {
+            app: {
+              organizations: [
+                { id: 'some_org' },
+                {
+                  id: 'my_org',
+                  limits: {
+                    expiration: yesterday
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const organization = getOrganization(state, 'my_org')
+        expect(organization).toEqual({
+          id: 'my_org',
+          roles: [],
+          lockDate: null,
+          expired: true,
+          limits: {
+            expiration: yesterday
+          }
+        })
+      })
+
+      it('should return found organization with expired set to false', () => {
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        const state = {
+          main: {
+            app: {
+              organizations: [
+                { id: 'some_org' },
+                {
+                  id: 'my_org',
+                  limits: {
+                    expiration: tomorrow
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const organization = getOrganization(state, 'my_org')
+        expect(organization).toEqual({
+          id: 'my_org',
+          roles: [],
+          lockDate: null,
+          expired: false,
+          limits: {
+            expiration: tomorrow
+          }
         })
       })
     })

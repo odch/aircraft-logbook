@@ -32,7 +32,10 @@ class Techlog extends React.Component {
     expanded: null
   }
 
-  hasWritePermissions = () => this.props.organization.readonly !== true
+  hasWritePermissions = () => {
+    const organization = this.props.organization
+    return organization.readonly !== true && organization.expired !== true
+  }
 
   componentDidMount() {
     const { organization, aircraft, initTechlog, showOnlyOpen } = this.props

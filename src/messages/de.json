@@ -336,6 +336,7 @@
   "organization.invite.pending": "Noch nicht beigetreten (eingeladen am {inviteDate} um {inviteTime})",
   "organization.invite.notsent": "Keine Einladung gesendet",
   "organization.invite.joined": "Beigetreten",
+  "organization.expired": "Deine Mitgliedschaft ist abgelaufen. Bitte erneuere deine Mitgliedschaft, um Vuela weiter zu nutzen.",
   "aircraft.settings.close": "Einstellungen schliessen",
   "aircraft.settings.checks": "Checks",
   "aircraft.settings.checks.none": "Keine Checks erfasst",

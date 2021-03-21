@@ -9,6 +9,7 @@ import {
   aircraft as aircraftShape
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
+import ExpiredNotification from '../../../../components/ExpiredNotification'
 import AircraftList from '../AircraftList'
 
 const styles = theme => ({
@@ -79,6 +80,7 @@ class OrganizationDetail extends React.Component {
 
     return this.renderContent(
       <>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" gutterBottom>
           {organizationId}
         </Typography>
