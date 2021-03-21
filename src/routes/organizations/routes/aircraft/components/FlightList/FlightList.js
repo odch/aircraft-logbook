@@ -84,7 +84,10 @@ class FlightList extends React.Component {
     )
   }
 
-  hasWritePermissions = () => this.props.organization.readonly !== true
+  hasWritePermissions = () => {
+    const organization = this.props.organization
+    return organization.readonly !== true && organization.expired !== true
+  }
 
   componentDidMount() {
     const {
@@ -184,7 +187,8 @@ class FlightList extends React.Component {
               />
             </Button>
           )}
-          {this.isTechlogManager() &&
+          {this.hasWritePermissions() &&
+            this.isTechlogManager() &&
             flights.length > 0 &&
             !this.newestFlightIsPreflight() && (
               <Button
@@ -310,7 +314,7 @@ class FlightList extends React.Component {
             <FlightDetails aircraft={aircraft} flight={flight} />
           )}
         </ExpansionPanelDetails>
-        {organization.readonly !== true && flight.deleted === false && (
+        {this.hasWritePermissions() && flight.deleted === false && (
           <>
             <Divider key={`divider-${flight.id}`} />
             <ExpansionPanelActions key={`actions-${flight.id}`}>

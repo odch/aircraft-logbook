@@ -127,7 +127,12 @@ describe('routes', () => {
         })
 
         it('should return selectedOrganization if found', () => {
-          const myOrg = { id: 'my_org', roles: [], lockDate: null }
+          const myOrg = {
+            id: 'my_org',
+            roles: [],
+            lockDate: null,
+            expired: false
+          }
 
           wrapper = renderWithState({
             firestore: {

@@ -13,6 +13,7 @@ import {
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
+import ExpiredNotification from '../../../../components/ExpiredNotification'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
 import LockDateForm from '../../containers/LockDateFormContainer'
@@ -77,6 +78,7 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" data-cy="organization-title" gutterBottom>
           {organization.id}
         </Typography>

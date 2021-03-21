@@ -521,6 +521,505 @@ exports[`routes organizations routes aircraft components AircraftDetail renders 
 </div>
 `;
 
+exports[`routes organizations routes aircraft components AircraftDetail renders aircraft detail with expired notification 1`] = `
+<div
+  className="AircraftDetail-container-1"
+>
+  <p
+    className="MuiTypography-root ExpiredNotification-wrapper-157 MuiTypography-body1"
+  >
+    <svg
+      aria-hidden="true"
+      className="MuiSvgIcon-root ExpiredNotification-icon-158"
+      focusable="false"
+      role="presentation"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+      />
+    </svg>
+    Deine Mitgliedschaft ist abgelaufen. Bitte erneuere deine Mitgliedschaft, um Vuela weiter zu nutzen.
+  </p>
+  <h4
+    className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
+  >
+    HBKFW
+    <a
+      aria-disabled={false}
+      className="MuiButtonBase-root MuiButton-root AircraftDetail-settingsButton-3 MuiButton-text MuiButton-textPrimary"
+      href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA/settings"
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Einstellungen bearbeiten
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </a>
+  </h4>
+  <h5
+    className="MuiTypography-root AircraftDetail-sectionHeading-2 MuiTypography-h5 MuiTypography-gutterBottom"
+  >
+    Letzter CRS
+  </h5>
+  <div
+    className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+  >
+    <div
+      aria-disabled={false}
+      aria-expanded={false}
+      className="MuiButtonBase-root MuiExpansionPanelSummary-root"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <div
+        className="MuiExpansionPanelSummary-content"
+      >
+        <div
+          className="TechlogEntrySummary-entryNumber-108"
+        >
+          <p
+            className="MuiTypography-root TechlogEntrySummary-entryNumberText-109 MuiTypography-body1"
+          >
+            #0
+          </p>
+        </div>
+        <div
+          className="TechlogEntrySummary-headingContainer-106"
+        >
+          <div
+            className="TechlogEntrySummary-entryHeading-107"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+            >
+              My CRS
+              <br />
+            </p>
+            <span
+              className="MuiTypography-root EntryStatus-status-116 EntryStatus-closed-119 MuiTypography-body1"
+            >
+              CRS
+            </span>
+          </div>
+          <p
+            className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-110 MuiTypography-body1"
+          >
+            Gerd
+             
+            Keller
+            , 
+            20.06.2020
+             
+            10:14
+          </p>
+        </div>
+      </div>
+      <div
+        aria-disabled={false}
+        aria-hidden={true}
+        className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={-1}
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiCollapse-container MuiCollapse-hidden"
+      style={
+        Object {
+          "minHeight": "0px",
+        }
+      }
+    >
+      <div
+        className="MuiCollapse-wrapper"
+      >
+        <div
+          className="MuiCollapse-wrapperInner"
+        >
+          <div
+            role="region"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5
+    className="MuiTypography-root AircraftDetail-sectionHeading-2 MuiTypography-h5 MuiTypography-gutterBottom"
+  >
+    Offene Techlog-Einträge
+  </h5>
+  <div
+    className="Techlog-container-145"
+  >
+    <div
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+    >
+      <div
+        aria-disabled={false}
+        aria-expanded={false}
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <div
+          className="MuiExpansionPanelSummary-content"
+        >
+          <div
+            className="TechlogEntrySummary-entryNumber-108"
+          >
+            <p
+              className="MuiTypography-root TechlogEntrySummary-entryNumberText-109 MuiTypography-body1"
+            >
+              #1
+            </p>
+          </div>
+          <div
+            className="TechlogEntrySummary-headingContainer-106"
+          >
+            <div
+              className="TechlogEntrySummary-entryHeading-107"
+            >
+              <p
+                className="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"
+              >
+                Schraube am Bugfahrwerk locker
+                <br />
+              </p>
+              <span
+                className="MuiTypography-root EntryStatus-status-116 EntryStatus-severe-117 MuiTypography-body1"
+              >
+                Defect (aircraft on ground - AOG)
+              </span>
+            </div>
+            <p
+              className="MuiTypography-root TechlogEntrySummary-entrySecondaryHeading-110 MuiTypography-body1"
+            >
+              Hans
+               
+              Meier
+              , 
+              25.06.2020
+               
+              09:54
+            </p>
+          </div>
+        </div>
+        <div
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCollapse-container MuiCollapse-hidden"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper"
+        >
+          <div
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a
+    aria-disabled={false}
+    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary"
+    href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA/techlog"
+    onBlur={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Alle anzeigen
+    </span>
+    <span
+      className="MuiTouchRipple-root"
+    />
+  </a>
+  <h5
+    className="MuiTypography-root AircraftDetail-sectionHeading-2 MuiTypography-h5 MuiTypography-gutterBottom"
+  >
+    Neueste Flüge
+  </h5>
+  <div
+    className="FlightList-buttonsContainer-147"
+  />
+  <div
+    className="FlightList-container-149"
+    data-cy="flights-container"
+  >
+    <div
+      className="MuiPaper-root MuiPaper-elevation1 MuiExpansionPanel-root MuiExpansionPanel-rounded MuiPaper-rounded"
+      data-cy="flight-panel"
+      data-id="sStfyLd2XArT7oUZPFDn"
+    >
+      <div
+        aria-disabled={false}
+        aria-expanded={false}
+        className="MuiButtonBase-root MuiExpansionPanelSummary-root"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <div
+          className="MuiExpansionPanelSummary-content FlightList-flightSummaryContent-152"
+        >
+          <div
+            className="FlightSummary-flightHeading-153"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1"
+            >
+              Von 
+              <span
+                className="FlightSummary-bold-155"
+              >
+                LSZT
+              </span>
+               nach 
+              <span
+                className="FlightSummary-bold-155"
+              >
+                LSZT
+              </span>
+               — Max Muster
+            </p>
+          </div>
+          <p
+            className="MuiTypography-root FlightSummary-flightSecondaryHeading-154 MuiTypography-body1"
+          >
+            20.11.2018
+            ,
+             
+            10:00
+            -
+            11:10
+          </p>
+        </div>
+        <div
+          aria-disabled={false}
+          aria-hidden={true}
+          className="MuiButtonBase-root MuiIconButton-root MuiExpansionPanelSummary-expandIcon MuiIconButton-edgeEnd"
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCollapse-container MuiCollapse-hidden"
+        style={
+          Object {
+            "minHeight": "0px",
+          }
+        }
+      >
+        <div
+          className="MuiCollapse-wrapper"
+        >
+          <div
+            className="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a
+    aria-disabled={false}
+    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary"
+    href="/organizations/my_org/aircrafts/o7flC7jw8jmkOfWo8oyA/flights"
+    onBlur={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Alle anzeigen
+    </span>
+    <span
+      className="MuiTouchRipple-root"
+    />
+  </a>
+</div>
+`;
+
 exports[`routes organizations routes aircraft components AircraftDetail renders loading icon if aircraft not loaded 1`] = `
 <div
   className="LoadingIcon-container-4"
