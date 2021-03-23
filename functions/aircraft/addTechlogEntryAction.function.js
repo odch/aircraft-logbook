@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const getMemberByUid = require('../utils/getMemberByUid')
+const checkNotExpired = require('../utils/checkNotExpired')
 const addAttachments = require('./addAttachments')
 
 // Prevent firebase from initializing twice
@@ -32,6 +33,9 @@ const addTechlogEntryAction = functions.https.onCall(async (data, context) => {
     techlogEntryClosed,
     action
   } = data
+
+  await checkNotExpired(db, organizationId)
+
   const member = await getMemberByUid(db, organizationId, context.auth.uid)
 
   const author = {
