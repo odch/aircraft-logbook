@@ -7,6 +7,7 @@ export const INITIAL_STATE = {
   createMemberDialog: {
     open: false,
     submitting: false,
+    errors: {},
     data: {
       firstname: '',
       lastname: '',
@@ -23,6 +24,7 @@ export const INITIAL_STATE = {
   editMemberDialog: {
     open: false,
     submitting: false,
+    errors: {},
     member: undefined,
     data: {
       firstname: '',
@@ -88,8 +90,14 @@ const updateCreateMemberDialogData = (state, action) => ({
 const setCreateMemberDialogSubmitting = state =>
   updateCreateMemberDialogSubmitting(state, true)
 
-const unsetCreateMemberDialogSubmitting = state =>
-  updateCreateMemberDialogSubmitting(state, false)
+const createMemberFailure = (state, action) => ({
+  ...state,
+  createMemberDialog: {
+    ...state.createMemberDialog,
+    submitting: false,
+    errors: action.payload.errors || {}
+  }
+})
 
 const updateCreateMemberDialogSubmitting = (state, submitting) => ({
   ...state,
@@ -164,8 +172,14 @@ const closeEditMemberDialog = state => ({
 const setEditMemberDialogSubmitting = state =>
   updateEditMemberDialogSubmitting(state, true)
 
-const unsetEditMemberDialogSubmitting = state =>
-  updateEditMemberDialogSubmitting(state, false)
+const updateMemberFailure = (state, action) => ({
+  ...state,
+  editMemberDialog: {
+    ...state.editMemberDialog,
+    submitting: false,
+    errors: action.payload.errors || {}
+  }
+})
 
 const updateEditMemberDialogSubmitting = (state, submitting) => ({
   ...state,
@@ -238,18 +252,18 @@ const ACTION_HANDLERS = {
   [actions.OPEN_CREATE_MEMBER_DIALOG]: openCreateMemberDialog,
   [actions.CLOSE_CREATE_MEMBER_DIALOG]: closeCreateMemberDialog,
   [actions.UPDATE_CREATE_MEMBER_DIALOG_DATA]: updateCreateMemberDialogData,
-  [actions.SET_CREATE_MEMBER_DIALOG_SUBMITTING]: setCreateMemberDialogSubmitting,
+  [actions.CREATE_MEMBER]: setCreateMemberDialogSubmitting,
   [actions.CREATE_MEMBER_SUCCESS]: closeCreateMemberDialog,
-  [actions.CREATE_MEMBER_FAILURE]: unsetCreateMemberDialogSubmitting,
+  [actions.CREATE_MEMBER_FAILURE]: createMemberFailure,
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
   [actions.OPEN_EDIT_MEMBER_DIALOG]: openEditMemberDialog,
   [actions.CLOSE_EDIT_MEMBER_DIALOG]: closeEditMemberDialog,
   [actions.UPDATE_EDIT_MEMBER_DIALOG_DATA]: updateEditMemberDialogData,
-  [actions.SET_EDIT_MEMBER_DIALOG_SUBMITTING]: setEditMemberDialogSubmitting,
+  [actions.UPDATE_MEMBER]: setEditMemberDialogSubmitting,
   [actions.UPDATE_MEMBER_SUCCESS]: closeEditMemberDialog,
-  [actions.UPDATE_MEMBER_FAILURE]: unsetEditMemberDialogSubmitting,
+  [actions.UPDATE_MEMBER_FAILURE]: updateMemberFailure,
   [actions.SET_MEMBERS_PAGE]: setMembersPage,
   [actions.SET_MEMBERS_FILTER]: setMembersFilter,
   [actions.SET_EXPORT_FLIGHTS_FORM_SUBMITTING]: setExportFlightsFormSubmitting,

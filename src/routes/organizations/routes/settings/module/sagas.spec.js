@@ -1,17 +1,11 @@
 import { all, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import { throwError } from 'redux-saga-test-plan/providers'
-import {
-  addDoc,
-  updateDoc,
-  serverTimestamp
-} from '../../../../../util/firestoreUtils'
 import * as actions from './actions'
 import * as sagas from './sagas'
 import { fetchOrganizations } from '../../../../../modules/app'
 import { fetchMembers, fetchAircrafts } from '../../../module'
-import { callFunction, getFirestore } from '../../../../../util/firebase'
-import { getCurrentMemberObject } from '../../../util/members'
+import { callFunction } from '../../../../../util/firebase'
 
 describe('routes', () => {
   describe('organizations', () => {
@@ -26,85 +20,82 @@ describe('routes', () => {
                 lastname: 'Muster'
               }
 
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
+              const action = actions.createMember(orgId, memberData)
 
-              const timestampFieldValue = {}
+              return expectSaga(sagas.createMember, action)
+                .provide([
+                  [
+                    call(callFunction, 'addMember', {
+                      organizationId: orgId,
+                      member: memberData
+                    })
+                  ]
+                ])
+                .call(callFunction, 'addMember', {
+                  organizationId: orgId,
+                  member: memberData
+                })
+                .put(fetchMembers(orgId))
+                .put(actions.createMemberSuccess())
+                .run()
+            })
 
-              const dataToStore = {
-                ...memberData,
-                deleted: false,
-                createdBy: currentMemberObject,
-                updatedBy: currentMemberObject,
-                createTimestamp: timestampFieldValue,
-                updateTimestamp: timestampFieldValue
+            it('should put errors if fails', () => {
+              const orgId = 'my_org'
+              const memberData = {
+                firstname: 'Max',
+                lastname: 'Muster'
               }
 
               const action = actions.createMember(orgId, memberData)
 
               return expectSaga(sagas.createMember, action)
                 .provide([
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue],
                   [
-                    call(
-                      addDoc,
-                      ['organizations', orgId, 'members'],
-                      dataToStore
-                    )
+                    call(callFunction, 'addMember', {
+                      organizationId: orgId,
+                      member: memberData
+                    }),
+                    {
+                      data: {
+                        error: 'LIMIT_REACHED'
+                      }
+                    }
                   ]
                 ])
-                .call(addDoc, ['organizations', orgId, 'members'], dataToStore)
-                .put(actions.setCreateMemberDialogSubmitting())
-                .put(fetchMembers(orgId))
-                .put(actions.createMemberSuccess())
+                .call(callFunction, 'addMember', {
+                  organizationId: orgId,
+                  member: memberData
+                })
+                .put(
+                  actions.createMemberFailure({
+                    LIMIT_REACHED: true
+                  })
+                )
                 .run()
             })
           })
 
           describe('deleteMember', () => {
-            it('should set the deleted flag on the member', () => {
+            it('should call deleteMember cloud function', () => {
               const orgId = 'my_org'
               const memberId = 'my_member'
 
               const action = actions.deleteMember(orgId, memberId)
 
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
-
-              const timestampFieldValue = {}
-
               return expectSaga(sagas.deleteMember, action)
                 .provide([
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue],
                   [
-                    call(
-                      updateDoc,
-                      ['organizations', orgId, 'members', memberId],
-                      {
-                        deleted: true,
-                        updatedBy: currentMemberObject,
-                        deletedBy: currentMemberObject,
-                        updateTimestamp: timestampFieldValue,
-                        deleteTimestamp: timestampFieldValue
-                      }
-                    )
+                    call(callFunction, 'deleteMember', {
+                      organizationId: orgId,
+                      memberId
+                    })
                   ]
                 ])
-                .call(
-                  updateDoc,
-                  ['organizations', orgId, 'members', memberId],
-                  {
-                    deleted: true,
-                    updatedBy: currentMemberObject,
-                    deletedBy: currentMemberObject,
-                    updateTimestamp: timestampFieldValue,
-                    deleteTimestamp: timestampFieldValue
-                  }
-                )
+                .call(callFunction, 'deleteMember', {
+                  organizationId: orgId,
+                  memberId
+                })
                 .put(fetchMembers(orgId))
                 .put(actions.closeDeleteMemberDialog())
                 .run()
@@ -120,82 +111,58 @@ describe('routes', () => {
                 nr: '43492'
               }
 
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
-
-              const timestampFieldValue = {}
-
-              const firestore = {
-                update: () => {}
-              }
-
               const action = actions.updateMember(orgId, memberId, data)
 
               return expectSaga(sagas.updateMember, action)
                 .provide([
-                  [call(getFirestore), firestore],
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue]
+                  [
+                    call(callFunction, 'updateMember', {
+                      organizationId: orgId,
+                      memberId: memberId,
+                      member: data
+                    })
+                  ]
                 ])
-                .call(
-                  updateDoc,
-                  ['organizations', orgId, 'members', memberId],
-                  {
-                    firstname: 'Max',
-                    nr: '43492',
-                    updatedBy: currentMemberObject,
-                    updateTimestamp: timestampFieldValue
-                  }
-                )
-                .put(actions.setEditMemberDialogSubmitting())
+                .call(callFunction, 'updateMember', {
+                  organizationId: orgId,
+                  memberId: memberId,
+                  member: data
+                })
                 .put(fetchMembers(orgId))
                 .put(actions.updateMemberSuccess())
                 .run()
             })
 
-            it('should remove inviteTimestamp if reinvite flag is set', () => {
+            it('should put errors if fails', () => {
               const orgId = 'my_org'
               const memberId = 'my_member'
               const data = {
                 firstname: 'Max',
-                reinvite: true
-              }
-
-              const currentMemberObject = {
-                firstname: 'Admin'
-              }
-
-              const timestampFieldValue = {}
-
-              const firestore = {
-                FieldValue: {
-                  delete: () => ({ DELETE_FIELD_VALUE: true })
-                },
-                update: () => {}
+                lastname: 'Muster'
               }
 
               const action = actions.updateMember(orgId, memberId, data)
 
               return expectSaga(sagas.updateMember, action)
                 .provide([
-                  [call(getFirestore), firestore],
-                  [call(getCurrentMemberObject, orgId), currentMemberObject],
-                  [call(serverTimestamp), timestampFieldValue]
+                  [
+                    call(callFunction, 'updateMember', {
+                      organizationId: orgId,
+                      memberId,
+                      member: data
+                    }),
+                    {
+                      data: {
+                        error: 'LIMIT_REACHED'
+                      }
+                    }
+                  ]
                 ])
-                .call(
-                  updateDoc,
-                  ['organizations', orgId, 'members', memberId],
-                  {
-                    firstname: 'Max',
-                    inviteTimestamp: { DELETE_FIELD_VALUE: true },
-                    updatedBy: currentMemberObject,
-                    updateTimestamp: timestampFieldValue
-                  }
+                .put(
+                  actions.updateMemberFailure({
+                    LIMIT_REACHED: true
+                  })
                 )
-                .put(actions.setEditMemberDialogSubmitting())
-                .put(fetchMembers(orgId))
-                .put(actions.updateMemberSuccess())
                 .run()
             })
 
@@ -204,25 +171,19 @@ describe('routes', () => {
               const memberId = 'my_member'
               const data = { firstname: 'Max' }
 
-              const firestore = {
-                update: () => {}
-              }
-
               const action = actions.updateMember(orgId, memberId, data)
 
               return expectSaga(sagas.updateMember, action)
                 .provide([
-                  [call(getFirestore), firestore],
                   [
-                    call(
-                      updateDoc,
-                      ['organizations', orgId, 'members', memberId],
-                      data
-                    ),
+                    call(callFunction, 'updateMember', {
+                      organizationId: orgId,
+                      memberId: memberId,
+                      member: data
+                    }),
                     throwError(new Error('update failed'))
                   ]
                 ])
-                .put(actions.setEditMemberDialogSubmitting())
                 .put(actions.updateMemberFailure())
                 .run()
             })

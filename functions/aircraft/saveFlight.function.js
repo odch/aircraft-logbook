@@ -2,6 +2,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const getMemberByUid = require('../utils/getMemberByUid')
 const requireRole = require('../utils/requireRole')
+const checkNotExpired = require('../utils/checkNotExpired')
 const addTechlogEntry = require('./addTechlogEntry')
 const validateFlight = require('./validateFlight')
 const getCounters = require('./counters')
@@ -91,6 +92,8 @@ const getAircraftSettings = async (organizationId, aircraftId) => {
 
 const saveFlight = functions.https.onCall(
   async ({ organizationId, aircraftId, data, techlogEntryClosed }, context) => {
+    await checkNotExpired(db, organizationId)
+
     const aircraftSettings = await getAircraftSettings(
       organizationId,
       aircraftId

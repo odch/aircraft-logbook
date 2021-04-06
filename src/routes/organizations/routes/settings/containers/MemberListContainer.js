@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchMembers } from '../../../module'
 import { getMemberRoles } from '../../../../../util/memberRoles'
 import {
+  openCreateMemberDialog,
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,
@@ -54,6 +55,23 @@ export const filterMembers = (members, filter) => {
     : members
 }
 
+export const isMembersLimitReached = (state, organization) => {
+  const members = state.firestore.ordered.organizationMembers
+  if (!members) {
+    return false
+  }
+
+  const limits = organization.limits || {}
+  if (typeof limits.members !== 'number') {
+    return false
+  }
+
+  const joinedAndInvitedMembersCount = members.filter(
+    member => member.user || member.inviteTimestamp
+  ).length
+  return joinedAndInvitedMembersCount >= limits.members
+}
+
 const mapStateToProps = (state, ownProps) => {
   let members = undefined
   let pagination = undefined
@@ -74,13 +92,21 @@ const mapStateToProps = (state, ownProps) => {
     const joinedMembersFirst = Array.prototype.slice
       .call(filteredMembers)
       .sort((m1, m2) => {
+        if (m1.user && m2.user) {
+          return 0
+        }
         if (!m1.user && m2.user) {
           return 1
         }
         if (!m2.user && m1.user) {
           return -1
         }
-        return 0
+        if (!m1.inviteTimestamp && m2.inviteTimestamp) {
+          return 1
+        }
+        if (!m2.inviteTimestamp && m1.inviteTimestamp) {
+          return -1
+        }
       })
 
     const startIndex = pagination.page * MEMBERS_PER_PAGE
@@ -91,14 +117,17 @@ const mapStateToProps = (state, ownProps) => {
   return {
     members,
     pagination,
+    createMemberDialogOpen: state.organizationSettings.createMemberDialog.open,
     deleteMemberDialog: state.organizationSettings.deleteMemberDialog,
     editMemberDialog: state.organizationSettings.editMemberDialog,
-    memberRoles: roles(ownProps.intl)
+    memberRoles: roles(ownProps.intl),
+    limitReached: isMembersLimitReached(state, ownProps.organization)
   }
 }
 
 const mapActionCreators = {
   fetchMembers,
+  openCreateMemberDialog,
   openDeleteMemberDialog,
   closeDeleteMemberDialog,
   deleteMember,

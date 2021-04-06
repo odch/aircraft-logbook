@@ -38,6 +38,33 @@ exports[`routes organizations routes settings components MemberList renders load
 
 exports[`routes organizations routes settings components MemberList renders members if loaded 1`] = `
 Array [
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Pilot hinzufügen
+    </span>
+    <span
+      className="MuiTouchRipple-root"
+    />
+  </button>,
   <div
     className="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
   >
@@ -84,7 +111,15 @@ Array [
         disabled={false}
       >
         <div
+          aria-describedby={null}
           className="MuiListItemText-root MuiListItemText-multiline"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          title="Beigetreten"
         >
           <span
             className="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
@@ -144,9 +179,27 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-71 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-notJoined-92 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
+        <div
+          className="MuiListItemIcon-root Member-pendingIcon-91"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+            />
+            <path
+              d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+            />
+          </svg>
+        </div>
         <div
           aria-describedby={null}
           className="MuiListItemText-root MuiListItemText-multiline"
@@ -216,7 +269,7 @@ Array [
       className="MuiListItem-container"
     >
       <div
-        className="MuiListItem-root Member-pending-71 MuiListItem-divider MuiListItem-secondaryAction"
+        className="MuiListItem-root Member-notJoined-92 MuiListItem-divider MuiListItem-secondaryAction"
         disabled={false}
       >
         <div

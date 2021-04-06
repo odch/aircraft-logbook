@@ -100,6 +100,16 @@ describe('routes', () => {
 
                 it('renders aircraft settings when everything is loaded', () => {
                   const store = configureStore()({
+                    firebase: {
+                      profile: {
+                        selectedOrganization: 'org_id'
+                      }
+                    },
+                    main: {
+                      app: {
+                        organizations: [{ id: 'org_id' }]
+                      }
+                    },
                     firestore: {
                       data: {
                         organizationAircrafts: {

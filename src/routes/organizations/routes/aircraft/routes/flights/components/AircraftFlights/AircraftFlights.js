@@ -11,6 +11,7 @@ import {
   aircraft as aircraftShape
 } from '../../../../../../../../shapes'
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
+import ExpiredNotification from '../../../../../../components/ExpiredNotification'
 import FlightList from '../../containers/FlightListContainer'
 
 const styles = theme => ({
@@ -78,6 +79,7 @@ class AircraftFlights extends React.Component {
 
     return (
       <div className={classes.container}>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
           <Button

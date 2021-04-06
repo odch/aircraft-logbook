@@ -23,6 +23,7 @@ describe('routes', () => {
                     id: '24354',
                     roles: []
                   }}
+                  errors={{}}
                   updateData={() => {}}
                   open
                   roles={ROLES}
@@ -42,6 +43,7 @@ describe('routes', () => {
                     id: '24354',
                     roles: ['manager', 'techlogmanager']
                   }}
+                  errors={{}}
                   updateData={() => {}}
                   submitting
                   roles={ROLES}

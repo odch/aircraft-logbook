@@ -10,38 +10,28 @@ import * as actions from './actions'
 import { fetchMembers, fetchAircrafts } from '../../../module'
 import { fetchOrganizations } from '../../../../../modules/app'
 import { error } from '../../../../../util/log'
-import {
-  addDoc,
-  updateDoc,
-  serverTimestamp
-} from '../../../../../util/firestoreUtils'
-import { callFunction, getFirestore } from '../../../../../util/firebase'
+import { callFunction } from '../../../../../util/firebase'
 import download from '../../../../../util/download'
-import { getCurrentMemberObject } from '../../../util/members'
 
 export const tokenSelector = state =>
   state.firebase.auth.stsTokenManager.accessToken
 
 export function* createMember({ payload: { organizationId, data } }) {
   try {
-    yield put(actions.setCreateMemberDialogSubmitting())
-    const currentMember = yield call(getCurrentMemberObject, organizationId)
-    const timestampFieldValue = yield call(serverTimestamp)
-    const dataToStore = {
-      ...data,
-      deleted: false,
-      createdBy: currentMember,
-      updatedBy: currentMember,
-      createTimestamp: timestampFieldValue,
-      updateTimestamp: timestampFieldValue
+    const result = yield call(callFunction, 'addMember', {
+      organizationId,
+      member: data
+    })
+    if (result && result.data && result.data.error) {
+      yield put(
+        actions.createMemberFailure({
+          [result.data.error]: true
+        })
+      )
+    } else {
+      yield put(fetchMembers(organizationId))
+      yield put(actions.createMemberSuccess())
     }
-    yield call(
-      addDoc,
-      ['organizations', organizationId, 'members'],
-      dataToStore
-    )
-    yield put(fetchMembers(organizationId))
-    yield put(actions.createMemberSuccess())
   } catch (e) {
     error(`Failed to add member ${data.firstname} ${data.lastname}`, e)
     yield put(actions.createMemberFailure())
@@ -49,50 +39,31 @@ export function* createMember({ payload: { organizationId, data } }) {
 }
 
 export function* deleteMember({ payload: { organizationId, memberId } }) {
-  const currentMember = yield call(getCurrentMemberObject, organizationId)
-  const timestampFieldValue = yield call(serverTimestamp)
-  yield call(
-    updateDoc,
-    ['organizations', organizationId, 'members', memberId],
-    {
-      deleted: true,
-      updatedBy: currentMember,
-      deletedBy: currentMember,
-      updateTimestamp: timestampFieldValue,
-      deleteTimestamp: timestampFieldValue
-    }
-  )
+  yield call(callFunction, 'deleteMember', {
+    organizationId,
+    memberId
+  })
   yield put(fetchMembers(organizationId))
   yield put(actions.closeDeleteMemberDialog())
 }
 
 export function* updateMember({ payload: { organizationId, memberId, data } }) {
   try {
-    yield put(actions.setEditMemberDialogSubmitting())
-
-    const currentMember = yield call(getCurrentMemberObject, organizationId)
-    const timestampFieldValue = yield call(serverTimestamp)
-
-    const dataToStore = {
-      ...data,
-      updatedBy: currentMember,
-      updateTimestamp: timestampFieldValue
+    const result = yield call(callFunction, 'updateMember', {
+      organizationId,
+      memberId,
+      member: data
+    })
+    if (result && result.data && result.data.error) {
+      yield put(
+        actions.updateMemberFailure({
+          [result.data.error]: true
+        })
+      )
+    } else {
+      yield put(fetchMembers(organizationId))
+      yield put(actions.updateMemberSuccess())
     }
-
-    if (dataToStore.reinvite === true) {
-      const firestore = yield call(getFirestore)
-      dataToStore.inviteTimestamp = firestore.FieldValue.delete()
-      delete dataToStore.reinvite
-    }
-
-    yield call(
-      updateDoc,
-      ['organizations', organizationId, 'members', memberId],
-      dataToStore
-    )
-
-    yield put(fetchMembers(organizationId))
-    yield put(actions.updateMemberSuccess())
   } catch (e) {
     error(`Failed to update member ${memberId} (org: ${organizationId})`, e)
     yield put(actions.updateMemberFailure())

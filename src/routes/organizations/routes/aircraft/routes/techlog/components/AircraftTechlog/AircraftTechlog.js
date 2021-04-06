@@ -11,6 +11,7 @@ import {
   aircraft as aircraftShape
 } from '../../../../../../../../shapes'
 import LoadingIcon from '../../../../../../../../components/LoadingIcon'
+import ExpiredNotification from '../../../../../../components/ExpiredNotification'
 import Techlog from '../../containers/TechlogContainer'
 
 const styles = theme => ({
@@ -86,6 +87,7 @@ class AircraftTechlog extends React.Component {
 
     return (
       <div className={classes.container}>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" gutterBottom>
           {aircraft.registration}
           <Button

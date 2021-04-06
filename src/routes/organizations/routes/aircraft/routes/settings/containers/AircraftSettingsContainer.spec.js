@@ -22,7 +22,11 @@ describe('routes', () => {
                   jest.resetAllMocks()
 
                   const state = {
-                    firebase: {},
+                    firebase: {
+                      profile: {
+                        selectedOrganization: 'my_org'
+                      }
+                    },
                     main: {
                       app: {
                         organizations: [{ id: 'my_org' }]

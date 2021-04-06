@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { withStyles } from '@material-ui/core/styles'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import { intl as intlShape } from '../../../../../../shapes'
 
 const styles = theme => ({
@@ -64,7 +65,14 @@ class CreateMemberDialog extends React.Component {
   msg = id => this.props.intl.formatMessage({ id })
 
   render() {
-    const { roles, submitting, classes, onClose } = this.props
+    const {
+      roles,
+      submitting,
+      limitReached,
+      errors,
+      classes,
+      onClose
+    } = this.props
     return (
       <Dialog onClose={this.handleClose} data-cy="member-create-dialog" open>
         <DialogTitle>
@@ -80,7 +88,23 @@ class CreateMemberDialog extends React.Component {
             <DialogContentText className={classes.inviteText}>
               {this.msg('organization.member.create.dialog.invitation.text')}
             </DialogContentText>
-            {this.renderTextField('inviteEmail', false, false, 'email')}
+            <FormControl
+              fullWidth
+              error={limitReached || errors['LIMIT_REACHED']}
+            >
+              {this.renderTextField(
+                'inviteEmail',
+                false,
+                false,
+                'email',
+                limitReached
+              )}
+              {(limitReached || errors['LIMIT_REACHED']) && (
+                <FormHelperText>
+                  <FormattedMessage id="organization.member.create.dialog.invitation.limitreached" />
+                </FormHelperText>
+              )}
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} disabled={submitting}>
@@ -107,7 +131,7 @@ class CreateMemberDialog extends React.Component {
     )
   }
 
-  renderTextField(name, autoFocus, required, type = 'text') {
+  renderTextField(name, autoFocus, required, type = 'text', disabled) {
     return (
       <TextField
         label={this.msg(`organization.member.create.dialog.${name}`)}
@@ -117,7 +141,7 @@ class CreateMemberDialog extends React.Component {
         value={this.props.data[name]}
         onChange={this.handleChange(name)}
         data-cy={`${name}-field`}
-        disabled={this.props.submitting}
+        disabled={disabled || this.props.submitting}
         autoFocus={autoFocus}
       />
     )
@@ -185,6 +209,7 @@ CreateMemberDialog.propTypes = {
     nr: PropTypes.string,
     inviteEmail: PropTypes.string
   }).isRequired,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
   roles: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -192,6 +217,7 @@ CreateMemberDialog.propTypes = {
     })
   ).isRequired,
   submitting: PropTypes.bool,
+  limitReached: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   updateData: PropTypes.func.isRequired,

@@ -32,9 +32,11 @@ const isTechlogManager = organization => hasRole(organization, 'techlogmanager')
 const isOrganizationManager = organization => hasRole(organization, 'manager')
 
 const hasActionCreatePermission = (organization, entry) =>
-  isTechlogManager(organization) ||
-  (isOrganizationManager(organization) &&
-    entry.currentStatus === 'for_information_only')
+  organization.readonly !== true &&
+  organization.expired !== true &&
+  (isTechlogManager(organization) ||
+    (isOrganizationManager(organization) &&
+      entry.currentStatus === 'for_information_only'))
 
 const TechlogEntry = ({
   expanded,

@@ -23,22 +23,6 @@ export function* updateDoc(path, data) {
   return yield call(firestore.update, pathString, data)
 }
 
-export function* addArrayItem(path, arrayPath, item) {
-  const pathString = path.join('/')
-  const firestore = yield call(getFirestore)
-  return yield call(firestore.update, pathString, {
-    [arrayPath]: firestore.FieldValue.arrayUnion(item)
-  })
-}
-
-export function* removeArrayItem(path, arrayPath, item) {
-  const pathString = path.join('/')
-  const firestore = yield call(getFirestore)
-  return yield call(firestore.update, pathString, {
-    [arrayPath]: firestore.FieldValue.arrayRemove(item)
-  })
-}
-
 export function* runTransaction(updateFunction, ...args) {
   const firestore = yield call(getFirestore)
   const updateFn = yield call(updateFunction, ...args)

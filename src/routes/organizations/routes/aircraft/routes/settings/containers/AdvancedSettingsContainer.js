@@ -6,7 +6,7 @@ import AdvancedSettings from '../components/AdvancedSettings'
 import { updateSetting } from '../module'
 
 const mapStateToProps = (state, ownProps) => {
-  const { organizationId, aircraftId } = ownProps
+  const { aircraftId } = ownProps
 
   const aircraft = getAircraft(state, aircraftId)
   const techlogEnabled = _get(aircraft, 'settings.techlogEnabled', false)
@@ -32,8 +32,6 @@ const mapStateToProps = (state, ownProps) => {
   )
 
   return {
-    organizationId,
-    aircraftId,
     settings: {
       techlogEnabled,
       flightTimeCounterEnabled,

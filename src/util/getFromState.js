@@ -1,3 +1,5 @@
+import { isBefore } from './dates'
+
 export const getUserEmail = state => {
   const auth = state.firebase.auth
   if (auth.isLoaded !== true) {
@@ -9,6 +11,13 @@ export const getUserEmail = state => {
   return auth.email
 }
 
+const isExpired = organization => {
+  const expiration = organization.limits ? organization.limits.expiration : null
+  return expiration
+    ? isBefore(expiration, undefined, new Date(), undefined)
+    : false
+}
+
 export const getOrganization = (state, organizationId) => {
   const organizations = state.main.app.organizations
   if (organizations) {
@@ -18,12 +27,40 @@ export const getOrganization = (state, organizationId) => {
         ...organization,
         id: organizationId,
         roles: organization.roles || [],
-        lockDate: organization.lockDate || null
+        lockDate: organization.lockDate || null,
+        expired: isExpired(organization)
       }
     }
     return null // not found
   }
   return undefined // still loading
+}
+
+const aircraftSettings = (aircraftSettings = {}, organization = {}) => {
+  const limits = organization.limits || {}
+
+  return {
+    fuelTypes: aircraftSettings.fuelTypes || [],
+    flightTimeCounterEnabled:
+      aircraftSettings.flightTimeCounterEnabled === true,
+    flightTimeCounterFractionDigits:
+      aircraftSettings.flightTimeCounterFractionDigits,
+    engineHoursCounterEnabled:
+      aircraftSettings.engineHoursCounterEnabled === true,
+    engineHoursCounterFractionDigits:
+      aircraftSettings.engineHoursCounterFractionDigits,
+    engineTachHoursCounterEnabled:
+      aircraftSettings.engineTachHoursCounterEnabled === true,
+    engineTachHoursCounterFractionDigits:
+      aircraftSettings.engineTachHoursCounterFractionDigits,
+    techlogEnabled:
+      aircraftSettings.techlogEnabled === true &&
+      limits.techlogDisabled !== true,
+    techlogSignatureEnabled: aircraftSettings.techlogSignatureEnabled === true,
+    lockDate: aircraftSettings.lockDate
+      ? aircraftSettings.lockDate.toDate()
+      : null
+  }
 }
 
 export const getAircraft = (state, aircraftId) => {
@@ -45,9 +82,11 @@ export const getAircraft = (state, aircraftId) => {
       aircraft.counters.techlogEntries = techlogEntriesCount
       aircraft.counters.flightsTotal = flightsTotalCount
 
-      if (!aircraft.settings) {
-        aircraft.settings = {}
-      }
+      const organization = getOrganization(
+        state,
+        state.firebase.profile.selectedOrganization
+      )
+      aircraft.settings = aircraftSettings(aircraft.settings, organization)
 
       return aircraft
     }

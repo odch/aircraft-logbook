@@ -25,11 +25,6 @@ describe('routes', () => {
                   app: {
                     organizations: [{ id: 'my_org' }]
                   }
-                },
-                organizationSettings: {
-                  createMemberDialog: {
-                    open: false
-                  }
                 }
               }
               const store = configureStore()(state)
@@ -58,11 +53,7 @@ describe('routes', () => {
             })
 
             it('should map state to props', () => {
-              const expectedPropKeys = [
-                'match',
-                'organization',
-                'createMemberDialogOpen'
-              ]
+              const expectedPropKeys = ['match', 'organization']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)
@@ -70,10 +61,7 @@ describe('routes', () => {
             })
 
             it('should map dispatch to props', () => {
-              const expectedPropKeys = [
-                'openCreateMemberDialog',
-                'deleteOrganization'
-              ]
+              const expectedPropKeys = ['deleteOrganization']
 
               expect(Object.keys(component.props)).toEqual(
                 expect.arrayContaining(expectedPropKeys)

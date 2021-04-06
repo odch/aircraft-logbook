@@ -20,7 +20,9 @@ describe('routes', () => {
                         isEmpty: false,
                         email: 'test@opendigital.ch'
                       },
-                      profile: {}
+                      profile: {
+                        selectedOrganization: 'my_org'
+                      }
                     },
                     main: {
                       app: {

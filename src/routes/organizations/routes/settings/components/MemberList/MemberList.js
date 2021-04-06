@@ -8,15 +8,18 @@ import TextField from '@material-ui/core/TextField'
 import SearchIcon from '@material-ui/icons/Search'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import {
   member as memberShape,
-  intl as intlShape
+  intl as intlShape,
+  organization as organizationShape
 } from '../../../../../../shapes'
 import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
-import Member from './Member'
+import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import DeleteMemberDialog from '../DeleteMemberDialog'
 import EditMemberDialog from '../EditMemberDialog'
+import Member from './Member'
 
 const styles = {
   loadingIconContainer: {
@@ -27,8 +30,12 @@ const styles = {
 
 class MemberList extends React.Component {
   componentDidMount() {
-    const { organizationId, fetchMembers } = this.props
-    fetchMembers(organizationId)
+    const { organization, fetchMembers } = this.props
+    fetchMembers(organization.id)
+  }
+
+  handleCreateMemberClick = () => {
+    this.props.openCreateMemberDialog()
   }
 
   handleFilterChange = e => {
@@ -39,12 +46,14 @@ class MemberList extends React.Component {
 
   render() {
     const {
-      organizationId,
+      organization,
       members,
       pagination,
       deleteMemberDialog,
       editMemberDialog,
       memberRoles,
+      limitReached,
+      createMemberDialogOpen,
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
       deleteMember,
@@ -66,6 +75,13 @@ class MemberList extends React.Component {
 
     return (
       <>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleCreateMemberClick}
+        >
+          <FormattedMessage id="organization.settings.createmember" />
+        </Button>
         <TextField
           placeholder={this.msg('organization.settings.member.search')}
           onChange={this.handleFilterChange}
@@ -105,24 +121,32 @@ class MemberList extends React.Component {
             <FormattedMessage id="organization.settings.member.none" />
           </Typography>
         )}
+        {createMemberDialogOpen && (
+          <CreateMemberDialog
+            organizationId={organization.id}
+            limitReached={limitReached}
+          />
+        )}
         {deleteMemberDialog && deleteMemberDialog.open && (
           <DeleteMemberDialog
-            organizationId={organizationId}
+            organizationId={organization.id}
             member={deleteMemberDialog.member}
             submitting={deleteMemberDialog.submitting}
             onConfirm={() =>
-              deleteMember(organizationId, deleteMemberDialog.member.id)
+              deleteMember(organization.id, deleteMemberDialog.member.id)
             }
             onClose={closeDeleteMemberDialog}
           />
         )}
         {editMemberDialog && editMemberDialog.open && (
           <EditMemberDialog
-            organizationId={organizationId}
+            organizationId={organization.id}
             member={editMemberDialog.member}
             data={editMemberDialog.data}
+            errors={editMemberDialog.errors}
             roles={memberRoles}
             submitting={editMemberDialog.submitting}
+            limitReached={limitReached}
             reinviteInProgress={editMemberDialog.reinviteInProgress}
             onSubmit={updateMember}
             onClose={closeEditMemberDialog}
@@ -135,13 +159,14 @@ class MemberList extends React.Component {
 }
 
 MemberList.propTypes = {
-  organizationId: PropTypes.string.isRequired,
+  organization: organizationShape.isRequired,
   members: PropTypes.arrayOf(memberShape),
   pagination: PropTypes.shape({
     rowsCount: PropTypes.number.isRequired,
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired
   }),
+  createMemberDialogOpen: PropTypes.bool,
   deleteMemberDialog: PropTypes.shape({
     open: PropTypes.bool,
     submitting: PropTypes.bool,
@@ -159,7 +184,8 @@ MemberList.propTypes = {
       roles: PropTypes.arrayOf(PropTypes.string),
       inviteEmail: PropTypes.string,
       reinvite: false
-    }).isRequired
+    }).isRequired,
+    errors: PropTypes.objectOf(PropTypes.bool).isRequired
   }),
   memberRoles: PropTypes.arrayOf(
     PropTypes.shape({
@@ -167,8 +193,10 @@ MemberList.propTypes = {
       label: PropTypes.string.isRequired
     })
   ).isRequired,
+  limitReached: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   fetchMembers: PropTypes.func.isRequired,
+  openCreateMemberDialog: PropTypes.func.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
   closeDeleteMemberDialog: PropTypes.func.isRequired,
   deleteMember: PropTypes.func.isRequired,

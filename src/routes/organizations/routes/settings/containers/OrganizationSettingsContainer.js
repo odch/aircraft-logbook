@@ -1,6 +1,6 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { openCreateMemberDialog, exportFlights } from '../module'
+import { exportFlights } from '../module'
 import { deleteOrganization } from '../../../module'
 import OrganizationSettings from '../components/OrganizationSettings'
 import { getOrganization } from '../../../../../util/getFromState'
@@ -13,13 +13,11 @@ const mapStateToProps = (state, ownProps) => {
   } = ownProps
 
   return {
-    organization: getOrganization(state, organizationId),
-    createMemberDialogOpen: state.organizationSettings.createMemberDialog.open
+    organization: getOrganization(state, organizationId)
   }
 }
 
 const mapActionCreators = {
-  openCreateMemberDialog,
   exportFlights,
   deleteOrganization
 }

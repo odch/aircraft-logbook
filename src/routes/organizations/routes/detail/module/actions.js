@@ -4,8 +4,6 @@ export const CLOSE_CREATE_AIRCRAFT_DIALOG =
   'organizationDetail/CLOSE_CREATE_AIRCRAFT_DIALOG'
 export const UPDATE_CREATE_AIRCRAFT_DIALOG_DATA =
   'organizationDetail/UPDATE_CREATE_AIRCRAFT_DIALOG_DATA'
-export const SET_CREATE_AIRCRAFT_DIALOG_SUBMITTED =
-  'organizationDetail/SET_CREATE_AIRCRAFT_DIALOG_SUBMITTED'
 export const CREATE_AIRCRAFT = 'organizations/CREATE_AIRCRAFT'
 export const CREATE_AIRCRAFT_SUCCESS =
   'organizationDetail/CREATE_AIRCRAFT_SUCCESS'
@@ -27,10 +25,6 @@ export const updateCreateAircraftDialogData = data => ({
   payload: {
     data
   }
-})
-
-export const setCreateAircraftDialogSubmitted = () => ({
-  type: SET_CREATE_AIRCRAFT_DIALOG_SUBMITTED
 })
 
 export const createAircraft = (organizationId, data) => ({

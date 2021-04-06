@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import { injectIntl, FormattedMessage } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import featureToggles from 'feature-toggles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
-import Button from '@material-ui/core/Button'
 import isLoaded from '../../../../../../util/isLoaded'
 import {
   organization as organizationShape,
@@ -14,7 +13,7 @@ import {
 } from '../../../../../../shapes'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import DeleteButton from '../../../../../../components/DeleteButton'
-import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
+import ExpiredNotification from '../../../../components/ExpiredNotification'
 import OrganizationDeleteDialog from '../OrganizationDeleteDialog'
 import MemberList from '../../containers/MemberListContainer'
 import LockDateForm from '../../containers/LockDateFormContainer'
@@ -43,10 +42,6 @@ class OrganizationSettings extends React.Component {
     deleteDialogOpen: false
   }
 
-  handleCreateMemberClick = () => {
-    this.props.openCreateMemberDialog()
-  }
-
   handleFlightsExportClick = () => {
     this.props.exportFlights()
   }
@@ -67,12 +62,7 @@ class OrganizationSettings extends React.Component {
     this.props.organization.roles.includes('manager')
 
   render() {
-    const {
-      organization,
-      createMemberDialogOpen,
-      classes,
-      deleteOrganization
-    } = this.props
+    const { organization, classes, deleteOrganization } = this.props
 
     if (!isLoaded(organization)) {
       return <LoadingIcon />
@@ -88,17 +78,11 @@ class OrganizationSettings extends React.Component {
 
     return (
       <div className={classes.container}>
+        {organization.expired && <ExpiredNotification />}
         <Typography variant="h4" data-cy="organization-title" gutterBottom>
           {organization.id}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleCreateMemberClick}
-        >
-          <FormattedMessage id="organization.settings.createmember" />
-        </Button>
-        <MemberList organizationId={organization.id} />
+        <MemberList organization={organization} />
         <LockDateForm organizationId={organization.id} />
         <ExportFlightsForm organizationId={organization.id} />
         <ReadonlyAccessSwitch organization={organization} />
@@ -116,9 +100,6 @@ class OrganizationSettings extends React.Component {
             </div>
           </React.Fragment>
         )}
-        {createMemberDialogOpen && (
-          <CreateMemberDialog organizationId={organization.id} />
-        )}
         <OrganizationDeleteDialog
           organizationId={organization.id}
           open={this.state.deleteDialogOpen}
@@ -132,9 +113,7 @@ class OrganizationSettings extends React.Component {
 
 OrganizationSettings.propTypes = {
   organization: organizationShape,
-  createMemberDialogOpen: PropTypes.bool,
   classes: PropTypes.object.isRequired,
-  openCreateMemberDialog: PropTypes.func.isRequired,
   exportFlights: PropTypes.func.isRequired,
   deleteOrganization: PropTypes.func.isRequired,
   intl: intlShape
