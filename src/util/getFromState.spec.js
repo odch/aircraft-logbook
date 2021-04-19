@@ -306,6 +306,66 @@ describe('util', () => {
         })
       })
 
+      it('should return found aircraft with start counters from latest flight if preflight', () => {
+        const state = {
+          firebase: {
+            profile: {
+              selectedOrganization: 'org_id'
+            }
+          },
+          main: {
+            app: {
+              organizations: [{ id: 'org_id' }]
+            }
+          },
+          firestore: {
+            data: {
+              organizationAircrafts: {
+                o7flC7jw8jmkOfWo8oyA: {
+                  registration: 'HBKLA'
+                }
+              }
+            },
+            ordered: {
+              'flights-o7flC7jw8jmkOfWo8oyA-0': [
+                {
+                  counters: {
+                    flights: { start: 1 },
+                    landings: { start: 3 },
+                    flightHours: { start: 120 }
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+        const aircraft = getAircraft(state, 'o7flC7jw8jmkOfWo8oyA')
+        expect(aircraft).toEqual({
+          id: 'o7flC7jw8jmkOfWo8oyA',
+          registration: 'HBKLA',
+          counters: {
+            flights: 1,
+            landings: 3,
+            flightHours: 120,
+            techlogEntries: 0,
+            flightsTotal: 0
+          },
+          settings: {
+            engineHoursCounterEnabled: false,
+            engineHoursCounterFractionDigits: undefined,
+            engineTachHoursCounterEnabled: false,
+            engineTachHoursCounterFractionDigits: undefined,
+            flightTimeCounterEnabled: false,
+            flightTimeCounterFractionDigits: undefined,
+            fuelTypes: [],
+            lockDate: null,
+            techlogEnabled: false,
+            techlogSignatureEnabled: false
+          }
+        })
+      })
+
       it('should return techlog entries and total flights count from aircraft counters object', () => {
         const state = {
           firebase: {

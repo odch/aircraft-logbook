@@ -118,17 +118,20 @@ export const getAircraftFlightsCount = (state, aircraftId, withDeleted) =>
     ? getAircraft(state, aircraftId).counters.flightsTotal
     : getAircraftCounters(state, aircraftId).flights
 
+const getCounterValue = (latestFlight, name) =>
+  latestFlight.counters[name].end || latestFlight.counters[name].start
+
 const getAircraftCounters = (state, aircraftId) => {
   const latestFlight = getLatestFlight(state, aircraftId)
 
   if (latestFlight) {
     const counters = {
-      flights: latestFlight.counters.flights.end,
-      landings: latestFlight.counters.landings.end,
-      flightHours: latestFlight.counters.flightHours.end
+      flights: getCounterValue(latestFlight, 'flights'),
+      landings: getCounterValue(latestFlight, 'landings'),
+      flightHours: getCounterValue(latestFlight, 'flightHours')
     }
     if (latestFlight.counters.engineHours) {
-      counters.engineHours = latestFlight.counters.engineHours.end
+      counters.engineHours = getCounterValue(latestFlight, 'engineHours')
     }
     return counters
   }
