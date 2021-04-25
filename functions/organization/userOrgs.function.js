@@ -88,6 +88,8 @@ const changedRoles = change => {
   return !eqSet(new Set(rolesBefore), new Set(rolesAfter))
 }
 
+const removedUser = change => !change.after.get('user')
+
 const eqSet = (set1, set2) => {
   if (set1.size !== set2.size) return false
   for (const item of set1) if (!set2.has(item)) return false
@@ -95,7 +97,10 @@ const eqSet = (set1, set2) => {
 }
 
 const updateUserOrgsOnMemberUpdate = async change => {
-  if (hasUser(change) && (markedAsDeleted(change) || changedRoles(change))) {
+  if (
+    hasUser(change) &&
+    (markedAsDeleted(change) || changedRoles(change) || removedUser(change))
+  ) {
     const orgRef = change.before.ref.parent.parent
     const userRefBefore = change.before.get('user')
     const userDoc = await userRefBefore.get()

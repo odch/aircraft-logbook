@@ -18,6 +18,7 @@ import isLoaded from '../../../../../../util/isLoaded'
 import LoadingIcon from '../../../../../../components/LoadingIcon'
 import CreateMemberDialog from '../../containers/CreateMemberDialogContainer'
 import DeleteMemberDialog from '../DeleteMemberDialog'
+import RemoveUserLinkDialog from '../RemoveUserLinkDialog'
 import EditMemberDialog from '../EditMemberDialog'
 import Member from './Member'
 
@@ -50,6 +51,7 @@ class MemberList extends React.Component {
       members,
       pagination,
       deleteMemberDialog,
+      removeUserLinkDialog,
       editMemberDialog,
       memberRoles,
       limitReached,
@@ -57,6 +59,9 @@ class MemberList extends React.Component {
       openDeleteMemberDialog,
       closeDeleteMemberDialog,
       deleteMember,
+      openRemoveUserLinkDialog,
+      closeRemoveUserLinkDialog,
+      removeUserLink,
       openEditMemberDialog,
       updateEditMemberDialogData,
       closeEditMemberDialog,
@@ -104,6 +109,7 @@ class MemberList extends React.Component {
                   member={member}
                   openDeleteMemberDialog={openDeleteMemberDialog}
                   openEditMemberDialog={openEditMemberDialog}
+                  openRemoveUserLinkDialog={openRemoveUserLinkDialog}
                 />
               ))}
             </List>
@@ -136,6 +142,17 @@ class MemberList extends React.Component {
               deleteMember(organization.id, deleteMemberDialog.member.id)
             }
             onClose={closeDeleteMemberDialog}
+          />
+        )}
+        {removeUserLinkDialog && removeUserLinkDialog.open && (
+          <RemoveUserLinkDialog
+            organizationId={organization.id}
+            member={removeUserLinkDialog.member}
+            submitting={removeUserLinkDialog.submitting}
+            onConfirm={() =>
+              removeUserLink(organization.id, removeUserLinkDialog.member.id)
+            }
+            onClose={closeRemoveUserLinkDialog}
           />
         )}
         {editMemberDialog && editMemberDialog.open && (
@@ -172,6 +189,11 @@ MemberList.propTypes = {
     submitting: PropTypes.bool,
     member: memberShape
   }),
+  removeUserLinkDialog: PropTypes.shape({
+    open: PropTypes.bool,
+    submitting: PropTypes.bool,
+    member: memberShape
+  }),
   editMemberDialog: PropTypes.shape({
     open: PropTypes.bool,
     submitting: PropTypes.bool,
@@ -200,6 +222,9 @@ MemberList.propTypes = {
   openDeleteMemberDialog: PropTypes.func.isRequired,
   closeDeleteMemberDialog: PropTypes.func.isRequired,
   deleteMember: PropTypes.func.isRequired,
+  openRemoveUserLinkDialog: PropTypes.func.isRequired,
+  closeRemoveUserLinkDialog: PropTypes.func.isRequired,
+  removeUserLink: PropTypes.func.isRequired,
   openEditMemberDialog: PropTypes.func.isRequired,
   updateEditMemberDialogData: PropTypes.func.isRequired,
   closeEditMemberDialog: PropTypes.func.isRequired,

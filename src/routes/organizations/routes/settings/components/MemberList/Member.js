@@ -127,7 +127,12 @@ class Member extends React.Component {
   }
 
   renderMenu() {
-    const { member, openEditMemberDialog, openDeleteMemberDialog } = this.props
+    const {
+      member,
+      openEditMemberDialog,
+      openDeleteMemberDialog,
+      openRemoveUserLinkDialog
+    } = this.props
 
     return (
       <Menu anchorEl={this.state.anchorEl} onClose={this.handleMenuClose} open>
@@ -136,6 +141,15 @@ class Member extends React.Component {
         >
           {this.msg('organization.settings.member.edit')}
         </MenuItem>
+        {member.user && (
+          <MenuItem
+            onClick={this.handleMenuItemClick(openRemoveUserLinkDialog, [
+              member
+            ])}
+          >
+            {this.msg('organization.settings.member.removeuserlink')}
+          </MenuItem>
+        )}
         <MenuItem
           onClick={this.handleMenuItemClick(openDeleteMemberDialog, [member])}
         >
@@ -150,6 +164,7 @@ Member.propTypes = {
   member: memberShape.isRequired,
   openDeleteMemberDialog: PropTypes.func.isRequired,
   openEditMemberDialog: PropTypes.func.isRequired,
+  openRemoveUserLinkDialog: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   classes: PropTypes.object.isRequired
 }
