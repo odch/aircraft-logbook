@@ -13,6 +13,11 @@ export const OPEN_DELETE_MEMBER_DIALOG =
   'organizationSettings/OPEN_DELETE_MEMBER_DIALOG'
 export const CLOSE_DELETE_MEMBER_DIALOG =
   'organizationSettings/CLOSE_DELETE_MEMBER_DIALOG'
+export const OPEN_REMOVE_USER_LINK_DIALOG =
+  'organizationSettings/OPEN_REMOVE_USER_LINK_DIALOG'
+export const CLOSE_REMOVE_USER_LINK_DIALOG =
+  'organizationSettings/CLOSE_REMOVE_USER_LINK_DIALOG'
+export const REMOVE_USER_LINK = 'organizationSettings/REMOVE_USER_LINK'
 export const OPEN_EDIT_MEMBER_DIALOG =
   'organizationSettings/OPEN_EDIT_MEMBER_DIALOG'
 export const CLOSE_EDIT_MEMBER_DIALOG =
@@ -91,6 +96,25 @@ export const closeDeleteMemberDialog = () => ({
 
 export const deleteMember = (organizationId, memberId) => ({
   type: DELETE_MEMBER,
+  payload: {
+    organizationId,
+    memberId
+  }
+})
+
+export const openRemoveUserLinkDialog = member => ({
+  type: OPEN_REMOVE_USER_LINK_DIALOG,
+  payload: {
+    member
+  }
+})
+
+export const closeRemoveUserLinkDialog = () => ({
+  type: CLOSE_REMOVE_USER_LINK_DIALOG
+})
+
+export const removeUserLink = (organizationId, memberId) => ({
+  type: REMOVE_USER_LINK,
   payload: {
     organizationId,
     memberId

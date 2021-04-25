@@ -20,6 +20,11 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false
   },
+  removeUserLinkDialog: {
+    open: false,
+    submitting: false,
+    member: null
+  },
   editMemberDialog: {
     open: false,
     submitting: false,
@@ -263,6 +268,64 @@ describe('routes', () => {
               )
             ).toEqual({
               deleteMemberDialog: {
+                submitting: true
+              }
+            })
+          })
+
+          it('handles OPEN_REMOVE_USER_LINK_DIALOG action', () => {
+            const member = {
+              firstname: 'Max',
+              lastname: 'Muster',
+              nr: '34534'
+            }
+            expect(
+              reducer(
+                {
+                  removeUserLinkDialog: {
+                    open: false
+                  }
+                },
+                actions.openRemoveUserLinkDialog(member)
+              )
+            ).toEqual({
+              removeUserLinkDialog: {
+                open: true,
+                submitting: false,
+                member
+              }
+            })
+          })
+
+          it('handles CLOSE_REMOVE_USER_LINK_DIALOG action', () => {
+            expect(
+              reducer(
+                {
+                  removeUserLinkDialog: {
+                    open: true
+                  }
+                },
+                actions.closeRemoveUserLinkDialog()
+              )
+            ).toEqual({
+              removeUserLinkDialog: {
+                open: false
+              }
+            })
+          })
+
+          it('handles REMOVE_USER_LINK action', () => {
+            expect(
+              reducer(
+                {
+                  removeUserLinkDialog: {
+                    submitting: false
+                  }
+                },
+                actions.removeUserLink()
+              )
+            ).toEqual({
+              removeUserLinkDialog: {
                 submitting: true
               }
             })
