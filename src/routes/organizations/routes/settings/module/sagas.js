@@ -47,6 +47,15 @@ export function* deleteMember({ payload: { organizationId, memberId } }) {
   yield put(actions.closeDeleteMemberDialog())
 }
 
+export function* removeUserLink({ payload: { organizationId, memberId } }) {
+  yield call(callFunction, 'removeUserLink', {
+    organizationId,
+    memberId
+  })
+  yield put(fetchMembers(organizationId))
+  yield put(actions.closeRemoveUserLinkDialog())
+}
+
 export function* updateMember({ payload: { organizationId, memberId, data } }) {
   try {
     const result = yield call(callFunction, 'updateMember', {
@@ -132,6 +141,7 @@ export default function* sagas() {
   yield all([
     takeEvery(actions.CREATE_MEMBER, createMember),
     takeEvery(actions.DELETE_MEMBER, deleteMember),
+    takeEvery(actions.REMOVE_USER_LINK, removeUserLink),
     takeEvery(actions.UPDATE_MEMBER, updateMember),
     takeEvery(actions.EXPORT_FLIGHTS, exportFlights),
     takeLatest(actions.UPDATE_LOCK_DATE, updateLockDate),

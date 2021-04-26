@@ -164,6 +164,31 @@ const deleteMember = functions.https.onCall(async (data, context) => {
     .update(dataToStore)
 })
 
+const removeUserLink = functions.https.onCall(async (data, context) => {
+  const { organizationId, memberId } = data
+
+  const currentMemberObject = await getCurrentMemberObject(
+    organizationId,
+    context.auth.uid
+  )
+
+  const dataToStore = {
+    user: admin.firestore.FieldValue.delete(),
+    inviteEmail: admin.firestore.FieldValue.delete(),
+    inviteTimestamp: admin.firestore.FieldValue.delete(),
+    updatedBy: currentMemberObject,
+    updateTimestamp: admin.firestore.FieldValue.serverTimestamp()
+  }
+
+  await db
+    .collection('organizations')
+    .doc(organizationId)
+    .collection('members')
+    .doc(memberId)
+    .update(dataToStore)
+})
+
 exports.addMember = addMember
 exports.updateMember = updateMember
 exports.deleteMember = deleteMember
+exports.removeUserLink = removeUserLink

@@ -102,6 +102,32 @@ describe('routes', () => {
             })
           })
 
+          describe('removeUserLink', () => {
+            it('should call removeUserLink cloud function', () => {
+              const organizationId = 'my_org'
+              const memberId = 'my_member'
+
+              const action = actions.removeUserLink(organizationId, memberId)
+
+              return expectSaga(sagas.removeUserLink, action)
+                .provide([
+                  [
+                    call(callFunction, 'removeUserLink', {
+                      organizationId,
+                      memberId
+                    })
+                  ]
+                ])
+                .call(callFunction, 'removeUserLink', {
+                  organizationId,
+                  memberId
+                })
+                .put(fetchMembers(organizationId))
+                .put(actions.closeRemoveUserLinkDialog())
+                .run()
+            })
+          })
+
           describe('updateMember', () => {
             it('should update member fields', () => {
               const orgId = 'my_org'
@@ -280,6 +306,7 @@ describe('routes', () => {
                 all([
                   takeEvery(actions.CREATE_MEMBER, sagas.createMember),
                   takeEvery(actions.DELETE_MEMBER, sagas.deleteMember),
+                  takeEvery(actions.REMOVE_USER_LINK, sagas.removeUserLink),
                   takeEvery(actions.UPDATE_MEMBER, sagas.updateMember),
                   takeEvery(actions.EXPORT_FLIGHTS, sagas.exportFlights),
                   takeLatest(actions.UPDATE_LOCK_DATE, sagas.updateLockDate),

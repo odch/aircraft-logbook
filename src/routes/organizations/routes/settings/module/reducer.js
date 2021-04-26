@@ -21,6 +21,11 @@ export const INITIAL_STATE = {
     open: false,
     submitting: false
   },
+  removeUserLinkDialog: {
+    open: false,
+    submitting: false,
+    member: null
+  },
   editMemberDialog: {
     open: false,
     submitting: false,
@@ -135,6 +140,30 @@ const setDeleteMemberDialogSubmitting = state => ({
   ...state,
   deleteMemberDialog: {
     ...state.deleteMemberDialog,
+    submitting: true
+  }
+})
+
+const openRemoveUserLinkDialog = (state, action) => ({
+  ...state,
+  removeUserLinkDialog: {
+    open: true,
+    submitting: false,
+    member: action.payload.member
+  }
+})
+
+const closeRemoveUserLinkDialog = state => ({
+  ...state,
+  removeUserLinkDialog: {
+    open: false
+  }
+})
+
+const setRemoveUserLinkDialogSubmitting = state => ({
+  ...state,
+  removeUserLinkDialog: {
+    ...state.removeUserLinkDialog,
     submitting: true
   }
 })
@@ -258,6 +287,9 @@ const ACTION_HANDLERS = {
   [actions.OPEN_DELETE_MEMBER_DIALOG]: openDeleteMemberDialog,
   [actions.CLOSE_DELETE_MEMBER_DIALOG]: closeDeleteMemberDialog,
   [actions.DELETE_MEMBER]: setDeleteMemberDialogSubmitting,
+  [actions.OPEN_REMOVE_USER_LINK_DIALOG]: openRemoveUserLinkDialog,
+  [actions.CLOSE_REMOVE_USER_LINK_DIALOG]: closeRemoveUserLinkDialog,
+  [actions.REMOVE_USER_LINK]: setRemoveUserLinkDialogSubmitting,
   [actions.OPEN_EDIT_MEMBER_DIALOG]: openEditMemberDialog,
   [actions.CLOSE_EDIT_MEMBER_DIALOG]: closeEditMemberDialog,
   [actions.UPDATE_EDIT_MEMBER_DIALOG_DATA]: updateEditMemberDialogData,
