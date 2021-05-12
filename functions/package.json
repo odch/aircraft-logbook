@@ -21,7 +21,7 @@
     "glob": "^7.1.4",
     "lodash.get": "^4.4.2",
     "moment-timezone": "^0.5.27",
-    "nodemailer": "^6.3.1",
+    "nodemailer": "^6.4.16",
     "stream": "^0.0.2",
     "uuid": "^8.2.0"
   },
